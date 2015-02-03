@@ -1,0 +1,73 @@
+data_BEA
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-12-20
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'J. M. Newsam, M. M. J. Treacy, W. T. Koetsier and C. B. deGruyter'
+_citation_title              'Structural characterization of zeolite beta'
+_citation_journal_abbrev     'Proc. Roy. Soc. A (London)'
+_citation_journal_volume     420
+_citation_page_first         375
+_citation_page_last          405
+_citation_year               1988
+
+_cell_length_a    12.661
+_cell_length_b    12.661
+_cell_length_c    26.406
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      4232.91
+
+_symmetry_cell_setting          tetragonal
+_symmetry_space_group_name_Hall 'P 4w 2c'
+_symmetry_space_group_name_H-M  'P 41 2 2'
+_symmetry_Int_Tables_number     91
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,-y,z+1/2'
+ '-y,x,z+1/4'
+ 'y,-x,z+3/4'
+ '-x,y,-z'
+ 'x,-y,-z+1/2'
+ 'y,x,-z+3/4'
+ '-y,-x,-z+1/4'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Si       Si    0.33694      0.79277      0.05619      0
+Si       Si    0.33711      0.54031      0.05606      0
+Si       Si    0.71647      0.793        0.05872      0
+Si       Si    0.71656      0.54076      0.05884      0
+Si       Si    0.95425      0.79364      0.05555      0
+Si       Si    0.95434      0.5404       0.05556      0
+Si       Si    0.14278      0.85722      0.125        0
+Si       Si    0.52836      0.85702      0.12552      0
+Si       Si    0.52842      0.47158      0.125        0
+O        O     0.33623      0.66652      0.06515      0
+O        O     0.33454      0.81732     -0.00385      0
+O        O     0.23433      0.84457      0.08279      0
+O        O     0.44268      0.84276      0.08069      0
+O        O     0.33456      0.51612     -0.00402      0
+O        O     0.23464      0.48822      0.08264      0
+O        O     0.44301      0.49038      0.08043      0
+O        O     0.71891      0.6669       0.06809      0
+O        O     0.83544      0.83902      0.06074      0
+O        O     0.64609      0.84874      0.10222      0
+O        O     0.83559      0.4949       0.06084      0
+O        O     0.64627      0.48518      0.10242      0
+O        O     1            0.82149      0            0
+O        O     0.95304      0.66702      0.06321      0
+O        O     1.02844      0.84708      0.09824      0
+O        O     1            0.51256      0            0
+O        O     1.02874      0.48708      0.09821      0
+
+

@@ -1,0 +1,32 @@
+#CoreShells bond  BondDipoles UreyBradley bend  inv  tors improper-torsion bond/bond bond/bend bend/bend stretch/torsion bend/torsion
+          4    4            0           0   18    0     0                0         0         0         0               0            0
+# Core and Shells
+Ogg shOgg
+Oss shOss
+Ogs shOgs
+F   shF
+#bond stretch atom n1-n2, equilibrium distance, bondforce-constant
+Ogg shOgg  CORE_SHELL_SPRING  2092477.21234047580
+Ogs shOgs  CORE_SHELL_SPRING   881592.74879875165
+Oss shOss  CORE_SHELL_SPRING  1487035.03859219302
+F   shF    CORE_SHELL_SPRING   388203.04908696193
+#bond bending atom n1-n2-n3, equilibrium angle, bondforce-constant
+shOgg Si shOgg  CORE_SHELL_BEND 14637.93630277748 109.47
+shOgg Si shOss  CORE_SHELL_BEND 14637.93630277748 109.47
+shOgg Si shOgs  CORE_SHELL_BEND 14637.93630277748 109.47
+shOss Si shOgg  CORE_SHELL_BEND 14637.93630277748 109.47
+shOss Si shOss  CORE_SHELL_BEND 14637.93630277748 109.47
+shOss Si shOgs  CORE_SHELL_BEND 14637.93630277748 109.47
+shOgs Si shOgg  CORE_SHELL_BEND 14637.93630277748 109.47
+shOgs Si shOss  CORE_SHELL_BEND 14637.93630277748 109.47
+shOgs Si shOgs  CORE_SHELL_BEND 14637.93630277748 109.47
+shOgg Al shOgg  CORE_SHELL_BEND 14637.93630277748 109.47
+shOgg Al shOss  CORE_SHELL_BEND 14637.93630277748 109.47
+shOgg Al shOgs  CORE_SHELL_BEND 14637.93630277748 109.47
+shOss Al shOgg  CORE_SHELL_BEND 14637.93630277748 109.47
+shOss Al shOss  CORE_SHELL_BEND 14637.93630277748 109.47
+shOss Al shOgs  CORE_SHELL_BEND 14637.93630277748 109.47
+shOgs Al shOgg  CORE_SHELL_BEND 14637.93630277748 109.47
+shOgs Al shOss  CORE_SHELL_BEND 14637.93630277748 109.47
+shOgs Al shOgs  CORE_SHELL_BEND 14637.93630277748 109.47
+

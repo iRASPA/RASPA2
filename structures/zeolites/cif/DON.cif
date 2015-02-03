@@ -1,0 +1,137 @@
+data_DON
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-12-20
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'T. Wessels, Ch. Baerlocher, L. B. McCusker and E. J. Creyghton'
+_citation_title              'An ordered form of the extra-large-pore zeolite UTD-1: Synthesis and structure analysis from powder diffraction data'
+_citation_journal_abbrev     'J. Am. Chem. Soc.'
+_citation_journal_volume     121
+_citation_page_first         6242
+_citation_page_last          6247
+_citation_year               1999
+
+_cell_length_a    14.9701
+_cell_length_b    8.4761
+_cell_length_c    30.0278
+_cell_angle_alpha 90
+_cell_angle_beta  102.65
+_cell_angle_gamma 90
+_cell_volume      3717.68
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall 'P -2yc'
+_symmetry_space_group_name_H-M  'P 1 c 1'
+_symmetry_Int_Tables_number     7
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ 'x,-y,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Si       Si    0.096        0.18         0.1066       0
+Si       Si    0.076        0.313        0.1986       0
+Si       Si    0.124        0.18         0.2943       0
+Si       Si    0.24         0.305        0.3824       0
+Si       Si    0.41         0.176        0.4374       0
+Si       Si    0.608        0.306        0.4689       0
+Si       Si    0.793        0.183        0.4654       0
+Si       Si    0.912        0.307        0.3992       0
+Si       Si    0.929        0.182        0.3045       0
+Si       Si    0.868        0.309        0.2072       0
+Si       Si    0.769        0.176        0.1199       0
+Si       Si    0.585        0.308        0.0659       0
+Si       Si    0.398        0.19         0.04         0
+Si       Si    0.206        0.316        0.041        0
+Si       Si    0.902        0.318        0.0631       0
+Si       Si    0.108        0.18         0.4432       0
+Si       Si    0.081        0.816        0.1046       0
+Si       Si    0.076        0.675        0.1994       0
+Si       Si    0.127        0.807        0.2936       0
+Si       Si    0.239        0.678        0.3836       0
+Si       Si    0.418        0.808        0.4366       0
+Si       Si    0.604        0.687        0.4663       0
+Si       Si    0.798        0.81         0.4672       0
+Si       Si    0.914        0.679        0.4024       0
+Si       Si    0.931        0.797        0.3052       0
+Si       Si    0.867        0.67         0.2096       0
+Si       Si    0.762        0.809        0.1211       0
+Si       Si    0.587        0.313        0.5659       0
+Si       Si    0.386        0.181        0.5374       0
+Si       Si    0.194        0.685        0.04         0
+Si       Si    0.89         0.318        0.5625       0
+Si       Si    0.11         0.808        0.4458       0
+O        O     0.169        0.278        0.0863       0
+O        O     0.108        0.208        0.1608       0
+O        O     0.131        0.265        0.2484       0
+O        O     0.101        0.494        0.1903       0
+O        O     0.209        0.23         0.3331       0
+O        O     0.033        0.23         0.3097       0
+O        O     0.125        0.995        0.287        0
+O        O     0.348        0.283        0.3979       0
+O        O     0.191        0.22         0.4183       0
+O        O     0.215        0.491        0.3798       0
+O        O     0.513        0.23         0.443        0
+O        O     0.375        0.202        0.4835       0
+O        O     0.689        0.237        0.4472       0
+O        O     0.624        0.264        0.5218       0
+O        O     0.601        0.496        0.4626       0
+O        O     0.851        0.21         0.4274       0
+O        O     0.839        0.279        0.5109       0
+O        O     0.89         0.251        0.3468       0
+O        O     0.797        0.997        0.4778       0
+O        O     0.887        0.494        0.402        0
+O        O     0.87         0.253        0.2581       0
+O        O     0.919        0.99         0.3025       0
+O        O     0.797        0.197        0.1738       0
+O        O     0.967        0.294        0.195        0
+O        O     0.831        0.489        0.2009       0
+O        O     0.664        0.227        0.1035       0
+O        O     0.833        0.285        0.0962       0
+O        O     0.489        0.247        0.0739       0
+O        O     0.598        0.741        0.5166       0
+O        O     0.59         0.502        0.5718       0
+O        O     0.314        0.288        0.0503       0
+O        O     0.382        0.996        0.5496       0
+O        O     0.186        0.499        0.0267       0
+O        O     0.112        0.995        0.0982       0
+O        O     0.853        0.725        0.5119       0
+O        O     0.994        0.221        0.0794       0
+O        O     0.929        0.497        0.5648       0
+O        O     0.019        0.282        0.4218       0
+O        O     0.14         0.216        0.497        0
+O        O     0.146        0.707        0.0822       0
+O        O     0.095        0.78         0.1582       0
+O        O     0.14         0.73         0.2469       0
+O        O     0.212        0.756        0.334        0
+O        O     0.034        0.75         0.3059       0
+O        O     0.346        0.7          0.4027       0
+O        O     0.185        0.76         0.4177       0
+O        O     0.518        0.757        0.4306       0
+O        O     0.406        0.218        0.988        0
+O        O     0.401        0.992        0.4223       0
+O        O     0.695        0.749        0.4535       0
+O        O     0.848        0.78         0.4262       0
+O        O     0.903        0.736        0.3507       0
+O        O     0.864        0.721        0.2612       0
+O        O     0.799        0.786        0.1748       0
+O        O     0.969        0.689        0.2014       0
+O        O     0.655        0.232        0.6092       0
+O        O     0.817        0.305        0.5948       0
+O        O     0.78         0.991        0.1064       0
+O        O     0.484        0.252        0.5629       0
+O        O     0.303        0.269        0.5536       0
+O        O     0.975        0.203        0.5788       0
+O        O     0.153        0.211        0.9993       0
+O        O     0.083        0.993        0.4353       0
+O        O     0.019        0.702        0.4307       0
+
+

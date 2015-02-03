@@ -1,0 +1,109 @@
+data_ZIF-71
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-8-29
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'R. Banerjee, A. Phan, B. Wang, C. Knobler,H. Furukawa,M. O’Keeffe, and O.M. Yaghi'
+_citation_title              'High-throughput synthesis of zeolitic imidazolate frameworks and application to CO2 capture'
+_citation_journal_abbrev     'Science'
+_citation_journal_volume     319
+_citation_journal_number     5865
+_citation_page_first         939
+_citation_page_last          943
+_citation_year               2008
+
+_cell_length_a    28.5539
+_cell_length_b    28.5539
+_cell_length_c    28.5539
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      23280.7
+
+_symmetry_cell_setting          cubic
+_symmetry_space_group_name_Hall '-P 4 2 3'
+_symmetry_space_group_name_H-M  'P m -3 m'
+_symmetry_Int_Tables_number     221
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,-y,z'
+ '-x,y,-z'
+ 'x,-y,-z'
+ 'z,x,y'
+ 'z,-x,-y'
+ '-z,-x,y'
+ '-z,x,-y'
+ 'y,z,x'
+ '-y,z,-x'
+ 'y,-z,-x'
+ '-y,-z,x'
+ 'y,x,-z'
+ '-y,-x,-z'
+ 'y,-x,z'
+ '-y,x,z'
+ 'x,z,-y'
+ '-x,z,y'
+ '-x,-z,-y'
+ 'x,-z,y'
+ 'z,y,-x'
+ 'z,-y,x'
+ '-z,y,x'
+ '-z,-y,-x'
+ '-x,-y,-z'
+ 'x,y,-z'
+ 'x,-y,z'
+ '-x,y,z'
+ '-z,-x,-y'
+ '-z,x,y'
+ 'z,x,-y'
+ 'z,-x,y'
+ '-y,-z,-x'
+ 'y,-z,x'
+ '-y,z,x'
+ 'y,z,-x'
+ '-y,-x,z'
+ 'y,x,z'
+ '-y,x,-z'
+ 'y,-x,-z'
+ '-x,-z,y'
+ 'x,-z,-y'
+ 'x,z,y'
+ '-x,z,-y'
+ '-z,-y,x'
+ '-z,y,-x'
+ 'z,-y,-x'
+ 'z,y,x'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Zn1      Zn     0.39551      0.10433      0.25207      0
+C1A      C      0.3957       0            0.259        0
+H1A      H      0.4239       0            0.2766       0
+N2A      N      0.3721       0.038        0.2443       0
+C3A      C      0.3358       0.0243       0.2215       0
+Cl4A     Cl     0.29541      0.06062      0.19564      0
+C1B      C      0.5          0.1065       0.2548       0
+H1B      H      0.5          0.1171       0.2232       0
+N2B      N      0.4603       0.0991       0.2769       0
+C3B      C      0.4776       0.0827       0.3208       0
+Cl4B     Cl     0.43906      0.06862      0.36268      0
+C1C      C      0.3176       0.1142       0.3176       0
+H1C      H      0.3065       0.0849       0.3065       0
+N2C      N      0.3539       0.1349       0.2972       0
+C3C      C      0.3566       0.1753       0.3241       0
+Cl4C     Cl     0.39754      0.21522      0.3109       0
+C1D      C      0.3949       0.1781       0.1781       0
+H1D      H      0.3856       0.2007       0.2007       0
+N2D      N      0.4007       0.1361       0.1923       0
+C3D      C      0.4171       0.1186       0.1507       0
+Cl4D     Cl     0.4331       0.05954      0.14477      0
+
+

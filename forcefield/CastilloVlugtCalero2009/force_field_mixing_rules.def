@@ -1,0 +1,65 @@
+# general rule for shifted vs truncated
+shifted
+# general rule tailcorrections
+no
+# number of defined interactions
+56
+# type interaction, parameters.    IMPORTANT: define shortest matches first, so that more specific ones overwrites these
+O_             LENNARD_JONES    48.1581   3.03315
+N_             LENNARD_JONES    38.9492   3.26256
+C_             LENNARD_JONES    47.8562   3.47299
+F_             LENNARD_JONES    36.4834   3.0932
+B_             LENNARD_JONES    47.8058   3.58141
+P_             LENNARD_JONES   161.03     3.69723
+S_             LENNARD_JONES   173.107    3.59032
+Cl_            LENNARD_JONES   142.562    3.51932
+Br_            LENNARD_JONES   186.191    3.51905
+H_             LENNARD_JONES     7.64893  2.84642
+Zn_            LENNARD_JONES    62.3992   2.46155
+Be_            LENNARD_JONES    42.7736   2.44552
+Cr_            LENNARD_JONES     7.54829  2.69319
+Fe_            LENNARD_JONES     6.54185  2.5943
+Mn_            LENNARD_JONES     6.54185  2.63795
+Cu_            LENNARD_JONES     2.5161   3.11369
+Co_            LENNARD_JONES     7.04507  2.55866
+Ga_            LENNARD_JONES   208.836    3.90481
+Ti_            LENNARD_JONES     8.55473  2.8286
+Sc_            LENNARD_JONES     9.56117  2.93551
+V_             LENNARD_JONES     8.05151  2.80099
+Ni_            LENNARD_JONES     7.54829  2.52481
+Zr_            LENNARD_JONES    34.7221   2.78317
+Mg_            LENNARD_JONES    55.8574   2.69141
+Ne_            LENNARD_JONES    21.1352   2.88918
+Ag_            LENNARD_JONES    18.1159   2.80455
+In_            LENNARD_JONES   301.428    3.97608
+Cd_            LENNARD_JONES   114.734    2.53728
+Sb_            LENNARD_JONES   225.946    3.93777
+Te_            LENNARD_JONES   200.281    3.98232
+Al_            lennard-Jones   155.998    3.91105
+Si_            lennard-Jones   155.998    3.80414
+He             LENNARD_JONES    10.9      2.64
+CH3_xyl        LENNARD_JONES    85.51     3.80
+C_xyl          LENNARD_JONES    35.24     3.55
+H_xyl          LENNARD_JONES    15.03     2.42
+CH4_sp3        LENNARD_JONES    158.5     3.72
+CH3_sp3        LENNARD_JONES    108.0     3.76
+CH2_sp3        LENNARD_JONES    56.0      3.96
+CH_sp3         LENNARD_JONES    17.0      4.67
+C_sp3          LENNARD_JONES     0.8      6.38
+H_com          LENNARD_JONES    36.7      2.958
+O_co2          LENNARD_JONES    79.0      3.05
+C_co2          LENNARD_JONES    27.0      2.80
+C_benz         LENNARD_JONES    30.70     3.60
+H_benz         LENNARD_JONES    25.45     2.36
+N_n2           LENNARD_JONES    36.0      3.31
+Ow             LENNARD_JONES    89.633    3.097
+N_dmf          LENNARD_JONES    80.0      3.2
+Co_dmf         LENNARD_JONES    50.0      3.7
+Cm_dmf         LENNARD_JONES    80.0      3.8
+O_dmf          LENNARD_JONES    100.0     2.96
+H_dmf          LENNARD_JONES    8.0       2.2
+Ar             LENNARD_JONES    119.8     3.34
+Kr             LENNARD_JONES    166.4     3.636
+Xe             LENNARD_JONES    221.0     4.1
+# general mixing rule for Lennard-Jones
+Lorentz-Berthelot

@@ -1,0 +1,72 @@
+data_MIL-88B-open
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-9
+_audit_author_name 'Christian Serre'
+
+_citation_author_name        'C. Serre, C. Mellot-Draznieks, S. Surble, N. Audebrand, Y. Filinchuk, and F. Ferey'
+_citation_title              'Role of solvent-host interactions that lead to very large swelling of hybrid frameworks'
+_citation_journal_abbrev     'Science'
+_citation_journal_volume     315
+_citation_journal_number     5820
+_citation_page_first         1828
+_citation_page_last          1831
+_citation_year               2007
+
+_cell_length_a    15.6261
+_cell_length_b    15.6261
+_cell_length_c    15.9604
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      3375.01
+
+_symmetry_cell_setting          hexagonal
+_symmetry_space_group_name_Hall '-P 6c 2c'
+_symmetry_space_group_name_H-M  'P 63/m m c'
+_symmetry_Int_Tables_number     194
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ '-x,-y,z+1/2'
+ 'y,-x+y,z+1/2'
+ 'x-y,x,z+1/2'
+ 'y,x,-z'
+ 'x-y,-y,-z'
+ '-x,-x+y,-z'
+ '-y,-x,-z+1/2'
+ '-x+y,y,-z+1/2'
+ 'x,x-y,-z+1/2'
+ '-x,-y,-z'
+ 'y,-x+y,-z'
+ 'x-y,x,-z'
+ 'x,y,-z+1/2'
+ '-y,x-y,-z+1/2'
+ '-x+y,-x,-z+1/2'
+ '-y,-x,z'
+ '-x+y,y,z'
+ 'x,x-y,z'
+ 'y,x,z+1/2'
+ 'x-y,-y,z+1/2'
+ '-x,-x+y,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Cr1      Cr     0.7385513  0.4771026  0.75       0 
+O1       O      0.6666667  0.3333333  0.75       0 
+O2       O      0.6585354  0.4841042  0.8350334  0 
+O3       O      0.8086580  0.6173159  0.75       0 
+C1       C      0.5723107  0.4276893  0.8636902  0 
+C2       C      0.5354430  0.4645570  0.9337390  0 
+C3       C      0.4401451  0.4052841  0.9674038  0
+H1       H      0.3922223  0.3318028  0.9433881  0
+
+

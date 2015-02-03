@@ -1,0 +1,32 @@
+# rules to overwrite
+0
+# number of defined interactions
+25
+# type      type2       interaction       
+shOgg       shOgg       buckingham         264165198.9824217 6.71140939597 126919.1005332763
+shOgg       shOss       buckingham         264165198.9824217 6.71140939597 126919.1005332763
+shOgg       shOgs       buckingham         264165198.9824217 6.71140939597 126919.1005332763
+shOgg       shF         buckingham          19437564.0614811 3.73134328358      0.0
+shOss       shOgg       buckingham         264165198.9824217 6.71140939597 126919.1005332763
+shOss       shOss       buckingham         264165198.9824217 6.71140939597 126919.1005332763
+shOss       shOgs       buckingham         264165198.9824217 6.71140939597 126919.1005332763
+shOss       shF         buckingham          19437564.0614811 3.73134328358      0.0
+shOgs       shOgg       buckingham         264165198.9824217 6.71140939597 126919.1005332763
+shOgs       shOss       buckingham         264165198.9824217 6.71140939597 126919.1005332763
+shOgs       shOgs       buckingham         264165198.9824217 6.71140939597 126919.1005332763
+shOgs       shF         buckingham          19437564.0614811 3.73134328358      0.0
+Si          shOgg       buckingham          15262813.9517743 3.14703910825 117682.7646447996
+Si          shOss       buckingham          15262813.9517743 3.14703910825 117682.7646447996
+Si          shOgs       buckingham          15262813.9517743 3.14703910825 117682.7646447996
+Si          shF         buckingham          11335626.1120771 3.54609929078      0.0
+Al          shOgg       buckingham          13751351.2912567 3.14703910825      0.0
+Al          shOss       buckingham          13751351.2912567 3.14703910825      0.0
+Al          shOgs       buckingham          13751351.2912567 3.14703910825      0.0
+Al          shF         buckingham          9300210.62511166 3.41611724114      0.0
+Ge          shOgg       buckingham          17376597.4033649 3.07081923315 195055.6536395508
+Ge          shOss       buckingham          17376597.4033649 3.07081923315 195055.6536395508
+Ge          shOgs       buckingham          17376597.4033649 3.07081923315 195055.6536395508
+Ge          shF         buckingham          7908162.84248480 3.125              0.0
+shF         shF         buckingham          6271052.63465450 3.80966893976      0.0
+# mixing rules to overwrite
+0

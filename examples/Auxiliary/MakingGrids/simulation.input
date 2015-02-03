@@ -1,0 +1,12 @@
+SimulationType  MakeGrid
+
+Forcefield      Dubbeldam2007FlexibleIRMOF-1
+
+Framework 0
+FrameworkName IRMOF-1
+UnitCells 1 1 1
+
+NumberOfGrids 2
+GridTypes C_co2 O_co2
+SpacingVDWGrid 0.1
+SpacingCoulombGrid 0.1

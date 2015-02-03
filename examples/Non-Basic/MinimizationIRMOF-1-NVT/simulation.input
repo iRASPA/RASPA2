@@ -1,0 +1,26 @@
+SimulationType  Minimization
+NumberOfCycles  1
+RestartFile     no
+PrintEvery      1
+
+MaximumNumberOfMinimizationSteps 1000
+RMSGradientTolerance 1e-6
+MaxGradientTolerance 1e-6
+
+Ensemble        NVT
+
+Forcefield                                 Dubbeldam2007FlexibleIRMOF-1
+ChargeMethod                               Ewald
+EwaldPrecision                             1e-10
+InternalFrameworkLennardJonesInteractions  yes
+
+Framework 0
+FrameworkName IRMOF-1
+UnitCells 1 1 1
+ExternalTemperature 298.0
+Movies yes
+WriteMoviesEvery 1
+
+FlexibleFramework     yes
+FrameworkDefinitions  Dubbeldam2007FlexibleIRMOF-1
+

@@ -1,0 +1,37 @@
+SimulationType                MonteCarlo
+NumberOfCycles                500000
+NumberOfInitializationCycles  5000
+PrintEvery                    100
+RestartFile                   no
+
+ContinueAfterCrash no
+WriteBinaryRestartFileEvery 5000
+
+ChargeMethod                  Ewald
+Forcefield                    GarciaPerez2006
+RemoveAtomNumberCodeFromLabel yes
+
+Framework           0
+FrameworkName       ERI_SI
+UnitCells           3 3 3
+HeliumVoidFraction  0.297146
+ExternalTemperature 433
+ExternalPressure    0.0
+ComputeDensityProfile3DVTKGrid yes
+WriteDensityProfile3DVTKGridEvery 5000
+DensityProfile3DVTKGridPoints 150 150 150
+AverageDensityOverUnitCellsVTK yes
+DensityAveragingTypeVTK UnitCell
+
+Component 0 MoleculeName              methane
+            StartingBead              0
+            MoleculeDefinition        TraPPE
+            IdealGasRosenbluthWeight  1.0
+            FugacityCoefficient       1.0
+            TranslationProbability    1.0
+            RotationProbability       0.0
+            ReinsertionProbability    1.0
+            CBMCProbability           0.0
+            IdentityChangeProbability 0.0
+            SwapProbability           0.0
+            CreateNumberOfMolecules   32

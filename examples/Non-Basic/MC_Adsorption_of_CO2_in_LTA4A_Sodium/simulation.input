@@ -1,0 +1,32 @@
+SimulationType                   MonteCarlo
+NumberOfCycles                   25000
+NumberOfInitializationCycles     10000
+RestartFile                      no
+PrintEvery                       1000
+
+Forcefield                       GarciaPerez2006
+ModifyOxgensConnectedToAluminium yes
+
+Framework 0
+FrameworkName LTA4A
+RemoveAtomNumberCodeFromLabel yes
+UnitCells 1 1 1
+ExternalTemperature 298.0
+ExternalPressure 10000.0
+
+Component 0 MoleculeName                   sodium
+            MoleculeDefinition             TraPPE
+            TranslationProbability         1.0
+            RandomTranslationProbability   1.0
+            ExtraFrameworkMolecule         yes
+            CreateNumberOfMolecules        96
+
+Component 1 MoleculeName                   CO2
+            MoleculeDefinition             TraPPE
+            BlockPockets                   yes
+            BlockPocketsFilename           LTA
+            TranslationProbability         1.0
+            ReinsertionProbability         1.0
+            SwapProbability                1.0
+            ExtraFrameworkMolecule         no
+            CreateNumberOfMolecules        0

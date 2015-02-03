@@ -1,0 +1,20 @@
+SimulationType                MolecularDynamics
+NumberOfCycles                250000
+NumberOfInitializationCycles  1000
+NumberOfEquilibrationCycles   25000
+PrintEvery                    5000
+
+Ensemble                      NPT
+
+Forcefield                    GarciaPerez2006
+
+Box 0
+BoxLengths 30 30 30
+ExternalTemperature 250.0
+ExternalPressure 1000000.0
+
+Component 0 MoleculeName             propane
+            MoleculeDefinition       TraPPE
+            TranslationProbability   0.5
+            RegrowProbability        0.5
+            CreateNumberOfMolecules  256

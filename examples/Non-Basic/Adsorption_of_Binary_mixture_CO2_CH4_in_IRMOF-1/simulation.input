@@ -1,0 +1,35 @@
+SimulationType                MonteCarlo
+NumberOfCycles                50000
+NumberOfInitializationCycles  5000
+PrintEvery                    1000
+
+Forcefield                    Dubbeldam2007FlexibleIRMOF-1
+
+Framework 0
+FrameworkName IRMOF-1
+UnitCells 1 1 1
+HeliumVoidFraction 0.81
+ExternalTemperature 300.0
+ExternalPressure  10e5
+
+Component 0 MoleculeName               CO2
+            MoleculeDefinition         TraPPE
+            MolFraction                0.25
+            TranslationProbability     0.5
+            RegrowProbability          0.5
+            IdentityChangeProbability  1.0
+              NumberOfIdentityChanges  2
+              IdentityChangesList      0 1
+            SwapProbability            1.0
+            CreateNumberOfMolecules    0
+
+Component 1 MoleculeName               methane
+            MoleculeDefinition         TraPPE
+            MolFraction                0.75
+            TranslationProbability     0.5
+            RegrowProbability          0.5
+            IdentityChangeProbability  1.0
+              NumberOfIdentityChanges  2
+              IdentityChangesList      0 1
+            SwapProbability            1.0
+            CreateNumberOfMolecules    0

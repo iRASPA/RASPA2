@@ -1,0 +1,15 @@
+set xrange[0:360]
+set encoding iso_8859_1
+#set key top right Left reverse width -15.0 height 0.5 samplen 1.5 spacing 1.1 box
+#set ytics nomirror
+set yrange[0:20]
+set y2range [0:8]
+set y2tics border
+set nokey
+set xlabel 'Dihedral angle [{\260}]' font "Helvetica,28"
+set ylabel 'Energy U [kJ/mol]' font "Helvetica,28"
+set y2label 'Free energy [k_B T]' font "Helvetica,28"
+set title 'U=355.03*(1+cos(x))-68.19*(1-cos(2*x))+791.32*(1+cos(3*x))' font "Helvetica,18"
+set output 'ButaneUADihedral.eps'
+set term postscript eps enhanced color solid 22
+plot "Histogram_butane_0_TorsionAngle0.dat" us 1:((-log($2)-3.83264)) axis x1y2 notitle with po,(355.03*(1+cos(x*pi/180))-68.19*(1-cos(2*x*pi/180))+791.32*(1+cos(3*x*pi/180)))*8.31/1000 axis x1y1 notitle with li lt 7

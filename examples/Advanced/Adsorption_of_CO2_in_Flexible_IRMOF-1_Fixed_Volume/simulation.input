@@ -1,0 +1,32 @@
+SimulationType                MonteCarlo
+NumberOfCycles                50000
+NumberOfInitializationCycles  20000
+PrintEvery                    5000
+RestartFile                   no
+
+ChargeMethod                  Ewald
+CutOff                        12.0
+Forcefield                    Dubbeldam2007FlexibleIRMOF-1
+EwaldPrecision                1e-6
+
+Framework 0
+FrameworkName IRMOF-1
+UnitCells 1 1 1
+HeliumVoidFraction 0.801937
+FrameworkDefinitions Dubbeldam2007FlexibleIRMOF-1
+ExternalTemperature 233.0
+ExternalPressure  100e3
+
+FlexibleFramework yes
+
+HybridMCMDMoveProbability 1.0
+
+Component 0 MoleculeName              CO2
+            StartingBead              0
+            MoleculeDefinition        TraPPE
+            IdealGasRosenbluthWeight  1.0
+            TranslationProbability    1.0
+            RotationProbability       1.0
+            ReinsertionProbability    1.0
+            SwapProbability           1.0
+            CreateNumberOfMolecules   0

@@ -1,0 +1,2 @@
+#CoreShells bond  BondDipoles UreyBradley bend  inv  tors improper-torsion bond/bond bond/bend bend/bend stretch/torsion bend/torsion
+          0    0           0           0    0   0    0                 0         0         0         0               0            0

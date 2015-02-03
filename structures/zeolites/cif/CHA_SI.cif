@@ -1,0 +1,60 @@
+data_CHA_SI
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-2-19
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'M. Calligaris, G. Nardin, and L. Randaccio'
+_citation_title              'Cation site location in hydrated chabazites - crystal structure of potassium-exchanged and silver-exchanged chabazites'
+_citation_journal_abbrev     'Zeolites'
+_citation_journal_volume     3
+_citation_page_first         205
+_citation_page_last          208
+_citation_year               1983
+
+_cell_length_a    9.459
+_cell_length_b    9.459
+_cell_length_c    9.459
+_cell_angle_alpha 94.07
+_cell_angle_beta  94.07
+_cell_angle_gamma 94.07
+_cell_volume      839.598
+
+_symmetry_cell_setting          trigonal
+_symmetry_space_group_name_Hall '-P 3* 2'
+_symmetry_space_group_name_H-M  'R -3 m'
+_symmetry_Int_Tables_number     166
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ 'z,x,y'
+ 'y,z,x'
+ '-y,-x,-z'
+ '-x,-z,-y'
+ '-z,-y,-x'
+ '-x,-y,-z'
+ '-z,-x,-y'
+ '-y,-z,-x'
+ 'y,x,z'
+ 'x,z,y'
+ 'z,y,x'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si4+   0.1033    0.3331    0.8743    2.05    0       0    absolute yes
+O1       O2-    0.2665   -0.2665    0        -1.025   0       0    absolute yes
+O2       O2-    0.1506   -0.1506    0.5      -1.025   0       0    absolute yes
+O3       O2-    0.2503    0.2503    0.893    -1.025   0       0    absolute yes
+O4       O2-    0.0204    0.0204    0.3193   -1.025   0       0    absolute yes
+
+

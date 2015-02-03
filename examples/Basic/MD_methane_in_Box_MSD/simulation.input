@@ -1,0 +1,23 @@
+SimulationType                MolecularDynamics
+NumberOfCycles                1000000
+NumberOfInitializationCycles  1000
+NumberOfEquilibrationCycles   10000
+PrintEvery                    100000
+PrintPropertiesEvery          100000
+
+Ensemble                      NVT
+TimeStep                      0.0005
+
+Forcefield                    GarciaPerez2006
+
+Box 0
+BoxLengths 25 25 25
+ExternalTemperature 300.0
+ComputeMSD yes
+PrintMSDEvery 5000
+
+Component 0 MoleculeName             methane
+            MoleculeDefinition       TraPPE
+            TranslationProbability   1.0
+            ReinsertionProbability   1.0
+            CreateNumberOfMolecules  100

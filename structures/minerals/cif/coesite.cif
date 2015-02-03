@@ -1,0 +1,45 @@
+data_coesite
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-27
+_audit_author_name 'David Dubbeldam'
+
+_cell_length_a    7.14
+_cell_length_b    12.371
+_cell_length_c    7.175
+_cell_angle_alpha 90
+_cell_angle_beta  120.34
+_cell_angle_gamma 90
+_cell_volume      546.962
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall '-C 2yc'
+_symmetry_space_group_name_H-M  'C 1 2/c 1'
+_symmetry_Int_Tables_number     15
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,y,-z+1/2'
+ '-x,-y,-z'
+ 'x,-y,z+1/2'
+ 'x+1/2,y+1/2,z'
+ '-x+1/2,y+1/2,-z+1/2'
+ '-x+1/2,-y+1/2,-z'
+ 'x+1/2,-y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+Si1      Si4+   0.1401     0.1083     0.0723 
+Si2      Si4+   0.5068     0.1581     0.5407 
+O1       O2-    0          0          0      
+O2       O2-    0.5        0.1162     0.75   
+O3       O2-    0.2669     0.1236     0.9406 
+O4       O2-    0.3104     0.1042     0.3275 
+O5       O2-    0.0167     0.212      0.478  
+
+

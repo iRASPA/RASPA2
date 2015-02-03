@@ -1,0 +1,18 @@
+#number of pseudo atoms
+15
+#type      print   as    chem  oxidation   mass        charge   polarization B-factor radii  connectivity anisotropic anisotropic-type   tinker-type
+O          yes     O     O     0           15.9994    -0.55     0.0          1.0      0.64   2            0           relative           0
+Oa         yes     O     O     0           15.9994    -0.55     0.0          1.0      0.64   2            0           relative           0
+Si         yes     Si    Si    0           28.0855     1.1      0.0          1.0      1.14   4            0           relative           0
+Al         yes     Si    Si    0           28.0855     1.1      0.0          1.0      1.14   4            0           relative           0
+Ar         yes     Ar    Ar    0           39.948      0.0      0.0          1.0      1.0    0            0           relative           0
+CH4_sp3    yes     C     C     0           16.04246    0.0      0.0          1.0      1.00   0            0           relative           0
+CH3_sp3    yes     C     C     0           15.03452    0.0      0.0          1.0      1.00   0            0           relative           0
+CH2_sp3    yes     C     C     0           14.02658    0.0      0.0          1.0      1.00   0            0           relative           0
+CH_sp3     yes     C     C     0           13.01864    0.0      0.0          1.0      1.00   0            0           relative           0
+C_sp3      yes     C     C     0           12.0        0.0      0.0          1.0      1.00   0            0           relative           0
+C_co2      yes     C     C     0           12.0        0.7      0.0          1.0      0.720  0            0           relative           0
+O_co2      yes     O     O     0           15.9994    -0.35     0.0          1.0      0.68   0            0           relative           0
+Ow         yes     O     O     0           15.9994     0.0      0.0          1.0      0.5    4            0           relative           0
+Hw         yes     H     H     0           1.008       0.241    0.0          1.0      1.00   1            0           relative           0
+Lw         no      L     -     0           0.0        -0.241    0.0          1.0      1.00   1            0           relative           0

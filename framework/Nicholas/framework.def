@@ -1,0 +1,11 @@
+#CoreShells bond  BondDipoles UreyBradley bend  inv  tors improper-torsion bond/bond bond/bend bend/bend stretch/torsion bend/torsion
+          0    1            0           1    2    0     0                0         0         0         0               0            1
+# bond stretch atom n1-n2, equilibrium distance, bondforce-constant
+Si O  HARMONIC_BOND 300724.7766358210 1.61
+# Urey-Bradly atom n1-n2, equilibrium distance, bondforce-constant
+Si O  Si HARMONIC_UREYBRADLEY 27488.737702263100 3.1261
+# bond bending atom n1-n2-n3, equilibrium angle, bondforce-constant
+O  Si O  HARMONIC_COSINE_BEND 69537.444165505200 109.5
+Si O  Si QUARTIC_BEND 5462.505569039470 149.5 -17157.805510863100 13351.672598242100
+# bend/torsion atom n1-n2-n3-n4,
+Si O  Si O  SMOOTHED_THREE_COSINE_DIHEDRAL 0.0 0.0 -352.4197

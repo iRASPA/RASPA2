@@ -1,0 +1,142 @@
+\chapter{Troubleshooting}
+
+\paragraph*{The numerical value computed from finite differences is not equal to the analytical expression}
+Using 'SimulationType Numerical' the analytical expression for the force, stress etc. are compared to numerical values from finite differences.
+If just one (or at the most a few values) are different, then this might be an artifact arising from a finite cutoff in the Van der Waals potential.
+This can be checked by changing the value of the cutoff by about $10^{-3}$ \AA. This is a very small change, but larger than the displacements used in the finite
+differences. The problem is that for a finite difference scheme like:
+\begin{equation}
+ f'\left(x\right)=\frac{f\left(x-\Delta\right)-8f\left(x-\frac{1}{2}\Delta\right)+8 f\left(x+\frac{1}{2}\Delta\right)-f\left(x+\Delta\right)}{6\Delta}
+\end{equation}
+it is possible that one of the displacements $\Delta$ places the particle outside of the cutoff, while the original position was inside (or visa versa).
+For a force-shifted Van der Waals potential there is no problem, but for shifted
+potentials, or potentials with a simple truncation, the divergence becomes a problem.
+
+\paragraph*{Excess loading is negative}
+This usually happens when computing an isotherm and the next pressure is above the vapor pressure. The boundary from gas to liquid adsorption has been crossed
+and the amount of excess molecules increases by orders of magnitude. There is a reason why experimental gas-phase isotherms are of finite range, they usually stop at the 
+vapor pressure. Also, if the pressure is \emph{very} high the fluid outside the crystal is compressed more and more while the loading inside the crystal remains the same
+(at maximum loading). Hence, excess adsorption evantually becomes negative.
+
+\paragraph*{Large drift in Monte Carlo energies}
+This should \emph{not} happen and signals an error in (one of) the Monte Carlo routines. 
+During the Monte Carlo simulations, the running-energies are stored. These are starting energy,
+and all the added energy \emph{differences}. At the final stage, the energy is recomputed again, and these should match within an error of about $10^{-5}$ or lower.
+If you have added your own MC move, check whether you have properly added the energy differences to the running energies.
+
+\paragraph*{Energy is not conserved in molecular dynamics}
+Usually, this happens because the time step is too large. Also, at initialization, the system can be far from equilibrated and a smaller time step is needed.
+
+\paragraph*{RASPA "hangs" at initialization}
+Put 'CreateNumberOfMolecules 0' and check if that solves the problem. If so, then you have tried to add too many molecules in the system (i.e. more than actually fit
+in the system). For systems without a framework, one can also increase the size of the box.
+
+\paragraph*{Segmentation fault} A memory access that is not allowed has occured. This could happen when the input is incorrect. For example, if it is listed that there
+are 4 bonds, but you put in 5 lines, then all bends and what follows next will be read in wrong. This is the most common cause of segmentation faults.
+
+\paragraph*{Mean-square displacement is not linear}
+There are several known causes:
+\begin{itemize}
+\item{Your system is one-dimensional and particles are unable to pass each other. This is known as 'single-file-diffusion' and the mean
+square displacement is propertial to the square root of time,}
+\item{You did not simulate long enough. In some systems it can take up to several nanoseoconds before the msd becomes linear in time,}
+\item{You forgot to specify interactions between the molecules and they are not interacting.}
+\end{itemize}
+
+\paragraph*{Minimization does not converge}
+A likely cause is that you minimize a system that would like to change angles, but you do not allow it to. In such a system, there is a non-vanishing stress.
+Try to minimize using NPT-PR with cell type 'Regular' or 'RegularUppertriangle'. Another reason could be that the electrostatics are not computed accurate enough.
+Increase the precision to 1e-10, using 'EwaldPrecision 1e-10'.
+
+\paragraph*{Output is not written to file}
+Check with 'df -k' whether the disk is full.
+
+\paragraph*{Molecule can not be grown}
+Check if the connectivity, i.e. the bonds, are correct.
+
+\paragraph*{Framework flies apart}
+Check bonds for the framework and whether electrostatics and intra framework Van der Waals interactions are computed.
+
+\paragraph*{Energy during molecular dynamics with a flexible framework is not well conserved}
+In zeolites, a common problem is that the the angle of a Si-O-Si bend can become 180 degrees. This leads to a undefined torsion angle.
+If this occures, try to use a smoothing function that slowly switches of the energy and force contributions for these 3 atoms as the angle
+approaches 180 degrees. See Bend/Torsion cross potentials.
+
+\paragraph*{Amount of detected bonds/bends/torsions etc. for a flexible framework is wrong}
+For the detection of intra-framework potentials a connectivity tabls is made, where two are considered bonded when their length is smaller than
+$0.56+r_i+r_j$, where $r_i$ and $r_j$ are the covalent radii for the two atoms. The radii are specified in 'pseudo\_atoms.def'. The most
+likely cause is a wrong value for the radius. Note that even when starting from a restart-file, the connectivity table is based on the
+crystal structure.
+
+\paragraph*{Oxgens connected to aluminum type 'O' are not automatically converted to 'Oa'}
+Use the option
+\begin{verbatim}
+ModifyOxgensConnectedToAluminium yes
+\end{verbatim}
+
+\paragraph*{Strange behaviour when using cations}
+The problem could be related to CBMC of net-charged molecules. The Rosenbluth weights can become very large
+or very small, because the energy difference when displacing an ion is large. This can lead to numerical
+problems for ratio's of combination of small/large, for example in the reinsertion move.
+To see whether this is the cause
+use 'RandomTranslationProbability' and set 'ReinsertionProbability' to zero.
+
+\paragraph*{Minimization does not converge}
+Minimization code and algorithms are complex. Due to the harmonic approximation the jumps through
+the energy landscape can not be too large. A possible remedy therefore is to decrease the maximum 
+step-length (default 0.3) using
+\begin{verbatim}
+     MaximumStepLength 0.1
+\end{verbatim}
+Another issue is the rotational degrees of freedom of the system. For periodic systems the system
+is invariant with respect to translation but not with respect to rotation, 
+i.e. the energy changes for rotation of the whole system.
+In contrast, a molecule in a finite system is invariant with respect to both translation and rotation.
+However, for periodic systems at low loading with molecules without charges, groups/clusters of molecules
+can occur that do not have interactions with their images. In effect this has reduced the periodic
+system to a non-periodic one. If this occurs one can remove the system rotation explicitly with
+\begin{verbatim}
+     RemoveRotationFromHessian yes
+\end{verbatim}
+Note that this option should \emph{not} be used on a truly periodic system.
+In addition to these algorithm settings, it is possible that the definition of the molecule 
+and/or framework contains errors.
+
+\paragraph*{Parallel tempering does not work for systems with cations} The problem is physical, it is just
+that all the energy distributions are more 'spiked' and overlap between the energies of the systems is rare.
+The only solution is to use more systems (and smaller temperature differences) to increase the acceptance rates
+of swapped between neighboring system.
+The same problem happens when one increases the system size.
+
+\paragraph*{Results do not match data from literature}
+Common reasons include difference in simulation length, system size, cutoff value, tail-corrections vs shifted potentials, 
+and handling of electrostatics. For adsorption, is the crystal structure that you used the same?
+Another very often made error, is comparing against different units, or an error in the conversion of units.
+
+\paragraph*{Error during compiling}
+The 'gcc' and 'icc' compilers are tested. These compilers have C extensions that other C compilers could potentially lack.
+
+\paragraph*{Error during linking}
+Make sure that the 'blas' and 'lapack' libraries are installed on your system.
+
+\paragraph*{The results are different on different machines}
+We have come across one compiler-error: gcc 4.3.0 using optimizations "-O3" and "-O4" generated wrong code. Gcc 4.3.2 has resolved this bug.
+
+\paragraph*{The program crashes with a 'segmentation fault'}
+Usually caused by wrong input-files, for example supplying 3 arguments to a torsion when 4 are expected. This
+causes all input to have strange values. To identify the cause make sure the job will use
+the same random number sequence are written in the output.
+\begin{verbatim}
+RandomSeed [int]
+\end{verbatim}
+This will generate exactly the same sequence of events.
+Make sure the program is allowed to 'dump a core' (See the unix 'ulimit' command). Also, the executable
+needs to be compiled with the '-g' option which includes debugger information into the exectubale.
+Now restart the program and when it crashes, it will write a 'core-dump-file'. Start the debugger
+using a command similar to
+\begin{verbatim}
+gdb ~/RASPA/simulate/bin/simulate core
+\end{verbatim}
+and type 'where' to obtain the line where the code crashed. It is also possible to just run the
+code inside the debugger.
+

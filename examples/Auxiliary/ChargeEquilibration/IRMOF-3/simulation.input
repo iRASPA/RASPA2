@@ -1,0 +1,21 @@
+SimulationType                   MC
+NumberOfCycles                   0
+NumberOfInitializationCycles     0
+PrintEvery                       100
+RestartFile                      no
+
+Forcefield                       GenericMOFs
+ChargeMethod                     Coulomb
+CutOff                           12.0
+
+ChargeFromChargeEquilibration    yes
+ChargeEquilibrationPeriodic      yes
+ChargeEquilibrationEwald         yes
+SymmetrizeFrameworkCharges       no
+
+Framework           0
+FrameworkName       IRMOF-3
+UnitCells           1 1 1
+ExternalTemperature 298.0
+ExternalPressure    0.0
+InputFileType       cif

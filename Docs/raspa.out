@@ -1,0 +1,80 @@
+\BOOKMARK [-1][-]{part.1}{I RASPA}{}% 1
+\BOOKMARK [0][-]{chapter.1}{Introduction}{part.1}% 2
+\BOOKMARK [1][-]{section.1.1}{Design philosophy}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.2}{Units and conventions}{chapter.1}% 4
+\BOOKMARK [1][-]{section.1.3}{Compiling and installing RASPA}{chapter.1}% 5
+\BOOKMARK [2][-]{subsection.1.3.1}{Requirements}{section.1.3}% 6
+\BOOKMARK [2][-]{subsection.1.3.2}{RASPA from 'git'}{section.1.3}% 7
+\BOOKMARK [2][-]{subsection.1.3.3}{installing RASPA}{section.1.3}% 8
+\BOOKMARK [2][-]{subsection.1.3.4}{compiling RASPA}{section.1.3}% 9
+\BOOKMARK [2][-]{subsection.1.3.5}{Running RASPA}{section.1.3}% 10
+\BOOKMARK [1][-]{section.1.4}{Output from RASPA}{chapter.1}% 11
+\BOOKMARK [1][-]{section.1.5}{Citing RASPA}{chapter.1}% 12
+\BOOKMARK [0][-]{chapter.2}{Format of the Input Files}{part.1}% 13
+\BOOKMARK [1][-]{section.2.1}{Introduction}{chapter.2}% 14
+\BOOKMARK [1][-]{section.2.2}{Simulation input}{chapter.2}% 15
+\BOOKMARK [1][-]{section.2.3}{Force field}{chapter.2}% 16
+\BOOKMARK [2][-]{subsection.2.3.1}{Force fields}{section.2.3}% 17
+\BOOKMARK [2][-]{subsection.2.3.2}{`pseudo\137atoms.def'}{section.2.3}% 18
+\BOOKMARK [2][-]{subsection.2.3.3}{`force\137field\137mixing\137rules.def'}{section.2.3}% 19
+\BOOKMARK [2][-]{subsection.2.3.4}{`force\137field.def'}{section.2.3}% 20
+\BOOKMARK [1][-]{section.2.4}{Molecules}{chapter.2}% 21
+\BOOKMARK [2][-]{subsection.2.4.1}{Rigid molecule}{section.2.4}% 22
+\BOOKMARK [2][-]{subsection.2.4.2}{Flexible molecule}{section.2.4}% 23
+\BOOKMARK [2][-]{subsection.2.4.3}{Rigid/Flexible molecule}{section.2.4}% 24
+\BOOKMARK [2][-]{subsection.2.4.4}{Chiral molecules}{section.2.4}% 25
+\BOOKMARK [1][-]{section.2.5}{Framework}{chapter.2}% 26
+\BOOKMARK [2][-]{subsection.2.5.1}{Asymmetric unit cell}{section.2.5}% 27
+\BOOKMARK [2][-]{subsection.2.5.2}{Fractional occupancies in zeolites}{section.2.5}% 28
+\BOOKMARK [2][-]{subsection.2.5.3}{Format of the framework atoms}{section.2.5}% 29
+\BOOKMARK [2][-]{subsection.2.5.4}{Typing the atoms of the framework}{section.2.5}% 30
+\BOOKMARK [1][-]{section.2.6}{Using CIF-files}{chapter.2}% 31
+\BOOKMARK [2][-]{subsection.2.6.1}{Definition of CIF-files}{section.2.6}% 32
+\BOOKMARK [2][-]{subsection.2.6.2}{What charge definition is used? `pseudo\137atom.def' or from the CIF-file?}{section.2.6}% 33
+\BOOKMARK [2][-]{subsection.2.6.3}{How to choose atom-types?}{section.2.6}% 34
+\BOOKMARK [0][-]{chapter.3}{Potentials}{part.1}% 35
+\BOOKMARK [1][-]{section.3.1}{Functional forms of force fields}{chapter.3}% 36
+\BOOKMARK [1][-]{section.3.2}{Bonded potentials diagonal terms}{chapter.3}% 37
+\BOOKMARK [2][-]{subsection.3.2.1}{Bond-stretching potentials}{section.3.2}% 38
+\BOOKMARK [2][-]{subsection.3.2.2}{Urey-Bradley potentials}{section.3.2}% 39
+\BOOKMARK [2][-]{subsection.3.2.3}{Bending potential}{section.3.2}% 40
+\BOOKMARK [2][-]{subsection.3.2.4}{Wilson inversion-bend potential}{section.3.2}% 41
+\BOOKMARK [2][-]{subsection.3.2.5}{Torsion potential}{section.3.2}% 42
+\BOOKMARK [2][-]{subsection.3.2.6}{Improper torsion potential}{section.3.2}% 43
+\BOOKMARK [1][-]{section.3.3}{Non-bonded potentials}{chapter.3}% 44
+\BOOKMARK [2][-]{subsection.3.3.1}{Van der Waals potentials}{section.3.3}% 45
+\BOOKMARK [2][-]{subsection.3.3.2}{Tail corrections}{section.3.3}% 46
+\BOOKMARK [2][-]{subsection.3.3.3}{Electrostatics}{section.3.3}% 47
+\BOOKMARK [1][-]{section.3.4}{Bonded potentials cross terms}{chapter.3}% 48
+\BOOKMARK [2][-]{subsection.3.4.1}{Bond-bond potential}{section.3.4}% 49
+\BOOKMARK [2][-]{subsection.3.4.2}{Bond-bend potential}{section.3.4}% 50
+\BOOKMARK [2][-]{subsection.3.4.3}{Bend-bend potential}{section.3.4}% 51
+\BOOKMARK [2][-]{subsection.3.4.4}{Bond-torsion potential}{section.3.4}% 52
+\BOOKMARK [2][-]{subsection.3.4.5}{Bend-torsion potential}{section.3.4}% 53
+\BOOKMARK [0][-]{chapter.4}{Examples}{part.1}% 54
+\BOOKMARK [1][-]{section.4.1}{Introduction}{chapter.4}% 55
+\BOOKMARK [1][-]{section.4.2}{Basic examples}{chapter.4}% 56
+\BOOKMARK [1][-]{section.4.3}{Non-basic examples}{chapter.4}% 57
+\BOOKMARK [1][-]{section.4.4}{Advanced examples}{chapter.4}% 58
+\BOOKMARK [1][-]{section.4.5}{Auxiliary examples}{chapter.4}% 59
+\BOOKMARK [0][-]{chapter.5}{The source code}{part.1}% 60
+\BOOKMARK [1][-]{section.5.1}{Introduction}{chapter.5}% 61
+\BOOKMARK [1][-]{section.5.2}{Data types}{chapter.5}% 62
+\BOOKMARK [1][-]{section.5.3}{Datastructures}{chapter.5}% 63
+\BOOKMARK [1][-]{section.5.4}{Modifying}{chapter.5}% 64
+\BOOKMARK [2][-]{subsection.5.4.1}{Monte Carlo}{section.5.4}% 65
+\BOOKMARK [2][-]{subsection.5.4.2}{Molecular Dynamics}{section.5.4}% 66
+\BOOKMARK [1][-]{section.5.5}{Debugging}{chapter.5}% 67
+\BOOKMARK [2][-]{subsection.5.5.1}{Linux}{section.5.5}% 68
+\BOOKMARK [2][-]{subsection.5.5.2}{Mac OSX}{section.5.5}% 69
+\BOOKMARK [0][-]{chapter.6}{Troubleshooting}{part.1}% 70
+\BOOKMARK [-1][-]{part.2}{II Utilities}{}% 71
+\BOOKMARK [0][-]{chapter.7}{Visualization}{part.2}% 72
+\BOOKMARK [1][-]{section.7.1}{Making pictures using VTK}{chapter.7}% 73
+\BOOKMARK [1][-]{section.7.2}{Ball and stick}{chapter.7}% 74
+\BOOKMARK [1][-]{section.7.3}{Framework surface}{chapter.7}% 75
+\BOOKMARK [1][-]{section.7.4}{Density plots}{chapter.7}% 76
+\BOOKMARK [1][-]{section.7.5}{Determining blocking pockets}{chapter.7}% 77
+\BOOKMARK [1][-]{section.7.6}{Making movies}{chapter.7}% 78
+\BOOKMARK [2][-]{subsection.7.6.1}{Using VMD}{section.7.6}% 79
+\BOOKMARK [2][-]{subsection.7.6.2}{Combining pictures into a movie}{section.7.6}% 80

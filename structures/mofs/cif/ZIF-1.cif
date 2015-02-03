@@ -1,0 +1,78 @@
+data_ZIF-1
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-5
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'K.S. Park, Z. Ni, A.P. Cote, J.Y. Choi, R.D. Huang, F.J. Uribe-Romo, H.K. Chae, M. O’Keeffe, and O.M. Yaghi'
+_citation_title              'Exceptional chemical and thermal stability of zeolitic imidazolate frameworks'
+_citation_journal_abbrev     'P. Natl. Acad. Sci. USA'
+_citation_journal_volume     103
+_citation_journal_number     27
+_citation_page_first         10186
+_citation_page_last          10191
+_citation_year               2006
+
+_cell_length_a    9.7405
+_cell_length_b    15.266
+_cell_length_c    14.936
+_cell_angle_alpha 90
+_cell_angle_beta  98.62
+_cell_angle_gamma 90
+_cell_volume      2195.87
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall '-P 2yn'
+_symmetry_space_group_name_H-M  'P 1 21/n 1'
+_symmetry_Int_Tables_number     14
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x+1/2,y+1/2,-z+1/2'
+ '-x,-y,-z'
+ 'x+1/2,-y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+C1       C      0.53008    0.90801    0.84328    0 
+H1       H      0.5166     0.9318     0.8994     0 
+C2       C      0.54922    0.89866    0.70551    0 
+H2       H      0.5524     0.9119     0.6444     0 
+C3       C      0.5737     0.81934    0.74432    0 
+H3       H      0.5962     0.7683     0.7145     0 
+C4       C      0.8893     0.68162    0.9818     0 
+H4       H      0.8964     0.7054     1.0404     0 
+C5       C      0.81368    0.63613    0.85207    0 
+H5       H      0.7517     0.6223     0.7995     0 
+C6       C      0.45646    0.5453     0.88375    0 
+H6       H      0.5333     0.5142     0.9135     0 
+C7       C      0.4441     0.71842    1.08382    0 
+H7       H      0.3974     0.6661     1.0654     0 
+C8       C      0.168      1.01015    0.65047    0 
+H8       H      0.1929     0.9509     0.6473     0 
+C9       C      0.17558    1.14622    0.67618    0 
+H9       H      0.2085     1.202      0.6956     0 
+C10      C      0.50403    1.14793    0.55661    0 
+H10      H      0.4106     1.1461     0.5293     0 
+C11      C      0.42709    1.17049    0.91013    0 
+H11      H      0.3626     1.1291     0.9249     0 
+C12      C      0.56909    1.23624    0.84016    0 
+H12      H      0.6256     1.252      0.797      0 
+N1       N      0.56081    0.82495    0.83356    0 
+N2       N      0.51939    0.95578    0.76862    0 
+N3       N      0.77228    0.67526    0.92215    0 
+N4       N      0.45216    0.63279    0.86801    0 
+N5       N      0.53449    0.75994    1.03867    0 
+N6       N      0.25111    1.0755     0.69024    0 
+N7       N      0.48714    1.16439    0.83677    0 
+N8       N      0.5533     1.11771    0.6399     0 
+Zn1      Zn     0.453172   1.07607    0.738978   0 
+Zn2      Zn     0.58453    0.726053   0.92052    0 
+
+

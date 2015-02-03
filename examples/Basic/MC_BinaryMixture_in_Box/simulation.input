@@ -1,0 +1,26 @@
+SimulationType                MonteCarlo
+NumberOfCycles                10000
+NumberOfInitializationCycles  2000
+PrintEvery                    100
+
+Forcefield                    GarciaPerez2006
+
+Box 0
+BoxLengths 30 30 30
+ExternalTemperature 300.0
+Movies yes
+WriteMoviesEvery 10
+
+Component 0 MoleculeName             propane
+            MoleculeDefinition       TraPPE
+            TranslationProbability   1.0
+            RotationProbability      1.0
+            ReinsertionProbability   1.0
+            CreateNumberOfMolecules  50
+
+Component 1 MoleculeName             butane
+            MoleculeDefinition       TraPPE
+            TranslationProbability   1.0
+            RotationProbability      1.0
+            ReinsertionProbability   1.0
+            CreateNumberOfMolecules  50

@@ -1,0 +1,294 @@
+\chapter{Introduction}
+
+
+\section{Design philosophy}
+
+This software is a general purpose classical simulation package. It has been developed at
+Northwestern University (Evanston, USA; group of Prof.\ Randall Q.\ Snurr) during 2006-2009 in active collaboration
+with University Pablo de Olavide (Seville, Spain; group of Prof.\ Sofia Calero),
+and from 2010-2015 also at the University of Amsterdam (David Dubbeldam) and 
+Technical University of Delft (group of Prof.\ T.J.H.\ Vlugt).
+It can be used for the simulation of molecules in gases, fluids, zeolites, aluminosilicates,
+metal-organic frameworks, and carbon nanotubes.
+
+Programs can be written in various ways, but often it is true that the fastest codes are probably the hardest to read,
+while programs strictly based on readability lacks efficiency. RASPA is based on the following ideas:
+\begin{itemize}
+  \item{Correctness and accuracy}\\
+  For all the techniques and algorithms available in RASPA we have implemented the 'best' ones available in literature. 
+  For example, RASPA uses Configurational-Bias Monte-Carlo, it uses the Ewald summation for electrostatics,
+  molecular dynamics is based on 'symplectic' integrators, all Monte-Carlo moves obey detailed balance etc.
+  \item{Functional design}\\
+  Looking at the source, you will notice that there are not a lot of files. The program is split up according to its function:
+  'grid.c' contains the code to make and use a grid of a framework, 'ewald.c' handles all the electrostatic,'mc\_moves.c' contains all the
+  moves to be used in Monte-Carlo,'potentials.c' contains all the VDW potentials etc.
+  \item{Input made easy}\\
+  The requirements for the input files is kept as minimal as possible. Only for more advanced options extra commands in the input file are
+  needed. Also the format of the input is straightforward. Default settings are usually the best ones. Fugacity coefficients and excess
+  adsorption are automatically computed.
+  \item{Integrated simulation environment}\\
+  The code is built up of many functions and routines which can be easily combined to do what you want. Molecular dynamics can be
+  used in Monte Carlo and visa versa. Extension and modification of the code is relatively straightforward.
+\end{itemize}
+
+RASPA used three 'types' or 'groups' for the particles: 1) Framework atoms, 2) Adsorbates, and 3) Cations. The advantage is that
+all the energies are split and the interactions can be examined (also the energies are split in the Ewald Fourier part).
+Another example is when using thermostats in e.g. LTA5A where a different thermostat operates in the framework atoms, the adsorbates,
+and the cations. These all move at different length- and time scales. Note that it is not possible to exchange types during
+Identity-change moves (if defined they are ignored).
+
+
+\section{Units and conventions}
+\begin{itemize}
+\item{The standard units in RASPA from which all other units are derived are:}\\
+\vskip 0.1cm
+\begin{tabularx}{\linewidth}{l|l|l|l}
+ quantity & symbol & unit & value\\
+\hline
+ length      & $l$    & \AA ngstrom   & $10^{-10}$ m\\
+ temperature & $T$    & Kelvin        & K\\
+ mass        & $m$    & atomic mass   & $1.6605402\times 10^{-27}$ kg\\
+ time        & $t$    & pico seconds  & $10^{-12}$ s\\
+ charge      & $q$    & atomic charge & $1.60217733\times 10^{-19}$ C/particle\\
+\hline
+\end{tabularx}
+\vskip 0.1cm
+
+\noindent Some examples of derived units:\\
+
+\begin{tabularx}{\linewidth}{l|l|l|l}
+ quantity & symbol & units & conversion value\\
+\hline
+ energy             & $U$    & $J=\text{mass}\times\text{length}^2/\text{time}^2$ & $1.66054\times10^{-23}$ (=10 J/mol)\\
+ pressure           & $p$    & $\text{Pa}=\text{mass}/(\text{length}\times\text{time}^2)$  & $1.66054\times10^7$\\
+ diffusion constant & $D$    & $D=\text{length}^2/\text{time}$ & $1\times10^{-8}$\\
+ force              & $f$    & $f=\text{length}/\text{time}^2$ & $1.66054\times 10^{-13}$\\
+ \dots              & \dots  & \dots                                & \dots \\
+\hline
+\end{tabularx}\\
+
+A pressure input of 10 Pascal in the input file, is converted to 'internal units' by dividing by $1.66054\times10^7$. In the
+output any internal pressure is printed, multiplied by $1.66054\times10^7$. It is not necessary to convert units besides
+input and output, with a few exceptions. One of them is the Coulombic conversion factor
+\begin{equation}
+  \frac{q_i q_j}{4\pi \epsilon_0}=\frac{\text{charge}^2}{4 \pi \times \text{electric constant}\times\text{length}\times\text{energy}}=138935.4834964017
+\end{equation}
+with the electric constant as $8.8541878176\times10^{-12}$ in units of $\text{C}^2/(\text{N}.\text{m}^2)$. This factor is needed to convert the
+electrostatic energy to the internal units at every evaluation. 
+
+\noindent
+The Boltzmann's constant $k_B$ is
+\begin{equation}
+ k_B=\text{Boltzmann constant}/\text{energy}=0.8314464919
+\end{equation}
+with the Boltzmann constant as $1.380650324\times10^{-23}$ in units of J/K, and $k_B=0.8314464919$ in internal units.
+
+\item{Numbering is based on the C-convention, i.e. starting from zero.}
+\item{Files in the current directory always have preference.}\\
+Sometimes one would like to try various parameters for force field fitting for example. In order to avoid
+making a lot of directories for each force field it is more convenient to have the 
+'pseudo\_atoms.def', 'force\_field\_mixing\_rule.def'
+and 'force\_field.def' files in the \emph{current} directory.
+\end{itemize}
+
+\section{Compiling and installing RASPA}
+
+\subsection{Requirements}
+
+RASPA needs a C compiler, like 'gcc' or intel's 'icc' compilers, and optionally 
+the libraries 'fftw', 'blas', and 'lapack'.
+
+\subsection{RASPA from 'git'}
+
+Working with 'git' and a remote repository  means that you will have to distinguish between two locations of the code:
+\begin{enumerate}
+ \item{The repository (visible to everyone)}
+ \item{your local copy (only visible to you)}
+\end{enumerate}
+
+To check-out the code for the first time do:
+\begin{verbatim}
+     git clone ssh://raspa2@itsaio.science.uva.nl/~raspa2/RASPA-2.0.git
+\end{verbatim}
+After that, you can update the code by using
+\begin{verbatim}
+     git pull
+\end{verbatim}
+
+\subsection{installing RASPA}
+
+The \emph{RASPA\_DIR} environment variable should be set to where you would like to install RASPA.
+A common way of defining it is using the bash-shell
+\begin{quote}
+  export RASPA\_DIR=\$\{HOME\}/Research/simulations/
+\end{quote}
+or
+\begin{quote}
+  setenv RASPA\_DIR "\$\{HOME\}/Research/simulations/"
+\end{quote}
+for 'csh' and 'tcsh' shells.
+It is possible to add this line to ".bashrc", "/etc/bashrc", "/etc/profile" etc, depending on the unix-version and
+shell version to automatically have the environment variable set at login.
+
+Note that the source-code of RASPA is kept separate from the installation data. RASPA needs the environment variable to
+locate various files it needs, e.g. molecule definitions, framework definitions, force and field definitions.
+It looks for these files relative to the RASPA\_DIR directory.
+
+Before installing RASPA with
+\begin{verbatim}
+    make install
+\end{verbatim}
+from the top-directory, the code needs to be compiled.
+
+\subsection{compiling RASPA}
+
+RASPA uses the standard 'configure' utilities (autoconf, automake, libtool, and make).
+The steps to install from scratch, i.e. after a 'make distclean' or 'git clone' are
+\begin{enumerate}
+ \item{\verb=rm -rf autom4te.cache=}
+ \item{\verb=mkdir m4=}
+ \item{\verb=aclocal=}
+ \item{\verb=autoreconf -i=}
+ \item{\verb=automake --add-missing=}
+ \item{\verb=autoconf=}
+ \item{\verb,./configure --prefix=${RASPA_DIR},  \qquad or\\
+       \verb=./scripts/CompileScript/make-gcc-local=}
+ \item{\verb=make=}
+\end{enumerate}
+where '\$\{RASPA\_DIR\}' is the directory you would like to install RASPA, and the commands
+are executed in the top directory.
+
+Usually (when recent automake and autoconf versions are installed), it is enough to do
+\begin{enumerate}
+  \item{\verb=make clean=}
+  \item{\verb,./configure --prefix=${RASPA_DIR},}
+  \item{\verb=make=}
+\end{enumerate}
+
+You can use the 'CFLAGS' environment variable to set compiler options and 'CC' to set the compiler.
+For example, for a gcc compiler one could use
+\begin{verbatim}
+    export CFLAGS="-Wall -O3 -ffast-math"
+    export CC="gcc"
+\end{verbatim}
+
+\subsection{Running RASPA\label{Introduction: running RASPA}}
+Running RASPA is based on two files:
+\begin{itemize}
+ \item{A 'run' file to execute the program}\\
+  an example file is:
+  \begin{verbatim}
+    #! /bin/sh -f
+    export RASPA_DIR=${HOME}/Research/simulations/
+    $RASPA_DIR/bin/simulate
+  \end{verbatim}
+  This type of file is know as a 'shell script'. RASPA needs the variable 'RASPA\_DIR' to be set in order
+  to look up the molecules, frameworks, etc. The scripts sets the variable and runs RASPA. RASPA can then be run
+  from any directory you would like.
+ \item{An 'input'-file describing the type of simulation and the parameters}\\
+  In the same directory as the 'run'-file, there needs to be a file called 'simulation.input'. An example file is:
+  \begin{verbatim}
+    SimulationType                   MonteCarlo
+    NumberOfCycles                   100000
+    NumberOfInitializationCycles     10000
+    PrintEvery                       1000
+
+    Box 0
+    BoxLengths 30 30 30
+    ExternalTemperature 300.0
+
+    component 0 methane
+                TranslationProbability           1.0
+                CreateNumberOfMolecules          100
+  \end{verbatim}
+  This tells RASPA to run a Monte-Carlo simulation of 100 methane molecules in a $30\times30\times30$ \AA\ cubic box (with 90$^\circ$ angles)
+  at 300 Kelvin. It will start with 10000 cycles to equilibrate the system and will use 100000 cycle to obtain thermodynamic properties
+  of interest. Every 1000 cycles a status-report is printed to the output. The Monte-Carlo program will use only the 'translation move'
+  where a particle is given a random translation and the move is accepted or rejected based on the energy difference.
+  \end{itemize}
+
+
+In order to run it on a cluster using a queuing system one needs an additional file 'bsub.job' (arbitrary name)
+\begin{itemize}
+ \item{'gridengine'}
+  \begin{verbatim}
+     #!/bin/csh
+     # Serial sample script for Grid Engine
+     # Replace items enclosed by {}
+     #$ -S /bin/csh
+     #$ -N Test
+     #$ -V
+     #$ -cwd
+     echo $PBS_JOBID > jobid
+     setenv RASPA_DIR ${HOME}/RASPA/simulations/
+     $RASPA_DIR/bin/simulate
+  \end{verbatim}
+The job can be submitted using 'qsub bsub.job'.
+ \item{'torque'}
+  \begin{verbatim}
+     #!/bin/bash
+     #PBS -N Test
+     #PBS -o pbs.out
+     #PBS -e pbs.err
+     #PBS -r n
+     #PBS -V
+     #PBS -mba
+     cd $PBS_O_WORKDIR
+     echo $PBS_JOBID > jobid
+     export RASPA_DIR=${HOME}/RASPA/simulations
+     ${RASPA_DIR}/bin/simulate
+  \end{verbatim}
+The job can be submitted using 'qsub bsub.job'.
+ \item{'slurm'}
+\begin{verbatim}
+  #!/bin/bash 
+  #SBATCH -N 1
+  #SBATCH --job-name=Test
+  #SBATCH --export=ALL
+  echo $SLURM_JOBID > jobid
+  valhost=$SLURM_JOB_NODELIST
+  echo $valhost > hostname
+  module load slurm
+  ${RASPA_DIR}/bin/simulate
+\end{verbatim}
+The job can be submitted using 'sbatch bsub.job'.
+\end{itemize}
+
+
+\section{Output from RASPA}
+RASPA generates output from the simulation. Some data is just information on the status, while other data are written because you
+specifically asked the program to compute it for you. The output is written to be used with other programs like:
+\begin{itemize}
+ \item{gnuplot}
+ \item{VTK}
+ \item{VMD}
+\end{itemize}
+
+The main output is written to the directory 'Output/System\_0/', 'Output/System\_1/', \dots for each of the simulated
+systems. Usually one simulates only a single system. However, the Gibbs ensemble requires 2 systems, one for vapor phase and one
+for the liquid phase, while $n$ systems are used by the (hyper-) parallel-tempering technique(s).
+
+\section{Citing RASPA}
+
+If you are using RASPA and would like to cite it in your journal articles or book-chapters, then for RASPA:
+
+\begin{quote}
+D. Dubbeldam, S. Calero, D.E. Ellis, and R.Q. Snurr,
+\newblock RASPA: Molecular Simulation Software for Adsorption and Diffusion in Flexible Nanoporous Materials,
+\newblock {\em Mol. Simulat.}, \url{http://dx.doi.org/10.1080/08927022.2015.1010082}, 2015.
+\end{quote}
+For the inner workings of Monte Carlo codes:
+\begin{quote}
+D. Dubbeldam, A. Torres-Knoop, and K.S. Walton,
+\newblock On the Inner Workings of Monte Carlo Codes,
+\newblock  \url{http://dx.doi.org/10.1080/08927022.2013.819102}
+\newblock {\em Mol. Simulat.}, 39(14-15), 1253-1292, 2013.
+\end{quote}
+For the the description of Molecular Dynamics and diffusion:
+\begin{quote}
+D. Dubbeldam and R.Q. Snurr,
+\newblock Recent Developments in the Molecular Modeling of Diffusion in Nanoporous Materials,
+\newblock  \url{http://dx.doi.org/10.1080/08927020601156418},
+\newblock {\em Mol. Simulat.}, 33(4-5), 305-325, 2007.
+\end{quote}
+

@@ -1,0 +1,37 @@
+SimulationType                MonteCarlo
+NumberOfCycles                500000
+NumberOfInitializationCycles  50000
+NumberOfEquilibrationCycles   50000
+PrintEvery                    5000
+RestartFile                   no
+
+ContinueAfterCrash no
+WriteBinaryRestartFileEvery 5000
+
+ChargeMethod                  Ewald
+Forcefield                    GarciaPerez2006
+CutOffVDW                     12.0
+RemoveAtomNumberCodeFromLabel yes
+
+Framework             0
+FrameworkName         MFI_SI
+UseChargesFromCIFFile no
+UnitCells             2 2 2
+HeliumVoidFraction    0.292012
+ExternalTemperature   353
+ExternalPressure      10e6
+
+
+Component 0 MoleculeName              CO2
+            StartingBead              0
+            MoleculeDefinition        TraPPE
+            IdealGasRosenbluthWeight  1
+            FugacityCoefficient       1.0
+            TranslationProbability    1.0
+            RotationProbability       1.0
+            ReinsertionProbability    1.0
+            CBMCProbability           0.0
+            IdentityChangeProbability 0.0
+            SwapProbability           0.0
+            CFSwapLambdaProbability   1.0
+            CreateNumberOfMolecules   0

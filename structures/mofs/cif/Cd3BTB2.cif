@@ -1,0 +1,91 @@
+data_Cd3BTB2
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2012-1-7
+_audit_author_name 'Krista Walton'
+
+_citation_author_name        'B. Mu, Y. Huang and K.S. Walton'
+_citation_title              'A metal-organic framework with coordinatively unsaturated metal centers and microporous structure'
+_citation_journal_abbrev     'Cryst. Eng. Comm.'
+_citation_journal_volume     12
+_citation_page_first         2347
+_citation_page_last          2349
+_citation_year               2010
+
+_cell_length_a    10.4595
+_cell_length_b    14.392
+_cell_length_c    14.7634
+_cell_angle_alpha 69.608
+_cell_angle_beta  82.476
+_cell_angle_gamma 88.043
+_cell_volume      2065.01
+
+_symmetry_cell_setting          triclinic
+_symmetry_space_group_name_Hall '-P 1'
+_symmetry_space_group_name_H-M  'P -1'
+_symmetry_Int_Tables_number     2
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,-y,-z'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Cd2      Cd   -0.08541     -0.11233     -0.18848      0
+O1       O    -0.2426      -0.1862      -0.0577       0
+O2       O    -0.0601      -0.1426      -0.02315      0
+O3       O    -0.118       -0.9073       0.8843       0
+O4       O    -0.1099      -0.9527       0.753        0
+O5       O    -0.906       -0.1083       0.7003       0
+O6       O    -0.9636      -0.2519       0.8098       0
+C1       C    -0.3343      -0.3784       0.4141       0
+C2       C    -0.2746      -0.4633       0.4706       0
+H2       H    -0.2037      -0.4903       0.4412       0
+C3       C    -0.3175      -0.5089       0.5696       0
+C4       C    -0.4183      -0.4663       0.6125       0
+H4       H    -0.4464      -0.4959       0.6802       0
+C5       C    -0.4785      -0.3811       0.5581       0
+C6       C    -0.4375      -0.3389       0.4586       0
+H6       H    -0.4804      -0.2824       0.4204       0
+C7       C    -0.2918      -0.3306       0.3084       0
+C8       C    -0.1619      -0.3126       0.2726       0
+H8       H    -0.0988      -0.3342       0.3162       0
+C9       C    -0.1231      -0.2638       0.1747       0
+H9       H    -0.0342      -0.2497       0.1519       0
+C10      C    -0.2137      -0.235        0.1091       0
+C11      C    -0.3432      -0.2556       0.1438       0
+H11      H    -0.4055      -0.2382       0.0995       0
+C12      C    -0.3822      -0.3014       0.2426       0
+H12      H    -0.4715      -0.313        0.2656       0
+C13      C    -0.2623      -0.6046       0.6273       0
+C14      C    -0.2267      -0.6754       0.5847       0
+H14      H    -0.2307      -0.6603       0.5172       0
+C15      C    -0.1853      -0.7681       0.64         0
+H15      H    -0.1628      -0.8161       0.6101       0
+C16      C    -0.1764      -0.7915       0.7384       0
+C17      C    -0.2102      -0.7207       0.781        0
+H17      H    -0.2038      -0.7355       0.8482       0
+C18      C    -0.2535      -0.6281       0.7261       0
+H18      H    -0.2772      -0.5805       0.7564       0
+C19      C    -0.5843      -0.3352       0.6049       0
+C20      C    -0.6706      -0.3923       0.6826       0
+H20      H    -0.6616      -0.4623       0.7071       0
+C21      C    -0.7696      -0.3485       0.7251       0
+H21      H    -0.827       -0.3888       0.7787       0
+C22      C    -0.7858      -0.2474       0.6907       0
+C23      C    -0.7012      -0.1895       0.613        0
+H23      H    -0.7118      -0.1196       0.5881       0
+C24      C    -0.6005      -0.2329       0.5709       0
+H24      H    -0.5421      -0.1922       0.5182       0
+C25      C    -0.1709      -0.1846       0.0035       0
+C26      C    -0.1298      -0.892        0.7972       0
+C27      C    -0.892       -0.1998       0.7372       0
+Cd1      Cd    0            0            0            0
+
+

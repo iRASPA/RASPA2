@@ -1,0 +1,20 @@
+# rules to overwrite
+0
+# number of defined interactions
+13
+# type      type2       interaction
+UNIT        UNIT        lennard-jones      1.0              1.0
+O           O           lennard-jones     29.4338257        3.062219744
+O           Si          lennard-jones     49.05711264       3.483346249
+Si          Si          lennard-jones     81.76308187       3.962387454
+CH4_sp3     O           lennard-jones    115.00             3.47
+CH3_sp3     O           lennard-jones     93.00             3.48
+CH2_sp3     O           lennard-jones     60.50             3.58
+CH_sp3      O           lennard-jones     40.00             3.92
+O_co2       O           lennard-jones     84.93             2.9195
+C_co2       O           lennard-jones     50.2              2.7815
+Ar          O           lennard-jones    107.7              3.15
+O           Ow          lennard-jones     91.5              3.0485
+Si          Ow          lennard-jones     85.6395           3.529
+# mixing rules to overwrite
+0

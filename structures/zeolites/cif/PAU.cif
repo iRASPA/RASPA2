@@ -1,0 +1,165 @@
+data_PAU
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-3
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'E.K. Gordon, S. Samson, W.K. Kamb'
+_citation_title              'Crystal structure of the zeolite paulingite'
+_citation_journal_abbrev     'Science'
+_citation_journal_volume     154
+_citation_page_first         1004
+_citation_page_last          1007
+_citation_year               1966
+
+_cell_length_a    35.093
+_cell_length_b    35.093
+_cell_length_c    35.093
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      43217.7
+
+_symmetry_cell_setting          cubic
+_symmetry_space_group_name_Hall '-I 4 2 3'
+_symmetry_space_group_name_H-M  'I m -3 m'
+_symmetry_Int_Tables_number     229
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,-y,z'
+ '-x,y,-z'
+ 'x,-y,-z'
+ 'z,x,y'
+ 'z,-x,-y'
+ '-z,-x,y'
+ '-z,x,-y'
+ 'y,z,x'
+ '-y,z,-x'
+ 'y,-z,-x'
+ '-y,-z,x'
+ 'y,x,-z'
+ '-y,-x,-z'
+ 'y,-x,z'
+ '-y,x,z'
+ 'x,z,-y'
+ '-x,z,y'
+ '-x,-z,-y'
+ 'x,-z,y'
+ 'z,y,-x'
+ 'z,-y,x'
+ '-z,y,x'
+ '-z,-y,-x'
+ '-x,-y,-z'
+ 'x,y,-z'
+ 'x,-y,z'
+ '-x,y,z'
+ '-z,-x,-y'
+ '-z,x,y'
+ 'z,x,-y'
+ 'z,-x,y'
+ '-y,-z,-x'
+ 'y,-z,x'
+ '-y,z,x'
+ 'y,z,-x'
+ '-y,-x,z'
+ 'y,x,z'
+ '-y,x,-z'
+ 'y,-x,-z'
+ '-x,-z,y'
+ 'x,-z,-y'
+ 'x,z,y'
+ '-x,z,-y'
+ '-z,-y,x'
+ '-z,y,-x'
+ 'z,-y,-x'
+ 'z,y,x'
+ 'x+1/2,y+1/2,z+1/2'
+ '-x+1/2,-y+1/2,z+1/2'
+ '-x+1/2,y+1/2,-z+1/2'
+ 'x+1/2,-y+1/2,-z+1/2'
+ 'z+1/2,x+1/2,y+1/2'
+ 'z+1/2,-x+1/2,-y+1/2'
+ '-z+1/2,-x+1/2,y+1/2'
+ '-z+1/2,x+1/2,-y+1/2'
+ 'y+1/2,z+1/2,x+1/2'
+ '-y+1/2,z+1/2,-x+1/2'
+ 'y+1/2,-z+1/2,-x+1/2'
+ '-y+1/2,-z+1/2,x+1/2'
+ 'y+1/2,x+1/2,-z+1/2'
+ '-y+1/2,-x+1/2,-z+1/2'
+ 'y+1/2,-x+1/2,z+1/2'
+ '-y+1/2,x+1/2,z+1/2'
+ 'x+1/2,z+1/2,-y+1/2'
+ '-x+1/2,z+1/2,y+1/2'
+ '-x+1/2,-z+1/2,-y+1/2'
+ 'x+1/2,-z+1/2,y+1/2'
+ 'z+1/2,y+1/2,-x+1/2'
+ 'z+1/2,-y+1/2,x+1/2'
+ '-z+1/2,y+1/2,x+1/2'
+ '-z+1/2,-y+1/2,-x+1/2'
+ '-x+1/2,-y+1/2,-z+1/2'
+ 'x+1/2,y+1/2,-z+1/2'
+ 'x+1/2,-y+1/2,z+1/2'
+ '-x+1/2,y+1/2,z+1/2'
+ '-z+1/2,-x+1/2,-y+1/2'
+ '-z+1/2,x+1/2,y+1/2'
+ 'z+1/2,x+1/2,-y+1/2'
+ 'z+1/2,-x+1/2,y+1/2'
+ '-y+1/2,-z+1/2,-x+1/2'
+ 'y+1/2,-z+1/2,x+1/2'
+ '-y+1/2,z+1/2,x+1/2'
+ 'y+1/2,z+1/2,-x+1/2'
+ '-y+1/2,-x+1/2,z+1/2'
+ 'y+1/2,x+1/2,z+1/2'
+ '-y+1/2,x+1/2,-z+1/2'
+ 'y+1/2,-x+1/2,-z+1/2'
+ '-x+1/2,-z+1/2,y+1/2'
+ 'x+1/2,-z+1/2,-y+1/2'
+ 'x+1/2,z+1/2,y+1/2'
+ '-x+1/2,z+1/2,-y+1/2'
+ '-z+1/2,-y+1/2,x+1/2'
+ '-z+1/2,y+1/2,-x+1/2'
+ 'z+1/2,-y+1/2,-x+1/2'
+ 'z+1/2,y+1/2,x+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si     0.3137    0.25      0.1863    2.05    0       0    absolute yes
+Si2      Si     0.4021    0.25      0.0979    2.05    0       0    absolute yes
+Si3      Si     0.3132    0.2498    0.0979    2.05    0       0    absolute yes
+Si4      Si     0.4558    0.1072    0.0443    2.05    0       0    absolute yes
+Si5      Si     0.4019    0.1782    0.0448    2.05    0       0    absolute yes
+Si6      Si     0.3126    0.1785    0.0446    2.05    0       0    absolute yes
+Si7      Si     0.2592    0.1073    0.0445    2.05    0       0    absolute yes
+Si8      Si     0.1708    0.1076    0.0441    2.05    0       0    absolute yes
+O1       O      0.1635    0.0933    0        -1.025   0       0    absolute yes
+O2       O      0.2679    0.0968    0        -1.025   0       0    absolute yes
+O3       O      0.3041    0.1886    0        -1.025   0       0    absolute yes
+O4       O      0.4092    0.19      0        -1.025   0       0    absolute yes
+O5       O      0.4484    0.0952    0        -1.025   0       0    absolute yes
+O6       O      0.4489    0.3794    0        -1.025   0       0    absolute yes
+O7       O      0.0713    0.0713    0.161    -1.025   0       0    absolute yes
+O8       O      0.4308    0.4308    0.2322   -1.025   0       0    absolute yes
+O9       O      0.1437    0.1437    0.0545   -1.025   0       0    absolute yes
+O10      O      0.286     0.286     0.1965   -1.025   0       0    absolute yes
+O11      O      0.2868    0.2868    0.089    -1.025   0       0    absolute yes
+O12      O      0.4299    0.4299    0.0548   -1.025   0       0    absolute yes
+O13      O      0.2152    0.1211    0.0496   -1.025   0       0    absolute yes
+O14      O      0.287     0.1414    0.0582   -1.025   0       0    absolute yes
+O15      O      0.3573    0.1672    0.0525   -1.025   0       0    absolute yes
+O16      O      0.4278    0.1417    0.0573   -1.025   0       0    absolute yes
+O17      O      0.3002    0.2163    0.0693   -1.025   0       0    absolute yes
+O18      O      0.4148    0.2142    0.071    -1.025   0       0    absolute yes
+
+

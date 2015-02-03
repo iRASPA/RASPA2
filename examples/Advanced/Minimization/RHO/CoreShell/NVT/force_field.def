@@ -1,0 +1,18 @@
+# rules to overwrite
+0
+# number of defined interactions
+11
+# type      type2       interaction       
+Mg          shO         buckingham         10984877.43221 3.1433690       0.0
+Al          shO         buckingham         16945657.06900 3.3431399       0.0
+Si          shO         buckingham         14899125.31792 3.1199301  123722.525468
+P           shO         buckingham         10180855.14820 2.7824151       0.0
+shO         shO         buckingham        264165308.49759 6.7114094  323514.3281700
+Mg          shOa        buckingham         10984877.43221 3.1433690       0.0
+Al          shOa        buckingham         16945657.06900 3.3431399       0.0
+Si          shOa        buckingham         14899125.31792 3.1199301  123722.525468
+P           shOa        buckingham         10180855.14820 2.7824151       0.0
+shOa        shOa        buckingham        264165308.49759 6.7114094  323514.3281700
+shO         shOa        buckingham        264165308.49759 6.7114094  323522.43171
+# mixing rules to overwrite
+0

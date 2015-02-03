@@ -1,0 +1,37 @@
+SimulationType                   MolecularDynamics
+NumberOfCycles                   250000
+NumberOfInitializationCycles     5000
+NumberOfEquilibrationCycles      10000
+PrintEvery                       5000
+RestartFile                      no
+
+Ensemble                         NVT
+
+Forcefield                       GarciaPerez2006
+ModifyOxgensConnectedToAluminium yes
+TimeStep                         0.0005
+
+Framework 0
+FrameworkName LTA4A
+RemoveAtomNumberCodeFromLabel yes
+UnitCells 1 1 1
+ExternalTemperature 600.0
+ComputeMSD yes
+PrintMSDEvery 5000
+
+component 0 MoleculeName             sodium
+            MoleculeDefinition       TraPPE
+            TranslationProbability   1.0
+            ReinsertionProbability   1.0
+            ExtraFrameworkMolecule   yes
+            CreateNumberOfMolecules  96
+
+component 1 MoleculeName             CO2
+            MoleculeDefinition       TraPPE
+            BlockPockets             yes
+            BlockPocketsFilename     LTA
+            TranslationProbability   1.0
+            RotationProbability      1.0
+            ReinsertionProbability   1.0
+            ExtraFrameworkMolecule   no
+            CreateNumberOfMolecules  64

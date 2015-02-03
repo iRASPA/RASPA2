@@ -1,0 +1,61 @@
+SimulationType                   MC
+NumberOfCycles                   250000
+NumberOfInitializationCycles     50000
+NumberOfEquilibrationCycles      0
+PrintEvery                       5000
+RestartFile                      no
+
+ContinueAfterCrash no
+WriteBinaryRestartFileEvery 5000
+
+ChargeMethod                     None
+CutOff                           12.0
+Forcefield                       Dubbeldam2012MIL-101
+EwaldPrecision                   1e-6
+
+Framework 0
+FrameworkName MIL-101-primitive
+UnitCells 1 1 1
+HeliumVoidFraction 0.80770300
+ExternalTemperature 300.0
+ExternalPressure 1e3
+
+Component 0 MoleculeName                     hexane
+            MoleculeDefinition               TraPPE
+            IdealGasRosenbluthWeight         0.00298595
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            CBMCProbability                  1.0
+            SwapProbability                  1.0
+            IdentityChangeProbability        1.0
+              NumberOfIdentityChanges        3
+              IdentityChangesList            0 1 2
+            CreateNumberOfMolecules          0
+
+Component 1 MoleculeName                     3-methylpentane
+            MoleculeDefinition               TraPPE
+            IdealGasRosenbluthWeight         0.0332088
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            CBMCProbability                  1.0
+            SwapProbability                  1.0
+            IdentityChangeProbability        1.0
+              NumberOfIdentityChanges        3
+              IdentityChangesList            0 1 2
+            CreateNumberOfMolecules          0
+
+Component 2 MoleculeName                     22-dimethylbutane
+            MoleculeDefinition               TraPPE
+            IdealGasRosenbluthWeight         0.184775
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            CBMCProbability                  1.0
+            SwapProbability                  1.0
+            IdentityChangeProbability        1.0
+              NumberOfIdentityChanges        3
+              IdentityChangesList            0 1 2
+            CreateNumberOfMolecules          0
+

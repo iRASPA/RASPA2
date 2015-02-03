@@ -1,0 +1,21 @@
+# rules to overwrite
+0
+# number of defined interactions
+14
+# type      type2       interaction
+O_co2       Zn1         DZUBAK2012     24.53e7   5.0     0        1.228e5 1.5
+O_co2       O1          DZUBAK2012      5.121e7  4.04    0        1.684e5 1.5
+O_co2       O2          DZUBAK2012      1.957e7  3.6     1.052e5  0.018e5 1.5
+O_co2       C1          DZUBAK2012      0.752e7  3.291   0        1.767e5 1.5
+O_co2       C2          DZUBAK2012      1.771e7  3.527   0.403e5  1.742e5 1.5
+O_co2       C3          DZUBAK2012      0.726e7  3.167   0        1.441e5 1.5
+O_co2       H1          DZUBAK2012      2.153e7  4.18    0        0.824e5 1.5
+C_co2       Zn1         DZUBAK2012      8.205e7  5.0     0        0       1.5
+C_co2       O1          DZUBAK2012     23.047e7  4.99    0        0       1.5
+C_co2       O2          DZUBAK2012     23.047e7  4.99    0        0       1.5
+C_co2       C1          DZUBAK2012      6.9e7    4.19    0        0       1.5
+C_co2       C2          DZUBAK2012      6.9e7    4.19    0        0       1.5
+C_co2       C3          DZUBAK2012      4.584e7  4.05    0        0       1.5
+C_co2       H1          DZUBAK2012      6.261e7  5.0     0        0       1.5
+# mixing rules to overwrite
+0

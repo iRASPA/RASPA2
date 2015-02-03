@@ -1,0 +1,19 @@
+SimulationType  MonteCarlo
+NumberOfCycles  0
+
+Forcefield      GarciaPerez2006
+
+Framework 0
+FrameworkName TON
+UnitCells 1 1 1
+
+ComputePowderDiffractionPattern yes
+DiffractionType Xray
+DiffractionRadiationType Copper
+WaveLengthType single
+TwoThetaMin 1
+TwoThetaMax 50
+TwoThetaStep 0.02
+PeakShape PseudoVoigt
+PeakWidthModifierU 0.005
+

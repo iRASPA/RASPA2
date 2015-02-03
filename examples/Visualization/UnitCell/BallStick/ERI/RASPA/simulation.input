@@ -1,0 +1,14 @@
+SimulationType                   MC
+NumberOfCycles                   0
+
+Forcefield                       GarciaPerez2006
+
+VTKFractionalFrameworkAtomsMin  0.0 0.0 0.0 
+VTKFractionalFrameworkAtomsMax  1.0 1.0 1.0 
+
+VTKFractionalFrameworkBondsMin -0.03 -0.03 -0.03
+VTKFractionalFrameworkBondsMax  1.03  1.03  1.03
+
+Framework 0
+FrameworkName ERI_SI
+UnitCells 1 1 1

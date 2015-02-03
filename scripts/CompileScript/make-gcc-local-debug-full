@@ -1,0 +1,5 @@
+#!/bin/sh
+rm config.cache
+export CFLAGS="-Wall -O0 -g -DDEBUG"
+export CC="gcc"
+./configure --prefix=${HOME}/RASPA/simulations

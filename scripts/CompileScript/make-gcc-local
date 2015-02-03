@@ -1,0 +1,5 @@
+#!/bin/sh
+rm config.cache
+export CFLAGS="-Wall -O3 -mfpmath=sse -fomit-frame-pointer -ftree-vectorize -funroll-loops -ffast-math"
+export CC="gcc"
+./configure --prefix=${HOME}/RASPA/simulations

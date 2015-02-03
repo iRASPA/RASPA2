@@ -1,0 +1,70 @@
+data_MOR_SI
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-2-20
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'V. Gramlich'
+_citation_title              'Untersuchung und Verfeinerung pseudosymmetrischer Strukturen'
+_citation_journal_abbrev     'Ph.D. Thesis, ETH, Zürich, Switzerland'
+_citation_year               1971
+
+_cell_length_a    18.11
+_cell_length_b    20.53
+_cell_length_c    7.528
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      2798.9
+
+_symmetry_cell_setting          orthorhombic
+_symmetry_space_group_name_Hall '-C 2c 2'
+_symmetry_space_group_name_H-M  'C m c m'
+_symmetry_Int_Tables_number     63
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,-y,z+1/2'
+ '-x,y,-z+1/2'
+ 'x,-y,-z'
+ '-x,-y,-z'
+ 'x,y,-z+1/2'
+ 'x,-y,z+1/2'
+ '-x,y,z'
+ 'x+1/2,y+1/2,z'
+ '-x+1/2,-y+1/2,z+1/2'
+ '-x+1/2,y+1/2,-z+1/2'
+ 'x+1/2,-y+1/2,-z'
+ '-x+1/2,-y+1/2,-z'
+ 'x+1/2,y+1/2,-z+1/2'
+ 'x+1/2,-y+1/2,z+1/2'
+ '-x+1/2,y+1/2,z'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si4+   0.19897   0.42771   0.5418    2.05    0       0    absolute yes
+Si2      Si4+   0.19656   0.19092   0.5454    2.05    0       0    absolute yes
+Si3      Si4+   0.0871    0.384     0.25      2.05    0       0    absolute yes
+Si4      Si4+   0.0866    0.228     0.25      2.05    0       0    absolute yes
+O1       O2-    0.1232    0.417     0.4292   -1.025   0       0    absolute yes
+O2       O2-    0.1226    0.1946    0.4262   -1.025   0       0    absolute yes
+O3       O2-    0.2632    0.3776    0.4887   -1.025   0       0    absolute yes
+O4       O2-    0.0974    0.3057    0.25     -1.025   0       0    absolute yes
+O5       O2-    0.1694    0.1946    0.75     -1.025   0       0    absolute yes
+O6       O2-    0.1769    0.4212    0.75     -1.025   0       0    absolute yes
+O7       O2-    0.2324    0.5       0.5      -1.025   0       0    absolute yes
+O8       O2-    0.25      0.25      0.5      -1.025   0       0    absolute yes
+O9       O2-    0         0.4071    0.25     -1.025   0       0    absolute yes
+O10      O2-    0         0.2061    0.25     -1.025   0       0    absolute yes
+
+

@@ -1,0 +1,18 @@
+SimulationType        MonteCarlo
+NumberOfCycles        10000
+PrintEvery            100
+PrintPropertiesEvery  100
+
+Forcefield Dubbeldam2007FlexibleIRMOF-1
+CutOff 12.8
+
+Framework 0
+FrameworkName IRMOF-1
+UnitCells 1 1 1
+SurfaceAreaProbeDistance Sigma
+
+Component 0 MoleculeName             hydrogen
+            StartingBead             1
+            MoleculeDefinition       TraPPE
+            SurfaceAreaProbability   1.0
+            CreateNumberOfMolecules  0

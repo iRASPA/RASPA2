@@ -1,0 +1,12 @@
+#CoreShells bond  BondDipoles UreyBradley bend  inv  tors improper-torsion bond/bond bond/bend bend/bend stretch/torsion bend/torsion
+          2    2            0           0    3    0     0                0         0         0         0               0            0
+# Core and Shells
+O  shO
+Oa shOa
+#bond stretch atom n1-n2, equilibrium distance, bondforce-constant
+O   shO   CORE_SHELL_SPRING  869410.6884835
+Oa  shOa  CORE_SHELL_SPRING  869410.6884835
+#bond bending atom n1-n2-n3, equilibrium angle, bondforce-constant
+shO  Si shO  CORE_SHELL_BEND 24337.465 109.47
+shOa Si shO  CORE_SHELL_BEND 24337.465 109.47
+shOa Al shOa CORE_SHELL_BEND 24337.465 109.47

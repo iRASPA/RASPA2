@@ -1,0 +1,36 @@
+BoxLengths 13.27 13.27 15.05       // the lengths of the cell-vectors
+CellAngles 90.0 90.0 120.0         // the angles of the cell-vectors
+
+OutputFileName "ERI-XY-density-view"   // the name of the output-file
+
+FrameworkAtoms OFF         //  do not draw the framework atoms
+
+FrameworkSurface ON                   // draw the surface
+FrameworkRenderingMethod ISOSURFACE   // render as an isocontour
+IsoSurfaceMaterial GLASS              // set the type of isosuface-material to glass
+IsoSurfaceOpacity 0.3                 // set the opacity 
+
+
+// control of the cell-frame properties
+FrameTickness 1.5
+
+ZoomFactor 1.3  // zoom in or out by increasing/decreasing the zoom-factor
+
+Density ON
+
+// control the view-point of the oject (input in degrees)
+Azimuth 0.0 
+Elevation 0.0 
+Roll 0.0 
+
+AdditionalAzimuth 0.0
+AdditionalElevation 0.0
+AdditionalRoll 0.0
+
+// the size of the image in pixels
+ImageSize 500 500
+
+// picture quality settings
+Resolution 10            // the resolution of spheres and tubes, the higher the more smooth 
+                         // (use 10, but 50 for the final picture)
+AA 1                     // anti-aliasing, use 1, but 16 for final picture

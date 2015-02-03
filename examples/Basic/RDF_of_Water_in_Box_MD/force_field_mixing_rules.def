@@ -1,0 +1,12 @@
+# general rule for shifted vs truncated
+shifted
+# general rule tailcorrections
+no
+# number of defined interactions
+3
+# type interaction
+Ow      lennard-jones   89.633     3.097
+Lw      none
+Hw      none
+# general mixing rule for Lennard-Jones
+Jorgensen

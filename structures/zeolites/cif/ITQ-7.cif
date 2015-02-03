@@ -1,0 +1,78 @@
+data_ITQ-7
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-3
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'L.A. Villaescusa, P.A. Barrett, and M.A. Camblor'
+_citation_title              'ITQ-7: A new pure silica polymorph with a three-dimensional system of large pore channels'
+_citation_journal_abbrev     'Angew. Chem. Int. Ed.'
+_citation_journal_volume     38
+_citation_page_first         1997
+_citation_page_last          2000
+_citation_year               1999
+
+_cell_length_a    12.8528
+_cell_length_b    12.8528
+_cell_length_c    25.2136
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      4165.15
+
+_symmetry_cell_setting          tetragonal
+_symmetry_space_group_name_Hall '-P 4c 2'
+_symmetry_space_group_name_H-M  'P 42/m m c'
+_symmetry_Int_Tables_number     131
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,-y,z'
+ '-y,x,z+1/2'
+ 'y,-x,z+1/2'
+ '-x,y,-z'
+ 'x,-y,-z'
+ 'y,x,-z+1/2'
+ '-y,-x,-z+1/2'
+ '-x,-y,-z'
+ 'x,y,-z'
+ 'y,-x,-z+1/2'
+ '-y,x,-z+1/2'
+ 'x,-y,z'
+ '-x,y,z'
+ '-y,-x,z+1/2'
+ 'y,x,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si       Si     0.1192    0.1146    0.06251   2.05    0       0    absolute yes
+Si       Si     0.3062    0.2511    0.90459   2.05    0       0    absolute yes
+Si       Si     0.5       0.1167    0.06146   2.05    0       0    absolute yes
+Si       Si     0.3822    0.3849    0.18813   2.05    0       0    absolute yes
+Si       Si     0.3793    0.388     0         2.05    0       0    absolute yes
+O        O      0.1426    0.1313    0        -1.025   0       0    absolute yes
+O        O      0.1512    0         0.0788   -1.025   0       0    absolute yes
+O        O      0         0.1379    0.0742   -1.025   0       0    absolute yes
+O        O      0.2002    0.1888    0.087    -1.025   0       0    absolute yes
+O        O      0.3996    0.1685    0.9116   -1.025   0       0    absolute yes
+O        O      0.3197    0.3334    0.9486   -1.025   0       0    absolute yes
+O        O      0.3205    0.3027    0.8453   -1.025   0       0    absolute yes
+O        O      0.5       0         0.0759   -1.025   0       0    absolute yes
+O        O      0.5       0.1373    0        -1.025   0       0    absolute yes
+O        O      0.5       0.3733    0        -1.025   0       0    absolute yes
+O        O      0.3327    0.5       0        -1.025   0       0    absolute yes
+O        O      0.3584    0.3584    0.25     -1.025   0       0    absolute yes
+O        O      0.5       0.3626    0.1782   -1.025   0       0    absolute yes
+O        O      0.3552    0.5       0.1725   -1.025   0       0    absolute yes
+
+

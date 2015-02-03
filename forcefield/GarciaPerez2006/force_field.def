@@ -1,0 +1,57 @@
+# rules to overwrite
+0
+# number of defined interactions
+50
+# type      type2       interaction
+UNIT        UNIT        lennard-jones      1.0           1.0
+He          O           lennard-jones     28.0           3.265
+He          Oa          lennard-jones     28.0           3.265
+CH4_sp3     O           lennard-jones    115.00          3.47
+CH4_sp3     Oa          lennard-jones    115.00          3.47
+CH3_sp3     O           lennard-jones     93.00          3.48
+CH3_sp3     Oa          lennard-jones     93.00          3.48
+CH2_sp3     O           lennard-jones     60.50          3.58
+CH2_sp3     Oa          lennard-jones     60.50          3.58
+CH_sp3      O           lennard-jones     40.00          3.92
+CH_sp3      Oa          lennard-jones     40.00          3.92
+C_sp3       O           lennard-jones     10.0           4.56
+C_sp3       Oa          lennard-jones     10.0           4.56
+CH2_sp2     O           lennard-jones     82.05          3.53
+CH2_sp2     Oa          lennard-jones     82.05          3.53
+CH_sp2      O           lennard-jones     55.215         3.502
+CH_sp2      Oa          lennard-jones     55.215         3.502
+Ar          O           lennard-jones    107.69          3.15
+Ar          Oa          lennard-jones    107.69          3.15
+Ca          O           lennard-jones     18.0           3.45
+Ca          Oa          lennard-jones     18.0           3.45
+Na          O           lennard-jones     23.0           3.4
+Na          Oa          lennard-jones     23.0           3.4
+O_co2       O           lennard-jones     84.93          2.9195
+O_co2       Oa          lennard-jones     84.93          2.9195
+C_co2       O           lennard-jones     50.2           2.7815
+C_co2       Oa          lennard-jones     50.2           2.7815
+N_n2        O           lennard-jones     58.25          3.062
+N_n2        Oa          lennard-jones     58.25          3.062
+Na          CH4_sp3     lennard-jones    582.17          2.72
+Na          CH3_sp3     lennard-jones    443.73          2.65
+Na          CH2_sp3     lennard-jones    310.0           2.95
+Na          CH_sp3      lennard-jones    292.0           2.58
+Na          C_sp3       lennard-jones    126.0           2.71
+Ca          CH4_sp3     lennard-jones    590.17          2.56
+Ca          CH3_sp3     lennard-jones    400.0           2.6
+Ca          CH2_sp3     lennard-jones    440.73          2.8
+O           Ow          lennard-jones    89.633          3.097
+Oa          Ow          lennard-jones    89.633          3.097
+O_co2       O_co2       lennard-jones    80.507          3.033
+O_co2       C_co2       lennard-jones    47.59           2.89
+C_co2       C_co2       lennard-jones    28.129          2.76
+C_benz      O           lennard-jones    89.0            3.007
+C_benz      Oa          lennard-jones    89.0            3.007
+H_benz      O           lennard-jones    71.24           2.606
+H_benz      Oa          lennard-jones    71.24           2.606
+Na          C_benz      lennard-jones    15.364385       3.545
+Na          H_benz      lennard-jones    14.563673       2.944
+Na          C_co2       lennard-jones    15.364385       3.545
+Na          O_co2       lennard-jones    14.563673       2.944
+# mixing rules to overwrite
+0

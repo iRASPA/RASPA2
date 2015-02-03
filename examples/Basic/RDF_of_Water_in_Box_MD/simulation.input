@@ -1,0 +1,23 @@
+SimulationType                MolecularDynamics
+NumberOfCycles                25000
+NumberOfInitializationCycles  1000
+NumberOfEquilibrationCycles   5000
+PrintEvery                    100
+RestartFile                   yes
+
+Ensemble                      NVT
+
+Forcefield                    Local
+
+Box 0
+BoxLengths 24.83 24.83 24.83
+ComputeRDF yes
+WriteRDFEvery 1000
+ExternalTemperature 298.0
+
+Component 0 MoleculeName             Tip5p
+            MoleculeDefinition       Water
+            TranslationProbability   0.5
+            RotationProbability      0.5
+            ReinsertionProbability   1.0
+            CreateNumberOfMolecules  0

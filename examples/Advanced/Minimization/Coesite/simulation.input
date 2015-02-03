@@ -1,0 +1,36 @@
+SimulationType                   Minimization
+NumberOfCycles                   1
+NumberOfEquilibrationCycles      0
+NumberOfInitializationCycles     0
+PrintEvery                       1
+RestartFile                      no
+
+ComputeElasticConstants yes
+
+RemoveBondNeighboursFromLongRangeInteraction yes
+RemoveBendNeighboursFromLongRangeInteraction no
+RemoveTorsionNeighboursFromLongRangeInteraction no
+
+Ensemble                         NPTPR
+NPTPRCellType                    RegularUpperTriangle
+
+ChargeMethod                               Ewald
+InternalFrameworkLennardJonesInteractions  yes
+CutOff                                     12.0
+TimeStep                                   0.0005
+Forcefield                                 CoreShellCatlow
+EwaldPrecision                             1e-10
+
+Framework 0
+FrameworkName coesite
+RemoveAtomNumberCodeFromLabel yes
+UnitCells 1 1 1
+ReplicaUnitCells 5 3 5
+ExternalTemperature 77.0
+ExternalPressure    0
+Movies yes
+WriteMoviesEvery 1
+
+FlexibleFramework                yes
+FrameworkDefinitions             CoreShellCatlow
+

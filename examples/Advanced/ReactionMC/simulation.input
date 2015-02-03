@@ -1,0 +1,64 @@
+SimulationType                MC
+NumberOfCycles                25000
+NumberOfInitializationCycles  0
+NumberOfEquilibrationCycles   25000
+RestartFile                   no
+PrintEvery                    100
+
+ContinueAfterCrash no
+WriteBinaryRestartFileEvery 500
+
+ChargeMethod                  none
+Forcefield                    local
+CutOff                        12.0
+EwaldPrecision                1e-6
+
+Box 0
+BoxLengths 150 150 150
+ExternalTemperature 450.0
+ExternalPressure 101300.0
+CutOff  14.0
+ComputeNumberOfMoleculesHistogram yes
+WriteNumberOfMoleculesHistogramEvery 5000
+
+Reaction 2 0 0 0 0 1 0 1
+Reaction 0 0 0 1 0 0 1 0
+
+ProbabilityCFCRXMCLambdaChangeMove 1.0
+VolumeChangeProbability            0.1
+
+Component 0 MoleculeName             propene
+            MoleculeDefinition       TraPPE
+            PartitionFunction        8.35133e33
+            TranslationProbability   35.0
+            RotationProbability      53.9
+            ReinsertionProbability   10.0 
+            ExtraFrameworkMolecule   no
+            CreateNumberOfMolecules  400
+
+Component 1 MoleculeName             ethene
+            MoleculeDefinition       TraPPE
+            PartitionFunction        5.04786e31
+            TranslationProbability   35.0
+            RotationProbability      53.9
+            ReinsertionProbability   10.0 
+            ExtraFrameworkMolecule   no
+            CreateNumberOfMolecules  0
+
+Component 2 MoleculeName             cis-2-butene
+            MoleculeDefinition       TraPPE
+            PartitionFunction        5.5845e34
+            TranslationProbability   35.0
+            RotationProbability      53.9
+            ReinsertionProbability   10.0 
+            ExtraFrameworkMolecule   no
+            CreateNumberOfMolecules  0
+
+Component 3 MoleculeName             trans-2-butene
+            MoleculeDefinition       TraPPE
+            PartitionFunction        8.80359e34
+            TranslationProbability   35.0
+            RotationProbability      53.9
+            ReinsertionProbability   10.0 
+            ExtraFrameworkMolecule   no
+            CreateNumberOfMolecules  0

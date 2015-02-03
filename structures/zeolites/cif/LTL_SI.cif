@@ -1,0 +1,76 @@
+data_LTL_SI
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-2-20
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'J.M. Newsam'
+_citation_title              'Structures of Dehydrated Potassium Zeolite-L at 298-K and 78-K and at 78-K containing Sorbed Perdeuteriobenzen'
+_citation_journal_abbrev     'J. Phys. Chem.'
+_citation_journal_volume     93
+_citation_journal_issue      22
+_citation_page_first         7689
+_citation_page_last          7694
+_citation_year               1989
+
+_cell_length_a    18.466
+_cell_length_b    18.466
+_cell_length_c    7.4763
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      2207.82
+
+_symmetry_cell_setting          hexagonal
+_symmetry_space_group_name_Hall '-P 6 2'
+_symmetry_space_group_name_H-M  'P 6/m m m'
+_symmetry_Int_Tables_number     191
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ '-x,-y,z'
+ 'y,-x+y,z'
+ 'x-y,x,z'
+ 'y,x,-z'
+ 'x-y,-y,-z'
+ '-x,-x+y,-z'
+ '-y,-x,-z'
+ '-x+y,y,-z'
+ 'x,x-y,-z'
+ '-x,-y,-z'
+ 'y,-x+y,-z'
+ 'x-y,x,-z'
+ 'x,y,-z'
+ '-y,x-y,-z'
+ '-x+y,-x,-z'
+ '-y,-x,z'
+ '-x+y,y,z'
+ 'x,x-y,z'
+ 'y,x,z'
+ 'x-y,-y,z'
+ '-x,-x+y,z'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si4+   0.0943    0.3584    0.5       2.05    0       0    absolute yes
+Si2      Si4+   0.166     0.4989    0.2121    2.05    0       0    absolute yes
+O1       O2-    0         0.2754    0.5      -1.025   0       0    absolute yes
+O2       O2-    0.1659    0.3318    0.5      -1.025   0       0    absolute yes
+O3       O2-    0.2657    0.5314    0.256    -1.025   0       0    absolute yes
+O4       O2-    0.1022    0.4142    0.3183   -1.025   0       0    absolute yes
+O5       O2-    0.4251    0.8502    0.2751   -1.025   0       0    absolute yes
+O6       O2-    0.1442    0.4772    0        -1.025   0       0    absolute yes
+
+

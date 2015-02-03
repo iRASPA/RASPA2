@@ -1,0 +1,8 @@
+David Dubbeldam  <Dubbeldam@uva.nl>
+
+specific parts, contributed (pseudo-)code:
+1) python-bindings, CrystalGenerator :Patrick Fuller <patrickfuller@gmail.com>
+2) inverse space groups: Juan Manuel Castillo Sanchez <jmcassan@upo.es>
+3) pore-size distribution code: Tina Düren <tina.duren@ed.ac.uk>, Lev Sarkisov <Lev.Sarkisov@ed.ac.uk>
+4) surface area code: Tina Düren <tina.duren@ed.ac.uk>, Lev Sarkisov <Lev.Sarkisov@ed.ac.uk>
+5) random number generator: Takuji Nishimura and Makoto Matsumoto.

@@ -1,0 +1,21 @@
+#number of pseudo atoms
+18
+#type      print   as    chem  oxidation   mass        charge   polarization B-factor radii  connectivity anisotropic anisotropic-type   tinker-type
+He         yes     He    He    0           4.002602    0.0      0.0          1.0      1.0    0            0           relative           0
+CH3_xyl    yes     C     C     0           15.03452    0.115    0.0          1.0      1.00   0            0           relative           0
+C_xyl      yes     C     C     0           12.0107    -0.115    0.0          1.0      1.00   0            0           relative           0
+H_xyl      yes     C     C     0           1.00794     0.115    0.0          1.0      1.00   0            0           relative           0
+CH4_sp3    yes     C     C     0           16.04246    0.0      0.0          1.0      1.00   0            0           relative           0
+CH3_sp3    yes     C     C     0           15.03452    0.0      0.0          1.0      1.00   0            0           relative           0
+CH2_sp3    yes     C     C     0           14.02658    0.0      0.0          1.0      1.00   0            0           relative           0
+CH_sp3     yes     C     C     0           13.01864    0.0      0.0          1.0      1.00   0            0           relative           0
+C_sp3      yes     C     C     0           12.0        0.0      0.0          1.0      1.00   0            0           relative           0
+C_co2      yes     C     C     0           12.0107     0.7      1.508        1.0      0.720  0            0           relative           0
+O_co2      yes     O     O     0           15.9994    -0.35     0.9475       1.0      0.68   0            0           relative           0
+N_n2       yes     N     N     0           14.00674   -0.482    0.0          1.0      0.7    0            0           relative           0
+N_com      no      N     N     0           0.0         0.964    0.0          1.0      0.7    0            0           relative           0
+H_h2       yes     H     H     0           1.00794     0.468    0.0          1.0      0.7    0            0           relative           0
+H_com      no      H     H     0           0.0        -0.936    0.0          1.0      0.7    0            0           relative           0
+Ar         yes     Ar    Ar    0           39.948      0.0      0.0          1.0      0.7    0            0           relative           0
+Kr         yes     Kr    Kr    0           83.798      0.0      0.0          1.0      1.00   0            0           relative           0
+Xe         yes     Xe    Xe    0           131.293     0.0      0.0          1.0      1.00   0            0           relative           0

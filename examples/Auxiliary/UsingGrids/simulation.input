@@ -1,0 +1,28 @@
+SimulationType                MonteCarlo
+NumberOfCycles                10000
+NumberOfInitializationCycles  1000
+PrintEvery                    1000
+
+Forcefield                    Dubbeldam2007FlexibleIRMOF-1
+ChargeMethod                  Ewald
+EwaldPrecision                1e-6
+
+Framework 0
+FrameworkName IRMOF-1
+UnitCells 1 1 1
+ExternalTemperature 298.0
+ExternalPressure 5000000.0
+
+NumberOfGrids 2
+GridTypes C_co2 O_co2
+SpacingVDWGrid 0.1
+SpacingCoulombGrid 0.1
+UseTabularGrid yes
+
+Component 0 MoleculeName                     CO2
+            MoleculeDefinition               TraPPE
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            SwapProbability                  1.0
+            CreateNumberOfMolecules          0

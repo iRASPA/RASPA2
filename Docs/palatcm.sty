@@ -1,0 +1,76 @@
+%%% This is file `palatcm.sty', version <1.0a> 
+%%% 
+%%% Copyright (C) 1994 Aloysius G. Helminck. All rights reserved. 
+%%% Permission is granted to to customize the declarations in this 
+%%% file to serve the needs of your installation. However, no permission
+%%% is granted to distribute a modified version of this file under 
+%%% its original name. 
+%%%
+%%% This style file redefines the math symbols to: zpplcmr, zpplcmrm, zpplcmry
+%%% and zpplcmrv. These fonts essentially are a combination of Palatino and
+%%% CM symbol fonts. 
+%%%  
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{palatcm}[1994/04/29 Palatino + CM math fonts]
+
+% The default family is Palatino
+
+\renewcommand{\rmdefault}{ppl}
+\def\bfdefault{b}
+
+% The math fonts are the pplcm fonts.
+
+\DeclareSymbolFont{operators}   {OT1}{pplcm}{m}{n}
+\DeclareSymbolFont{letters}     {OML}{pplcm}{m}{it}
+\DeclareSymbolFont{symbols}     {OMS}{pplcm}{m}{n}
+\DeclareSymbolFont{largesymbols}{OMX}{pplcm}{m}{n}
+%\DeclareSymbolFont{bold}        {OT1}{ppl}{\bfdefault}{n}
+%\DeclareSymbolFont{italic}      {OT1}{ppl}{m}{it}
+\SetMathAlphabet{\mathbf}{normal}{\encodingdefault}{\rmdefault}{\bfdefault}{n}%
+\SetMathAlphabet{\mathsf}{normal}{\encodingdefault}{\sfdefault}{m}{n}%
+\SetMathAlphabet{\mathrm}{normal}{\encodingdefault}{\rmdefault}{m}{n}%
+
+
+% Bold math from Palatino
+\SetSymbolFont{operators}{bold}{OT1}{pplcm}{b}{n}
+\SetSymbolFont{letters}{bold}{OML}{pplcm}{b}{it}
+\SetSymbolFont{symbols}{bold}{OMS}{pplcm}{b}{n}
+\SetSymbolFont{largesymbols}{bold}{OMX}{pplcm}{m}{n}
+\SetMathAlphabet{\mathbf}{bold}{\encodingdefault}{\rmdefault}{m}{n}%
+\SetMathAlphabet{\mathsf}{bold}{\encodingdefault}{\sfdefault}{b}{n}%
+\SetMathAlphabet{\mathrm}{bold}{\encodingdefault}{\rmdefault}{b}{n}%
+
+
+% An \omicron command, to fill the gap.
+
+\DeclareMathSymbol{\omicron}{0}{operators}{`\o}
+
+% Reduce the space around math operators
+
+\thinmuskip=2.5mu
+\medmuskip=3.5mu plus 1mu minus 1mu
+\thickmuskip=4.5mu plus 1.5mu minus 1mu
+
+% If you do not want boldmath, then uncomment the
+% following. 
+
+% \def\boldmath{%
+%    \@warning{there is no bold Symbol font}%
+%    \global\let\boldmath=\relax
+% }
+
+%%
+%%  \matrix can be defined similar as for AMSLaTeX:
+%%
+%
+%\newcount\c@MaxMatrixCols
+%\c@MaxMatrixCols=10
+%\def\matrix{\hskip -\arraycolsep\array{*\c@MaxMatrixCols c}}
+%\def\endmatrix{\endarray \hskip -\arraycolsep}
+%
+
+
+\endinput
+
+

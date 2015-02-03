@@ -1,0 +1,35 @@
+SimulationType                MolecularDynamics
+NumberOfCycles                1000000
+NumberOfInitializationCycles  10000
+NumberOfEquilibrationCycles   5000
+PrintEvery                    5000
+
+ContinueAfterCrash            no
+WriteBinaryRestartFileEvery   5000
+
+Ensemble                      NVT
+
+Forcefield                    GarciaPerez2006
+
+Box 0
+BoxLengths 24.0 24.0 24.0
+ComputeRDF yes
+WriteRDFEvery 10000
+RDFHistogramSize 300
+RDFRange 12.0
+
+ExternalTemperature 300.0
+
+Component 0 MoleculeName             methane
+            MoleculeDefinition       TraPPE
+            TranslationProbability   0.5
+            RotationProbability      0.5
+            ReinsertionProbability   1.0
+            CreateNumberOfMolecules  50
+
+Component 1 MoleculeName             ethane
+            MoleculeDefinition       TraPPE
+            TranslationProbability   0.5
+            RotationProbability      0.5
+            ReinsertionProbability   1.0
+            CreateNumberOfMolecules  50

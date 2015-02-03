@@ -1,0 +1,19 @@
+SimulationType               MolecularDynamics
+NumberOfCycles               500000
+NumberOfEquilibrationCycles  5000
+PrintEvery                   5000
+RestartFile                  no
+
+Ensemble                     NPT
+
+Forcefield                   Dubbeldam2007FlexibleIRMOF-1
+CutOff                       12.0
+
+Framework 0
+FrameworkName IRMOF-1
+UnitCells 1 1 1
+ExternalTemperature 298.0
+ExternalPressure 101325.0
+
+FlexibleFramework yes
+FrameworkDefinitions Dubbeldam2007FlexibleIRMOF-1

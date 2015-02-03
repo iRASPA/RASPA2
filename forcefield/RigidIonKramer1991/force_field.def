@@ -1,0 +1,9 @@
+# rules to overwrite
+0
+# number of defined interactions
+2
+# type      type2       interaction       
+O           O           buckingham      16115641.309790   2.76000   2030740.250000
+Si          O           buckingham     208919739.412956   4.87318   1549606.826163
+# mixing rules to overwrite
+0

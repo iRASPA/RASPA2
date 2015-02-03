@@ -1,0 +1,89 @@
+data_MFI
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-2-17
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'H. van Koningsveld, H. van Bekkum, and J. C. Jansen'
+_citation_title              'On the location and disorder of the tetrapropylammonium (TPA) ion in zeolite ZSM-5 with improved framework accuracy'
+_citation_journal_abbrev     'Acta Cryst.'
+_citation_journal_volume     B43
+_citation_page_first         127
+_citation_page_last          132
+_citation_year               1987
+
+_cell_length_a    20.022
+_cell_length_b    19.899
+_cell_length_c    13.383
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      5332.03
+
+_symmetry_cell_setting          orthorhombic
+_symmetry_space_group_name_Hall '-P 2ac 2n'
+_symmetry_space_group_name_H-M  'P n m a'
+_symmetry_Int_Tables_number     62
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x+1/2,-y,z+1/2'
+ '-x,y+1/2,-z'
+ 'x+1/2,-y+1/2,-z+1/2'
+ '-x,-y,-z'
+ 'x+1/2,y,-z+1/2'
+ 'x,-y+1/2,z'
+ '-x+1/2,y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si4+   0.42238   0.0565   -0.33598   2.05    0       0    absolute yes
+Si2      Si4+   0.30716   0.02772  -0.1893    2.05    0       0    absolute yes
+Si3      Si4+   0.27911   0.06127   0.0312    2.05    0       0    absolute yes
+Si4      Si4+   0.12215   0.06298   0.0267    2.05    0       0    absolute yes
+Si5      Si4+   0.07128   0.02722  -0.18551   2.05    0       0    absolute yes
+Si6      Si4+   0.18641   0.05896  -0.32818   2.05    0       0    absolute yes
+Si7      Si4+   0.42265  -0.1725   -0.32718   2.05    0       0    absolute yes
+Si8      Si4+   0.30778  -0.13016  -0.18548   2.05    0       0    absolute yes
+Si9      Si4+   0.27554  -0.17279   0.03109   2.05    0       0    absolute yes
+Si10     Si4+   0.12058  -0.1731    0.02979   2.05    0       0    absolute yes
+Si11     Si4+   0.07044  -0.13037  -0.182     2.05    0       0    absolute yes
+Si12     Si4+   0.18706  -0.17327  -0.31933   2.05    0       0    absolute yes
+O1       O2-    0.3726    0.0534   -0.2442   -1.025   0       0    absolute yes
+O2       O2-    0.3084    0.0587   -0.0789   -1.025   0       0    absolute yes
+O3       O2-    0.2007    0.0592    0.0289   -1.025   0       0    absolute yes
+O4       O2-    0.0969    0.0611   -0.0856   -1.025   0       0    absolute yes
+O5       O2-    0.1149    0.0541   -0.2763   -1.025   0       0    absolute yes
+O6       O2-    0.2435    0.0553   -0.246    -1.025   0       0    absolute yes
+O7       O2-    0.3742   -0.1561   -0.2372   -1.025   0       0    absolute yes
+O8       O2-    0.3085   -0.1552   -0.0728   -1.025   0       0    absolute yes
+O9       O2-    0.198    -0.1554    0.0288   -1.025   0       0    absolute yes
+O10      O2-    0.091    -0.1614   -0.0777   -1.025   0       0    absolute yes
+O11      O2-    0.1169   -0.1578   -0.2694   -1.025   0       0    absolute yes
+O12      O2-    0.2448   -0.1594   -0.2422   -1.025   0       0    absolute yes
+O13      O2-    0.3047   -0.051    -0.1866   -1.025   0       0    absolute yes
+O14      O2-    0.0768   -0.0519   -0.1769   -1.025   0       0    absolute yes
+O15      O2-    0.4161    0.1276   -0.3896   -1.025   0       0    absolute yes
+O16      O2-    0.4086   -0.0017   -0.4136   -1.025   0       0    absolute yes
+O17      O2-    0.402    -0.1314   -0.4239   -1.025   0       0    absolute yes
+O18      O2-    0.1886    0.1298   -0.3836   -1.025   0       0    absolute yes
+O19      O2-    0.194     0.0007   -0.4082   -1.025   0       0    absolute yes
+O20      O2-    0.1951   -0.1291   -0.419    -1.025   0       0    absolute yes
+O21      O2-   -0.0037    0.0502   -0.208    -1.025   0       0    absolute yes
+O22      O2-   -0.004    -0.1528   -0.2078   -1.025   0       0    absolute yes
+O23      O2-    0.4192   -0.25     -0.354    -1.025   0       0    absolute yes
+O24      O2-    0.1884   -0.25     -0.3538   -1.025   0       0    absolute yes
+O25      O2-    0.2883   -0.25      0.0579   -1.025   0       0    absolute yes
+O26      O2-    0.1085   -0.25      0.0611   -1.025   0       0    absolute yes
+
+

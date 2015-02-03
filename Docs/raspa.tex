@@ -1,0 +1,120 @@
+\documentclass[onecolumn]{book}
+\usepackage{fullpage}
+\usepackage{yfonts}
+\usepackage{palatcm}
+%\usepackage{mathpazo}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{eucal}
+\usepackage{nicefrac}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyvrb}
+\usepackage[english]{babel}
+\usepackage[small,bf,textfont=it,up,figurewithin=none]{caption}
+\usepackage[indention=15pt]{subfig}
+\usepackage{cite}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{colortbl}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{rotating}
+\usepackage{afterpage}
+\usepackage{verbatim}
+\usepackage{longtable}
+\usepackage{tablefootnote}
+\usepackage[dotinlabels]{titletoc}
+\usepackage[avantgarde]{quotchap}
+\usepackage[square,comma,numbers]{natbib}
+\usepackage{hyperref}
+\hypersetup{colorlinks,linktocpage=true,citecolor=[rgb]{0,0.0,1.0},linkcolor=Red}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{fancybox}
+\usepackage[framemethod=tikz]{mdframed}
+\usetikzlibrary{shadows}
+\usepackage[sectionbib]{chapterbib}
+
+\definecolor{red}{rgb}{1.0,0.0,0.0}
+\definecolor{blue}{rgb}{0.0,0.0,1.0}
+\definecolor{niceyellow}{rgb}{0.98,0.92,0.73}
+\definecolor{niceyellow2}{rgb}{0.88,0.82,0.63}
+\definecolor{nicegray}{rgb}{.753,.753,.753}
+\definecolor{light-gray}{rgb}{.853,.853,.853}
+\definecolor{light-blue}{rgb}{0.8,0.85,1}
+\definecolor{emerald}{rgb}{0.19,0.5,0.38}
+\definecolor{nicegreen}{rgb}{0.498,0.9,0.293}
+\definecolor{olive-drab}{rgb}{0.42,0.55,0.137}
+\definecolor{orange-red}{rgb}{1.0,0.27,0.0}
+
+\newmdenv[shadow=true,shadowcolor=black,font=\sffamily,rightmargin=8pt]{shadedbox}
+
+\newcommand{\dbar}{d\mkern-6mu\mathchar'26}
+
+
+\arraycolsep 3pt
+\tabcolsep 2pt
+\arrayrulewidth .4pt
+\doublerulesep 2pt
+\fboxsep  = 3.0pt
+\fboxrule = 0.4pt
+
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.95}
+
+%\addtolength{\textheight}{17mm}
+%\addtolength{\topmargin}{-7.5mm}
+
+
+\begin{document}
+\title{RASPA 2.0: Molecular Software Package for Adsorption and Diffusion in (Flexible) Nanoporous Materials
+\vskip 0.25cm
+\begin{figure}[H]
+\centering
+\includegraphics[width=4cm]{RHO.jpg}
+\end{figure}}
+\author{David Dubbeldam\footnote{email: d.dubbeldam@uva.nl}\\
+Van 't Hoff Institute of Molecular Sciences, University of Amsterdam,\\
+Science Park 904, 1098XH, Amsterdam, The Netherlands\\\\
+Sofia Calero\footnote{email: scalero@upo.es}\\
+Department of Physical, Chemical and Natural Systems,
+University Pablo de Olavide,\\
+Sevilla 41013, Spain\\\\
+Donald E. Ellis\footnote{email: don-ellis@northwestern.edu}\\
+Department of Physics and Astronomy, Northwestern University,\\
+2145 Sheridan Road, Evanston IL  60208  USA\\\\
+Randall Q. Snurr\footnote{email: snurr@northwestern.edu},\\
+Chemical and Biological Engineering Department, Northwestern University,\\
+2145 Sheridan Road, Evanston IL  60208,  USA}
+\maketitle
+
+\tableofcontents
+
+\part{RASPA}
+\include{Introduction/introduction}
+
+\include{InputFiles/input_files}
+\include{Potentials/potentials}
+\include{Examples/examples}
+\include{Code/code}
+\include{TroubleShooting/troubleshooting}
+
+\part{Utilities}
+\include{Visualization/visualization}
+
+\include{Appendix/appendix}
+
+\section*{Acknowledgements}
+We would like to thank the following people for their help and input to improve the program and for
+the very helpful discussions about the algorithms: Sayee Prasaad Balaji, Youn-Sang Bae, Xiaoying Bao, Roc\'io Bueno P\'erez,
+Nicholas C. Burtch, Tom Caremans, Ana Mart\'in Calvo, Yamil Colon,
+Juan Manuel Castillo Sanchez, Allison Dickey, Tina D\"uren, Titus van Erp, Denise Ford,
+Houston Frost, Rachel Getman,  Pritha Ghosh, Elena Garc\'ia P\'erez, Gloria Oxford, Sudeep Punnathanam, Almudena Garcia Sanchez, Juan Jose Gutierrez Sevillano,
+John J. Low, Patrick Merkling, Patrick Ryan, Lev Sarkisov, Ben Sikora, Ariana Torres Knoop, Krista S.\ Walton, Chris Wilmer, Ozgur Yazaydin, and Decai Yu.
+Very special thanks to Thijs Vlugt.
+
+\end{document}

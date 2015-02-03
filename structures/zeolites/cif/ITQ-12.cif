@@ -1,0 +1,62 @@
+data_ITQ-12
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-17
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'P.A. Barrett, T. Boix, M. Puche, D.H. Olson, E. Jordan, H. Koller, and M.A. Camblor'
+_citation_title              'ITQ-12: a new microporous silica polymorph potentially useful for light hydrocarbon separations'
+_citation_journal_abbrev     'Chem. Commun.'
+_citation_journal_volume     17
+_citation_page_first         2114
+_citation_page_last          2115
+_citation_year               2003
+
+_cell_length_a    10.4364
+_cell_length_b    15.0183
+_cell_length_c    8.8553
+_cell_angle_alpha 90
+_cell_angle_beta  105.739
+_cell_angle_gamma 90
+_cell_volume      24046.5
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall 'C -2y'
+_symmetry_space_group_name_H-M  'C 1 m 1'
+_symmetry_Int_Tables_number     8
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ 'x,-y,z'
+ 'x+1/2,y+1/2,z'
+ 'x+1/2,-y+1/2,z'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Si1      Si4+   0.64381    0.25094    0.11216    0 
+Si2      Si4+   0.68834    0.40196    0.67410    0 
+Si3      Si4+   0.58727    0.40045    0.32060    0 
+Si4      Si4+   0.34596    0.23827    0.90380    0 
+Si5      Si4+   0.29685    0.39517    0.33310    0 
+Si6      Si4+   0.39347    0.39416    0.69900    0 
+O1       O2-    0.65860    0.33990    0.21680    0 
+O2       O2-    0.43110    0.37360    0.28120    0 
+O3       O2-    0.66650    0.36870    0.49580    0 
+O4       O2-    0.74440    0.26320    0.00760    0 
+O5       O2-    0.73020    0.50000    0.74580    0 
+O6       O2-    0.50000    0.22680    0.99870    0 
+O7       O2-    0.80390    0.33470    0.76660    0 
+O8       O2-    0.60200    0.50000    0.25310    0 
+O9       O2-    0.18180    0.33750    0.21640    0 
+O10      O2-    0.37720    0.50000    0.72060    0 
+O11      O2-    0.34970    0.33520    0.82690    0 
+O12      O2-    0.55030    0.37530    0.71570    0 
+O13      O2-    0.31070    0.38670    0.51720    0 
+O14      O2-    0.26470    0.50000    0.31140    0 
+

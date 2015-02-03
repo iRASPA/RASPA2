@@ -1,0 +1,45 @@
+BoxLengths 51.75300 51.75300 27.14240   // the lengths of the cell-vectors
+CellAngles 90.0 90.0 120.0              // the angles of the cell-vectors
+
+OutputFileName "MgMOF-74-step1a"
+
+FrameworkAtoms OFF                 // don't draw the framework atoms
+
+CutOutShape OFF                    // Cut-out a shape (e.g. cylinder) to highlight everything inside the volume
+CutOutDirection Z                  // The orientation of the cut-out shape
+CutOutType CYLINDER                // the type of the shape is a cylinder
+CutOutRadius1 8.0                  // the radius of the cylinder,
+CutOutFractionalShift 0.5 0.5 0.5  // the center of the shape in fractional positions
+
+FrameworkSurface ON                                // draw the surface
+FrameworkAtomsFilename "../FrameworkAtoms.vtk"     // 
+FrameworkBondsFilename "../FrameworkBonds.vtk"     //
+FrameworkSurfaceFilename "../FrameworkSurface.vtk" //
+FrameworkRenderingMethod ISOSURFACE                // set the rendering method to isosurface
+IsoSurfaceMaterial GLASS                           // set the type of isosuface-material to 'glass'
+IsoSurfaceOpacity 0.1                              // set the opacity 
+
+DensityFilename "../Density.vtk"
+
+// control the properties of adsorbates
+AdsorbateAtomsFilename "../AdsorbateAtoms.vtk"
+AdsorbateOpacity 1.0 
+HighLightedAdsorbateOpacity 1.0
+ClipAdsorbates NONE
+
+// control of the cell-frame properties
+Frame FULL_CELL
+FrameOpacity 1.0 
+
+// zoom in or out by increasing/decreasing the zoom-factor
+ZoomFactor 1.9 
+
+// control the view-point of the oject (input in degrees)
+Azimuth 0.0 
+Elevation 0.0 
+Roll 0.0 
+
+ImageSize 500 300 // the size of the image in pixels
+
+Resolution 10            // the resolution of spheres and tubes, the higher the more smooth
+AA 1                     // anti-aliasing, use 1, but 8 for final picture

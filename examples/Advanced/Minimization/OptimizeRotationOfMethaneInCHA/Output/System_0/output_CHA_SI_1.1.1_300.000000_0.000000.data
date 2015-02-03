@@ -1,0 +1,2701 @@
+Compiler and run-time data
+===========================================================================
+RASPA 1.7-0
+Compiled as a 64-bits application
+Compiler: gcc 4.2.1 (Based on Apple Inc. build 5658) (LLVM build 2336.11.00)
+Compile Date = Feb  3 2013, Compile Time = 07:59:52
+
+Tue Feb  5 17:28:20 2013
+Simulation started on Tuesday, February 05.
+The start time was 05:28 PM.
+
+Cpu data:    x86_64
+Cpu Model:   MacPro5,1
+Host name:   server.darkwing.nl
+OS release:  12.2.0
+OS type:     Darwin
+OS version:  12C60
+
+
+Simulation
+===========================================================================
+Dimensions: 3
+Random number seed: 1360081700
+RASPA directory set to: /Users/dubbelda/RASPA/simulations/
+String appended to output-files: 
+Number of cycles: 1
+Number of initializing cycles: 0
+Number of equilibration cycles: 0
+Print every: 1
+Triclinic boundary condition applied
+Timestep: 0.000050
+Initialization Ensemble: NVT (constant number of particles N, constant volume V, constant average temperature T)
+Production run ensemble: NVT (constant number of particles N, constant volume V, constant average temperature T)
+	Degrees of freedom:                        6
+	Translational Degrees of freedom:          3
+	Rotational Degrees of freedom:             3
+	Degrees of freedom Framework:              0
+
+
+Mutual consistent basic set of units:
+======================================
+Unit of temperature: Kelvin
+Unit of length:      1e-10 [m]
+Unit of time:        1e-12 [s]
+Unit of mass:        1.66054e-27 [kg]
+Unit of charge:      1.60218e-19 [C/particle]
+
+Derived units and their conversion factors:
+===========================================
+Unit of energy:              1.66054e-23 [J]
+Unit of force:               1.66054e-13 [N]
+Unit of pressure:            1.66054e+07 [Pa]
+Unit of velocity:            100 [m/s]
+Unit of acceleration:        1e-08 [m^2/s]
+Unit of diffusion:           1e-08 [m^2/s]
+Unit of dipole moment:       1.60218e-29 [C.m]
+Unit of electric potential:  0.000103643 [V]
+Unit of electric field:      1.03643e+06 [V]
+Unit of polarizability:      1.54587e-35 [-]
+Unit of Coulomb potential:   167101.0800066561  [K]
+Unit of dielectric constant: 0.0000154587       [s^2 C^2/(kg m^3)]
+Unit of wave vectors:        5.3088374589       [cm^1]
+Boltzmann constant:          0.8314464919       [-]
+
+Internal conversion factors:
+===========================================
+Energy to Kelvin:                                    1.2027242847
+FH correction factor                                 2.0211930949
+Heat capacity conversion factor:                    10.0000088723
+From Debye to internal units:                        4.8032067991
+Isothermal compressibility conversion factor:        0.0000000602
+
+Energy conversion factors:
+===========================================
+From mdyne/A to kcal/mol/A^2:           143.933
+From mdyne/A to kj/mol/A^2:             602.214
+From mdyne/A to K/A^2:                  72429.7
+From mdyne A/rad^2 to kcal/mol/deg^2:   0.0438444
+
+
+Properties computed
+===========================================================================
+Movies: yes
+	Movie snapshots are appended to file every 1 cycles
+Radial Distribution Function: no
+Number of molecules GCMC histogram: no
+Histogram of the molecule positions: no
+Free energy profiles: no
+Pore Size Distribution Function: no
+End-to-end distance: no
+Histogram of the energy of the system: no
+Compute thermodynamic factors: no
+Framework spacing histograms: no
+Residence times histograms: no
+Distance histograms: no
+Bend Angle histograms: no
+Dihedral angle histograms: no
+Angle between planes histograms: no
+Molecule properties: no
+Infra-red spectra: no
+Mean-squared displacement using modified order-N algorithm: no
+Velocity-autocorrelation function modified order-N algorithm: no
+Rotational velocity-autocorrelation function modified order-N algorithm: no
+Molecular orientation-autocorrelation function modified order-N algorithm: no
+Mean-squared displacement (conventional algorithm): no
+Velocity-autocorrelation function (conventional algorithm): no
+3D density grid for adsorbates: no
+Compute cation an/or adsorption sites: no
+dcTST snapshots: no
+Compute pressure and stress: no
+
+
+VTK
+===========================================================================
+VTK fractional-range position framework atoms: [-0.001000,1.001000] [-0.001000,1.001000] [-0.001000,1.001000]
+VTK fractional-range position framework bonds: [-0.151000,1.151000] [-0.151000,1.151000] [-0.151000,1.151000]
+VTK fractional-range com-position adsorbate molecules: [-0.101000,1.101000] [-0.101000,1.101000] [-0.101000,1.101000]
+VTK fractional-range com-position cation molecules: [-0.101000,1.101000] [-0.101000,1.101000] [-0.101000,1.101000]
+	3D free energy grid made for the full simulation-cell
+
+
+Thermo/Baro-stat NHC parameters
+===========================================================================
+External temperature: 300.000000 [K]
+Beta: 0.004009 [energy unit]
+External Pressure: 0.000000 [Pa]
+
+
+Thermostat chain-length: 3
+Timescale parameter for thermostat: 0.150000 [ps]
+Barostat chain-length:   3
+Timescale parameter for barostat:   0.150000 [ps]
+
+Number of Yoshida-Suzuki decomposition steps: 5
+Number of respa steps: 5
+
+
+Method and settings for electrostatics
+===============================================================================
+Dielectric constant of the medium : 1.000000
+Charge from charge-equilibration: no
+Ewald summation is used (exact solution of a periodic system)
+Relative precision                : 1e-08
+Alpha convergence parameter       : 0.317887
+kvec (x,y,z)                      : 4 4 4
+
+
+CFC-RXMC parameters
+===========================================================================
+Number of reactions: 0
+
+
+Rattle parameters
+===========================================================================
+Distance constraint type: r^2-r^2_0
+Bend angle constraint type: theta-theta_0
+Dihedral angle constraint type: phi-phi_0
+Inversion-bend angle constraint type: chi-chi_0
+Out-of-plane distance constraint type: r-r_0
+
+
+Spectra parameters
+===========================================================================
+Compute normal modes: no
+
+
+Minimization parameters
+===========================================================================
+Generalized coordinates are: Cartesian center-of-mass, elements of the orientational matrix p1,p2,p3 and strain
+Potential derivatives are evaluated: analytically
+Translation of the system is removed from the generalized Hessian: no
+Rotation of the system is removed from the generalized Hessian: no
+Maximum step-length: 0.1
+Convergence factor: 1
+Maximum number of minimization steps: 10000
+Use gradients in the line-minimizations: yes
+RMS gradient tolerance: 1e-06
+Maximum gradient tolerance: 1e-06
+
+Distance constraints: 0
+Angle constraints: 0
+Dihedral constraints: 0
+
+Improper dihedral constraints: 0
+
+Inversion-bend constraints: 0
+
+Out-of-plane constraints: 0
+
+Harmonic distance constraints: 0
+Harmonic angle constraints: 0
+Harmonic dihedral constraints: 0
+
+Dihedral mid-point measurements: 0
+
+All framework atoms are fixed
+
+Fixed adsorbate atoms:  
+Fixed adsorbate groups (center-of-mass):  (0,0) 
+Fixed adsorbate groups (orientation):  
+
+Fixed cation atoms:  
+Fixed cation groups (center-of-mass):  
+Fixed cation groups (orientation):  
+
+
+dcTST parameters
+===========================================================================
+Free energy profiles computed: no
+Free energy profiles written every 5000 cycles
+Free energy mapping: mapped to a,b,c-coordinates
+BarrierPosition:       0.5000000000       0.5000000000       0.0000000000
+BarrierNormal:         0.0000000000       0.0000000000       0.0000000000
+Start with a molecule on top of the barrier: yes
+Maximum distance to barrier (e.g. distance to minumum free energy):       0.0000000000 [A]
+Maximum trajectory time:      10.0000000000 [ps]
+Each configuration is used with 5 different initial velocities
+
+
+Cbmc parameters
+===========================================================================
+Biasing method: using only the VDW part
+Number of trial positions:                             10
+Number of trial positions coupled Torsion-selection:   100
+Number of trial position for the first bead:           10
+Number of trial moves per open bead:                   150
+Target acceptance ratio small-mc scheme:               0.400000
+Energy overlap criteria:                               100000
+Minimal Rosenbluth factor:                             1e-150
+
+
+Pseudo atoms: 9
+===========================================================================
+Pseudo Atom[   0] Name UNIT     Oxidation: +0       Element: H    pdb-name: H    Scat. Types:   1   1 Mass=1.000000000  B-factor:1.000   
+                 Charge=1.000000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[   1] Name DUMMY    Oxidation: +0       Element: H    pdb-name: H    Scat. Types:   1   1 Mass=1.000000000  B-factor:1.000   
+                 Charge=0.000000000          Polarization=0.000000000  [A^3] (considered a chargeless atom and no polarization)  Interactions:  no
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[   2] Name O        Oxidation: +0       Element: O    pdb-name: O    Scat. Types:   9   8 Mass=15.999400000 B-factor:1.000   
+                 Charge=-1.025000000         Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    0.500 [A], Framework-atom: yes (charge from pseudo-atoms file)
+Pseudo Atom[   3] Name Oa       Oxidation: +0       Element: O    pdb-name: Oa   Scat. Types:   9  -1 Mass=15.999400000 B-factor:1.000   
+                 Charge=-1.200000000         Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    0.500 [A], Framework-atom:  no
+Pseudo Atom[   4] Name Si       Oxidation: +0       Element: Si   pdb-name: Si   Scat. Types:  15  14 Mass=28.085500000 B-factor:1.000   
+                 Charge=2.050000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions:  no
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    1.180 [A], Framework-atom: yes (charge from pseudo-atoms file)
+Pseudo Atom[   5] Name Al       Oxidation: +0       Element: Al   pdb-name: Al   Scat. Types:  14  13 Mass=26.981539000 B-factor:1.000   
+                 Charge=1.750000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions:  no
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    1.180 [A], Framework-atom:  no
+Pseudo Atom[   6] Name P        Oxidation: +0       Element: P    pdb-name: P    Scat. Types:  16  15 Mass=30.973760000 B-factor:1.000   
+                 Charge=2.350000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions:  no
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[   7] Name C_meth   Oxidation: +0       Element: C    pdb-name: C    Scat. Types:   7   6 Mass=16.042460000 B-factor:1.000   
+                 Charge=-0.400000000         Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[   8] Name H_meth   Oxidation: +0       Element: H    pdb-name: H    Scat. Types:   1   1 Mass=16.042460000 B-factor:1.000   
+                 Charge=0.100000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    1.000 [A], Framework-atom:  no
+
+
+Forcefield: Local
+===========================================================================
+CutOff VDW : 12.000000 (144.000000)
+CutOff VDW switching on: 10.800000 (116.640000)
+CutOff charge-charge : 12.000000 (144.000000)
+CutOff charge-charge switching on: 7.800000 (60.840000)
+CutOff charge-bonddipole : 12.000000 (144.000000)
+CutOff charge-bondipole switching on: 8.400000 (70.560000)
+CutOff bonddipole-bonddipole : 12.000000 (144.000000)
+CutOff bonddipole-bondipole switching on: 9.000000 (81.000000)
+Polarization is neglected
+All potentials are shifted to zero at the Cutoff
+
+General mixing rule: Lorentz-Berthelot mixing rules are used FIRST for cross terms
+0 cross terms are overwritten using the individual mixing rules from the file 'force_field_mixing_rules.def'
+and then 7 terms are overwritten using the specific interactions from the file 'force_field.def'
+
+The force field and all the interactions:
+   UNIT -    UNIT [LENNARD_JONES] p_0/k_B:   1.00000 [K], p_1: 1.00000 [A], shift/k_B:  -0.00000134 [K], tailcorrection: no
+      O -  C_meth [LENNARD_JONES] p_0/k_B:  89.00000 [K], p_1: 3.00700 [A], shift/k_B:  -0.08811616 [K], tailcorrection: no
+      O -  H_meth [LENNARD_JONES] p_0/k_B:  71.24000 [K], p_1: 2.60600 [A], shift/k_B:  -0.02988803 [K], tailcorrection: no
+     Oa -  C_meth [LENNARD_JONES] p_0/k_B:  89.00000 [K], p_1: 3.00700 [A], shift/k_B:  -0.08811616 [K], tailcorrection: no
+     Oa -  H_meth [LENNARD_JONES] p_0/k_B:  71.24000 [K], p_1: 2.60600 [A], shift/k_B:  -0.02988803 [K], tailcorrection: no
+ C_meth -  C_meth [LENNARD_JONES] p_0/k_B:  30.70000 [K], p_1: 3.60000 [A], shift/k_B:  -0.08945594 [K], tailcorrection: no
+ C_meth -  H_meth [LENNARD_JONES] p_0/k_B:  27.95201 [K], p_1: 2.98000 [A], shift/k_B:  -0.02621690 [K], tailcorrection: no
+ H_meth -  H_meth [LENNARD_JONES] p_0/k_B:  25.45000 [K], p_1: 2.36000 [A], shift/k_B:  -0.00588989 [K], tailcorrection: no
+
+
+MoleculeDefinitions:
+===========================================================================
+Component 0 [methane] (Adsorbate molecule)
+
+	MoleculeDefinitions: TraPPE-EH
+	Component contains (at least some) atoms which are charged
+	Component contains no atoms with point dipoles (polarization)
+	Component has a net charge of -0.000000
+
+	Ideal chain Rosenbluth weight: 1.000000
+	Ideal chain total energy: 0.000000
+
+	Critical temparure [K]: 190.564000
+	Critical pressure [Pa]: 4599200.000000
+	Acentric factor [-]: 0.011420
+
+	Vapour=stable, Liquid=metastable
+
+	MolFraction:           1.0000000000 [-]
+	Compressibility:       0.0000000000 [-]
+
+	Density of the bulk fluid phase:       0.0000000000 [kg/m^3]
+
+	Amount of excess molecules:       0.0000000000 [-]
+
+	Conversion factor molecules/unit cell -> mol/kg:       0.0000000000 [-]
+	Conversion factor molecules/unit cell -> gr/gr:       0.0000000000 [-]
+	Conversion factor molecules/unit cell -> cm^3 STP/gr:       0.0000000000 [-]
+	Conversion factor molecules/unit cell -> cm^3 STP/cm^3:       0.0000000000 [-]
+	Conversion factor mol/kg -> cm^3 STP/gr:       0.0000000000 [-]
+	Conversion factor mol/kg -> cm^3 STP/cm^3:       0.0000000000 [-]
+
+	Partial pressure:         0.00000000000000 [Pa]
+	                          0.00000000000000 [Torr]
+	                          0.00000000000000 [bar]
+	                          0.00000000000000 [atm]
+
+	Fugacity coefficient:      -1.0000000000 [-]
+
+	Partial fugacity:        -0.00000000000000 [Pa]
+	                         -0.00000000000000 [Torr]
+	                         -0.00000000000000 [bar]
+	                         -0.00000000000000 [atm]
+
+	Molecule contains 5 number of atoms
+		atom:    0  is of type:    7 [    C_meth] (group: 0)
+		atom:    1  is of type:    8 [    H_meth] (group: 0)
+		atom:    2  is of type:    8 [    H_meth] (group: 0)
+		atom:    3  is of type:    8 [    H_meth] (group: 0)
+		atom:    4  is of type:    8 [    H_meth] (group: 0)
+
+	Molecule contains 0 chirality centers
+
+	Molecule contains 1 number of groups
+
+		group: 0 containing: 5 elements
+		-------------------------------------------------
+		the group is rigid and nonlinear
+		Mass: 80.212300 [a.u.]
+		Mass: 158.642240 [kg/m^3]
+
+		Rotational Degrees of freedom: 3
+		Diagonalized inertia vector:      50.7336028953
+		                                  50.7335880659
+		                                  50.7335845422
+		number of atoms: 5
+			element: 0 atom: 0 [    C_meth] Charge: -0.400000 Anisotropy: 0.000000 Position: -0.000000  0.000000 -0.000000 Connectivity: 4 (1 2 3 4 )
+			element: 1 atom: 1 [    H_meth] Charge:  0.100000 Anisotropy: 0.000000 Position:  1.025293  0.000000 -0.367008 Connectivity: 1 (0 )
+			element: 2 atom: 2 [    H_meth] Charge:  0.100000 Anisotropy: 0.000000 Position: -0.687782  0.000000 -0.844320 Connectivity: 1 (0 )
+			element: 3 atom: 3 [    H_meth] Charge:  0.100000 Anisotropy: 0.000000 Position: -0.168755 -0.889165  0.605664 Connectivity: 1 (0 )
+			element: 4 atom: 4 [    H_meth] Charge:  0.100000 Anisotropy: 0.000000 Position: -0.168755  0.889165  0.605664 Connectivity: 1 (0 )
+		number of permanent dipoles: 0
+		number of polarizabilities: 0
+
+		Dipole:           0.0000004803 [D]
+		Quadrupole:      -0.0000004968       0.0000001693       0.0000003275 [D Angstrom]
+		Quadrupole tensor [D Angstrom]
+				      -0.0000004968       0.0000000000      -0.0000000000
+				       0.0000000000       0.0000001693       0.0000000000
+				      -0.0000000000       0.0000000000       0.0000003275
+
+	Starting bead for growth               : 0
+
+	Degrees of freedom                     : 6
+	Translational degrees of freedom       : 3
+	Rotational degrees of freedom          : 3
+	Vibrational degrees of freedom         : 0
+	Constraint degrees of freedom          : 0
+
+	Number of atoms                        : 5
+
+	Number of constraint bonds             : 0
+	Number of constraint bends             : 0
+	Number of constraint inversion bends   : 0
+	Number of constraint torsions          : 0
+	Number of constraint improper torsions : 0
+	Number of constraint improper torsions : 0
+
+	Number of bonds                        : 4
+	Number of Urey-Bradleys                : 0
+	Number of bends                        : 0
+	Number of inversion bends              : 0
+	Number of torsions                     : 0
+	Number of improper torsions            : 0
+	Number of improper torsions            : 0
+
+	Number of bond/bond cross terms        : 0
+	Number of bond/bend cross terms        : 0
+	Number of bend/bend cross terms        : 0
+	Number of stretch/torsion cross terms  : 0
+	Number of bend/torsion cross terms     : 0
+
+	Number of charges                      : 5
+	Number of bond-dipoles                 : 0
+
+	Number of intra Van der Waals                             : 0
+	Number of intra charge-charge Coulomb                     : 0
+	Number of intra charge-bonddipole Coulomb                 : 0
+	Number of intra bonddipole-bonddipole Coulomb             : 0
+
+	Number of excluded intra charge-charge Coulomb                     : 10
+	Number of excluded intra charge-bonddipole Coulomb                 : 0
+	Number of excluded intra bonddipole-bonddipole Coulomb             : 0
+
+	Number of cbmc-config moves                               : 0
+
+	Particle Moves:             
+		ProbabilityTranslationMove:                  33.333333
+			TranslationDirection:      XYZ
+		Percentage of random translation moves:       0.000000
+		Percentage of rotation moves:                 33.333333
+		Percentage of partial reinsertion moves:      0.000000
+		Percentage of regrow moves:                   33.333333
+		Percentage of regrow-in-place moves:          0.000000
+		Percentage of regrow-in-plane moves:          0.000000
+		Percentage of identity-change moves:          0.000000
+		Percentage of swap (insert/delete) moves:     0.000000
+		Percentage of Widom insertion moves:          0.000000
+		Percentage of surface-area moves:             0.000000
+		Percentage of Gibbs particle-transfer moves:  0.000000
+		Percentage of Gibbs identity-change moves:    0.000000
+
+	System Moves (percentage per cycle):
+		Percentage of parallel-tempering moves:       0.000000
+		Percentage of hyper-parallel-tempering moves: 0.000000
+		Percentage of parallel-mol-fraction moves:    0.000000
+			   Component A: 0 B: 1
+		Percentage of chiral inversion moves:         0.000000
+		Percentage of volume-change moves:            0.000000
+		Percentage of box-shape-change moves:         0.000000
+		Percentage of Gibbs volume-change moves:      0.000000
+		Percentage of Hybrid-NVE moves:               0.000000
+		Percentage of Hybrid-NPH moves:               0.000000
+		Percentage of Hybrid-NPHPR moves:             0.000000
+		Percentage of framework-change moves:         0.000000
+		Percentage of framework-shift moves:          0.000000
+
+	Moves are restricted: No
+	No biased sampling used for this component
+
+	Number of Bonds: 4
+	--------------------------------------------
+	Bond interaction 0: A=0 B=1 Type:RIGID_BOND
+		r_0=1.0890000000       [A]
+	Bond interaction 1: A=0 B=2 Type:RIGID_BOND
+		r_0=1.0889999564       [A]
+	Bond interaction 2: A=0 B=3 Type:RIGID_BOND
+		r_0=1.0890004072       [A]
+	Bond interaction 3: A=0 B=4 Type:RIGID_BOND
+		r_0=1.0890004072       [A]
+
+
+	number of identity-config changes: 1
+	--------------------------------------------
+	nr fixed 1: 0 
+
+	Number of pockets blocked in a unitcell: 0
+		Pockets are NOT blocked for this component
+
+
+
+Framework Status
+===========================================================================
+Lowenstein's rule obeyed by framework
+	Framework is modelled as: rigid
+
+	Number of charges:                               36
+	Number of bonddipoles:                           0
+
+
+System Properties
+===========================================================================
+Unit cell size: 9.459000 9.459000 9.459000
+Cell angles (radians)  alpha: 1.641831 beta: 1.641831 gamma: 1.641831
+Cell angles (degrees)  alpha: 94.070000 beta: 94.070000 gamma: 94.070000
+Number of unitcells [a]: 1
+Number of unitcells [b]: 1
+Number of unitcells [c]: 1
+
+TRICLINIC Boundary conditions: alpha!=90 or beta!=90 or gamma!=90
+
+Cartesian axis A is collinear with crystallographic axis a
+Cartesian axis B is collinear with (axb)xA
+Cartesian axis C is collinear with (axb)
+
+lengths of cell vectors:
+  9.45900   9.45900   9.45900
+cosines of cell angles:
+ -0.07098  -0.07098  -0.07098
+perpendicular cell widths:
+  9.40757   9.40757   9.40757
+volume of the cell:   839.597795610128 (A^3)
+
+Orthogonalization matrix Box
+Transforms fractional coordinates abc into orthonormal Cartesian coordinates xyz
+Deorthogonalization matrix InverseBox
+Transforms orthonormal Cartesian coordinates xyz into fractional coordinates xyz
+
+Box[0]:
+	    9.459000000000    -0.671354187733    -0.671354187733
+	    0.000000000000     9.435145179308    -0.720821521864
+	    0.000000000000     0.000000000000     9.407570403044
+
+Inverse box[0]:
+	    0.105719420658     0.007522425404     0.008120853593
+	   -0.000000000000     0.105986710432     0.008120853593
+	    0.000000000000    -0.000000000000     0.106297370857
+
+
+Unitcell box[0]:
+	    9.459000000000    -0.671354187733    -0.671354187733
+	    0.000000000000     9.435145179308    -0.720821521864
+	    0.000000000000     0.000000000000     9.407570403044
+
+Unitcell inverse box[0]:
+	    0.105719420658     0.007522425404     0.008120853593
+	   -0.000000000000     0.105986710432     0.008120853593
+	    0.000000000000    -0.000000000000     0.106297370857
+
+lengths of cell vectors (inverse box):
+  0.10572   0.10625   0.10692
+cosines of cell angles (inverse box):
+  0.08114   0.07596   0.07080
+perpendicular cell widths (inverse):
+  0.10519   0.10568   0.10630
+volume of the cell:   839.597795610128 (A^3)
+
+Number of Replica Cells: 3 3 3
+Replica Box:
+	   28.377000000000    -2.014062563199    -2.014062563199
+	    0.000000000000    28.305435537923    -2.162464565591
+	    0.000000000000     0.000000000000    28.222711209132
+
+Shift of the Replica cells:
+	[cell:  0]     0.000000000000     0.000000000000     0.000000000000
+	[cell:  1]    -0.671354187733    -0.720821521864     9.407570403044
+	[cell:  2]    -1.342708375466    -1.441643043727    18.815140806088
+	[cell:  3]    -0.671354187733     9.435145179308     0.000000000000
+	[cell:  4]    -1.342708375466     8.714323657444     9.407570403044
+	[cell:  5]    -2.014062563199     7.993502135581    18.815140806088
+	[cell:  6]    -1.342708375466    18.870290358615     0.000000000000
+	[cell:  7]    -2.014062563199    18.149468836752     9.407570403044
+	[cell:  8]    -2.685416750932    17.428647314888    18.815140806088
+	[cell:  9]     9.459000000000     0.000000000000     0.000000000000
+	[cell: 10]     8.787645812267    -0.720821521864     9.407570403044
+	[cell: 11]     8.116291624534    -1.441643043727    18.815140806088
+	[cell: 12]     8.787645812267     9.435145179308     0.000000000000
+	[cell: 13]     8.116291624534     8.714323657444     9.407570403044
+	[cell: 14]     7.444937436801     7.993502135581    18.815140806088
+	[cell: 15]     8.116291624534    18.870290358615     0.000000000000
+	[cell: 16]     7.444937436801    18.149468836752     9.407570403044
+	[cell: 17]     6.773583249068    17.428647314888    18.815140806088
+	[cell: 18]    18.918000000000     0.000000000000     0.000000000000
+	[cell: 19]    18.246645812267    -0.720821521864     9.407570403044
+	[cell: 20]    17.575291624534    -1.441643043727    18.815140806088
+	[cell: 21]    18.246645812267     9.435145179308     0.000000000000
+	[cell: 22]    17.575291624534     8.714323657444     9.407570403044
+	[cell: 23]    16.903937436801     7.993502135581    18.815140806088
+	[cell: 24]    17.575291624534    18.870290358615     0.000000000000
+	[cell: 25]    16.903937436801    18.149468836752     9.407570403044
+	[cell: 26]    16.232583249068    17.428647314888    18.815140806088
+
+Framework is simulated as 'rigid'
+Number of framework atoms: 36
+Number of framework atoms in the unit cell: 36
+Framework Mass:   721.011600000000 [g/mol]
+Framework Density:  1426.001462216283 [kg/m^3]    0.7012615530182 [cm^3/g]
+Helium void fraction:    0.00000000
+Available pore volume:    0.00000000 [A^3]    0.00000000 [cm^3/g]
+Conversion factor from molecule/unit cell -> kmol/m^3: 1.97778, kmol/m^3 accesible pore volume: inf
+
+Number Of Frameworks (per system): 1
+----------------------------------------------------------------------
+Framework name: CHA_SI
+Citation:
+	author name:        'M. Calligaris, G. Nardin, and L. Randaccio'
+	title:              'Cation site location in hydrated chabazites - crystal structure of potassium-exchanged and silver-exchanged chabazites'
+	journal abbrev.:    'Zeolites'
+	journal volume:     3
+	first page:         205
+	last page:          208
+	year:               1983
+Space group: 166
+	Identifier: 459
+	short international Hermann-Mauguin symbol: R -3 m:R
+	long international Hermann-Mauguin symbol: R -3 2/m:R
+	Hall symbol: -P 3* 2
+	Number of lattice translations: 1 [ (0,0,0) ]
+	acentric/centric: acentric
+	chiral: yes
+	enantiomorphic: no
+	number of operators: 12
+		'x,y,z'
+		'z,x,y'
+		'y,z,x'
+		'-y,-x,-z'
+		'-x,-z,-y'
+		'-z,-y,-x'
+		'-x,-y,-z'
+		'-z,-x,-y'
+		'-y,-z,-x'
+		'y,x,z'
+		'x,z,y'
+		'z,y,x'
+Framework is simulated as 'rigid'
+Shift: 0.000000 0.000000 0.000000
+Number of framework atoms: 36
+Number of asymmetric atoms: 5
+Number of free framework atoms: 0
+Number of fixed framework atoms: 36
+Number of framework atoms in the unit cell: 36
+Framework Mass:   721.011600000000 [g/mol]
+Framework Density:  1426.001462216283 [kg/m^3]
+Framework has net charge: -0.000000
+         largest charge : 2.050000
+         smallest charge: -1.025000
+
+Using FULL Host-guest interaction calculation (for testing purposes)
+
+Current Atom Status
+===========================================================================
+Number of framework atoms        : 36
+Number of cations molecules      : 0
+Number of adsorbate molecules    : 1
+Component    0 :    1 molecules
+Pseudo Atoms    0 [    UNIT]:    0 atoms
+Pseudo Atoms    1 [   DUMMY]:    0 atoms
+Pseudo Atoms    2 [       O]:   24 atoms
+Pseudo Atoms    3 [      Oa]:    0 atoms
+Pseudo Atoms    4 [      Si]:   12 atoms
+Pseudo Atoms    5 [      Al]:    0 atoms
+Pseudo Atoms    6 [       P]:    0 atoms
+Pseudo Atoms    7 [  C_meth]:    1 atoms
+Pseudo Atoms    8 [  H_meth]:    4 atoms
+
+
+Current (running) Energy Status
+===========================================================================
+
+Internal energy:
+Host stretch energy:                                               0.00000
+Host UreyBradley energy:                                           0.00000
+Host bend energy:                                                  0.00000
+Host inversion-bend energy:                                        0.00000
+Host torsion energy:                                               0.00000
+Host improper torsion energy:                                      0.00000
+Host out-of-plane energy:                                          0.00000
+Host stretch/stretch energy:                                       0.00000
+Host bend/bend energy:                                             0.00000
+Host stretch/bend energy:                                          0.00000
+Host stretch/torsion energy:                                       0.00000
+Host bend/torsion energy:                                          0.00000
+
+Adsorbate stretch energy:                                          0.00000
+Adsorbate UreyBradley energy:                                      0.00000
+Adsorbate bend energy:                                             0.00000
+Adsorbate inversion-bend energy:                                   0.00000
+Adsorbate torsion energy:                                          0.00000
+Adsorbate improper torsion energy:                                 0.00000
+Adsorbate out-of-plane energy:                                     0.00000
+Adsorbate stretch/stretch energy:                                  0.00000
+Adsorbate bend/bend energy:                                        0.00000
+Adsorbate stretch/bend energy:                                     0.00000
+Adsorbate stretch/torsion energy:                                  0.00000
+Adsorbate bend/torsion energy:                                     0.00000
+Adsorbate intra VDW energy:                                        0.00000
+Adsorbate intra charge-charge Coulomb energy:                      0.00000
+Adsorbate intra charge-bonddipole Coulomb energy:                  0.00000
+Adsorbate intra bonddipole-bonddipole Coulomb energy:              0.00000
+
+Cation stretch energy:                                             0.00000
+Cation UreyBradley energy:                                         0.00000
+Cation bend energy:                                                0.00000
+Cation inversion-bend energy:                                      0.00000
+Cation torsion energy:                                             0.00000
+Cation improper torsion energy:                                    0.00000
+Cation out-of-plane energy:                                        0.00000
+Cation stretch/stretch energy:                                     0.00000
+Cation bend/bend energy:                                           0.00000
+Cation stretch/bend energy:                                        0.00000
+Cation stretch/torsion energy:                                     0.00000
+Cation bend/torsion energy:                                        0.00000
+Cation intra VDW energy:                                           0.00000
+Cation intra charge-charge Coulomb energy:                         0.00000
+Cation intra charge-bonddipole Coulomb energy:                     0.00000
+Cation intra bonddipole-bonddipole Coulomb energy:                 0.00000
+
+Host/Host energy:                                                0.00000
+	Host/Host VDW energy:                                            0.00000
+	Host/Host Coulomb energy:                                        0.00000
+	Host/Host charge-charge Real energy:                             0.00000
+	Host/Host charge-charge Fourier energy:                          0.00000
+	Host/Host charge-bonddipole Real energy:                         0.00000
+	Host/Host charge-bonddipole Fourier energy:                      0.00000
+	Host/Host bondipole-bonddipole Real energy:                      0.00000
+	Host/Host bondipole-bonddipole Fourier energy:                   0.00000
+
+Host/Adsorbate energy:                                        -613.03903
+	Host/Adsorbate VDW energy:                                    -509.25055
+	Host/Adsorbate Coulomb energy:                                -103.78849
+	Host/Adsorbate charge-charge Real energy:                     -426.23252
+	Host/Adsorbate charge-charge Fourier energy:                   322.44403
+	Host/Adsorbate charge-bonddipole Real energy:                    0.00000
+	Host/Adsorbate charge-bonddipole Fourier energy:                 0.00000
+	Host/Adsorbate bondipole-bonddipole Real energy:                 0.00000
+	Host/Adsorbate bondipole-bonddipole Fourier energy:              0.00000
+
+Host/Cation energy:                                              0.00000
+	Host/Cation VDW energy:                                          0.00000
+	Host/Cation Coulomb energy:                                      0.00000
+	Host/Cation charge-charge Real energy:                           0.00000
+	Host/Cation charge-charge Fourier energy:                        0.00000
+	Host/Cation charge-bonddipole Real energy:                       0.00000
+	Host/Cation charge-bonddipole Fourier energy:                    0.00000
+	Host/Cation bondipole-bonddipole Real energy:                    0.00000
+	Host/Cation bondipole-bonddipole Fourier energy:                 0.00000
+
+Adsorbate/Adsorbate energy:                                          -4.11488
+	Adsorbate/Adsorbate VDW energy:                                      -4.09062
+	Adsorbate/Adsorbate Coulomb energy:                                  -0.02426
+	Adsorbate/Adsorbate charge-charge Real energy:                        0.08964
+	Adsorbate/Adsorbate charge-charge Fourier energy:                    -0.11391
+	Adsorbate/Adsorbate charge-bonddipole Real energy:                    0.00000
+	Adsorbate/Adsorbate charge-bonddipole Fourier energy:                 0.00000
+	Adsorbate/Adsorbate bondipole-bonddipole Real energy:                 0.00000
+	Adsorbate/Adsorbate bondipole-bonddipole Fourier energy:              0.00000
+
+Adsorbate/Cation energy:                                              0.00000
+	Adsorbate/Cation VDW energy:                                          0.00000
+	Adsorbate/Cation Coulomb energy:                                      0.00000
+	Adsorbate/Cation charge-charge Real energy:                           0.00000
+	Adsorbate/Cation charge-charge Fourier energy:                        0.00000
+	Adsorbate/Cation charge-bonddipole Real energy:                       0.00000
+	Adsorbate/Cation charge-bonddipole Fourier energy:                    0.00000
+	Adsorbate/Cation bondipole-bonddipole Real energy:                    0.00000
+	Adsorbate/Cation bondipole-bonddipole Fourier energy:                 0.00000
+
+Cation/Cation energy:                                              0.00000
+	Cation/Cation VDW energy:                                          0.00000
+	Cation/Cation Coulomb energy:                                      0.00000
+	Cation/Cation charge-charge Real energy:                           0.00000
+	Cation/Cation charge-charge Fourier energy:                        0.00000
+	Cation/Cation charge-bonddipole Real energy:                       0.00000
+	Cation/Cation charge-bonddipole Fourier energy:                    0.00000
+	Cation/Cation bondipole-bonddipole Real energy:                    0.00000
+	Cation/Cation bondipole-bonddipole Fourier energy:                 0.00000
+
+Polarization energy:
+	Host polarization energy:                                        0.00000
+	Adsorbate polarization energy:                                   0.00000
+	Cation polarization energy:                                      0.00000
+	Host back-polarization energy:                                        0.00000
+	Adsorbate back-polarization energy:                                   0.00000
+	Cation back-polarization energy:                                      0.00000
+
+Tail-correction energy:                                          0.00000
+
+Distance constraints energy:                                     0.00000
+Angle constraints energy:                                        0.00000
+Dihedral constraints energy:                                     0.00000
+Inversion-bend constraints energy:                               0.00000
+Out-of-plane distance constraints energy:                        0.00000
+Exclusion constraints energy:                                    0.00000
+
+===================================================================
+Total energy:  -617.153910925761
+	Total Van der Waals: -513.341161
+	Total Coulomb: -103.812750
+
+	Total Polarization: 0.000000
+
+
+
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Starting simulation
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Total number of variables used in the minimization: 3
+Number of cell-variables used in the minimization: 0
+Total number of variables used for generalized coordinates in the minimization: 3
+Total number of variables used for positions in the minimization: 0
+Total number of variables used for orientation in the minimization: 3
+
+Minimization initial volume:     839.5977956101 [A^3]
+Minimization initial energy:    -617.1539109258 [K]
+Minimization initial strain:       0.0000000000 [-]
+Minimization initial box:       9.4590000000      -0.6713541877      -0.6713541877[-]
+                                0.0000000000       9.4351451793      -0.7208215219[-]
+                                0.0000000000       0.0000000000       9.4075704030[-]
+
+Beginning Baker minimization:
+-----------------------------
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:  -11423.8210035038 Lowest eigenvalue:  -11377.9488918149
+Iteration: 0 Energy:    -617.1539109258 Volume:     839.5977956101 RMS gradient: 327.334  Max gradient: 750.831 Number of negative eigenvalues: 2 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -17361.1650949531   -6822.7444858814   -5879.4231493509
+                 0.0000000000       9.4351451793      -0.7208215219                          -6822.7444858814  -18670.9158709394   -6126.2185809522
+                 0.0000000000       0.0000000000       9.4075704030                          -5879.4231493509   -6126.2185809522   -2025.8081650902
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -8318.8331001012 Lowest eigenvalue:   -8008.8977008064
+Iteration: 1 Energy:    -767.5353608663 Volume:     839.5977956101 RMS gradient: 612.782  Max gradient: 1420.61 Number of negative eigenvalues: 2 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -16477.1090052129   -5778.6343147454   -5118.3391990079
+                 0.0000000000       9.4351451793      -0.7208215219                          -5778.6343147454  -17378.2680801801   -5011.3081349657
+                 0.0000000000       0.0000000000       9.4075704030                          -5118.3391990079   -5011.3081349657   -1384.3346476163
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -5700.3694689471 Lowest eigenvalue:   -5691.8412396309
+Iteration: 2 Energy:   -1002.5320063750 Volume:     839.5977956101 RMS gradient: 775.779  Max gradient: 1759.72 Number of negative eigenvalues: 2 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -14816.8085157465   -3838.8532572233   -4168.5747861433
+                 0.0000000000       9.4351451793      -0.7208215219                          -3838.8532572233  -15282.8680364211   -3717.3279615892
+                 0.0000000000       0.0000000000       9.4075704030                          -4168.5747861433   -3717.3279615892    -756.7999082070
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -5216.5734584506 Lowest eigenvalue:   -5215.1648463762
+Iteration: 3 Energy:   -1066.9941237956 Volume:     839.5977956101 RMS gradient: 796.641  Max gradient: 1575.29 Number of negative eigenvalues: 2 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -14534.2514855248   -3010.5531837180   -4059.7662688224
+                 0.0000000000       9.4351451793      -0.7208215219                          -3010.5531837180  -14482.0489438620   -3274.5885373676
+                 0.0000000000       0.0000000000       9.4075704030                          -4059.7662688224   -3274.5885373676    -647.8188497516
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -4798.9587084286 Lowest eigenvalue:   -4788.7321256142
+Iteration: 4 Energy:   -1109.4672405156 Volume:     839.5977956101 RMS gradient: 802.291  Max gradient: 1860.27 Number of negative eigenvalues: 2 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -14342.6620771546   -2498.5719816110   -4086.4959028811
+                 0.0000000000       9.4351451793      -0.7208215219                          -2498.5719816110  -13881.3091497399   -3065.8193580389
+                 0.0000000000       0.0000000000       9.4075704030                          -4086.4959028811   -3065.8193580389    -666.1809088572
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -4804.7622030845 Lowest eigenvalue:   -4799.7814199553
+Iteration: 5 Energy:   -1170.3992607006 Volume:     839.5977956101 RMS gradient: 804.819  Max gradient: 1562.68 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -13659.7793345164   -2240.8257440395   -3682.9905709796
+                 0.0000000000       9.4351451793      -0.7208215219                          -2240.8257440395  -13631.9906582886   -2867.2788578751
+                 0.0000000000       0.0000000000       9.4075704030                          -3682.9905709796   -2867.2788578751    -462.2527075173
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -4261.7674063899 Lowest eigenvalue:   -4261.6686716307
+Iteration: 6 Energy:   -1219.3365725884 Volume:     839.5977956101 RMS gradient: 809.613  Max gradient: 1866.74 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -13351.2362300907   -1762.7965848499   -3672.1327018338
+                 0.0000000000       9.4351451793      -0.7208215219                          -1762.7965848499  -13042.1914566290   -2677.7342568258
+                 0.0000000000       0.0000000000       9.4075704030                          -3672.1327018338   -2677.7342568258    -474.9270672971
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -4079.3312623419 Lowest eigenvalue:   -4036.3362747712
+Iteration: 7 Energy:   -1246.9796331282 Volume:     839.5977956101 RMS gradient: 801.023  Max gradient: 2077.26 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -13200.3770306162   -1467.1917863340   -3762.5535935747
+                 0.0000000000       9.4351451793      -0.7208215219                          -1467.1917863340  -12603.7115052104   -2635.2556931612
+                 0.0000000000       0.0000000000       9.4075704030                          -3762.5535935747   -2635.2556931612    -572.6818258876
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -3725.5351528000 Lowest eigenvalue:   -3719.6369074682
+Iteration: 8 Energy:   -1330.7122020875 Volume:     839.5977956101 RMS gradient: 797.683  Max gradient: 1861.15 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -12335.3961608093   -1023.5424543471   -3287.8486660634
+                 0.0000000000       9.4351451793      -0.7208215219                          -1023.5424543471  -12173.5666842533   -2320.3931168300
+                 0.0000000000       0.0000000000       9.4075704030                          -3287.8486660634   -2320.3931168300    -315.6723533218
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -3322.5379458484 Lowest eigenvalue:   -3313.8343538689
+Iteration: 9 Energy:   -1372.9529564687 Volume:     839.5977956101 RMS gradient: 791.15  Max gradient: 2041.79 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -11993.2671197440    -718.8402708540   -3302.1007969108
+                 0.0000000000       9.4351451793      -0.7208215219                           -718.8402708540  -11692.3092018198   -2267.4156778514
+                 0.0000000000       0.0000000000       9.4075704030                          -3302.1007969108   -2267.4156778514    -388.2058039800
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -3328.9885339728 Lowest eigenvalue:   -3312.8680924216
+Iteration: 10 Energy:   -1417.5984440825 Volume:     839.5977956101 RMS gradient: 776.488  Max gradient: 1824.42 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -11528.7152782993    -500.1780363264   -2998.8419561920
+                 0.0000000000       9.4351451793      -0.7208215219                           -500.1780363264  -11500.2964624669   -2072.3765547667
+                 0.0000000000       0.0000000000       9.4075704030                          -2998.8419561920   -2072.3765547667    -204.5544392127
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -2812.0337660066 Lowest eigenvalue:   -2811.9728057514
+Iteration: 11 Energy:   -1468.8512136336 Volume:     839.5977956101 RMS gradient: 770.183  Max gradient: 1980.77 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -11064.4737848201    -207.7127413634   -2967.4731009489
+                 0.0000000000       9.4351451793      -0.7208215219                           -207.7127413634  -10997.1266054551   -2018.7918662734
+                 0.0000000000       0.0000000000       9.4075704030                          -2967.4731009489   -2018.7918662734    -262.5530856334
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -3022.9495762722 Lowest eigenvalue:   -2994.7239237614
+Iteration: 12 Energy:   -1487.6642621597 Volume:     839.5977956101 RMS gradient: 752.129  Max gradient: 1776.83 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -10872.8686119015    -113.0183125569   -2774.0613821954
+                 0.0000000000       9.4351451793      -0.7208215219                           -113.0183125569  -10955.5101443463   -1890.9097149163
+                 0.0000000000       0.0000000000       9.4075704030                          -2774.0613821954   -1890.9097149163    -123.5726166592
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -2440.0024475777 Lowest eigenvalue:   -2435.9540020279
+Iteration: 13 Energy:   -1545.2046910746 Volume:     839.5977956101 RMS gradient: 745.532  Max gradient: 1913.45 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -10323.7479144963     160.3578623061   -2712.8680763090
+                 0.0000000000       9.4351451793      -0.7208215219                            160.3578623061  -10436.9033121684   -1838.9288026228
+                 0.0000000000       0.0000000000       9.4075704030                          -2712.8680763090   -1838.9288026228    -171.7498079806
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -2317.5139711993 Lowest eigenvalue:   -2278.9173578079
+Iteration: 14 Energy:   -1574.2868172426 Volume:     839.5977956101 RMS gradient: 730.333  Max gradient: 1980.98 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:  -10011.9693369455     359.7197100210   -2725.9802139533
+                 0.0000000000       9.4351451793      -0.7208215219                            359.7197100210  -10143.3707715840   -1887.7679965456
+                 0.0000000000       0.0000000000       9.4075704030                          -2725.9802139533   -1887.7679965456    -275.9881853660
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -2018.9535608549 Lowest eigenvalue:   -2000.8775652376
+Iteration: 15 Energy:   -1633.2772920722 Volume:     839.5977956101 RMS gradient: 709.53  Max gradient: 1829.69 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -9463.1885382618     561.2248712404   -2440.2261573028
+                 0.0000000000       9.4351451793      -0.7208215219                            561.2248712404   -9779.2342739206   -1656.4682008535
+                 0.0000000000       0.0000000000       9.4075704030                          -2440.2261573028   -1656.4682008535     -87.3654049897
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -1768.7796052801 Lowest eigenvalue:   -1750.8091112489
+Iteration: 16 Energy:   -1674.1487543323 Volume:     839.5977956101 RMS gradient: 693.282  Max gradient: 1872.87 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -9001.9438106709     760.5840698435   -2396.6881309264
+                 0.0000000000       9.4351451793      -0.7208215219                            760.5840698435   -9446.1532106502   -1698.2416283570
+                 0.0000000000       0.0000000000       9.4075704030                          -2396.6881309264   -1698.2416283570    -172.5696043328
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -1667.0762328841 Lowest eigenvalue:   -1621.1416011123
+Iteration: 17 Energy:   -1713.8007771750 Volume:     839.5977956101 RMS gradient: 669.98  Max gradient: 1736.11 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -8680.7503601586     859.0021181156   -2205.7678704272
+                 0.0000000000       9.4351451793      -0.7208215219                            859.0021181156   -9164.6326502608   -1512.1881918882
+                 0.0000000000       0.0000000000       9.4075704030                          -2205.7678704272   -1512.1881918882     -19.6727716862
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -1297.8828961138 Lowest eigenvalue:   -1295.4909205095
+Iteration: 18 Energy:   -1766.4477600483 Volume:     839.5977956101 RMS gradient: 651.068  Max gradient: 1753.69 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -8082.5183004775    1046.5412487642   -2115.7374733174
+                 0.0000000000       9.4351451793      -0.7208215219                           1046.5412487642   -8776.6082546793   -1545.6953959020
+                 0.0000000000       0.0000000000       9.4075704030                          -2115.7374733174   -1545.6953959020     -87.6743059676
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -1394.0354947801 Lowest eigenvalue:   -1302.9762520744
+Iteration: 19 Energy:   -1784.5523811834 Volume:     839.5977956101 RMS gradient: 629.947  Max gradient: 1640.91 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -8002.0776970527    1062.1248282040   -2012.6966841811
+                 0.0000000000       9.4351451793      -0.7208215219                           1062.1248282040   -8607.9983261465   -1402.1434502504
+                 0.0000000000       0.0000000000       9.4075704030                          -2012.6966841811   -1402.1434502504      32.8211294625
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:    -927.4692132843 Lowest eigenvalue:    -915.5438776057
+Iteration: 20 Energy:   -1848.5545553457 Volume:     839.5977956101 RMS gradient: 607.146  Max gradient: 1633.16 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -7284.3313137491    1227.4993653276   -1886.9830169482
+                 0.0000000000       9.4351451793      -0.7208215219                           1227.4993653276   -8151.0260482169   -1425.7369737763
+                 0.0000000000       0.0000000000       9.4075704030                          -1886.9830169482   -1425.7369737763     -20.0175937364
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:   -1028.1028792601 Lowest eigenvalue:    -896.6528684505
+Iteration: 21 Energy:   -1879.7281107678 Volume:     839.5977956101 RMS gradient: 583.55  Max gradient: 1603.95 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -6816.8181286010    1396.7214748826   -1809.8426576484
+                 0.0000000000       9.4351451793      -0.7208215219                           1396.7214748826   -7999.5411908144   -1532.3285583405
+                 0.0000000000       0.0000000000       9.4075704030                          -1809.8426576484   -1532.3285583405    -113.6042812336
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:    -660.0775157119 Lowest eigenvalue:    -449.2116272021
+Iteration: 22 Energy:   -1956.1724678239 Volume:     839.5977956101 RMS gradient: 541.454  Max gradient: 1463.03 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -6231.8319507333    1412.2772897740   -1613.6421871454
+                 0.0000000000       9.4351451793      -0.7208215219                           1412.2772897740   -7310.8105436800   -1304.9669273186
+                 0.0000000000       0.0000000000       9.4075704030                          -1613.6421871454   -1304.9669273186      42.2713392835
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:    -513.3075537960 Lowest eigenvalue:     -79.6833317787
+Iteration: 23 Energy:   -2066.5733273801 Volume:     839.5977956101 RMS gradient: 473.534  Max gradient: 1290.55 Number of negative eigenvalues: 1 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -5055.9290886028    1503.4390643073   -1356.7299542215
+                 0.0000000000       9.4351451793      -0.7208215219                           1503.4390643073   -6497.5743419922   -1307.8936605070
+                 0.0000000000       0.0000000000       9.4075704030                          -1356.7299542215   -1307.8936605070      28.6351824273
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:    -361.3577486354 Lowest eigenvalue:     416.3384603186
+Iteration: 24 Energy:   -2216.0323383886 Volume:     839.5977956101 RMS gradient: 363.559  Max gradient: 999.254 Number of negative eigenvalues: 0 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -3724.7072212870    1411.4647141223   -1075.5337726112
+                 0.0000000000       9.4351451793      -0.7208215219                           1411.4647141223   -5145.3911191347   -1164.8935887189
+                 0.0000000000       0.0000000000       9.4075704030                          -1075.5337726112   -1164.8935887189     106.2266154561
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:    -264.7777628080 Lowest eigenvalue:     605.1153317309
+Iteration: 25 Energy:   -2319.3513547283 Volume:     839.5977956101 RMS gradient: 283.422  Max gradient: 784.068 Number of negative eigenvalues: 0 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -2792.0739385299    1257.5579980063    -913.5797538328
+                 0.0000000000       9.4351451793      -0.7208215219                           1257.5579980063   -4173.7650539465   -1106.8724273562
+                 0.0000000000       0.0000000000       9.4075704030                           -913.5797538328   -1106.8724273562     128.9578905974
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:    -182.4565064276 Lowest eigenvalue:     698.4883489298
+Iteration: 26 Energy:   -2398.7828168896 Volume:     839.5977956101 RMS gradient: 215.427  Max gradient: 599.956 Number of negative eigenvalues: 0 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -2135.6473189555    1064.5171956440    -822.9893765029
+                 0.0000000000       9.4351451793      -0.7208215219                           1064.5171956440   -3333.3335662759   -1041.4782340370
+                 0.0000000000       0.0000000000       9.4075704030                           -822.9893765029   -1041.4782340370     149.3557091834
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:    -107.3164253614 Lowest eigenvalue:     780.1627540665
+Iteration: 27 Energy:   -2457.5017920737 Volume:     839.5977956101 RMS gradient: 155.682  Max gradient: 435.756 Number of negative eigenvalues: 0 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -1712.1192588598     871.1527970474    -783.0186166450
+                 0.0000000000       9.4351451793      -0.7208215219                            871.1527970474   -2619.3895016360    -970.8359237791
+                 0.0000000000       0.0000000000       9.4075704030                           -783.0186166450    -970.8359237791     167.1117880795
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:     -44.9659701696 Lowest eigenvalue:     881.3366498151
+Iteration: 28 Energy:   -2497.8676423044 Volume:     839.5977956101 RMS gradient: 98.5902  Max gradient: 276.117 Number of negative eigenvalues: 0 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -1484.7746261136     701.1622708843    -776.5221338443
+                 0.0000000000       9.4351451793      -0.7208215219                            701.1622708843   -2036.5329044705    -906.6088355977
+                 0.0000000000       0.0000000000       9.4075704030                           -776.5221338443    -906.6088355977     178.6257615179
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:      -7.3409113305 Lowest eigenvalue:     988.4586011639
+Iteration: 29 Energy:   -2520.1533906355 Volume:     839.5977956101 RMS gradient: 39.9365  Max gradient: 110.278 Number of negative eigenvalues: 0 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -1428.3933671787     566.7326993239    -792.2919076269
+                 0.0000000000       9.4351451793      -0.7208215219                            566.7326993239   -1608.7461220005    -869.8072234249
+                 0.0000000000       0.0000000000       9.4075704030                           -792.2919076269    -869.8072234249     177.4750455785
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:      -0.0133992479 Lowest eigenvalue:    1048.4310706266
+Iteration: 30 Energy:   -2524.4843212197 Volume:     839.5977956101 RMS gradient: 2.11726  Max gradient: 5.58037 Number of negative eigenvalues: 0 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -1489.2158091440     500.8191577704    -811.6785604398
+                 0.0000000000       9.4351451793      -0.7208215219                            500.8191577704   -1417.7483893099    -871.2812892326
+                 0.0000000000       0.0000000000       9.4075704030                           -811.6785604398    -871.2812892326     166.3180654043
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:      -0.0000001505 Lowest eigenvalue:    1044.3396224387
+Iteration: 31 Energy:   -2524.4923955441 Volume:     839.5977956101 RMS gradient: 0.00548741  Max gradient: 0.0158089 Number of negative eigenvalues: 0 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -1491.1031159551     504.0493916504    -810.3190412814
+                 0.0000000000       9.4351451793      -0.7208215219                            504.0493916504   -1419.3657037374    -870.0231501957
+                 0.0000000000       0.0000000000       9.4075704030                           -810.3190412814    -870.0231501957     167.5101244555
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Computing generalized Hessian matrix
+Computing eigenvalues and vectors
+Shifting parameter:      -0.0000000000 Lowest eigenvalue:    1044.3332173887
+Iteration: 32 Energy:   -2524.4923956346 Volume:     839.5977956101 RMS gradient: 8.09909e-08  Max gradient: 2.16829e-07 Number of negative eigenvalues: 0 Number of zero eigenvalues: 0
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -1491.1056517500     504.0556110014    -810.3162063385
+                 0.0000000000       9.4351451793      -0.7208215219                            504.0556110014   -1419.3700960575    -870.0210582084
+                 0.0000000000       0.0000000000       9.4075704030                           -810.3162063385    -870.0210582084     167.5123710544
+      Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+SUCCES: RMS Gradient tolerance 1e-06 reached (8.09909e-08)
+        Max Gradient tolerance 1e-06 reached (2.16829e-07)
+
+
+Gradient vector:
+================
+Gradient: 0 = 2.16834e-07
+Gradient: 1 = -9.91526e-08
+Gradient: 2 = 4.67993e-08
+
+
+Eigenvalues:
+============
+Eigenvalue: 0 =    1044.3332173887
+Eigenvalue: 1 =    1568.2710567160
+Eigenvalue: 2 =    4160.3223821367
+
+
+Final energy after minimization:   -2524.4923956346 in 32 steps
+Final pressure after minimization: 18083265.4954601899 [Pa]
+Final stress after minimization: {{29490797.738205,-9969113.895721,16026276.419161},{-,28072025.861723,17207107.373975},{-,-,-3313027.113547}} [Pa]
+
+
+Volume [A^3]:     839.5977956101
+      Box:       9.4590000000      -0.6713541877      -0.6713541877     Strain derivative:   -1491.1056517500     504.0556110014    -810.3162063385
+                 0.0000000000       9.4351451793      -0.7208215219                            504.0556110014   -1419.3700960575    -870.0210582084
+                 0.0000000000       0.0000000000       9.4075704030                           -810.3162063385    -870.0210582084     167.5123710544
+      Final Lengths:       9.4590000000       9.4590000000       9.4590000000, Angles:      94.0700000000      94.0700000000      94.0700000000
+
+Strain derivative from force routines (NOTE: different when fixed atoms are present)
+  -1491.1056517500     504.0556110014    -810.3162063385
+    504.0556110014   -1419.3700960575    -870.0210582084
+   -810.3162063385    -870.0210582084     167.5123710544
+
+Forces
+Adsorbate[0] Group: 0  torque: -1.87138e-07 1.51208e-07 1.26613e-07
+
+
+
+
+Current (running) Energy Status
+===========================================================================
+
+Internal energy:
+Host stretch energy:                                               0.00000
+Host UreyBradley energy:                                           0.00000
+Host bend energy:                                                  0.00000
+Host inversion-bend energy:                                        0.00000
+Host torsion energy:                                               0.00000
+Host improper torsion energy:                                      0.00000
+Host out-of-plane energy:                                          0.00000
+Host stretch/stretch energy:                                       0.00000
+Host bend/bend energy:                                             0.00000
+Host stretch/bend energy:                                          0.00000
+Host stretch/torsion energy:                                       0.00000
+Host bend/torsion energy:                                          0.00000
+
+Adsorbate stretch energy:                                          0.00000
+Adsorbate UreyBradley energy:                                      0.00000
+Adsorbate bend energy:                                             0.00000
+Adsorbate inversion-bend energy:                                   0.00000
+Adsorbate torsion energy:                                          0.00000
+Adsorbate improper torsion energy:                                 0.00000
+Adsorbate out-of-plane energy:                                     0.00000
+Adsorbate stretch/stretch energy:                                  0.00000
+Adsorbate bend/bend energy:                                        0.00000
+Adsorbate stretch/bend energy:                                     0.00000
+Adsorbate stretch/torsion energy:                                  0.00000
+Adsorbate bend/torsion energy:                                     0.00000
+Adsorbate intra VDW energy:                                        0.00000
+Adsorbate intra charge-charge Coulomb energy:                      0.00000
+Adsorbate intra charge-bonddipole Coulomb energy:                  0.00000
+Adsorbate intra bonddipole-bonddipole Coulomb energy:              0.00000
+
+Cation stretch energy:                                             0.00000
+Cation UreyBradley energy:                                         0.00000
+Cation bend energy:                                                0.00000
+Cation inversion-bend energy:                                      0.00000
+Cation torsion energy:                                             0.00000
+Cation improper torsion energy:                                    0.00000
+Cation out-of-plane energy:                                        0.00000
+Cation stretch/stretch energy:                                     0.00000
+Cation bend/bend energy:                                           0.00000
+Cation stretch/bend energy:                                        0.00000
+Cation stretch/torsion energy:                                     0.00000
+Cation bend/torsion energy:                                        0.00000
+Cation intra VDW energy:                                           0.00000
+Cation intra charge-charge Coulomb energy:                         0.00000
+Cation intra charge-bonddipole Coulomb energy:                     0.00000
+Cation intra bonddipole-bonddipole Coulomb energy:                 0.00000
+
+Host/Host energy:                                                0.00000
+	Host/Host VDW energy:                                            0.00000
+	Host/Host Coulomb energy:                                        0.00000
+	Host/Host charge-charge Real energy:                             0.00000
+	Host/Host charge-charge Fourier energy:                          0.00000
+	Host/Host charge-bonddipole Real energy:                         0.00000
+	Host/Host charge-bonddipole Fourier energy:                      0.00000
+	Host/Host bondipole-bonddipole Real energy:                      0.00000
+	Host/Host bondipole-bonddipole Fourier energy:                   0.00000
+
+Host/Adsorbate energy:                                       -2520.37741
+	Host/Adsorbate VDW energy:                                   -2649.46981
+	Host/Adsorbate Coulomb energy:                                 129.09239
+	Host/Adsorbate charge-charge Real energy:                     -188.84471
+	Host/Adsorbate charge-charge Fourier energy:                   317.93710
+	Host/Adsorbate charge-bonddipole Real energy:                    0.00000
+	Host/Adsorbate charge-bonddipole Fourier energy:                 0.00000
+	Host/Adsorbate bondipole-bonddipole Real energy:                 0.00000
+	Host/Adsorbate bondipole-bonddipole Fourier energy:              0.00000
+
+Host/Cation energy:                                              0.00000
+	Host/Cation VDW energy:                                          0.00000
+	Host/Cation Coulomb energy:                                      0.00000
+	Host/Cation charge-charge Real energy:                           0.00000
+	Host/Cation charge-charge Fourier energy:                        0.00000
+	Host/Cation charge-bonddipole Real energy:                       0.00000
+	Host/Cation charge-bonddipole Fourier energy:                    0.00000
+	Host/Cation bondipole-bonddipole Real energy:                    0.00000
+	Host/Cation bondipole-bonddipole Fourier energy:                 0.00000
+
+Adsorbate/Adsorbate energy:                                          -4.11498
+	Adsorbate/Adsorbate VDW energy:                                      -4.10884
+	Adsorbate/Adsorbate Coulomb energy:                                  -0.00614
+	Adsorbate/Adsorbate charge-charge Real energy:                        0.10220
+	Adsorbate/Adsorbate charge-charge Fourier energy:                    -0.10834
+	Adsorbate/Adsorbate charge-bonddipole Real energy:                    0.00000
+	Adsorbate/Adsorbate charge-bonddipole Fourier energy:                 0.00000
+	Adsorbate/Adsorbate bondipole-bonddipole Real energy:                 0.00000
+	Adsorbate/Adsorbate bondipole-bonddipole Fourier energy:              0.00000
+
+Adsorbate/Cation energy:                                              0.00000
+	Adsorbate/Cation VDW energy:                                          0.00000
+	Adsorbate/Cation Coulomb energy:                                      0.00000
+	Adsorbate/Cation charge-charge Real energy:                           0.00000
+	Adsorbate/Cation charge-charge Fourier energy:                        0.00000
+	Adsorbate/Cation charge-bonddipole Real energy:                       0.00000
+	Adsorbate/Cation charge-bonddipole Fourier energy:                    0.00000
+	Adsorbate/Cation bondipole-bonddipole Real energy:                    0.00000
+	Adsorbate/Cation bondipole-bonddipole Fourier energy:                 0.00000
+
+Cation/Cation energy:                                              0.00000
+	Cation/Cation VDW energy:                                          0.00000
+	Cation/Cation Coulomb energy:                                      0.00000
+	Cation/Cation charge-charge Real energy:                           0.00000
+	Cation/Cation charge-charge Fourier energy:                        0.00000
+	Cation/Cation charge-bonddipole Real energy:                       0.00000
+	Cation/Cation charge-bonddipole Fourier energy:                    0.00000
+	Cation/Cation bondipole-bonddipole Real energy:                    0.00000
+	Cation/Cation bondipole-bonddipole Fourier energy:                 0.00000
+
+Polarization energy:
+	Host polarization energy:                                        0.00000
+	Adsorbate polarization energy:                                   0.00000
+	Cation polarization energy:                                      0.00000
+	Host back-polarization energy:                                        0.00000
+	Adsorbate back-polarization energy:                                   0.00000
+	Cation back-polarization energy:                                      0.00000
+
+Tail-correction energy:                                          0.00000
+
+Distance constraints energy:                                     0.00000
+Angle constraints energy:                                        0.00000
+Dihedral constraints energy:                                     0.00000
+Inversion-bend constraints energy:                               0.00000
+Out-of-plane distance constraints energy:                        0.00000
+Exclusion constraints energy:                                    0.00000
+
+===================================================================
+Total energy: -2524.492395634612
+	Total Van der Waals: -2653.578646
+	Total Coulomb: 129.086250
+
+	Total Polarization: 0.000000
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Finishing simulation
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+Current (running) Energy Status
+===========================================================================
+
+Internal energy:
+Host stretch energy:                                               0.00000
+Host UreyBradley energy:                                           0.00000
+Host bend energy:                                                  0.00000
+Host inversion-bend energy:                                        0.00000
+Host torsion energy:                                               0.00000
+Host improper torsion energy:                                      0.00000
+Host out-of-plane energy:                                          0.00000
+Host stretch/stretch energy:                                       0.00000
+Host bend/bend energy:                                             0.00000
+Host stretch/bend energy:                                          0.00000
+Host stretch/torsion energy:                                       0.00000
+Host bend/torsion energy:                                          0.00000
+
+Adsorbate stretch energy:                                          0.00000
+Adsorbate UreyBradley energy:                                      0.00000
+Adsorbate bend energy:                                             0.00000
+Adsorbate inversion-bend energy:                                   0.00000
+Adsorbate torsion energy:                                          0.00000
+Adsorbate improper torsion energy:                                 0.00000
+Adsorbate out-of-plane energy:                                     0.00000
+Adsorbate stretch/stretch energy:                                  0.00000
+Adsorbate bend/bend energy:                                        0.00000
+Adsorbate stretch/bend energy:                                     0.00000
+Adsorbate stretch/torsion energy:                                  0.00000
+Adsorbate bend/torsion energy:                                     0.00000
+Adsorbate intra VDW energy:                                        0.00000
+Adsorbate intra charge-charge Coulomb energy:                      0.00000
+Adsorbate intra charge-bonddipole Coulomb energy:                  0.00000
+Adsorbate intra bonddipole-bonddipole Coulomb energy:              0.00000
+
+Cation stretch energy:                                             0.00000
+Cation UreyBradley energy:                                         0.00000
+Cation bend energy:                                                0.00000
+Cation inversion-bend energy:                                      0.00000
+Cation torsion energy:                                             0.00000
+Cation improper torsion energy:                                    0.00000
+Cation out-of-plane energy:                                        0.00000
+Cation stretch/stretch energy:                                     0.00000
+Cation bend/bend energy:                                           0.00000
+Cation stretch/bend energy:                                        0.00000
+Cation stretch/torsion energy:                                     0.00000
+Cation bend/torsion energy:                                        0.00000
+Cation intra VDW energy:                                           0.00000
+Cation intra charge-charge Coulomb energy:                         0.00000
+Cation intra charge-bonddipole Coulomb energy:                     0.00000
+Cation intra bonddipole-bonddipole Coulomb energy:                 0.00000
+
+Host/Host energy:                                                0.00000
+	Host/Host VDW energy:                                            0.00000
+	Host/Host Coulomb energy:                                        0.00000
+	Host/Host charge-charge Real energy:                             0.00000
+	Host/Host charge-charge Fourier energy:                          0.00000
+	Host/Host charge-bonddipole Real energy:                         0.00000
+	Host/Host charge-bonddipole Fourier energy:                      0.00000
+	Host/Host bondipole-bonddipole Real energy:                      0.00000
+	Host/Host bondipole-bonddipole Fourier energy:                   0.00000
+
+Host/Adsorbate energy:                                       -2520.37741
+	Host/Adsorbate VDW energy:                                   -2649.46981
+	Host/Adsorbate Coulomb energy:                                 129.09239
+	Host/Adsorbate charge-charge Real energy:                     -188.84471
+	Host/Adsorbate charge-charge Fourier energy:                   317.93710
+	Host/Adsorbate charge-bonddipole Real energy:                    0.00000
+	Host/Adsorbate charge-bonddipole Fourier energy:                 0.00000
+	Host/Adsorbate bondipole-bonddipole Real energy:                 0.00000
+	Host/Adsorbate bondipole-bonddipole Fourier energy:              0.00000
+
+Host/Cation energy:                                              0.00000
+	Host/Cation VDW energy:                                          0.00000
+	Host/Cation Coulomb energy:                                      0.00000
+	Host/Cation charge-charge Real energy:                           0.00000
+	Host/Cation charge-charge Fourier energy:                        0.00000
+	Host/Cation charge-bonddipole Real energy:                       0.00000
+	Host/Cation charge-bonddipole Fourier energy:                    0.00000
+	Host/Cation bondipole-bonddipole Real energy:                    0.00000
+	Host/Cation bondipole-bonddipole Fourier energy:                 0.00000
+
+Adsorbate/Adsorbate energy:                                          -4.11498
+	Adsorbate/Adsorbate VDW energy:                                      -4.10884
+	Adsorbate/Adsorbate Coulomb energy:                                  -0.00614
+	Adsorbate/Adsorbate charge-charge Real energy:                        0.10220
+	Adsorbate/Adsorbate charge-charge Fourier energy:                    -0.10834
+	Adsorbate/Adsorbate charge-bonddipole Real energy:                    0.00000
+	Adsorbate/Adsorbate charge-bonddipole Fourier energy:                 0.00000
+	Adsorbate/Adsorbate bondipole-bonddipole Real energy:                 0.00000
+	Adsorbate/Adsorbate bondipole-bonddipole Fourier energy:              0.00000
+
+Adsorbate/Cation energy:                                              0.00000
+	Adsorbate/Cation VDW energy:                                          0.00000
+	Adsorbate/Cation Coulomb energy:                                      0.00000
+	Adsorbate/Cation charge-charge Real energy:                           0.00000
+	Adsorbate/Cation charge-charge Fourier energy:                        0.00000
+	Adsorbate/Cation charge-bonddipole Real energy:                       0.00000
+	Adsorbate/Cation charge-bonddipole Fourier energy:                    0.00000
+	Adsorbate/Cation bondipole-bonddipole Real energy:                    0.00000
+	Adsorbate/Cation bondipole-bonddipole Fourier energy:                 0.00000
+
+Cation/Cation energy:                                              0.00000
+	Cation/Cation VDW energy:                                          0.00000
+	Cation/Cation Coulomb energy:                                      0.00000
+	Cation/Cation charge-charge Real energy:                           0.00000
+	Cation/Cation charge-charge Fourier energy:                        0.00000
+	Cation/Cation charge-bonddipole Real energy:                       0.00000
+	Cation/Cation charge-bonddipole Fourier energy:                    0.00000
+	Cation/Cation bondipole-bonddipole Real energy:                    0.00000
+	Cation/Cation bondipole-bonddipole Fourier energy:                 0.00000
+
+Polarization energy:
+	Host polarization energy:                                        0.00000
+	Adsorbate polarization energy:                                   0.00000
+	Cation polarization energy:                                      0.00000
+	Host back-polarization energy:                                        0.00000
+	Adsorbate back-polarization energy:                                   0.00000
+	Cation back-polarization energy:                                      0.00000
+
+Tail-correction energy:                                          0.00000
+
+Distance constraints energy:                                     0.00000
+Angle constraints energy:                                        0.00000
+Dihedral constraints energy:                                     0.00000
+Inversion-bend constraints energy:                               0.00000
+Out-of-plane distance constraints energy:                        0.00000
+Exclusion constraints energy:                                    0.00000
+
+===================================================================
+Total energy: -2524.492395634612
+	Total Van der Waals: -2653.578646
+	Total Coulomb: 129.086250
+
+	Total Polarization: 0.000000
+
+Monte-Carlo moves statistics
+===========================================================================
+
+Performance of the small-mc scheme
+==================================
+
+Component 0 [methane]
+----------------------------------------------
+Bead: 0
+	maximum length change                         : 0.300000
+	maximum rotation angle for cone angle         : 0.300000
+	maximum rotation angle for position on a cone : 0.300000
+	length change acceptence ratio                : 0.000000 [%]
+	rotation cone angle acceptence ratio          : 0.000000 [%]
+	rotation angle cone position acceptence ratio : 0.000000 [%]
+	overall acceptence ratio                      : 0.000000 [%]
+
+Bead: 1
+	maximum length change                         : 0.300000
+	maximum rotation angle for cone angle         : 0.300000
+	maximum rotation angle for position on a cone : 0.300000
+	length change acceptence ratio                : 0.000000 [%]
+	rotation cone angle acceptence ratio          : 0.000000 [%]
+	rotation angle cone position acceptence ratio : 0.000000 [%]
+	overall acceptence ratio                      : 0.000000 [%]
+
+Bead: 2
+	maximum length change                         : 0.300000
+	maximum rotation angle for cone angle         : 0.300000
+	maximum rotation angle for position on a cone : 0.300000
+	length change acceptence ratio                : 0.000000 [%]
+	rotation cone angle acceptence ratio          : 0.000000 [%]
+	rotation angle cone position acceptence ratio : 0.000000 [%]
+	overall acceptence ratio                      : 0.000000 [%]
+
+Bead: 3
+	maximum length change                         : 0.300000
+	maximum rotation angle for cone angle         : 0.300000
+	maximum rotation angle for position on a cone : 0.300000
+	length change acceptence ratio                : 0.000000 [%]
+	rotation cone angle acceptence ratio          : 0.000000 [%]
+	rotation angle cone position acceptence ratio : 0.000000 [%]
+	overall acceptence ratio                      : 0.000000 [%]
+
+Bead: 4
+	maximum length change                         : 0.300000
+	maximum rotation angle for cone angle         : 0.300000
+	maximum rotation angle for position on a cone : 0.300000
+	length change acceptence ratio                : 0.000000 [%]
+	rotation cone angle acceptence ratio          : 0.000000 [%]
+	rotation angle cone position acceptence ratio : 0.000000 [%]
+	overall acceptence ratio                      : 0.000000 [%]
+
+
+
+Performance of the translation move:
+======================================
+Component 0 [methane]
+	total        0.000000 0.000000 0.000000
+	succesfull   0.000000 0.000000 0.000000
+	accepted   0.000000 0.000000 0.000000
+	displacement 1.300000 1.300000 1.300000
+
+
+Performance of the rotation move:
+======================================
+Component [methane] total tried: 0.000000 accepted: 0.000000 (0.000000 [%])
+
+Random translation move was OFF for all components
+
+Swap addition move was OFF for all components
+
+Swap deletion move was OFF for all components
+
+Performance of the Reinsertion move:
+====================================
+
+Reinsertion-in-plane move was OFF for all components
+
+Reinsertion-in-place move was OFF for all components
+
+Partial reinsertion move was OFF for all components
+
+Identity change move was OFF for all components
+
+Parallel tempering move was OFF
+
+Hyper parallel tempering move was OFF
+
+Parallel mol-fraction move was OFF
+
+Chiral inversion move was OFF
+
+Volume move was OFF
+
+Box shape change move was OFF
+
+Framework change move was OFF
+
+Framework shift move was OFF
+
+Hybrid MC/MD move in the NVE-ensemble was OFF
+
+Hybrid MC/MD in the NPH-ensemble move was OFF
+
+Hybrid MC/MD in the NPH-ensemble (Parrinello-Rahman) move was OFF
+
+Gibbs volume change move was OFF
+
+Gibbs swap move was OFF for all components
+
+Gibbs identity change move was OFF for all components
+
+
+
+
+
+Current (running) Energy Status
+===========================================================================
+
+Internal energy:
+Host stretch energy:                                               0.00000
+Host UreyBradley energy:                                           0.00000
+Host bend energy:                                                  0.00000
+Host inversion-bend energy:                                        0.00000
+Host torsion energy:                                               0.00000
+Host improper torsion energy:                                      0.00000
+Host out-of-plane energy:                                          0.00000
+Host stretch/stretch energy:                                       0.00000
+Host bend/bend energy:                                             0.00000
+Host stretch/bend energy:                                          0.00000
+Host stretch/torsion energy:                                       0.00000
+Host bend/torsion energy:                                          0.00000
+
+Adsorbate stretch energy:                                          0.00000
+Adsorbate UreyBradley energy:                                      0.00000
+Adsorbate bend energy:                                             0.00000
+Adsorbate inversion-bend energy:                                   0.00000
+Adsorbate torsion energy:                                          0.00000
+Adsorbate improper torsion energy:                                 0.00000
+Adsorbate out-of-plane energy:                                     0.00000
+Adsorbate stretch/stretch energy:                                  0.00000
+Adsorbate bend/bend energy:                                        0.00000
+Adsorbate stretch/bend energy:                                     0.00000
+Adsorbate stretch/torsion energy:                                  0.00000
+Adsorbate bend/torsion energy:                                     0.00000
+Adsorbate intra VDW energy:                                        0.00000
+Adsorbate intra charge-charge Coulomb energy:                      0.00000
+Adsorbate intra charge-bonddipole Coulomb energy:                  0.00000
+Adsorbate intra bonddipole-bonddipole Coulomb energy:              0.00000
+
+Cation stretch energy:                                             0.00000
+Cation UreyBradley energy:                                         0.00000
+Cation bend energy:                                                0.00000
+Cation inversion-bend energy:                                      0.00000
+Cation torsion energy:                                             0.00000
+Cation improper torsion energy:                                    0.00000
+Cation out-of-plane energy:                                        0.00000
+Cation stretch/stretch energy:                                     0.00000
+Cation bend/bend energy:                                           0.00000
+Cation stretch/bend energy:                                        0.00000
+Cation stretch/torsion energy:                                     0.00000
+Cation bend/torsion energy:                                        0.00000
+Cation intra VDW energy:                                           0.00000
+Cation intra charge-charge Coulomb energy:                         0.00000
+Cation intra charge-bonddipole Coulomb energy:                     0.00000
+Cation intra bonddipole-bonddipole Coulomb energy:                 0.00000
+
+Host/Host energy:                                                0.00000
+	Host/Host VDW energy:                                            0.00000
+	Host/Host Coulomb energy:                                        0.00000
+	Host/Host charge-charge Real energy:                             0.00000
+	Host/Host charge-charge Fourier energy:                          0.00000
+	Host/Host charge-bonddipole Real energy:                         0.00000
+	Host/Host charge-bonddipole Fourier energy:                      0.00000
+	Host/Host bondipole-bonddipole Real energy:                      0.00000
+	Host/Host bondipole-bonddipole Fourier energy:                   0.00000
+
+Host/Adsorbate energy:                                       -2520.37741
+	Host/Adsorbate VDW energy:                                   -2649.46981
+	Host/Adsorbate Coulomb energy:                                 129.09239
+	Host/Adsorbate charge-charge Real energy:                     -188.84471
+	Host/Adsorbate charge-charge Fourier energy:                   317.93710
+	Host/Adsorbate charge-bonddipole Real energy:                    0.00000
+	Host/Adsorbate charge-bonddipole Fourier energy:                 0.00000
+	Host/Adsorbate bondipole-bonddipole Real energy:                 0.00000
+	Host/Adsorbate bondipole-bonddipole Fourier energy:              0.00000
+
+Host/Cation energy:                                              0.00000
+	Host/Cation VDW energy:                                          0.00000
+	Host/Cation Coulomb energy:                                      0.00000
+	Host/Cation charge-charge Real energy:                           0.00000
+	Host/Cation charge-charge Fourier energy:                        0.00000
+	Host/Cation charge-bonddipole Real energy:                       0.00000
+	Host/Cation charge-bonddipole Fourier energy:                    0.00000
+	Host/Cation bondipole-bonddipole Real energy:                    0.00000
+	Host/Cation bondipole-bonddipole Fourier energy:                 0.00000
+
+Adsorbate/Adsorbate energy:                                          -4.11498
+	Adsorbate/Adsorbate VDW energy:                                      -4.10884
+	Adsorbate/Adsorbate Coulomb energy:                                  -0.00614
+	Adsorbate/Adsorbate charge-charge Real energy:                        0.10220
+	Adsorbate/Adsorbate charge-charge Fourier energy:                    -0.10834
+	Adsorbate/Adsorbate charge-bonddipole Real energy:                    0.00000
+	Adsorbate/Adsorbate charge-bonddipole Fourier energy:                 0.00000
+	Adsorbate/Adsorbate bondipole-bonddipole Real energy:                 0.00000
+	Adsorbate/Adsorbate bondipole-bonddipole Fourier energy:              0.00000
+
+Adsorbate/Cation energy:                                              0.00000
+	Adsorbate/Cation VDW energy:                                          0.00000
+	Adsorbate/Cation Coulomb energy:                                      0.00000
+	Adsorbate/Cation charge-charge Real energy:                           0.00000
+	Adsorbate/Cation charge-charge Fourier energy:                        0.00000
+	Adsorbate/Cation charge-bonddipole Real energy:                       0.00000
+	Adsorbate/Cation charge-bonddipole Fourier energy:                    0.00000
+	Adsorbate/Cation bondipole-bonddipole Real energy:                    0.00000
+	Adsorbate/Cation bondipole-bonddipole Fourier energy:                 0.00000
+
+Cation/Cation energy:                                              0.00000
+	Cation/Cation VDW energy:                                          0.00000
+	Cation/Cation Coulomb energy:                                      0.00000
+	Cation/Cation charge-charge Real energy:                           0.00000
+	Cation/Cation charge-charge Fourier energy:                        0.00000
+	Cation/Cation charge-bonddipole Real energy:                       0.00000
+	Cation/Cation charge-bonddipole Fourier energy:                    0.00000
+	Cation/Cation bondipole-bonddipole Real energy:                    0.00000
+	Cation/Cation bondipole-bonddipole Fourier energy:                 0.00000
+
+Polarization energy:
+	Host polarization energy:                                        0.00000
+	Adsorbate polarization energy:                                   0.00000
+	Cation polarization energy:                                      0.00000
+	Host back-polarization energy:                                        0.00000
+	Adsorbate back-polarization energy:                                   0.00000
+	Cation back-polarization energy:                                      0.00000
+
+Tail-correction energy:                                          0.00000
+
+Distance constraints energy:                                     0.00000
+Angle constraints energy:                                        0.00000
+Dihedral constraints energy:                                     0.00000
+Inversion-bend constraints energy:                               0.00000
+Out-of-plane distance constraints energy:                        0.00000
+Exclusion constraints energy:                                    0.00000
+
+===================================================================
+Total energy: -2524.492395634621
+	Total Van der Waals: -2653.578646
+	Total Coulomb: 129.086250
+
+	Total Polarization: 0.000000
+
+
+
+Energy-drift status
+===========================================================================
+
+Internal energy:
+Host stretch energy-drift:                                           0
+Host UreyBradley energy-drift:                                       0
+Host bend energy-drift:                                              0
+Host inversion-bend energy-drift:                                    0
+Host torsion energy-drift:                                           0
+Host torsion improper energy-drift:                                  0
+Host out-of-plane energy-drift:                                      0
+Host stretch/stretch energy-drift:                                   0
+Host stretch/bend energy-drift:                                      0
+Host bend/bend energy-drift:                                         0
+Host stretch/torsion energy-drift:                                   0
+Host bend/torsion energy-drift:                                      0
+
+Adsorbate stretch energy-drift:                                      0
+Adsorbate UreyBradley energy-drift:                                  0
+Adsorbate bend energy-drift:                                         0
+Adsorbate inversion-bend energy-drift:                               0
+Adsorbate torsion energy-drift:                                      0
+Adsorbate improper torsion energy-drift:                             0
+Adsorbate out-of-plane energy-drift:                                 0
+Adsorbate stretch/stretch energy-drift:                              0
+Adsorbate stretch/bend energy-drift:                                 0
+Adsorbate bend/bend energy-drift:                                    0
+Adsorbate stretch/torsion energy-drift:                              0
+Adsorbate bend/torsion energy-drift:                                 0
+Adsorbate intra VDW energy-drift:                                    0
+Adsorbate intra charge-charge Coulomb energy-drift:                  0
+Adsorbate intra charge-bonddipole Coulomb energy-drift:              0
+Adsorbate intra bonddipole-bonddipole Coulomb energy-drift:          0
+
+Cation stretch energy-drift:                                         0
+Cation UreyBradley energy-drift:                                     0
+Cation bend energy-drift:                                            0
+Cation inversion-bend energy-drift:                                  0
+Cation torsion energy-drift:                                         0
+Cation improper torsion energy-drift:                                0
+Cation out-of-plane energy-drift:                                    0
+Cation stretch/stretch energy-drift:                                 0
+Cation stretch/bend energy-drift:                                    0
+Cation bend/bend energy-drift:                                       0
+Cation stretch/torsion energy-drift:                                 0
+Cation bend/torsion energy-drift:                                    0
+Cation intra VDW energy-drift:                                       0
+Cation intra Coulomb charge-charge energy-drift:                     0
+Cation intra Coulomb charge-bonddipole energy-drift:                 0
+Cation intra Coulomb bonddipole-bonddipole energy-drift:             0
+
+Host/Host energy-drift:                                              0
+	Host/Host VDW energy-drift:                                        0
+	Host/Host Coulomb energy-drift:                                    0
+		Host/Host Real charge-charge energy-drift:                       0
+		Host/Host Fourier charge-charge energy-drift:                    0
+		Host/Host Real charge-bonddipole energy-drift:                   0
+		Host/Host Fourier charge-bonddipole energy-drift:                0
+		Host/Host Real bonddipole-bonddipole energy-drift:               0
+		Host/Host Fourier bonddipole-bonddipole energy-drift:            0
+Host/Adsorbate energy-drift:                                         1.25795e-11
+	Host/Adsorbate VDW energy-drift:                                   -1.64081e-12
+	Host/Adsorbate Coulomb energy-drift:                               1.45963e-11
+		Host/Adsorbate Real charge-charge energy-drift:                  1.43912e-11
+		Host/Adsorbate Fourier charge-charge energy-drift:               2.05101e-13
+		Host/Adsorbate Real charge-bonddipole energy-drift:              0
+		Host/Adsorbate Fourier charge-bonddipole energy-drift:           0
+		Host/Adsorbate Real bonddipole-bonddipole energy-drift:          0
+		Host/Adsorbate Fourier bonddipole-bonddipole energy-drift:       0
+Host/Cation energy-drift:                                            0
+	Host/Cation VDW energy-drift:                                      0
+	Host/Cation Coulomb energy-drift:                                  0
+		Host/Cation Real charge-charge energy-drift:                     0
+		Host/Cation Fourier charge-charge energy-drift:                  0
+		Host/Cation Real charge-bonddipole energy-drift:                 0
+		Host/Cation Fourier charge-bonddipole energy-drift:              0
+		Host/Cation Real bonddipole-bonddipole energy-drift:             0
+		Host/Cation Fourier bonddipole-bonddipole energy-drift:          0
+Adsorbate/Adsorbate energy-drift:                                     -4.37602e-12
+	Adsorbate/Adsorbate VDW energy-drift:                               0
+	Adsorbate/Adsorbate Coulomb energy-drift:                           -4.37572e-12
+		Adsorbate/Adsorbate Real charge-charge energy-drift:              -2.33676e-16
+		Adsorbate/Adsorbate Fourier charge-charge energy-drift:           -4.37549e-12
+		Adsorbate/Adsorbate Real charge-bonddipole energy-drift:          0
+		Adsorbate/Adsorbate Fourier charge-bonddipole energy-drift:       0
+		Adsorbate/Adsorbate Real bonddipole-bonddipole energy-drift:      0
+		Adsorbate/Adsorbate Fourier bonddipole-bonddipole energy-drift:   0
+Cation/Cation energy-drift:                                           0
+	Cation/Cation VDW energy-drift:                                     0
+	Cation/Cation Coulomb energy-drift:                                 0
+		Cation/Cation Real charge-charge energy-drift:                    0
+		Cation/Cation Fourier charge-charge energy-drift:                 0
+		Cation/Cation Real charge-bonddipole energy-drift:                0
+		Cation/Cation Fourier charge-bonddipole energy-drift:             0
+		Cation/Cation Real bonddipole-bonddipole energy-drift:            0
+		Cation/Cation Fourier bonddipole-bonddipole energy-drift:         0
+Adsorbate/Cation energy-drift:                                        0
+	Adsorbate/Cation VDW energy-drift:                                  0
+	Adsorbate/Cation Coulomb energy-drift:                              0
+		Adsorbate/Cation Real charge-charge energy-drift:                 0
+		Adsorbate/Cation Fourier charge-charge energy-drift:              0
+		Adsorbate/Cation Real charge-bonddipole energy-drift:             0
+		Adsorbate/Cation Fourier charge-bonddipole energy-drift:          0
+		Adsorbate/Cation Real bonddipole-bonddipole energy-drift:         0
+		Adsorbate/Cation Fourier bonddipole-bonddipole energy-drift:      0
+
+Polarization energy-drift:
+	Host polarization energy-drift:                0
+	Adsorbate polarization energy-drift:           0
+	Cation polarization energy-drift:              0
+	Host back-polarization energy-drift:                0
+	Adsorbate back-polarization energy-drift:           0
+	Cation back-polarization energy-drift:              0
+
+Tail-correction energy-drift:                  0
+
+Distance constraints energy-drift:                  0
+Angle constraints energy-drift:                     0
+Dihedral constraints energy-drift:                  0
+Inversion-bend constraints energy-drift:                    0
+Out-of-plane distance constraints energy-drift:                    0
+Exclusion constraints energy-drift:                 0
+
+===================================================================
+Total energy-drift: 8.20404e-12
+
+
+Component 0 [methane]
+-------------------------------------------------------------
+	Block[ 0] 0.00000            [-]
+	Block[ 1] 0.00000            [-]
+	Block[ 2] 0.00000            [-]
+	Block[ 3] 0.00000            [-]
+	Block[ 4] 0.00000            [-]
+
+
+
+
+
+
+Average properties of the system[0]:
+========================================================================
+
+Average temperature:
+====================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+
+Average Volume:
+=================
+	Block[ 0]            0.00000 [A^3]
+	Block[ 1]            0.00000 [A^3]
+	Block[ 2]            0.00000 [A^3]
+	Block[ 3]            0.00000 [A^3]
+	Block[ 4]            0.00000 [A^3]
+	------------------------------------------------------------------------------
+	Average              0.00000 [A^3] +/-            0.00000 [A^3]
+
+Average Box-lengths:
+====================
+	Block[ 0]            0.00000 [A^3]
+	Block[ 1]            0.00000 [A^3]
+	Block[ 2]            0.00000 [A^3]
+	Block[ 3]            0.00000 [A^3]
+	Block[ 4]            0.00000 [A^3]
+	------------------------------------------------------------------------------
+	Average Box.ax             0.00000 [A^3] +/-            0.00000 [A^3]
+
+	Block[ 0]            0.00000 [A^3]
+	Block[ 1]            0.00000 [A^3]
+	Block[ 2]            0.00000 [A^3]
+	Block[ 3]            0.00000 [A^3]
+	Block[ 4]            0.00000 [A^3]
+	------------------------------------------------------------------------------
+	Average Box.by             0.00000 [A^3] +/-            0.00000 [A^3]
+
+	Block[ 0]            0.00000 [A^3]
+	Block[ 1]            0.00000 [A^3]
+	Block[ 2]            0.00000 [A^3]
+	Block[ 3]            0.00000 [A^3]
+	Block[ 4]            0.00000 [A^3]
+	------------------------------------------------------------------------------
+	Average Box.cz             0.00000 [A^3] +/-            0.00000 [A^3]
+	Block[ 0]            0.00000 [A^3]
+	Block[ 1]            0.00000 [A^3]
+	Block[ 2]            0.00000 [A^3]
+	Block[ 3]            0.00000 [A^3]
+	Block[ 4]            0.00000 [A^3]
+	------------------------------------------------------------------------------
+	Average alpha angle             0.00000 [degrees] +/-            0.00000 [degrees]
+	Block[ 0]            0.00000 [A^3]
+	Block[ 1]            0.00000 [A^3]
+	Block[ 2]            0.00000 [A^3]
+	Block[ 3]            0.00000 [A^3]
+	Block[ 4]            0.00000 [A^3]
+	------------------------------------------------------------------------------
+	Average beta angle             0.00000 [degrees] +/-            0.00000 [degrees]
+	Block[ 0]            0.00000 [A^3]
+	Block[ 1]            0.00000 [A^3]
+	Block[ 2]            0.00000 [A^3]
+	Block[ 3]            0.00000 [A^3]
+	Block[ 4]            0.00000 [A^3]
+	------------------------------------------------------------------------------
+	Average gamma angle             0.00000 [degrees] +/-            0.00000 [degrees]
+
+Average Surface Area:
+=====================
+	Block[ 0] 0.000000 [-]
+	Block[ 1] 0.000000 [-]
+	Block[ 2] 0.000000 [-]
+	Block[ 3] 0.000000 [-]
+	Block[ 4] 0.000000 [-]
+	------------------------------------------------------------------------------
+	Surface area:   0.000000 +/- 0.000000 [A^2]
+	Surface area:   0.000000 +/- 0.000000 [m^2/g]
+	Surface area:   0.000000 +/- 0 [m^2/cm^3]
+
+Average Density:
+=================
+	Block[ 0]            0.00000 [kg/m^3]
+	Block[ 1]            0.00000 [kg/m^3]
+	Block[ 2]            0.00000 [kg/m^3]
+	Block[ 3]            0.00000 [kg/m^3]
+	Block[ 4]            0.00000 [kg/m^3]
+	------------------------------------------------------------------------------
+	Average              0.00000 [kg/m^3] +/-            0.00000 [kg/m^3]
+	Component 0 [methane]
+	-------------------------------------------------------------
+		Block[ 0] 0.00000            [-]
+		Block[ 1] 0.00000            [-]
+		Block[ 2] 0.00000            [-]
+		Block[ 3] 0.00000            [-]
+		Block[ 4] 0.00000            [-]
+		------------------------------------------------------------------------------
+		Average              0.00000 [kg/m^3] +/-            0.00000 [kg/m^3]
+
+Average dielectric constant:
+============================
+	Block[ 0]            0.00000 [-]
+	Block[ 1]            0.00000 [-]
+	Block[ 2]            0.00000 [-]
+	Block[ 3]            0.00000 [-]
+	Block[ 4]            0.00000 [-]
+	------------------------------------------------------------------------------
+	Average              0.00000 [-] +/-            0.00000 [-]
+
+Average Isothermal Compressibility:
+===================================
+	Block[ 0]            0.00000 [Pa^-1]
+	Block[ 1]            0.00000 [Pa^-1]
+	Block[ 2]            0.00000 [Pa^-1]
+	Block[ 3]            0.00000 [Pa^-1]
+	Block[ 4]            0.00000 [Pa^-1]
+	------------------------------------------------------------------------------
+	Average              0.00000 [10^12 Pa^-1] +/-            0.00000 [10^12 Pa^-1]
+	Average              0.00000 [10^6 bar^-1] +/-            0.00000 [10^6 bar^-1]
+	Average              0.00000 [10^6 atm^-1] +/-            0.00000 [10^6 atm^-1]
+
+Average Volumetric Expansion Coefficient beta:
+===============================================
+	Block[ 0]            0.00000 [10^5 K^-1]
+	Block[ 1]            0.00000 [10^5 K^-1]
+	Block[ 2]            0.00000 [10^5 K^-1]
+	Block[ 3]            0.00000 [10^5 K^-1]
+	Block[ 4]            0.00000 [10^5 K^-1]
+	------------------------------------------------------------------------------
+	Average              0.00000 [10^5 K^-1] +/-            0.00000 [10^5 K^-1]
+
+Average Heat Capacity Cp:
+=========================
+	Block[ 0] 0.000000 [J/mol/K]
+	Block[ 1] 0.000000 [J/mol/K]
+	Block[ 2] 0.000000 [J/mol/K]
+	Block[ 3] 0.000000 [J/mol/K]
+	Block[ 4] 0.000000 [J/mol/K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [J/mol/K] +/-            0.00000 [J/mol/K]
+	Average              0.00000 [cal/mol/K] +/-            0.00000 [cal/mol/K]
+
+Average Heat Capacity:
+======================
+	Block[ 0] 0 [J/mol/K]
+	Block[ 1] 0 [J/mol/K]
+	Block[ 2] 0 [J/mol/K]
+	Block[ 3] 0 [J/mol/K]
+	Block[ 4] 0 [J/mol/K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [J/mol/K] +/-            0.00000 [J/mol/K]
+	Average              0.00000 [cal/mol/K] +/-            0.00000 [cal/mol/K]
+
+Heat of desorption:
+===================
+	Block[ 0] 0.00000            [K]
+	Block[ 1] 0.00000            [K]
+	Block[ 2] 0.00000            [K]
+	Block[ 3] 0.00000            [K]
+	Block[ 4] 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 +/-           0.000000 [K]
+	                     0.00000 +/-           0.000000 [KJ/MOL]
+Note: Ug should be added to this value
+Note: The heat of adsorption Q=-H
+
+Heat of desorption (Host-Adsorbate contribution):
+=================================================
+	Block[ 0] 0.00000            [K]
+	Block[ 1] 0.00000            [K]
+	Block[ 2] 0.00000            [K]
+	Block[ 3] 0.00000            [K]
+	Block[ 4] 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 +/-           0.000000 [K]
+	                     0.00000 +/-           0.000000 [KJ/MOL]
+Note: the sum of the parts is *not* exactly equal to the true value (Heat of desorption)
+Note: Ug and K_BT are not included here
+Note: The heat of adsorption Q=-H
+
+Heat of desorption (Adsorbate-Adsorbate contribution):
+======================================================
+	Block[ 0] 0.00000            [K]
+	Block[ 1] 0.00000            [K]
+	Block[ 2] 0.00000            [K]
+	Block[ 3] 0.00000            [K]
+	Block[ 4] 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 +/-           0.000000 [K]
+	                     0.00000 +/-           0.000000 [KJ/MOL]
+Note: the sum of the parts is *not* exactly equal to the true value (Heat of desorption)
+Note: Ug and K_BT are not included here
+Note: The heat of adsorption Q=-H
+
+derivative of the chemical potential with respect to density (constant T,V):
+============================================================================
+	Block[ 0] 0.00000            [-]
+	Block[ 1] 0.00000            [-]
+	Block[ 2] 0.00000            [-]
+	Block[ 3] 0.00000            [-]
+	Block[ 4] 0.00000            [-]
+	------------------------------------------------------------------------------
+	Average              0.00000 +/-           0.000000 [-]
+
+
+
+
+
+Average energies of the system[0]:
+========================================================================
+
+Average Host Bond stretch energy:
+=================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host UreyBradley stretch energy:
+==============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Bend angle energy:
+===============================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Bend angle inversion energy:
+=========================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Torsion energy:
+============================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Improper Torsion energy:
+=====================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Bond-Bond cross term energy:
+===============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Bend-Bend cross term energy:
+=========================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Bond-Bend cross term energy:
+============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Bond-Torsion cross term energy:
+============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Bend-Torsion cross term energy:
+============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bond stretch energy:
+====================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate UreyBradley stretch energy:
+==============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bend angle energy:
+====================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bend angle inversion energy:
+==============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Torsion energy:
+=================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Improper Torsion energy:
+==========================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bond-Bond cross term energy:
+====================================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bend-Bend cross term energy:
+==============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bond-Bend cross term energy:
+=================================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bond-Torsion cross term energy:
+=================================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bend-Torsion cross term energy:
+=================================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Intra Van der Waals energy:
+=============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Intra charge-charge Coulomb energy:
+=======================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Intra charge-bonddipole Coulomb energy:
+=======================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Intra bonddipole-bonddipole Coulomb energy:
+=======================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bond stretch energy:
+=================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation UreyBradley stretch energy:
+==========================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bend angle energy:
+=================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bend angle inversion energy:
+===========================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Torsion energy:
+==============================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Improper Torsion energy:
+=======================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bond-Bond cross term energy:
+=================================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bend-Bend cross term energy:
+===========================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bond-Bend cross term energy:
+==============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bond-Torsion cross term energy:
+==============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bend-Torsion cross term energy:
+==============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Intra Van der Waals energy:
+==========================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Intra charge-charge Coulomb energy:
+====================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Intra charge-bonddipole Coulomb energy:
+====================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Intra bonddipole-bonddipole Coulomb energy:
+====================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host-Host energy:
+=========================
+	Block[ 0] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 1] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 2] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 3] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 4] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average   0.00000            Van der Waals: 0.000000           Coulomb: 0.00000            [K]
+	      +/- 0.00000                       +/- 0.000000                +/- 0.00000            [K]
+
+Average Adsorbate-Adsorbate energy:
+===================================
+	Block[ 0] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 1] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 2] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 3] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 4] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average   0.00000            Van der Waals: 0.000000           Coulomb: 0.00000            [K]
+	      +/- 0.00000                       +/- 0.000000                +/- 0.00000            [K]
+
+Average Cation-Cation energy:
+=============================
+	Block[ 0] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 1] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 2] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 3] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 4] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average   0.00000            Van der Waals: 0.000000           Coulomb: 0.00000            [K]
+	      +/- 0.00000                       +/- 0.000000                +/- 0.00000            [K]
+
+Average Host-Adsorbate energy:
+==============================
+	Block[ 0] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 1] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 2] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 3] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 4] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average   0.00000            Van der Waals: 0.000000           Coulomb: 0.00000            [K]
+	      +/- 0.00000                       +/- 0.000000                +/- 0.00000            [K]
+
+Average Host-Cation energy:
+===========================
+	Block[ 0] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 1] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 2] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 3] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 4] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average   0.00000            Van der Waals: 0.000000           Coulomb: 0.00000            [K]
+	      +/- 0.00000                       +/- 0.000000                +/- 0.00000            [K]
+
+Average Adsorbate-Cation energy:
+================================
+	Block[ 0] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 1] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 2] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 3] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 4] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average   0.00000            Van der Waals: 0.000000           Coulomb: 0.00000            [K]
+	      +/- 0.00000                       +/- 0.000000                +/- 0.00000            [K]
+
+Host polarization energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Adsorbate polarization energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Cation polarization energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Host back-polarization energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Adsorbate back-polarization energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Cation back-polarization energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Tail-correction energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Distance-constraints energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Angle-constraints energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Dihedral-constraints energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Inversion-bend constraints energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Out-of-plane-distance constraints energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Exclusion-constraints energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Total energy:
+=============
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Number of molecules:
+====================
+
+Component 0 [methane]
+-------------------------------------------------------------
+	Block[ 0] 0.00000            [-]
+	Block[ 1] 0.00000            [-]
+	Block[ 2] 0.00000            [-]
+	Block[ 3] 0.00000            [-]
+	Block[ 4] 0.00000            [-]
+	------------------------------------------------------------------------------
+	Average                                      0.0000000000 +/-       0.0000000000 [-]
+	Average loading absolute [molecules/unit cell]        0.0000000000 +/-       0.0000000000 [-]
+	Average loading absolute [mol/kg framework]          0.0000000000 +/-       0.0000000000 [-]
+	Average loading absolute [milligram/gram framework]          0.0000000000 +/-       0.0000000000 [-]
+	Average loading absolute [cm^3 (STP)/gr framework]          0.0000000000 +/-       0.0000000000 [-]
+	Average loading absolute [cm^3 (STP)/cm^3 framework]          0.0000000000 +/-       0.0000000000 [-]
+
+	Block[ 0] 0.00000            [-]
+	Block[ 1] 0.00000            [-]
+	Block[ 2] 0.00000            [-]
+	Block[ 3] 0.00000            [-]
+	Block[ 4] 0.00000            [-]
+	------------------------------------------------------------------------------
+	Average                                      0.0000000000 +/-       0.0000000000 [-]
+	Average loading excess [molecules/unit cell]        0.0000000000 +/-       0.0000000000 [-]
+	Average loading excess [mol/kg framework]          0.0000000000 +/-       0.0000000000 [-]
+	Average loading excess [milligram/gram framework]          0.0000000000 +/-       0.0000000000 [-]
+	Average loading excess [cm^3 (STP)/gr framework]          0.0000000000 +/-       0.0000000000 [-]
+	Average loading excess [cm^3 (STP)/cm^3 framework]          0.0000000000 +/-       0.0000000000 [-]
+
+
+Average Widom Rosenbluth factor:
+================================
+	Block[ 0] 0 [-]
+	Block[ 1] 0 [-]
+	Block[ 2] 0 [-]
+	Block[ 3] 0 [-]
+	Block[ 4] 0 [-]
+	------------------------------------------------------------------------------
+	[methane] Average Widom:   0 +/- 0.000000 [-]
+
+Average Henry coefficient:
+==========================
+	Block[ 0] 0 [mol/kg/Pa]
+	Block[ 1] 0 [mol/kg/Pa]
+	Block[ 2] 0 [mol/kg/Pa]
+	Block[ 3] 0 [mol/kg/Pa]
+	Block[ 4] 0 [mol/kg/Pa]
+	------------------------------------------------------------------------------
+	[methane] Average Henry coefficient:  0 +/- 0 [mol/kg/Pa]
+
+Average adsorption energy <U_gh>_1-<U_h>_0 obtained from Widom-insertion:
+(Note: the total heat of adsorption is dH=<U_gh>_1-<U_h>_0 - <U_g> - RT)
+=========================================================================
+
+Simulation finished,  1 warnings

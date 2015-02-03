@@ -1,0 +1,18 @@
+SimulationType                MC
+NumberOfCycles                0
+NumberOfInitializationCycles  0
+PrintEvery                    10
+     
+Forcefield                    GarciaPerez2006
+
+RandomlySubstitute 38 Al1 Si1
+
+ModifyFrameworkAtomConnectedTo O1 Oa1 Al1
+ModifyFrameworkAtomConnectedTo O2 Oa2 Al1
+ModifyFrameworkAtomConnectedTo O3 Oa3 Al1
+ModifyFrameworkAtomConnectedTo O4 Oa4 Al1
+     
+Framework 0
+FrameworkName NaX
+UnitCells 1 1 1
+ExternalTemperature 300.0

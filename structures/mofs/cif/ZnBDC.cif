@@ -1,0 +1,59 @@
+data_ZnBDC
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-12-13
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'H. Li, M. Eddaoudi, T.L. Groy, and O.M. Yaghi'
+_citation_title              'Establishing Microporosity in Open Metal-Organic Frameworks: Gas Sorption Isotherms for Zn(BDC) (BDC) 1,4-Benzenedicarboxylate)'
+_citation_journal_abbrev     'J. AM. Chem. Soc.'
+_citation_journal_volume     120
+_citation_journal_number     33
+_citation_page_first         8571
+_citation_page_last          8572
+_citation_year               1998
+
+_cell_length_a    6.723
+_cell_length_b    15.481
+_cell_length_c    12.435
+_cell_angle_alpha 90
+_cell_angle_beta  102.825
+_cell_angle_gamma 90
+_cell_volume      1261.93
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall '-P 2yn'
+_symmetry_space_group_name_H-M  'P 1 21/n 1'
+_symmetry_Int_Tables_number     14
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x+1/2,y+1/2,-z+1/2'
+ '-x,-y,-z'
+ 'x+1/2,-y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Zn1      Zn    1.20028      0.00508      0.07717      0  
+O1       O     1.0605       0.10507      0.1332       0  
+O2       O     0.7566       0.09709      0.02082      0  
+O3       O     0.7158       0.42057      0.44117      0  
+O4       O     0.4124       0.42002      0.3278       0  
+C1       C     0.8799       0.12906      0.101        0  
+C2       C     0.8054       0.20112      0.1624       0  
+C3       C     0.9395       0.2424       0.2484       0  
+H3       H     1.0771       0.2278       0.264        0  
+C4       C     0.8717       0.3044       0.3106       0  
+H4       H     0.963        0.3306       0.3686       0  
+C5       C     0.6672       0.32845      0.2873       0  
+C6       C     0.5336       0.2891       0.1994       0  
+H6       H     0.3971       0.3055       0.1818       0  
+C7       C     0.6019       0.2259       0.1378       0  
+H7       H     0.5109       0.1999       0.0796       0  
+C8       C     0.592        0.3944       0.357        0  

@@ -1,0 +1,20 @@
+RASPA 2014 (version 2.0)
+========================
+
+This software is a general purpose classical simulation package. It has been developed at
+Northwestern University (Evanston, USA) during 2006-2011 in active collaboration 
+with University Pablo de Olavide (Seville, Spain), and the Technical University of Delft.
+
+It can be used for the simulation of molecules in gases, fluids, zeolites, aluminosilicates,
+metal-organic frameworks, carbon nanotubes and external fields.
+
+Refs:
+=====
+1) D. Dubbeldam, S. Calero, D.E. Ellis, and R.Q. Snurr, "RASPA: Molecular Simulation Software for Adsorption and Diffusion in Flexible Nanoporous Materials",
+   Mol. Sim., 2014.
+2) D. Dubbeldam, A. Torres-Knoop, and K.S. Walton,  "On the Inner Workings of Monte Carlo Codes", 
+   Mol. Sim. (special issue on Monte Carlo) 39(14-15), 1253-1292 (2013).
+   http://www.tandfonline.com/doi/full/10.1080/08927022.2013.819102
+3) D. Dubbeldam and R.Q. Snurr, "Recent developments in the molecular modeling of diffusion in nanoporous materials", 
+   Mol. Sim., 33 (4-5), 305-325, 2007
+   http://www.tandfonline.com/doi/abs/10.1080/08927020601156418

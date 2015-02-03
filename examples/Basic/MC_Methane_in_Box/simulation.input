@@ -1,0 +1,17 @@
+SimulationType                MonteCarlo
+NumberOfCycles                10000
+NumberOfInitializationCycles  5000
+PrintEvery                    1000
+
+Forcefield                    GarciaPerez2006
+
+Box 0
+BoxLengths 30 30 30
+ExternalTemperature 300.0
+Movies yes
+WriteMoviesEvery 100
+
+Component 0 MoleculeName             methane
+            MoleculeDefinition       TraPPE
+            TranslationProbability   1.0
+            CreateNumberOfMolecules  100

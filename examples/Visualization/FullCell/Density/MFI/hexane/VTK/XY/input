@@ -1,0 +1,37 @@
+BoxLengths 40.044 39.798 53.532   // the lengths of the cell-vectors
+CellAngles 90.0 90.0 90.0         // the angles of the cell-vectors
+
+OutputFileName "MFI-2x2x4-XY-view-density"   // the name of the output-file
+
+FrameworkAtoms OFF         // draw the framework atoms
+
+FrameworkSurface ON       // draw the surface
+FrameworkSurfaceFilename "../FrameworkSurface.vtk"     //
+FrameworkRenderingMethod ISOSURFACE                // the rendering method of the framework-surface: ISOSURFACE, VOLUME_RENDERING
+IsoSurfaceMaterial GLASS                           // set the type of isosuface-material: GLASS,BRUSHED_METAL,METALLIC_PASTEL,TRANSPARENT,RASPA
+IsoSurfaceOpacity 0.1                              // set the opacity of the usual/low-lighted volume
+
+// control of the cell-frame properties
+FrameTickness 1.5
+
+ZoomFactor 1.9  // zoom in or out by increasing/decreasing the zoom-factor
+
+Density ON
+DensityFilename "../DensityProfile_hexane.vtk"
+
+// control the view-point of the oject (input in degrees)
+Azimuth 0.0 
+Elevation 0.0 
+Roll 0.0 
+
+AdditionalAzimuth 0.0
+AdditionalElevation 0.0
+AdditionalRoll 0.0
+
+// the size of the image in pixels
+ImageSize 320 320
+
+// picture quality settings
+Resolution 10            // the resolution of spheres and tubes, the higher the more smooth 
+                         // (use 10, but 50 for the final picture)
+AA 1                     // anti-aliasing, use 1, but 16 for final picture

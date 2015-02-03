@@ -1,0 +1,58 @@
+data_MIL-140A-DFT
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2012-8-31
+_audit_author_name ''
+
+_cell_length_a    23.8688
+_cell_length_b    11.1968
+_cell_length_c    7.8252
+_cell_angle_alpha 90
+_cell_angle_beta  95.475
+_cell_angle_gamma 90
+_cell_volume      2081.78
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall '-I 2ya'
+_symmetry_space_group_name_H-M  'I 1 2/a 1'
+_symmetry_Int_Tables_number     15
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x+1/2,y,-z'
+ '-x,-y,-z'
+ 'x+1/2,-y,z'
+ 'x+1/2,y+1/2,z+1/2'
+ '-x,y+1/2,-z+1/2'
+ '-x+1/2,-y+1/2,-z+1/2'
+ 'x,-y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+Zr1      Zr     0.80557      0.22604      0.14044 
+O2       O      0.78374      0.27647      0.37786 
+O3       O      0.78878      0.03527      0.09653 
+O4       O      0.88637      0.29301      0.06483 
+O5       O      0.78942      0.41932      0.09234 
+O6       O      0.8721       0.12956     -0.703   
+C7       C      0.89947      0.14014      0.44276 
+C8       C      0.95144      0.0679       0.47317 
+C9       C      0.96823     -0.00359      0.34012 
+C10      C      0.01683     -0.07174      0.36686 
+C11      C     -0.2965      -0.2104      -0.079   
+C12      C     -0.70345     -0.66569      0.0788  
+H13      H      0.94261     -0.0042       0.21745 
+H14      H      0.0307       0.87165      0.2661  
+H15      H      0.33203      0.38453      0.13965 
+H16      H      0.66813      0.84003      0.85962 
+C17      C      0.75         0.47118      0       
+C18      C      0.75         0.98382      0       
+C19      C      0.75         0.85161      0       
+C20      C      0.75         0.60365      0       
+
+

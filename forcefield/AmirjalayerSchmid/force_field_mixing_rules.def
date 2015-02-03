@@ -1,0 +1,21 @@
+# general rule for shifted vs truncated
+truncated
+# general rule tailcorrections
+no
+# number of defined interactions
+12
+# type interaction
+He             lennard-jones                10.9      2.64
+Zn1            MM3_VDW_SMOOTHED5            0.276     2.29
+O1             MM3_VDW_SMOOTHED5            0.059     1.82
+O2             MM3_VDW_SMOOTHED5            0.059     1.82
+C1             MM3_VDW_SMOOTHED5            0.056     1.94
+C2             MM3_VDW_SMOOTHED5            0.056     1.96
+C3             MM3_VDW_SMOOTHED5            0.056     1.96
+H1             MM3_VDW_SMOOTHED5            0.02      1.62
+CH3_Sp3        MM3_VDW_SMOOTHED5            0.07      1.96
+CH2_Sp3        MM3_VDW_SMOOTHED5            0.07      1.96
+C_co2          MM3_VDW_SMOOTHED5            0.07      1.96
+O_co2          MM3_VDW_SMOOTHED5            0.07      1.96
+# general mixing rule for Lennard-Jones
+Lorentz-Berthelot

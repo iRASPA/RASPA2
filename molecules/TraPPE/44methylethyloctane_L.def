@@ -1,0 +1,83 @@
+# critical constants: Temperature [T], Pressure [Pa], and Acentric factor [-]
+535.6
+2847232.5
+0.325
+# Number Of Atoms
+11
+# Number of groups
+1
+# octane-group
+flexible
+# number of atoms
+11
+# atomic positions
+0 CH3_sp3  
+1 CH2_sp3  
+2 CH2_sp3  
+3 C_sp3    
+4 CH2_sp3  
+5 CH2_sp3  
+6 CH2_sp3  
+7 CH3_sp3  
+8 CH3_sp3  
+9 CH2_sp3  
+10 CH3_sp3 
+# Chiral centers Bond  BondDipoles Bend  UrayBradley InvBend  Torsion Imp. Torsion Bond/Bond Stretch/Bend Bend/Bend Stretch/Torsion Bend/Torsion IntraVDW IntraCoulomb
+               1   10            0   12            0       0        6            0         0            0         0               0            0       21            0
+# chiral center
+2 3 4 8 L
+# Bond stretch: atom n1-n2, type, parameters
+0 1 HARMONIC_BOND 96500 1.54
+1 2 HARMONIC_BOND 96500 1.54
+2 3 HARMONIC_BOND 96500 1.54
+3 4 HARMONIC_BOND 96500 1.54
+4 5 HARMONIC_BOND 96500 1.54
+5 6 HARMONIC_BOND 96500 1.54
+6 7 HARMONIC_BOND 96500 1.54
+3 8 HARMONIC_BOND 96500 1.54
+3 9 HARMONIC_BOND 96500 1.54
+9 10 HARMONIC_BOND 96500 1.54
+# Bond bending: atom n1-n2-n3, type, parameters
+0 1 2 HARMONIC_BEND 62500 114
+1 2 3 HARMONIC_BEND 62500 114
+2 3 4 HARMONIC_BEND 62500 114
+3 4 5 HARMONIC_BEND 62500 114
+4 5 6 HARMONIC_BEND 62500 114
+5 6 7 HARMONIC_BEND 62500 114
+2 3 8 HARMONIC_BEND 62500 114
+8 3 4 HARMONIC_BEND 62500 114
+8 3 9 HARMONIC_BEND 62500 114
+9 3 4 HARMONIC_BEND 62500 114
+9 3 2 HARMONIC_BEND 62500 114
+3 9 10 HARMONIC_BEND 62500 114
+# Torsion: atom n1-n2-n3-n4, type, parameters
+0 1 2 3 SIX_COSINE_DIHEDRAL 1204.654 1947.740 -357.845 -1944.666 715.690 -1565.572
+1 2 3 8 SIX_COSINE_DIHEDRAL 1293.324 3879.849    0.0   -5173.163 0.0         0.0 
+9 3 4 5 SIX_COSINE_DIHEDRAL 1293.324 3879.849    0.0   -5173.163 0.0         0.0
+10 9 3 4 SIX_COSINE_DIHEDRAL 1293.324 3879.849    0.0   -5173.163 0.0         0.0
+3 4 5 6 SIX_COSINE_DIHEDRAL 1204.654 1947.740 -357.845 -1944.666 715.690 -1565.572
+4 5 6 7 SIX_COSINE_DIHEDRAL 1204.654 1947.740 -357.845 -1944.666 715.690 -1565.572
+# Intra VDW: atom n1-n2
+0 4
+0 5
+0 6
+0 7
+0 8
+0 9
+0 10
+1 5
+1 6
+1 7
+1 10
+2 6
+2 7
+3 7
+5 10
+6 8
+6 9
+6 10
+7 8
+7 9
+7 10
+# Number of config moves
+0

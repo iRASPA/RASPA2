@@ -1,0 +1,37 @@
+SimulationType                MonteCarlo
+NumberOfCycles                50000
+NumberOfInitializationCycles  10000
+NumberOfEquilibrationCycles   20000
+PrintEvery                    1000
+RestartFile                   no
+
+ContinueAfterCrash no
+WriteBinaryRestartFileEvery 5000
+
+ChargeMethod                  Ewald
+Forcefield                    TraPPE
+CutOffVDW                     12.8
+
+Box 0
+BoxLengths 26 26 26
+BoxAngles 90 90 90
+ExternalTemperature 260
+
+Box 1
+BoxLengths 60 60 60
+BoxAngles 90 90 90
+ExternalTemperature 260
+
+GibbsVolumeChangeProbability 0.1
+
+Component 0 MoleculeName              CO2
+            StartingBead              0
+            MoleculeDefinition        TraPPE-UA
+            IdealGasRosenbluthWeight  1
+            FugacityCoefficient       1.0
+            TranslationProbability    1.0
+            RotationProbability       1.0
+            ReinsertionProbability    1.0
+            CBMCProbability           0.0
+            CFGibbsProbability        1.0
+            CreateNumberOfMolecules   400 100

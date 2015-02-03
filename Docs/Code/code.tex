@@ -1,0 +1,878 @@
+\chapter{The source code}
+
+\section{Introduction}
+
+\section{Data types}
+
+There are several new types, the two most important ones are
+\begin{itemize}
+\item{REAL}\\
+REAL is a floating point number. It is defined in `src/constants.h' as
+\begin{verbatim}
+     #define REAL double
+\end{verbatim}
+but if one needs higher precision one could use
+\begin{verbatim}
+     #define REAL long double
+\end{verbatim}
+and using the `qd' library it is even possible to use arbitrary precision.
+\item{VECTOR}\\
+An structure with three elements `x', `y', and `z'.
+\begin{verbatim}
+     typedef struct point
+     {
+       REAL x;
+       REAL y;
+       REAL z;
+     } POINT,VECTOR;
+\end{verbatim}
+\item{REAL\_MATRIX3x3}\\
+A $3\times3$ matrix, used as transformations on vectors (like `strain') and for the three cell-vectors making up the cell matrix. It is defined in `src/matrix.h'.
+\begin{verbatim}
+     typedef struct real_matrix3x3
+     {
+       REAL ax;
+       REAL ay;
+       REAL az;
+
+       REAL bx;
+       REAL by;
+       REAL bz;
+
+       REAL cx;
+       REAL cy;
+       REAL cz;
+     } REAL_MATRIX3x3;
+\end{verbatim}
+\end{itemize}
+
+\section{Datastructures}
+
+\subsection*{Box properties and periodic boundaries}
+
+For each system, a cell box and other properties are defined in `src/simulation.h'
+\begin{footnotesize}
+\begin{verbatim}
+     REAL_MATRIX3x3 *Box;                   // the cell matrix
+     REAL_MATRIX3x3 *InverseBox;            // the inverse of the cell matrix
+     REAL_MATRIX3x3 *ReplicaBox;            // the cell matrix of the replica system
+     REAL_MATRIX3x3 *InverseReplicaBox;     // the inverse of the the cell matrix of the replica system
+     INT_VECTOR3 *NumberOfReplicaCells;     // the integere number of replicas in each direction a,b,c
+     int *TotalNumberOfReplicaCells;        // the total number of replica cells
+     VECTOR *ReplicaShift;                  // the shift in a,b,c for each replica cell
+     int *UseReplicas;                      // whether or not to use replicas
+     REAL_MATRIX3x3 *BoxProperties;         // properties of the cell matrix (i.e. perpendicular lengths)
+     REAL_MATRIX3x3 *InverseBoxProperties;  // properties of the inverse cell matrix
+     REAL *Volume;                          // the volume
+     REAL *AlphaAngle;                      // the alpha-angle of the cell
+     REAL *BetaAngle;                       // the beta-angle of the cell
+     REAL *GammaAngle;                      // the gamma-angle of the cell
+     int *BoundaryCondition;                // the boundary condition (i.e. `RECTANGULAR' or `TRICLINIC')
+\end{verbatim}
+\end{footnotesize}
+These are dynamically allocated arrays and have the same length as the amount of systems present. For example, in a Gibbs simulation two systems are needed, 
+one for the gas-phase and one for the liquid phase. `Volume[0]' would give the volume of the first cell, and `Volume[1]' would give the volume of the second cell.
+
+Periodic boundaries are applied after each distance computation calling the function `ApplyBoundaryCondition' (defined in `src/potentials.h')
+It operates on a `VECTOR' and give the corrected vector back. The system is specified with the global variable `CurrentSystem'.
+\begin{footnotesize}
+\begin{verbatim}
+     VECTOR ApplyBoundaryCondition(VECTOR dr)
+     {
+       VECTOR s,t;
+
+       switch(BoundaryCondition[CurrentSystem])
+       {
+         case FINITE:
+           break;
+         case RECTANGULAR:
+         case CUBIC:
+           dr.x-=Box[CurrentSystem].ax*(REAL)NINT(dr.x*InverseBox[CurrentSystem].ax);
+           dr.y-=Box[CurrentSystem].by*(REAL)NINT(dr.y*InverseBox[CurrentSystem].by);
+           dr.z-=Box[CurrentSystem].cz*(REAL)NINT(dr.z*InverseBox[CurrentSystem].cz);
+           break;
+         case TRICLINIC:
+           // convert from xyz to abc
+           s.x=InverseBox[CurrentSystem].ax*dr.x+InverseBox[CurrentSystem].bx*dr.y+InverseBox[CurrentSystem].cx*dr.z;
+           s.y=InverseBox[CurrentSystem].ay*dr.x+InverseBox[CurrentSystem].by*dr.y+InverseBox[CurrentSystem].cy*dr.z;
+           s.z=InverseBox[CurrentSystem].az*dr.x+InverseBox[CurrentSystem].bz*dr.y+InverseBox[CurrentSystem].cz*dr.z;
+
+           // apply boundary condition
+           t.x=s.x-(REAL)NINT(s.x);
+           t.y=s.y-(REAL)NINT(s.y);
+           t.z=s.z-(REAL)NINT(s.z);
+
+           // convert from abc to xyz
+           dr.x=Box[CurrentSystem].ax*t.x+Box[CurrentSystem].bx*t.y+Box[CurrentSystem].cx*t.z;
+           dr.y=Box[CurrentSystem].ay*t.x+Box[CurrentSystem].by*t.y+Box[CurrentSystem].cy*t.z;
+           dr.z=Box[CurrentSystem].az*t.x+Box[CurrentSystem].bz*t.y+Box[CurrentSystem].cz*t.z;
+           break;
+         default:
+           fprintf(stderr,"Error: Unkown boundary condition....\n");
+           exit(0);
+           break;
+       }
+       return dr;
+     }
+\end{verbatim}
+\end{footnotesize}
+The function `NINT' is faster version of `rint' (or `floor').
+\begin{footnotesize}
+\begin{verbatim}
+     #define NINT(x) ((int)((x)>=0.0?((x)+0.5):((x)-0.5)) )
+\end{verbatim}
+\end{footnotesize}
+A common occurrence of the boundary conditions application is for two positions of atoms `posA' and `posB' (of type `VECTOR')
+\begin{footnotesize}
+\begin{verbatim}
+     dr.x=posA.x-posB.x;
+     dr.y=posA.y-posB.y;
+     dr.z=posA.z-posB.z;
+     dr=ApplyBoundaryCondition(dr);
+     rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
+     r=sqrt(rr);
+\end{verbatim}
+\end{footnotesize}
+
+\noindent
+There are functions you can use to transform from Cartesian to fractional coordinates (defined in `src/potentials.h')
+\begin{footnotesize}
+\begin{verbatim}
+     VECTOR ConvertFromXYZtoABC(VECTOR t)
+     {
+       VECTOR s;
+
+       s.x=InverseBox[CurrentSystem].ax*t.x+InverseBox[CurrentSystem].bx*t.y+InverseBox[CurrentSystem].cx*t.z;
+       s.y=InverseBox[CurrentSystem].ay*t.x+InverseBox[CurrentSystem].by*t.y+InverseBox[CurrentSystem].cy*t.z;
+       s.z=InverseBox[CurrentSystem].az*t.x+InverseBox[CurrentSystem].bz*t.y+InverseBox[CurrentSystem].cz*t.z;
+       return s;
+     }
+\end{verbatim}
+\end{footnotesize}
+and from fractional coordinates to Cartesian
+\begin{footnotesize}
+\begin{verbatim}
+     VECTOR ConvertFromABCtoXYZ(VECTOR t)
+     {
+       VECTOR dr;
+
+       dr.x=Box[CurrentSystem].ax*t.x+Box[CurrentSystem].bx*t.y+Box[CurrentSystem].cx*t.z;
+       dr.y=Box[CurrentSystem].ay*t.x+Box[CurrentSystem].by*t.y+Box[CurrentSystem].cy*t.z;
+       dr.z=Box[CurrentSystem].az*t.x+Box[CurrentSystem].bz*t.y+Box[CurrentSystem].cz*t.z;
+       return dr;
+     }
+\end{verbatim}
+\end{footnotesize}
+
+\subsection*{(Pseudo-)atoms}
+
+The data structure `PSEUDO\_ATOM' contains information on atoms, either real atoms or united atoms where several atoms are lumped together (for example: CH3).
+
+\begin{footnotesize}
+\begin{verbatim}
+     // Pseudoatoms
+     typedef struct PseudoAtom
+     {
+       char Name[256];              // the Name of the pseudo-atom (`CH3',`H',`O' etc).
+       char PrintToPDBName[256];    // the string to print to a pdb-file as name
+       int  PrintToPDB;             // whether to write this atom to the pdf-file or not
+       char ChemicalElement[256];   // the chemical element (`O', `H', etc)
+       int ScatteringType;          // the scattering type (powder diffraction)
+       int AnomalousScatteringType; // the anmalous scattering type (powder diffraction)
+       REAL TemperatureFactor;      // the temperature factor (powder diffraction)
+       REAL Mass;                   // the mass of the pseudo-atom
+       REAL Charge;                 // the charge of the pseudo-atom
+       REAL Polarization;           // the polarization of the atom
+       int HasCharges;              // whether or not the atom has atoms with charges 
+       int IsPolarizable;           // whether or not the atom has a induced point dipole
+       int Interaction;             // whether or not the atom has interactions
+       REAL Radius;                 // the radius (used for calculating Bonds in the zeolite)
+       int Connectivity;            // the connectivity (used for calculating Bonds/Bends/Torsion in the framework)
+     } PSEUDO_ATOM;
+\end{verbatim}
+\end{footnotesize}
+
+\noindent
+A typical use is, once the type is known, to retrieve the charge for a pseudo-atoms:
+\begin{verbatim}
+     REAL q;
+     q=PseudoAtom[type].Charge;
+\end{verbatim}
+Use the following to find out to what pseudoatom a string corresponds to
+\begin{verbatim}
+     int type;
+     type=ReturnPseudoAtomNumber("CH4");
+\end{verbatim}
+However, usually the type is a property of each of the atoms of a molecule.
+\begin{verbatim}
+     int type;
+     type=Framework[1].Atoms[0][10].Type;
+\end{verbatim}
+and `type' can then be used to get the mass, charge, polarization, etc. Here, the type is retrieve for atom number 11 (c is starting from 0, unlike Fortran)
+of the first framework of the second system.
+
+\subsection*{Framework}
+
+Atoms make up a framework, several frameworks can make up 1 system. The definition of a framework atom `FRAMEWORK\_ATOM' is
+\begin{footnotesize}
+\begin{verbatim}
+     typedef struct framework_atom
+     {  
+       int Type;                      // the pseudo-atom type of the atom
+       int AssymetricType;            // the `asymmetric' type
+
+       // MC/MD properties
+       POINT Position;                // the position of the atom
+       POINT ReferencePosition;       // the `reference' position of the atom
+
+       // MD properties
+       VECTOR Velocity;               // the velocity of the atom
+       VECTOR ReferenceVelocity;      // the `reference' velocity of the atom
+       VECTOR Force;                  // the force acting on the atom
+
+       VECTOR ElectricField;          // the electricfield vector
+       VECTOR ReferenceElectricField; // the `reference' electricfield vector
+       VECTOR InducedElectricField;   // the induced electric field
+       VECTOR InducedDipole;          // the induced dipole moment on this atom
+       int HessianIndex;              // the index in the Hessian matrix for this atom
+     } FRAMEWORK_ATOM;
+\end{verbatim}
+\end{footnotesize}
+It contains the properties you'd expect, like type, position, velocity, and force. For polarization, also electric field, induced electric field, 
+and induced dipole are needed. For many applications, one needs to backup the positions and/or velocities. The field `ReferencePosition' and `ReferenceVelocity'
+are useful for that. Also they can be used for some algorithms which need the `old' values to. An example is the numerical computation of stress. First all
+positions are copied  to the `ReferencePosition', then the positions `Position' are generated from the strain at infinite small strain difference and the
+finite difference scheme is applied.
+
+\noindent
+A framework-structure `FRAMEWORK\_COMPONENT' is defined per system
+\begin{verbatim}
+     FRAMEWORK_COMPONENT *Framework;
+\end{verbatim}
+with
+\begin{footnotesize}
+\begin{verbatim}
+     typedef struct FrameworkComponent
+     {
+       char (*Name)[256];                        // the name of the frameworks
+
+       int TotalNumberOfAtoms;                   // the total number of atoms of the frameworks
+       int TotalNumberOfUnitCellAtoms;           // the total number of atoms of the unit cell
+       REAL FrameworkDensity;                    // the total density of the frameworks
+       REAL FrameworkMass;                       // the total mass of the frameworks
+
+       int NumberOfFrameworks;                   // the number of frameworks
+       REAL *FrameworkDensityPerComponent;       // the density per framework
+       REAL *FrameworkMassPerComponent;          // the mass per framework
+
+       int *NumberOfAtoms;                       // the number of atoms per framework
+       int *NumberOfUnitCellAtoms;               // the number of unit cell atoms per framework
+       FRAMEWORK_ATOM **Atoms;                   // list of framework-atoms per framework
+       ..................
+       ..................
+} FRAMEWORK_COMPONENT;
+\end{verbatim}
+\end{footnotesize}
+The structure had the element `Atoms' which is a list of framework-atoms per framework.
+So, to get the type of the 11 atom of the first framework of the second system, use
+\begin{verbatim}
+     int type;
+     type=Framework[1].Atoms[0][10].Type;
+\end{verbatim}
+
+\noindent
+Finally, a small example where we print out the positions of all the framework atoms for all frameworks and systems
+\begin{verbatim}
+      int i,j,f1;
+      for(i=0;i<NumberOfSystem;i++)
+      {
+        for(f1=0;f1<Framework[i].NumberOfSystems;f1++)
+        {
+          for(j=0;j<Framework[i].NumberOfAtoms[f1];j++)
+            printf("system: %d framework: %d atom: %d -> position: %g %g %g\n",
+            i,f1,j,
+            Framework[i].Atoms[f1][j].Position.x,
+            Framework[i].Atoms[f1][j].Position.y,
+            Framework[i].Atoms[f1][j].Position.z);
+        }
+      }
+\end{verbatim}
+
+\subsection*{Components}
+
+Everything that is independent of a molecule's positions but still a property of molecules is stored in the structure `COMPONENT'.
+Here you find the number of atoms for this type of molecule per system, the mass for the component etc.
+Also computed values for densities of the bulk fluid, compressibility, and the amount of excess molecules are stored. These are computed
+from the mol fraction, pressure, and critical pressure/temperature and acentric factor.
+After these properties there are data on the potentials defined for the component: bond, Urey-Bradley, bends, torsions, cross-terms, intra Van der Waals etc.
+For Monte Carlo the structure contains the probability of all the moves.
+
+\begin{footnotesize}
+\begin{verbatim}
+     typedef struct Component
+     {
+       char Name[256];                 // the name of the component ("methane","C12","propane" etc).
+       int NumberOfAtoms;              // the number of atoms in the component
+       int StartingBead;               // the bead of the molecule used for starting the growing process in CBMC
+       REAL Mass;                      // the mass of the component
+       int *NumberOfMolecules;         // the number of molecules of the component for each system
+       int *Type;                      // the pseudo-atom Type of each atom
+       int *Connectivity;              // the connectivity of each atom
+       int HasCharges;                 // whether the molecule contains charges or not
+       int IsPolarizable;              // whether the molecule has point dipoles or not
+       int ExtraFrameworkMolecule;     // TRUE: Cation, FALSE: Adsorbate
+       int Swapable;                   // whether or not the number of molecules is fluctuating (i.e. GCMC)
+       int Widom;                      // whether this component is used for Widom insertions
+
+       REAL *IdealGasRosenbluthWeight; // the Rosenbluth weight of an ideal-chain per system
+       REAL *IdealGasTotalEnergy;      // the total energy of an ideal-chain per system
+
+       REAL *PartialPressure;          // the partial pressure of the component per system
+       REAL *FugacityCoefficient;      // the fugacity coefficient of the component per system
+       REAL *BulkFluidDensity;         // the bulkfluid-density of the component per system
+       REAL *Compressibility;          // the compresibility of the fluid-fase per system
+       REAL *MolFraction;              // the mol-fraction of the component per system
+       REAL *AmountOfExcessMolecules;  // the amount of excess molecules per syste,
+
+       REAL CriticalTemperature;       // the critical temperature of the component
+       REAL CriticalPressure;          // the critical pressure of the component
+       REAL AcentricFactor;            // the acentric factor of the component
+
+       int NumberOfGroups;             // the number of groups
+       GROUP_DEFINITION *Groups;       // the definition of the groups
+       int *group;                     // to which group an atom belongs
+       VECTOR *Positions;              // the positions in the body-fixed frame
+          ..................
+          ..................
+       int NumberOfBonds;                                    // the number of bonds of the component
+       PAIR *Bonds;                                          // the list of bond-pairs
+       int *BondType;                                        // the type of the bond for each bond-pair
+       REAL (*BondArguments)[MAX_BOND_POTENTIAL_ARGUMENTS];  // the arguments needed for this bond-pair
+          ..................
+          ..................
+       REAL ProbabilityTranslationMove;  // the probability of the translation MC-move for the component
+       REAL ProbabilityRotationMove;     // the probability of the rotation MC-move for the component
+       REAL ProbabilityCBMCMove;         // the probability of the partial-regrow MC-move for the component
+       REAL ProbabilityReinsertionMove;  // the probability of the reinsertion MC-move for the component
+          ..................
+          ..................
+     } COMPONENT;
+\end{verbatim}
+\end{footnotesize}
+
+A component consists of `groups', which is a collection of atoms that are either treated as rigid or as flexible. The component has
+elements that lists how many of these groups there are, the definition of the group, and the positions of all the atoms in the body-fixed frame.
+The definition of the group is the structure `GROUP\_DEFINITION'. Important elements are whether or not the group is rigid, the
+number of atoms in the group, and the list of atom number present in the groups.
+
+\begin{footnotesize}
+\begin{verbatim}
+     typedef struct group_definitions
+     {
+       int Rigid;                        // whether or not the group is rigid
+       int Type;                         // the type, NONLINEAR_MOLECULE, LINEAR_MOLECULE, or POINT_PARTICLE
+
+       REAL Mass;                        // the mass of the group
+
+       int NumberOfGroupAtoms;           // the numer of atoms in the group
+       int *Atoms;                       // the atoms in the group
+
+       REAL_MATRIX3x3 InertiaTensor;     // the inertia tensor
+       VECTOR InertiaVector;             // the inertia vector
+       VECTOR InverseInertiaVector;      // the inverse of inertia vector
+
+       REAL_MATRIX3x3 RotationalMatrix;  // the rotational matrix
+       TRIPLE orientation;               // three atoms A,B,C to compute quaternions
+       REAL rot_min;
+
+       int RotationalDegreesOfFreedom;   // the rotational degrees of freedom
+     } GROUP_DEFINITION;
+\end{verbatim}
+\end{footnotesize}
+The inertia tensor, vector and rotational matrix etc. are the same for a certain type of molecule. Together with the actually atom positions, the orientations
+can be computed for all the rigid units (i.e. the quaternions are computed).
+
+\subsection*{Adsorbate and cations}
+The definition of an adsorbate atom `ADSORBATE\_ATOM' is very similar to a framework atom
+\begin{footnotesize}
+\begin{verbatim}
+     typedef struct adsorbate_atom
+     {
+       int Type;                       // the pseudo-atom type of the atom
+
+       // MC/MD properties
+       POINT Position;                 // the position of the atom
+       POINT ReferencePosition;        // the `reference' position of the atom
+
+       // MD properties
+       VECTOR Velocity;                // the velocity of the atom
+       VECTOR ReferenceVelocity;       // the `reference' velocity of the atom
+       VECTOR Force;                   // the force acting on the atom
+
+       VECTOR ElectricField;           // the electricfield vector
+       VECTOR ReferenceElectricField;  // the `reference' electricfield vector
+       VECTOR InducedElectricField;    // the induced electric field
+       VECTOR InducedDipole;           // the induced dipole moment on this atom
+       int HessianIndex;               // the index in the Hessian matrix for this atom
+     } ADSORBATE_ATOM;
+\end{verbatim}
+\end{footnotesize}
+The definition for cations is identical except it is called `CATION\_ATOM'.
+The definition of an adsorbate molecule is
+\begin{footnotesize}
+\begin{verbatim}
+     typedef struct adsorbate
+     {
+       int Type;               // the component type of the molecule
+       int NumberOfAtoms;      // the number of atoms in the molecule
+       GROUP *Groups;          // data of the rigid groups
+       ADSORBATE_ATOM *Atoms;  // list of atoms
+     } ADSORBATE_MOLECULE;
+\end{verbatim}
+\end{footnotesize}
+The definition of a cation is called `CATION\_MOLECULE'.
+Note that a molecule can consists of atoms, but also can contain rigid units. The atoms are accessible through the `Atoms' field, and rigid units
+are accessible through the `Groups' field. A `GROUP' consists of
+\begin{footnotesize}
+\begin{verbatim}
+     typedef struct group
+     {
+       REAL Mass;                             // mass of the rigid unit
+       QUATERNION Quaternion;                 // orientation of the unit
+       QUATERNION QuaternionMomentum;         // quaternion momentum
+       QUATERNION QuaternionForce;            // quaternion force
+       VECTOR Torque;                         // torque vector
+       VECTOR CenterOfMassPosition;           // the center of mass position
+       VECTOR CenterOfMassReferencePosition;  // the reference position for the center of mass
+       VECTOR CenterOfMassVelocity;           // the center of mass velocity
+       VECTOR CenterOfMassForce;              // the center of mass force
+       VECTOR AngularVelocity;                // the angular velocity of the rigid unit
+     } GROUP;
+\end{verbatim}
+\end{footnotesize}
+which contains elements like position and orientation, and fields for the integration of rigid units, i.e. QuaternionMomentum etc.
+
+\noindent
+Molecules are stored as a list of molecules for each system
+\begin{footnotesize}
+\begin{verbatim}
+     ADSORBATE_MOLECULE **Adsorbates;
+\end{verbatim}
+\end{footnotesize}
+To get the type of the 5th atom of the 11th adsorbate of the first system, use
+\begin{verbatim}
+     int type;
+     type=Adsorbates[0][10].Atoms[4].Type;
+\end{verbatim}
+As an example, here a function to measure the velocity drift of all the adsorbates in the current system
+\begin{footnotesize}
+\begin{verbatim}
+     VECTOR MeasureVelocityDrift(void)
+     {
+       int i,k,l,Type,A,f;
+       REAL Mass,TotalMass;
+       VECTOR com;
+
+       TotalMass=0.0;
+       com.x=com.y=com.z=0.0;
+       for(i=0;i<NumberOfAdsorbateMolecules[CurrentSystem];i++)
+       {
+         Type=Adsorbates[CurrentSystem][i].Type;
+         for(l=0;l<Components[Type].NumberOfGroups;l++)
+         {
+           if(Components[Type].Groups[l].Rigid)
+           {
+             Mass=Components[Type].Groups[l].Mass;
+             TotalMass+=Mass;
+             com.x+=Mass*Adsorbates[CurrentSystem][i].Groups[l].CenterOfMassVelocity.x;
+             com.y+=Mass*Adsorbates[CurrentSystem][i].Groups[l].CenterOfMassVelocity.y;
+             com.z+=Mass*Adsorbates[CurrentSystem][i].Groups[l].CenterOfMassVelocity.z;
+           }
+           else
+           {
+             for(k=0;k<Components[Type].Groups[l].NumberOfGroupAtoms;k++)
+             {
+               A=Components[Type].Groups[l].Atoms[k];
+               Mass=PseudoAtoms[Adsorbates[CurrentSystem][i].Atoms[A].Type].Mass;
+               TotalMass+=Mass;
+               com.x+=Mass*Adsorbates[CurrentSystem][i].Atoms[A].Velocity.x;
+               com.y+=Mass*Adsorbates[CurrentSystem][i].Atoms[A].Velocity.y;
+               com.z+=Mass*Adsorbates[CurrentSystem][i].Atoms[A].Velocity.z;
+             }
+           }
+         }
+       }
+       com.x/=TotalMass;
+       com.y/=TotalMass;
+       com.z/=TotalMass;
+       return com;
+     }
+\end{verbatim}
+\end{footnotesize}
+It loops over all the adsorbate molecules, and asks for the type. The component-type is important to get the number of groups for the current molecule.
+Then, there is a inner loop over all of the groups of the current molecule. If the group is rigid, then the center of mass velocity is used, otherwise
+it is flexible and it loops over all the atoms of the flexible group.
+In general, if something is the same for a type of molecule then it is a property of the component. If it is different for each molecule, it is a property
+of a molecule.
+\section{Modifying}
+
+\subsection{Monte Carlo}
+
+\subsubsection*{Selecting MC moves}
+The file `src/monte\_carlo.c' is the main Monte Carlo simulation routine. The bulk of the code deals with how to select a particular Monte carlo move.
+Some requirements and conveniences:
+\begin{itemize}
+  \item{The moves should be chosen in random order}
+  \item{System move should be chosen much less frequent than particle moves. The particles need to be able to adapt to the new system.}
+  \item{For $n$ systems, the amount of steps should be $n$ times larger.}
+  \item{For $n$ times as many molecules, the amount of steps should be $n$ times larger.}
+  \item{For multi-component systems one needs more steps.}
+  \item{For systems at low loadings, the sampling lengths should be increase a bit (i.e. set a minimum amount of inner steps).}
+  \item{The relative probabilities of particle moves should be taken into account.}
+\end{itemize}
+
+\noindent A code which achieves all the above is listed here (there are many other ways of doing this). For each MC `cycle'
+\begin{footnotesize}
+\begin{verbatim}
+      for(i=0;i<NumberOfSystems;i++)
+      {
+        // choose system at random
+        CurrentSystem=(int)(RandomNumber()*(REAL)NumberOfSystems);
+
+        NumberOfSystemMoves=9;
+        NumberOfMolecules=NumberOfAdsorbateMolecules[CurrentSystem]+NumberOfCationMolecules[CurrentSystem];
+        NumberOfParticleMoves=MAX(MinimumInnerCycles,NumberOfMolecules);
+        NumberOfSteps=(NumberOfSystemMoves+NumberOfParticleMoves)*NumberOfComponents;
+
+        // loop over the MC `steps' per MC `cycle'
+        for(j=0;j<NumberOfSteps;j++)
+        {
+          // choose any of the MC moves randomly
+          ran_int=(int)(RandomNumber()*NumberOfSteps);
+          switch(ran_int)
+          {
+            case 0: if(RandomNumber()<ProbabilityParallelTemperingMove) ParallelTemperingMove(); break;
+            case 1: if(RandomNumber()<ProbabilityHybridNVEMove) HybridNVEMove(); break;
+            case 2: if(RandomNumber()<ProbabilityHybridNPHMove) HybridNPHMove(); break;
+            case 3: if(RandomNumber()<ProbabilityHybridNPHPRMove) HybridNPHPRMove(); break;
+            case 4: if(RandomNumber()<ProbabilityVolumeChangeMove) VolumeMove(); break;
+            case 5: if(RandomNumber()<ProbabilityBoxShapeChangeMove) BoxShapeChangeMove(); break;
+            case 6: if(RandomNumber()<ProbabilityGibbsVolumeChangeMove) GibbsVolumeMove(); break;
+            case 7: if(RandomNumber()<ProbabilityFrameworkChangeMove) FrameworkChangeMove(); break;
+            case 8: if(RandomNumber()<ProbabilityFrameworkShiftMove) FrameworkShiftMove(); break;
+            default:
+              // choose component at random
+              CurrentComponent=(int)(RandomNumber()*(REAL)NumberOfComponents);
+
+              // choose the Monte Carlo move at random
+              ran=RandomNumber();
+              if(ran<Components[CurrentComponent].ProbabilityTranslationMove) TranslationMove();
+              else if(ran<Components[CurrentComponent].ProbabilityRandomTranslationMove) RandomTranslationMove();
+              else if(ran<Components[CurrentComponent].ProbabilityRotationMove) RotationMove();
+              else if(ran<Components[CurrentComponent].ProbabilityCBMCMove) CBMCMove();
+              else if(ran<Components[CurrentComponent].ProbabilityReinsertionMove) ReinsertionMove();
+              else if(ran<Components[CurrentComponent].ProbabilityReinsertionInPlaceMove) ReinsertionInPlaceMove();
+              else if(ran<Components[CurrentComponent].ProbabilityReinsertionInPlaneMove) ReinsertionInPlaneMove();
+              else if(ran<Components[CurrentComponent].ProbabilityIdentityChangeMove) IdentityChangeMove();
+              else if(ran<Components[CurrentComponent].ProbabilitySwapMove)
+              {
+                if(RandomNumber()<0.5) SwapAddMove();
+                else SwapRemoveMove();
+              }
+              else if(ran<Components[CurrentComponent].ProbabilityWidomMove) WidomMove();
+              else if(ran<Components[CurrentComponent].ProbabilitySurfaceAreaMove) SurfaceAreaMove();
+              else if(ran<Components[CurrentComponent].ProbabilityGibbsSwapChangeMove) GibbsParticleTransferMove();
+              else if(ran<Components[CurrentComponent].ProbabilityGibbsIdentityChangeMove) GibbsIdentityChangeMove();
+              break;
+          }
+        }
+      }
+\end{verbatim}
+\end{footnotesize}
+First is a loop over the amount of systems, and a random system is chosen. Suppose we have 200 single component molecules in this system, then each of the system move is chosen
+with 1/209 probability (case 0-8), and there is a 200/209 chance to select a particle move (case 9-209). The probability of the particle moves are scaled in such a way that
+the proper relative occurrence is obeyed (as specified in the input). Note that the swap-move has 50\% to be swap insertion and 50\% to be swap remove. This is necessary
+to obey detailed balance. For multi-components more moves are performed.
+
+\subsubsection*{Sampling properties during Monte Carlo}
+The Monte Carlo routine has two parts:
+\begin{itemize}
+  \item{The initialization part. Here, no properties are computed and MC moves are performed just to reach equilibrium.}
+  \item{The production run, where properties are computed.}
+\end{itemize}
+The basic outline of the production run is
+\begin{footnotesize}
+\begin{verbatim}
+     // initialize sampling-routines at the start of the production run
+     SampleInfraRedSpectra(INITIALIZE);
+     SampleMeanSquareDisplacementOrderN(INITIALIZE);
+     SampleOnsagerMeanSquareDisplacementOrderN(INITIALIZE);
+     SampleRadialDistributionFunction(INITIALIZE);
+     SampleFrameworkSpacingHistogram(INITIALIZE);
+     SamplePositionHistogram(INITIALIZE);
+     SampleNumberOfMoleculesHistogram(INITIALIZE);
+     SampleEnergyHistogram(INITIALIZE);
+     SampleDensityProfile3DVTKGrid(INITIALIZE);
+     SampleEndToEndDistanceHistogram(INITIALIZE);
+     SampleMoleculePropertyHistogram(INITIALIZE);
+     SamplePDBMovies(INITIALIZE);
+     SampleDcTSTConfigurationFiles(INITIALIZE);
+     SampleFreeEnergyProfile(INITIALIZE);
+     SampleCationAndAdsorptionSites(INITIALIZE);
+
+     for(CurrentCycle=0;CurrentCycle<NumberOfCycles;CurrentCycle++)
+     {
+       // sample energy average and system/particle properties
+       for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
+       {
+         UpdateEnergyAveragesCurrentSystem();
+
+         SampleRadialDistributionFunction(SAMPLE);
+         SampleFrameworkSpacingHistogram(SAMPLE);
+         SamplePositionHistogram(SAMPLE);
+         SampleNumberOfMoleculesHistogram(SAMPLE);
+         SampleEnergyHistogram(SAMPLE);
+         SampleDensityProfile3DVTKGrid(SAMPLE);
+         SampleEndToEndDistanceHistogram(SAMPLE);
+         SampleMoleculePropertyHistogram(SAMPLE);
+         SampleFreeEnergyProfile(SAMPLE);
+         SampleCationAndAdsorptionSites(SAMPLE);
+       }
+
+       // SELECTION OF MC-MOVES (SEE CODE OF THE PREVIOUS SECTION)
+
+       for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
+       {
+         SampleRadialDistributionFunction(PRINT);
+         SampleFrameworkSpacingHistogram(PRINT);
+         SamplePositionHistogram(PRINT);
+         SampleNumberOfMoleculesHistogram(PRINT);
+         SampleEnergyHistogram(PRINT);
+         SampleDensityProfile3DVTKGrid(PRINT);
+         SampleEndToEndDistanceHistogram(PRINT);
+         SampleMoleculePropertyHistogram(PRINT);
+         SamplePDBMovies(PRINT);
+         SampleDcTSTConfigurationFiles(PRINT);
+         SampleFreeEnergyProfile(PRINT);
+         SampleCationAndAdsorptionSites(PRINT);
+       }
+     }
+
+     // finalize output
+     SampleRadialDistributionFunction(FINALIZE);
+     SampleFrameworkSpacingHistogram(FINALIZE);
+     SamplePositionHistogram(FINALIZE);
+     SampleNumberOfMoleculesHistogram(FINALIZE);
+     SampleEnergyHistogram(FINALIZE);
+     SampleDensityProfile3DVTKGrid(FINALIZE);
+     SampleEndToEndDistanceHistogram(FINALIZE);
+     SampleMoleculePropertyHistogram(FINALIZE);
+     SamplePDBMovies(FINALIZE);
+     SampleDcTSTConfigurationFiles(FINALIZE);
+     SampleFreeEnergyProfile(FINALIZE);
+     SampleCationAndAdsorptionSites(FINALIZE);
+\end{verbatim}
+\end{footnotesize}
+Each of the sampling routine (in `src/sample.c') has 5 scaling options: 
+\begin{itemize}
+ \item{ALLOCATE} to allocate memory needed for the sampling.
+ \item{INITIALIZE} to initialized the routine if needed.
+ \item{SAMPLE} to sample the properties.
+ \item{PRINT} to periodically write the output to file.
+ \item{FINALIZE} to free the requested memory and clean up.
+\end{itemize}
+Adding your own sampling routines requires an additional routine in `src/sample.c', the definition in `src/sample.h' and addition to 
+calls to `src/monte\_carlo.c'.
+
+
+\subsection{Molecular Dynamics}
+
+A molecular dynamics simulation is performed in several steps:
+\begin{itemize}
+  \item{The proper amount of molecules are created and they are inserted as as no overlaps occurred with the framework or other particles.}
+  \item{Initialization: during the initialization period an NVT Monte-Carlo (MC) simulation is performed to rapidly achieve
+        an equilibrium molecular arrangement.}
+  \item{After the initialization period, velocities are assigned, drawn from the Maxwell-Boltzmann
+        distribution at the desired average temperature to all the atoms. The total momentum of the system can be set to zero.}
+  \item{Equilibration: Next, the system is further equilibrated by performing an NVT MD simulation using a specified ensemble.}
+  \item{Production run: the simulation is performed in the requested ensemble and properties are measured.}
+\end{itemize}
+The amount of cycles for each of these steps can be specified. For example, when starting from a restart-file there is no need for the Monte Carlo initialization,
+and if also the velocities are used from the restart-file then also the MD equilibration could be skipped. Moreover, the equilibration can be done in a different
+ensemble as the production run. This is most useful for NVE simulations, where the equilibration could be done using NVT. The final temperature of the
+NVE production run is then quite close the desired temperature (in NVE the temperature is not imposed).
+
+The initialization part is not shown here, as it is very similar to regular Monte Carlo. The basic outline for the equilibration and production run are listed below.
+The most important lines are the `Integration();' ones, which evolve the system a single time step. This routine is implemented in `src/integration.c' and makes use
+of `src/thermo\_baro\_stats.c' for temperature and pressure control.
+
+\begin{footnotesize}
+\begin{verbatim}
+     // initialize
+     InitializesEnergiesAllSystems();
+     InitializeSmallMCStatisticsAllSystems();
+     InitializeMCMovesStatisticsAllSystems();
+
+     // compute initial energy
+     InitializeNoseHooverAllSystems();
+     InitializeForcesAllSystems();
+
+     // set the current ensemble to the initialization ensemble
+     for(i=0;i<NumberOfSystems;i++)
+       Ensemble[i]=InitEnsemble[i];
+
+     InitializesEnergyAveragesAllSystems();
+
+     for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
+     {
+       ReferenceEnergy[CurrentSystem]=ConservedEnergy[CurrentSystem];
+       Drift[CurrentSystem]=0.0;
+     }
+
+     // Molecular-Dynamics initializing period to achieve a rapid equilibration of the velocities
+     for(CurrentCycle=0;CurrentCycle<NumberOfEquilibrationCycles;CurrentCycle++)
+     {
+       for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
+       {
+         // regularly output system status and restart files
+         if(CurrentCycle%PrintEvery==0)
+         {
+           PrintIntervalStatusEquilibration(CurrentCycle,NumberOfEquilibrationCycles,OutputFilePtr[CurrentSystem]);
+           PrintRestartFile();
+         }
+
+         // evolve the system a full time-step
+         Integration();
+
+         // update the current energy-drift
+         Drift[CurrentSystem]+=fabs((ConservedEnergy[CurrentSystem]-ReferenceEnergy[CurrentSystem])/
+               ReferenceEnergy[CurrentSystem]);
+       }
+     }
+
+
+     // initialize sampling-routines at the start of the production run
+     for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
+     {
+       Ensemble[CurrentSystem]=RunEnsemble[CurrentSystem];
+
+       ReferenceEnergy[CurrentSystem]=ConservedEnergy[CurrentSystem];
+       Drift[CurrentSystem]=0.0;
+     }
+     SampleInfraRedSpectra(INITIALIZE);
+     SampleEndToEndDistanceHistogram(INITIALIZE);
+     SampleMeanSquareDisplacementOrderN(INITIALIZE);
+     SampleOnsagerMeanSquareDisplacementOrderN(INITIALIZE);
+     SampleEnergyHistogram(INITIALIZE);
+     SamplePositionHistogram(INITIALIZE);
+     SampleRadialDistributionFunction(INITIALIZE);
+     SamplePositionHistogram(INITIALIZE);
+     SampleMoleculePropertyHistogram(INITIALIZE);
+     SamplePDBMovies(INITIALIZE);
+     SampleCationAndAdsorptionSites(INITIALIZE);
+
+     // Molecular-Dynamics production run
+     // loop over the amount of production cycles (MD integration steps)
+     for(CurrentCycle=0;CurrentCycle<NumberOfCycles;CurrentCycle++)
+     {
+       // loop over all the systems and handle one by one
+       for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
+       {
+         SampleInfraRedSpectra(SAMPLE);
+         SampleEndToEndDistanceHistogram(SAMPLE);
+         SampleMeanSquareDisplacementOrderN(SAMPLE);
+         SampleOnsagerMeanSquareDisplacementOrderN(SAMPLE);
+         SampleEnergyHistogram(SAMPLE);
+         SamplePositionHistogram(SAMPLE);
+         SampleRadialDistributionFunction(SAMPLE);
+         SamplePositionHistogram(SAMPLE);
+         SampleMoleculePropertyHistogram(SAMPLE);
+         SampleCationAndAdsorptionSites(SAMPLE);
+
+         // update all the average energies
+         UpdateEnergyAveragesCurrentSystem();
+
+         if(CurrentCycle%PrintPropertiesEvery==0)
+           PrintPropertyStatus(CurrentCycle,NumberOfCycles,OutputFilePtr[CurrentSystem]);
+
+         if(CurrentCycle%PrintEvery==0)
+         {
+           PrintIntervalStatus(CurrentCycle,NumberOfCycles,OutputFilePtr[CurrentSystem]);
+           PrintRestartFile();
+         }
+
+         // regulary output radial distribution function
+         SampleInfraRedSpectra(PRINT);
+         SampleEndToEndDistanceHistogram(PRINT);
+         SampleMeanSquareDisplacementOrderN(PRINT);
+         SampleOnsagerMeanSquareDisplacementOrderN(PRINT);
+         SampleEnergyHistogram(PRINT);
+         SamplePositionHistogram(PRINT);
+         SampleRadialDistributionFunction(PRINT);
+         SamplePositionHistogram(PRINT);
+         SampleMoleculePropertyHistogram(PRINT);
+         SamplePDBMovies(PRINT);
+         SampleCationAndAdsorptionSites(PRINT);
+   
+         // evolve the current system a full time step
+         Integration();
+
+         // update the current energy-drift
+         Drift[CurrentSystem]+=fabs((ConservedEnergy[CurrentSystem]-ReferenceEnergy[CurrentSystem])/
+               ReferenceEnergy[CurrentSystem]);
+       }
+     }
+
+     // finalize and clean up
+     for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
+     {
+       SampleInfraRedSpectra(FINALIZE);
+       SampleEndToEndDistanceHistogram(FINALIZE);
+       SampleMeanSquareDisplacementOrderN(FINALIZE);
+       SampleOnsagerMeanSquareDisplacementOrderN(FINALIZE);
+       SampleEnergyHistogram(FINALIZE);
+       SamplePositionHistogram(FINALIZE);
+       SampleRadialDistributionFunction(FINALIZE);
+       SamplePositionHistogram(FINALIZE);
+       SampleMoleculePropertyHistogram(FINALIZE);
+       SamplePDBMovies(FINALIZE);
+       SampleCationAndAdsorptionSites(FINALIZE);
+     }
+\end{verbatim}
+\end{footnotesize}
+Adding your own sampling routines requires an additional routine in `src/sample.c', the definition in `src/sample.h' and addition to 
+calls to `src/molecular\_dynamics.c'.
+
+\section{Debugging}
+
+\subsection{Linux}
+
+There are several debuggers like `gdb', and memory check utilities available, i.e. valgrind.
+
+\subsection{Mac OSX}
+
+Debugging memory error under Max OsX is easy. One can replace the standard library to allocate memory by different ones that check memory allocation and use.
+It can catch a lot of array out-of-bound error, even for dynamically allocated memory. See
+
+\begin{verbatim}
+     man libgmalloc
+\end{verbatim}
+
+An example, export `RASPA\_DIR' to the installation directory, start the debugger, load the debugging libraries and start running the code.
+\begin{verbatim}
+     export RASPA_DIR=${HOME}/RASPA/simulations/
+     gdb ~/RASPA/simulations/bin/simulate
+
+     GNU gdb 6.3.50-20050815 (Apple version gdb-768) (Tue Oct  2 04:07:49 UTC 2007)
+     Copyright 2004 Free Software Foundation, Inc.
+     GDB is free software, covered by the GNU General Public License, and you are
+     welcome to change it and/or distribute copies of it under certain conditions.
+     Type "show copying" to see the conditions.
+     There is absolutely no warranty for GDB.  Type "show warranty" for details.
+     This GDB was configured as "i386-apple-darwin"...Reading symbols for shared libraries ... done
+
+     (gdb) set env DYLD_INSERT_LIBRARIES /usr/lib/libgmalloc.dylib
+     (gdb) r
+\end{verbatim}
+
+

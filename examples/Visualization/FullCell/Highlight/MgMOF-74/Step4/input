@@ -1,0 +1,51 @@
+BoxLengths 51.75300 51.75300 27.14240   // the lengths of the cell-vectors
+CellAngles 90.0 90.0 120.0              // the angles of the cell-vectors
+
+OutputFileName "MgMOF-74-step4"
+
+FrameworkAtoms OFF                 // don't draw the framework atoms
+
+CutOutShape ON                     // Cut-out a shape (e.g. cylinder) to highlight everything inside the volume
+CutOutDirection Z                  // The orientation of the cut-out shape
+CutOutType CYLINDER                // the type of the shape is a cylinder
+CutOutRadius1 8.0                  // the radius of the cylinder,
+CutOutFractionalShift 0.5 0.5 0.5  // the center of the shape in fractional positions
+
+FrameworkSurface ON                                // draw the surface
+FrameworkAtomsFilename "../FrameworkAtoms.vtk"     // 
+FrameworkBondsFilename "../FrameworkBonds.vtk"     //
+FrameworkSurfaceFilename "../FrameworkSurface.vtk" //
+FrameworkRenderingMethod ISOSURFACE                // the rendering method of the framework-surface: ISOSURFACE, VOLUME_RENDERING
+IsoSurfaceMaterial GLASS                           // set the type of isosuface-material: GLASS,BRUSHED_METAL,METALLIC_PASTEL,TRANSPARENT,RASPA
+IsoSurfaceOpacity 0.1                              // set the opacity of the usual/low-lighted volume
+HighLightedIsoSurfaceMaterial RASPA                // set the type of isosuface-material of the highlighted volume
+HighLightedIsoSurfaceColor 0.5 0.75 1.0            // set the color of the highlighted surface
+HighLightedIsoSurfaceOpacity 1.0                   // set the opacity of the highlighted surface
+
+DensityFilename "../Density.vtk"
+
+// control the properties of adsorbates
+AdsorbateAtomsFilename "../AdsorbateAtoms.vtk"
+AdsorbateOpacity 0.1 
+HighLightedAdsorbateOpacity 1.0
+ClipAdsorbates XY
+
+// control of the cell-frame properties
+Frame UNIT_CELL
+NumberOfUnitCells 3 3 3
+FrameMin 0 0 0
+FrameMax 2 2 2
+FrameOpacity 1.0 
+
+// zoom in or out by increasing/decreasing the zoom-factor
+ZoomFactor 2.0 
+
+// control the view-point of the oject (input in degrees)
+Azimuth 0.0 
+Elevation 0.0 
+Roll 0.0 
+
+ImageSize 500 300 // the size of the image in pixels
+
+Resolution 10            // the resolution of spheres and tubes, the higher the more smooth (use 10, but 50 for the final picture)
+AA 1                     // anti-aliasing, use 1, but 8 for final picture

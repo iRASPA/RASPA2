@@ -1,0 +1,18 @@
+SimulationType                   PSD
+NumberOfCycles                   10000
+NumberOfInitializationCycles     0
+PrintEvery                       10
+
+ChargeMethod                     Ewald
+CutOff                           12.0
+Forcefield                       GenericMOFs
+EwaldPrecision                   1e-6
+
+Framework                        0
+FrameworkName                    MOF-177
+UnitCells                        1 1 1
+ExternalTemperature              300.0
+PSDProbeDistance                 Sigma
+WritePSDHistogramEvery           100
+PSDHistogramSize                 1000
+PSDRange                         10.0

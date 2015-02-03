@@ -1,0 +1,97 @@
+data_DDR
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-3
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'H. Gies'
+_citation_title              'Studies on clathrasils. IX. Crystal structure of deca-dodecasil 3R, the missing link between zeolites and clathrasils'
+_citation_journal_abbrev     'Z. Kristallogr.'
+_citation_journal_volume     175
+_citation_page_first         93
+_citation_page_last          104
+_citation_year               1986
+
+_cell_length_a    13.86
+_cell_length_b    13.86
+_cell_length_c    40.891
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      6802.75
+
+_symmetry_cell_setting          trigonal
+_symmetry_space_group_name_Hall '-R 3 2"'
+_symmetry_space_group_name_H-M  'R -3 m'
+_symmetry_Int_Tables_number     166
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ 'y,x,-z'
+ 'x-y,-y,-z'
+ '-x,-x+y,-z'
+ '-x,-y,-z'
+ 'y,-x+y,-z'
+ 'x-y,x,-z'
+ '-y,-x,z'
+ '-x+y,y,z'
+ 'x,x-y,z'
+ 'x+2/3,y+1/3,z+1/3'
+ '-y+2/3,x-y+1/3,z+1/3'
+ '-x+y+2/3,-x+1/3,z+1/3'
+ 'y+2/3,x+1/3,-z+1/3'
+ 'x-y+2/3,-y+1/3,-z+1/3'
+ '-x+2/3,-x+y+1/3,-z+1/3'
+ '-x+2/3,-y+1/3,-z+1/3'
+ 'y+2/3,-x+y+1/3,-z+1/3'
+ 'x-y+2/3,x+1/3,-z+1/3'
+ '-y+2/3,-x+1/3,z+1/3'
+ '-x+y+2/3,y+1/3,z+1/3'
+ 'x+2/3,x-y+1/3,z+1/3'
+ 'x+1/3,y+2/3,z+2/3'
+ '-y+1/3,x-y+2/3,z+2/3'
+ '-x+y+1/3,-x+2/3,z+2/3'
+ 'y+1/3,x+2/3,-z+2/3'
+ 'x-y+1/3,-y+2/3,-z+2/3'
+ '-x+1/3,-x+y+2/3,-z+2/3'
+ '-x+1/3,-y+2/3,-z+2/3'
+ 'y+1/3,-x+y+2/3,-z+2/3'
+ 'x-y+1/3,x+2/3,-z+2/3'
+ '-y+1/3,-x+2/3,z+2/3'
+ '-x+y+1/3,y+2/3,z+2/3'
+ 'x+1/3,x-y+2/3,z+2/3'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si     0.7267    0.0511    0.07      2.05    0       0    absolute yes
+Si2      Si     0.1264    0.2527    0.1095    2.05    0       0    absolute yes
+Si3      Si     0.202     0.4039    0.1711    2.05    0       0    absolute yes
+Si4      Si     0.1227    0.2454    0.2325    2.05    0       0    absolute yes
+Si5      Si     0.2256    0         0         2.05    0       0    absolute yes
+Si6      Si     0         0         0.2039    2.05    0       0    absolute yes
+Si7      Si     0         0         0.128     2.05    0       0    absolute yes
+O1       O      0.3576    0.3881    0.6358   -1.025   0       0    absolute yes
+O2       O      0.2792    0.3749    0.5768   -1.025   0       0    absolute yes
+O3       O      0.4067    0.2954    0.5889   -1.025   0       0    absolute yes
+O4       O      0.2277    0.4554    0.6589   -1.025   0       0    absolute yes
+O5       O      0.1767    0.3534    0.7447   -1.025   0       0    absolute yes
+O6       O      0.3233    0.1616    0.5391   -1.025   0       0    absolute yes
+O7       O      0.5401    0.27      0.5494   -1.025   0       0    absolute yes
+O8       O      0.2713    0.5426    0.5529   -1.025   0       0    absolute yes
+O9       O      0.178     0.3561    0.523    -1.025   0       0    absolute yes
+O10      O      0.187     0         0.5      -1.025   0       0    absolute yes
+O11      O      0         0         0.1661   -1.025   0       0    absolute yes
+
+

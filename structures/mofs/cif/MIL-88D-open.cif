@@ -1,0 +1,68 @@
+data_MIL-88D-open
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-9
+_audit_author_name 'Christian Serre'
+
+_citation_author_name        'C. Serre, C. Mellot-Draznieks, S. Surble, N. Audebrand, Y. Filinchuk, and F. Ferey'
+_citation_title              'Role of solvent-host interactions that lead to very large swelling of hybrid frameworks'
+_citation_journal_abbrev     'Science'
+_citation_journal_volume     315
+_citation_journal_number     5820
+_citation_page_first         1828
+_citation_page_last          1831
+_citation_year               2007
+
+_cell_length_a    19.6235
+_cell_length_b    19.6235
+_cell_length_c    23.2614
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      7757.46
+
+_symmetry_cell_setting          hexagonal
+_symmetry_space_group_name_Hall 'P -6c -2c'
+_symmetry_space_group_name_H-M  'P -6 2 c'
+_symmetry_Int_Tables_number     190
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ 'x,y,-z+1/2'
+ '-y,x-y,-z+1/2'
+ '-x+y,-x,-z+1/2'
+ 'y,x,-z'
+ 'x-y,-y,-z'
+ '-x,-x+y,-z'
+ 'y,x,z+1/2'
+ 'x-y,-y,z+1/2'
+ '-x,-x+y,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Cr       Cr     0.7184     0.2708     0.25       0 
+O1       O      0.6667     0.3333     0.25       0 
+O2       O      0.543      0.2114     0.1909     0 
+O3       O      0.789     -0.4391     0.25       0 
+O4       O      0.6524     0.2049     0.1907     0 
+C1       C      0.5853     0.1856     0.1707     0 
+C2       C      0.4445     0.5747    -0.1213     0 
+C3       C      0.4109     0.4947    -0.1081     0 
+C4       C      0.4377     0.4702    -0.0609     0 
+C5       C      0.4982     0.5249    -0.0255     0 
+C6       C      0.5321     0.6048    -0.0387     0 
+C7       C      0.5058     0.6295    -0.0863     0 
+H1       H      0.3612578  0.448758  -0.1358306  0
+H2       H      0.4102201  0.404841  -0.0507755  0
+H3       H      0.5815445  0.650633  -0.0107764  0
+H4       H      0.5349687  0.695034  -0.0963138  0
+
+

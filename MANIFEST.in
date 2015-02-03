@@ -1,0 +1,6 @@
+include README.md simulations/lib/libraspa2.so
+graft src/
+recursive-include forcefield *.def
+recursive-include framework *.def
+recursive-include molecules *.def
+recursive-include structures *.cif *.block *.ions

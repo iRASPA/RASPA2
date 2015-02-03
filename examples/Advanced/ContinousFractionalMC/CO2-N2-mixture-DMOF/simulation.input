@@ -1,0 +1,54 @@
+SimulationType                MonteCarlo
+NumberOfCycles                250000
+NumberOfEquilibrationCycles   50000
+PrintEvery                    5000
+RestartFile                   no
+
+ContinueAfterCrash no
+WriteBinaryRestartFileEvery 5000
+
+ChargeMethod                  Ewald
+Forcefield                    local
+CutOffVDW                     11.5
+RemoveAtomNumberCodeFromLabel no
+
+Framework             0
+FrameworkName         DMOF
+UseChargesFromCIFFile yes
+UnitCells             1 1 1
+HeliumVoidFraction    0.614
+ExternalTemperature   300
+ExternalPressure      1e5
+
+
+Component 0 MoleculeName              CO2
+            StartingBead              0
+            MoleculeDefinition        TraPPE
+            IdealGasRosenbluthWeight  1
+            FugacityCoefficient       1.0
+            TranslationProbability    1.0
+            RotationProbability       1.0
+            ReinsertionProbability    1.0
+            CBMCProbability           0.0
+            IdentityChangeProbability 1.0
+              NumberOfIdentityChanges 2
+              IdentityChangesList     0 1
+            SwapProbability           0.0
+            CFSwapLambdaProbability   1.0
+            CreateNumberOfMolecules   0
+
+Component 1 MoleculeName              N2
+            StartingBead              0
+            MoleculeDefinition        TraPPE
+            IdealGasRosenbluthWeight  1
+            FugacityCoefficient       1.0
+            TranslationProbability    1.0
+            RotationProbability       1.0
+            ReinsertionProbability    1.0
+            CBMCProbability           0.0
+            IdentityChangeProbability 1.0
+              NumberOfIdentityChanges 2
+              IdentityChangesList     0 1
+            SwapProbability           0.0
+            CFSwapLambdaProbability   1.0
+            CreateNumberOfMolecules   0

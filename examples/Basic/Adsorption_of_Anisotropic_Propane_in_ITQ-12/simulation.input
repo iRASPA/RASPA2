@@ -1,0 +1,26 @@
+SimulationType                MonteCarlo
+NumberOfCycles                15000
+NumberOfInitializationCycles  5000
+PrintEvery                    100
+
+ContinueAfterCrash            no
+WriteBinaryRestartFileEvery   1000
+
+Forcefield                    Pascual2004
+
+Framework 0
+FrameworkName ITQ-12
+RemoveAtomNumberCodeFromLabel yes
+UnitCells 3 2 3
+HeliumVoidFraction 0.17
+ExternalTemperature 300.0
+ExternalPressure 1e3
+
+Component 0 MoleculeName             propane
+            MoleculeDefinition       TraPPE
+            TranslationProbability   0.5
+            RotationProbability      0.5
+            ReinsertionProbability   0.5
+            SwapProbability          1.0
+            CreateNumberOfMolecules  5
+

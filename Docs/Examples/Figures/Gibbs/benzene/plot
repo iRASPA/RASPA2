@@ -1,0 +1,10 @@
+set xrange[0:]
+set key at 600,350 Left reverse width -3.0 height 0.5 samplen 1.5 spacing 1.1 box
+set title 'Gibbs benzene TraPPE'
+set xlabel 'Density [kg/m^3]'
+set ylabel 'Temperature [K]'
+set encoding iso
+set grid
+set output 'GibbsBenzene.eps'
+set term postscript eps enhanced color solid 22
+plot 'vapor.data' us 3:1 title 'Exp. Nist database' with li lt -1,'liquid.data' us 3:1 notitle with li lt -1,'data_lj' us 2:1:3 title 'LJ-Biasing' with xerrorbars lt 7 pt 70,'data_lj' us 4:1:5 notitle with xerrorbars lt 7 pt 70,'data_ljreal' us 2:1:3 title 'LJ+real biasing' with xerrorbars lt 10 pt 2,'data_ljreal' us 4:1:5 notitle with xerrorbars lt 10 pt 2

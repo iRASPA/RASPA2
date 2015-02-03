@@ -1,0 +1,25 @@
+# critical constants: Temperature [T], Pressure [Pa], and Acentric factor [-]
+308.25
+6191000.0
+0.19
+# Number Of Atoms
+4
+# Number Of Groups
+1
+# C2H2-group
+rigid
+# number of atoms
+4
+# atomic positions
+0 C_C2H2	-4.97 0.94 0.0016 
+1 C_C2H2  	-3.76 1.03 0.0031
+2 H_C2H2	-2.695 1.12 0.0046 
+3 H_C2H2	-6.03 0.847 0.000041
+# Chiral centers Bond  BondDipoles Bend  UrayBradley InvBend  Torsion Imp. Torsion Bond/Bond Stretch/Bend Bend/Bend Stretch/Torsion Bend/Torsion IntraVDW IntraCoulomb
+               0    3            0    0            0       0        0            0         0            0         0               0            0        0            0
+#Bond stretch:atom n1-n2,type parameter
+0 3 RIGID_BOND
+0 1 RIGID_BOND
+1 2 RIGID_BOND
+# Number of config moves
+0

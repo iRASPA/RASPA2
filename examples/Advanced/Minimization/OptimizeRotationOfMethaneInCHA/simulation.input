@@ -1,0 +1,47 @@
+SimulationType                   Minimization
+MinimizationMethod               Baker
+NumberOfCycles                   1
+NumberOfInitializationCycles     0
+NumberOfEquilibrationCycles      0
+PrintEvery                       1
+RestartFile                      no
+
+RMSGradientTolerance 1e-6
+MaxGradientTolerance 1e-6
+MaximumStepLength 0.1
+
+Ensemble NVT
+
+CutOff                           12.0
+ChargeChargeCutOff               6.0
+ChargeMethod                     Ewald
+Forcefield                       Local
+EwaldPrecision                   1e-8
+TimeStep                         0.00005
+
+Framework 0
+Frameworkname CHA_SI
+RemoveAtomNumberCodeFromLabel yes
+UnitCells 1 1 1
+ReplicaUnitCells 3 3 3
+RestrictFrameworkAtomsToBox yes
+ExternalPressure 0.0
+ExternalTemperature 300.0
+PutMoleculeOnBarrier             yes
+BarrierPosition                  0.5 0.5 0.0
+Movies yes
+WriteMoviesEvery 1
+FlexibleFramework no
+
+#ActiveAdsorbateGroupCenterOfMass 0 0
+#FixedAdsorbateGroupOrientation 0 0
+
+FixedAdsorbateGroupCenterOfMass 0 0
+ActiveAdsorbateGroupOrientation 0 0
+
+Component 0 MoleculeName                   methane
+            MoleculeDefinition             TraPPE-EH
+            TranslationProbability         1.0
+            RotationProbability            1.0
+            ReinsertionProbability         1.0
+            CreateNumberOfMolecules        1

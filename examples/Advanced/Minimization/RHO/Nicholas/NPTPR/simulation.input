@@ -1,0 +1,31 @@
+SimulationType                   Minimization
+MinimizationMethod               Baker
+NumberOfCycles                   1
+PrintEvery                       1
+RestartFile                      no
+
+RemoveBondNeighboursFromLongRangeInteraction yes
+RemoveBendNeighboursFromLongRangeInteraction yes
+RemoveTorsionNeighboursFromLongRangeInteraction no
+
+ComputeElasticConstants yes
+
+Ensemble                         NPTPR
+NPTPRCellType                    RegularUpperTriangle
+
+Forcefield                       Nicholas
+ChargeMethod                     Ewald
+EwaldPrecision 1e-10
+
+Framework 0
+FrameworkName RHO
+InputFileType cif
+RestrictFrameworkAtomsToBox yes
+RemoveAtomNumberCodeFromLabel yes
+ReplicaUnitCells 2 2 2
+ExternalTemperature 300.0
+Movies yes
+WriteMoviesEvery   1
+
+FlexibleFramework                yes
+FrameworkDefinitions             Nicholas

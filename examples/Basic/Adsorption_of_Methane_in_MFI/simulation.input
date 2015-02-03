@@ -1,0 +1,36 @@
+SimulationType                MonteCarlo
+NumberOfCycles                25000
+NumberOfInitializationCycles  2000
+PrintEvery                    1000
+
+ContinueAfterCrash            no
+WriteBinaryRestartFileEvery   2000
+
+Forcefield                    GarciaPerez2006
+RemoveAtomNumberCodeFromLabel yes
+
+Framework 0
+FrameworkName MFI_SI
+UnitCells 2 2 2
+HeliumVoidFraction 0.29
+ExternalTemperature 300.0
+ExternalPressure 1e4 1e5
+
+ComputeNumberOfMoleculesHistogram yes
+WriteNumberOfMoleculesHistogramEvery 5000
+NumberOfMoleculesHistogramSize 1100
+NumberOfMoleculesRange 80
+
+ComputeEnergyHistogram yes
+WriteEnergyHistogramEvery 5000
+EnergyHistogramSize 400
+EnergyHistogramLowerLimit -110000
+EnergyHistogramUpperLimit -20000
+
+Component 0 MoleculeName             methane
+            MoleculeDefinition       TraPPE
+            TranslationProbability   0.5
+            ReinsertionProbability   0.5
+            SwapProbability          1.0
+            CreateNumberOfMolecules  0
+

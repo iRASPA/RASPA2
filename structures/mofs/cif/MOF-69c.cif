@@ -1,0 +1,103 @@
+data_MOF-69c
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2012-1-5
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'N.L. Rosi, J. Kim, M. Eddaoudi, B. Chen, M. O'Keeffe, and O.M. Yaghi'
+_citation_title              'Rod Packings and Metal-Organic Frameworks Constructed from Rod-Shaped Secondary Building Units'
+_citation_journal_abbrev     'J. Am. Chem. Soc.'
+_citation_journal_volume     127
+_citation_journal_number     5
+_citation_page_first         1504
+_citation_page_last          1518
+_citation_year               2005
+
+_cell_length_a    17.664
+_cell_length_b    14.848
+_cell_length_c    18.129
+_cell_angle_alpha 90
+_cell_angle_beta  112.14
+_cell_angle_gamma 90
+_cell_volume      4404.19
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall '-P 2yn'
+_symmetry_space_group_name_H-M  'P 1 21/n 1'
+_symmetry_Int_Tables_number     14
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x+1/2,y+1/2,-z+1/2'
+ '-x,-y,-z'
+ 'x+1/2,-y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Zn2      Zn     0.99737     -0.0982       0.83362      0
+Zn3      Zn     1.00214      0.0955       0.83316      0
+Zn4      Zn     0.99962     -0.00381      0.66562      0
+Zn5      Zn     1.00354      0.09847      0.50495      0
+O1       O      0.95202      0.00191      0.87848      0
+H1H      H      0.9099       0.0007       0.8641       0
+O2       O      1.04748     -0.00315      0.78796      0
+H2H      H      1.0933      -0.006        0.8045       0
+O3       O      0.95175     -0.00093      0.54339      0
+H3H      H      0.908        0.0004       0.528        0
+O4       O      0.89543      0.06654      1.00127      0
+O5       O      1.07518     -0.17686      0.90863      0
+O6       O      0.8904      -0.06211      0.66706      0
+O7       O      0.91525     -0.1716       0.75793      0
+O8       O      1.06048      0.12643      1.00981      0
+O9       O      1.09091      0.16496      0.90517      0
+O10      O      0.94871      0.12783      0.655        0
+O11      O      0.91533      0.16465      0.75821      0
+O12      O      1.11306      0.04873      0.67115      0
+O13      O      1.09391      0.16112      0.58388      0
+O14      O      1.04584     -0.13499      0.67133      0
+O15      O      0.92562      0.18138      0.4326       0
+C1       C      1.11626     -0.14311      0.97602      0
+C2       C      0.68442     -0.30043      0.53091      0
+C3       C      0.72972     -0.33112      0.60744      0
+H3A      H      0.7178      -0.388        0.6245       0
+C4       C      0.70276     -0.21775      0.50601      0
+H4       H      0.6722      -0.1972       0.4535       0
+C5       C      0.79215     -0.27857      0.65867      0
+H5       H      0.8231      -0.2995       0.7109       0
+C6       C      0.76526     -0.16492      0.55712      0
+H6       H      0.7776      -0.1084       0.5398       0
+C7       C      0.80966     -0.19508      0.63387      0
+C8       C      0.87688     -0.13821      0.68949      0
+C9       C      1.10467      0.16355      0.97939      0
+C10      C      1.18144      0.20976      1.03238      0
+C11      C      1.20305      0.20894      1.11436      0
+H11      H      1.1683       0.1809       1.1367       0
+C12      C      0.7326       0.24881      0.50006      0
+H12      H      0.7177       0.2479       0.444        0
+C13      C      0.77502      0.25122      0.66349      0
+H13      H      0.7895       0.2518       0.7196       0
+C14      C      0.805        0.20893      0.54905      0
+H14      H      0.8398       0.1809       0.5267       0
+C15      C      0.82655      0.21004      0.63112      0
+C16      C      0.90303      0.16401      0.68438      0
+C17      C      1.1337       0.12137      0.64897      0
+C18      C      1.2108       0.16718      0.70239      0
+C19      C      0.74524      0.26434      0.17332      0
+H19      H      0.7219       0.2488       0.1185       0
+C20      C      0.74598      0.35618      0.28253      0
+H20      H      0.7244       0.405        0.3023       0
+C21      C      0.81341      0.21848      0.22357      0
+H21      H      0.8378       0.1732       0.2028       0
+C22      C      0.81262      0.3081       0.33358      0
+H22      H      0.8353       0.3228       0.3886       0
+C23      C      0.84628      0.23864      0.3045       0
+C24      C      0.91453      0.18081      0.35876      0
+Zn1      Zn     1            0            1            0
+
+

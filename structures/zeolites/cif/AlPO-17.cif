@@ -1,0 +1,66 @@
+data_AlPO-17
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-3
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'J.J. Pluth, J.V. Smith and J.M. Bennett'
+_citation_title              'Microporous aluminophosphate number 17 with encapsulated piperidine, Topological similarity to erionite'
+_citation_journal_abbrev     'Acta Cryst.'
+_citation_journal_volume     C42
+_citation_page_first         283
+_citation_page_last          286
+_citation_year               1986
+
+_cell_length_a    13.2371
+_cell_length_b    13.2371
+_cell_length_c    14.7708
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      2241.41
+
+_symmetry_cell_setting          hexagonal
+_symmetry_space_group_name_Hall '-P 6c'
+_symmetry_space_group_name_H-M  'P 63/m'
+_symmetry_Int_Tables_number     176
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ '-x,-y,z+1/2'
+ 'y,-x+y,z+1/2'
+ 'x-y,x,z+1/2'
+ '-x,-y,-z'
+ 'y,-x+y,-z'
+ 'x-y,x,-z'
+ 'x,y,-z+1/2'
+ '-y,x-y,-z+1/2'
+ '-x+y,-x,-z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Al1      Al     0.7708    0.9983    0.118     1.75    0       0    absolute yes
+Al2      Al     0.0999    0.4214    0.25      1.75    0       0    absolute yes
+P1       P      0.9989    0.2369    0.0938    2.35    0       0    absolute yes
+P2       P      0.5675    0.9079    0.25      2.35    0       0    absolute yes
+O1       O      0.0365    0.3435    0.1529   -1.025   0       0    absolute yes
+O2       O      0.6373    0.9669    0.1649   -1.025   0       0    absolute yes
+O3       O      0.0826    0.191     0.1053   -1.025   0       0    absolute yes
+O4       O      0.1432    0.264     0.6244   -1.025   0       0    absolute yes
+O5       O      0.2773    0.003     0.997    -1.025   0       0    absolute yes
+O6       O      0.2468    0.4693    0.25     -1.025   0       0    absolute yes
+O7       O      0.4584    0.9171    0.25     -1.025   0       0    absolute yes
+
+

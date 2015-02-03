@@ -1,0 +1,3874 @@
+Compiler and run-time data
+===========================================================================
+RASPA 1.9-12
+Compiled as a 64-bits application
+Compiler: gcc 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.54)
+Compile Date = Nov 26 2014, Compile Time = 15:49:31
+
+Sun Nov 30 11:00:17 2014
+Simulation started on Sunday, November 30.
+The start time was 11:00 AM.
+
+Cpu data:    x86_64
+Cpu Model:   MacPro5,1
+Host name:   server.darkwing.nl
+OS release:  14.0.0
+OS type:     Darwin
+OS version:  14B25
+
+
+Simulation
+===========================================================================
+Dimensions: 3
+Random number seed: 1417341616
+RASPA directory set to: /Users/dubbelda/RASPA/simulations/
+String appended to output-files: 
+Number of cycles: 10000
+Number of initializing cycles: 0
+Number of equilibration cycles: 0
+Print every: 10
+Triclinic boundary condition applied
+Timestep: 0.000500
+Initialization Ensemble: NVE (constant number of particles N, constant volume V, constant energy E)
+Production run ensemble: NVE (constant number of particles N, constant volume V, constant energy E)
+	Degrees of freedom:                        0
+	Translational Degrees of freedom:          0
+	Rotational Degrees of freedom:             0
+	Degrees of freedom Framework:              0
+
+
+Mutual consistent basic set of units:
+======================================
+Unit of temperature: Kelvin
+Unit of length:      1e-10 [m]
+Unit of time:        1e-12 [s]
+Unit of mass:        1.66054e-27 [kg]
+Unit of charge:      1.60218e-19 [C/particle]
+
+Derived units and their conversion factors:
+===========================================
+Unit of energy:              1.66054e-23 [J]
+Unit of force:               1.66054e-13 [N]
+Unit of pressure:            1.66054e+07 [Pa]
+Unit of velocity:            100 [m/s]
+Unit of acceleration:        1e-08 [m^2/s]
+Unit of diffusion:           1e-08 [m^2/s]
+Unit of dipole moment:       1.60218e-29 [C.m]
+Unit of electric potential:  0.000103643 [V]
+Unit of electric field:      1.03643e+06 [V]
+Unit of polarizability:      1.54587e-35 [-]
+Unit of Coulomb potential:   167101.0800066561  [K]
+Unit of dielectric constant: 0.0000154587       [s^2 C^2/(kg m^3)]
+Unit of wave vectors:        5.3088374589       [cm^1]
+Boltzmann constant:          0.8314464919       [-]
+
+Internal conversion factors:
+===========================================
+Energy to Kelvin:                                    1.2027242847
+FH correction factor                                 2.0211930949
+Heat capacity conversion factor:                    10.0000088723
+From Debye to internal units:                        4.8032067991
+Isothermal compressibility conversion factor:        0.0000000602
+
+Energy conversion factors:
+===========================================
+From mdyne/A to kcal/mol/A^2:           143.933
+From mdyne/A to kj/mol/A^2:             602.214
+From mdyne/A to K/A^2:                  72429.7
+From mdyne A/rad^2 to kcal/mol/deg^2:   0.0438444
+
+
+Properties computed
+===========================================================================
+Movies: no
+Radial Distribution Function: no
+Number of molecules GCMC histogram: no
+Histogram of the molecule positions: no
+Free energy profiles: no
+Pore Size Distribution Function: yes
+	PSD is written to file every 100 cycles
+	PSD probe distance:       1.0000000000
+	PSD maximum range:      10.0000000000
+	PSD number of elements: 1000
+End-to-end distance: no
+Histogram of the energy of the system: no
+Compute thermodynamic factors: no
+Framework spacing histograms: no
+Residence times histograms: no
+Distance histograms: no
+Bend Angle histograms: no
+Dihedral angle histograms: no
+Angle between planes histograms: no
+Molecule properties: no
+Infra-red spectra: no
+Mean-squared displacement using modified order-N algorithm: no
+Velocity-autocorrelation function modified order-N algorithm: no
+Rotational velocity-autocorrelation function modified order-N algorithm: no
+Molecular orientation-autocorrelation function modified order-N algorithm: no
+Bond orientation-autocorrelation function modified order-N algorithm: no
+Mean-squared displacement (conventional algorithm): no
+Velocity-autocorrelation function (conventional algorithm): no
+3D density grid for adsorbates: no
+Compute cation an/or adsorption sites: no
+dcTST snapshots: no
+Compute pressure and stress: no
+
+
+VTK
+===========================================================================
+VTK fractional-range position framework atoms: [-0.001000,1.001000] [-0.001000,1.001000] [-0.001000,1.001000]
+VTK fractional-range position framework bonds: [-0.151000,1.151000] [-0.151000,1.151000] [-0.151000,1.151000]
+VTK fractional-range com-position adsorbate molecules: [-0.101000,1.101000] [-0.101000,1.101000] [-0.101000,1.101000]
+VTK fractional-range com-position cation molecules: [-0.101000,1.101000] [-0.101000,1.101000] [-0.101000,1.101000]
+	3D free energy grid made for the full simulation-cell
+
+
+Thermo/Baro-stat NHC parameters
+===========================================================================
+External temperature: 300 [K]
+Beta: 0.00400908 [energy unit]
+External Pressure: 0 [Pa]
+
+
+Thermostat chain-length: 3
+Timescale parameter for thermostat: 0.150000 [ps]
+Barostat chain-length:   3
+Timescale parameter for barostat:   0.150000 [ps]
+
+Number of Yoshida-Suzuki decomposition steps: 5
+Number of respa steps: 5
+
+
+Method and settings for electrostatics
+===============================================================================
+Dielectric constant of the medium : 1.000000
+Charge from charge-equilibration: no
+Ewald summation is used (exact solution of a periodic system)
+Relative precision                : 1e-06
+Alpha convergence parameter       : 0.265058
+kvec (x,y,z)                      : 7 7 7
+
+
+CFC-RXMC parameters
+===========================================================================
+Number of reactions: 0
+
+
+Rattle parameters
+===========================================================================
+Distance constraint type: r^2-r^2_0
+Bend angle constraint type: theta-theta_0
+Dihedral angle constraint type: phi-phi_0
+Inversion-bend angle constraint type: chi-chi_0
+Out-of-plane distance constraint type: r-r_0
+
+
+Spectra parameters
+===========================================================================
+Compute normal modes: no
+
+
+Minimization parameters
+===========================================================================
+Generalized coordinates are: Cartesian center-of-mass, elements of the orientational matrix p1,p2,p3 and strain
+Potential derivatives are evaluated: analytically
+Translation of the system is removed from the generalized Hessian: no
+Rotation of the system is removed from the generalized Hessian: no
+Maximum step-length: 0.3
+Convergence factor: 1
+Maximum number of minimization steps: 10000
+Use gradients in the line-minimizations: yes
+RMS gradient tolerance: 1e-06
+Maximum gradient tolerance: 1e-06
+
+Distance constraints: 0
+Angle constraints: 0
+Dihedral constraints: 0
+
+Improper dihedral constraints: 0
+
+Inversion-bend constraints: 0
+
+Out-of-plane constraints: 0
+
+Harmonic distance constraints: 0
+Harmonic angle constraints: 0
+Harmonic dihedral constraints: 0
+
+Dihedral mid-point measurements: 0
+
+All framework atoms are fixed
+
+Fixed adsorbate atoms:  
+Fixed adsorbate groups (center-of-mass):  
+Fixed adsorbate groups (orientation):  
+
+Fixed cation atoms:  
+Fixed cation groups (center-of-mass):  
+Fixed cation groups (orientation):  
+
+
+dcTST parameters
+===========================================================================
+Free energy profiles computed: no
+Free energy profiles written every 5000 cycles
+Free energy mapping: mapped to a,b,c-coordinates
+BarrierPosition:       0.0000000000       0.0000000000       0.0000000000
+BarrierNormal:         0.0000000000       0.0000000000       0.0000000000
+Start with a molecule on top of the barrier: no
+Maximum distance to barrier (e.g. distance to minumum free energy):       0.0000000000 [A]
+Maximum trajectory time:      10.0000000000 [ps]
+Each configuration is used with 5 different initial velocities
+
+
+Cbmc parameters
+===========================================================================
+Biasing method: using only the VDW part
+Number of trial positions:                                       10
+Number of trial positions (reinsertion):                         10
+Number of trial positions (partial reinsertion):                 10
+Number of trial positions (identity-change):                     10
+Number of trial positions (Gibbs particle transfer):             10
+Number of trial positions (insertion/deletion):                  10
+Number of trial positions (Widom insertion):                     10
+Number of trial positions coupled Torsion-selection:             100
+Number of trial positions first bead:                            10
+Number of trial positions first bead (reinsertion):              10
+Number of trial positions first bead (partial reinsertion):      10
+Number of trial positions first bead (identity-change):          10
+Number of trial positions first bead (Gibbs particle transfer):  10
+Number of trial positions first bead (insertion/deletion):       10
+Number of trial positions first bead (Widom insertion):          10
+Number of trial moves per open bead:                             150
+Target acceptance ratio small-mc scheme:                         0.400000
+Energy overlap criteria:                                         1e+07
+Minimal Rosenbluth factor:                                       1e-150
+
+
+Pseudo atoms: 37
+===========================================================================
+Pseudo Atom[   0] Name UNIT     Oxidation:          Element: H    pdb-name: H    Scat. Types:   1   1 Mass=1.000000000  B-factor:0.000   
+                 Charge=1.000000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[   1] Name He       Oxidation: +0       Element: He   pdb-name: He   Scat. Types:   3   2 Mass=4.002602000  B-factor:1.000   
+                 Charge=0.000000000          Polarization=0.000000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[   2] Name CH4_sp3  Oxidation: +0       Element: C    pdb-name: C    Scat. Types:   7   6 Mass=16.042460000 B-factor:1.000   
+                 Charge=0.000000000          Polarization=0.000000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[   3] Name CH3_sp3  Oxidation: +0       Element: C    pdb-name: C    Scat. Types:   7   6 Mass=15.034520000 B-factor:1.000   
+                 Charge=0.000000000          Polarization=0.000000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[   4] Name CH2_sp3  Oxidation: +0       Element: C    pdb-name: C    Scat. Types:   7   6 Mass=14.026580000 B-factor:1.000   
+                 Charge=0.000000000          Polarization=0.000000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[   5] Name CH_sp3   Oxidation: +0       Element: C    pdb-name: C    Scat. Types:   7   6 Mass=13.018640000 B-factor:1.000   
+                 Charge=0.000000000          Polarization=0.000000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[   6] Name C_sp3    Oxidation: +0       Element: C    pdb-name: C    Scat. Types:   7   6 Mass=12.000000000 B-factor:1.000   
+                 Charge=0.000000000          Polarization=0.000000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[   7] Name H_h2     Oxidation: +0       Element: H    pdb-name: H    Scat. Types:   1   1 Mass=1.007940000  B-factor:1.000   
+                 Charge=0.468000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.700 [A], Framework-atom:  no
+Pseudo Atom[   8] Name H_com    Oxidation: +0       Element: H    pdb-name: H    Scat. Types:   1   1 Mass=0.000000000  B-factor:1.000   
+                 Charge=-0.936000000         Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.700 [A], Framework-atom:  no
+Pseudo Atom[   9] Name C_co2    Oxidation: +0       Element: C    pdb-name: C    Scat. Types:   7   6 Mass=12.000000000 B-factor:1.000   
+                 Charge=0.700000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.720 [A], Framework-atom:  no
+Pseudo Atom[  10] Name O_co2    Oxidation: +0       Element: O    pdb-name: O    Scat. Types:   9   8 Mass=15.999400000 B-factor:1.000   
+                 Charge=-0.350000000         Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.680 [A], Framework-atom:  no
+Pseudo Atom[  11] Name O_o2     Oxidation: +0       Element: O    pdb-name: O    Scat. Types:   9   8 Mass=15.999400000 B-factor:1.000   
+                 Charge=-0.112000000         Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.700 [A], Framework-atom:  no
+Pseudo Atom[  12] Name O_com    Oxidation: +0       Element: -    pdb-name: O    Scat. Types:   0   8 Mass=0.000000000  B-factor:1.000   
+                 Charge=0.224000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.700 [A], Framework-atom:  no
+Pseudo Atom[  13] Name N_n2     Oxidation: +0       Element: N    pdb-name: N    Scat. Types:   8   7 Mass=14.006740000 B-factor:1.000   
+                 Charge=-0.404800000         Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.700 [A], Framework-atom:  no
+Pseudo Atom[  14] Name N_com    Oxidation: +0       Element: -    pdb-name: N    Scat. Types:   0   7 Mass=0.000000000  B-factor:1.000   
+                 Charge=0.809600000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.700 [A], Framework-atom:  no
+Pseudo Atom[  15] Name Ar       Oxidation: +0       Element: Ar   pdb-name: Ar   Scat. Types:  19  18 Mass=39.948000000 B-factor:1.000   
+                 Charge=0.000000000          Polarization=0.000000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.700 [A], Framework-atom:  no
+Pseudo Atom[  16] Name Ow       Oxidation: +0       Element: O    pdb-name: O    Scat. Types:   9   8 Mass=15.999400000 B-factor:1.000   
+                 Charge=0.000000000          Polarization=0.000000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.500 [A], Framework-atom:  no
+Pseudo Atom[  17] Name Hw       Oxidation: +0       Element: H    pdb-name: H    Scat. Types:   1   1 Mass=1.007940000  B-factor:1.000   
+                 Charge=0.241000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[  18] Name Lw       Oxidation: +0       Element: H    pdb-name: L    Scat. Types:   1   3 Mass=0.000000000  B-factor:1.000   
+                 Charge=-0.241000000         Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[  19] Name C_benz   Oxidation: +0       Element: C    pdb-name: C    Scat. Types:   7   6 Mass=12.000000000 B-factor:1.000   
+                 Charge=-0.095000000         Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.700 [A], Framework-atom:  no
+Pseudo Atom[  20] Name H_benz   Oxidation: +0       Element: H    pdb-name: H    Scat. Types:   1   1 Mass=1.007940000  B-factor:1.000   
+                 Charge=0.095000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.320 [A], Framework-atom:  no
+Pseudo Atom[  21] Name N_dmf    Oxidation: +0       Element: N    pdb-name: N    Scat. Types:   8   7 Mass=14.006740000 B-factor:1.000   
+                 Charge=-0.570000000         Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.500 [A], Framework-atom:  no
+Pseudo Atom[  22] Name Co_dmf   Oxidation: +0       Element: C    pdb-name: C    Scat. Types:   7   6 Mass=12.000000000 B-factor:1.000   
+                 Charge=0.450000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.520 [A], Framework-atom:  no
+Pseudo Atom[  23] Name Cm_dmf   Oxidation: +0       Element: C    pdb-name: C    Scat. Types:   7   6 Mass=12.000000000 B-factor:1.000   
+                 Charge=0.280000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.520 [A], Framework-atom:  no
+Pseudo Atom[  24] Name O_dmf    Oxidation: +0       Element: O    pdb-name: O    Scat. Types:   9   8 Mass=15.999400000 B-factor:1.000   
+                 Charge=-0.500000000         Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.780 [A], Framework-atom:  no
+Pseudo Atom[  25] Name H_dmf    Oxidation: +0       Element: H    pdb-name: H    Scat. Types:   1   1 Mass=1.007940000  B-factor:1.000   
+                 Charge=0.060000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    0.220 [A], Framework-atom:  no
+Pseudo Atom[  26] Name Na       Oxidation: +0       Element: Na   pdb-name: Na   Scat. Types:  12  11 Mass=22.989770000 B-factor:1.000   
+                 Charge=1.000000000          Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[  27] Name Cl       Oxidation: +0       Element: Cl   pdb-name: Cl   Scat. Types:  18  17 Mass=35.453000000 B-factor:1.000   
+                 Charge=-1.000000000         Polarization=0.000000000  [A^3] (considered a charged atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[  28] Name Kr       Oxidation: +0       Element: Kr   pdb-name: Kr   Scat. Types:  37  36 Mass=83.798000000 B-factor:1.000   
+                 Charge=0.000000000          Polarization=0.000000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[  29] Name Xe       Oxidation: +0       Element: Xe   pdb-name: Xe   Scat. Types:  55  54 Mass=131.293000000 B-factor:1.000   
+                 Charge=0.000000000          Polarization=0.000000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Relative), Radius:    1.000 [A], Framework-atom:  no
+Pseudo Atom[  30] Name Zn1      Oxidation:          Element: Zn   pdb-name: Zn   Scat. Types:  31  30 Mass=65.408728088 B-factor:0.000   
+                 Charge=0.000000000  (-na-)  Polarization=5.750000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    1.200 [A], Framework-atom: yes (charge definition not found)
+Pseudo Atom[  31] Name O1       Oxidation:          Element: O    pdb-name: O    Scat. Types:   9   8 Mass=15.999404927 B-factor:0.000   
+                 Charge=0.000000000  (-na-)  Polarization=0.802000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    0.640 [A], Framework-atom: yes (charge definition not found)
+Pseudo Atom[  32] Name O2       Oxidation:          Element: O    pdb-name: O    Scat. Types:   9   8 Mass=15.999404927 B-factor:0.000   
+                 Charge=0.000000000  (-na-)  Polarization=0.802000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    0.640 [A], Framework-atom: yes (charge definition not found)
+Pseudo Atom[  33] Name C1       Oxidation:          Element: C    pdb-name: C    Scat. Types:   7   6 Mass=12.010735897 B-factor:0.000   
+                 Charge=0.000000000  (-na-)  Polarization=1.760000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    0.750 [A], Framework-atom: yes (charge definition not found)
+Pseudo Atom[  34] Name C2       Oxidation:          Element: C    pdb-name: C    Scat. Types:   7   6 Mass=12.010735897 B-factor:0.000   
+                 Charge=0.000000000  (-na-)  Polarization=1.760000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    0.750 [A], Framework-atom: yes (charge definition not found)
+Pseudo Atom[  35] Name C3       Oxidation:          Element: C    pdb-name: C    Scat. Types:   7   6 Mass=12.010735897 B-factor:0.000   
+                 Charge=0.000000000  (-na-)  Polarization=1.760000000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    0.750 [A], Framework-atom: yes (charge definition not found)
+Pseudo Atom[  36] Name H1       Oxidation:          Element: H    pdb-name: H    Scat. Types:   1   1 Mass=1.007940754  B-factor:0.000   
+                 Charge=0.000000000  (-na-)  Polarization=0.666793000  [A^3] (considered a chargeless atom and no polarization)  Interactions: yes
+                 Anisotropic factor:    0.000 [-] (Absolute), Radius:    0.320 [A], Framework-atom: yes (charge definition not found)
+
+
+Forcefield: GenericMOFs
+===========================================================================
+Minimal distance: 1
+CutOff VDW : 12.000000 (144.000000)
+CutOff VDW switching on: 10.800000 (116.640000)
+CutOff charge-charge : 12.000000 (144.000000)
+CutOff charge-charge switching on: 7.800000 (60.840000)
+CutOff charge-bonddipole : 12.000000 (144.000000)
+CutOff charge-bondipole switching on: 8.400000 (70.560000)
+CutOff bonddipole-bonddipole : 12.000000 (144.000000)
+CutOff bonddipole-bondipole switching on: 9.000000 (81.000000)
+Polarization is neglected
+All potentials are shifted to zero at the Cutoff
+
+General mixing rule: Lorentz-Berthelot mixing rules are used FIRST for cross terms
+0 cross terms are overwritten using the individual mixing rules from the file 'force_field_mixing_rules.def'
+and then 0 terms are overwritten using the specific interactions from the file 'force_field.def'
+
+The force field and all the interactions:
+     He -      He [LENNARD_JONES] p_0/k_B:  10.90000 [K], p_1: 2.64000 [A], shift/k_B:  -0.00494280 [K], tailcorrection: no
+     He - CH4_sp3 [LENNARD_JONES] p_0/k_B:  41.56501 [K], p_1: 3.18000 [A], shift/k_B:  -0.05755893 [K], tailcorrection: no
+     He - CH3_sp3 [LENNARD_JONES] p_0/k_B:  34.31035 [K], p_1: 3.20000 [A], shift/k_B:  -0.04933343 [K], tailcorrection: no
+     He - CH2_sp3 [LENNARD_JONES] p_0/k_B:  24.70627 [K], p_1: 3.30000 [A], shift/k_B:  -0.04272436 [K], tailcorrection: no
+     He -  CH_sp3 [LENNARD_JONES] p_0/k_B:  13.61249 [K], p_1: 3.65500 [A], shift/k_B:  -0.04343978 [K], tailcorrection: no
+     He -   C_sp3 [LENNARD_JONES] p_0/k_B:   2.95296 [K], p_1: 4.51000 [A], shift/k_B:  -0.03319436 [K], tailcorrection: no
+     He -    H_h2 [ZERO_POTENTIAL]
+     He -   H_com [LENNARD_JONES] p_0/k_B:  20.00075 [K], p_1: 2.79900 [A], shift/k_B:  -0.01288149 [K], tailcorrection: no
+     He -   C_co2 [LENNARD_JONES] p_0/k_B:  17.15517 [K], p_1: 2.72000 [A], shift/k_B:  -0.00930512 [K], tailcorrection: no
+     He -   O_co2 [LENNARD_JONES] p_0/k_B:  29.34451 [K], p_1: 2.84500 [A], shift/k_B:  -0.02084087 [K], tailcorrection: no
+     He -    O_o2 [LENNARD_JONES] p_0/k_B:  22.91120 [K], p_1: 2.83657 [A], shift/k_B:  -0.01598491 [K], tailcorrection: no
+     He -   O_com [LENNARD_JONES] p_0/k_B:  22.91120 [K], p_1: 2.83657 [A], shift/k_B:  -0.01598491 [K], tailcorrection: no
+     He -    N_n2 [LENNARD_JONES] p_0/k_B:  19.80909 [K], p_1: 2.97500 [A], shift/k_B:  -0.01839323 [K], tailcorrection: no
+     He -   N_com [ZERO_POTENTIAL]
+     He -      Ar [LENNARD_JONES] p_0/k_B:  36.13613 [K], p_1: 2.99000 [A], shift/k_B:  -0.03458099 [K], tailcorrection: no
+     He -      Ow [LENNARD_JONES] p_0/k_B:  31.25699 [K], p_1: 2.86850 [A], shift/k_B:  -0.02332211 [K], tailcorrection: no
+     He -      Hw [LENNARD_JONES] p_0/k_B:   9.13090 [K], p_1: 2.74321 [A], shift/k_B:  -0.00521169 [K], tailcorrection: no
+     He -  C_benz [LENNARD_JONES] p_0/k_B:  18.29289 [K], p_1: 3.12000 [A], shift/k_B:  -0.02259687 [K], tailcorrection: no
+     He -  H_benz [LENNARD_JONES] p_0/k_B:  16.65548 [K], p_1: 2.50000 [A], shift/k_B:  -0.00544671 [K], tailcorrection: no
+     He -   N_dmf [LENNARD_JONES] p_0/k_B:  29.52965 [K], p_1: 2.92000 [A], shift/k_B:  -0.02451533 [K], tailcorrection: no
+     He -  Co_dmf [LENNARD_JONES] p_0/k_B:  23.34524 [K], p_1: 3.17000 [A], shift/k_B:  -0.03172333 [K], tailcorrection: no
+     He -  Cm_dmf [LENNARD_JONES] p_0/k_B:  29.52965 [K], p_1: 3.22000 [A], shift/k_B:  -0.04407617 [K], tailcorrection: no
+     He -   O_dmf [LENNARD_JONES] p_0/k_B:  33.01515 [K], p_1: 2.80000 [A], shift/k_B:  -0.02130904 [K], tailcorrection: no
+     He -   H_dmf [LENNARD_JONES] p_0/k_B:   9.33809 [K], p_1: 2.42000 [A], shift/k_B:  -0.00251243 [K], tailcorrection: no
+     He -      Na [LENNARD_JONES] p_0/k_B:  20.60452 [K], p_1: 2.95128 [A], shift/k_B:  -0.01823482 [K], tailcorrection: no
+     He -      Cl [LENNARD_JONES] p_0/k_B:  39.41987 [K], p_1: 3.07966 [A], shift/k_B:  -0.04503811 [K], tailcorrection: no
+     He -      Kr [LENNARD_JONES] p_0/k_B:  42.58826 [K], p_1: 3.13800 [A], shift/k_B:  -0.05445543 [K], tailcorrection: no
+     He -      Xe [LENNARD_JONES] p_0/k_B:  49.08055 [K], p_1: 3.37000 [A], shift/k_B:  -0.09626052 [K], tailcorrection: no
+     He -     Zn1 [LENNARD_JONES] p_0/k_B:  26.07971 [K], p_1: 2.55077 [A], shift/k_B:  -0.00962206 [K], tailcorrection: no
+     He -      O1 [LENNARD_JONES] p_0/k_B:  22.91120 [K], p_1: 2.83657 [A], shift/k_B:  -0.01598491 [K], tailcorrection: no
+     He -      O2 [LENNARD_JONES] p_0/k_B:  22.91120 [K], p_1: 2.83657 [A], shift/k_B:  -0.01598491 [K], tailcorrection: no
+     He -      C1 [LENNARD_JONES] p_0/k_B:  22.83928 [K], p_1: 3.05649 [A], shift/k_B:  -0.02493896 [K], tailcorrection: no
+     He -      C2 [LENNARD_JONES] p_0/k_B:  22.83928 [K], p_1: 3.05649 [A], shift/k_B:  -0.02493896 [K], tailcorrection: no
+     He -      C3 [LENNARD_JONES] p_0/k_B:  22.83928 [K], p_1: 3.05649 [A], shift/k_B:  -0.02493896 [K], tailcorrection: no
+     He -      H1 [LENNARD_JONES] p_0/k_B:   9.13090 [K], p_1: 2.74321 [A], shift/k_B:  -0.00521169 [K], tailcorrection: no
+CH4_sp3 - CH4_sp3 [LENNARD_JONES] p_0/k_B: 158.50000 [K], p_1: 3.72000 [A], shift/k_B:  -0.56217796 [K], tailcorrection: no
+CH4_sp3 - CH3_sp3 [LENNARD_JONES] p_0/k_B: 130.83577 [K], p_1: 3.74000 [A], shift/k_B:  -0.47921501 [K], tailcorrection: no
+CH4_sp3 - CH2_sp3 [LENNARD_JONES] p_0/k_B:  94.21253 [K], p_1: 3.84000 [A], shift/k_B:  -0.40420524 [K], tailcorrection: no
+CH4_sp3 -  CH_sp3 [LENNARD_JONES] p_0/k_B:  51.90857 [K], p_1: 4.19500 [A], shift/k_B:  -0.37827707 [K], tailcorrection: no
+CH4_sp3 -   C_sp3 [LENNARD_JONES] p_0/k_B:  11.26055 [K], p_1: 5.05000 [A], shift/k_B:  -0.24880626 [K], tailcorrection: no
+CH4_sp3 -    H_h2 [ZERO_POTENTIAL]
+CH4_sp3 -   H_com [LENNARD_JONES] p_0/k_B:  76.26893 [K], p_1: 3.33900 [A], shift/k_B:  -0.14151976 [K], tailcorrection: no
+CH4_sp3 -   C_co2 [LENNARD_JONES] p_0/k_B:  65.41789 [K], p_1: 3.26000 [A], shift/k_B:  -0.10514776 [K], tailcorrection: no
+CH4_sp3 -   O_co2 [LENNARD_JONES] p_0/k_B: 111.89951 [K], p_1: 3.38500 [A], shift/k_B:  -0.22538960 [K], tailcorrection: no
+CH4_sp3 -    O_o2 [LENNARD_JONES] p_0/k_B:  87.36738 [K], p_1: 3.37657 [A], shift/k_B:  -0.17336627 [K], tailcorrection: no
+CH4_sp3 -   O_com [LENNARD_JONES] p_0/k_B:  87.36738 [K], p_1: 3.37657 [A], shift/k_B:  -0.17336627 [K], tailcorrection: no
+CH4_sp3 -    N_n2 [LENNARD_JONES] p_0/k_B:  75.53807 [K], p_1: 3.51500 [A], shift/k_B:  -0.19072867 [K], tailcorrection: no
+CH4_sp3 -   N_com [ZERO_POTENTIAL]
+CH4_sp3 -      Ar [LENNARD_JONES] p_0/k_B: 137.79804 [K], p_1: 3.53000 [A], shift/k_B:  -0.35692937 [K], tailcorrection: no
+CH4_sp3 -      Ow [LENNARD_JONES] p_0/k_B: 119.19241 [K], p_1: 3.40850 [A], shift/k_B:  -0.25024924 [K], tailcorrection: no
+CH4_sp3 -      Hw [LENNARD_JONES] p_0/k_B:  34.81889 [K], p_1: 3.28321 [A], shift/k_B:  -0.05839790 [K], tailcorrection: no
+CH4_sp3 -  C_benz [LENNARD_JONES] p_0/k_B:  69.75636 [K], p_1: 3.66000 [A], shift/k_B:  -0.22443630 [K], tailcorrection: no
+CH4_sp3 -  H_benz [LENNARD_JONES] p_0/k_B:  63.51240 [K], p_1: 3.04000 [A], shift/k_B:  -0.06713635 [K], tailcorrection: no
+CH4_sp3 -   N_dmf [LENNARD_JONES] p_0/k_B: 112.60551 [K], p_1: 3.46000 [A], shift/k_B:  -0.25866586 [K], tailcorrection: no
+CH4_sp3 -  Co_dmf [LENNARD_JONES] p_0/k_B:  89.02247 [K], p_1: 3.71000 [A], shift/k_B:  -0.31069637 [K], tailcorrection: no
+CH4_sp3 -  Cm_dmf [LENNARD_JONES] p_0/k_B: 112.60551 [K], p_1: 3.76000 [A], shift/k_B:  -0.42584155 [K], tailcorrection: no
+CH4_sp3 -   O_dmf [LENNARD_JONES] p_0/k_B: 125.89678 [K], p_1: 3.34000 [A], shift/k_B:  -0.23402593 [K], tailcorrection: no
+CH4_sp3 -   H_dmf [LENNARD_JONES] p_0/k_B:  35.60899 [K], p_1: 2.96000 [A], shift/k_B:  -0.03207632 [K], tailcorrection: no
+CH4_sp3 -      Na [LENNARD_JONES] p_0/k_B:  78.57129 [K], p_1: 3.49128 [A], shift/k_B:  -0.19049388 [K], tailcorrection: no
+CH4_sp3 -      Cl [LENNARD_JONES] p_0/k_B: 150.31992 [K], p_1: 3.61966 [A], shift/k_B:  -0.45255198 [K], tailcorrection: no
+CH4_sp3 -      Kr [LENNARD_JONES] p_0/k_B: 162.40197 [K], p_1: 3.67800 [A], shift/k_B:  -0.53811358 [K], tailcorrection: no
+CH4_sp3 -      Xe [LENNARD_JONES] p_0/k_B: 187.15902 [K], p_1: 3.91000 [A], shift/k_B:  -0.89479554 [K], tailcorrection: no
+CH4_sp3 -     Zn1 [LENNARD_JONES] p_0/k_B:  99.44985 [K], p_1: 3.09077 [A], shift/k_B:  -0.11610587 [K], tailcorrection: no
+CH4_sp3 -      O1 [LENNARD_JONES] p_0/k_B:  87.36738 [K], p_1: 3.37657 [A], shift/k_B:  -0.17336627 [K], tailcorrection: no
+CH4_sp3 -      O2 [LENNARD_JONES] p_0/k_B:  87.36738 [K], p_1: 3.37657 [A], shift/k_B:  -0.17336627 [K], tailcorrection: no
+CH4_sp3 -      C1 [LENNARD_JONES] p_0/k_B:  87.09310 [K], p_1: 3.59649 [A], shift/k_B:  -0.25230052 [K], tailcorrection: no
+CH4_sp3 -      C2 [LENNARD_JONES] p_0/k_B:  87.09310 [K], p_1: 3.59649 [A], shift/k_B:  -0.25230052 [K], tailcorrection: no
+CH4_sp3 -      C3 [LENNARD_JONES] p_0/k_B:  87.09310 [K], p_1: 3.59649 [A], shift/k_B:  -0.25230052 [K], tailcorrection: no
+CH4_sp3 -      H1 [LENNARD_JONES] p_0/k_B:  34.81889 [K], p_1: 3.28321 [A], shift/k_B:  -0.05839790 [K], tailcorrection: no
+CH3_sp3 - CH3_sp3 [LENNARD_JONES] p_0/k_B: 108.00000 [K], p_1: 3.76000 [A], shift/k_B:  -0.40842485 [K], tailcorrection: no
+CH3_sp3 - CH2_sp3 [LENNARD_JONES] p_0/k_B:  77.76889 [K], p_1: 3.86000 [A], shift/k_B:  -0.34420794 [K], tailcorrection: no
+CH3_sp3 -  CH_sp3 [LENNARD_JONES] p_0/k_B:  42.84857 [K], p_1: 4.21500 [A], shift/k_B:  -0.32127575 [K], tailcorrection: no
+CH3_sp3 -   C_sp3 [LENNARD_JONES] p_0/k_B:   9.29516 [K], p_1: 5.07000 [A], shift/k_B:  -0.21028090 [K], tailcorrection: no
+CH3_sp3 -    H_h2 [ZERO_POTENTIAL]
+CH3_sp3 -   H_com [LENNARD_JONES] p_0/k_B:  62.95713 [K], p_1: 3.35900 [A], shift/k_B:  -0.12107891 [K], tailcorrection: no
+CH3_sp3 -   C_co2 [LENNARD_JONES] p_0/k_B:  54.00000 [K], p_1: 3.28000 [A], shift/k_B:  -0.09003849 [K], tailcorrection: no
+CH3_sp3 -   O_co2 [LENNARD_JONES] p_0/k_B:  92.36883 [K], p_1: 3.40500 [A], shift/k_B:  -0.19274091 [K], tailcorrection: no
+CH3_sp3 -    O_o2 [LENNARD_JONES] p_0/k_B:  72.11848 [K], p_1: 3.39657 [A], shift/k_B:  -0.14826646 [K], tailcorrection: no
+CH3_sp3 -   O_com [LENNARD_JONES] p_0/k_B:  72.11848 [K], p_1: 3.39657 [A], shift/k_B:  -0.14826646 [K], tailcorrection: no
+CH3_sp3 -    N_n2 [LENNARD_JONES] p_0/k_B:  62.35383 [K], p_1: 3.53500 [A], shift/k_B:  -0.16288768 [K], tailcorrection: no
+CH3_sp3 -   N_com [ZERO_POTENTIAL]
+CH3_sp3 -      Ar [LENNARD_JONES] p_0/k_B: 113.74709 [K], p_1: 3.55000 [A], shift/k_B:  -0.30478368 [K], tailcorrection: no
+CH3_sp3 -      Ow [LENNARD_JONES] p_0/k_B:  98.38884 [K], p_1: 3.42850 [A], shift/k_B:  -0.21394739 [K], tailcorrection: no
+CH3_sp3 -      Hw [LENNARD_JONES] p_0/k_B:  28.74168 [K], p_1: 3.30321 [A], shift/k_B:  -0.04999342 [K], tailcorrection: no
+CH3_sp3 -  C_benz [LENNARD_JONES] p_0/k_B:  57.58125 [K], p_1: 3.68000 [A], shift/k_B:  -0.19141639 [K], tailcorrection: no
+CH3_sp3 -  H_benz [LENNARD_JONES] p_0/k_B:  52.42709 [K], p_1: 3.06000 [A], shift/k_B:  -0.05764179 [K], tailcorrection: no
+CH3_sp3 -   N_dmf [LENNARD_JONES] p_0/k_B:  92.95160 [K], p_1: 3.48000 [A], shift/k_B:  -0.22102757 [K], tailcorrection: no
+CH3_sp3 -  Co_dmf [LENNARD_JONES] p_0/k_B:  73.48469 [K], p_1: 3.73000 [A], shift/k_B:  -0.26486862 [K], tailcorrection: no
+CH3_sp3 -  Cm_dmf [LENNARD_JONES] p_0/k_B:  92.95160 [K], p_1: 3.78000 [A], shift/k_B:  -0.36287388 [K], tailcorrection: no
+CH3_sp3 -   O_dmf [LENNARD_JONES] p_0/k_B: 103.92305 [K], p_1: 3.36000 [A], shift/k_B:  -0.20022151 [K], tailcorrection: no
+CH3_sp3 -   H_dmf [LENNARD_JONES] p_0/k_B:  29.39388 [K], p_1: 2.98000 [A], shift/k_B:  -0.02756926 [K], tailcorrection: no
+CH3_sp3 -      Na [LENNARD_JONES] p_0/k_B:  64.85764 [K], p_1: 3.51128 [A], shift/k_B:  -0.16272481 [K], tailcorrection: no
+CH3_sp3 -      Cl [LENNARD_JONES] p_0/k_B: 124.08342 [K], p_1: 3.63966 [A], shift/k_B:  -0.38611167 [K], tailcorrection: no
+CH3_sp3 -      Kr [LENNARD_JONES] p_0/k_B: 134.05670 [K], p_1: 3.69800 [A], shift/k_B:  -0.45887075 [K], tailcorrection: no
+CH3_sp3 -      Xe [LENNARD_JONES] p_0/k_B: 154.49272 [K], p_1: 3.93000 [A], shift/k_B:  -0.76155214 [K], tailcorrection: no
+CH3_sp3 -     Zn1 [LENNARD_JONES] p_0/k_B:  82.09210 [K], p_1: 3.11077 [A], shift/k_B:  -0.09962164 [K], tailcorrection: no
+CH3_sp3 -      O1 [LENNARD_JONES] p_0/k_B:  72.11848 [K], p_1: 3.39657 [A], shift/k_B:  -0.14826646 [K], tailcorrection: no
+CH3_sp3 -      O2 [LENNARD_JONES] p_0/k_B:  72.11848 [K], p_1: 3.39657 [A], shift/k_B:  -0.14826646 [K], tailcorrection: no
+CH3_sp3 -      C1 [LENNARD_JONES] p_0/k_B:  71.89207 [K], p_1: 3.61649 [A], shift/k_B:  -0.21530553 [K], tailcorrection: no
+CH3_sp3 -      C2 [LENNARD_JONES] p_0/k_B:  71.89207 [K], p_1: 3.61649 [A], shift/k_B:  -0.21530553 [K], tailcorrection: no
+CH3_sp3 -      C3 [LENNARD_JONES] p_0/k_B:  71.89207 [K], p_1: 3.61649 [A], shift/k_B:  -0.21530553 [K], tailcorrection: no
+CH3_sp3 -      H1 [LENNARD_JONES] p_0/k_B:  28.74168 [K], p_1: 3.30321 [A], shift/k_B:  -0.04999342 [K], tailcorrection: no
+CH2_sp3 - CH2_sp3 [LENNARD_JONES] p_0/k_B:  56.00000 [K], p_1: 3.96000 [A], shift/k_B:  -0.28891522 [K], tailcorrection: no
+CH2_sp3 -  CH_sp3 [LENNARD_JONES] p_0/k_B:  30.85450 [K], p_1: 4.31500 [A], shift/k_B:  -0.26621710 [K], tailcorrection: no
+CH2_sp3 -   C_sp3 [LENNARD_JONES] p_0/k_B:   6.69328 [K], p_1: 5.17000 [A], shift/k_B:  -0.17012512 [K], tailcorrection: no
+CH2_sp3 -    H_h2 [ZERO_POTENTIAL]
+CH2_sp3 -   H_com [LENNARD_JONES] p_0/k_B:  45.33431 [K], p_1: 3.45900 [A], shift/k_B:  -0.10395700 [K], tailcorrection: no
+CH2_sp3 -   C_co2 [LENNARD_JONES] p_0/k_B:  38.88444 [K], p_1: 3.38000 [A], shift/k_B:  -0.07763038 [K], tailcorrection: no
+CH2_sp3 -   O_co2 [LENNARD_JONES] p_0/k_B:  66.51316 [K], p_1: 3.50500 [A], shift/k_B:  -0.16509673 [K], tailcorrection: no
+CH2_sp3 -    O_o2 [LENNARD_JONES] p_0/k_B:  51.93124 [K], p_1: 3.49657 [A], shift/k_B:  -0.12705519 [K], tailcorrection: no
+CH2_sp3 -   O_com [LENNARD_JONES] p_0/k_B:  51.93124 [K], p_1: 3.49657 [A], shift/k_B:  -0.12705519 [K], tailcorrection: no
+CH2_sp3 -    N_n2 [LENNARD_JONES] p_0/k_B:  44.89989 [K], p_1: 3.63500 [A], shift/k_B:  -0.13864641 [K], tailcorrection: no
+CH2_sp3 -   N_com [ZERO_POTENTIAL]
+CH2_sp3 -      Ar [LENNARD_JONES] p_0/k_B:  81.90726 [K], p_1: 3.65000 [A], shift/k_B:  -0.25924362 [K], tailcorrection: no
+CH2_sp3 -      Ow [LENNARD_JONES] p_0/k_B:  70.84806 [K], p_1: 3.52850 [A], shift/k_B:  -0.18304608 [K], tailcorrection: no
+CH2_sp3 -      Hw [LENNARD_JONES] p_0/k_B:  20.69638 [K], p_1: 3.40321 [A], shift/k_B:  -0.04305002 [K], tailcorrection: no
+CH2_sp3 -  C_benz [LENNARD_JONES] p_0/k_B:  41.46324 [K], p_1: 3.78000 [A], shift/k_B:  -0.16186838 [K], tailcorrection: no
+CH2_sp3 -  H_benz [LENNARD_JONES] p_0/k_B:  37.75182 [K], p_1: 3.16000 [A], shift/k_B:  -0.05033709 [K], tailcorrection: no
+CH2_sp3 -   N_dmf [LENNARD_JONES] p_0/k_B:  66.93280 [K], p_1: 3.58000 [A], shift/k_B:  -0.18862679 [K], tailcorrection: no
+CH2_sp3 -  Co_dmf [LENNARD_JONES] p_0/k_B:  52.91503 [K], p_1: 3.83000 [A], shift/k_B:  -0.22350377 [K], tailcorrection: no
+CH2_sp3 -  Cm_dmf [LENNARD_JONES] p_0/k_B:  66.93280 [K], p_1: 3.88000 [A], shift/k_B:  -0.30556623 [K], tailcorrection: no
+CH2_sp3 -   O_dmf [LENNARD_JONES] p_0/k_B:  74.83315 [K], p_1: 3.46000 [A], shift/k_B:  -0.17189906 [K], tailcorrection: no
+CH2_sp3 -   H_dmf [LENNARD_JONES] p_0/k_B:  21.16601 [K], p_1: 3.08000 [A], shift/k_B:  -0.02419868 [K], tailcorrection: no
+CH2_sp3 -      Na [LENNARD_JONES] p_0/k_B:  46.70284 [K], p_1: 3.61128 [A], shift/k_B:  -0.13866283 [K], tailcorrection: no
+CH2_sp3 -      Cl [LENNARD_JONES] p_0/k_B:  89.35028 [K], p_1: 3.73966 [A], shift/k_B:  -0.32708688 [K], tailcorrection: no
+CH2_sp3 -      Kr [LENNARD_JONES] p_0/k_B:  96.53186 [K], p_1: 3.79800 [A], shift/k_B:  -0.38773606 [K], tailcorrection: no
+CH2_sp3 -      Xe [LENNARD_JONES] p_0/k_B: 111.24747 [K], p_1: 4.03000 [A], shift/k_B:  -0.63748422 [K], tailcorrection: no
+CH2_sp3 -     Zn1 [LENNARD_JONES] p_0/k_B:  59.11307 [K], p_1: 3.21077 [A], shift/k_B:  -0.08672731 [K], tailcorrection: no
+CH2_sp3 -      O1 [LENNARD_JONES] p_0/k_B:  51.93124 [K], p_1: 3.49657 [A], shift/k_B:  -0.12705519 [K], tailcorrection: no
+CH2_sp3 -      O2 [LENNARD_JONES] p_0/k_B:  51.93124 [K], p_1: 3.49657 [A], shift/k_B:  -0.12705519 [K], tailcorrection: no
+CH2_sp3 -      C1 [LENNARD_JONES] p_0/k_B:  51.76821 [K], p_1: 3.71650 [A], shift/k_B:  -0.18258013 [K], tailcorrection: no
+CH2_sp3 -      C2 [LENNARD_JONES] p_0/k_B:  51.76821 [K], p_1: 3.71650 [A], shift/k_B:  -0.18258013 [K], tailcorrection: no
+CH2_sp3 -      C3 [LENNARD_JONES] p_0/k_B:  51.76821 [K], p_1: 3.71650 [A], shift/k_B:  -0.18258013 [K], tailcorrection: no
+CH2_sp3 -      H1 [LENNARD_JONES] p_0/k_B:  20.69638 [K], p_1: 3.40321 [A], shift/k_B:  -0.04305002 [K], tailcorrection: no
+ CH_sp3 -  CH_sp3 [LENNARD_JONES] p_0/k_B:  17.00000 [K], p_1: 4.67000 [A], shift/k_B:  -0.23540268 [K], tailcorrection: no
+ CH_sp3 -   C_sp3 [LENNARD_JONES] p_0/k_B:   3.68782 [K], p_1: 5.52500 [A], shift/k_B:  -0.13918063 [K], tailcorrection: no
+ CH_sp3 -    H_h2 [ZERO_POTENTIAL]
+ CH_sp3 -   H_com [LENNARD_JONES] p_0/k_B:  24.97799 [K], p_1: 3.81400 [A], shift/k_B:  -0.10288835 [K], tailcorrection: no
+ CH_sp3 -   C_co2 [LENNARD_JONES] p_0/k_B:  21.42429 [K], p_1: 3.73500 [A], shift/k_B:  -0.07784441 [K], tailcorrection: no
+ CH_sp3 -   O_co2 [LENNARD_JONES] p_0/k_B:  36.64696 [K], p_1: 3.86000 [A], shift/k_B:  -0.16220080 [K], tailcorrection: no
+ CH_sp3 -    O_o2 [LENNARD_JONES] p_0/k_B:  28.61272 [K], p_1: 3.85157 [A], shift/k_B:  -0.12499330 [K], tailcorrection: no
+ CH_sp3 -   O_com [LENNARD_JONES] p_0/k_B:  28.61272 [K], p_1: 3.85157 [A], shift/k_B:  -0.12499330 [K], tailcorrection: no
+ CH_sp3 -    N_n2 [LENNARD_JONES] p_0/k_B:  24.73863 [K], p_1: 3.99000 [A], shift/k_B:  -0.13353599 [K], tailcorrection: no
+ CH_sp3 -   N_com [ZERO_POTENTIAL]
+ CH_sp3 -      Ar [LENNARD_JONES] p_0/k_B:  45.12870 [K], p_1: 4.00500 [A], shift/k_B:  -0.24913794 [K], tailcorrection: no
+ CH_sp3 -      Ow [LENNARD_JONES] p_0/k_B:  39.03538 [K], p_1: 3.88350 [A], shift/k_B:  -0.17917260 [K], tailcorrection: no
+ CH_sp3 -      Hw [LENNARD_JONES] p_0/k_B:  11.40315 [K], p_1: 3.75821 [A], shift/k_B:  -0.04300051 [K], tailcorrection: no
+ CH_sp3 -  C_benz [LENNARD_JONES] p_0/k_B:  22.84513 [K], p_1: 4.13500 [A], shift/k_B:  -0.15271849 [K], tailcorrection: no
+ CH_sp3 -  H_benz [LENNARD_JONES] p_0/k_B:  20.80024 [K], p_1: 3.51500 [A], shift/k_B:  -0.05251924 [K], tailcorrection: no
+ CH_sp3 -   N_dmf [LENNARD_JONES] p_0/k_B:  36.87818 [K], p_1: 3.93500 [A], shift/k_B:  -0.18317664 [K], tailcorrection: no
+ CH_sp3 -  Co_dmf [LENNARD_JONES] p_0/k_B:  29.15476 [K], p_1: 4.18500 [A], shift/k_B:  -0.20944628 [K], tailcorrection: no
+ CH_sp3 -  Cm_dmf [LENNARD_JONES] p_0/k_B:  36.87818 [K], p_1: 4.23500 [A], shift/k_B:  -0.28446087 [K], tailcorrection: no
+ CH_sp3 -   O_dmf [LENNARD_JONES] p_0/k_B:  41.23106 [K], p_1: 3.81500 [A], shift/k_B:  -0.17010442 [K], tailcorrection: no
+ CH_sp3 -   H_dmf [LENNARD_JONES] p_0/k_B:  11.66190 [K], p_1: 3.43500 [A], shift/k_B:  -0.02564859 [K], tailcorrection: no
+ CH_sp3 -      Na [LENNARD_JONES] p_0/k_B:  25.73201 [K], p_1: 3.96628 [A], shift/k_B:  -0.13402316 [K], tailcorrection: no
+ CH_sp3 -      Cl [LENNARD_JONES] p_0/k_B:  49.22960 [K], p_1: 4.09466 [A], shift/k_B:  -0.31032724 [K], tailcorrection: no
+ CH_sp3 -      Kr [LENNARD_JONES] p_0/k_B:  53.18646 [K], p_1: 4.15300 [A], shift/k_B:  -0.36492058 [K], tailcorrection: no
+ CH_sp3 -      Xe [LENNARD_JONES] p_0/k_B:  61.29437 [K], p_1: 4.38500 [A], shift/k_B:  -0.58233847 [K], tailcorrection: no
+ CH_sp3 -     Zn1 [LENNARD_JONES] p_0/k_B:  32.56972 [K], p_1: 3.56577 [A], shift/k_B:  -0.08962126 [K], tailcorrection: no
+ CH_sp3 -      O1 [LENNARD_JONES] p_0/k_B:  28.61272 [K], p_1: 3.85157 [A], shift/k_B:  -0.12499330 [K], tailcorrection: no
+ CH_sp3 -      O2 [LENNARD_JONES] p_0/k_B:  28.61272 [K], p_1: 3.85157 [A], shift/k_B:  -0.12499330 [K], tailcorrection: no
+ CH_sp3 -      C1 [LENNARD_JONES] p_0/k_B:  28.52289 [K], p_1: 4.07149 [A], shift/k_B:  -0.17379067 [K], tailcorrection: no
+ CH_sp3 -      C2 [LENNARD_JONES] p_0/k_B:  28.52289 [K], p_1: 4.07149 [A], shift/k_B:  -0.17379067 [K], tailcorrection: no
+ CH_sp3 -      C3 [LENNARD_JONES] p_0/k_B:  28.52289 [K], p_1: 4.07149 [A], shift/k_B:  -0.17379067 [K], tailcorrection: no
+ CH_sp3 -      H1 [LENNARD_JONES] p_0/k_B:  11.40315 [K], p_1: 3.75821 [A], shift/k_B:  -0.04300051 [K], tailcorrection: no
+  C_sp3 -   C_sp3 [LENNARD_JONES] p_0/k_B:   0.80000 [K], p_1: 6.38000 [A], shift/k_B:  -0.07064236 [K], tailcorrection: no
+  C_sp3 -    H_h2 [ZERO_POTENTIAL]
+  C_sp3 -   H_com [LENNARD_JONES] p_0/k_B:   5.41849 [K], p_1: 4.66900 [A], shift/k_B:  -0.07493495 [K], tailcorrection: no
+  C_sp3 -   C_co2 [LENNARD_JONES] p_0/k_B:   4.64758 [K], p_1: 4.59000 [A], shift/k_B:  -0.05803811 [K], tailcorrection: no
+  C_sp3 -   O_co2 [LENNARD_JONES] p_0/k_B:   7.94984 [K], p_1: 4.71500 [A], shift/k_B:  -0.11657898 [K], tailcorrection: no
+  C_sp3 -    O_o2 [LENNARD_JONES] p_0/k_B:   6.20697 [K], p_1: 4.70657 [A], shift/k_B:  -0.09005301 [K], tailcorrection: no
+  C_sp3 -   O_com [LENNARD_JONES] p_0/k_B:   6.20697 [K], p_1: 4.70657 [A], shift/k_B:  -0.09005301 [K], tailcorrection: no
+  C_sp3 -    N_n2 [LENNARD_JONES] p_0/k_B:   5.36656 [K], p_1: 4.84500 [A], shift/k_B:  -0.09258616 [K], tailcorrection: no
+  C_sp3 -   N_com [ZERO_POTENTIAL]
+  C_sp3 -      Ar [LENNARD_JONES] p_0/k_B:   9.78979 [K], p_1: 4.86000 [A], shift/k_B:  -0.17204528 [K], tailcorrection: no
+  C_sp3 -      Ow [LENNARD_JONES] p_0/k_B:   8.46796 [K], p_1: 4.73850 [A], shift/k_B:  -0.12792259 [K], tailcorrection: no
+  C_sp3 -      Hw [LENNARD_JONES] p_0/k_B:   2.47369 [K], p_1: 4.61321 [A], shift/k_B:  -0.03183707 [K], tailcorrection: no
+  C_sp3 -  C_benz [LENNARD_JONES] p_0/k_B:   4.95580 [K], p_1: 4.99000 [A], shift/k_B:  -0.10196209 [K], tailcorrection: no
+  C_sp3 -  H_benz [LENNARD_JONES] p_0/k_B:   4.51221 [K], p_1: 4.37000 [A], shift/k_B:  -0.04199870 [K], tailcorrection: no
+  C_sp3 -   N_dmf [LENNARD_JONES] p_0/k_B:   8.00000 [K], p_1: 4.79000 [A], shift/k_B:  -0.12891851 [K], tailcorrection: no
+  C_sp3 -  Co_dmf [LENNARD_JONES] p_0/k_B:   6.32456 [K], p_1: 5.04000 [A], shift/k_B:  -0.13810052 [K], tailcorrection: no
+  C_sp3 -  Cm_dmf [LENNARD_JONES] p_0/k_B:   8.00000 [K], p_1: 5.09000 [A], shift/k_B:  -0.18528168 [K], tailcorrection: no
+  C_sp3 -   O_dmf [LENNARD_JONES] p_0/k_B:   8.94427 [K], p_1: 4.67000 [A], shift/k_B:  -0.12385327 [K], tailcorrection: no
+  C_sp3 -   H_dmf [LENNARD_JONES] p_0/k_B:   2.52982 [K], p_1: 4.29000 [A], shift/k_B:  -0.02108136 [K], tailcorrection: no
+  C_sp3 -      Na [LENNARD_JONES] p_0/k_B:   5.58206 [K], p_1: 4.82128 [A], shift/k_B:  -0.09352126 [K], tailcorrection: no
+  C_sp3 -      Cl [LENNARD_JONES] p_0/k_B:  10.67940 [K], p_1: 4.94966 [A], shift/k_B:  -0.20932814 [K], tailcorrection: no
+  C_sp3 -      Kr [LENNARD_JONES] p_0/k_B:  11.53776 [K], p_1: 5.00800 [A], shift/k_B:  -0.24253786 [K], tailcorrection: no
+  C_sp3 -      Xe [LENNARD_JONES] p_0/k_B:  13.29662 [K], p_1: 5.24000 [A], shift/k_B:  -0.36616773 [K], tailcorrection: no
+  C_sp3 -     Zn1 [LENNARD_JONES] p_0/k_B:   7.06536 [K], p_1: 4.42077 [A], shift/k_B:  -0.07047101 [K], tailcorrection: no
+  C_sp3 -      O1 [LENNARD_JONES] p_0/k_B:   6.20697 [K], p_1: 4.70657 [A], shift/k_B:  -0.09005301 [K], tailcorrection: no
+  C_sp3 -      O2 [LENNARD_JONES] p_0/k_B:   6.20697 [K], p_1: 4.70657 [A], shift/k_B:  -0.09005301 [K], tailcorrection: no
+  C_sp3 -      C1 [LENNARD_JONES] p_0/k_B:   6.18748 [K], p_1: 4.92650 [A], shift/k_B:  -0.11793170 [K], tailcorrection: no
+  C_sp3 -      C2 [LENNARD_JONES] p_0/k_B:   6.18748 [K], p_1: 4.92650 [A], shift/k_B:  -0.11793170 [K], tailcorrection: no
+  C_sp3 -      C3 [LENNARD_JONES] p_0/k_B:   6.18748 [K], p_1: 4.92650 [A], shift/k_B:  -0.11793170 [K], tailcorrection: no
+  C_sp3 -      H1 [LENNARD_JONES] p_0/k_B:   2.47369 [K], p_1: 4.61321 [A], shift/k_B:  -0.03183707 [K], tailcorrection: no
+   H_h2 -    H_h2 [ZERO_POTENTIAL]
+   H_h2 -   H_com [ZERO_POTENTIAL]
+   H_h2 -   C_co2 [ZERO_POTENTIAL]
+   H_h2 -   O_co2 [ZERO_POTENTIAL]
+   H_h2 -    O_o2 [ZERO_POTENTIAL]
+   H_h2 -   O_com [ZERO_POTENTIAL]
+   H_h2 -    N_n2 [ZERO_POTENTIAL]
+   H_h2 -   N_com [ZERO_POTENTIAL]
+   H_h2 -      Ar [ZERO_POTENTIAL]
+   H_h2 -      Ow [ZERO_POTENTIAL]
+   H_h2 -      Hw [ZERO_POTENTIAL]
+   H_h2 -      Lw [ZERO_POTENTIAL]
+   H_h2 -  C_benz [ZERO_POTENTIAL]
+   H_h2 -  H_benz [ZERO_POTENTIAL]
+   H_h2 -   N_dmf [ZERO_POTENTIAL]
+   H_h2 -  Co_dmf [ZERO_POTENTIAL]
+   H_h2 -  Cm_dmf [ZERO_POTENTIAL]
+   H_h2 -   O_dmf [ZERO_POTENTIAL]
+   H_h2 -   H_dmf [ZERO_POTENTIAL]
+   H_h2 -      Na [ZERO_POTENTIAL]
+   H_h2 -      Cl [ZERO_POTENTIAL]
+   H_h2 -      Kr [ZERO_POTENTIAL]
+   H_h2 -      Xe [ZERO_POTENTIAL]
+   H_h2 -     Zn1 [ZERO_POTENTIAL]
+   H_h2 -      O1 [ZERO_POTENTIAL]
+   H_h2 -      O2 [ZERO_POTENTIAL]
+   H_h2 -      C1 [ZERO_POTENTIAL]
+   H_h2 -      C2 [ZERO_POTENTIAL]
+   H_h2 -      C3 [ZERO_POTENTIAL]
+   H_h2 -      H1 [ZERO_POTENTIAL]
+  H_com -   H_com [LENNARD_JONES] p_0/k_B:  36.70000 [K], p_1: 2.95800 [A], shift/k_B:  -0.03292533 [K], tailcorrection: no
+  H_com -   C_co2 [LENNARD_JONES] p_0/k_B:  31.47856 [K], p_1: 2.87900 [A], shift/k_B:  -0.02400792 [K], tailcorrection: no
+  H_com -   O_co2 [LENNARD_JONES] p_0/k_B:  53.84515 [K], p_1: 3.00400 [A], shift/k_B:  -0.05299218 [K], tailcorrection: no
+  H_com -    O_o2 [LENNARD_JONES] p_0/k_B:  42.04048 [K], p_1: 2.99558 [A], shift/k_B:  -0.04068331 [K], tailcorrection: no
+  H_com -   O_com [LENNARD_JONES] p_0/k_B:  42.04048 [K], p_1: 2.99558 [A], shift/k_B:  -0.04068331 [K], tailcorrection: no
+  H_com -    N_n2 [LENNARD_JONES] p_0/k_B:  36.34831 [K], p_1: 3.13400 [A], shift/k_B:  -0.04612251 [K], tailcorrection: no
+  H_com -   N_com [ZERO_POTENTIAL]
+  H_com -      Ar [LENNARD_JONES] p_0/k_B:  66.30731 [K], p_1: 3.14900 [A], shift/k_B:  -0.08658209 [K], tailcorrection: no
+  H_com -      Ow [LENNARD_JONES] p_0/k_B:  57.35443 [K], p_1: 3.02750 [A], shift/k_B:  -0.05914696 [K], tailcorrection: no
+  H_com -      Hw [LENNARD_JONES] p_0/k_B:  16.75457 [K], p_1: 2.90221 [A], shift/k_B:  -0.01340886 [K], tailcorrection: no
+  H_com -  C_benz [LENNARD_JONES] p_0/k_B:  33.56620 [K], p_1: 3.27900 [A], shift/k_B:  -0.05586534 [K], tailcorrection: no
+  H_com -  H_benz [LENNARD_JONES] p_0/k_B:  30.56166 [K], p_1: 2.65900 [A], shift/k_B:  -0.01446799 [K], tailcorrection: no
+  H_com -   N_dmf [LENNARD_JONES] p_0/k_B:  54.18487 [K], p_1: 3.07900 [A], shift/k_B:  -0.06182793 [K], tailcorrection: no
+  H_com -  Co_dmf [LENNARD_JONES] p_0/k_B:  42.83690 [K], p_1: 3.32900 [A], shift/k_B:  -0.07806841 [K], tailcorrection: no
+  H_com -  Cm_dmf [LENNARD_JONES] p_0/k_B:  54.18487 [K], p_1: 3.37900 [A], shift/k_B:  -0.10798493 [K], tailcorrection: no
+  H_com -   O_dmf [LENNARD_JONES] p_0/k_B:  60.58052 [K], p_1: 2.95900 [A], shift/k_B:  -0.05446001 [K], tailcorrection: no
+  H_com -   H_dmf [LENNARD_JONES] p_0/k_B:  17.13476 [K], p_1: 2.57900 [A], shift/k_B:  -0.00675330 [K], tailcorrection: no
+  H_com -      Na [LENNARD_JONES] p_0/k_B:  37.80788 [K], p_1: 3.11028 [A], shift/k_B:  -0.04583741 [K], tailcorrection: no
+  H_com -      Cl [LENNARD_JONES] p_0/k_B:  72.33274 [K], p_1: 3.23866 [A], shift/k_B:  -0.11177166 [K], tailcorrection: no
+  H_com -      Kr [LENNARD_JONES] p_0/k_B:  78.14653 [K], p_1: 3.29700 [A], shift/k_B:  -0.13440302 [K], tailcorrection: no
+  H_com -      Xe [LENNARD_JONES] p_0/k_B:  90.05942 [K], p_1: 3.52900 [A], shift/k_B:  -0.23287915 [K], tailcorrection: no
+  H_com -     Zn1 [LENNARD_JONES] p_0/k_B:  47.85447 [K], p_1: 2.70978 [A], shift/k_B:  -0.02537680 [K], tailcorrection: no
+  H_com -      O1 [LENNARD_JONES] p_0/k_B:  42.04048 [K], p_1: 2.99558 [A], shift/k_B:  -0.04068331 [K], tailcorrection: no
+  H_com -      O2 [LENNARD_JONES] p_0/k_B:  42.04048 [K], p_1: 2.99558 [A], shift/k_B:  -0.04068331 [K], tailcorrection: no
+  H_com -      C1 [LENNARD_JONES] p_0/k_B:  41.90850 [K], p_1: 3.21549 [A], shift/k_B:  -0.06202987 [K], tailcorrection: no
+  H_com -      C2 [LENNARD_JONES] p_0/k_B:  41.90850 [K], p_1: 3.21549 [A], shift/k_B:  -0.06202987 [K], tailcorrection: no
+  H_com -      C3 [LENNARD_JONES] p_0/k_B:  41.90850 [K], p_1: 3.21549 [A], shift/k_B:  -0.06202987 [K], tailcorrection: no
+  H_com -      H1 [LENNARD_JONES] p_0/k_B:  16.75457 [K], p_1: 2.90221 [A], shift/k_B:  -0.01340886 [K], tailcorrection: no
+  C_co2 -   C_co2 [LENNARD_JONES] p_0/k_B:  27.00000 [K], p_1: 2.80000 [A], shift/k_B:  -0.01742667 [K], tailcorrection: no
+  C_co2 -   O_co2 [LENNARD_JONES] p_0/k_B:  46.18441 [K], p_1: 2.92500 [A], shift/k_B:  -0.03873754 [K], tailcorrection: no
+  C_co2 -    O_o2 [LENNARD_JONES] p_0/k_B:  36.05924 [K], p_1: 2.91657 [A], shift/k_B:  -0.02972613 [K], tailcorrection: no
+  C_co2 -   O_com [LENNARD_JONES] p_0/k_B:  36.05924 [K], p_1: 2.91657 [A], shift/k_B:  -0.02972613 [K], tailcorrection: no
+  C_co2 -    N_n2 [LENNARD_JONES] p_0/k_B:  31.17691 [K], p_1: 3.05500 [A], shift/k_B:  -0.03394335 [K], tailcorrection: no
+  C_co2 -   N_com [ZERO_POTENTIAL]
+  C_co2 -      Ar [LENNARD_JONES] p_0/k_B:  56.87354 [K], p_1: 3.07000 [A], shift/k_B:  -0.06376631 [K], tailcorrection: no
+  C_co2 -      Ow [LENNARD_JONES] p_0/k_B:  49.19442 [K], p_1: 2.94850 [A], shift/k_B:  -0.04329120 [K], tailcorrection: no
+  C_co2 -      Hw [LENNARD_JONES] p_0/k_B:  14.37084 [K], p_1: 2.82321 [A], shift/k_B:  -0.00974631 [K], tailcorrection: no
+  C_co2 -  C_benz [LENNARD_JONES] p_0/k_B:  28.79062 [K], p_1: 3.20000 [A], shift/k_B:  -0.04139685 [K], tailcorrection: no
+  C_co2 -  H_benz [LENNARD_JONES] p_0/k_B:  26.21355 [K], p_1: 2.58000 [A], shift/k_B:  -0.01035556 [K], tailcorrection: no
+  C_co2 -   N_dmf [LENNARD_JONES] p_0/k_B:  46.47580 [K], p_1: 3.00000 [A], shift/k_B:  -0.04537544 [K], tailcorrection: no
+  C_co2 -  Co_dmf [LENNARD_JONES] p_0/k_B:  36.74235 [K], p_1: 3.25000 [A], shift/k_B:  -0.05797866 [K], tailcorrection: no
+  C_co2 -  Cm_dmf [LENNARD_JONES] p_0/k_B:  46.47580 [K], p_1: 3.30000 [A], shift/k_B:  -0.08037022 [K], tailcorrection: no
+  C_co2 -   O_dmf [LENNARD_JONES] p_0/k_B:  51.96152 [K], p_1: 2.88000 [A], shift/k_B:  -0.03971242 [K], tailcorrection: no
+  C_co2 -   H_dmf [LENNARD_JONES] p_0/k_B:  14.69694 [K], p_1: 2.50000 [A], shift/k_B:  -0.00480622 [K], tailcorrection: no
+  C_co2 -      Na [LENNARD_JONES] p_0/k_B:  32.42882 [K], p_1: 3.03128 [A], shift/k_B:  -0.03369358 [K], tailcorrection: no
+  C_co2 -      Cl [LENNARD_JONES] p_0/k_B:  62.04171 [K], p_1: 3.15966 [A], shift/k_B:  -0.08267109 [K], tailcorrection: no
+  C_co2 -      Kr [LENNARD_JONES] p_0/k_B:  67.02835 [K], p_1: 3.21800 [A], shift/k_B:  -0.09967489 [K], tailcorrection: no
+  C_co2 -      Xe [LENNARD_JONES] p_0/k_B:  77.24636 [K], p_1: 3.45000 [A], shift/k_B:  -0.17438928 [K], tailcorrection: no
+  C_co2 -     Zn1 [LENNARD_JONES] p_0/k_B:  41.04605 [K], p_1: 2.63077 [A], shift/k_B:  -0.01822628 [K], tailcorrection: no
+  C_co2 -      O1 [LENNARD_JONES] p_0/k_B:  36.05924 [K], p_1: 2.91657 [A], shift/k_B:  -0.02972613 [K], tailcorrection: no
+  C_co2 -      O2 [LENNARD_JONES] p_0/k_B:  36.05924 [K], p_1: 2.91657 [A], shift/k_B:  -0.02972613 [K], tailcorrection: no
+  C_co2 -      C1 [LENNARD_JONES] p_0/k_B:  35.94603 [K], p_1: 3.13650 [A], shift/k_B:  -0.04583029 [K], tailcorrection: no
+  C_co2 -      C2 [LENNARD_JONES] p_0/k_B:  35.94603 [K], p_1: 3.13650 [A], shift/k_B:  -0.04583029 [K], tailcorrection: no
+  C_co2 -      C3 [LENNARD_JONES] p_0/k_B:  35.94603 [K], p_1: 3.13650 [A], shift/k_B:  -0.04583029 [K], tailcorrection: no
+  C_co2 -      H1 [LENNARD_JONES] p_0/k_B:  14.37084 [K], p_1: 2.82321 [A], shift/k_B:  -0.00974631 [K], tailcorrection: no
+  O_co2 -   O_co2 [LENNARD_JONES] p_0/k_B:  79.00000 [K], p_1: 3.05000 [A], shift/k_B:  -0.08516900 [K], tailcorrection: no
+  O_co2 -    O_o2 [LENNARD_JONES] p_0/k_B:  61.68055 [K], p_1: 3.04157 [A], shift/k_B:  -0.06540286 [K], tailcorrection: no
+  O_co2 -   O_com [LENNARD_JONES] p_0/k_B:  61.68055 [K], p_1: 3.04157 [A], shift/k_B:  -0.06540286 [K], tailcorrection: no
+  O_co2 -    N_n2 [LENNARD_JONES] p_0/k_B:  53.32917 [K], p_1: 3.18000 [A], shift/k_B:  -0.07384985 [K], tailcorrection: no
+  O_co2 -   N_com [ZERO_POTENTIAL]
+  O_co2 -      Ar [LENNARD_JONES] p_0/k_B:  97.28412 [K], p_1: 3.19500 [A], shift/k_B:  -0.13857501 [K], tailcorrection: no
+  O_co2 -      Ow [LENNARD_JONES] p_0/k_B:  84.14872 [K], p_1: 3.07350 [A], shift/k_B:  -0.09499412 [K], tailcorrection: no
+  O_co2 -      Hw [LENNARD_JONES] p_0/k_B:  24.58181 [K], p_1: 2.94821 [A], shift/k_B:  -0.02161929 [K], tailcorrection: no
+  O_co2 -  C_benz [LENNARD_JONES] p_0/k_B:  49.24733 [K], p_1: 3.32500 [A], shift/k_B:  -0.08910633 [K], tailcorrection: no
+  O_co2 -  H_benz [LENNARD_JONES] p_0/k_B:  44.83916 [K], p_1: 2.70500 [A], shift/k_B:  -0.02352754 [K], tailcorrection: no
+  O_co2 -   N_dmf [LENNARD_JONES] p_0/k_B:  79.49843 [K], p_1: 3.12500 [A], shift/k_B:  -0.09915068 [K], tailcorrection: no
+  O_co2 -  Co_dmf [LENNARD_JONES] p_0/k_B:  62.84903 [K], p_1: 3.37500 [A], shift/k_B:  -0.12436516 [K], tailcorrection: no
+  O_co2 -  Cm_dmf [LENNARD_JONES] p_0/k_B:  79.49843 [K], p_1: 3.42500 [A], shift/k_B:  -0.17181444 [K], tailcorrection: no
+  O_co2 -   O_dmf [LENNARD_JONES] p_0/k_B:  88.88194 [K], p_1: 3.00500 [A], shift/k_B:  -0.08764877 [K], tailcorrection: no
+  O_co2 -   H_dmf [LENNARD_JONES] p_0/k_B:  25.13961 [K], p_1: 2.62500 [A], shift/k_B:  -0.01101690 [K], tailcorrection: no
+  O_co2 -      Na [LENNARD_JONES] p_0/k_B:  55.47059 [K], p_1: 3.15628 [A], shift/k_B:  -0.07344203 [K], tailcorrection: no
+  O_co2 -      Cl [LENNARD_JONES] p_0/k_B: 106.12445 [K], p_1: 3.28466 [A], shift/k_B:  -0.17846283 [K], tailcorrection: no
+  O_co2 -      Kr [LENNARD_JONES] p_0/k_B: 114.65426 [K], p_1: 3.34300 [A], shift/k_B:  -0.21427817 [K], tailcorrection: no
+  O_co2 -      Xe [LENNARD_JONES] p_0/k_B: 132.13251 [K], p_1: 3.57500 [A], shift/k_B:  -0.36926210 [K], tailcorrection: no
+  O_co2 -     Zn1 [LENNARD_JONES] p_0/k_B:  70.21066 [K], p_1: 2.75577 [A], shift/k_B:  -0.04118835 [K], tailcorrection: no
+  O_co2 -      O1 [LENNARD_JONES] p_0/k_B:  61.68055 [K], p_1: 3.04157 [A], shift/k_B:  -0.06540286 [K], tailcorrection: no
+  O_co2 -      O2 [LENNARD_JONES] p_0/k_B:  61.68055 [K], p_1: 3.04157 [A], shift/k_B:  -0.06540286 [K], tailcorrection: no
+  O_co2 -      C1 [LENNARD_JONES] p_0/k_B:  61.48691 [K], p_1: 3.26150 [A], shift/k_B:  -0.09910153 [K], tailcorrection: no
+  O_co2 -      C2 [LENNARD_JONES] p_0/k_B:  61.48691 [K], p_1: 3.26150 [A], shift/k_B:  -0.09910153 [K], tailcorrection: no
+  O_co2 -      C3 [LENNARD_JONES] p_0/k_B:  61.48691 [K], p_1: 3.26150 [A], shift/k_B:  -0.09910153 [K], tailcorrection: no
+  O_co2 -      H1 [LENNARD_JONES] p_0/k_B:  24.58181 [K], p_1: 2.94821 [A], shift/k_B:  -0.02161929 [K], tailcorrection: no
+   O_o2 -    O_o2 [LENNARD_JONES] p_0/k_B:  48.15810 [K], p_1: 3.03315 [A], shift/k_B:  -0.05022176 [K], tailcorrection: no
+   O_o2 -   O_com [LENNARD_JONES] p_0/k_B:  48.15810 [K], p_1: 3.03315 [A], shift/k_B:  -0.05022176 [K], tailcorrection: no
+   O_o2 -    N_n2 [LENNARD_JONES] p_0/k_B:  41.63762 [K], p_1: 3.17157 [A], shift/k_B:  -0.05674927 [K], tailcorrection: no
+   O_o2 -   N_com [ZERO_POTENTIAL]
+   O_o2 -      Ar [LENNARD_JONES] p_0/k_B:  75.95617 [K], p_1: 3.18657 [A], shift/k_B:  -0.10649474 [K], tailcorrection: no
+   O_o2 -      Ow [LENNARD_JONES] p_0/k_B:  65.70049 [K], p_1: 3.06508 [A], shift/k_B:  -0.07295703 [K], tailcorrection: no
+   O_o2 -      Hw [LENNARD_JONES] p_0/k_B:  19.19265 [K], p_1: 2.93979 [A], shift/k_B:  -0.01659232 [K], tailcorrection: no
+   O_o2 -  C_benz [LENNARD_JONES] p_0/k_B:  38.45067 [K], p_1: 3.31658 [A], shift/k_B:  -0.06852069 [K], tailcorrection: no
+   O_o2 -  H_benz [LENNARD_JONES] p_0/k_B:  35.00891 [K], p_1: 2.69658 [A], shift/k_B:  -0.01802894 [K], tailcorrection: no
+   O_o2 -   N_dmf [LENNARD_JONES] p_0/k_B:  62.06970 [K], p_1: 3.11658 [A], shift/k_B:  -0.07617007 [K], tailcorrection: no
+   O_o2 -  Co_dmf [LENNARD_JONES] p_0/k_B:  49.07041 [K], p_1: 3.36658 [A], shift/k_B:  -0.09565554 [K], tailcorrection: no
+   O_o2 -  Cm_dmf [LENNARD_JONES] p_0/k_B:  62.06970 [K], p_1: 3.41657 [A], shift/k_B:  -0.13218024 [K], tailcorrection: no
+   O_o2 -   O_dmf [LENNARD_JONES] p_0/k_B:  69.39604 [K], p_1: 2.99657 [A], shift/k_B:  -0.06729035 [K], tailcorrection: no
+   O_o2 -   H_dmf [LENNARD_JONES] p_0/k_B:  19.62816 [K], p_1: 2.61658 [A], shift/k_B:  -0.00843732 [K], tailcorrection: no
+   O_o2 -      Na [LENNARD_JONES] p_0/k_B:  43.30958 [K], p_1: 3.14785 [A], shift/k_B:  -0.05642912 [K], tailcorrection: no
+   O_o2 -      Cl [LENNARD_JONES] p_0/k_B:  82.85840 [K], p_1: 3.27623 [A], shift/k_B:  -0.13720800 [K], tailcorrection: no
+   O_o2 -      Kr [LENNARD_JONES] p_0/k_B:  89.51820 [K], p_1: 3.33458 [A], shift/k_B:  -0.16478846 [K], tailcorrection: no
+   O_o2 -      Xe [LENNARD_JONES] p_0/k_B: 103.16463 [K], p_1: 3.56657 [A], shift/k_B:  -0.28425756 [K], tailcorrection: no
+   O_o2 -     Zn1 [LENNARD_JONES] p_0/k_B:  54.81813 [K], p_1: 2.74735 [A], shift/k_B:  -0.03157316 [K], tailcorrection: no
+   O_o2 -      O1 [LENNARD_JONES] p_0/k_B:  48.15810 [K], p_1: 3.03315 [A], shift/k_B:  -0.05022176 [K], tailcorrection: no
+   O_o2 -      O2 [LENNARD_JONES] p_0/k_B:  48.15810 [K], p_1: 3.03315 [A], shift/k_B:  -0.05022176 [K], tailcorrection: no
+   O_o2 -      C1 [LENNARD_JONES] p_0/k_B:  48.00691 [K], p_1: 3.25307 [A], shift/k_B:  -0.07618410 [K], tailcorrection: no
+   O_o2 -      C2 [LENNARD_JONES] p_0/k_B:  48.00691 [K], p_1: 3.25307 [A], shift/k_B:  -0.07618410 [K], tailcorrection: no
+   O_o2 -      C3 [LENNARD_JONES] p_0/k_B:  48.00691 [K], p_1: 3.25307 [A], shift/k_B:  -0.07618410 [K], tailcorrection: no
+   O_o2 -      H1 [LENNARD_JONES] p_0/k_B:  19.19265 [K], p_1: 2.93979 [A], shift/k_B:  -0.01659232 [K], tailcorrection: no
+  O_com -   O_com [LENNARD_JONES] p_0/k_B:  48.15810 [K], p_1: 3.03315 [A], shift/k_B:  -0.05022176 [K], tailcorrection: no
+  O_com -    N_n2 [LENNARD_JONES] p_0/k_B:  41.63762 [K], p_1: 3.17157 [A], shift/k_B:  -0.05674927 [K], tailcorrection: no
+  O_com -   N_com [ZERO_POTENTIAL]
+  O_com -      Ar [LENNARD_JONES] p_0/k_B:  75.95617 [K], p_1: 3.18657 [A], shift/k_B:  -0.10649474 [K], tailcorrection: no
+  O_com -      Ow [LENNARD_JONES] p_0/k_B:  65.70049 [K], p_1: 3.06508 [A], shift/k_B:  -0.07295703 [K], tailcorrection: no
+  O_com -      Hw [LENNARD_JONES] p_0/k_B:  19.19265 [K], p_1: 2.93979 [A], shift/k_B:  -0.01659232 [K], tailcorrection: no
+  O_com -  C_benz [LENNARD_JONES] p_0/k_B:  38.45067 [K], p_1: 3.31658 [A], shift/k_B:  -0.06852069 [K], tailcorrection: no
+  O_com -  H_benz [LENNARD_JONES] p_0/k_B:  35.00891 [K], p_1: 2.69658 [A], shift/k_B:  -0.01802894 [K], tailcorrection: no
+  O_com -   N_dmf [LENNARD_JONES] p_0/k_B:  62.06970 [K], p_1: 3.11658 [A], shift/k_B:  -0.07617007 [K], tailcorrection: no
+  O_com -  Co_dmf [LENNARD_JONES] p_0/k_B:  49.07041 [K], p_1: 3.36658 [A], shift/k_B:  -0.09565554 [K], tailcorrection: no
+  O_com -  Cm_dmf [LENNARD_JONES] p_0/k_B:  62.06970 [K], p_1: 3.41657 [A], shift/k_B:  -0.13218024 [K], tailcorrection: no
+  O_com -   O_dmf [LENNARD_JONES] p_0/k_B:  69.39604 [K], p_1: 2.99657 [A], shift/k_B:  -0.06729035 [K], tailcorrection: no
+  O_com -   H_dmf [LENNARD_JONES] p_0/k_B:  19.62816 [K], p_1: 2.61658 [A], shift/k_B:  -0.00843732 [K], tailcorrection: no
+  O_com -      Na [LENNARD_JONES] p_0/k_B:  43.30958 [K], p_1: 3.14785 [A], shift/k_B:  -0.05642912 [K], tailcorrection: no
+  O_com -      Cl [LENNARD_JONES] p_0/k_B:  82.85840 [K], p_1: 3.27623 [A], shift/k_B:  -0.13720800 [K], tailcorrection: no
+  O_com -      Kr [LENNARD_JONES] p_0/k_B:  89.51820 [K], p_1: 3.33458 [A], shift/k_B:  -0.16478846 [K], tailcorrection: no
+  O_com -      Xe [LENNARD_JONES] p_0/k_B: 103.16463 [K], p_1: 3.56657 [A], shift/k_B:  -0.28425756 [K], tailcorrection: no
+  O_com -     Zn1 [LENNARD_JONES] p_0/k_B:  54.81813 [K], p_1: 2.74735 [A], shift/k_B:  -0.03157316 [K], tailcorrection: no
+  O_com -      O1 [LENNARD_JONES] p_0/k_B:  48.15810 [K], p_1: 3.03315 [A], shift/k_B:  -0.05022176 [K], tailcorrection: no
+  O_com -      O2 [LENNARD_JONES] p_0/k_B:  48.15810 [K], p_1: 3.03315 [A], shift/k_B:  -0.05022176 [K], tailcorrection: no
+  O_com -      C1 [LENNARD_JONES] p_0/k_B:  48.00691 [K], p_1: 3.25307 [A], shift/k_B:  -0.07618410 [K], tailcorrection: no
+  O_com -      C2 [LENNARD_JONES] p_0/k_B:  48.00691 [K], p_1: 3.25307 [A], shift/k_B:  -0.07618410 [K], tailcorrection: no
+  O_com -      C3 [LENNARD_JONES] p_0/k_B:  48.00691 [K], p_1: 3.25307 [A], shift/k_B:  -0.07618410 [K], tailcorrection: no
+  O_com -      H1 [LENNARD_JONES] p_0/k_B:  19.19265 [K], p_1: 2.93979 [A], shift/k_B:  -0.01659232 [K], tailcorrection: no
+   N_n2 -    N_n2 [LENNARD_JONES] p_0/k_B:  36.00000 [K], p_1: 3.31000 [A], shift/k_B:  -0.06339451 [K], tailcorrection: no
+   N_n2 -   N_com [ZERO_POTENTIAL]
+   N_n2 -      Ar [LENNARD_JONES] p_0/k_B:  65.67191 [K], p_1: 3.32500 [A], shift/k_B:  -0.11882436 [K], tailcorrection: no
+   N_n2 -      Ow [LENNARD_JONES] p_0/k_B:  56.80482 [K], p_1: 3.20350 [A], shift/k_B:  -0.08221459 [K], tailcorrection: no
+   N_n2 -      Hw [LENNARD_JONES] p_0/k_B:  16.59402 [K], p_1: 3.07821 [A], shift/k_B:  -0.01890557 [K], tailcorrection: no
+   N_n2 -  C_benz [LENNARD_JONES] p_0/k_B:  33.24455 [K], p_1: 3.45500 [A], shift/k_B:  -0.07570661 [K], tailcorrection: no
+   N_n2 -  H_benz [LENNARD_JONES] p_0/k_B:  30.26880 [K], p_1: 2.83500 [A], shift/k_B:  -0.02104798 [K], tailcorrection: no
+   N_n2 -   N_dmf [LENNARD_JONES] p_0/k_B:  53.66563 [K], p_1: 3.25500 [A], shift/k_B:  -0.08546764 [K], tailcorrection: no
+   N_n2 -  Co_dmf [LENNARD_JONES] p_0/k_B:  42.42641 [K], p_1: 3.50500 [A], shift/k_B:  -0.10530940 [K], tailcorrection: no
+   N_n2 -  Cm_dmf [LENNARD_JONES] p_0/k_B:  53.66563 [K], p_1: 3.55500 [A], shift/k_B:  -0.14501493 [K], tailcorrection: no
+   N_n2 -   O_dmf [LENNARD_JONES] p_0/k_B:  60.00000 [K], p_1: 3.13500 [A], shift/k_B:  -0.07628004 [K], tailcorrection: no
+   N_n2 -   H_dmf [LENNARD_JONES] p_0/k_B:  16.97056 [K], p_1: 2.75500 [A], shift/k_B:  -0.00993882 [K], tailcorrection: no
+   N_n2 -      Na [LENNARD_JONES] p_0/k_B:  37.44558 [K], p_1: 3.28628 [A], shift/k_B:  -0.06315637 [K], tailcorrection: no
+   N_n2 -      Cl [LENNARD_JONES] p_0/k_B:  71.63960 [K], p_1: 3.41466 [A], shift/k_B:  -0.15204769 [K], tailcorrection: no
+   N_n2 -      Kr [LENNARD_JONES] p_0/k_B:  77.39767 [K], p_1: 3.47300 [A], shift/k_B:  -0.18183347 [K], tailcorrection: no
+   N_n2 -      Xe [LENNARD_JONES] p_0/k_B:  89.19641 [K], p_1: 3.70500 [A], shift/k_B:  -0.30879681 [K], tailcorrection: no
+   N_n2 -     Zn1 [LENNARD_JONES] p_0/k_B:  47.39590 [K], p_1: 2.88577 [A], shift/k_B:  -0.03666098 [K], tailcorrection: no
+   N_n2 -      O1 [LENNARD_JONES] p_0/k_B:  41.63762 [K], p_1: 3.17157 [A], shift/k_B:  -0.05674927 [K], tailcorrection: no
+   N_n2 -      O2 [LENNARD_JONES] p_0/k_B:  41.63762 [K], p_1: 3.17157 [A], shift/k_B:  -0.05674927 [K], tailcorrection: no
+   N_n2 -      C1 [LENNARD_JONES] p_0/k_B:  41.50691 [K], p_1: 3.39149 [A], shift/k_B:  -0.08457044 [K], tailcorrection: no
+   N_n2 -      C2 [LENNARD_JONES] p_0/k_B:  41.50691 [K], p_1: 3.39149 [A], shift/k_B:  -0.08457044 [K], tailcorrection: no
+   N_n2 -      C3 [LENNARD_JONES] p_0/k_B:  41.50691 [K], p_1: 3.39149 [A], shift/k_B:  -0.08457044 [K], tailcorrection: no
+   N_n2 -      H1 [LENNARD_JONES] p_0/k_B:  16.59402 [K], p_1: 3.07821 [A], shift/k_B:  -0.01890557 [K], tailcorrection: no
+  N_com -   N_com [ZERO_POTENTIAL]
+  N_com -      Ar [ZERO_POTENTIAL]
+  N_com -      Ow [ZERO_POTENTIAL]
+  N_com -      Hw [ZERO_POTENTIAL]
+  N_com -      Lw [ZERO_POTENTIAL]
+  N_com -  C_benz [ZERO_POTENTIAL]
+  N_com -  H_benz [ZERO_POTENTIAL]
+  N_com -   N_dmf [ZERO_POTENTIAL]
+  N_com -  Co_dmf [ZERO_POTENTIAL]
+  N_com -  Cm_dmf [ZERO_POTENTIAL]
+  N_com -   O_dmf [ZERO_POTENTIAL]
+  N_com -   H_dmf [ZERO_POTENTIAL]
+  N_com -      Na [ZERO_POTENTIAL]
+  N_com -      Cl [ZERO_POTENTIAL]
+  N_com -      Kr [ZERO_POTENTIAL]
+  N_com -      Xe [ZERO_POTENTIAL]
+  N_com -     Zn1 [ZERO_POTENTIAL]
+  N_com -      O1 [ZERO_POTENTIAL]
+  N_com -      O2 [ZERO_POTENTIAL]
+  N_com -      C1 [ZERO_POTENTIAL]
+  N_com -      C2 [ZERO_POTENTIAL]
+  N_com -      C3 [ZERO_POTENTIAL]
+  N_com -      H1 [ZERO_POTENTIAL]
+     Ar -      Ar [LENNARD_JONES] p_0/k_B: 119.80000 [K], p_1: 3.34000 [A], shift/k_B:  -0.22269280 [K], tailcorrection: no
+     Ar -      Ow [LENNARD_JONES] p_0/k_B: 103.62448 [K], p_1: 3.21850 [A], shift/k_B:  -0.15423903 [K], tailcorrection: no
+     Ar -      Hw [LENNARD_JONES] p_0/k_B:  30.27114 [K], p_1: 3.09321 [A], shift/k_B:  -0.03550833 [K], tailcorrection: no
+     Ar -  C_benz [LENNARD_JONES] p_0/k_B:  60.64536 [K], p_1: 3.47000 [A], shift/k_B:  -0.14174018 [K], tailcorrection: no
+     Ar -  H_benz [LENNARD_JONES] p_0/k_B:  55.21694 [K], p_1: 2.85000 [A], shift/k_B:  -0.03963109 [K], tailcorrection: no
+     Ar -   N_dmf [LENNARD_JONES] p_0/k_B:  97.89791 [K], p_1: 3.27000 [A], shift/k_B:  -0.16027086 [K], tailcorrection: no
+     Ar -  Co_dmf [LENNARD_JONES] p_0/k_B:  77.39509 [K], p_1: 3.52000 [A], shift/k_B:  -0.19709026 [K], tailcorrection: no
+     Ar -  Cm_dmf [LENNARD_JONES] p_0/k_B:  97.89791 [K], p_1: 3.57000 [A], shift/k_B:  -0.27130264 [K], tailcorrection: no
+     Ar -   O_dmf [LENNARD_JONES] p_0/k_B: 109.45319 [K], p_1: 3.15000 [A], shift/k_B:  -0.14319311 [K], tailcorrection: no
+     Ar -   H_dmf [LENNARD_JONES] p_0/k_B:  30.95804 [K], p_1: 2.77000 [A], shift/k_B:  -0.01873091 [K], tailcorrection: no
+     Ar -      Na [LENNARD_JONES] p_0/k_B:  68.30896 [K], p_1: 3.30128 [A], shift/k_B:  -0.11840118 [K], tailcorrection: no
+     Ar -      Cl [LENNARD_JONES] p_0/k_B: 130.68637 [K], p_1: 3.42966 [A], shift/k_B:  -0.28475572 [K], tailcorrection: no
+     Ar -      Kr [LENNARD_JONES] p_0/k_B: 141.19037 [K], p_1: 3.48800 [A], shift/k_B:  -0.34038816 [K], tailcorrection: no
+     Ar -      Xe [LENNARD_JONES] p_0/k_B: 162.71386 [K], p_1: 3.72000 [A], shift/k_B:  -0.57712394 [K], tailcorrection: no
+     Ar -     Zn1 [LENNARD_JONES] p_0/k_B:  86.46054 [K], p_1: 2.90077 [A], shift/k_B:  -0.06899030 [K], tailcorrection: no
+     Ar -      O1 [LENNARD_JONES] p_0/k_B:  75.95617 [K], p_1: 3.18657 [A], shift/k_B:  -0.10649474 [K], tailcorrection: no
+     Ar -      O2 [LENNARD_JONES] p_0/k_B:  75.95617 [K], p_1: 3.18657 [A], shift/k_B:  -0.10649474 [K], tailcorrection: no
+     Ar -      C1 [LENNARD_JONES] p_0/k_B:  75.71772 [K], p_1: 3.40649 [A], shift/k_B:  -0.15841242 [K], tailcorrection: no
+     Ar -      C2 [LENNARD_JONES] p_0/k_B:  75.71772 [K], p_1: 3.40649 [A], shift/k_B:  -0.15841242 [K], tailcorrection: no
+     Ar -      C3 [LENNARD_JONES] p_0/k_B:  75.71772 [K], p_1: 3.40649 [A], shift/k_B:  -0.15841242 [K], tailcorrection: no
+     Ar -      H1 [LENNARD_JONES] p_0/k_B:  30.27114 [K], p_1: 3.09321 [A], shift/k_B:  -0.03550833 [K], tailcorrection: no
+     Ow -      Ow [LENNARD_JONES] p_0/k_B:  89.63300 [K], p_1: 3.09700 [A], shift/k_B:  -0.10591545 [K], tailcorrection: no
+     Ow -      Hw [LENNARD_JONES] p_0/k_B:  26.18390 [K], p_1: 2.97171 [A], shift/k_B:  -0.02415156 [K], tailcorrection: no
+     Ow -  C_benz [LENNARD_JONES] p_0/k_B:  52.45696 [K], p_1: 3.34850 [A], shift/k_B:  -0.09900849 [K], tailcorrection: no
+     Ow -  H_benz [LENNARD_JONES] p_0/k_B:  47.76149 [K], p_1: 2.72850 [A], shift/k_B:  -0.02639576 [K], tailcorrection: no
+     Ow -   N_dmf [LENNARD_JONES] p_0/k_B:  84.67963 [K], p_1: 3.14850 [A], shift/k_B:  -0.11046685 [K], tailcorrection: no
+     Ow -  Co_dmf [LENNARD_JONES] p_0/k_B:  66.94513 [K], p_1: 3.39850 [A], shift/k_B:  -0.13809914 [K], tailcorrection: no
+     Ow -  Cm_dmf [LENNARD_JONES] p_0/k_B:  84.67963 [K], p_1: 3.44850 [A], shift/k_B:  -0.19067255 [K], tailcorrection: no
+     Ow -   O_dmf [LENNARD_JONES] p_0/k_B:  94.67471 [K], p_1: 3.02850 [A], shift/k_B:  -0.09782722 [K], tailcorrection: no
+     Ow -   H_dmf [LENNARD_JONES] p_0/k_B:  26.77805 [K], p_1: 2.64850 [A], shift/k_B:  -0.01237944 [K], tailcorrection: no
+     Ow -      Na [LENNARD_JONES] p_0/k_B:  59.08582 [K], p_1: 3.17978 [A], shift/k_B:  -0.08178767 [K], tailcorrection: no
+     Ow -      Cl [LENNARD_JONES] p_0/k_B: 113.04096 [K], p_1: 3.30816 [A], shift/k_B:  -0.19839774 [K], tailcorrection: no
+     Ow -      Kr [LENNARD_JONES] p_0/k_B: 122.12670 [K], p_1: 3.36650 [A], shift/k_B:  -0.23803624 [K], tailcorrection: no
+     Ow -      Xe [LENNARD_JONES] p_0/k_B: 140.74407 [K], p_1: 3.59850 [A], shift/k_B:  -0.40908705 [K], tailcorrection: no
+     Ow -     Zn1 [LENNARD_JONES] p_0/k_B:  74.78655 [K], p_1: 2.77928 [A], shift/k_B:  -0.04616556 [K], tailcorrection: no
+     Ow -      O1 [LENNARD_JONES] p_0/k_B:  65.70049 [K], p_1: 3.06508 [A], shift/k_B:  -0.07295703 [K], tailcorrection: no
+     Ow -      O2 [LENNARD_JONES] p_0/k_B:  65.70049 [K], p_1: 3.06508 [A], shift/k_B:  -0.07295703 [K], tailcorrection: no
+     Ow -      C1 [LENNARD_JONES] p_0/k_B:  65.49423 [K], p_1: 3.28499 [A], shift/k_B:  -0.11020494 [K], tailcorrection: no
+     Ow -      C2 [LENNARD_JONES] p_0/k_B:  65.49423 [K], p_1: 3.28499 [A], shift/k_B:  -0.11020494 [K], tailcorrection: no
+     Ow -      C3 [LENNARD_JONES] p_0/k_B:  65.49423 [K], p_1: 3.28499 [A], shift/k_B:  -0.11020494 [K], tailcorrection: no
+     Ow -      H1 [LENNARD_JONES] p_0/k_B:  26.18390 [K], p_1: 2.97171 [A], shift/k_B:  -0.02415156 [K], tailcorrection: no
+     Hw -      Hw [LENNARD_JONES] p_0/k_B:   7.64893 [K], p_1: 2.84642 [A], shift/k_B:  -0.00544866 [K], tailcorrection: no
+     Hw -  C_benz [LENNARD_JONES] p_0/k_B:  15.32391 [K], p_1: 3.22321 [A], shift/k_B:  -0.02300968 [K], tailcorrection: no
+     Hw -  H_benz [LENNARD_JONES] p_0/k_B:  13.95225 [K], p_1: 2.60321 [A], shift/k_B:  -0.00581603 [K], tailcorrection: no
+     Hw -   N_dmf [LENNARD_JONES] p_0/k_B:  24.73690 [K], p_1: 3.02321 [A], shift/k_B:  -0.02529395 [K], tailcorrection: no
+     Hw -  Co_dmf [LENNARD_JONES] p_0/k_B:  19.55624 [K], p_1: 3.27321 [A], shift/k_B:  -0.03220492 [K], tailcorrection: no
+     Hw -  Cm_dmf [LENNARD_JONES] p_0/k_B:  24.73690 [K], p_1: 3.32321 [A], shift/k_B:  -0.04461374 [K], tailcorrection: no
+     Hw -   O_dmf [LENNARD_JONES] p_0/k_B:  27.65670 [K], p_1: 2.90321 [A], shift/k_B:  -0.02217974 [K], tailcorrection: no
+     Hw -   H_dmf [LENNARD_JONES] p_0/k_B:   7.82250 [K], p_1: 2.52321 [A], shift/k_B:  -0.00270396 [K], tailcorrection: no
+     Hw -      Na [LENNARD_JONES] p_0/k_B:  17.26035 [K], p_1: 3.05449 [A], shift/k_B:  -0.01877311 [K], tailcorrection: no
+     Hw -      Cl [LENNARD_JONES] p_0/k_B:  33.02191 [K], p_1: 3.18287 [A], shift/k_B:  -0.04597661 [K], tailcorrection: no
+     Hw -      Kr [LENNARD_JONES] p_0/k_B:  35.67607 [K], p_1: 3.24121 [A], shift/k_B:  -0.05538904 [K], tailcorrection: no
+     Hw -      Xe [LENNARD_JONES] p_0/k_B:  41.11464 [K], p_1: 3.47321 [A], shift/k_B:  -0.09662730 [K], tailcorrection: no
+     Hw -     Zn1 [LENNARD_JONES] p_0/k_B:  21.84690 [K], p_1: 2.65399 [A], shift/k_B:  -0.01022592 [K], tailcorrection: no
+     Hw -      O1 [LENNARD_JONES] p_0/k_B:  19.19265 [K], p_1: 2.93979 [A], shift/k_B:  -0.01659232 [K], tailcorrection: no
+     Hw -      O2 [LENNARD_JONES] p_0/k_B:  19.19265 [K], p_1: 2.93979 [A], shift/k_B:  -0.01659232 [K], tailcorrection: no
+     Hw -      C1 [LENNARD_JONES] p_0/k_B:  19.13240 [K], p_1: 3.15970 [A], shift/k_B:  -0.02549626 [K], tailcorrection: no
+     Hw -      C2 [LENNARD_JONES] p_0/k_B:  19.13240 [K], p_1: 3.15970 [A], shift/k_B:  -0.02549626 [K], tailcorrection: no
+     Hw -      C3 [LENNARD_JONES] p_0/k_B:  19.13240 [K], p_1: 3.15970 [A], shift/k_B:  -0.02549626 [K], tailcorrection: no
+     Hw -      H1 [LENNARD_JONES] p_0/k_B:   7.64893 [K], p_1: 2.84642 [A], shift/k_B:  -0.00544866 [K], tailcorrection: no
+ C_benz -  C_benz [LENNARD_JONES] p_0/k_B:  30.70000 [K], p_1: 3.60000 [A], shift/k_B:  -0.08945594 [K], tailcorrection: no
+ C_benz -  H_benz [LENNARD_JONES] p_0/k_B:  27.95201 [K], p_1: 2.98000 [A], shift/k_B:  -0.02621690 [K], tailcorrection: no
+ C_benz -   N_dmf [LENNARD_JONES] p_0/k_B:  49.55805 [K], p_1: 3.40000 [A], shift/k_B:  -0.10250274 [K], tailcorrection: no
+ C_benz -  Co_dmf [LENNARD_JONES] p_0/k_B:  39.17908 [K], p_1: 3.65000 [A], shift/k_B:  -0.12400518 [K], tailcorrection: no
+ C_benz -  Cm_dmf [LENNARD_JONES] p_0/k_B:  49.55805 [K], p_1: 3.70000 [A], shift/k_B:  -0.17018595 [K], tailcorrection: no
+ C_benz -   O_dmf [LENNARD_JONES] p_0/k_B:  55.40758 [K], p_1: 3.28000 [A], shift/k_B:  -0.09238546 [K], tailcorrection: no
+ C_benz -   H_dmf [LENNARD_JONES] p_0/k_B:  15.67163 [K], p_1: 2.90000 [A], shift/k_B:  -0.01248499 [K], tailcorrection: no
+ C_benz -      Na [LENNARD_JONES] p_0/k_B:  34.57948 [K], p_1: 3.43128 [A], shift/k_B:  -0.07555975 [K], tailcorrection: no
+ C_benz -      Cl [LENNARD_JONES] p_0/k_B:  66.15628 [K], p_1: 3.55966 [A], shift/k_B:  -0.18017673 [K], tailcorrection: no
+ C_benz -      Kr [LENNARD_JONES] p_0/k_B:  71.47363 [K], p_1: 3.61800 [A], shift/k_B:  -0.21458700 [K], tailcorrection: no
+ C_benz -      Xe [LENNARD_JONES] p_0/k_B:  82.36929 [K], p_1: 3.85000 [A], shift/k_B:  -0.35894533 [K], tailcorrection: no
+ C_benz -     Zn1 [LENNARD_JONES] p_0/k_B:  43.76820 [K], p_1: 3.03078 [A], shift/k_B:  -0.04542978 [K], tailcorrection: no
+ C_benz -      O1 [LENNARD_JONES] p_0/k_B:  38.45067 [K], p_1: 3.31658 [A], shift/k_B:  -0.06852069 [K], tailcorrection: no
+ C_benz -      O2 [LENNARD_JONES] p_0/k_B:  38.45067 [K], p_1: 3.31658 [A], shift/k_B:  -0.06852069 [K], tailcorrection: no
+ C_benz -      C1 [LENNARD_JONES] p_0/k_B:  38.32995 [K], p_1: 3.53649 [A], shift/k_B:  -0.10038399 [K], tailcorrection: no
+ C_benz -      C2 [LENNARD_JONES] p_0/k_B:  38.32995 [K], p_1: 3.53649 [A], shift/k_B:  -0.10038399 [K], tailcorrection: no
+ C_benz -      C3 [LENNARD_JONES] p_0/k_B:  38.32995 [K], p_1: 3.53649 [A], shift/k_B:  -0.10038399 [K], tailcorrection: no
+ C_benz -      H1 [LENNARD_JONES] p_0/k_B:  15.32391 [K], p_1: 3.22321 [A], shift/k_B:  -0.02300968 [K], tailcorrection: no
+ H_benz -  H_benz [LENNARD_JONES] p_0/k_B:  25.45000 [K], p_1: 2.36000 [A], shift/k_B:  -0.00588989 [K], tailcorrection: no
+ H_benz -   N_dmf [LENNARD_JONES] p_0/k_B:  45.12206 [K], p_1: 2.78000 [A], shift/k_B:  -0.02789736 [K], tailcorrection: no
+ H_benz -  Co_dmf [LENNARD_JONES] p_0/k_B:  35.67212 [K], p_1: 3.03000 [A], shift/k_B:  -0.03696959 [K], tailcorrection: no
+ H_benz -  Cm_dmf [LENNARD_JONES] p_0/k_B:  45.12206 [K], p_1: 3.08000 [A], shift/k_B:  -0.05158715 [K], tailcorrection: no
+ H_benz -   O_dmf [LENNARD_JONES] p_0/k_B:  50.44799 [K], p_1: 2.66000 [A], shift/k_B:  -0.02393617 [K], tailcorrection: no
+ H_benz -   H_dmf [LENNARD_JONES] p_0/k_B:  14.26885 [K], p_1: 2.28000 [A], shift/k_B:  -0.00268504 [K], tailcorrection: no
+ H_benz -      Na [LENNARD_JONES] p_0/k_B:  31.48424 [K], p_1: 2.81128 [A], shift/k_B:  -0.02081702 [K], tailcorrection: no
+ H_benz -      Cl [LENNARD_JONES] p_0/k_B:  60.23457 [K], p_1: 2.93966 [A], shift/k_B:  -0.05206035 [K], tailcorrection: no
+ H_benz -      Kr [LENNARD_JONES] p_0/k_B:  65.07596 [K], p_1: 2.99800 [A], shift/k_B:  -0.06328157 [K], tailcorrection: no
+ H_benz -      Xe [LENNARD_JONES] p_0/k_B:  74.99633 [K], p_1: 3.23000 [A], shift/k_B:  -0.11404139 [K], tailcorrection: no
+ H_benz -     Zn1 [LENNARD_JONES] p_0/k_B:  39.85047 [K], p_1: 2.41078 [A], shift/k_B:  -0.01047894 [K], tailcorrection: no
+ H_benz -      O1 [LENNARD_JONES] p_0/k_B:  35.00891 [K], p_1: 2.69658 [A], shift/k_B:  -0.01802894 [K], tailcorrection: no
+ H_benz -      O2 [LENNARD_JONES] p_0/k_B:  35.00891 [K], p_1: 2.69658 [A], shift/k_B:  -0.01802894 [K], tailcorrection: no
+ H_benz -      C1 [LENNARD_JONES] p_0/k_B:  34.89900 [K], p_1: 2.91649 [A], shift/k_B:  -0.02876494 [K], tailcorrection: no
+ H_benz -      C2 [LENNARD_JONES] p_0/k_B:  34.89900 [K], p_1: 2.91649 [A], shift/k_B:  -0.02876494 [K], tailcorrection: no
+ H_benz -      C3 [LENNARD_JONES] p_0/k_B:  34.89900 [K], p_1: 2.91649 [A], shift/k_B:  -0.02876494 [K], tailcorrection: no
+ H_benz -      H1 [LENNARD_JONES] p_0/k_B:  13.95225 [K], p_1: 2.60321 [A], shift/k_B:  -0.00581603 [K], tailcorrection: no
+  N_dmf -   N_dmf [LENNARD_JONES] p_0/k_B:  80.00000 [K], p_1: 3.20000 [A], shift/k_B:  -0.11502869 [K], tailcorrection: no
+  N_dmf -  Co_dmf [LENNARD_JONES] p_0/k_B:  63.24555 [K], p_1: 3.45000 [A], shift/k_B:  -0.14278144 [K], tailcorrection: no
+  N_dmf -  Cm_dmf [LENNARD_JONES] p_0/k_B:  80.00000 [K], p_1: 3.50000 [A], shift/k_B:  -0.19688078 [K], tailcorrection: no
+  N_dmf -   O_dmf [LENNARD_JONES] p_0/k_B:  89.44272 [K], p_1: 3.08000 [A], shift/k_B:  -0.10225808 [K], tailcorrection: no
+  N_dmf -   H_dmf [LENNARD_JONES] p_0/k_B:  25.29822 [K], p_1: 2.70000 [A], shift/k_B:  -0.01312770 [K], tailcorrection: no
+  N_dmf -      Na [LENNARD_JONES] p_0/k_B:  55.82057 [K], p_1: 3.23128 [A], shift/k_B:  -0.08508417 [K], tailcorrection: no
+  N_dmf -      Cl [LENNARD_JONES] p_0/k_B: 106.79401 [K], p_1: 3.35966 [A], shift/k_B:  -0.20562796 [K], tailcorrection: no
+  N_dmf -      Kr [LENNARD_JONES] p_0/k_B: 115.37764 [K], p_1: 3.41800 [A], shift/k_B:  -0.24631709 [K], tailcorrection: no
+  N_dmf -      Xe [LENNARD_JONES] p_0/k_B: 132.96616 [K], p_1: 3.65000 [A], shift/k_B:  -0.42084946 [K], tailcorrection: no
+  N_dmf -     Zn1 [LENNARD_JONES] p_0/k_B:  70.65363 [K], p_1: 2.83078 [A], shift/k_B:  -0.04869275 [K], tailcorrection: no
+  N_dmf -      O1 [LENNARD_JONES] p_0/k_B:  62.06970 [K], p_1: 3.11658 [A], shift/k_B:  -0.07617007 [K], tailcorrection: no
+  N_dmf -      O2 [LENNARD_JONES] p_0/k_B:  62.06970 [K], p_1: 3.11658 [A], shift/k_B:  -0.07617007 [K], tailcorrection: no
+  N_dmf -      C1 [LENNARD_JONES] p_0/k_B:  61.87484 [K], p_1: 3.33650 [A], shift/k_B:  -0.11429541 [K], tailcorrection: no
+  N_dmf -      C2 [LENNARD_JONES] p_0/k_B:  61.87484 [K], p_1: 3.33650 [A], shift/k_B:  -0.11429541 [K], tailcorrection: no
+  N_dmf -      C3 [LENNARD_JONES] p_0/k_B:  61.87484 [K], p_1: 3.33650 [A], shift/k_B:  -0.11429541 [K], tailcorrection: no
+  N_dmf -      H1 [LENNARD_JONES] p_0/k_B:  24.73690 [K], p_1: 3.02321 [A], shift/k_B:  -0.02529395 [K], tailcorrection: no
+ Co_dmf -  Co_dmf [LENNARD_JONES] p_0/k_B:  50.00000 [K], p_1: 3.70000 [A], shift/k_B:  -0.17170365 [K], tailcorrection: no
+ Co_dmf -  Cm_dmf [LENNARD_JONES] p_0/k_B:  63.24555 [K], p_1: 3.75000 [A], shift/k_B:  -0.23538862 [K], tailcorrection: no
+ Co_dmf -   O_dmf [LENNARD_JONES] p_0/k_B:  70.71068 [K], p_1: 3.33000 [A], shift/k_B:  -0.12909950 [K], tailcorrection: no
+ Co_dmf -   H_dmf [LENNARD_JONES] p_0/k_B:  20.00000 [K], p_1: 2.95000 [A], shift/k_B:  -0.01765382 [K], tailcorrection: no
+ Co_dmf -      Na [LENNARD_JONES] p_0/k_B:  44.13004 [K], p_1: 3.48128 [A], shift/k_B:  -0.10516750 [K], tailcorrection: no
+ Co_dmf -      Cl [LENNARD_JONES] p_0/k_B:  84.42808 [K], p_1: 3.60966 [A], shift/k_B:  -0.24999731 [K], tailcorrection: no
+ Co_dmf -      Kr [LENNARD_JONES] p_0/k_B:  91.21403 [K], p_1: 3.66800 [A], shift/k_B:  -0.29734167 [K], tailcorrection: no
+ Co_dmf -      Xe [LENNARD_JONES] p_0/k_B: 105.11898 [K], p_1: 3.90000 [A], shift/k_B:  -0.49491340 [K], tailcorrection: no
+ Co_dmf -     Zn1 [LENNARD_JONES] p_0/k_B:  55.85660 [K], p_1: 3.08078 [A], shift/k_B:  -0.06395618 [K], tailcorrection: no
+ Co_dmf -      O1 [LENNARD_JONES] p_0/k_B:  49.07041 [K], p_1: 3.36658 [A], shift/k_B:  -0.09565554 [K], tailcorrection: no
+ Co_dmf -      O2 [LENNARD_JONES] p_0/k_B:  49.07041 [K], p_1: 3.36658 [A], shift/k_B:  -0.09565554 [K], tailcorrection: no
+ Co_dmf -      C1 [LENNARD_JONES] p_0/k_B:  48.91636 [K], p_1: 3.58650 [A], shift/k_B:  -0.13936007 [K], tailcorrection: no
+ Co_dmf -      C2 [LENNARD_JONES] p_0/k_B:  48.91636 [K], p_1: 3.58650 [A], shift/k_B:  -0.13936007 [K], tailcorrection: no
+ Co_dmf -      C3 [LENNARD_JONES] p_0/k_B:  48.91636 [K], p_1: 3.58650 [A], shift/k_B:  -0.13936007 [K], tailcorrection: no
+ Co_dmf -      H1 [LENNARD_JONES] p_0/k_B:  19.55624 [K], p_1: 3.27321 [A], shift/k_B:  -0.03220492 [K], tailcorrection: no
+ Cm_dmf -  Cm_dmf [LENNARD_JONES] p_0/k_B:  80.00000 [K], p_1: 3.80000 [A], shift/k_B:  -0.32234871 [K], tailcorrection: no
+ Cm_dmf -   O_dmf [LENNARD_JONES] p_0/k_B:  89.44272 [K], p_1: 3.38000 [A], shift/k_B:  -0.17856683 [K], tailcorrection: no
+ Cm_dmf -   H_dmf [LENNARD_JONES] p_0/k_B:  25.29822 [K], p_1: 3.00000 [A], shift/k_B:  -0.02469926 [K], tailcorrection: no
+ Cm_dmf -      Na [LENNARD_JONES] p_0/k_B:  55.82057 [K], p_1: 3.53128 [A], shift/k_B:  -0.14490307 [K], tailcorrection: no
+ Cm_dmf -      Cl [LENNARD_JONES] p_0/k_B: 106.79401 [K], p_1: 3.65966 [A], shift/k_B:  -0.34341106 [K], tailcorrection: no
+ Cm_dmf -      Kr [LENNARD_JONES] p_0/k_B: 115.37764 [K], p_1: 3.71800 [A], shift/k_B:  -0.40791166 [K], tailcorrection: no
+ Cm_dmf -      Xe [LENNARD_JONES] p_0/k_B: 132.96616 [K], p_1: 3.95000 [A], shift/k_B:  -0.67568369 [K], tailcorrection: no
+ Cm_dmf -     Zn1 [LENNARD_JONES] p_0/k_B:  70.65363 [K], p_1: 3.13077 [A], shift/k_B:  -0.08910071 [K], tailcorrection: no
+ Cm_dmf -      O1 [LENNARD_JONES] p_0/k_B:  62.06970 [K], p_1: 3.41657 [A], shift/k_B:  -0.13218024 [K], tailcorrection: no
+ Cm_dmf -      O2 [LENNARD_JONES] p_0/k_B:  62.06970 [K], p_1: 3.41657 [A], shift/k_B:  -0.13218024 [K], tailcorrection: no
+ Cm_dmf -      C1 [LENNARD_JONES] p_0/k_B:  61.87484 [K], p_1: 3.63650 [A], shift/k_B:  -0.19153498 [K], tailcorrection: no
+ Cm_dmf -      C2 [LENNARD_JONES] p_0/k_B:  61.87484 [K], p_1: 3.63650 [A], shift/k_B:  -0.19153498 [K], tailcorrection: no
+ Cm_dmf -      C3 [LENNARD_JONES] p_0/k_B:  61.87484 [K], p_1: 3.63650 [A], shift/k_B:  -0.19153498 [K], tailcorrection: no
+ Cm_dmf -      H1 [LENNARD_JONES] p_0/k_B:  24.73690 [K], p_1: 3.32321 [A], shift/k_B:  -0.04461374 [K], tailcorrection: no
+  O_dmf -   O_dmf [LENNARD_JONES] p_0/k_B: 100.00000 [K], p_1: 2.96000 [A], shift/k_B:  -0.09007929 [K], tailcorrection: no
+  O_dmf -   H_dmf [LENNARD_JONES] p_0/k_B:  28.28427 [K], p_1: 2.58000 [A], shift/k_B:  -0.01117359 [K], tailcorrection: no
+  O_dmf -      Na [LENNARD_JONES] p_0/k_B:  62.40929 [K], p_1: 3.11128 [A], shift/k_B:  -0.07580964 [K], tailcorrection: no
+  O_dmf -      Cl [LENNARD_JONES] p_0/k_B: 119.39933 [K], p_1: 3.23966 [A], shift/k_B:  -0.18484292 [K], tailcorrection: no
+  O_dmf -      Kr [LENNARD_JONES] p_0/k_B: 128.99612 [K], p_1: 3.29800 [A], shift/k_B:  -0.22226234 [K], tailcorrection: no
+  O_dmf -      Xe [LENNARD_JONES] p_0/k_B: 148.66069 [K], p_1: 3.53000 [A], shift/k_B:  -0.38506618 [K], tailcorrection: no
+  O_dmf -     Zn1 [LENNARD_JONES] p_0/k_B:  78.99316 [K], p_1: 2.71077 [A], shift/k_B:  -0.04198220 [K], tailcorrection: no
+  O_dmf -      O1 [LENNARD_JONES] p_0/k_B:  69.39604 [K], p_1: 2.99657 [A], shift/k_B:  -0.06729035 [K], tailcorrection: no
+  O_dmf -      O2 [LENNARD_JONES] p_0/k_B:  69.39604 [K], p_1: 2.99657 [A], shift/k_B:  -0.06729035 [K], tailcorrection: no
+  O_dmf -      C1 [LENNARD_JONES] p_0/k_B:  69.17818 [K], p_1: 3.21650 [A], shift/k_B:  -0.10258357 [K], tailcorrection: no
+  O_dmf -      C2 [LENNARD_JONES] p_0/k_B:  69.17818 [K], p_1: 3.21650 [A], shift/k_B:  -0.10258357 [K], tailcorrection: no
+  O_dmf -      C3 [LENNARD_JONES] p_0/k_B:  69.17818 [K], p_1: 3.21650 [A], shift/k_B:  -0.10258357 [K], tailcorrection: no
+  O_dmf -      H1 [LENNARD_JONES] p_0/k_B:  27.65670 [K], p_1: 2.90321 [A], shift/k_B:  -0.02217974 [K], tailcorrection: no
+  H_dmf -   H_dmf [LENNARD_JONES] p_0/k_B:   8.00000 [K], p_1: 2.20000 [A], shift/k_B:  -0.00121502 [K], tailcorrection: no
+  H_dmf -      Na [LENNARD_JONES] p_0/k_B:  17.65201 [K], p_1: 2.73128 [A], shift/k_B:  -0.00981530 [K], tailcorrection: no
+  H_dmf -      Cl [LENNARD_JONES] p_0/k_B:  33.77123 [K], p_1: 2.85966 [A], shift/k_B:  -0.02473582 [K], tailcorrection: no
+  H_dmf -      Kr [LENNARD_JONES] p_0/k_B:  36.48561 [K], p_1: 2.91800 [A], shift/k_B:  -0.03016589 [K], tailcorrection: no
+  H_dmf -      Xe [LENNARD_JONES] p_0/k_B:  42.04759 [K], p_1: 3.15000 [A], shift/k_B:  -0.05500914 [K], tailcorrection: no
+  H_dmf -     Zn1 [LENNARD_JONES] p_0/k_B:  22.34264 [K], p_1: 2.33078 [A], shift/k_B:  -0.00479828 [K], tailcorrection: no
+  H_dmf -      O1 [LENNARD_JONES] p_0/k_B:  19.62816 [K], p_1: 2.61658 [A], shift/k_B:  -0.00843732 [K], tailcorrection: no
+  H_dmf -      O2 [LENNARD_JONES] p_0/k_B:  19.62816 [K], p_1: 2.61658 [A], shift/k_B:  -0.00843732 [K], tailcorrection: no
+  H_dmf -      C1 [LENNARD_JONES] p_0/k_B:  19.56654 [K], p_1: 2.83650 [A], shift/k_B:  -0.01364907 [K], tailcorrection: no
+  H_dmf -      C2 [LENNARD_JONES] p_0/k_B:  19.56654 [K], p_1: 2.83650 [A], shift/k_B:  -0.01364907 [K], tailcorrection: no
+  H_dmf -      C3 [LENNARD_JONES] p_0/k_B:  19.56654 [K], p_1: 2.83650 [A], shift/k_B:  -0.01364907 [K], tailcorrection: no
+  H_dmf -      H1 [LENNARD_JONES] p_0/k_B:   7.82250 [K], p_1: 2.52321 [A], shift/k_B:  -0.00270396 [K], tailcorrection: no
+     Na -      Na [LENNARD_JONES] p_0/k_B:  38.94920 [K], p_1: 3.26256 [A], shift/k_B:  -0.06289942 [K], tailcorrection: no
+     Na -      Cl [LENNARD_JONES] p_0/k_B:  74.51628 [K], p_1: 3.39094 [A], shift/k_B:  -0.15167819 [K], tailcorrection: no
+     Na -      Kr [LENNARD_JONES] p_0/k_B:  80.50557 [K], p_1: 3.44928 [A], shift/k_B:  -0.18151985 [K], tailcorrection: no
+     Na -      Xe [LENNARD_JONES] p_0/k_B:  92.77809 [K], p_1: 3.68128 [A], shift/k_B:  -0.30906434 [K], tailcorrection: no
+     Na -     Zn1 [LENNARD_JONES] p_0/k_B:  49.29908 [K], p_1: 2.86205 [A], shift/k_B:  -0.03629102 [K], tailcorrection: no
+     Na -      O1 [LENNARD_JONES] p_0/k_B:  43.30958 [K], p_1: 3.14785 [A], shift/k_B:  -0.05642912 [K], tailcorrection: no
+     Na -      O2 [LENNARD_JONES] p_0/k_B:  43.30958 [K], p_1: 3.14785 [A], shift/k_B:  -0.05642912 [K], tailcorrection: no
+     Na -      C1 [LENNARD_JONES] p_0/k_B:  43.17361 [K], p_1: 3.36777 [A], shift/k_B:  -0.08434067 [K], tailcorrection: no
+     Na -      C2 [LENNARD_JONES] p_0/k_B:  43.17361 [K], p_1: 3.36777 [A], shift/k_B:  -0.08434067 [K], tailcorrection: no
+     Na -      C3 [LENNARD_JONES] p_0/k_B:  43.17361 [K], p_1: 3.36777 [A], shift/k_B:  -0.08434067 [K], tailcorrection: no
+     Na -      H1 [LENNARD_JONES] p_0/k_B:  17.26035 [K], p_1: 3.05449 [A], shift/k_B:  -0.01877311 [K], tailcorrection: no
+     Cl -      Cl [LENNARD_JONES] p_0/k_B: 142.56200 [K], p_1: 3.51932 [A], shift/k_B:  -0.36262055 [K], tailcorrection: no
+     Cl -      Kr [LENNARD_JONES] p_0/k_B: 154.02051 [K], p_1: 3.57766 [A], shift/k_B:  -0.43235487 [K], tailcorrection: no
+     Cl -      Xe [LENNARD_JONES] p_0/k_B: 177.49986 [K], p_1: 3.80966 [A], shift/k_B:  -0.72617781 [K], tailcorrection: no
+     Cl -     Zn1 [LENNARD_JONES] p_0/k_B:  94.31731 [K], p_1: 2.99043 [A], shift/k_B:  -0.09033709 [K], tailcorrection: no
+     Cl -      O1 [LENNARD_JONES] p_0/k_B:  82.85840 [K], p_1: 3.27623 [A], shift/k_B:  -0.13720800 [K], tailcorrection: no
+     Cl -      O2 [LENNARD_JONES] p_0/k_B:  82.85840 [K], p_1: 3.27623 [A], shift/k_B:  -0.13720800 [K], tailcorrection: no
+     Cl -      C1 [LENNARD_JONES] p_0/k_B:  82.59828 [K], p_1: 3.49615 [A], shift/k_B:  -0.20193979 [K], tailcorrection: no
+     Cl -      C2 [LENNARD_JONES] p_0/k_B:  82.59828 [K], p_1: 3.49615 [A], shift/k_B:  -0.20193979 [K], tailcorrection: no
+     Cl -      C3 [LENNARD_JONES] p_0/k_B:  82.59828 [K], p_1: 3.49615 [A], shift/k_B:  -0.20193979 [K], tailcorrection: no
+     Cl -      H1 [LENNARD_JONES] p_0/k_B:  33.02191 [K], p_1: 3.18287 [A], shift/k_B:  -0.04597661 [K], tailcorrection: no
+     Kr -      Kr [LENNARD_JONES] p_0/k_B: 166.40000 [K], p_1: 3.63600 [A], shift/k_B:  -0.51467477 [K], tailcorrection: no
+     Kr -      Xe [LENNARD_JONES] p_0/k_B: 191.76652 [K], p_1: 3.86800 [A], shift/k_B:  -0.85936317 [K], tailcorrection: no
+     Kr -     Zn1 [LENNARD_JONES] p_0/k_B: 101.89812 [K], p_1: 3.04878 [A], shift/k_B:  -0.10959080 [K], tailcorrection: no
+     Kr -      O1 [LENNARD_JONES] p_0/k_B:  89.51820 [K], p_1: 3.33458 [A], shift/k_B:  -0.16478846 [K], tailcorrection: no
+     Kr -      O2 [LENNARD_JONES] p_0/k_B:  89.51820 [K], p_1: 3.33458 [A], shift/k_B:  -0.16478846 [K], tailcorrection: no
+     Kr -      C1 [LENNARD_JONES] p_0/k_B:  89.23717 [K], p_1: 3.55450 [A], shift/k_B:  -0.24093078 [K], tailcorrection: no
+     Kr -      C2 [LENNARD_JONES] p_0/k_B:  89.23717 [K], p_1: 3.55450 [A], shift/k_B:  -0.24093078 [K], tailcorrection: no
+     Kr -      C3 [LENNARD_JONES] p_0/k_B:  89.23717 [K], p_1: 3.55450 [A], shift/k_B:  -0.24093078 [K], tailcorrection: no
+     Kr -      H1 [LENNARD_JONES] p_0/k_B:  35.67607 [K], p_1: 3.24121 [A], shift/k_B:  -0.05538904 [K], tailcorrection: no
+     Xe -      Xe [LENNARD_JONES] p_0/k_B: 221.00000 [K], p_1: 4.10000 [A], shift/k_B:  -1.40403037 [K], tailcorrection: no
+     Xe -     Zn1 [LENNARD_JONES] p_0/k_B: 117.43178 [K], p_1: 3.28077 [A], shift/k_B:  -0.19608097 [K], tailcorrection: no
+     Xe -      O1 [LENNARD_JONES] p_0/k_B: 103.16463 [K], p_1: 3.56657 [A], shift/k_B:  -0.28425756 [K], tailcorrection: no
+     Xe -      O2 [LENNARD_JONES] p_0/k_B: 103.16463 [K], p_1: 3.56657 [A], shift/k_B:  -0.28425756 [K], tailcorrection: no
+     Xe -      C1 [LENNARD_JONES] p_0/k_B: 102.84075 [K], p_1: 3.78649 [A], shift/k_B:  -0.40563293 [K], tailcorrection: no
+     Xe -      C2 [LENNARD_JONES] p_0/k_B: 102.84075 [K], p_1: 3.78649 [A], shift/k_B:  -0.40563293 [K], tailcorrection: no
+     Xe -      C3 [LENNARD_JONES] p_0/k_B: 102.84075 [K], p_1: 3.78649 [A], shift/k_B:  -0.40563293 [K], tailcorrection: no
+     Xe -      H1 [LENNARD_JONES] p_0/k_B:  41.11464 [K], p_1: 3.47321 [A], shift/k_B:  -0.09662730 [K], tailcorrection: no
+    Zn1 -     Zn1 [LENNARD_JONES] p_0/k_B:  62.39920 [K], p_1: 2.46155 [A], shift/k_B:  -0.01859393 [K], tailcorrection: no
+    Zn1 -      O1 [LENNARD_JONES] p_0/k_B:  54.81813 [K], p_1: 2.74735 [A], shift/k_B:  -0.03157316 [K], tailcorrection: no
+    Zn1 -      O2 [LENNARD_JONES] p_0/k_B:  54.81813 [K], p_1: 2.74735 [A], shift/k_B:  -0.03157316 [K], tailcorrection: no
+    Zn1 -      C1 [LENNARD_JONES] p_0/k_B:  54.64603 [K], p_1: 2.96727 [A], shift/k_B:  -0.04995446 [K], tailcorrection: no
+    Zn1 -      C2 [LENNARD_JONES] p_0/k_B:  54.64603 [K], p_1: 2.96727 [A], shift/k_B:  -0.04995446 [K], tailcorrection: no
+    Zn1 -      C3 [LENNARD_JONES] p_0/k_B:  54.64603 [K], p_1: 2.96727 [A], shift/k_B:  -0.04995446 [K], tailcorrection: no
+    Zn1 -      H1 [LENNARD_JONES] p_0/k_B:  21.84690 [K], p_1: 2.65399 [A], shift/k_B:  -0.01022592 [K], tailcorrection: no
+     O1 -      O1 [LENNARD_JONES] p_0/k_B:  48.15810 [K], p_1: 3.03315 [A], shift/k_B:  -0.05022176 [K], tailcorrection: no
+     O1 -      O2 [LENNARD_JONES] p_0/k_B:  48.15810 [K], p_1: 3.03315 [A], shift/k_B:  -0.05022176 [K], tailcorrection: no
+     O1 -      C1 [LENNARD_JONES] p_0/k_B:  48.00691 [K], p_1: 3.25307 [A], shift/k_B:  -0.07618410 [K], tailcorrection: no
+     O1 -      C2 [LENNARD_JONES] p_0/k_B:  48.00691 [K], p_1: 3.25307 [A], shift/k_B:  -0.07618410 [K], tailcorrection: no
+     O1 -      C3 [LENNARD_JONES] p_0/k_B:  48.00691 [K], p_1: 3.25307 [A], shift/k_B:  -0.07618410 [K], tailcorrection: no
+     O1 -      H1 [LENNARD_JONES] p_0/k_B:  19.19265 [K], p_1: 2.93979 [A], shift/k_B:  -0.01659232 [K], tailcorrection: no
+     O2 -      O2 [LENNARD_JONES] p_0/k_B:  48.15810 [K], p_1: 3.03315 [A], shift/k_B:  -0.05022176 [K], tailcorrection: no
+     O2 -      C1 [LENNARD_JONES] p_0/k_B:  48.00691 [K], p_1: 3.25307 [A], shift/k_B:  -0.07618410 [K], tailcorrection: no
+     O2 -      C2 [LENNARD_JONES] p_0/k_B:  48.00691 [K], p_1: 3.25307 [A], shift/k_B:  -0.07618410 [K], tailcorrection: no
+     O2 -      C3 [LENNARD_JONES] p_0/k_B:  48.00691 [K], p_1: 3.25307 [A], shift/k_B:  -0.07618410 [K], tailcorrection: no
+     O2 -      H1 [LENNARD_JONES] p_0/k_B:  19.19265 [K], p_1: 2.93979 [A], shift/k_B:  -0.01659232 [K], tailcorrection: no
+     C1 -      C1 [LENNARD_JONES] p_0/k_B:  47.85620 [K], p_1: 3.47299 [A], shift/k_B:  -0.11242855 [K], tailcorrection: no
+     C1 -      C2 [LENNARD_JONES] p_0/k_B:  47.85620 [K], p_1: 3.47299 [A], shift/k_B:  -0.11242855 [K], tailcorrection: no
+     C1 -      C3 [LENNARD_JONES] p_0/k_B:  47.85620 [K], p_1: 3.47299 [A], shift/k_B:  -0.11242855 [K], tailcorrection: no
+     C1 -      H1 [LENNARD_JONES] p_0/k_B:  19.13240 [K], p_1: 3.15970 [A], shift/k_B:  -0.02549626 [K], tailcorrection: no
+     C2 -      C2 [LENNARD_JONES] p_0/k_B:  47.85620 [K], p_1: 3.47299 [A], shift/k_B:  -0.11242855 [K], tailcorrection: no
+     C2 -      C3 [LENNARD_JONES] p_0/k_B:  47.85620 [K], p_1: 3.47299 [A], shift/k_B:  -0.11242855 [K], tailcorrection: no
+     C2 -      H1 [LENNARD_JONES] p_0/k_B:  19.13240 [K], p_1: 3.15970 [A], shift/k_B:  -0.02549626 [K], tailcorrection: no
+     C3 -      C3 [LENNARD_JONES] p_0/k_B:  47.85620 [K], p_1: 3.47299 [A], shift/k_B:  -0.11242855 [K], tailcorrection: no
+     C3 -      H1 [LENNARD_JONES] p_0/k_B:  19.13240 [K], p_1: 3.15970 [A], shift/k_B:  -0.02549626 [K], tailcorrection: no
+     H1 -      H1 [LENNARD_JONES] p_0/k_B:   7.64893 [K], p_1: 2.84642 [A], shift/k_B:  -0.00544866 [K], tailcorrection: no
+
+
+MoleculeDefinitions:
+===========================================================================
+No components defined in 'simulation.input'
+
+
+Framework Status
+===========================================================================
+Lowenstein's rule obeyed by framework
+	Framework is modelled as: rigid
+
+	Number of charges:                               0
+	Number of bonddipoles:                           0
+
+
+System Properties
+===========================================================================
+Unit cell size: 25.832000 25.832000 25.832000
+Cell angles (radians)  alpha: 1.570796 beta: 1.570796 gamma: 1.570796
+Cell angles (degrees)  alpha: 90.000000 beta: 90.000000 gamma: 90.000000
+Number of unitcells [a]: 1
+Number of unitcells [b]: 1
+Number of unitcells [c]: 1
+
+TRICLINIC Boundary conditions: alpha!=90 or beta!=90 or gamma!=90
+
+Cartesian axis A is collinear with crystallographic axis a
+Cartesian axis B is collinear with (axb)xA
+Cartesian axis C is collinear with (axb)
+
+lengths of cell vectors:
+ 25.83200  25.83200  25.83200
+cosines of cell angles:
+  0.00000   0.00000   0.00000
+perpendicular cell widths:
+ 25.83200  25.83200  25.83200
+volume of the cell: 17237.492730368002 (A^3)
+
+Orthogonalization matrix Box
+Transforms fractional coordinates abc into orthonormal Cartesian coordinates xyz
+Deorthogonalization matrix InverseBox
+Transforms orthonormal Cartesian coordinates xyz into fractional coordinates xyz
+
+Box[0]:
+	   25.832000000000     0.000000000000     0.000000000000
+	    0.000000000000    25.832000000000     0.000000000000
+	    0.000000000000     0.000000000000    25.832000000000
+
+Inverse box[0]:
+	    0.038711675441    -0.000000000000    -0.000000000000
+	    0.000000000000     0.038711675441    -0.000000000000
+	    0.000000000000     0.000000000000     0.038711675441
+
+
+Unitcell box[0]:
+	   25.832000000000     0.000000000000     0.000000000000
+	    0.000000000000    25.832000000000     0.000000000000
+	    0.000000000000     0.000000000000    25.832000000000
+
+Unitcell inverse box[0]:
+	    0.038711675441    -0.000000000000    -0.000000000000
+	    0.000000000000     0.038711675441    -0.000000000000
+	    0.000000000000     0.000000000000     0.038711675441
+
+lengths of cell vectors (inverse box):
+  0.03871   0.03871   0.03871
+cosines of cell angles (inverse box):
+ -0.00000  -0.00000  -0.00000
+perpendicular cell widths (inverse):
+  0.03871   0.03871   0.03871
+volume of the cell: 17237.492730368002 (A^3)
+
+No replicas are used
+Framework is simulated as 'rigid'
+Number of framework atoms: 424
+Number of framework atoms in the unit cell: 424
+Framework Mass:  6159.841015789802 [g/mol]
+Framework Density:   593.395728552254 [kg/m^3]    1.6852160402970 [cm^3/g]
+Helium void fraction:    0.00000000
+Available pore volume:    0.00000000 [A^3]    0.00000000 [cm^3/g]
+Conversion factor from molecule/unit cell -> kmol/m^3: 0.096333, kmol/m^3 accesible pore volume: inf
+
+Number Of Frameworks (per system): 1
+----------------------------------------------------------------------
+Framework name: IRMOF-1
+Citation:
+	author name:        'M. Eddaoudi, J. Kim, N. Rosi, D. Vodak, J. Wachter, M. O. Keeffe, and O.M. Yaghi'
+	title:              'Systematic design of pore size and functionality in isoreticular MOFs and their application in methane storage'
+	journal abbrev.:    'Science'
+	journal volume:     295
+	first page:         469
+	last page:          472
+	year:               2002
+Space group: 225
+	Identifier: 523
+	short international Hermann-Mauguin symbol: F m -3 m
+	long international Hermann-Mauguin symbol: F 4/m -3 2/m
+	Hall symbol: -F 4 2 3
+	Number of lattice translations: 4 [ (0,0,0) (0,0.5,0.5) (0.5,0,0.5) (0.5,0.5,0) ]
+	acentric/centric: acentric
+	chiral: yes
+	enantiomorphic: no
+	number of operators: 192
+		'x,y,z'
+		'-x,-y,z'
+		'-x,y,-z'
+		'x,-y,-z'
+		'z,x,y'
+		'z,-x,-y'
+		'-z,-x,y'
+		'-z,x,-y'
+		'y,z,x'
+		'-y,z,-x'
+		'y,-z,-x'
+		'-y,-z,x'
+		'y,x,-z'
+		'-y,-x,-z'
+		'y,-x,z'
+		'-y,x,z'
+		'x,z,-y'
+		'-x,z,y'
+		'-x,-z,-y'
+		'x,-z,y'
+		'z,y,-x'
+		'z,-y,x'
+		'-z,y,x'
+		'-z,-y,-x'
+		'-x,-y,-z'
+		'x,y,-z'
+		'x,-y,z'
+		'-x,y,z'
+		'-z,-x,-y'
+		'-z,x,y'
+		'z,x,-y'
+		'z,-x,y'
+		'-y,-z,-x'
+		'y,-z,x'
+		'-y,z,x'
+		'y,z,-x'
+		'-y,-x,z'
+		'y,x,z'
+		'-y,x,-z'
+		'y,-x,-z'
+		'-x,-z,y'
+		'x,-z,-y'
+		'x,z,y'
+		'-x,z,-y'
+		'-z,-y,x'
+		'-z,y,-x'
+		'z,-y,-x'
+		'z,y,x'
+		'x,y+1/2,z+1/2'
+		'-x,-y+1/2,z+1/2'
+		'-x,y+1/2,-z+1/2'
+		'x,-y+1/2,-z+1/2'
+		'z,x+1/2,y+1/2'
+		'z,-x+1/2,-y+1/2'
+		'-z,-x+1/2,y+1/2'
+		'-z,x+1/2,-y+1/2'
+		'y,z+1/2,x+1/2'
+		'-y,z+1/2,-x+1/2'
+		'y,-z+1/2,-x+1/2'
+		'-y,-z+1/2,x+1/2'
+		'y,x+1/2,-z+1/2'
+		'-y,-x+1/2,-z+1/2'
+		'y,-x+1/2,z+1/2'
+		'-y,x+1/2,z+1/2'
+		'x,z+1/2,-y+1/2'
+		'-x,z+1/2,y+1/2'
+		'-x,-z+1/2,-y+1/2'
+		'x,-z+1/2,y+1/2'
+		'z,y+1/2,-x+1/2'
+		'z,-y+1/2,x+1/2'
+		'-z,y+1/2,x+1/2'
+		'-z,-y+1/2,-x+1/2'
+		'-x,-y+1/2,-z+1/2'
+		'x,y+1/2,-z+1/2'
+		'x,-y+1/2,z+1/2'
+		'-x,y+1/2,z+1/2'
+		'-z,-x+1/2,-y+1/2'
+		'-z,x+1/2,y+1/2'
+		'z,x+1/2,-y+1/2'
+		'z,-x+1/2,y+1/2'
+		'-y,-z+1/2,-x+1/2'
+		'y,-z+1/2,x+1/2'
+		'-y,z+1/2,x+1/2'
+		'y,z+1/2,-x+1/2'
+		'-y,-x+1/2,z+1/2'
+		'y,x+1/2,z+1/2'
+		'-y,x+1/2,-z+1/2'
+		'y,-x+1/2,-z+1/2'
+		'-x,-z+1/2,y+1/2'
+		'x,-z+1/2,-y+1/2'
+		'x,z+1/2,y+1/2'
+		'-x,z+1/2,-y+1/2'
+		'-z,-y+1/2,x+1/2'
+		'-z,y+1/2,-x+1/2'
+		'z,-y+1/2,-x+1/2'
+		'z,y+1/2,x+1/2'
+		'x+1/2,y,z+1/2'
+		'-x+1/2,-y,z+1/2'
+		'-x+1/2,y,-z+1/2'
+		'x+1/2,-y,-z+1/2'
+		'z+1/2,x,y+1/2'
+		'z+1/2,-x,-y+1/2'
+		'-z+1/2,-x,y+1/2'
+		'-z+1/2,x,-y+1/2'
+		'y+1/2,z,x+1/2'
+		'-y+1/2,z,-x+1/2'
+		'y+1/2,-z,-x+1/2'
+		'-y+1/2,-z,x+1/2'
+		'y+1/2,x,-z+1/2'
+		'-y+1/2,-x,-z+1/2'
+		'y+1/2,-x,z+1/2'
+		'-y+1/2,x,z+1/2'
+		'x+1/2,z,-y+1/2'
+		'-x+1/2,z,y+1/2'
+		'-x+1/2,-z,-y+1/2'
+		'x+1/2,-z,y+1/2'
+		'z+1/2,y,-x+1/2'
+		'z+1/2,-y,x+1/2'
+		'-z+1/2,y,x+1/2'
+		'-z+1/2,-y,-x+1/2'
+		'-x+1/2,-y,-z+1/2'
+		'x+1/2,y,-z+1/2'
+		'x+1/2,-y,z+1/2'
+		'-x+1/2,y,z+1/2'
+		'-z+1/2,-x,-y+1/2'
+		'-z+1/2,x,y+1/2'
+		'z+1/2,x,-y+1/2'
+		'z+1/2,-x,y+1/2'
+		'-y+1/2,-z,-x+1/2'
+		'y+1/2,-z,x+1/2'
+		'-y+1/2,z,x+1/2'
+		'y+1/2,z,-x+1/2'
+		'-y+1/2,-x,z+1/2'
+		'y+1/2,x,z+1/2'
+		'-y+1/2,x,-z+1/2'
+		'y+1/2,-x,-z+1/2'
+		'-x+1/2,-z,y+1/2'
+		'x+1/2,-z,-y+1/2'
+		'x+1/2,z,y+1/2'
+		'-x+1/2,z,-y+1/2'
+		'-z+1/2,-y,x+1/2'
+		'-z+1/2,y,-x+1/2'
+		'z+1/2,-y,-x+1/2'
+		'z+1/2,y,x+1/2'
+		'x+1/2,y+1/2,z'
+		'-x+1/2,-y+1/2,z'
+		'-x+1/2,y+1/2,-z'
+		'x+1/2,-y+1/2,-z'
+		'z+1/2,x+1/2,y'
+		'z+1/2,-x+1/2,-y'
+		'-z+1/2,-x+1/2,y'
+		'-z+1/2,x+1/2,-y'
+		'y+1/2,z+1/2,x'
+		'-y+1/2,z+1/2,-x'
+		'y+1/2,-z+1/2,-x'
+		'-y+1/2,-z+1/2,x'
+		'y+1/2,x+1/2,-z'
+		'-y+1/2,-x+1/2,-z'
+		'y+1/2,-x+1/2,z'
+		'-y+1/2,x+1/2,z'
+		'x+1/2,z+1/2,-y'
+		'-x+1/2,z+1/2,y'
+		'-x+1/2,-z+1/2,-y'
+		'x+1/2,-z+1/2,y'
+		'z+1/2,y+1/2,-x'
+		'z+1/2,-y+1/2,x'
+		'-z+1/2,y+1/2,x'
+		'-z+1/2,-y+1/2,-x'
+		'-x+1/2,-y+1/2,-z'
+		'x+1/2,y+1/2,-z'
+		'x+1/2,-y+1/2,z'
+		'-x+1/2,y+1/2,z'
+		'-z+1/2,-x+1/2,-y'
+		'-z+1/2,x+1/2,y'
+		'z+1/2,x+1/2,-y'
+		'z+1/2,-x+1/2,y'
+		'-y+1/2,-z+1/2,-x'
+		'y+1/2,-z+1/2,x'
+		'-y+1/2,z+1/2,x'
+		'y+1/2,z+1/2,-x'
+		'-y+1/2,-x+1/2,z'
+		'y+1/2,x+1/2,z'
+		'-y+1/2,x+1/2,-z'
+		'y+1/2,-x+1/2,-z'
+		'-x+1/2,-z+1/2,y'
+		'x+1/2,-z+1/2,-y'
+		'x+1/2,z+1/2,y'
+		'-x+1/2,z+1/2,-y'
+		'-z+1/2,-y+1/2,x'
+		'-z+1/2,y+1/2,-x'
+		'z+1/2,-y+1/2,-x'
+		'z+1/2,y+1/2,x'
+Framework is simulated as 'rigid'
+Shift: 0.000000 0.000000 0.000000
+Number of framework atoms: 424
+Number of asymmetric atoms: 7
+Number of free framework atoms: 0
+Number of fixed framework atoms: 424
+Number of framework atoms in the unit cell: 424
+Framework Mass:  6159.841015789802 [g/mol]
+Framework Density:   593.395728552254 [kg/m^3]
+Framework has net charge: 0.000000
+         largest charge : 0.000000
+         smallest charge: 0.000000
+
+Using FULL Host-guest interaction calculation (for testing purposes)
+
+Current Atom Status
+===========================================================================
+Number of framework atoms        : 424
+Number of cations molecules      : 0
+Number of adsorbate molecules    : 0
+Pseudo Atoms    0 [    UNIT]:    0 atoms
+Pseudo Atoms    1 [      He]:    0 atoms
+Pseudo Atoms    2 [ CH4_sp3]:    0 atoms
+Pseudo Atoms    3 [ CH3_sp3]:    0 atoms
+Pseudo Atoms    4 [ CH2_sp3]:    0 atoms
+Pseudo Atoms    5 [  CH_sp3]:    0 atoms
+Pseudo Atoms    6 [   C_sp3]:    0 atoms
+Pseudo Atoms    7 [    H_h2]:    0 atoms
+Pseudo Atoms    8 [   H_com]:    0 atoms
+Pseudo Atoms    9 [   C_co2]:    0 atoms
+Pseudo Atoms   10 [   O_co2]:    0 atoms
+Pseudo Atoms   11 [    O_o2]:    0 atoms
+Pseudo Atoms   12 [   O_com]:    0 atoms
+Pseudo Atoms   13 [    N_n2]:    0 atoms
+Pseudo Atoms   14 [   N_com]:    0 atoms
+Pseudo Atoms   15 [      Ar]:    0 atoms
+Pseudo Atoms   16 [      Ow]:    0 atoms
+Pseudo Atoms   17 [      Hw]:    0 atoms
+Pseudo Atoms   18 [      Lw]:    0 atoms
+Pseudo Atoms   19 [  C_benz]:    0 atoms
+Pseudo Atoms   20 [  H_benz]:    0 atoms
+Pseudo Atoms   21 [   N_dmf]:    0 atoms
+Pseudo Atoms   22 [  Co_dmf]:    0 atoms
+Pseudo Atoms   23 [  Cm_dmf]:    0 atoms
+Pseudo Atoms   24 [   O_dmf]:    0 atoms
+Pseudo Atoms   25 [   H_dmf]:    0 atoms
+Pseudo Atoms   26 [      Na]:    0 atoms
+Pseudo Atoms   27 [      Cl]:    0 atoms
+Pseudo Atoms   28 [      Kr]:    0 atoms
+Pseudo Atoms   29 [      Xe]:    0 atoms
+Pseudo Atoms   30 [     Zn1]:   32 atoms
+Pseudo Atoms   31 [      O1]:    8 atoms
+Pseudo Atoms   32 [      O2]:   96 atoms
+Pseudo Atoms   33 [      C1]:   48 atoms
+Pseudo Atoms   34 [      C2]:   48 atoms
+Pseudo Atoms   35 [      C3]:   96 atoms
+Pseudo Atoms   36 [      H1]:   96 atoms
+
+
+Current (initial full energy) Energy Status
+===========================================================================
+
+Internal energy:
+Host stretch energy:                                            0.00000000
+Host UreyBradley energy:                                        0.00000000
+Host bend energy:                                               0.00000000
+Host inversion-bend energy:                                     0.00000000
+Host torsion energy:                                            0.00000000
+Host improper torsion energy:                                   0.00000000
+Host out-of-plane energy:                                       0.00000000
+Host stretch/stretch energy:                                    0.00000000
+Host bend/bend energy:                                          0.00000000
+Host stretch/bend energy:                                       0.00000000
+Host stretch/torsion energy:                                    0.00000000
+Host bend/torsion energy:                                       0.00000000
+
+Adsorbate stretch energy:                                       0.00000000
+Adsorbate UreyBradley energy:                                   0.00000000
+Adsorbate bend energy:                                          0.00000000
+Adsorbate inversion-bend energy:                                0.00000000
+Adsorbate torsion energy:                                       0.00000000
+Adsorbate improper torsion energy:                              0.00000000
+Adsorbate out-of-plane energy:                                  0.00000000
+Adsorbate stretch/stretch energy:                               0.00000000
+Adsorbate bend/bend energy:                                     0.00000000
+Adsorbate stretch/bend energy:                                  0.00000000
+Adsorbate stretch/torsion energy:                               0.00000000
+Adsorbate bend/torsion energy:                                  0.00000000
+Adsorbate intra VDW energy:                                     0.00000000
+Adsorbate intra charge-charge Coulomb energy:                   0.00000000
+Adsorbate intra charge-bonddipole Coulomb energy:               0.00000000
+Adsorbate intra bonddipole-bonddipole Coulomb energy:           0.00000000
+
+Cation stretch energy:                                          0.00000000
+Cation UreyBradley energy:                                      0.00000000
+Cation bend energy:                                             0.00000000
+Cation inversion-bend energy:                                   0.00000000
+Cation torsion energy:                                          0.00000000
+Cation improper torsion energy:                                 0.00000000
+Cation out-of-plane energy:                                     0.00000000
+Cation stretch/stretch energy:                                  0.00000000
+Cation bend/bend energy:                                        0.00000000
+Cation stretch/bend energy:                                     0.00000000
+Cation stretch/torsion energy:                                  0.00000000
+Cation bend/torsion energy:                                     0.00000000
+Cation intra VDW energy:                                        0.00000000
+Cation intra charge-charge Coulomb energy:                      0.00000000
+Cation intra charge-bonddipole Coulomb energy:                  0.00000000
+Cation intra bonddipole-bonddipole Coulomb energy:              0.00000000
+
+Host/Host energy:                                             0.00000000
+	Host/Host VDW energy:                                         0.00000000
+	Host/Host Coulomb energy:                                     0.00000000
+	Host/Host charge-charge Real energy:                          0.00000000
+	Host/Host charge-charge Fourier energy:                       0.00000000
+	Host/Host charge-bonddipole Real energy:                      0.00000000
+	Host/Host charge-bonddipole Fourier energy:                   0.00000000
+	Host/Host bondipole-bonddipole Real energy:                   0.00000000
+	Host/Host bondipole-bonddipole Fourier energy:                0.00000000
+
+Host/Adsorbate energy:                                        0.00000000
+	Host/Adsorbate VDW energy:                                    0.00000000
+	Host/Adsorbate Coulomb energy:                                0.00000000
+	Host/Adsorbate charge-charge Real energy:                     0.00000000
+	Host/Adsorbate charge-charge Fourier energy:                  0.00000000
+	Host/Adsorbate charge-bonddipole Real energy:                 0.00000000
+	Host/Adsorbate charge-bonddipole Fourier energy:              0.00000000
+	Host/Adsorbate bondipole-bonddipole Real energy:              0.00000000
+	Host/Adsorbate bondipole-bonddipole Fourier energy:           0.00000000
+
+Host/Cation energy:                                           0.00000000
+	Host/Cation VDW energy:                                       0.00000000
+	Host/Cation Coulomb energy:                                   0.00000000
+	Host/Cation charge-charge Real energy:                        0.00000000
+	Host/Cation charge-charge Fourier energy:                     0.00000000
+	Host/Cation charge-bonddipole Real energy:                    0.00000000
+	Host/Cation charge-bonddipole Fourier energy:                 0.00000000
+	Host/Cation bondipole-bonddipole Real energy:                 0.00000000
+	Host/Cation bondipole-bonddipole Fourier energy:              0.00000000
+
+Adsorbate/Adsorbate energy:                                        0.00000000
+	Adsorbate/Adsorbate VDW energy:                                    0.00000000
+	Adsorbate/Adsorbate Coulomb energy:                                0.00000000
+	Adsorbate/Adsorbate charge-charge Real energy:                     0.00000000
+	Adsorbate/Adsorbate charge-charge Fourier energy:                  0.00000000
+	Adsorbate/Adsorbate charge-bonddipole Real energy:                 0.00000000
+	Adsorbate/Adsorbate charge-bonddipole Fourier energy:              0.00000000
+	Adsorbate/Adsorbate bondipole-bonddipole Real energy:              0.00000000
+	Adsorbate/Adsorbate bondipole-bonddipole Fourier energy:           0.00000000
+
+Adsorbate/Cation energy:                                           0.00000000
+	Adsorbate/Cation VDW energy:                                       0.00000000
+	Adsorbate/Cation Coulomb energy:                                   0.00000000
+	Adsorbate/Cation charge-charge Real energy:                        0.00000000
+	Adsorbate/Cation charge-charge Fourier energy:                     0.00000000
+	Adsorbate/Cation charge-bonddipole Real energy:                    0.00000000
+	Adsorbate/Cation charge-bonddipole Fourier energy:                 0.00000000
+	Adsorbate/Cation bondipole-bonddipole Real energy:                 0.00000000
+	Adsorbate/Cation bondipole-bonddipole Fourier energy:              0.00000000
+
+Cation/Cation energy:                                           0.00000000
+	Cation/Cation VDW energy:                                       0.00000000
+	Cation/Cation Coulomb energy:                                   0.00000000
+	Cation/Cation charge-charge Real energy:                        0.00000000
+	Cation/Cation charge-charge Fourier energy:                     0.00000000
+	Cation/Cation charge-bonddipole Real energy:                    0.00000000
+	Cation/Cation charge-bonddipole Fourier energy:                 0.00000000
+	Cation/Cation bondipole-bonddipole Real energy:                 0.00000000
+	Cation/Cation bondipole-bonddipole Fourier energy:              0.00000000
+
+Polarization energy:
+	Host polarization energy:                                     0.00000000
+	Adsorbate polarization energy:                                0.00000000
+	Cation polarization energy:                                   0.00000000
+	Host back-polarization energy:                                     0.00000000
+	Adsorbate back-polarization energy:                                0.00000000
+	Cation back-polarization energy:                                   0.00000000
+
+Tail-correction energy:                                       0.00000000
+
+Distance constraints energy:                                  0.00000000
+Angle constraints energy:                                     0.00000000
+Dihedral constraints energy:                                  0.00000000
+Inversion-bend constraints energy:                            0.00000000
+Out-of-plane distance constraints energy:                     0.00000000
+Exclusion constraints energy:                                 0.00000000
+
+===================================================================
+Total energy:     0.000000000000
+	Total Van der Waals: 0.000000
+	Total Coulomb: 0.000000
+
+	Total Polarization: 0.000000
+
+
+
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Starting simulation
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Iteration: 0
+Iteration: 10
+Iteration: 20
+Iteration: 30
+Iteration: 40
+Iteration: 50
+Iteration: 60
+Iteration: 70
+Iteration: 80
+Iteration: 90
+Iteration: 100
+Iteration: 110
+Iteration: 120
+Iteration: 130
+Iteration: 140
+Iteration: 150
+Iteration: 160
+Iteration: 170
+Iteration: 180
+Iteration: 190
+Iteration: 200
+Iteration: 210
+Iteration: 220
+Iteration: 230
+Iteration: 240
+Iteration: 250
+Iteration: 260
+Iteration: 270
+Iteration: 280
+Iteration: 290
+Iteration: 300
+Iteration: 310
+Iteration: 320
+Iteration: 330
+Iteration: 340
+Iteration: 350
+Iteration: 360
+Iteration: 370
+Iteration: 380
+Iteration: 390
+Iteration: 400
+Iteration: 410
+Iteration: 420
+Iteration: 430
+Iteration: 440
+Iteration: 450
+Iteration: 460
+Iteration: 470
+Iteration: 480
+Iteration: 490
+Iteration: 500
+Iteration: 510
+Iteration: 520
+Iteration: 530
+Iteration: 540
+Iteration: 550
+Iteration: 560
+Iteration: 570
+Iteration: 580
+Iteration: 590
+Iteration: 600
+Iteration: 610
+Iteration: 620
+Iteration: 630
+Iteration: 640
+Iteration: 650
+Iteration: 660
+Iteration: 670
+Iteration: 680
+Iteration: 690
+Iteration: 700
+Iteration: 710
+Iteration: 720
+Iteration: 730
+Iteration: 740
+Iteration: 750
+Iteration: 760
+Iteration: 770
+Iteration: 780
+Iteration: 790
+Iteration: 800
+Iteration: 810
+Iteration: 820
+Iteration: 830
+Iteration: 840
+Iteration: 850
+Iteration: 860
+Iteration: 870
+Iteration: 880
+Iteration: 890
+Iteration: 900
+Iteration: 910
+Iteration: 920
+Iteration: 930
+Iteration: 940
+Iteration: 950
+Iteration: 960
+Iteration: 970
+Iteration: 980
+Iteration: 990
+Iteration: 1000
+Iteration: 1010
+Iteration: 1020
+Iteration: 1030
+Iteration: 1040
+Iteration: 1050
+Iteration: 1060
+Iteration: 1070
+Iteration: 1080
+Iteration: 1090
+Iteration: 1100
+Iteration: 1110
+Iteration: 1120
+Iteration: 1130
+Iteration: 1140
+Iteration: 1150
+Iteration: 1160
+Iteration: 1170
+Iteration: 1180
+Iteration: 1190
+Iteration: 1200
+Iteration: 1210
+Iteration: 1220
+Iteration: 1230
+Iteration: 1240
+Iteration: 1250
+Iteration: 1260
+Iteration: 1270
+Iteration: 1280
+Iteration: 1290
+Iteration: 1300
+Iteration: 1310
+Iteration: 1320
+Iteration: 1330
+Iteration: 1340
+Iteration: 1350
+Iteration: 1360
+Iteration: 1370
+Iteration: 1380
+Iteration: 1390
+Iteration: 1400
+Iteration: 1410
+Iteration: 1420
+Iteration: 1430
+Iteration: 1440
+Iteration: 1450
+Iteration: 1460
+Iteration: 1470
+Iteration: 1480
+Iteration: 1490
+Iteration: 1500
+Iteration: 1510
+Iteration: 1520
+Iteration: 1530
+Iteration: 1540
+Iteration: 1550
+Iteration: 1560
+Iteration: 1570
+Iteration: 1580
+Iteration: 1590
+Iteration: 1600
+Iteration: 1610
+Iteration: 1620
+Iteration: 1630
+Iteration: 1640
+Iteration: 1650
+Iteration: 1660
+Iteration: 1670
+Iteration: 1680
+Iteration: 1690
+Iteration: 1700
+Iteration: 1710
+Iteration: 1720
+Iteration: 1730
+Iteration: 1740
+Iteration: 1750
+Iteration: 1760
+Iteration: 1770
+Iteration: 1780
+Iteration: 1790
+Iteration: 1800
+Iteration: 1810
+Iteration: 1820
+Iteration: 1830
+Iteration: 1840
+Iteration: 1850
+Iteration: 1860
+Iteration: 1870
+Iteration: 1880
+Iteration: 1890
+Iteration: 1900
+Iteration: 1910
+Iteration: 1920
+Iteration: 1930
+Iteration: 1940
+Iteration: 1950
+Iteration: 1960
+Iteration: 1970
+Iteration: 1980
+Iteration: 1990
+Iteration: 2000
+Iteration: 2010
+Iteration: 2020
+Iteration: 2030
+Iteration: 2040
+Iteration: 2050
+Iteration: 2060
+Iteration: 2070
+Iteration: 2080
+Iteration: 2090
+Iteration: 2100
+Iteration: 2110
+Iteration: 2120
+Iteration: 2130
+Iteration: 2140
+Iteration: 2150
+Iteration: 2160
+Iteration: 2170
+Iteration: 2180
+Iteration: 2190
+Iteration: 2200
+Iteration: 2210
+Iteration: 2220
+Iteration: 2230
+Iteration: 2240
+Iteration: 2250
+Iteration: 2260
+Iteration: 2270
+Iteration: 2280
+Iteration: 2290
+Iteration: 2300
+Iteration: 2310
+Iteration: 2320
+Iteration: 2330
+Iteration: 2340
+Iteration: 2350
+Iteration: 2360
+Iteration: 2370
+Iteration: 2380
+Iteration: 2390
+Iteration: 2400
+Iteration: 2410
+Iteration: 2420
+Iteration: 2430
+Iteration: 2440
+Iteration: 2450
+Iteration: 2460
+Iteration: 2470
+Iteration: 2480
+Iteration: 2490
+Iteration: 2500
+Iteration: 2510
+Iteration: 2520
+Iteration: 2530
+Iteration: 2540
+Iteration: 2550
+Iteration: 2560
+Iteration: 2570
+Iteration: 2580
+Iteration: 2590
+Iteration: 2600
+Iteration: 2610
+Iteration: 2620
+Iteration: 2630
+Iteration: 2640
+Iteration: 2650
+Iteration: 2660
+Iteration: 2670
+Iteration: 2680
+Iteration: 2690
+Iteration: 2700
+Iteration: 2710
+Iteration: 2720
+Iteration: 2730
+Iteration: 2740
+Iteration: 2750
+Iteration: 2760
+Iteration: 2770
+Iteration: 2780
+Iteration: 2790
+Iteration: 2800
+Iteration: 2810
+Iteration: 2820
+Iteration: 2830
+Iteration: 2840
+Iteration: 2850
+Iteration: 2860
+Iteration: 2870
+Iteration: 2880
+Iteration: 2890
+Iteration: 2900
+Iteration: 2910
+Iteration: 2920
+Iteration: 2930
+Iteration: 2940
+Iteration: 2950
+Iteration: 2960
+Iteration: 2970
+Iteration: 2980
+Iteration: 2990
+Iteration: 3000
+Iteration: 3010
+Iteration: 3020
+Iteration: 3030
+Iteration: 3040
+Iteration: 3050
+Iteration: 3060
+Iteration: 3070
+Iteration: 3080
+Iteration: 3090
+Iteration: 3100
+Iteration: 3110
+Iteration: 3120
+Iteration: 3130
+Iteration: 3140
+Iteration: 3150
+Iteration: 3160
+Iteration: 3170
+Iteration: 3180
+Iteration: 3190
+Iteration: 3200
+Iteration: 3210
+Iteration: 3220
+Iteration: 3230
+Iteration: 3240
+Iteration: 3250
+Iteration: 3260
+Iteration: 3270
+Iteration: 3280
+Iteration: 3290
+Iteration: 3300
+Iteration: 3310
+Iteration: 3320
+Iteration: 3330
+Iteration: 3340
+Iteration: 3350
+Iteration: 3360
+Iteration: 3370
+Iteration: 3380
+Iteration: 3390
+Iteration: 3400
+Iteration: 3410
+Iteration: 3420
+Iteration: 3430
+Iteration: 3440
+Iteration: 3450
+Iteration: 3460
+Iteration: 3470
+Iteration: 3480
+Iteration: 3490
+Iteration: 3500
+Iteration: 3510
+Iteration: 3520
+Iteration: 3530
+Iteration: 3540
+Iteration: 3550
+Iteration: 3560
+Iteration: 3570
+Iteration: 3580
+Iteration: 3590
+Iteration: 3600
+Iteration: 3610
+Iteration: 3620
+Iteration: 3630
+Iteration: 3640
+Iteration: 3650
+Iteration: 3660
+Iteration: 3670
+Iteration: 3680
+Iteration: 3690
+Iteration: 3700
+Iteration: 3710
+Iteration: 3720
+Iteration: 3730
+Iteration: 3740
+Iteration: 3750
+Iteration: 3760
+Iteration: 3770
+Iteration: 3780
+Iteration: 3790
+Iteration: 3800
+Iteration: 3810
+Iteration: 3820
+Iteration: 3830
+Iteration: 3840
+Iteration: 3850
+Iteration: 3860
+Iteration: 3870
+Iteration: 3880
+Iteration: 3890
+Iteration: 3900
+Iteration: 3910
+Iteration: 3920
+Iteration: 3930
+Iteration: 3940
+Iteration: 3950
+Iteration: 3960
+Iteration: 3970
+Iteration: 3980
+Iteration: 3990
+Iteration: 4000
+Iteration: 4010
+Iteration: 4020
+Iteration: 4030
+Iteration: 4040
+Iteration: 4050
+Iteration: 4060
+Iteration: 4070
+Iteration: 4080
+Iteration: 4090
+Iteration: 4100
+Iteration: 4110
+Iteration: 4120
+Iteration: 4130
+Iteration: 4140
+Iteration: 4150
+Iteration: 4160
+Iteration: 4170
+Iteration: 4180
+Iteration: 4190
+Iteration: 4200
+Iteration: 4210
+Iteration: 4220
+Iteration: 4230
+Iteration: 4240
+Iteration: 4250
+Iteration: 4260
+Iteration: 4270
+Iteration: 4280
+Iteration: 4290
+Iteration: 4300
+Iteration: 4310
+Iteration: 4320
+Iteration: 4330
+Iteration: 4340
+Iteration: 4350
+Iteration: 4360
+Iteration: 4370
+Iteration: 4380
+Iteration: 4390
+Iteration: 4400
+Iteration: 4410
+Iteration: 4420
+Iteration: 4430
+Iteration: 4440
+Iteration: 4450
+Iteration: 4460
+Iteration: 4470
+Iteration: 4480
+Iteration: 4490
+Iteration: 4500
+Iteration: 4510
+Iteration: 4520
+Iteration: 4530
+Iteration: 4540
+Iteration: 4550
+Iteration: 4560
+Iteration: 4570
+Iteration: 4580
+Iteration: 4590
+Iteration: 4600
+Iteration: 4610
+Iteration: 4620
+Iteration: 4630
+Iteration: 4640
+Iteration: 4650
+Iteration: 4660
+Iteration: 4670
+Iteration: 4680
+Iteration: 4690
+Iteration: 4700
+Iteration: 4710
+Iteration: 4720
+Iteration: 4730
+Iteration: 4740
+Iteration: 4750
+Iteration: 4760
+Iteration: 4770
+Iteration: 4780
+Iteration: 4790
+Iteration: 4800
+Iteration: 4810
+Iteration: 4820
+Iteration: 4830
+Iteration: 4840
+Iteration: 4850
+Iteration: 4860
+Iteration: 4870
+Iteration: 4880
+Iteration: 4890
+Iteration: 4900
+Iteration: 4910
+Iteration: 4920
+Iteration: 4930
+Iteration: 4940
+Iteration: 4950
+Iteration: 4960
+Iteration: 4970
+Iteration: 4980
+Iteration: 4990
+Iteration: 5000
+Iteration: 5010
+Iteration: 5020
+Iteration: 5030
+Iteration: 5040
+Iteration: 5050
+Iteration: 5060
+Iteration: 5070
+Iteration: 5080
+Iteration: 5090
+Iteration: 5100
+Iteration: 5110
+Iteration: 5120
+Iteration: 5130
+Iteration: 5140
+Iteration: 5150
+Iteration: 5160
+Iteration: 5170
+Iteration: 5180
+Iteration: 5190
+Iteration: 5200
+Iteration: 5210
+Iteration: 5220
+Iteration: 5230
+Iteration: 5240
+Iteration: 5250
+Iteration: 5260
+Iteration: 5270
+Iteration: 5280
+Iteration: 5290
+Iteration: 5300
+Iteration: 5310
+Iteration: 5320
+Iteration: 5330
+Iteration: 5340
+Iteration: 5350
+Iteration: 5360
+Iteration: 5370
+Iteration: 5380
+Iteration: 5390
+Iteration: 5400
+Iteration: 5410
+Iteration: 5420
+Iteration: 5430
+Iteration: 5440
+Iteration: 5450
+Iteration: 5460
+Iteration: 5470
+Iteration: 5480
+Iteration: 5490
+Iteration: 5500
+Iteration: 5510
+Iteration: 5520
+Iteration: 5530
+Iteration: 5540
+Iteration: 5550
+Iteration: 5560
+Iteration: 5570
+Iteration: 5580
+Iteration: 5590
+Iteration: 5600
+Iteration: 5610
+Iteration: 5620
+Iteration: 5630
+Iteration: 5640
+Iteration: 5650
+Iteration: 5660
+Iteration: 5670
+Iteration: 5680
+Iteration: 5690
+Iteration: 5700
+Iteration: 5710
+Iteration: 5720
+Iteration: 5730
+Iteration: 5740
+Iteration: 5750
+Iteration: 5760
+Iteration: 5770
+Iteration: 5780
+Iteration: 5790
+Iteration: 5800
+Iteration: 5810
+Iteration: 5820
+Iteration: 5830
+Iteration: 5840
+Iteration: 5850
+Iteration: 5860
+Iteration: 5870
+Iteration: 5880
+Iteration: 5890
+Iteration: 5900
+Iteration: 5910
+Iteration: 5920
+Iteration: 5930
+Iteration: 5940
+Iteration: 5950
+Iteration: 5960
+Iteration: 5970
+Iteration: 5980
+Iteration: 5990
+Iteration: 6000
+Iteration: 6010
+Iteration: 6020
+Iteration: 6030
+Iteration: 6040
+Iteration: 6050
+Iteration: 6060
+Iteration: 6070
+Iteration: 6080
+Iteration: 6090
+Iteration: 6100
+Iteration: 6110
+Iteration: 6120
+Iteration: 6130
+Iteration: 6140
+Iteration: 6150
+Iteration: 6160
+Iteration: 6170
+Iteration: 6180
+Iteration: 6190
+Iteration: 6200
+Iteration: 6210
+Iteration: 6220
+Iteration: 6230
+Iteration: 6240
+Iteration: 6250
+Iteration: 6260
+Iteration: 6270
+Iteration: 6280
+Iteration: 6290
+Iteration: 6300
+Iteration: 6310
+Iteration: 6320
+Iteration: 6330
+Iteration: 6340
+Iteration: 6350
+Iteration: 6360
+Iteration: 6370
+Iteration: 6380
+Iteration: 6390
+Iteration: 6400
+Iteration: 6410
+Iteration: 6420
+Iteration: 6430
+Iteration: 6440
+Iteration: 6450
+Iteration: 6460
+Iteration: 6470
+Iteration: 6480
+Iteration: 6490
+Iteration: 6500
+Iteration: 6510
+Iteration: 6520
+Iteration: 6530
+Iteration: 6540
+Iteration: 6550
+Iteration: 6560
+Iteration: 6570
+Iteration: 6580
+Iteration: 6590
+Iteration: 6600
+Iteration: 6610
+Iteration: 6620
+Iteration: 6630
+Iteration: 6640
+Iteration: 6650
+Iteration: 6660
+Iteration: 6670
+Iteration: 6680
+Iteration: 6690
+Iteration: 6700
+Iteration: 6710
+Iteration: 6720
+Iteration: 6730
+Iteration: 6740
+Iteration: 6750
+Iteration: 6760
+Iteration: 6770
+Iteration: 6780
+Iteration: 6790
+Iteration: 6800
+Iteration: 6810
+Iteration: 6820
+Iteration: 6830
+Iteration: 6840
+Iteration: 6850
+Iteration: 6860
+Iteration: 6870
+Iteration: 6880
+Iteration: 6890
+Iteration: 6900
+Iteration: 6910
+Iteration: 6920
+Iteration: 6930
+Iteration: 6940
+Iteration: 6950
+Iteration: 6960
+Iteration: 6970
+Iteration: 6980
+Iteration: 6990
+Iteration: 7000
+Iteration: 7010
+Iteration: 7020
+Iteration: 7030
+Iteration: 7040
+Iteration: 7050
+Iteration: 7060
+Iteration: 7070
+Iteration: 7080
+Iteration: 7090
+Iteration: 7100
+Iteration: 7110
+Iteration: 7120
+Iteration: 7130
+Iteration: 7140
+Iteration: 7150
+Iteration: 7160
+Iteration: 7170
+Iteration: 7180
+Iteration: 7190
+Iteration: 7200
+Iteration: 7210
+Iteration: 7220
+Iteration: 7230
+Iteration: 7240
+Iteration: 7250
+Iteration: 7260
+Iteration: 7270
+Iteration: 7280
+Iteration: 7290
+Iteration: 7300
+Iteration: 7310
+Iteration: 7320
+Iteration: 7330
+Iteration: 7340
+Iteration: 7350
+Iteration: 7360
+Iteration: 7370
+Iteration: 7380
+Iteration: 7390
+Iteration: 7400
+Iteration: 7410
+Iteration: 7420
+Iteration: 7430
+Iteration: 7440
+Iteration: 7450
+Iteration: 7460
+Iteration: 7470
+Iteration: 7480
+Iteration: 7490
+Iteration: 7500
+Iteration: 7510
+Iteration: 7520
+Iteration: 7530
+Iteration: 7540
+Iteration: 7550
+Iteration: 7560
+Iteration: 7570
+Iteration: 7580
+Iteration: 7590
+Iteration: 7600
+Iteration: 7610
+Iteration: 7620
+Iteration: 7630
+Iteration: 7640
+Iteration: 7650
+Iteration: 7660
+Iteration: 7670
+Iteration: 7680
+Iteration: 7690
+Iteration: 7700
+Iteration: 7710
+Iteration: 7720
+Iteration: 7730
+Iteration: 7740
+Iteration: 7750
+Iteration: 7760
+Iteration: 7770
+Iteration: 7780
+Iteration: 7790
+Iteration: 7800
+Iteration: 7810
+Iteration: 7820
+Iteration: 7830
+Iteration: 7840
+Iteration: 7850
+Iteration: 7860
+Iteration: 7870
+Iteration: 7880
+Iteration: 7890
+Iteration: 7900
+Iteration: 7910
+Iteration: 7920
+Iteration: 7930
+Iteration: 7940
+Iteration: 7950
+Iteration: 7960
+Iteration: 7970
+Iteration: 7980
+Iteration: 7990
+Iteration: 8000
+Iteration: 8010
+Iteration: 8020
+Iteration: 8030
+Iteration: 8040
+Iteration: 8050
+Iteration: 8060
+Iteration: 8070
+Iteration: 8080
+Iteration: 8090
+Iteration: 8100
+Iteration: 8110
+Iteration: 8120
+Iteration: 8130
+Iteration: 8140
+Iteration: 8150
+Iteration: 8160
+Iteration: 8170
+Iteration: 8180
+Iteration: 8190
+Iteration: 8200
+Iteration: 8210
+Iteration: 8220
+Iteration: 8230
+Iteration: 8240
+Iteration: 8250
+Iteration: 8260
+Iteration: 8270
+Iteration: 8280
+Iteration: 8290
+Iteration: 8300
+Iteration: 8310
+Iteration: 8320
+Iteration: 8330
+Iteration: 8340
+Iteration: 8350
+Iteration: 8360
+Iteration: 8370
+Iteration: 8380
+Iteration: 8390
+Iteration: 8400
+Iteration: 8410
+Iteration: 8420
+Iteration: 8430
+Iteration: 8440
+Iteration: 8450
+Iteration: 8460
+Iteration: 8470
+Iteration: 8480
+Iteration: 8490
+Iteration: 8500
+Iteration: 8510
+Iteration: 8520
+Iteration: 8530
+Iteration: 8540
+Iteration: 8550
+Iteration: 8560
+Iteration: 8570
+Iteration: 8580
+Iteration: 8590
+Iteration: 8600
+Iteration: 8610
+Iteration: 8620
+Iteration: 8630
+Iteration: 8640
+Iteration: 8650
+Iteration: 8660
+Iteration: 8670
+Iteration: 8680
+Iteration: 8690
+Iteration: 8700
+Iteration: 8710
+Iteration: 8720
+Iteration: 8730
+Iteration: 8740
+Iteration: 8750
+Iteration: 8760
+Iteration: 8770
+Iteration: 8780
+Iteration: 8790
+Iteration: 8800
+Iteration: 8810
+Iteration: 8820
+Iteration: 8830
+Iteration: 8840
+Iteration: 8850
+Iteration: 8860
+Iteration: 8870
+Iteration: 8880
+Iteration: 8890
+Iteration: 8900
+Iteration: 8910
+Iteration: 8920
+Iteration: 8930
+Iteration: 8940
+Iteration: 8950
+Iteration: 8960
+Iteration: 8970
+Iteration: 8980
+Iteration: 8990
+Iteration: 9000
+Iteration: 9010
+Iteration: 9020
+Iteration: 9030
+Iteration: 9040
+Iteration: 9050
+Iteration: 9060
+Iteration: 9070
+Iteration: 9080
+Iteration: 9090
+Iteration: 9100
+Iteration: 9110
+Iteration: 9120
+Iteration: 9130
+Iteration: 9140
+Iteration: 9150
+Iteration: 9160
+Iteration: 9170
+Iteration: 9180
+Iteration: 9190
+Iteration: 9200
+Iteration: 9210
+Iteration: 9220
+Iteration: 9230
+Iteration: 9240
+Iteration: 9250
+Iteration: 9260
+Iteration: 9270
+Iteration: 9280
+Iteration: 9290
+Iteration: 9300
+Iteration: 9310
+Iteration: 9320
+Iteration: 9330
+Iteration: 9340
+Iteration: 9350
+Iteration: 9360
+Iteration: 9370
+Iteration: 9380
+Iteration: 9390
+Iteration: 9400
+Iteration: 9410
+Iteration: 9420
+Iteration: 9430
+Iteration: 9440
+Iteration: 9450
+Iteration: 9460
+Iteration: 9470
+Iteration: 9480
+Iteration: 9490
+Iteration: 9500
+Iteration: 9510
+Iteration: 9520
+Iteration: 9530
+Iteration: 9540
+Iteration: 9550
+Iteration: 9560
+Iteration: 9570
+Iteration: 9580
+Iteration: 9590
+Iteration: 9600
+Iteration: 9610
+Iteration: 9620
+Iteration: 9630
+Iteration: 9640
+Iteration: 9650
+Iteration: 9660
+Iteration: 9670
+Iteration: 9680
+Iteration: 9690
+Iteration: 9700
+Iteration: 9710
+Iteration: 9720
+Iteration: 9730
+Iteration: 9740
+Iteration: 9750
+Iteration: 9760
+Iteration: 9770
+Iteration: 9780
+Iteration: 9790
+Iteration: 9800
+Iteration: 9810
+Iteration: 9820
+Iteration: 9830
+Iteration: 9840
+Iteration: 9850
+Iteration: 9860
+Iteration: 9870
+Iteration: 9880
+Iteration: 9890
+Iteration: 9900
+Iteration: 9910
+Iteration: 9920
+Iteration: 9930
+Iteration: 9940
+Iteration: 9950
+Iteration: 9960
+Iteration: 9970
+Iteration: 9980
+Iteration: 9990
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Finishing simulation
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+Current (running energy) Energy Status
+===========================================================================
+
+Internal energy:
+Host stretch energy:                                            0.00000000
+Host UreyBradley energy:                                        0.00000000
+Host bend energy:                                               0.00000000
+Host inversion-bend energy:                                     0.00000000
+Host torsion energy:                                            0.00000000
+Host improper torsion energy:                                   0.00000000
+Host out-of-plane energy:                                       0.00000000
+Host stretch/stretch energy:                                    0.00000000
+Host bend/bend energy:                                          0.00000000
+Host stretch/bend energy:                                       0.00000000
+Host stretch/torsion energy:                                    0.00000000
+Host bend/torsion energy:                                       0.00000000
+
+Adsorbate stretch energy:                                       0.00000000
+Adsorbate UreyBradley energy:                                   0.00000000
+Adsorbate bend energy:                                          0.00000000
+Adsorbate inversion-bend energy:                                0.00000000
+Adsorbate torsion energy:                                       0.00000000
+Adsorbate improper torsion energy:                              0.00000000
+Adsorbate out-of-plane energy:                                  0.00000000
+Adsorbate stretch/stretch energy:                               0.00000000
+Adsorbate bend/bend energy:                                     0.00000000
+Adsorbate stretch/bend energy:                                  0.00000000
+Adsorbate stretch/torsion energy:                               0.00000000
+Adsorbate bend/torsion energy:                                  0.00000000
+Adsorbate intra VDW energy:                                     0.00000000
+Adsorbate intra charge-charge Coulomb energy:                   0.00000000
+Adsorbate intra charge-bonddipole Coulomb energy:               0.00000000
+Adsorbate intra bonddipole-bonddipole Coulomb energy:           0.00000000
+
+Cation stretch energy:                                          0.00000000
+Cation UreyBradley energy:                                      0.00000000
+Cation bend energy:                                             0.00000000
+Cation inversion-bend energy:                                   0.00000000
+Cation torsion energy:                                          0.00000000
+Cation improper torsion energy:                                 0.00000000
+Cation out-of-plane energy:                                     0.00000000
+Cation stretch/stretch energy:                                  0.00000000
+Cation bend/bend energy:                                        0.00000000
+Cation stretch/bend energy:                                     0.00000000
+Cation stretch/torsion energy:                                  0.00000000
+Cation bend/torsion energy:                                     0.00000000
+Cation intra VDW energy:                                        0.00000000
+Cation intra charge-charge Coulomb energy:                      0.00000000
+Cation intra charge-bonddipole Coulomb energy:                  0.00000000
+Cation intra bonddipole-bonddipole Coulomb energy:              0.00000000
+
+Host/Host energy:                                             0.00000000
+	Host/Host VDW energy:                                         0.00000000
+	Host/Host Coulomb energy:                                     0.00000000
+	Host/Host charge-charge Real energy:                          0.00000000
+	Host/Host charge-charge Fourier energy:                       0.00000000
+	Host/Host charge-bonddipole Real energy:                      0.00000000
+	Host/Host charge-bonddipole Fourier energy:                   0.00000000
+	Host/Host bondipole-bonddipole Real energy:                   0.00000000
+	Host/Host bondipole-bonddipole Fourier energy:                0.00000000
+
+Host/Adsorbate energy:                                        0.00000000
+	Host/Adsorbate VDW energy:                                    0.00000000
+	Host/Adsorbate Coulomb energy:                                0.00000000
+	Host/Adsorbate charge-charge Real energy:                     0.00000000
+	Host/Adsorbate charge-charge Fourier energy:                  0.00000000
+	Host/Adsorbate charge-bonddipole Real energy:                 0.00000000
+	Host/Adsorbate charge-bonddipole Fourier energy:              0.00000000
+	Host/Adsorbate bondipole-bonddipole Real energy:              0.00000000
+	Host/Adsorbate bondipole-bonddipole Fourier energy:           0.00000000
+
+Host/Cation energy:                                           0.00000000
+	Host/Cation VDW energy:                                       0.00000000
+	Host/Cation Coulomb energy:                                   0.00000000
+	Host/Cation charge-charge Real energy:                        0.00000000
+	Host/Cation charge-charge Fourier energy:                     0.00000000
+	Host/Cation charge-bonddipole Real energy:                    0.00000000
+	Host/Cation charge-bonddipole Fourier energy:                 0.00000000
+	Host/Cation bondipole-bonddipole Real energy:                 0.00000000
+	Host/Cation bondipole-bonddipole Fourier energy:              0.00000000
+
+Adsorbate/Adsorbate energy:                                        0.00000000
+	Adsorbate/Adsorbate VDW energy:                                    0.00000000
+	Adsorbate/Adsorbate Coulomb energy:                                0.00000000
+	Adsorbate/Adsorbate charge-charge Real energy:                     0.00000000
+	Adsorbate/Adsorbate charge-charge Fourier energy:                  0.00000000
+	Adsorbate/Adsorbate charge-bonddipole Real energy:                 0.00000000
+	Adsorbate/Adsorbate charge-bonddipole Fourier energy:              0.00000000
+	Adsorbate/Adsorbate bondipole-bonddipole Real energy:              0.00000000
+	Adsorbate/Adsorbate bondipole-bonddipole Fourier energy:           0.00000000
+
+Adsorbate/Cation energy:                                           0.00000000
+	Adsorbate/Cation VDW energy:                                       0.00000000
+	Adsorbate/Cation Coulomb energy:                                   0.00000000
+	Adsorbate/Cation charge-charge Real energy:                        0.00000000
+	Adsorbate/Cation charge-charge Fourier energy:                     0.00000000
+	Adsorbate/Cation charge-bonddipole Real energy:                    0.00000000
+	Adsorbate/Cation charge-bonddipole Fourier energy:                 0.00000000
+	Adsorbate/Cation bondipole-bonddipole Real energy:                 0.00000000
+	Adsorbate/Cation bondipole-bonddipole Fourier energy:              0.00000000
+
+Cation/Cation energy:                                           0.00000000
+	Cation/Cation VDW energy:                                       0.00000000
+	Cation/Cation Coulomb energy:                                   0.00000000
+	Cation/Cation charge-charge Real energy:                        0.00000000
+	Cation/Cation charge-charge Fourier energy:                     0.00000000
+	Cation/Cation charge-bonddipole Real energy:                    0.00000000
+	Cation/Cation charge-bonddipole Fourier energy:                 0.00000000
+	Cation/Cation bondipole-bonddipole Real energy:                 0.00000000
+	Cation/Cation bondipole-bonddipole Fourier energy:              0.00000000
+
+Polarization energy:
+	Host polarization energy:                                     0.00000000
+	Adsorbate polarization energy:                                0.00000000
+	Cation polarization energy:                                   0.00000000
+	Host back-polarization energy:                                     0.00000000
+	Adsorbate back-polarization energy:                                0.00000000
+	Cation back-polarization energy:                                   0.00000000
+
+Tail-correction energy:                                       0.00000000
+
+Distance constraints energy:                                  0.00000000
+Angle constraints energy:                                     0.00000000
+Dihedral constraints energy:                                  0.00000000
+Inversion-bend constraints energy:                            0.00000000
+Out-of-plane distance constraints energy:                     0.00000000
+Exclusion constraints energy:                                 0.00000000
+
+===================================================================
+Total energy:     0.000000000000
+	Total Van der Waals: 0.000000
+	Total Coulomb: 0.000000
+
+	Total Polarization: 0.000000
+
+Monte-Carlo moves statistics
+===========================================================================
+
+Performance of the small-MC scheme
+==================================
+
+
+
+Translation move was OFF for all components
+
+Random translation move was OFF for all components
+
+Rotation move was OFF for all components
+
+Random rotation move was OFF for all components
+
+Swap addition move was OFF for all components
+
+Swap deletion move was OFF for all components
+
+Reinsertion move was OFF for all components
+
+Reinsertion-in-plane move was OFF for all components
+
+Reinsertion-in-place move was OFF for all components
+
+Partial reinsertion move was OFF for all components
+
+Identity change move was OFF for all components
+
+Parallel tempering move was OFF
+
+Hyper parallel tempering move was OFF
+
+Parallel mol-fraction move was OFF
+
+Chiral inversion move was OFF
+
+Volume move was OFF
+
+Box shape change move was OFF
+
+Framework change move was OFF
+
+Framework shift move was OFF
+
+Hybrid MC/MD move in the NVE-ensemble was OFF
+
+Hybrid MC/MD in the NPH-ensemble move was OFF
+
+Hybrid MC/MD in the NPH-ensemble (Parrinello-Rahman) move was OFF
+
+Gibbs volume change move was OFF
+
+Gibbs swap move was OFF for all components
+
+Gibbs identity change move was OFF for all components
+
+CFMC swap lambda move was OFF for all components
+
+CB/CFMC swap lambda move was OFF for all components
+
+CFMC Gibbs lambda move was OFF for all components
+
+CB/CFMC Gibbs lambda move was OFF for all components
+
+Performance of the Reaction MC lambda move:
+===========================================
+
+
+
+
+Total CPU timings:
+===========================================
+initialization:                     0 [s]
+equilibration:                      0 [s]
+production run:                     0 [s]
+total time:                         0 [s]
+
+Production run CPU timings of the MC moves:
+===========================================
+
+Total all components:
+	translation:                                         0 [s]
+	random translation:                                  0 [s]
+	rotation:                                            0 [s]
+	random rotation:                                     0 [s]
+	partial reinsertion:                                 0 [s]
+	reinsertion:                                         0 [s]
+	reinsertion in-place:                                0 [s]
+	reinsertion in-plane:                                0 [s]
+	identity switch:                                     0 [s]
+	swap (insertion):                                    0 [s]
+	swap (deletion):                                     0 [s]
+	swap lambda (CFMC):                                  0 [s]
+	swap lambda (CB/CFMC):                               0 [s]
+	Widom:                                               0 [s]
+	surface area:                                        0 [s]
+	Gibbs particle transform:                            0 [s]
+	Gibbs particle transform (CFMC):                     0 [s]
+	Gibbs particle transform (CB/CFMC):                  0 [s]
+	Gibbs indentity change:                              0 [s]
+
+System moves:
+	parallel tempering:                             0 [s]
+	hyper parallel tempering:                       0 [s]
+	mol-fraction replica-exchange:                  0 [s]
+	chiral inversion:                               0 [s]
+	hybrid MC/MD (NVE):                             0 [s]
+	hybrid MC/MD (NPH):                             0 [s]
+	hybrid MC/MD (NPHPR):                           0 [s]
+	volume change:                                  0 [s]
+	box change:                                     0 [s]
+	Gibbs volume change:                            0 [s]
+	framework change:                               0 [s]
+	framework shift:                                0 [s]
+	reaction MC move:                               0 [s]
+
+Production run CPU timings of the MC moves summed over all systems and components:
+==================================================================================
+
+Particles moves:
+	translation:                                         0 [s]
+	random translation:                                  0 [s]
+	rotation:                                            0 [s]
+	random rotation:                                     0 [s]
+	partial reinsertion:                                 0 [s]
+	reinsertion:                                         0 [s]
+	reinsertion in-place:                                0 [s]
+	reinsertion in-plane:                                0 [s]
+	identity switch:                                     0 [s]
+	swap (insertion):                                    0 [s]
+	swap (deletion):                                     0 [s]
+	swap lambda (CFMC):                                  0 [s]
+	swap lambda (CB/CFMC):                               0 [s]
+	Widom:                                               0 [s]
+	surface area:                                        0 [s]
+	Gibbs particle transform:                            0 [s]
+	Gibbs particle transform (CFMC):                     0 [s]
+	Gibbs particle transform (CB/CFMC):                  0 [s]
+	Gibbs indentity change:                              0 [s]
+
+System moves:
+	parallel tempering:                             0 [s]
+	hyper parallel tempering:                       0 [s]
+	mol-fraction replica-exchange:                  0 [s]
+	chiral inversion:                               0 [s]
+	hybrid MC/MD (NVE):                             0 [s]
+	hybrid MC/MD (NPH):                             0 [s]
+	hybrid MC/MD (NPHPR):                           0 [s]
+	volume change:                                  0 [s]
+	box change:                                     0 [s]
+	Gibbs volume change:                            0 [s]
+	framework change:                               0 [s]
+	framework shift:                                0 [s]
+	reaction MC move:                               0 [s]
+
+
+
+
+
+Current (full final energy) Energy Status
+===========================================================================
+
+Internal energy:
+Host stretch energy:                                            0.00000000
+Host UreyBradley energy:                                        0.00000000
+Host bend energy:                                               0.00000000
+Host inversion-bend energy:                                     0.00000000
+Host torsion energy:                                            0.00000000
+Host improper torsion energy:                                   0.00000000
+Host out-of-plane energy:                                       0.00000000
+Host stretch/stretch energy:                                    0.00000000
+Host bend/bend energy:                                          0.00000000
+Host stretch/bend energy:                                       0.00000000
+Host stretch/torsion energy:                                    0.00000000
+Host bend/torsion energy:                                       0.00000000
+
+Adsorbate stretch energy:                                       0.00000000
+Adsorbate UreyBradley energy:                                   0.00000000
+Adsorbate bend energy:                                          0.00000000
+Adsorbate inversion-bend energy:                                0.00000000
+Adsorbate torsion energy:                                       0.00000000
+Adsorbate improper torsion energy:                              0.00000000
+Adsorbate out-of-plane energy:                                  0.00000000
+Adsorbate stretch/stretch energy:                               0.00000000
+Adsorbate bend/bend energy:                                     0.00000000
+Adsorbate stretch/bend energy:                                  0.00000000
+Adsorbate stretch/torsion energy:                               0.00000000
+Adsorbate bend/torsion energy:                                  0.00000000
+Adsorbate intra VDW energy:                                     0.00000000
+Adsorbate intra charge-charge Coulomb energy:                   0.00000000
+Adsorbate intra charge-bonddipole Coulomb energy:               0.00000000
+Adsorbate intra bonddipole-bonddipole Coulomb energy:           0.00000000
+
+Cation stretch energy:                                          0.00000000
+Cation UreyBradley energy:                                      0.00000000
+Cation bend energy:                                             0.00000000
+Cation inversion-bend energy:                                   0.00000000
+Cation torsion energy:                                          0.00000000
+Cation improper torsion energy:                                 0.00000000
+Cation out-of-plane energy:                                     0.00000000
+Cation stretch/stretch energy:                                  0.00000000
+Cation bend/bend energy:                                        0.00000000
+Cation stretch/bend energy:                                     0.00000000
+Cation stretch/torsion energy:                                  0.00000000
+Cation bend/torsion energy:                                     0.00000000
+Cation intra VDW energy:                                        0.00000000
+Cation intra charge-charge Coulomb energy:                      0.00000000
+Cation intra charge-bonddipole Coulomb energy:                  0.00000000
+Cation intra bonddipole-bonddipole Coulomb energy:              0.00000000
+
+Host/Host energy:                                             0.00000000
+	Host/Host VDW energy:                                         0.00000000
+	Host/Host Coulomb energy:                                     0.00000000
+	Host/Host charge-charge Real energy:                          0.00000000
+	Host/Host charge-charge Fourier energy:                       0.00000000
+	Host/Host charge-bonddipole Real energy:                      0.00000000
+	Host/Host charge-bonddipole Fourier energy:                   0.00000000
+	Host/Host bondipole-bonddipole Real energy:                   0.00000000
+	Host/Host bondipole-bonddipole Fourier energy:                0.00000000
+
+Host/Adsorbate energy:                                        0.00000000
+	Host/Adsorbate VDW energy:                                    0.00000000
+	Host/Adsorbate Coulomb energy:                                0.00000000
+	Host/Adsorbate charge-charge Real energy:                     0.00000000
+	Host/Adsorbate charge-charge Fourier energy:                  0.00000000
+	Host/Adsorbate charge-bonddipole Real energy:                 0.00000000
+	Host/Adsorbate charge-bonddipole Fourier energy:              0.00000000
+	Host/Adsorbate bondipole-bonddipole Real energy:              0.00000000
+	Host/Adsorbate bondipole-bonddipole Fourier energy:           0.00000000
+
+Host/Cation energy:                                           0.00000000
+	Host/Cation VDW energy:                                       0.00000000
+	Host/Cation Coulomb energy:                                   0.00000000
+	Host/Cation charge-charge Real energy:                        0.00000000
+	Host/Cation charge-charge Fourier energy:                     0.00000000
+	Host/Cation charge-bonddipole Real energy:                    0.00000000
+	Host/Cation charge-bonddipole Fourier energy:                 0.00000000
+	Host/Cation bondipole-bonddipole Real energy:                 0.00000000
+	Host/Cation bondipole-bonddipole Fourier energy:              0.00000000
+
+Adsorbate/Adsorbate energy:                                        0.00000000
+	Adsorbate/Adsorbate VDW energy:                                    0.00000000
+	Adsorbate/Adsorbate Coulomb energy:                                0.00000000
+	Adsorbate/Adsorbate charge-charge Real energy:                     0.00000000
+	Adsorbate/Adsorbate charge-charge Fourier energy:                  0.00000000
+	Adsorbate/Adsorbate charge-bonddipole Real energy:                 0.00000000
+	Adsorbate/Adsorbate charge-bonddipole Fourier energy:              0.00000000
+	Adsorbate/Adsorbate bondipole-bonddipole Real energy:              0.00000000
+	Adsorbate/Adsorbate bondipole-bonddipole Fourier energy:           0.00000000
+
+Adsorbate/Cation energy:                                           0.00000000
+	Adsorbate/Cation VDW energy:                                       0.00000000
+	Adsorbate/Cation Coulomb energy:                                   0.00000000
+	Adsorbate/Cation charge-charge Real energy:                        0.00000000
+	Adsorbate/Cation charge-charge Fourier energy:                     0.00000000
+	Adsorbate/Cation charge-bonddipole Real energy:                    0.00000000
+	Adsorbate/Cation charge-bonddipole Fourier energy:                 0.00000000
+	Adsorbate/Cation bondipole-bonddipole Real energy:                 0.00000000
+	Adsorbate/Cation bondipole-bonddipole Fourier energy:              0.00000000
+
+Cation/Cation energy:                                           0.00000000
+	Cation/Cation VDW energy:                                       0.00000000
+	Cation/Cation Coulomb energy:                                   0.00000000
+	Cation/Cation charge-charge Real energy:                        0.00000000
+	Cation/Cation charge-charge Fourier energy:                     0.00000000
+	Cation/Cation charge-bonddipole Real energy:                    0.00000000
+	Cation/Cation charge-bonddipole Fourier energy:                 0.00000000
+	Cation/Cation bondipole-bonddipole Real energy:                 0.00000000
+	Cation/Cation bondipole-bonddipole Fourier energy:              0.00000000
+
+Polarization energy:
+	Host polarization energy:                                     0.00000000
+	Adsorbate polarization energy:                                0.00000000
+	Cation polarization energy:                                   0.00000000
+	Host back-polarization energy:                                     0.00000000
+	Adsorbate back-polarization energy:                                0.00000000
+	Cation back-polarization energy:                                   0.00000000
+
+Tail-correction energy:                                       0.00000000
+
+Distance constraints energy:                                  0.00000000
+Angle constraints energy:                                     0.00000000
+Dihedral constraints energy:                                  0.00000000
+Inversion-bend constraints energy:                            0.00000000
+Out-of-plane distance constraints energy:                     0.00000000
+Exclusion constraints energy:                                 0.00000000
+
+===================================================================
+Total energy:     0.000000000000
+	Total Van der Waals: 0.000000
+	Total Coulomb: 0.000000
+
+	Total Polarization: 0.000000
+
+
+
+Energy-drift status
+===========================================================================
+
+Internal energy:
+Host stretch energy-drift:                                           0
+Host UreyBradley energy-drift:                                       0
+Host bend energy-drift:                                              0
+Host inversion-bend energy-drift:                                    0
+Host torsion energy-drift:                                           0
+Host torsion improper energy-drift:                                  0
+Host out-of-plane energy-drift:                                      0
+Host stretch/stretch energy-drift:                                   0
+Host stretch/bend energy-drift:                                      0
+Host bend/bend energy-drift:                                         0
+Host stretch/torsion energy-drift:                                   0
+Host bend/torsion energy-drift:                                      0
+
+Adsorbate stretch energy-drift:                                      0
+Adsorbate UreyBradley energy-drift:                                  0
+Adsorbate bend energy-drift:                                         0
+Adsorbate inversion-bend energy-drift:                               0
+Adsorbate torsion energy-drift:                                      0
+Adsorbate improper torsion energy-drift:                             0
+Adsorbate out-of-plane energy-drift:                                 0
+Adsorbate stretch/stretch energy-drift:                              0
+Adsorbate stretch/bend energy-drift:                                 0
+Adsorbate bend/bend energy-drift:                                    0
+Adsorbate stretch/torsion energy-drift:                              0
+Adsorbate bend/torsion energy-drift:                                 0
+Adsorbate intra VDW energy-drift:                                    0
+Adsorbate intra charge-charge Coulomb energy-drift:                  0
+Adsorbate intra charge-bonddipole Coulomb energy-drift:              0
+Adsorbate intra bonddipole-bonddipole Coulomb energy-drift:          0
+
+Cation stretch energy-drift:                                         0
+Cation UreyBradley energy-drift:                                     0
+Cation bend energy-drift:                                            0
+Cation inversion-bend energy-drift:                                  0
+Cation torsion energy-drift:                                         0
+Cation improper torsion energy-drift:                                0
+Cation out-of-plane energy-drift:                                    0
+Cation stretch/stretch energy-drift:                                 0
+Cation stretch/bend energy-drift:                                    0
+Cation bend/bend energy-drift:                                       0
+Cation stretch/torsion energy-drift:                                 0
+Cation bend/torsion energy-drift:                                    0
+Cation intra VDW energy-drift:                                       0
+Cation intra Coulomb charge-charge energy-drift:                     0
+Cation intra Coulomb charge-bonddipole energy-drift:                 0
+Cation intra Coulomb bonddipole-bonddipole energy-drift:             0
+
+Host/Host energy-drift:                                              0
+	Host/Host VDW energy-drift:                                        0
+	Host/Host Coulomb energy-drift:                                    0
+		Host/Host Real charge-charge energy-drift:                       0
+		Host/Host Fourier charge-charge energy-drift:                    0
+		Host/Host Real charge-bonddipole energy-drift:                   0
+		Host/Host Fourier charge-bonddipole energy-drift:                0
+		Host/Host Real bonddipole-bonddipole energy-drift:               0
+		Host/Host Fourier bonddipole-bonddipole energy-drift:            0
+Host/Adsorbate energy-drift:                                         0
+	Host/Adsorbate VDW energy-drift:                                   0
+	Host/Adsorbate Coulomb energy-drift:                               0
+		Host/Adsorbate Real charge-charge energy-drift:                  0
+		Host/Adsorbate Fourier charge-charge energy-drift:               0
+		Host/Adsorbate Real charge-bonddipole energy-drift:              0
+		Host/Adsorbate Fourier charge-bonddipole energy-drift:           0
+		Host/Adsorbate Real bonddipole-bonddipole energy-drift:          0
+		Host/Adsorbate Fourier bonddipole-bonddipole energy-drift:       0
+Host/Cation energy-drift:                                            0
+	Host/Cation VDW energy-drift:                                      0
+	Host/Cation Coulomb energy-drift:                                  0
+		Host/Cation Real charge-charge energy-drift:                     0
+		Host/Cation Fourier charge-charge energy-drift:                  0
+		Host/Cation Real charge-bonddipole energy-drift:                 0
+		Host/Cation Fourier charge-bonddipole energy-drift:              0
+		Host/Cation Real bonddipole-bonddipole energy-drift:             0
+		Host/Cation Fourier bonddipole-bonddipole energy-drift:          0
+Adsorbate/Adsorbate energy-drift:                                     0
+	Adsorbate/Adsorbate VDW energy-drift:                               0
+	Adsorbate/Adsorbate Coulomb energy-drift:                           0
+		Adsorbate/Adsorbate Real charge-charge energy-drift:              0
+		Adsorbate/Adsorbate Fourier charge-charge energy-drift:           0
+		Adsorbate/Adsorbate Real charge-bonddipole energy-drift:          0
+		Adsorbate/Adsorbate Fourier charge-bonddipole energy-drift:       0
+		Adsorbate/Adsorbate Real bonddipole-bonddipole energy-drift:      0
+		Adsorbate/Adsorbate Fourier bonddipole-bonddipole energy-drift:   0
+Cation/Cation energy-drift:                                           0
+	Cation/Cation VDW energy-drift:                                     0
+	Cation/Cation Coulomb energy-drift:                                 0
+		Cation/Cation Real charge-charge energy-drift:                    0
+		Cation/Cation Fourier charge-charge energy-drift:                 0
+		Cation/Cation Real charge-bonddipole energy-drift:                0
+		Cation/Cation Fourier charge-bonddipole energy-drift:             0
+		Cation/Cation Real bonddipole-bonddipole energy-drift:            0
+		Cation/Cation Fourier bonddipole-bonddipole energy-drift:         0
+Adsorbate/Cation energy-drift:                                        0
+	Adsorbate/Cation VDW energy-drift:                                  0
+	Adsorbate/Cation Coulomb energy-drift:                              0
+		Adsorbate/Cation Real charge-charge energy-drift:                 0
+		Adsorbate/Cation Fourier charge-charge energy-drift:              0
+		Adsorbate/Cation Real charge-bonddipole energy-drift:             0
+		Adsorbate/Cation Fourier charge-bonddipole energy-drift:          0
+		Adsorbate/Cation Real bonddipole-bonddipole energy-drift:         0
+		Adsorbate/Cation Fourier bonddipole-bonddipole energy-drift:      0
+
+Polarization energy-drift:
+	Host polarization energy-drift:                0
+	Adsorbate polarization energy-drift:           0
+	Cation polarization energy-drift:              0
+	Host back-polarization energy-drift:                0
+	Adsorbate back-polarization energy-drift:           0
+	Cation back-polarization energy-drift:              0
+
+Tail-correction energy-drift:                  0
+
+Distance constraints energy-drift:                  0
+Angle constraints energy-drift:                     0
+Dihedral constraints energy-drift:                  0
+Inversion-bend constraints energy-drift:                    0
+Out-of-plane distance constraints energy-drift:                    0
+Exclusion constraints energy-drift:                 0
+
+===================================================================
+Total energy-drift: 0
+
+
+
+
+
+
+
+Average properties of the system[0]:
+========================================================================
+
+Average temperature:
+====================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+
+Average Volume:
+=================
+	Block[ 0]            0.00000 [A^3]
+	Block[ 1]            0.00000 [A^3]
+	Block[ 2]            0.00000 [A^3]
+	Block[ 3]            0.00000 [A^3]
+	Block[ 4]            0.00000 [A^3]
+	------------------------------------------------------------------------------
+	Average              0.00000 [A^3] +/-            0.00000 [A^3]
+
+Average Box-lengths:
+====================
+	Block[ 0]            0.00000 [A^3]
+	Block[ 1]            0.00000 [A^3]
+	Block[ 2]            0.00000 [A^3]
+	Block[ 3]            0.00000 [A^3]
+	Block[ 4]            0.00000 [A^3]
+	------------------------------------------------------------------------------
+	Average Box.ax             0.00000 [A^3] +/-            0.00000 [A^3]
+
+	Block[ 0]            0.00000 [A^3]
+	Block[ 1]            0.00000 [A^3]
+	Block[ 2]            0.00000 [A^3]
+	Block[ 3]            0.00000 [A^3]
+	Block[ 4]            0.00000 [A^3]
+	------------------------------------------------------------------------------
+	Average Box.by             0.00000 [A^3] +/-            0.00000 [A^3]
+
+	Block[ 0]            0.00000 [A^3]
+	Block[ 1]            0.00000 [A^3]
+	Block[ 2]            0.00000 [A^3]
+	Block[ 3]            0.00000 [A^3]
+	Block[ 4]            0.00000 [A^3]
+	------------------------------------------------------------------------------
+	Average Box.cz             0.00000 [A^3] +/-            0.00000 [A^3]
+	Block[ 0]            0.00000 [A^3]
+	Block[ 1]            0.00000 [A^3]
+	Block[ 2]            0.00000 [A^3]
+	Block[ 3]            0.00000 [A^3]
+	Block[ 4]            0.00000 [A^3]
+	------------------------------------------------------------------------------
+	Average alpha angle             0.00000 [degrees] +/-            0.00000 [degrees]
+	Block[ 0]            0.00000 [A^3]
+	Block[ 1]            0.00000 [A^3]
+	Block[ 2]            0.00000 [A^3]
+	Block[ 3]            0.00000 [A^3]
+	Block[ 4]            0.00000 [A^3]
+	------------------------------------------------------------------------------
+	Average beta angle             0.00000 [degrees] +/-            0.00000 [degrees]
+	Block[ 0]            0.00000 [A^3]
+	Block[ 1]            0.00000 [A^3]
+	Block[ 2]            0.00000 [A^3]
+	Block[ 3]            0.00000 [A^3]
+	Block[ 4]            0.00000 [A^3]
+	------------------------------------------------------------------------------
+	Average gamma angle             0.00000 [degrees] +/-            0.00000 [degrees]
+
+Average Surface Area:
+=====================
+
+Average Density:
+=================
+	Block[ 0]            0.00000 [kg/m^3]
+	Block[ 1]            0.00000 [kg/m^3]
+	Block[ 2]            0.00000 [kg/m^3]
+	Block[ 3]            0.00000 [kg/m^3]
+	Block[ 4]            0.00000 [kg/m^3]
+	------------------------------------------------------------------------------
+	Average              0.00000 [kg/m^3] +/-            0.00000 [kg/m^3]
+
+Average compressibility Z:
+=========================
+	Block[ 0]            0.00000 [-]
+	Block[ 1]            0.00000 [-]
+	Block[ 2]            0.00000 [-]
+	Block[ 3]            0.00000 [-]
+	Block[ 4]            0.00000 [-]
+	------------------------------------------------------------------------------
+	Average              0.00000 [-] +/-            0.00000 [-]
+
+Heat of desorption:
+===================
+	Block[ 0] 0.00000            [K]
+	Block[ 1] 0.00000            [K]
+	Block[ 2] 0.00000            [K]
+	Block[ 3] 0.00000            [K]
+	Block[ 4] 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 +/-           0.000000 [K]
+	                     0.00000 +/-           0.000000 [KJ/MOL]
+Note: Ug should be added to this value
+Note: The heat of adsorption Q=-H
+
+Heat of desorption (Host-Adsorbate contribution):
+=================================================
+	Block[ 0] 0.00000            [K]
+	Block[ 1] 0.00000            [K]
+	Block[ 2] 0.00000            [K]
+	Block[ 3] 0.00000            [K]
+	Block[ 4] 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 +/-           0.000000 [K]
+	                     0.00000 +/-           0.000000 [KJ/MOL]
+Note: the sum of the parts is *not* exactly equal to the true value (Heat of desorption)
+Note: Ug and K_BT are not included here
+Note: The heat of adsorption Q=-H
+
+Heat of desorption (Adsorbate-Adsorbate contribution):
+======================================================
+	Block[ 0] 0.00000            [K]
+	Block[ 1] 0.00000            [K]
+	Block[ 2] 0.00000            [K]
+	Block[ 3] 0.00000            [K]
+	Block[ 4] 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 +/-           0.000000 [K]
+	                     0.00000 +/-           0.000000 [KJ/MOL]
+Note: the sum of the parts is *not* exactly equal to the true value (Heat of desorption)
+Note: Ug and K_BT are not included here
+Note: The heat of adsorption Q=-H
+
+derivative of the chemical potential with respect to density (constant T,V):
+============================================================================
+	Block[ 0] 0.00000            [-]
+	Block[ 1] 0.00000            [-]
+	Block[ 2] 0.00000            [-]
+	Block[ 3] 0.00000            [-]
+	Block[ 4] 0.00000            [-]
+	------------------------------------------------------------------------------
+	Average              0.00000 +/-           0.000000 [-]
+
+
+
+
+
+Average energies of the system[0]:
+========================================================================
+
+Average Host Bond stretch energy:
+=================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host UreyBradley stretch energy:
+==============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Bend angle energy:
+===============================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Bend angle inversion energy:
+=========================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Torsion energy:
+============================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Improper Torsion energy:
+=====================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Bond-Bond cross term energy:
+===============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Bend-Bend cross term energy:
+=========================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Bond-Bend cross term energy:
+============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Bond-Torsion cross term energy:
+============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host Bend-Torsion cross term energy:
+============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bond stretch energy:
+====================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate UreyBradley stretch energy:
+==============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bend angle energy:
+====================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bend angle inversion energy:
+==============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Torsion energy:
+=================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Improper Torsion energy:
+==========================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bond-Bond cross term energy:
+====================================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bend-Bend cross term energy:
+==============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bond-Bend cross term energy:
+=================================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bond-Torsion cross term energy:
+=================================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Bend-Torsion cross term energy:
+=================================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Intra Van der Waals energy:
+=============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Intra charge-charge Coulomb energy:
+=======================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Intra charge-bonddipole Coulomb energy:
+=======================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Adsorbate Intra bonddipole-bonddipole Coulomb energy:
+=======================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bond stretch energy:
+=================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation UreyBradley stretch energy:
+==========================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bend angle energy:
+=================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bend angle inversion energy:
+===========================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Torsion energy:
+==============================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Improper Torsion energy:
+=======================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bond-Bond cross term energy:
+=================================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bend-Bend cross term energy:
+===========================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bond-Bend cross term energy:
+==============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bond-Torsion cross term energy:
+==============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Bend-Torsion cross term energy:
+==============================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Intra Van der Waals energy:
+==========================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Intra charge-charge Coulomb energy:
+====================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Intra charge-bonddipole Coulomb energy:
+====================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Cation Intra bonddipole-bonddipole Coulomb energy:
+====================================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Average Host-Host energy:
+=========================
+	Block[ 0] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 1] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 2] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 3] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 4] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average   0.00000            Van der Waals: 0.000000           Coulomb: 0.00000            [K]
+	      +/- 0.00000                       +/- 0.000000                +/- 0.00000            [K]
+
+Average Adsorbate-Adsorbate energy:
+===================================
+	Block[ 0] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 1] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 2] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 3] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 4] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average   0.00000            Van der Waals: 0.000000           Coulomb: 0.00000            [K]
+	      +/- 0.00000                       +/- 0.000000                +/- 0.00000            [K]
+
+Average Cation-Cation energy:
+=============================
+	Block[ 0] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 1] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 2] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 3] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 4] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average   0.00000            Van der Waals: 0.000000           Coulomb: 0.00000            [K]
+	      +/- 0.00000                       +/- 0.000000                +/- 0.00000            [K]
+
+Average Host-Adsorbate energy:
+==============================
+	Block[ 0] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 1] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 2] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 3] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 4] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average   0.00000            Van der Waals: 0.000000           Coulomb: 0.00000            [K]
+	      +/- 0.00000                       +/- 0.000000                +/- 0.00000            [K]
+
+Average Host-Cation energy:
+===========================
+	Block[ 0] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 1] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 2] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 3] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 4] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average   0.00000            Van der Waals: 0.000000           Coulomb: 0.00000            [K]
+	      +/- 0.00000                       +/- 0.000000                +/- 0.00000            [K]
+
+Average Adsorbate-Cation energy:
+================================
+	Block[ 0] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 1] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 2] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 3] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	Block[ 4] 0.00000            Van der Waals: 0.00000            Coulomb: 0.00000            [K]
+	------------------------------------------------------------------------------
+	Average   0.00000            Van der Waals: 0.000000           Coulomb: 0.00000            [K]
+	      +/- 0.00000                       +/- 0.000000                +/- 0.00000            [K]
+
+Host polarization energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Adsorbate polarization energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Cation polarization energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Host back-polarization energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Adsorbate back-polarization energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Cation back-polarization energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Tail-correction energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Distance-constraints energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Angle-constraints energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Dihedral-constraints energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Inversion-bend constraints energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Out-of-plane-distance constraints energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Exclusion-constraints energy:
+=======================
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Total energy:
+=============
+	Block[ 0]            0.00000 [K]
+	Block[ 1]            0.00000 [K]
+	Block[ 2]            0.00000 [K]
+	Block[ 3]            0.00000 [K]
+	Block[ 4]            0.00000 [K]
+	------------------------------------------------------------------------------
+	Average              0.00000 [K] +/-            0.00000 [K]
+
+Number of molecules:
+====================
+
+
+Average Widom Rosenbluth factor:
+================================
+
+Average Henry coefficient:
+==========================
+
+Average adsorption energy <U_gh>_1-<U_h>_0 obtained from Widom-insertion:
+(Note: the total heat of adsorption is dH=<U_gh>_1-<U_h>_0 - <U_g> - RT)
+=========================================================================
+
+Simulation finished,  0 warnings
+
+
+Sun Nov 30 17:34:26 2014
+Simulation finished on Sunday, November 30.
+The end time was 05:34 PM.
+

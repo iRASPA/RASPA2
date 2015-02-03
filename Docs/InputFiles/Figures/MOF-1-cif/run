@@ -1,0 +1,4 @@
+source pbctools.tcl
+source pbcbox.tcl  
+draw pbcbox -width 2 -style tubes -origin {0.0 0.0 0.0}
+

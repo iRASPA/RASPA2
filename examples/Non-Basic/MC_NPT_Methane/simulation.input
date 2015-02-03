@@ -1,0 +1,24 @@
+SimulationType                MonteCarlo
+NumberOfCycles                250000
+NumberOfInitializationCycles  25000
+PrintEvery                    1000
+RestartFile                   no
+
+ContinueAfterCrash            no
+WriteBinaryRestartFileEvery   5000
+
+Forcefield                    GarciaPerez2006
+
+Box 0
+BoxLengths 30 30 30
+ExternalTemperature 150.0
+ExternalPressure  1e8
+ComputeMolecularPressure yes
+
+VolumeChangeProbability       0.05
+
+Component 0 MoleculeName             methane
+            MoleculeDefinition       TraPPE
+            TranslationProbability   0.5
+            RegrowProbability        0.5
+            CreateNumberOfMolecules  512

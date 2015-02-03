@@ -1,0 +1,43 @@
+SimulationType                MonteCarlo
+NumberOfCycles                10000
+NumberOfInitializationCycles  0
+PrintEvery                    1000
+PrintPropertiesEvery          1000
+
+Forcefield                    GarciaPerez2006
+
+Framework 0
+FrameworkName MFI_SI
+RemoveAtomNumberCodeFromLabel yes
+UnitCells 2 2 2
+ExternalTemperature 573.0
+
+Component 0 MoleculeName              C5
+            MoleculeDefinition        TraPPE
+            IdealGasRosenbluthWeight  0.064
+            WidomProbability          1.0
+            CreateNumberOfMolecules   0
+
+Component 1 MoleculeName              C6
+            MoleculeDefinition        TraPPE
+            IdealGasRosenbluthWeight  0.0164423
+            WidomProbability          1.0
+            CreateNumberOfMolecules   0
+
+Component 2 MoleculeName              C7
+            MoleculeDefinition        TraPPE
+            IdealGasRosenbluthWeight  0.00425143
+            WidomProbability          1.0
+            CreateNumberOfMolecules   0
+
+Component 3 MoleculeName              C8
+            MoleculeDefinition        TraPPE
+            IdealGasRosenbluthWeight  0.0011068
+            WidomProbability          1.0
+            CreateNumberOfMolecules   0
+
+Component 4 MoleculeName              C9
+            MoleculeDefinition        TraPPE
+            IdealGasRosenbluthWeight  0.000289648
+            WidomProbability          1.0
+            CreateNumberOfMolecules   0

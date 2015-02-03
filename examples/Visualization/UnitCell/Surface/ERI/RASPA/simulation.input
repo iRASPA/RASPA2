@@ -1,0 +1,21 @@
+SimulationType  Visualization
+NumberOfCycles  1000000000000
+PrintEvery      5000000
+
+FreeEnergyAveragingTypeVTK UnitCell
+
+Forcefield      GarciaPerez2006
+ChargeMethod    None
+
+Framework           0
+FrameworkName       ERI_SI
+UnitCells           3 3 3
+RemoveAtomNumberCodeFromLabel yes
+ExternalTemperature 300.0
+
+Component 0 MoleculeName                     helium
+            MoleculeDefinition               TraPPE
+            BlockPockets                     yes
+            BlockPocketsFileName             ERI_SI
+            IdealGasRosenbluthWeight         1.0
+            CreateNumberOfMolecules          0

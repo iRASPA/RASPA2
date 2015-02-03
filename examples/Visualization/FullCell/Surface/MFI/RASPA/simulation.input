@@ -1,0 +1,21 @@
+SimulationType  Visualization
+NumberOfCycles  1000000000000
+PrintEvery      5000000
+
+FreeEnergyAveragingTypeVTK FullBox
+
+Forcefield      GarciaPerez2006
+ChargeMethod    None
+
+Framework           0
+FrameworkName       MFI_SI
+UnitCells           2 2 4
+RemoveAtomNumberCodeFromLabel yes
+ExternalTemperature 300.0
+
+Component 0 MoleculeName                     helium
+            MoleculeDefinition               TraPPE
+            BlockPockets                     yes
+            BlockPocketsFileName             MFI_SI
+            IdealGasRosenbluthWeight         1.0
+            CreateNumberOfMolecules          0

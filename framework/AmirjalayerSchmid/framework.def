@@ -1,0 +1,67 @@
+#CoreShells bond  BondDipoles UreyBradley bend  inv  tors improper-torsion bond/bond bond/bend bend/bend stretch/torsion bend/torsion
+          0    7            5           0   11    5    13                0         0         8         7               0            0
+#bond stretch atom n1-n2, equilibrium distance, bondforce-constant in mdyne/A
+O1 Zn1  MM3_BOND  0.85  2.075
+O2 Zn1  MM3_BOND  0.85  2.015
+O2 C1  MM3_BOND  7.535 1.285
+C1 C2  MM3_BOND  4.845 1.48
+C2 C3  MM3_BOND  6.56  1.38
+C3 C3  MM3_BOND  6.56  1.38
+C3 H1   MM3_BOND  5.15  1.101
+#bond dipoles atoms n1, n2, magnitude (dipole pointing from atom n1 to n2, + magnitude means second atom is more +)
+O1 Zn1    3.352
+O2 Zn1    2.794
+O2 C1    2.255
+C2 C1   -0.432
+C3 H1     0.6
+#bond bending atom n1-n2-n3
+Zn1 O1 Zn1 MM3_BEND 0.4    109.471
+O1 Zn1 O2 MM3_BEND 0.2964 111.3
+O2 Zn1 O2 MM3_BEND 0.2205 107.6
+Zn1 O2 C1 MM3_BEND 0.4265 131.2
+O2 C1 O2 MM3_IN_PLANE_BEND 0.641  125.5
+C3 C2 C1 MM3_IN_PLANE_BEND 0.7265 120.0
+O2 C1 C2 MM3_IN_PLANE_BEND 0.780  117.0
+C3 C3 H1  MM3_IN_PLANE_BEND 0.49   120.0
+C2 C3 H1  MM3_IN_PLANE_BEND 0.49   120.0
+C3 C2 C3 MM3_IN_PLANE_BEND 0.76   122.0
+C3 C3 C2 MM3_IN_PLANE_BEND 0.76   121.7
+#inversion atom n1-n2-n3-n4
+C2 C3 C3 H1 MM3_INVERSION 0.2 0.0
+C2 C1 O2 O2 MM3_INVERSION 0.46 0.0
+C3 C2 C1 C3 MM3_INVERSION 0.2 0.0
+C3 C3 H1  C2 MM3_INVERSION 0.2 0.0
+H1 C3 C3 C2 MM3_INVERSION 0.11 0.0
+#torsion atom n1-n2-n3-n4,
+O2 Zn1 O2  C1  MM3_DIHEDRAL       0.0   0.0      0.0
+O1 Zn1 O2  C1  MM3_DIHEDRAL       0.0  10.0      0.0
+Zn1 O1 Zn1  O2  MM3_DIHEDRAL       0.0  10.0      0.0
+Zn1 O2 C1  O2  MM3_DIHEDRAL       0.0  10.0      0.0
+Zn1 O2 C1  C2  MM3_DIHEDRAL       0.0  10.0      0.0
+O2 C1 C2  C3  MM3_DIHEDRAL       0.0   2.0      0.0
+C1 C2 C3  C3  MM3_DIHEDRAL       0.0   5.983    0.0
+C1 C2 C3  H1   MM3_DIHEDRAL       0.0   5.983    0.0
+C2 C3 C3  C2  MM3_DIHEDRAL      -0.67  5.983    0.0
+C3 C2 C3  C3  MM3_DIHEDRAL      -0.67  5.983    0.0
+C2 C3 C3  H1   MM3_DIHEDRAL       0.25  5.385   -0.550
+C3 C2 C3  H1   MM3_DIHEDRAL       0.25  5.385   -0.550
+H1  C3 C3  H1   MM3_DIHEDRAL       0.0   6.881    0.0
+#bond/bend cross terms n1-n2-n3,
+O2 C1 O2 MM3_BOND_BEND_CROSS 0.13 1.285  1.285  125.5
+O2 C1 C2 MM3_BOND_BEND_CROSS 0.13 1.285  1.48   117.0
+C1 C2 C3 MM3_BOND_BEND_CROSS 0.13 1.48   1.38   120.0
+C3 C2 C3 MM3_BOND_BEND_CROSS 0.13 1.38   1.38   122.0
+C2 C3 C3 MM3_BOND_BEND_CROSS 0.13 1.38   1.38   121.7
+C3 C3 H1  MM3_BOND_BEND_CROSS 0.08 1.38   1.101  120.0
+C2 C3 H1  MM3_BOND_BEND_CROSS 0.08 1.38   1.101  120.0
+Zn1 O1 Zn1 MM3_BOND_BEND_CROSS 0.4  2.075  2.075  109.471
+#bend/bend cross terms n1-n2-n3-n4
+C3 C3 C2  H1   MM3_BEND_BEND_CROSS 0.072  121.7 120.0
+C2 C3 C3  H1   MM3_BEND_BEND_CROSS 0.072  121.7 120.0
+H1  C3 C3  C2  MM3_BEND_BEND_CROSS 0.09   120.0 120.0
+C1 C2 C3  C3  MM3_BEND_BEND_CROSS 0.0576 120.0 120.0
+C3 C2 C1  C3  MM3_BEND_BEND_CROSS 0.0576 120.0 122.0
+C2 C1 O2  O2  MM3_BEND_BEND_CROSS 0.0576 117.0 117.0
+O2 C1 C2  O2  MM3_BEND_BEND_CROSS 0.0576 117.0 125.5
+
+

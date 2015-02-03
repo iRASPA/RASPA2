@@ -1,0 +1,14 @@
+# rules to overwrite
+0
+# number of defined interactions
+7
+# type      type2       interaction
+UNIT        UNIT        lennard-jones      1.0           1.0
+He          O           lennard-jones     28.0           3.265
+He          Oa          lennard-jones     28.0           3.265
+C_meth      O           lennard-jones    89.0            3.007
+C_meth      Oa          lennard-jones    89.0            3.007
+H_meth      O           lennard-jones    71.24           2.606
+H_meth      Oa          lennard-jones    71.24           2.606
+# mixing rules to overwrite
+0

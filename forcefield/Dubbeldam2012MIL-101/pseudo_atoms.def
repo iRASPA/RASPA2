@@ -1,0 +1,31 @@
+#number of pseudo atoms
+28
+#type      print   as    chem  oxidation   mass        charge   polarization B-factor radii  connectivity anisotropic anisotropic-type   tinker-type
+He         yes     He    He    0           4.002602    0.0      0.0          1.0      1.0    0            0           relative           0
+Cr1        yes     Cr    Cr    0           51.9961     1.619    0.0          1.0      1.448  0            0           relative           0
+Cr2        yes     Cr    Cr    0           51.9961     1.350    0.0          1.0      1.448  0            0           relative           0
+O1         yes     O     O     0           15.9994    -0.853    0.0          1.0      0.68   2            0           relative           0
+O2         yes     O     O     0           15.9994    -0.574    0.0          1.0      0.68   2            0           relative           0
+O3         yes     O     O     0           15.9994    -0.438    0.0          1.0      0.68   2            0           relative           0
+C1         yes     C     C     0           12.0107     0.496    0.0          1.0      0.720  0            0           relative           0
+C2         yes     C     C     0           12.0107    -0.070    0.0          1.0      0.720  0            0           relative           0
+C3         yes     C     C     0           12.0107    -0.058    0.0          1.0      0.720  0            0           relative           0
+H1         yes     H     H     0           1.00794     0.108    0.0          1.0      0.320  0            0           relative           0
+F1         yes     F     F     0           18.9984    -0.547    0.0          1.0      0.320  0            0           relative           0
+CH4_sp3    yes     C     C     0           16.04246    0.0      0.0          1.0      1.00   0            0           relative           0
+CH3_sp3    yes     C     C     0           15.03452    0.0      0.0          1.0      1.00   0            0           relative           0
+CH2_sp3    yes     C     C     0           14.02658    0.0      0.0          1.0      1.00   0            0           relative           0
+CH_sp3     yes     C     C     0           13.01864    0.0      0.0          1.0      1.00   0            0           relative           0
+C_sp3      yes     C     C     0           12.0        0.0      0.0          1.0      1.00   0            0           relative           0
+CH2_sp2    yes     C     C     0           14.02658    0.0      0.0          1.0      1.00   0            0           relative           0
+CH_sp2     yes     C     C     0           13.01864    0.0      0.0          1.0      1.00   0            0           relative           0
+C_sp2      yes     C     C     0           12.0107     0.0      0.0          1.0      1.00   0            0           relative           0
+C_co2      yes     C     C     0           12.0107     0.7      0.0          1.0      0.720  0            0           relative           0
+O_co2      yes     O     O     0           15.9994    -0.35     0.0          1.0      0.68   0            0           relative           0
+N_n2       yes     N     N     0           14.00674   -0.482    0.0          1.0      0.7    0            0           relative           0
+N_com      no      N     N     0           0.0         0.964    0.0          1.0      0.7    0            0           relative           0
+H_h2       yes     H     H     0           1.00794     0.468    0.0          1.0      0.7    0            0           relative           0
+H_com      no      H     H     0           0.0        -0.936    0.0          1.0      0.7    0            0           relative           0
+Ar         yes     Ar    Ar    0           39.948      0.0      0.0          1.0      0.7    0            0           relative           0
+Kr         yes     Kr    Kr    0           83.798      0.0      0.0          1.0      1.00   0            0           relative           0
+Xe         yes     Xe    Xe    0           131.293     0.0      0.0          1.0      1.00   0            0           relative           0

@@ -1,0 +1,114 @@
+data_COF-202
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-7
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'J.R. Hunt, C.J. Doonan, J.D. LeVangie, A.P. Côté, and O.M. Yaghi'
+_citation_title              'Reticular Synthesis of Covalent Organic Borosilicate Frameworks'
+_citation_journal_abbrev     'J. Am. Chem. Soc.'
+_citation_journal_volume     130
+_citation_journal_number     36
+_citation_page_first         11872
+_citation_page_last          11873
+_citation_year               2008
+
+_cell_length_a    30.1051
+_cell_length_b    30.1051
+_cell_length_c    30.1051
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      27284.8
+
+_symmetry_cell_setting          cubic
+_symmetry_space_group_name_Hall 'I -4bd 2c 3'
+_symmetry_space_group_name_H-M  'I -4 3 d'
+_symmetry_Int_Tables_number     220
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x+1/2,-y,z+1/2'
+ '-x,y+1/2,-z+1/2'
+ 'x+1/2,-y+1/2,-z'
+ 'z,x,y'
+ 'z+1/2,-x+1/2,-y'
+ '-z+1/2,-x,y+1/2'
+ '-z,x+1/2,-y+1/2'
+ 'y,z,x'
+ '-y,z+1/2,-x+1/2'
+ 'y+1/2,-z+1/2,-x'
+ '-y+1/2,-z,x+1/2'
+ 'y+1/4,x+1/4,z+1/4'
+ '-y+1/4,-x+3/4,z+3/4'
+ 'y+3/4,-x+1/4,-z+3/4'
+ '-y+3/4,x+3/4,-z+1/4'
+ 'x+1/4,z+1/4,y+1/4'
+ '-x+3/4,z+3/4,-y+1/4'
+ '-x+1/4,-z+3/4,y+3/4'
+ 'x+3/4,-z+1/4,-y+3/4'
+ 'z+1/4,y+1/4,x+1/4'
+ 'z+3/4,-y+1/4,-x+3/4'
+ '-z+3/4,y+3/4,-x+1/4'
+ '-z+1/4,-y+3/4,x+3/4'
+ 'x+1/2,y+1/2,z+1/2'
+ '-x,-y+1/2,z'
+ '-x+1/2,y,-z'
+ 'x,-y,-z+1/2'
+ 'z+1/2,x+1/2,y+1/2'
+ 'z,-x,-y+1/2'
+ '-z,-x+1/2,y'
+ '-z+1/2,x,-y'
+ 'y+1/2,z+1/2,x+1/2'
+ '-y+1/2,z,-x'
+ 'y,-z,-x+1/2'
+ '-y,-z+1/2,x'
+ 'y+3/4,x+3/4,z+3/4'
+ '-y+3/4,-x+1/4,z+1/4'
+ 'y+1/4,-x+3/4,-z+1/4'
+ '-y+1/4,x+1/4,-z+3/4'
+ 'x+3/4,z+3/4,y+3/4'
+ '-x+1/4,z+1/4,-y+3/4'
+ '-x+3/4,-z+1/4,y+1/4'
+ 'x+1/4,-z+3/4,-y+1/4'
+ 'z+3/4,y+3/4,x+3/4'
+ 'z+1/4,-y+3/4,-x+1/4'
+ '-z+1/4,y+1/4,-x+3/4'
+ '-z+3/4,-y+1/4,x+1/4'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+C1       C      0.69651    0.60579    0.2332     0 
+Si2      Si     0.76492    0.73508    0.26492    0 
+C3       C      0.72868    0.77132    0.22868    0 
+C4       C      0.65692    0.53943    0.25817    0 
+B5       B      0.75303    0.64665    0.28262    0 
+O6       O      0.76023    0.6798     0.24744    0 
+C7       C      0.68233    0.54069    0.29761    0 
+C8       C      0.71962    0.60789    0.27354    0 
+C9       C      0.82821    0.67179    0.32821    0 
+C10      C      0.71269    0.57482    0.3055     0 
+Si11     Si     0.82821    0.67179    0.32821    0 
+C12      C      0.86446    0.63554    0.36446    0 
+O13      O      0.77459    0.64915    0.32647    0 
+C14      C      0.74457    0.76781    0.18027    0 
+C15      C      0.86499    0.58812    0.34551    0 
+H16      H      0.7237     0.78885    0.15825    0 
+H17      H      0.77961    0.77905    0.17716    0 
+H18      H      0.74243    0.73293    0.16833    0 
+H19      H      0.88613    0.56612    0.36632    0 
+H20      H      0.83089    0.57397    0.34472    0 
+H21      H      0.87847    0.58794    0.31114    0 
+H22      H      0.67827    0.51519    0.32266    0 
+H23      H      0.65059    0.57045    0.19296    0 
+H24      H      0.73082    0.57508    0.33659    0 
+H25      H      0.70208    0.63031    0.20745    0 
+C26      C      0.375      0          0.25       0 
+
+

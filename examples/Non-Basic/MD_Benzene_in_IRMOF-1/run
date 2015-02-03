@@ -1,0 +1,3 @@
+#! /bin/sh -f
+export RASPA_DIR=${HOME}/RASPA/simulations/
+$RASPA_DIR/bin/simulate $1

@@ -1,0 +1,32 @@
+SimulationType                Minimization
+NumberOfCycles                10
+NumberOfInitializationCycles  100
+RestartFile                   no
+PrintEvery                    100
+
+MaximumNumberOfMinimizationSteps 1000
+RMSGradientTolerance 1e-6
+MaxGradientTolerance 1e-6
+
+RemoveTranslationFromHessian yes
+RemoveRotationFromHessian yes
+
+Ensemble        NVT
+
+Forcefield      Dubbeldam2007FlexibleIRMOF-1
+ChargeMethod    Coulomb
+CutOffCoulomb   15.0
+
+Box 0
+BoxLengths 30 30 30
+UnitCells 1 1 1
+ExternalTemperature 298.0
+Movies yes
+WriteMoviesEvery 1
+
+Component 0 MoleculeName             octane
+            MoleculeDefinition       TraPPE
+            TranslationProbability   0.5
+            RotationProbability      0.5
+            RegrowProbability        0.5
+            CreateNumberOfMolecules  1

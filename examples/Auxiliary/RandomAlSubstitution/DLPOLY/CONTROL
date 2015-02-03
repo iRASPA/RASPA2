@@ -1,0 +1,20 @@
+NaX
+
+temperature   300.000000
+pressure        0.000000
+
+vdw direct
+spme precision  1.0E-20
+
+steps                  0
+timestep        0.000500 ps
+multiple    1 steps
+
+cutoff      12.000000  angstrom
+rvdw        12.000000  angstrom
+
+job time     7200000000 seconds
+close time   100000 seconds
+
+finish
+

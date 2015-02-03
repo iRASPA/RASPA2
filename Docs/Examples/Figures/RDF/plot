@@ -1,0 +1,9 @@
+set xrange[0:]
+set encoding iso_8859_1
+set key top right Left reverse width 1.0 height 0.5 samplen 1.5 spacing 1.1 box
+set xlabel 'Radial distance [{\305}]' font "Helvetica,28"
+set ylabel 'RDF [-]' font "Helvetica,28"
+set grid
+set output 'RDFWater.eps'
+set term postscript eps enhanced color solid 22
+plot 'RDF_Ow_Ow.dat' us 2:3 title 'O-O' with li lt -1 lw 2,'RDF_Ow_Hw.dat' us 2:3 title 'O-H' with li lt 10 lw 3,'RDF_Hw_Hw.dat' us 2:3 title 'H-H' with li lt 12 lw 3

@@ -1,0 +1,29 @@
+SimulationType                MolecularDynamics
+NumberOfCycles                100000
+NumberOfInitializationCycles  0
+NumberOfEquilibrationCycles   10000
+PrintEvery                    5000
+RestartFile                   yes
+
+Ensemble                      NPT
+TimeStep                      0.001
+
+ChargeMethod                  Ewald
+CutOff                        10.0
+Forcefield                    Tip5p-Ew
+EwaldPrecision                1e-6
+
+Box 0
+BoxLengths 24.83 24.83 24.83
+ExternalTemperature 300.0
+ExternalPressure 1.0e5
+ComputeMSD yes
+PrintMSDEvery 5000
+
+Component 0 MoleculeName             Tip5p
+            StartingBead             0
+            MoleculeDefinition       Water
+            TranslationProbability   1.0
+            RotationProbability      1.0
+            ReinsertionProbability   1.0
+            CreateNumberOfMolecules  0

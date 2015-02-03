@@ -1,0 +1,43 @@
+SimulationType                   Minimization
+MinimizationMethod               Baker
+NumberOfCycles                   1
+NumberOfInitializationCycles     0
+NumberOfEquilibrationCycles      0
+PrintEvery                       1
+RestartFile                      no
+
+RandomSeed 1305100553
+
+RMSGradientTolerance 1e-6
+MaxGradientTolerance 1e-6
+MaximumStepLength 0.3
+
+Ensemble NPTPR
+NPTPRCellType RegularUpperTriangle
+
+ComputeElasticConstants yes
+
+CutOff                           12.0
+ChargeMethod                     Ewald
+Forcefield                       Dubbeldam2007FlexibleIRMOF-1
+NoReciprocalCutOff
+EwaldPrecision                   1e-8
+TimeStep                         0.00005
+
+Framework 0
+Frameworkname IRMOF-1
+RestrictFrameworkAtomsToBox yes 
+UnitCells 1 1 1
+ExternalPressure 0.0
+Movies yes
+WriteMoviesEvery 100
+
+FlexibleFramework yes
+FrameworkDefinitions Dubbeldam2007FlexibleIRMOF-1
+
+Component 0 MoleculeName                   CO2
+            MoleculeDefinition             TraPPE
+            TranslationProbability         1.0
+            RotationProbability            1.0
+            ReinsertionProbability         1.0
+            CreateNumberOfMolecules        0

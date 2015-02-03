@@ -1,0 +1,84 @@
+data_ITQ-1
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2012-8-10
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'M. A. Camblor, A. Corma, M.-J. Diaz-Cabanas, and Ch. Baerlocher'
+_citation_title              'Synthesis and Structural Characterization of MWW Type Zeolite ITQ-1, the Pure Silica Analog of MCM-22 and SSZ-25'
+_citation_journal_abbrev     'J. Phys. Chem. B'
+_citation_journal_volume     102
+_citation_journal_number     1
+_citation_page_first         44
+_citation_page_last          51
+_citation_year               1998
+
+_cell_length_a    14.2081
+_cell_length_b    14.2081
+_cell_length_c    24.945
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      4361
+
+_symmetry_cell_setting          hexagonal
+_symmetry_space_group_name_Hall '-P 6 2'
+_symmetry_space_group_name_H-M  'P 6/m m m'
+_symmetry_Int_Tables_number     191
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ '-x,-y,z'
+ 'y,-x+y,z'
+ 'x-y,x,z'
+ 'y,x,-z'
+ 'x-y,-y,-z'
+ '-x,-x+y,-z'
+ '-y,-x,-z'
+ '-x+y,y,-z'
+ 'x,x-y,-z'
+ '-x,-y,-z'
+ 'y,-x+y,-z'
+ 'x-y,x,-z'
+ 'x,y,-z'
+ '-y,x-y,-z'
+ '-x+y,-x,-z'
+ '-y,-x,z'
+ '-x+y,y,z'
+ 'x,x-y,z'
+ 'y,x,z'
+ 'x-y,-y,z'
+ '-x,-x+y,z'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+Si1      Si     0.6667       0.3333       0.0633 
+Si2      Si     0.4685       0.2342       0.1356 
+Si3      Si     0.3904       0            0.1607 
+Si4      Si     0.6667       0.3333       0.2108 
+Si5      Si     0.6667       0.3333       0.3404 
+Si6      Si     0.3895       0            0.2872 
+Si7      Si     0.4215       0.2108       0.347  
+Si8      Si     0.2544       0.1272       0.4407 
+O1       O      0.6667       0.3333       0      
+O2       O      0.5411       0.2705       0.0822 
+O3       O      0.3942       0.1048       0.1348 
+O4       O      0.5453       0.2726       0.1882 
+O5       O      0.6667       0.3333       0.2755 
+O6       O      0.3763       0            0.2239 
+O7       O      0.5          0            0.1449 
+O8       O      0.5          0            0.3021 
+O9       O      0.3945       0.1063       0.3116 
+O10      O      0.5469       0.2735       0.3638 
+O11      O      0.3536       0.1768       0.4014 
+O12      O      0.1835       0            0.43   
+O13      O      0.3017       0.1508       0.5    
+
+

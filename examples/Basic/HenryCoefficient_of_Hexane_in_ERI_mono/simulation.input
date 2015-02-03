@@ -1,0 +1,19 @@
+SimulationType                MonteCarlo
+NumberOfCycles                20000
+NumberOfInitializationCycles  0
+PrintEvery                    1000
+PrintPropertiesEvery          1000
+
+Forcefield                    GarciaPerez2006
+
+Framework 0
+FrameworkName ERI_SI
+RemoveAtomNumberCodeFromLabel yes
+UnitCells 3 3 3
+ExternalTemperature 573.0
+
+Component 0 MoleculeName             hexane
+            MoleculeDefinition       TraPPE
+            IdealRosenbluthValue     0.00312147
+            WidomProbability         1.0
+            CreateNumberOfMolecules  0

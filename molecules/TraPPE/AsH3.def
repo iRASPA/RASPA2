@@ -1,0 +1,25 @@
+# critical constants: Temperature [T], Pressure [Pa], and Acentric factor [-]
+373.05
+6600000.0
+0.25
+# Number Of Atoms
+4
+# Number Of Groups
+1
+# AsH3-group
+rigid
+# number of atoms
+4
+# atomic positions
+0 As_AsH3	1.066 0.915 -0.479 
+1 H_AsH3	0.084 0.506 0.309 
+2 H_AsH3	1.016 2.195 -0.148 
+3 H_AsH3	2.066 0.579 0.319 
+# Chiral centers Bond  BondDipoles Bend  UrayBradley InvBend  Torsion Imp. Torsion Bond/Bond Stretch/Bend Bend/Bend Stretch/Torsion Bend/Torsion IntraVDW IntraCoulomb
+               0    2            0    0            0       0        0            0         0            0         0               0            0        0            0
+#Bond stretch:atom n1-n2,type parameter
+0 1 RIGID_BOND
+0 2 RIGID_BOND
+0 3 RIGID_BOND
+# Number of config moves
+0

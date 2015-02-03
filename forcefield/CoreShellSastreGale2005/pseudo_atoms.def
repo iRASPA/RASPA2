@@ -1,0 +1,15 @@
+#number of pseudo atoms
+12
+#type      print   as    chem  oxidation   mass        charge   polarization B-factor radii  connectivity anisotropic anisotropic-type   tinker-type
+O          yes     O     O     0           15.9994     0.86902  0.0          1.0      0.68   2            0           relative           0
+Ogg        yes     O     O     0           15.9994     1.733957 0.0          1.0      0.68   2            0           relative           0
+shOgg      no      O     O     0           0.0        -3.733957 0.0          1.0      0.0    2            0           relative           0
+Oss        yes     O     O     0           15.9994     0.870733 0.0          1.0      0.68   2            0           relative           0
+shOss      no      O     O     0           0.0        -2.870733 0.0          1.0      0.0    2            0           relative           0
+Ogs        yes     O     O     0           15.9994     1.330431 0.0          1.0      0.68   2            0           relative           0
+shOgs      no      O     O     0           0.0        -3.330431 0.0          1.0      0.0    2            0           relative           0
+F          yes     F     F     0           18.998404   0.56     0.0          1.0      1.1    2            0           relative           0
+shF        yes     F     F     0           0.0        -1.56     0.0          1.0      0.0    2            0           relative           0
+Si         yes     Si    Si    0           28.0855     4.0      0.0          1.0      1.1    4            0           relative           0
+Al         yes     Al    Al    0           26.981538   3.0      0.0          1.0      1.1    3            0           relative           0
+Ge         yes     Ge    Ge    0           72.64       4.0      0.0          1.0      1.1    4            0           relative           0

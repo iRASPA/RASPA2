@@ -1,0 +1,69 @@
+# Mac OS X Finder
+.DS_Store
+# Sparkle distribution Private Key (Don’t check me in!)
+dsa_priv.pem
+# XCode (and ancestors) per-user config (very noisy, and not relevant)
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+# Xcode 4
+xcuserdata/
+# Generated files
+VersionX-revision.h
+# build products
+build/
+*.[oa]
+*.l[oa]
+.libs
+# Other source repository archive directories (protects when importing)
+.hg
+.svn
+CVS
+# automatic backup files
+*~.nib
+*.swp
+*~
+*(Autosaved).rtfd/
+# latex
+*.aux
+*.bbl
+*.blg
+*.log
+# automake/autoconf
+simulate
+simulations
+m4
+compile
+autom4te.cache/
+a.out.dSYM/
+Makefile
+Makefile.in
+aclocal.m4
+build
+config.cache
+config.guess
+config.h
+config.h.in
+config.log
+config.status
+config.sub
+configure
+depcomp
+install-sh
+libtool
+ltmain.sh
+missing
+mkinstalldirs
+releases
+stamp-h
+stamp-h1
+stamp-h.in
+*.swp
+.deps
+# python
+*.pyc
+*.egg-info
+dist

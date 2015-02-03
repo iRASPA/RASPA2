@@ -1,0 +1,29 @@
+SimulationType                MonteCarlo
+NumberOfCycles                25000
+NumberOfInitializationCycles  10000
+PrintEvery                    1000
+RestartFile                   no
+
+Forcefield                    TraPPE
+
+Box 0
+BoxLengths 30 30 30
+BoxAngles 90 90 90
+ExternalTemperature 240.0
+
+Box 1
+BoxLengths 30 30 30
+BoxAngles 90 90 90
+ExternalTemperature 240.0
+
+GibbsVolumeChangeProbability 0.1
+
+Component 0 MoleculeName             CO2
+            StartingBead             1
+            MoleculeDefinition       TraPPE
+            TranslationProbability   1.0
+            RotationProbability      1.0
+            ReinsertionProbability   1.0
+            GibbsSwapProbability     1.0
+            CreateNumberOfMolecules  150 150
+

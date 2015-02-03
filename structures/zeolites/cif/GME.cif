@@ -1,0 +1,72 @@
+data_GME
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-3
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'K. Fischer'
+_citation_title              'Untersuchung der Kristallstruktur von Gmelinit'
+_citation_journal_abbrev     'N. Jb. Miner. Mh.'
+_citation_journal_volume     1
+_citation_page_first         1
+_citation_page_last          13
+_citation_year               1966
+
+_cell_length_a    13.75
+_cell_length_b    13.75
+_cell_length_c    10.05
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      1645.52
+
+_symmetry_cell_setting          hexagonal
+_symmetry_space_group_name_Hall '-P 6c 2c'
+_symmetry_space_group_name_H-M  'P 63/m m c'
+_symmetry_Int_Tables_number     194
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ '-x,-y,z+1/2'
+ 'y,-x+y,z+1/2'
+ 'x-y,x,z+1/2'
+ 'y,x,-z'
+ 'x-y,-y,-z'
+ '-x,-x+y,-z'
+ '-y,-x,-z+1/2'
+ '-x+y,y,-z+1/2'
+ 'x,x-y,-z+1/2'
+ '-x,-y,-z'
+ 'y,-x+y,-z'
+ 'x-y,x,-z'
+ 'x,y,-z+1/2'
+ '-y,x-y,-z+1/2'
+ '-x+y,-x,-z+1/2'
+ '-y,-x,z'
+ '-x+y,y,z'
+ 'x,x-y,z'
+ 'y,x,z+1/2'
+ 'x-y,-y,z+1/2'
+ '-x,-x+y,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si     0.441     0.106     0.093     2.05    0       0    absolute yes
+O1       O     -0.202    -0.404     0.063    -1.025   0       0    absolute yes
+O2       O      0.575     0.15      0.064    -1.025   0       0    absolute yes
+O3       O      0.411     0.067     0.25     -1.025   0       0    absolute yes
+O4       O      0.354     0         0        -1.025   0       0    absolute yes
+
+

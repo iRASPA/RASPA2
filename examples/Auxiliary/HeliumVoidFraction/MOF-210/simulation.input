@@ -1,0 +1,17 @@
+SimulationType        MonteCarlo
+NumberOfCycles        500000
+PrintEvery            100
+PrintPropertiesEvery  100
+
+Forcefield            GenericMOFs
+
+Framework 0
+FrameworkName MOF-210-primitive
+UnitCells 1 1 1
+ExternalTemperature 298.0
+
+Component 0 MoleculeName             helium
+            MoleculeDefinition       TraPPE
+            WidomProbability         1.0
+            CreateNumberOfMolecules  0
+

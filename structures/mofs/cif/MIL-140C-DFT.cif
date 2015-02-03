@@ -1,0 +1,69 @@
+data_MIL-140C-DFT
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2012-8-31
+_audit_author_name ''
+
+_cell_length_a    31.8931
+_cell_length_b    15.6099
+_cell_length_c    7.9348
+_cell_angle_alpha 90
+_cell_angle_beta  84.83
+_cell_angle_gamma 90
+_cell_volume      3934.25
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall '-I 2ya'
+_symmetry_space_group_name_H-M  'I 1 2/a 1'
+_symmetry_Int_Tables_number     15
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x+1/2,y,-z'
+ '-x,-y,-z'
+ 'x+1/2,-y,z'
+ 'x+1/2,y+1/2,z+1/2'
+ '-x,y+1/2,-z+1/2'
+ '-x+1/2,-y+1/2,-z+1/2'
+ 'x,-y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+Zr1      Zr     0.7077       0.7594       0.1378  
+O2       O      0.7245       0.7383       0.378   
+H3       H      0.6891       0.0393       0.141   
+H4       H      0.6883       0.197        0.1401  
+C5       C      0.7158       0.0749       0.0786  
+C6       C      0.7158       0.1639       0.0775  
+O7       O      0.7203       0.8961       0.0912  
+H8       H      0.6894       0.4781       0.1434  
+H9       H      0.6887       0.3205       0.1434  
+C10      C      0.716        0.4425       0.0801  
+C11      C      0.716        0.3535       0.0791  
+O12      O      0.7216       0.6215       0.0976  
+O13      O      0.6489       0.7972       0.5607  
+O14      O      0.655        0.8276       0.2794  
+C15      C      0.5376       0.9486       0.3291  
+C16      C      0.5755       0.9042       0.309   
+H17      H      0.5213       0.9617       0.2161  
+H18      H      0.5887       0.8829       0.1835  
+C19      C      0.5202       0.9763       0.4895  
+C20      C      0.543        0.9572       0.6293  
+C21      C      0.5971       0.8843       0.45    
+C22      C      0.5804       0.9113       0.6106  
+C23      C      0.6367       0.8332       0.4286  
+H24      H      0.5312       0.978        0.7568  
+H25      H      0.5974       0.8958       0.7208  
+C26      C      0.75         0.5835       0       
+C27      C      0.75         0.4882       0       
+C28      C      0.75         0.3063       0       
+C29      C      0.75         0.9339       0       
+C30      C      0.75         0.0292       0       
+C31      C      0.75         0.2112       0       
+
+

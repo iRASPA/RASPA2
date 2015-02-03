@@ -1,0 +1,74 @@
+data_AET
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-12-20
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'J.W. Richardson, Jr. and E.T.C. Vogt'
+_citation_title              'Structure Determination and Rietveld Refinement of Aluminophosphate Molecular Sieve AlPO4-8'
+_citation_journal_abbrev     'Zeolites'
+_citation_journal_volume     12
+_citation_page_first         13
+_citation_page_last          19
+_citation_year               1992
+
+_cell_length_a    33.29
+_cell_length_b    14.7036
+_cell_length_c    8.3863
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      4104.95
+
+_symmetry_cell_setting          orthorhombic
+_symmetry_space_group_name_Hall '-C 2c 2'
+_symmetry_space_group_name_H-M  'C m c m'
+_symmetry_Int_Tables_number     63
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,-y,z+1/2'
+ '-x,y,-z+1/2'
+ 'x,-y,-z'
+ '-x,-y,-z'
+ 'x,y,-z+1/2'
+ 'x,-y,z+1/2'
+ '-x,y,z'
+ 'x+1/2,y+1/2,z'
+ '-x+1/2,-y+1/2,z+1/2'
+ '-x+1/2,y+1/2,-z+1/2'
+ 'x+1/2,-y+1/2,-z'
+ '-x+1/2,-y+1/2,-z'
+ 'x+1/2,y+1/2,-z+1/2'
+ 'x+1/2,-y+1/2,z+1/2'
+ '-x+1/2,y+1/2,z'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Si       Si    0.1904       0.416        0.066        0
+Si       Si    0            0.132       -0.028        0
+Si       Si    0.0878       0.094        0.055        0
+Si       Si    0.274        0.404       -0.061        0
+Si       Si    0.1573       0.226       -0.071        0
+O        O     0.1767       0.5          0            0
+O        O     0            0            0            0
+O        O     0.1772       0.402        0.25         0
+O        O     0            0.127       -0.25         0
+O        O     0.0456       0.133        0.018        0
+O        O     0.2317       0.394        0.02         0
+O        O     0.158        0.324        0.031        0
+O        O     0.1993       0.175        0.017        0
+O        O     0.0906       0            0            0
+O        O     0.0847       0.096        0.25         0
+O        O     0.259        0.378       -0.25         0
+O        O     0.1444       0.232       -0.25         0
+O        O     0.1154       0.174        0.002        0
+O        O     0.2865       0.5          0            0
+
+

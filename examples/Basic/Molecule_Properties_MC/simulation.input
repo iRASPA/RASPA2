@@ -1,0 +1,26 @@
+SimulationType                   MonteCarlo
+NumberOfCycles                   5000000
+NumberOfInitializationCycles     10000
+PrintEvery                       50000
+RestartFile                      no
+
+ContinueAfterCrash               no
+WriteBinaryRestartFileEvery      50000
+
+Forcefield                       GarciaPerez2006
+
+Box 0
+BoxLengths 25 25 25
+ExternalTemperature 298.0
+ExternalPressure 0.0
+ComputeMoleculeProperties yes
+
+component 0 MoleculeName                     2-methylbutane
+            StartingBead                     0
+            FugacityCoefficient              1.0
+            MoleculeDefinition               TraPPE
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            RegrowProbability                1.0
+            CBMCProbability                  1.0
+            CreateNumberOfMolecules          32

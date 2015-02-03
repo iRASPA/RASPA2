@@ -1,0 +1,66 @@
+data_FER
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-3
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'R. E. Morris, S. J. Weigel, N. J. Henson, L. M. Bull, M. T. Janicke, B. F. Chmelka   and A. K. Cheetham'
+_citation_title              'A synchrotron X-ray diffraction, neutron diffraction, Si-29 MAS-NMR, and computational study of the siliceous form of zeolite ferrierite'
+_citation_journal_abbrev     'J. Am. Chem. Soc.'
+_citation_journal_volume     116
+_citation_page_first         11849
+_citation_page_last          11855
+_citation_year               1994
+
+_cell_length_a    18.7202
+_cell_length_b    14.0702
+_cell_length_c    7.41971
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      1954.34
+
+_symmetry_cell_setting          orthorhombic
+_symmetry_space_group_name_Hall '-P 2n 2'
+_symmetry_space_group_name_H-M  'P m n n'
+_symmetry_Int_Tables_number     58
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ 'x,-y,-z'
+ '-x+1/2,-y+1/2,z+1/2'
+ '-x+1/2,y+1/2,-z+1/2'
+ '-x,-y,-z'
+ '-x,y,z'
+ 'x+1/2,y+1/2,-z+1/2'
+ 'x+1/2,-y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si     0.15462   0         0         2.05    0       0    absolute yes
+Si2      Si     0.27439  -0.0012    0.2905    2.05    0       0    absolute yes
+Si3      Si     0.08373   0.1999    0.0037    2.05    0       0    absolute yes
+Si4      Si     0.3315    0.2029    0.2255    2.05    0       0    absolute yes
+Si5      Si     0.682     0.795     0.1894    2.05    0       0    absolute yes
+O1       O      0.2479    0         0.5      -1.025   0       0    absolute yes
+O2       O      0.2027    0.0099    0.1788   -1.025   0       0    absolute yes
+O3       O      0.1039    0.0899    0.0016   -1.025   0       0    absolute yes
+O4       O      0.656     0.7804   -0.0202   -1.025   0       0    absolute yes
+O5       O      0         0.209     0.0377   -1.025   0       0    absolute yes
+O6       O      0.258     0.2494    0.2851   -1.025   0       0    absolute yes
+O7       O      0.1248    0.2403    0.1829   -1.025   0       0    absolute yes
+O8       O      0.8994    0.7393    0.1675   -1.025   0       0    absolute yes
+O9       O      0.3291    0.0879    0.2462   -1.025   0       0    absolute yes
+O10      O      0.6846    0.904     0.2477   -1.025   0       0    absolute yes
+
+

@@ -1,0 +1,33 @@
+SimulationType                MolecularDynamics
+NumberOfCycles                1000000
+NumberOfEquilibrationCycles   10000
+NumberOfInitializationCycles  100
+PrintEvery                    5000
+RestartFile                   no
+
+Ensemble                      NVT
+
+ChargeMethod                  Ewald
+CutOff                        12.0
+TimeStep                      0.0005
+Forcefield                    Dubbeldam2007FlexibleIRMOF-10
+EwaldPrecision                1e-6
+
+Framework 0
+FrameworkName IRMOF-10
+UnitCells 1 1 1
+ExternalTemperature 298.0
+Movies no
+WriteMoviesEvery 1000
+
+FrameworkDefinitions Dubbeldam2007FlexibleIRMOF-10
+FlexibleFramework yes
+
+Component 0 MoleculeName              benzene
+            StartingBead              0
+            MoleculeDefinition        TraPPE
+            IdealGasRosenbluthWeight  1.0
+            TranslationProbability    1.0
+            RotationProbability       1.0
+            ReinsertionProbability    1.0
+            CreateNumberOfMolecules   16

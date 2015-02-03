@@ -1,0 +1,9 @@
+# rules to overwrite
+0
+# number of defined interactions
+2
+# type      type2       interaction       
+Si          shO         buckingham         17998031.33080 3.3314455  0.0
+Al          shO         buckingham         12401568.24753 3.0998140  0.0
+# mixing rules to overwrite
+0

@@ -1,0 +1,37 @@
+SimulationType                MonteCarlo
+NumberOfCycles                5000000
+NumberOfInitializationCycles  300000
+PrintEvery                    5000
+RestartFile                   yes
+
+ContinueAfterCrash no
+WriteBinaryRestartFileEvery 5000
+
+ChargeMethod                  Ewald
+Forcefield                    GarciaPerez2006
+RemoveAtomNumberCodeFromLabel yes
+
+Framework           0
+FrameworkName       MFI_SI
+UnitCells           2 2 4
+HeliumVoidFraction  0.292012
+ExternalTemperature 433
+ExternalPressure    1.0e5
+ComputeDensityProfile3DVTKGrid yes
+WriteDensityProfile3DVTKGridEvery 5000
+DensityProfile3DVTKGridPoints 150 150 150
+AverageDensityOverUnitCellsVTK yes
+DensityAveragingTypeVTK FullBox
+
+Component 0 MoleculeName              23-dimethylbutane
+            StartingBead              0
+            MoleculeDefinition        TraPPE
+            IdealGasRosenbluthWeight  0.0873119
+            FugacityCoefficient       1.0
+            TranslationProbability    1.0
+            RotationProbability       1.0
+            ReinsertionProbability    1.0
+            CBMCProbability           1.0
+            IdentityChangeProbability 0.0
+            SwapProbability           1.0
+            CreateNumberOfMolecules   0

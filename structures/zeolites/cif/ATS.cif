@@ -1,0 +1,57 @@
+data_ATS
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2012-2-13
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'J. V. Smith, J. J. Pluth and K. J. Andries'
+_citation_title              'The Framework Topology of Magnesium Aluminophosphate Structure Type-36'
+_citation_journal_abbrev     'Zeolites'
+_citation_journal_volume     13
+_citation_page_first         166
+_citation_page_last          169
+_citation_year               1993
+
+_cell_length_a    13.1483
+_cell_length_b    21.5771
+_cell_length_c    5.1639
+_cell_angle_alpha 90
+_cell_angle_beta  91.84
+_cell_angle_gamma 90
+_cell_volume      1464.25
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall '-C 2yc'
+_symmetry_space_group_name_H-M  'C 1 2/c 1'
+_symmetry_Int_Tables_number     15
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,y,-z+1/2'
+ '-x,-y,-z'
+ 'x,-y,z+1/2'
+ 'x+1/2,y+1/2,z'
+ '-x+1/2,y+1/2,-z+1/2'
+ '-x+1/2,-y+1/2,-z'
+ 'x+1/2,-y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Si       Si    0.619        0.041        0.767        0
+Si       Si    0.314        0.174        0.768        0
+Si       Si    0.617        0.243        0.223        0
+O        O     0.69         0.101        0.773        0
+O        O     0.5          0.048        0.75         0
+O        O     0.622        0.212        0.934        0
+O        O     0.354        0.189        0.069        0
+O        O     0.5          0.265        0.25         0
+O        O     0.645        0.001        0.022        0
+O        O     0.811        0.195        0.748        0
+
+

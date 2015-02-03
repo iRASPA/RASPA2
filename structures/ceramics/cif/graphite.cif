@@ -1,0 +1,56 @@
+data_graphite
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2012-1-20
+_audit_author_name 'David Dubbeldam'
+
+_cell_length_a    2.4598
+_cell_length_b    2.4598
+_cell_length_c    6.8
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      35.6319
+
+_symmetry_cell_setting          hexagonal
+_symmetry_space_group_name_Hall '-P 6 2'
+_symmetry_space_group_name_H-M  'P 6/m m m'
+_symmetry_Int_Tables_number     191
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ '-x,-y,z'
+ 'y,-x+y,z'
+ 'x-y,x,z'
+ 'y,x,-z'
+ 'x-y,-y,-z'
+ '-x,-x+y,-z'
+ '-y,-x,-z'
+ '-x+y,y,-z'
+ 'x,x-y,-z'
+ '-x,-y,-z'
+ 'y,-x+y,-z'
+ 'x-y,x,-z'
+ 'x,y,-z'
+ '-y,x-y,-z'
+ '-x+y,-x,-z'
+ '-y,-x,z'
+ '-x+y,y,z'
+ 'x,x-y,z'
+ 'y,x,z'
+ 'x-y,-y,z'
+ '-x,-x+y,z'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+C        C     0.33333333   0.66666667   0            0
+
+

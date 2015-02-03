@@ -1,0 +1,33 @@
+SimulationType                MonteCarlo
+NumberOfCycles                10000
+NumberOfInitializationCycles  1000
+PrintEvery                    100
+
+Forcefield                    GarciaPerez2006
+
+Box 0
+BoxLengths 25 25 25
+ExternalTemperature 300.0
+Movies yes
+WriteMoviesEvery 10
+
+Box 1
+BoxLengths 30 30 30
+BoxAngles 90 120 90
+ExternalTemperature 500.0
+Movies yes
+WriteMoviesEvery 10
+
+Component 0 MoleculeName             N2
+            MoleculeDefinition       TraPPE
+            TranslationProbability   1.0
+            RotationProbability      1.0
+            RegrowProbability        1.0
+            CreateNumberOfMolecules  50 25
+
+Component 1 MoleculeName             CO2
+            MoleculeDefinition       TraPPE
+            TranslationProbability   1.0
+            RotationProbability      1.0
+            RegrowProbability        1.0
+            CreateNumberOfMolecules  25 50
