@@ -114,6 +114,7 @@ void MonteCarloSimulation(void)
   SampleVelocityAutoCorrelationFunction(ALLOCATE);
 
   SampleDensityProfile3DVTKGrid(ALLOCATE);
+  SampleCOMDensityProfile3DVTKGrid(ALLOCATE); // testing
   SampleCationAndAdsorptionSites(ALLOCATE);
   SampleDcTSTConfigurationFiles(ALLOCATE);
   SamplePDBMovies(ALLOCATE,-1);
@@ -500,6 +501,7 @@ void MonteCarloSimulation(void)
     SampleAngleBetweenPlanesHistogram(INITIALIZE);
     SampleMoleculePropertyHistogram(INITIALIZE);
     SampleDensityProfile3DVTKGrid(INITIALIZE);
+    SampleCOMDensityProfile3DVTKGrid(INITIALIZE);
     SampleCationAndAdsorptionSites(INITIALIZE);
     SampleDcTSTConfigurationFiles(INITIALIZE);
     SamplePDBMovies(INITIALIZE,-1);
@@ -536,6 +538,7 @@ void MonteCarloSimulation(void)
         SampleAngleBetweenPlanesHistogram(SAMPLE);
         SampleMoleculePropertyHistogram(SAMPLE);
         SampleDensityProfile3DVTKGrid(SAMPLE);
+        SampleCOMDensityProfile3DVTKGrid(SAMPLE);
         SampleCationAndAdsorptionSites(SAMPLE);
         SampleDcTSTConfigurationFiles(SAMPLE);
         SamplePDBMovies(SAMPLE,-1);
@@ -862,6 +865,7 @@ void MonteCarloSimulation(void)
         SampleAngleBetweenPlanesHistogram(PRINT);
         SampleMoleculePropertyHistogram(PRINT);
         SampleDensityProfile3DVTKGrid(PRINT);
+	SampleCOMDensityProfile3DVTKGrid(PRINT);
         SampleCationAndAdsorptionSites(PRINT);
         SampleDcTSTConfigurationFiles(PRINT);
         if(Movies[CurrentSystem]&&(CurrentCycle%WriteMoviesEvery[CurrentSystem]==0))
@@ -915,6 +919,7 @@ void MonteCarloSimulation(void)
       SampleAngleBetweenPlanesHistogram(PRINT);
       SampleMoleculePropertyHistogram(PRINT);
       SampleDensityProfile3DVTKGrid(PRINT);
+      SampleCOMDensityProfile3DVTKGrid(PRINT);
       SampleCationAndAdsorptionSites(PRINT);
       SampleDcTSTConfigurationFiles(PRINT);
     }
@@ -950,6 +955,7 @@ void MonteCarloSimulation(void)
   SampleAngleBetweenPlanesHistogram(FINALIZE);
   SampleMoleculePropertyHistogram(FINALIZE);
   SampleDensityProfile3DVTKGrid(FINALIZE);
+  SampleCOMDensityProfile3DVTKGrid(FINALIZE);
   SampleCationAndAdsorptionSites(FINALIZE);
   SampleDcTSTConfigurationFiles(FINALIZE);
   SamplePDBMovies(FINALIZE,-1);

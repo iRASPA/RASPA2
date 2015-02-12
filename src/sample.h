@@ -279,6 +279,7 @@ extern int BufferLengthVACF;                 // the length of the buffer-arrays
 
 // sampling the 3D histograms of position (i.e. 3D free energy)
 void SampleDensityProfile3DVTKGrid(int);
+void SampleCOMDensityProfile3DVTKGrid(int); // testing
 extern int *WriteDensityProfile3DVTKGridEvery;
 extern int *ComputeDensityProfile3DVTKGrid;
 extern INT_VECTOR3 DensityProfile3DVTKGridPoints;

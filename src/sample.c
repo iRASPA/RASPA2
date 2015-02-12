@@ -423,6 +423,7 @@ static int *CountAccumulatedVACF;                    // counter for the accumula
 // Used for visualization of a zeolite.
 int *ComputeDensityProfile3DVTKGrid;
 static REAL ***DensityProfile3D;
+static REAL ***COMDensityProfile3D;
 int *WriteDensityProfile3DVTKGridEvery;
 INT_VECTOR3 DensityProfile3DVTKGridPoints;
 
@@ -9150,6 +9151,270 @@ void SampleVelocityAutoCorrelationFunction(int Switch)
   }
 }
 
+/*********************************************************************************************************                                        
+ * Name       | SampleCOMDensityProfile3DVTKGrid                                                         *                                         
+ * ----------------------------------------------------------------------------------------------------- *                                         
+ * Function   | Samples the 3D histograms of center of mass position (e.g. 3D free energy).              *                                        
+ * Parameters | -                                                                                        *                                          
+ *********************************************************************************************************/
+void SampleCOMDensityProfile3DVTKGrid(int Switch)
+{
+  int i,j,k,l,index,size,A,f;
+  int x,y,z,Type;
+  int k1,k2,k3;
+  VECTOR pos;
+  char buffer[256];
+  FILE *FilePtr;
+  REAL max_value,min_value;
+  static REAL max;
+  static VECTOR shift;
+  static VECTOR Size;
+  VECTOR C,s,t;
+  static REAL_MATRIX3x3 Cell;
+  static REAL_MATRIX3x3 InverseCell;
+  
+  REAL Mass,TotalMass;
+  VECTOR com;
+  
+  switch(Switch)
+  {
+  	case ALLOCATE:
+    if((DensityProfile3DVTKGridPoints.x<=0) || (DensityProfile3DVTKGridPoints.y<=0) || (DensityProfile3DVTKGridPoints.z<=0))
+    {
+	fprintf(stderr, "ERROR: number of gridpoint (%d, %d, %d) in CreateDensity3DVTKProfileGrid should be >0\n",
+		DensityProfile3DVTKGridPoints.x, DensityProfile3DVTKGridPoints.y, DensityProfile3DVTKGridPoints.z);
+		exit(-1);
+	}
+	
+	size=DensityProfile3DVTKGridPoints.x*DensityProfile3DVTKGridPoints.y*DensityProfile3DVTKGridPoints.z;
+	
+	COMDensityProfile3D=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
+	for(i=0;i<NumberOfSystems;i++)
+	{
+		if((ComputeDensityProfile3DVTKGrid[i]))
+		{
+			COMDensityProfile3D[i]=(REAL**)calloc(NumberOfSystems,sizeof(REAL**));
+			for(j=0;j<NumberOfComponents;j++)
+				COMDensityProfile3D[i][j]=(REAL*)calloc(size,sizeof(REAL));
+		}
+	}
+	break;
+    case INITIALIZE:
+      switch(DensityAveragingTypeVTK)
+      {
+        case VTK_UNIT_CELL:
+          Cell=UnitCellBox[CurrentSystem];
+          InverseCell=InverseUnitCellBox[CurrentSystem];
+          break;
+        case VTK_FULL_BOX:
+        default:
+          Cell=Box[CurrentSystem];
+          InverseCell=InverseBox[CurrentSystem];
+          break;
+      }
+		
+		Size.x=Size.y=Size.z=0.0;
+		shift.x=shift.y=shift.z=0.0;
+		C.x=1.0;
+		C.y=0.0;
+		C.z=0.0;
+		pos.x=Cell.ax*C.x+Cell.bx*C.y+Cell.cx*C.z;
+		pos.y=Cell.ay*C.x+Cell.by*C.y+Cell.cy*C.z;
+		pos.z=Cell.az*C.x+Cell.bz*C.y+Cell.cz*C.z;
+		Size.x+=fabs(pos.x);
+		Size.y+=fabs(pos.y);
+		Size.z+=fabs(pos.z);
+		if(pos.x<0.0) shift.x+=pos.x;
+		if(pos.y<0.0) shift.y+=pos.y;
+		if(pos.z<0.0) shift.z+=pos.z;
+		
+		C.x=0.0;
+		C.y=1.0;
+		C.z=0.0;
+		pos.x=Cell.ax*C.x+Cell.bx*C.y+Cell.cx*C.z;
+		pos.y=Cell.ay*C.x+Cell.by*C.y+Cell.cy*C.z;
+		pos.z=Cell.az*C.x+Cell.bz*C.y+Cell.cz*C.z;
+		Size.x+=fabs(pos.x);
+		Size.y+=fabs(pos.y);
+		Size.z+=fabs(pos.z);
+
+		if(pos.x<0.0) shift.x+=pos.x;
+		if(pos.y<0.0) shift.y+=pos.y;
+		if(pos.z<0.0) shift.z+=pos.z;
+		
+		C.x=0.0;
+		C.y=0.0;
+		C.z=1.0;
+		pos.x=Cell.ax*C.x+Cell.bx*C.y+Cell.cx*C.z;
+		pos.y=Cell.ay*C.x+Cell.by*C.y+Cell.cy*C.z;
+		pos.z=Cell.az*C.x+Cell.bz*C.y+Cell.cz*C.z;
+		Size.x+=fabs(pos.x);
+		Size.y+=fabs(pos.y);
+		Size.z+=fabs(pos.z);
+		if(pos.x<0.0) shift.x+=pos.x;
+		if(pos.y<0.0) shift.y+=pos.y;
+		if(pos.z<0.0) shift.z+=pos.z;
+
+		max=MAX2(Size.x,MAX2(Size.y,Size.z));
+		break;
+	case SAMPLE:
+		if(!ComputeDensityProfile3DVTKGrid[CurrentSystem]) return;
+		
+		for(i=0;i<NumberOfAdsorbateMolecules[CurrentSystem];i++)
+		{
+		  TotalMass=0.0;
+		  com.x=com.y=com.z=0.0;
+		  Type=Adsorbates[CurrentSystem][i].Type;
+		  for(l=0;l<Components[Type].NumberOfGroups;l++)
+		  {
+		      if(Components[Type].Groups[l].Rigid)
+		        {
+			  Mass=Components[Type].Groups[l].Mass;
+			  TotalMass+=Mass;
+			  com.x+=Mass*Adsorbates[CurrentSystem][i].Groups[l].CenterOfMassPosition.x;
+			  com.y+=Mass*Adsorbates[CurrentSystem][i].Groups[l].CenterOfMassPosition.y;
+			  com.z+=Mass*Adsorbates[CurrentSystem][i].Groups[l].CenterOfMassPosition.z;
+			}
+			else
+			{
+			  for(k=0;k<Components[Type].Groups[l].NumberOfGroupAtoms;k++)
+			    {
+			      A=Components[Type].Groups[l].Atoms[k];
+			      Mass=PseudoAtoms[Adsorbates[CurrentSystem][i].Atoms[A].Type].Mass;
+			      TotalMass+=Mass;
+			      com.x+=Mass*Adsorbates[CurrentSystem][i].Atoms[A].Position.x;
+			      com.y+=Mass*Adsorbates[CurrentSystem][i].Atoms[A].Position.y;
+			      com.z+=Mass*Adsorbates[CurrentSystem][i].Atoms[A].Position.z;
+			    }
+			}
+		    }
+		  com.x=com.x/TotalMass;
+		  com.y=com.y/TotalMass;
+		  com.z=com.z/TotalMass;
+		
+		// if averaged over all unit cell and using the full box
+		if((AverageDensityOverUnitCellsVTK==TRUE)&&(DensityAveragingTypeVTK==VTK_FULL_BOX))
+			{
+				s.x=InverseUnitCellBox[CurrentSystem].ax*com.x+InverseUnitCellBox[CurrentSystem].bx*com.y+InverseUnitCellBox[CurrentSystem].cx*com.z;
+				s.y=InverseUnitCellBox[CurrentSystem].ay*com.x+InverseUnitCellBox[CurrentSystem].by*com.y+InverseUnitCellBox[CurrentSystem].cy*com.z;
+				s.z=InverseUnitCellBox[CurrentSystem].az*com.x+InverseUnitCellBox[CurrentSystem].bz*com.y+InverseUnitCellBox[CurrentSystem].cz*com.z;
+			
+				t.x=s.x-(REAL)NINT(s.x);
+				t.y=s.y-(REAL)NINT(s.y);
+				t.z=s.z-(REAL)NINT(s.z);
+				if(t.x<0.0) t.x+=1.0;
+				if(t.y<0.0) t.y+=1.0;
+				if(t.z<0.0) t.z+=1.0;
+			
+				for(k1=0;k1<NumberOfUnitCells[CurrentSystem].x;k1++)
+					for(k2=0;k2<NumberOfUnitCells[CurrentSystem].y;k2++)
+						for(k3=0;k3<NumberOfUnitCells[CurrentSystem].z;k3++)
+						{
+							s.x=(t.x+k1)/NumberOfUnitCells[CurrentSystem].x;
+							s.y=(t.y+k2)/NumberOfUnitCells[CurrentSystem].y;
+							s.z=(t.z+k3)/NumberOfUnitCells[CurrentSystem].z;
+							pos.x=Cell.ax*s.x+Cell.bx*s.y+Cell.cx*s.z;
+							pos.y=Cell.ay*s.x+Cell.by*s.y+Cell.cy*s.z;
+							pos.z=Cell.az*s.x+Cell.bz*s.y+Cell.cz*s.z;
+						
+							x=(int)((pos.x-shift.x)*(REAL)DensityProfile3DVTKGridPoints.x/Size.x);
+							y=(int)((pos.y-shift.y)*(REAL)DensityProfile3DVTKGridPoints.y/Size.y);
+							z=(int)((pos.z-shift.z)*(REAL)DensityProfile3DVTKGridPoints.z/Size.z);
+						
+							index=x+y*DensityProfile3DVTKGridPoints.y+z*DensityProfile3DVTKGridPoints.x*DensityProfile3DVTKGridPoints.y;
+							if((index>0)&&(index<DensityProfile3DVTKGridPoints.x*DensityProfile3DVTKGridPoints.y*DensityProfile3DVTKGridPoints.z))
+								COMDensityProfile3D[CurrentSystem][Type][index]+=1.0;
+						}
+				}
+		else // if not averaged over all unit-cells or just a single unit cell
+		{
+				s.x=InverseCell.ax*com.x+InverseCell.bx*com.y+InverseCell.cx*com.z;
+				s.y=InverseCell.ay*com.x+InverseCell.by*com.y+InverseCell.cy*com.z;
+				s.z=InverseCell.az*com.x+InverseCell.bz*com.y+InverseCell.cz*com.z;
+				
+				t.x=s.x-(REAL)NINT(s.x);
+				t.y=s.y-(REAL)NINT(s.y);
+				t.z=s.z-(REAL)NINT(s.z);
+				if(t.x<0.0) t.x+=1.0;
+				if(t.y<0.0) t.y+=1.0;
+				if(t.z<0.0) t.z+=1.0;
+				pos.x=Cell.ax*t.x+Cell.bx*t.y+Cell.cx*t.z;
+				pos.y=Cell.ay*t.x+Cell.by*t.y+Cell.cy*t.z;
+				pos.z=Cell.az*t.x+Cell.bz*t.y+Cell.cz*t.z;
+				
+				x=(int)((pos.x-shift.x)*(REAL)DensityProfile3DVTKGridPoints.x/Size.x);
+				y=(int)((pos.y-shift.y)*(REAL)DensityProfile3DVTKGridPoints.y/Size.y);
+				z=(int)((pos.z-shift.z)*(REAL)DensityProfile3DVTKGridPoints.z/Size.z);
+				
+				index=x+y*DensityProfile3DVTKGridPoints.y+z*DensityProfile3DVTKGridPoints.x*DensityProfile3DVTKGridPoints.y;
+				if((index>0)&&(index<DensityProfile3DVTKGridPoints.x*DensityProfile3DVTKGridPoints.y*DensityProfile3DVTKGridPoints.z))
+					COMDensityProfile3D[CurrentSystem][Type][index]+=1.0;
+			}
+		}
+		break;
+	case PRINT:
+      if((!ComputeDensityProfile3DVTKGrid[CurrentSystem])||(CurrentCycle%WriteDensityProfile3DVTKGridEvery[CurrentSystem]!=0)) return;
+     // make the output directory
+      mkdir("VTK",S_IRWXU);
+
+      // make the system directory in the output directory
+      sprintf(buffer,"VTK/System_%d",CurrentSystem);
+      mkdir(buffer,S_IRWXU);
+
+      for(i=0;i<NumberOfComponents;i++)
+      {
+        sprintf(buffer,"VTK/System_%d/COMDensityProfile_%s%s.vtk",CurrentSystem,Components[i].Name,FileNameAppend);
+        FilePtr=fopen(buffer,"w");
+        fprintf(FilePtr,"# vtk DataFile Version 1.0\n");
+        fprintf(FilePtr,"Energy zeolite: %s (%lf K)\n",Framework[CurrentSystem].Name[0],
+          (double)therm_baro_stats.ExternalTemperature[CurrentSystem]);
+        fprintf(FilePtr,"ASCII\n");
+        fprintf(FilePtr,"DATASET STRUCTURED_POINTS\n");
+        fprintf(FilePtr,"DIMENSIONS %d %d %d\n",DensityProfile3DVTKGridPoints.x,DensityProfile3DVTKGridPoints.y,DensityProfile3DVTKGridPoints.z);
+
+        //fprintf(FilePtr,"ASPECT_RATIO %f %f %f\n",(double)(Size.x/(max*NumberOfUnitCells[CurrentSystem].x)),(double)(Size.y/(max*NumberOfUnitCells[CurrentSystem].y)),(double)(Size.z/(max*NumberOfUnitCells[CurrentSystem].z)));
+        fprintf(FilePtr,"ASPECT_RATIO %f %f %f\n",(double)(Size.x/max),(double)(Size.y/max),(double)(Size.z/max));
+        fprintf(FilePtr,"ORIGIN 0.0 0.0 0.0\n");
+        fprintf(FilePtr,"\n");
+        fprintf(FilePtr,"POINT_DATA %d\n",DensityProfile3DVTKGridPoints.x*DensityProfile3DVTKGridPoints.y*DensityProfile3DVTKGridPoints.z);
+        fprintf(FilePtr,"SCALARS scalars unsigned_short\n");
+        fprintf(FilePtr,"LOOKUP_TABLE default\n");
+
+        max_value=0.0;
+        min_value=65536.0;
+        for(z=0;z<DensityProfile3DVTKGridPoints.z;z++)
+          for(y=0;y<DensityProfile3DVTKGridPoints.y;y++)
+            for(x=0;x<DensityProfile3DVTKGridPoints.x;x++)
+            {
+              index=x+y*DensityProfile3DVTKGridPoints.y+z*DensityProfile3DVTKGridPoints.x*DensityProfile3DVTKGridPoints.y;
+              if((COMDensityProfile3D[CurrentSystem][i][index]>max_value)&&(COMDensityProfile3D[CurrentSystem][i][index]>0.0))
+                max_value=COMDensityProfile3D[CurrentSystem][i][index];
+              if((COMDensityProfile3D[CurrentSystem][i][index]<min_value)&&(COMDensityProfile3D[CurrentSystem][i][index]>=0.0))
+                min_value=COMDensityProfile3D[CurrentSystem][i][index];
+            }
+        for(z=0;z<DensityProfile3DVTKGridPoints.z;z++)
+          for(y=0;y<DensityProfile3DVTKGridPoints.y;y++)
+            for(x=0;x<DensityProfile3DVTKGridPoints.x;x++)
+            {
+              index=x+y*DensityProfile3DVTKGridPoints.y+z*DensityProfile3DVTKGridPoints.x*DensityProfile3DVTKGridPoints.y;
+              if(COMDensityProfile3D[CurrentSystem][i][index]>0.0)
+                fprintf(FilePtr,"%d\n",(int)((COMDensityProfile3D[CurrentSystem][i][index]-min_value)*65535.0/(fabs(max_value-min_value))));
+              else
+                fprintf(FilePtr,"%d\n",0);
+            }
+            fclose(FilePtr);
+      }
+      break;
+	case FINALIZE:
+		for(i=0;i<NumberOfSystems;i++)
+		{
+				if(ComputeDensityProfile3DVTKGrid[i])
+					for(j=0;j<NumberOfComponents;j++)
+						free(COMDensityProfile3D[i][j]);
+		}
+		break;
+	}
+}
 
 /*********************************************************************************************************
  * Name       | SampleDensityProfile3DVTKGrid                                                            *
@@ -12050,6 +12315,7 @@ void ReadRestartSample(FILE *FilePtr)
   fread(&DensityProfile3DVTKGridPoints,1,sizeof(INT_VECTOR3),FilePtr);
 
   SampleDensityProfile3DVTKGrid(ALLOCATE);
+  SampleCOMDensityProfile3DVTKGrid(ALLOCATE);
 
   for(i=0;i<NumberOfSystems;i++)
   {
