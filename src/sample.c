@@ -81,6 +81,7 @@ static REAL **CountProjectedLengths;
 int *ProjectedLengthsHistogramSize;
 REAL *ProjectedLengthsRange;
 static VECTOR ***ProjectedLengthsDistributionFunction;
+static VECTOR **ProjectedLengthsAverage;
 
 int *ComputeProjectedAngles;
 int *WriteProjectedAnglesEvery;
@@ -825,12 +826,14 @@ void SampleProjectedLengthsDistributionFunction(int Switch)
     case ALLOCATE:
       // allocate mememory for the storage, a 3D array
       ProjectedLengthsDistributionFunction=(VECTOR***)calloc(NumberOfSystems,sizeof(VECTOR**));
+      ProjectedLengthsAverage=(VECTOR**)calloc(NumberOfSystems,sizeof(VECTOR*));
       CountProjectedLengths=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
       for(i=0;i<NumberOfSystems;i++)
       {
         if(ComputeProjectedLengths[i])
         {
           ProjectedLengthsDistributionFunction[i]=(VECTOR**)calloc(NumberOfComponents,sizeof(VECTOR*));
+          ProjectedLengthsAverage[i]=(VECTOR*)calloc(NumberOfComponents,sizeof(VECTOR));
           CountProjectedLengths[i]=(REAL*)calloc(NumberOfComponents,sizeof(REAL));
           for(j=0;j<NumberOfComponents;j++)
           {
@@ -872,6 +875,9 @@ void SampleProjectedLengthsDistributionFunction(int Switch)
         ProjectedLengthsDistributionFunction[CurrentSystem][Type][(int)(fabs(max.x-min.x)/deltaR)].x+=1.0;
         ProjectedLengthsDistributionFunction[CurrentSystem][Type][(int)(fabs(max.y-min.y)/deltaR)].y+=1.0;
         ProjectedLengthsDistributionFunction[CurrentSystem][Type][(int)(fabs(max.z-min.z)/deltaR)].z+=1.0;
+        ProjectedLengthsAverage[CurrentSystem][Type].x+=fabs(max.x-min.x);
+        ProjectedLengthsAverage[CurrentSystem][Type].y+=fabs(max.y-min.y);
+        ProjectedLengthsAverage[CurrentSystem][Type].z+=fabs(max.z-min.z);
         CountProjectedLengths[CurrentSystem][Type]++;
       }
       break;
@@ -894,6 +900,11 @@ void SampleProjectedLengthsDistributionFunction(int Switch)
               CurrentSystem,Components[i].Name,FileNameAppend);
         FilePtr=fopen(buffer,"w");
         normalization=CountProjectedLengths[CurrentSystem][i];
+
+        fprintf(FilePtr,"# average x: %18.10f\n",ProjectedLengthsAverage[CurrentSystem][i].x/normalization);
+        fprintf(FilePtr,"# average y: %18.10f\n",ProjectedLengthsAverage[CurrentSystem][i].y/normalization);
+        fprintf(FilePtr,"# average z: %18.10f\n",ProjectedLengthsAverage[CurrentSystem][i].z/normalization);
+
         for(k=0;k<ProjectedLengthsHistogramSize[CurrentSystem];k++)
         {
           fprintf(FilePtr,"%d %lf %lf %lf %lf\n",
@@ -915,10 +926,12 @@ void SampleProjectedLengthsDistributionFunction(int Switch)
           for(j=0;j<NumberOfComponents;j++)
             free(ProjectedLengthsDistributionFunction[i][j]);
           free(ProjectedLengthsDistributionFunction[i]);
+          free(ProjectedLengthsAverage[i]);
           free(CountProjectedLengths[i]);
         }
       }
       free(ProjectedLengthsDistributionFunction);
+      free(ProjectedLengthsAverage);
       free(CountProjectedLengths);
       break;
   }
@@ -10293,6 +10306,7 @@ void WriteRestartSample(FILE *FilePtr)
     if(ComputeProjectedLengths[i])
     {
       fwrite(CountProjectedLengths[i],NumberOfComponents,sizeof(REAL),FilePtr);
+      fwrite(ProjectedLengthsAverage[i],NumberOfComponents,sizeof(VECTOR),FilePtr);
       for(j=0;j<NumberOfComponents;j++)
         fwrite(ProjectedLengthsDistributionFunction[i][j],ProjectedLengthsHistogramSize[i],sizeof(VECTOR),FilePtr);
     }
@@ -11289,6 +11303,7 @@ void ReadRestartSample(FILE *FilePtr)
     if(ComputeProjectedLengths[i])
     {
       fread(CountProjectedLengths[i],NumberOfComponents,sizeof(REAL),FilePtr);
+      fread(ProjectedLengthsAverage[i],NumberOfComponents,sizeof(VECTOR),FilePtr);
       for(j=0;j<NumberOfComponents;j++)
         fread(ProjectedLengthsDistributionFunction[i][j],ProjectedLengthsHistogramSize[i],sizeof(VECTOR),FilePtr);
     }
