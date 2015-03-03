@@ -1,0 +1,41 @@
+SimulationType                   Minimization
+NumberOfCycles                   1
+NumberOfInitializationCycles     0
+NumberOfEquilibrationCycles      0
+PrintEvery                       1
+RestartFile                      no
+
+RMSGradientTolerance 1e-7
+MaxGradientTolerance 1e-7
+
+Ensemble NPTPR
+NPTPRCellType RegularUpperTriangle
+
+Charge                           Ewald
+CutOff                           12.0
+CutOffCoulomb                    12.0
+Forcefield                       MIL-53
+EwaldPrecision                   1e-14
+
+Framework 0
+FrameworkName MIL-53lp
+RestrictFrameworkAtomsToBox yes
+UnitCells 1 1 1
+ReplicaUnitCells 3 5 5
+HeliumVoidFraction 1.0
+ExternalTemperature 298.0
+ExternalPressure 0.0
+Movies yes
+WriteMoviesEvery 1
+ComputeElasticConstants yes
+
+FrameworkDefinitions Local
+FlexibleFramework yes
+
+Component 0 MoleculeName                   Tip5p
+            MoleculeDefinition             Local
+            TranslationProbability         1.0
+            RotationProbability            1.0
+            ReinsertionProbability         1.0
+            ExtraFrameworkMolecule         no
+            CreateNumberOfMolecules        2
