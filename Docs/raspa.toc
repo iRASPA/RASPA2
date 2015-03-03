@@ -51,9 +51,9 @@
 \contentsline {subsection}{\numberline {3.3.1}Van der Waals potentials}{77}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}Tail corrections}{81}{subsection.3.3.2}
 \contentsline {subsection}{\numberline {3.3.3}Electrostatics}{81}{subsection.3.3.3}
-\contentsline {subsubsection}{Charge-charge interaction}{81}{section*.31}
-\contentsline {subsubsection}{Charge-dipole interaction}{82}{section*.32}
-\contentsline {subsubsection}{Dipole-dipole interaction}{82}{section*.33}
+\contentsline {subsubsection}{Charge-charge interaction}{81}{section*.30}
+\contentsline {subsubsection}{Charge-dipole interaction}{82}{section*.31}
+\contentsline {subsubsection}{Dipole-dipole interaction}{82}{section*.32}
 \contentsline {section}{\numberline {3.4}Bonded potentials cross terms}{82}{section.3.4}
 \contentsline {subsection}{\numberline {3.4.1}Bond-bond potential}{82}{subsection.3.4.1}
 \contentsline {subsection}{\numberline {3.4.2}Bond-bend potential}{82}{subsection.3.4.2}
@@ -67,7 +67,7 @@
 \contentsline {section}{\numberline {4.2}Basic examples}{86}{section.4.2}
 \contentsline {section}{\numberline {4.3}Non-basic examples}{93}{section.4.3}
 \contentsline {section}{\numberline {4.4}Advanced examples}{100}{section.4.4}
-\contentsline {section}{\numberline {4.5}Auxiliary examples}{105}{section.4.5}
+\contentsline {section}{\numberline {4.5}Auxiliary examples}{106}{section.4.5}
 \gdef \the@ipfilectr {}
 \gdef \the@ipfilectr {@-5}
 \contentsline {chapter}{\numberline {5}The source code}{111}{chapter.5}

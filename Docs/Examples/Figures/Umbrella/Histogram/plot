@@ -1,0 +1,12 @@
+set xrange[0:1]
+set encoding iso_8859_1
+set key top right Left reverse width 1.0 height 0.5 samplen 1.5 spacing 1.1
+set xlabel 'Dimensionless position / -' font "Helvetica,28"
+set ylabel 'Histogram / -' font "Helvetica,28"
+unset ytics
+set output 'UmbrellaHistogram.eps'
+set term postscript eps enhanced color solid 22
+plot \
+"Histogram_methane_0_Bead0.dat_A" title 'A' with li lc 10,\
+"Histogram_methane_0_Bead0.dat_B" title 'B' with li lc 11,\
+"Histogram_methane_0_Bead0.dat_C" title 'C' with li lc 12

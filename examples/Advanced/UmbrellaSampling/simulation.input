@@ -1,0 +1,38 @@
+SimulationType                   MonteCarlo
+NumberOfCycles                   10000000000
+NumberOfInitializationCycles     1000
+PrintEvery                       5000
+
+Forcefield                       GenericZeolites
+
+Framework                        0
+FrameworkName                    LTA_SI
+ShiftUnitCells                   0.0 0.0 0.0
+UnitCells                        1 1 1
+ExternalTemperature              600.0
+
+ComputePositionHistogram         yes
+WritePositionHistogramEvery      10000
+
+component 0 MoleculeName                     methane
+            StartingBead                     0
+            MoleculeDefinition               TraPPE
+            BiasingProfile                   Profile.dat
+            BiasingMethod                    Umbrella
+            BiasingDirection                 A
+            BlockPockets                     yes
+            BlockPocketsFileName             LTA_SI
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            CreateNumberOfMolecules          1
+
+component 1 MoleculeName                     methane
+            StartingBead                     0
+            MoleculeDefinition               TraPPE
+            BlockPockets                     yes
+            BlockPocketsFileName             LTA_SI
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            CreateNumberOfMolecules          0

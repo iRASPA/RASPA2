@@ -1736,6 +1736,98 @@ At the end of the output, after the run has finished, the statistics of the RXMC
                     total tried: 245258.000000 backward-reaction accepted: 219863.000000 (89.645598 [%])
 \end{verbatim}
 \end{tiny}
+
+\subsection*{Example 7: Umbrella sampling}
+
+In Umbrelle sampling we can tag one particle and add a biasing potential to it. Figure \ref{Fig: umbrealla sampling}(a)
+shows the used biasing potential, which is directly obtained from Widom insertion of methane in LTA. Any profile will
+do as long as it close enough. 
+As can be seen in Figure \ref{Fig: umbrealla sampling}(b), if we do a MC simulation
+with only this particle (second component zero particles), 
+then the resulting histogram will be flat in the direction that we bias. The other directions are unbiased.
+Using this profile, we can easily obtain the free energy at higher loadings. Here is the input for methane in LTA at 4 methane/cage.
+The output will have a directory 'Histograms' containg the histograms for each component in the A, B, C directions. Also, it automatically
+computes the true free energy (from the biasing-spline plus the histograms) in file starting with 'FreeEnergy'.
+
+\begin{figure}[t]
+  \centering
+  \subfloat[]{\includegraphics[width=7.5cm]{./Examples/Figures/Umbrella/BiasingProfile/BiasingSpline.pdf}}
+  \subfloat[]{\includegraphics[width=7.5cm]{./Examples/Figures/Umbrella/Histogram/UmbrellaHistogram.pdf}}
+  \caption{Umbrelle sampling: (a) free energy profile from Widom insertion (the inverse will be used as a biasing potential),
+           (b) the histograms of the position of the tagged particle in the direction A (biasing direction), B, and C.}
+  \label{Fig: umbrealla sampling}
+\end{figure}
+
+\begin{tiny}
+\begin{verbatim}
+SimulationType                   MonteCarlo
+NumberOfCycles                   10000000000
+NumberOfInitializationCycles     1000
+PrintEvery                       5000
+
+Forcefield                       GenericZeolites
+
+Framework                        0
+FrameworkName                    LTA_SI
+ShiftUnitCells                   0.0 0.0 0.0
+UnitCells                        1 1 1
+ExternalTemperature              600.0
+
+ComputePositionHistogram         yes
+WritePositionHistogramEvery      10000
+
+component 0 MoleculeName                     methane
+            StartingBead                     0
+            MoleculeDefinition               TraPPE
+            BiasingProfile                   Profile.dat
+            BiasingMethod                    Umbrella
+            BiasingDirection                 A
+            BlockPockets                     yes
+            BlockPocketsFileName             LTA_SI
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            CreateNumberOfMolecules          1
+
+component 1 MoleculeName                     methane
+            StartingBead                     0
+            MoleculeDefinition               TraPPE
+            BlockPockets                     yes
+            BlockPocketsFileName             LTA_SI
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            CreateNumberOfMolecules          31
+\end{verbatim}
+\end{tiny}
+
+The biasing spline (here called 'Profile.dat') has a header describing the spline:
+\begin{tiny}
+\begin{verbatim}
+# 1801
+# 0.5
+# 0.25 0.75 12.2775
+# 0.0  0.5
+0 5.87638 0.0919053
+0.000555556 5.79087 0.0924271
+...
+\end{verbatim}
+\end{tiny}
+The lines have the following meaning:
+\begin{itemize}
+\item{the number of data points in the file},
+\item{the dimensionless position of the barrier $q^*_A$}
+\item{the dimensionless position of the minimum of the free energy $g_A$ and $g_B$, and the distance $d$ between $g_A$ and $g_B$ in Angstrom}
+\item{the left and right boundary of $g_A$}
+\end{itemize}
+followed by the actual data points: 
+\begin{itemize}
+\item{dimensionless position}
+\item{dimensionless free energy $\beta F$ or $F$ in unit of $k_BT$}
+\item{error in the free energy}
+\end{itemize}
+
+
 \section{Auxiliary examples}
 
 \subsection*{Example 1: Computing the ideal gas Rosenbluth weight of a molecule}

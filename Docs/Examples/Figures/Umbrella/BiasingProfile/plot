@@ -1,0 +1,14 @@
+#set xrange[0:1]
+set encoding iso_8859_1
+set key top right Left reverse width 1.0 height 0.5 samplen 1.5 spacing 1.1
+unset key
+set xlabel 'Dimensionless position / -' font "Helvetica,28"
+set ylabel 'Free energy / -' font "Helvetica,28"
+set output 'BiasingSpline.eps'
+set yrange[:7]
+set term postscript eps enhanced color solid 22
+set label at 0.25,0 center "g_A" font "Helvetica,28"
+set label at 0.75,0 center "g_B" font "Helvetica,28"
+set label at 0.5,6.5 center "q_A*" font "Helvetica,28"
+plot \
+"BiasingSpline_methane_0.dat" title 'A' with li lw 3 lc 10,\
