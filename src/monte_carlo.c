@@ -1151,121 +1151,121 @@ void DebugEnergyStatus(void)
     for(i=0;i<NumberOfSystems;i++)
     {
       fprintf(stderr, "\n\n");
-      fprintf(stderr, "ERROR [energy status]: current energy (%18.10f) and true energy (%18.10f) are different in system %d\n",StoredUTotal,UTotal[CurrentSystem],CurrentSystem);
-      if(fabs(StoredUTotal)>1e-8) fprintf(stderr, "UTotal: %18.10f %18.10f\n",StoredUTotal,UTotal[CurrentSystem]);
-      if(fabs(StoredUTailCorrection)>1e-8) fprintf(stderr, "UTailCorrection: %18.10f %18.10f\n",StoredUTailCorrection,UTailCorrection[CurrentSystem]);
+      fprintf(stderr, "ERROR [energy status]: current energy (%18.10f) and true energy (%18.10f) are different in system %d\n",StoredUTotal*ENERGY_TO_KELVIN,UTotal[CurrentSystem]*ENERGY_TO_KELVIN,CurrentSystem);
+      if(fabs(StoredUTotal)>1e-8) fprintf(stderr, "UTotal: %18.10f %18.10f\n",StoredUTotal*ENERGY_TO_KELVIN,UTotal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUTailCorrection)>1e-8) fprintf(stderr, "UTailCorrection: %18.10f %18.10f\n",StoredUTailCorrection*ENERGY_TO_KELVIN,UTailCorrection[CurrentSystem]*ENERGY_TO_KELVIN);
 
-      if(fabs(StoredUHostBond)>1e-8) fprintf(stderr, "UHostBond: %18.10f %18.10f\n",StoredUHostBond,UHostBond[CurrentSystem]);
-      if(fabs(StoredUHostUreyBradley)>1e-8) fprintf(stderr, "UHostUreyBradley: %18.10f %18.10f\n",StoredUHostUreyBradley,UHostUreyBradley[CurrentSystem]);
-      if(fabs(StoredUHostBend)>1e-8) fprintf(stderr, "UHostBend: %18.10f %18.10f\n",StoredUHostBend,UHostBend[CurrentSystem]);
-      if(fabs(StoredUHostInversionBend)>1e-8) fprintf(stderr, "UHostInversionBend: %18.10f %18.10f\n",StoredUHostInversionBend,UHostInversionBend[CurrentSystem]);
-      if(fabs(StoredUHostTorsion)>1e-8) fprintf(stderr, "UHostTorsion: %18.10f %18.10f\n",StoredUHostTorsion,UHostTorsion[CurrentSystem]);
-      if(fabs(StoredUHostImproperTorsion)>1e-8) fprintf(stderr, "UHostImproperTorsion: %18.10f %18.10f\n",StoredUHostImproperTorsion,UHostImproperTorsion[CurrentSystem]);
-      if(fabs(StoredUHostBondBond)>1e-8) fprintf(stderr, "UHostBondBond: %18.10f %18.10f\n",StoredUHostBondBond,UHostBondBond[CurrentSystem]);
-      if(fabs(StoredUHostBendBend)>1e-8) fprintf(stderr, "UHostBendBend: %18.10f %18.10f\n",StoredUHostBendBend,UHostBendBend[CurrentSystem]);
-      if(fabs(StoredUHostBondBend)>1e-8) fprintf(stderr, "UHostBondBend: %18.10f %18.10f\n",StoredUHostBondBend,UHostBondBend[CurrentSystem]);
-      if(fabs(StoredUHostBondTorsion)>1e-8) fprintf(stderr, "UHostBondTorsion: %18.10f %18.10f\n",StoredUHostBondTorsion,UHostBondTorsion[CurrentSystem]);
-      if(fabs(StoredUHostBendTorsion)>1e-8) fprintf(stderr, "UHostBendTorsion: %18.10f %18.10f\n",StoredUHostBendTorsion,UHostBendTorsion[CurrentSystem]);
+      if(fabs(StoredUHostBond)>1e-8) fprintf(stderr, "UHostBond: %18.10f %18.10f\n",StoredUHostBond*ENERGY_TO_KELVIN,UHostBond[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostUreyBradley)>1e-8) fprintf(stderr, "UHostUreyBradley: %18.10f %18.10f\n",StoredUHostUreyBradley*ENERGY_TO_KELVIN,UHostUreyBradley[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostBend)>1e-8) fprintf(stderr, "UHostBend: %18.10f %18.10f\n",StoredUHostBend*ENERGY_TO_KELVIN,UHostBend[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostInversionBend)>1e-8) fprintf(stderr, "UHostInversionBend: %18.10f %18.10f\n",StoredUHostInversionBend*ENERGY_TO_KELVIN,UHostInversionBend[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostTorsion)>1e-8) fprintf(stderr, "UHostTorsion: %18.10f %18.10f\n",StoredUHostTorsion*ENERGY_TO_KELVIN,UHostTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostImproperTorsion)>1e-8) fprintf(stderr, "UHostImproperTorsion: %18.10f %18.10f\n",StoredUHostImproperTorsion*ENERGY_TO_KELVIN,UHostImproperTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostBondBond)>1e-8) fprintf(stderr, "UHostBondBond: %18.10f %18.10f\n",StoredUHostBondBond*ENERGY_TO_KELVIN,UHostBondBond[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostBendBend)>1e-8) fprintf(stderr, "UHostBendBend: %18.10f %18.10f\n",StoredUHostBendBend*ENERGY_TO_KELVIN,UHostBendBend[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostBondBend)>1e-8) fprintf(stderr, "UHostBondBend: %18.10f %18.10f\n",StoredUHostBondBend*ENERGY_TO_KELVIN,UHostBondBend[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostBondTorsion)>1e-8) fprintf(stderr, "UHostBondTorsion: %18.10f %18.10f\n",StoredUHostBondTorsion*ENERGY_TO_KELVIN,UHostBondTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostBendTorsion)>1e-8) fprintf(stderr, "UHostBendTorsion: %18.10f %18.10f\n",StoredUHostBendTorsion*ENERGY_TO_KELVIN,UHostBendTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
 
-      if(fabs(StoredUAdsorbateBond)>1e-8) fprintf(stderr, "UAdsorbateBond: %18.10f %18.10f\n",StoredUAdsorbateBond,UAdsorbateBond[CurrentSystem]);
-      if(fabs(StoredUAdsorbateUreyBradley)>1e-8) fprintf(stderr, "UAdsorbateUreyBradley: %18.10f %18.10f\n",StoredUAdsorbateUreyBradley,UAdsorbateUreyBradley[CurrentSystem]);
-      if(fabs(StoredUAdsorbateBend)>1e-8) fprintf(stderr, "UAdsorbateBend: %18.10f %18.10f\n",StoredUAdsorbateBend,UAdsorbateBend[CurrentSystem]);
-      if(fabs(StoredUAdsorbateInversionBend)>1e-8) fprintf(stderr, "UAdsorbateInversionBend: %18.10f %18.10f\n",StoredUAdsorbateInversionBend,UAdsorbateInversionBend[CurrentSystem]);
-      if(fabs(StoredUAdsorbateTorsion)>1e-8) fprintf(stderr, "UAdsorbateTorsion: %18.10f %18.10f\n",StoredUAdsorbateTorsion,UAdsorbateTorsion[CurrentSystem]);
-      if(fabs(StoredUAdsorbateImproperTorsion)>1e-8) fprintf(stderr, "UAdsorbateImproperTorsion: %18.10f %18.10f\n",StoredUAdsorbateImproperTorsion,UAdsorbateImproperTorsion[CurrentSystem]);
-      if(fabs(StoredUAdsorbateBondBond)>1e-8) fprintf(stderr, "UAdsorbateBondBond: %18.10f %18.10f\n",StoredUAdsorbateBondBond,UAdsorbateBondBond[CurrentSystem]);
-      if(fabs(StoredUAdsorbateBendBend)>1e-8) fprintf(stderr, "UAdsorbateBendBend: %18.10f %18.10f\n",StoredUAdsorbateBendBend,UAdsorbateBendBend[CurrentSystem]);
-      if(fabs(StoredUAdsorbateBondBend)>1e-8) fprintf(stderr, "UAdsorbateBondBend: %18.10f %18.10f\n",StoredUAdsorbateBondBend,UAdsorbateBondBend[CurrentSystem]);
-      if(fabs(StoredUAdsorbateBondTorsion)>1e-8) fprintf(stderr, "UAdsorbateBondTorsion: %18.10f %18.10f\n",StoredUAdsorbateBondTorsion,UAdsorbateBondTorsion[CurrentSystem]);
-      if(fabs(StoredUAdsorbateBendTorsion)>1e-8) fprintf(stderr, "UAdsorbateBendTorsion: %18.10f %18.10f\n",StoredUAdsorbateBendTorsion,UAdsorbateBendTorsion[CurrentSystem]);
-      if(fabs(StoredUAdsorbateIntraVDW)>1e-8) fprintf(stderr, "UAdsorbateIntraVDW: %18.10f %18.10f\n",StoredUAdsorbateIntraVDW,UAdsorbateIntraVDW[CurrentSystem]);
-      if(fabs(StoredUAdsorbateIntraChargeCharge)>1e-8) fprintf(stderr, "UAdsorbateIntraChargeCharge: %18.10f %18.10f\n",StoredUAdsorbateIntraChargeCharge,UAdsorbateIntraChargeCharge[CurrentSystem]);
-      if(fabs(StoredUAdsorbateIntraChargeBondDipole)>1e-8) fprintf(stderr, "UAdsorbateIntraChargeBondDipole: %18.10f %18.10f\n",StoredUAdsorbateIntraChargeBondDipole,UAdsorbateIntraChargeBondDipole[CurrentSystem]);
-      if(fabs(StoredUAdsorbateIntraBondDipoleBondDipole)>1e-8) fprintf(stderr, "UAdsorbateIntraBondDipoleBondDipole: %18.10f %18.10f\n",StoredUAdsorbateIntraBondDipoleBondDipole,UAdsorbateIntraBondDipoleBondDipole[CurrentSystem]);
+      if(fabs(StoredUAdsorbateBond)>1e-8) fprintf(stderr, "UAdsorbateBond: %18.10f %18.10f\n",StoredUAdsorbateBond*ENERGY_TO_KELVIN,UAdsorbateBond[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateUreyBradley)>1e-8) fprintf(stderr, "UAdsorbateUreyBradley: %18.10f %18.10f\n",StoredUAdsorbateUreyBradley*ENERGY_TO_KELVIN,UAdsorbateUreyBradley[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateBend)>1e-8) fprintf(stderr, "UAdsorbateBend: %18.10f %18.10f\n",StoredUAdsorbateBend*ENERGY_TO_KELVIN,UAdsorbateBend[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateInversionBend)>1e-8) fprintf(stderr, "UAdsorbateInversionBend: %18.10f %18.10f\n",StoredUAdsorbateInversionBend*ENERGY_TO_KELVIN,UAdsorbateInversionBend[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateTorsion)>1e-8) fprintf(stderr, "UAdsorbateTorsion: %18.10f %18.10f\n",StoredUAdsorbateTorsion*ENERGY_TO_KELVIN,UAdsorbateTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateImproperTorsion)>1e-8) fprintf(stderr, "UAdsorbateImproperTorsion: %18.10f %18.10f\n",StoredUAdsorbateImproperTorsion*ENERGY_TO_KELVIN,UAdsorbateImproperTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateBondBond)>1e-8) fprintf(stderr, "UAdsorbateBondBond: %18.10f %18.10f\n",StoredUAdsorbateBondBond*ENERGY_TO_KELVIN,UAdsorbateBondBond[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateBendBend)>1e-8) fprintf(stderr, "UAdsorbateBendBend: %18.10f %18.10f\n",StoredUAdsorbateBendBend*ENERGY_TO_KELVIN,UAdsorbateBendBend[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateBondBend)>1e-8) fprintf(stderr, "UAdsorbateBondBend: %18.10f %18.10f\n",StoredUAdsorbateBondBend*ENERGY_TO_KELVIN,UAdsorbateBondBend[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateBondTorsion)>1e-8) fprintf(stderr, "UAdsorbateBondTorsion: %18.10f %18.10f\n",StoredUAdsorbateBondTorsion*ENERGY_TO_KELVIN,UAdsorbateBondTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateBendTorsion)>1e-8) fprintf(stderr, "UAdsorbateBendTorsion: %18.10f %18.10f\n",StoredUAdsorbateBendTorsion*ENERGY_TO_KELVIN,UAdsorbateBendTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateIntraVDW)>1e-8) fprintf(stderr, "UAdsorbateIntraVDW: %18.10f %18.10f\n",StoredUAdsorbateIntraVDW*ENERGY_TO_KELVIN,UAdsorbateIntraVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateIntraChargeCharge)>1e-8) fprintf(stderr, "UAdsorbateIntraChargeCharge: %18.10f %18.10f\n",StoredUAdsorbateIntraChargeCharge*ENERGY_TO_KELVIN,UAdsorbateIntraChargeCharge[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateIntraChargeBondDipole)>1e-8) fprintf(stderr, "UAdsorbateIntraChargeBondDipole: %18.10f %18.10f\n",StoredUAdsorbateIntraChargeBondDipole*ENERGY_TO_KELVIN,UAdsorbateIntraChargeBondDipole[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateIntraBondDipoleBondDipole)>1e-8) fprintf(stderr, "UAdsorbateIntraBondDipoleBondDipole: %18.10f %18.10f\n",StoredUAdsorbateIntraBondDipoleBondDipole*ENERGY_TO_KELVIN,UAdsorbateIntraBondDipoleBondDipole[CurrentSystem]*ENERGY_TO_KELVIN);
 
-      if(fabs(StoredUCationBond)>1e-8) fprintf(stderr, "UCationBond: %18.10f %18.10f\n",StoredUCationBond,UCationBond[CurrentSystem]);
-      if(fabs(StoredUCationUreyBradley)>1e-8) fprintf(stderr, "UCationUreyBradley: %18.10f %18.10f\n",StoredUCationUreyBradley,UCationUreyBradley[CurrentSystem]);
-      if(fabs(StoredUCationBend)>1e-8) fprintf(stderr, "UCationBend: %18.10f %18.10f\n",StoredUCationBend,UCationBend[CurrentSystem]);
-      if(fabs(StoredUCationInversionBend)>1e-8) fprintf(stderr, "UCationInversionBend: %18.10f %18.10f\n",StoredUCationInversionBend,UCationInversionBend[CurrentSystem]);
-      if(fabs(StoredUCationTorsion)>1e-8) fprintf(stderr, "UCationTorsion: %18.10f %18.10f\n",StoredUCationTorsion,UCationTorsion[CurrentSystem]);
-      if(fabs(StoredUCationImproperTorsion)>1e-8) fprintf(stderr, "UCationImproperTorsion: %18.10f %18.10f\n",StoredUCationImproperTorsion,UCationImproperTorsion[CurrentSystem]);
-      if(fabs(StoredUCationBondBond)>1e-8) fprintf(stderr, "UCationBondBond: %18.10f %18.10f\n",StoredUCationBondBond,UCationBondBond[CurrentSystem]);
-      if(fabs(StoredUCationBendBend)>1e-8) fprintf(stderr, "UCationBendBend: %18.10f %18.10f\n",StoredUCationBendBend,UCationBendBend[CurrentSystem]);
-      if(fabs(StoredUCationBondBend)>1e-8) fprintf(stderr, "UCationBondBend: %18.10f %18.10f\n",StoredUCationBondBend,UCationBondBend[CurrentSystem]);
-      if(fabs(StoredUCationBondTorsion)>1e-8) fprintf(stderr, "UCationBondTorsion: %18.10f %18.10f\n",StoredUCationBondTorsion,UCationBondTorsion[CurrentSystem]);
-      if(fabs(StoredUCationBendTorsion)>1e-8) fprintf(stderr, "UCationBendTorsion: %18.10f %18.10f\n",StoredUCationBendTorsion,UCationBendTorsion[CurrentSystem]);
-      if(fabs(StoredUCationIntraVDW)>1e-8) fprintf(stderr, "UCationIntraVDW: %18.10f %18.10f\n",StoredUCationIntraVDW,UCationIntraVDW[CurrentSystem]);
-      if(fabs(StoredUCationIntraChargeCharge)>1e-8) fprintf(stderr, "UCationIntraChargeCharge: %18.10f %18.10f\n",StoredUCationIntraChargeCharge,UCationIntraChargeCharge[CurrentSystem]);
-      if(fabs(StoredUCationIntraChargeBondDipole)>1e-8) fprintf(stderr, "UCationIntraChargeBondDipole: %18.10f %18.10f\n",StoredUCationIntraChargeBondDipole,UCationIntraChargeBondDipole[CurrentSystem]);
-      if(fabs(StoredUCationIntraBondDipoleBondDipole)>1e-8) fprintf(stderr, "UCationIntraBondDipoleBondDipole: %18.10f %18.10f\n",StoredUCationIntraBondDipoleBondDipole,UCationIntraBondDipoleBondDipole[CurrentSystem]);
+      if(fabs(StoredUCationBond)>1e-8) fprintf(stderr, "UCationBond: %18.10f %18.10f\n",StoredUCationBond*ENERGY_TO_KELVIN,UCationBond[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationUreyBradley)>1e-8) fprintf(stderr, "UCationUreyBradley: %18.10f %18.10f\n",StoredUCationUreyBradley*ENERGY_TO_KELVIN,UCationUreyBradley[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationBend)>1e-8) fprintf(stderr, "UCationBend: %18.10f %18.10f\n",StoredUCationBend*ENERGY_TO_KELVIN,UCationBend[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationInversionBend)>1e-8) fprintf(stderr, "UCationInversionBend: %18.10f %18.10f\n",StoredUCationInversionBend*ENERGY_TO_KELVIN,UCationInversionBend[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationTorsion)>1e-8) fprintf(stderr, "UCationTorsion: %18.10f %18.10f\n",StoredUCationTorsion*ENERGY_TO_KELVIN,UCationTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationImproperTorsion)>1e-8) fprintf(stderr, "UCationImproperTorsion: %18.10f %18.10f\n",StoredUCationImproperTorsion*ENERGY_TO_KELVIN,UCationImproperTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationBondBond)>1e-8) fprintf(stderr, "UCationBondBond: %18.10f %18.10f\n",StoredUCationBondBond*ENERGY_TO_KELVIN,UCationBondBond[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationBendBend)>1e-8) fprintf(stderr, "UCationBendBend: %18.10f %18.10f\n",StoredUCationBendBend*ENERGY_TO_KELVIN,UCationBendBend[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationBondBend)>1e-8) fprintf(stderr, "UCationBondBend: %18.10f %18.10f\n",StoredUCationBondBend*ENERGY_TO_KELVIN,UCationBondBend[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationBondTorsion)>1e-8) fprintf(stderr, "UCationBondTorsion: %18.10f %18.10f\n",StoredUCationBondTorsion*ENERGY_TO_KELVIN,UCationBondTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationBendTorsion)>1e-8) fprintf(stderr, "UCationBendTorsion: %18.10f %18.10f\n",StoredUCationBendTorsion*ENERGY_TO_KELVIN,UCationBendTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationIntraVDW)>1e-8) fprintf(stderr, "UCationIntraVDW: %18.10f %18.10f\n",StoredUCationIntraVDW*ENERGY_TO_KELVIN,UCationIntraVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationIntraChargeCharge)>1e-8) fprintf(stderr, "UCationIntraChargeCharge: %18.10f %18.10f\n",StoredUCationIntraChargeCharge*ENERGY_TO_KELVIN,UCationIntraChargeCharge[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationIntraChargeBondDipole)>1e-8) fprintf(stderr, "UCationIntraChargeBondDipole: %18.10f %18.10f\n",StoredUCationIntraChargeBondDipole*ENERGY_TO_KELVIN,UCationIntraChargeBondDipole[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationIntraBondDipoleBondDipole)>1e-8) fprintf(stderr, "UCationIntraBondDipoleBondDipole: %18.10f %18.10f\n",StoredUCationIntraBondDipoleBondDipole*ENERGY_TO_KELVIN,UCationIntraBondDipoleBondDipole[CurrentSystem]*ENERGY_TO_KELVIN);
 
-      if(fabs(StoredUHostHost)>1e-8) fprintf(stderr, "UHostHost: %18.10f %18.10f\n",StoredUHostHost,UHostHost[CurrentSystem]);
-      if(fabs(StoredUHostHostVDW)>1e-8) fprintf(stderr, "UHostHostVDW: %18.10f %18.10f\n",StoredUHostHostVDW,UHostHostVDW[CurrentSystem]);
-      if(fabs(StoredUHostHostChargeChargeReal)>1e-8) fprintf(stderr, "UHostHostChargeChargeReal: %18.10f %18.10f\n",StoredUHostHostChargeChargeReal,UHostHostChargeChargeReal[CurrentSystem]);
-      if(fabs(StoredUHostHostChargeChargeFourier)>1e-8) fprintf(stderr, "UHostHostChargeChargeFourier: %18.10f %18.10f\n",StoredUHostHostChargeChargeFourier,UHostHostChargeChargeFourier[CurrentSystem]);
-      if(fabs(StoredUHostHostChargeBondDipoleReal)>1e-8) fprintf(stderr, "UHostHostChargeBondDipoleReal: %18.10f %18.10f\n",StoredUHostHostChargeBondDipoleReal,UHostHostChargeBondDipoleReal[CurrentSystem]);
-      if(fabs(StoredUHostHostChargeBondDipoleFourier)>1e-8) fprintf(stderr, "UHostHostChargeBondDipoleFourier: %18.10f %18.10f\n",StoredUHostHostChargeBondDipoleFourier,UHostHostChargeBondDipoleFourier[CurrentSystem]);
-      if(fabs(StoredUHostHostBondDipoleBondDipoleReal)>1e-8) fprintf(stderr, "UHostHostBondDipoleBondDipoleReal: %18.10f %18.10f\n",StoredUHostHostBondDipoleBondDipoleReal,UHostHostBondDipoleBondDipoleReal[CurrentSystem]);
-      if(fabs(StoredUHostHostBondDipoleBondDipoleFourier)>1e-8) fprintf(stderr, "UHostHostBondDipoleBondDipoleFourier: %18.10f %18.10f\n",StoredUHostHostBondDipoleBondDipoleFourier,UHostHostBondDipoleBondDipoleFourier[CurrentSystem]);
-      if(fabs(StoredUHostHostCoulomb)>1e-8) fprintf(stderr, "UHostHostCoulomb: %18.10f %18.10f\n",StoredUHostHostCoulomb,UHostHostCoulomb[CurrentSystem]);
+      if(fabs(StoredUHostHost)>1e-8) fprintf(stderr, "UHostHost: %18.10f %18.10f\n",StoredUHostHost*ENERGY_TO_KELVIN,UHostHost[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostHostVDW)>1e-8) fprintf(stderr, "UHostHostVDW: %18.10f %18.10f\n",StoredUHostHostVDW*ENERGY_TO_KELVIN,UHostHostVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostHostChargeChargeReal)>1e-8) fprintf(stderr, "UHostHostChargeChargeReal: %18.10f %18.10f\n",StoredUHostHostChargeChargeReal*ENERGY_TO_KELVIN,UHostHostChargeChargeReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostHostChargeChargeFourier)>1e-8) fprintf(stderr, "UHostHostChargeChargeFourier: %18.10f %18.10f\n",StoredUHostHostChargeChargeFourier*ENERGY_TO_KELVIN,UHostHostChargeChargeFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostHostChargeBondDipoleReal)>1e-8) fprintf(stderr, "UHostHostChargeBondDipoleReal: %18.10f %18.10f\n",StoredUHostHostChargeBondDipoleReal*ENERGY_TO_KELVIN,UHostHostChargeBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostHostChargeBondDipoleFourier)>1e-8) fprintf(stderr, "UHostHostChargeBondDipoleFourier: %18.10f %18.10f\n",StoredUHostHostChargeBondDipoleFourier*ENERGY_TO_KELVIN,UHostHostChargeBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostHostBondDipoleBondDipoleReal)>1e-8) fprintf(stderr, "UHostHostBondDipoleBondDipoleReal: %18.10f %18.10f\n",StoredUHostHostBondDipoleBondDipoleReal*ENERGY_TO_KELVIN,UHostHostBondDipoleBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostHostBondDipoleBondDipoleFourier)>1e-8) fprintf(stderr, "UHostHostBondDipoleBondDipoleFourier: %18.10f %18.10f\n",StoredUHostHostBondDipoleBondDipoleFourier*ENERGY_TO_KELVIN,UHostHostBondDipoleBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostHostCoulomb)>1e-8) fprintf(stderr, "UHostHostCoulomb: %18.10f %18.10f\n",StoredUHostHostCoulomb*ENERGY_TO_KELVIN,UHostHostCoulomb[CurrentSystem]*ENERGY_TO_KELVIN);
 
-      if(fabs(StoredUHostAdsorbate)>1e-8) fprintf(stderr, "UHostAdsorbate: %18.10f %18.10f\n",StoredUHostAdsorbate,UHostAdsorbate[CurrentSystem]);
-      if(fabs(StoredUHostAdsorbateVDW)>1e-8) fprintf(stderr, "UHostAdsorbateVDW: %18.10f %18.10f\n",StoredUHostAdsorbateVDW,UHostAdsorbateVDW[CurrentSystem]);
-      if(fabs(StoredUHostAdsorbateChargeChargeReal)>1e-8) fprintf(stderr, "UHostAdsorbateChargeChargeReal: %18.10f %18.10f\n",StoredUHostAdsorbateChargeChargeReal,UHostAdsorbateChargeChargeReal[CurrentSystem]);
-      if(fabs(StoredUHostAdsorbateChargeBondDipoleReal)>1e-8) fprintf(stderr, "UHostAdsorbateChargeBondDipoleReal: %18.10f %18.10f\n",StoredUHostAdsorbateChargeBondDipoleReal,UHostAdsorbateChargeBondDipoleReal[CurrentSystem]);
-      if(fabs(StoredUHostAdsorbateBondDipoleBondDipoleReal)>1e-8) fprintf(stderr, "UHostAdsorbateBondDipoleBondDipoleReal: %18.10f %18.10f\n",StoredUHostAdsorbateBondDipoleBondDipoleReal,UHostAdsorbateBondDipoleBondDipoleReal[CurrentSystem]);
-      if(fabs(StoredUHostAdsorbateChargeChargeFourier)>1e-8) fprintf(stderr, "UHostAdsorbateChargeChargeFourier: %18.10f %18.10f\n",StoredUHostAdsorbateChargeChargeFourier,UHostAdsorbateChargeChargeFourier[CurrentSystem]);
-      if(fabs(StoredUHostAdsorbateChargeBondDipoleFourier)>1e-8) fprintf(stderr, "UHostAdsorbateChargeBondDipoleFourier: %18.10f %18.10f\n",StoredUHostAdsorbateChargeBondDipoleFourier,UHostAdsorbateChargeBondDipoleFourier[CurrentSystem]);
-      if(fabs(StoredUHostAdsorbateBondDipoleBondDipoleFourier)>1e-8) fprintf(stderr, "UHostAdsorbateBondDipoleBondDipoleFourier: %18.10f %18.10f\n",StoredUHostAdsorbateBondDipoleBondDipoleFourier,UHostAdsorbateBondDipoleBondDipoleFourier[CurrentSystem]);
-      if(fabs(StoredUHostAdsorbateCoulomb)>1e-8) fprintf(stderr, "UHostAdsorbateCoulomb: %18.10f %18.10f\n",StoredUHostAdsorbateCoulomb,UHostAdsorbateCoulomb[CurrentSystem]);
+      if(fabs(StoredUHostAdsorbate)>1e-8) fprintf(stderr, "UHostAdsorbate: %18.10f %18.10f\n",StoredUHostAdsorbate*ENERGY_TO_KELVIN,UHostAdsorbate[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostAdsorbateVDW)>1e-8) fprintf(stderr, "UHostAdsorbateVDW: %18.10f %18.10f\n",StoredUHostAdsorbateVDW*ENERGY_TO_KELVIN,UHostAdsorbateVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostAdsorbateChargeChargeReal)>1e-8) fprintf(stderr, "UHostAdsorbateChargeChargeReal: %18.10f %18.10f\n",StoredUHostAdsorbateChargeChargeReal*ENERGY_TO_KELVIN,UHostAdsorbateChargeChargeReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostAdsorbateChargeBondDipoleReal)>1e-8) fprintf(stderr, "UHostAdsorbateChargeBondDipoleReal: %18.10f %18.10f\n",StoredUHostAdsorbateChargeBondDipoleReal*ENERGY_TO_KELVIN,UHostAdsorbateChargeBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostAdsorbateBondDipoleBondDipoleReal)>1e-8) fprintf(stderr, "UHostAdsorbateBondDipoleBondDipoleReal: %18.10f %18.10f\n",StoredUHostAdsorbateBondDipoleBondDipoleReal*ENERGY_TO_KELVIN,UHostAdsorbateBondDipoleBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostAdsorbateChargeChargeFourier)>1e-8) fprintf(stderr, "UHostAdsorbateChargeChargeFourier: %18.10f %18.10f\n",StoredUHostAdsorbateChargeChargeFourier*ENERGY_TO_KELVIN,UHostAdsorbateChargeChargeFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostAdsorbateChargeBondDipoleFourier)>1e-8) fprintf(stderr, "UHostAdsorbateChargeBondDipoleFourier: %18.10f %18.10f\n",StoredUHostAdsorbateChargeBondDipoleFourier*ENERGY_TO_KELVIN,UHostAdsorbateChargeBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostAdsorbateBondDipoleBondDipoleFourier)>1e-8) fprintf(stderr, "UHostAdsorbateBondDipoleBondDipoleFourier: %18.10f %18.10f\n",StoredUHostAdsorbateBondDipoleBondDipoleFourier*ENERGY_TO_KELVIN,UHostAdsorbateBondDipoleBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostAdsorbateCoulomb)>1e-8) fprintf(stderr, "UHostAdsorbateCoulomb: %18.10f %18.10f\n",StoredUHostAdsorbateCoulomb*ENERGY_TO_KELVIN,UHostAdsorbateCoulomb[CurrentSystem]*ENERGY_TO_KELVIN);
 
-      if(fabs(StoredUHostCation)>1e-8) fprintf(stderr, "UHostCation: %18.10f %18.10f\n",StoredUHostCation,UHostCation[CurrentSystem]);
-      if(fabs(StoredUHostCationVDW)>1e-8) fprintf(stderr, "UHostCationVDW: %18.10f %18.10f\n",StoredUHostCationVDW,UHostCationVDW[CurrentSystem]);
-      if(fabs(StoredUHostCationChargeChargeReal)>1e-8) fprintf(stderr, "UHostCationChargeChargeReal: %18.10f %18.10f\n",StoredUHostCationChargeChargeReal,UHostCationChargeChargeReal[CurrentSystem]);
-      if(fabs(StoredUHostCationChargeBondDipoleReal)>1e-8) fprintf(stderr, "UHostCationChargeBondDipoleReal: %18.10f %18.10f\n",StoredUHostCationChargeBondDipoleReal,UHostCationChargeBondDipoleReal[CurrentSystem]);
-      if(fabs(StoredUHostCationBondDipoleBondDipoleReal)>1e-8) fprintf(stderr, "UHostCationBondDipoleBondDipoleReal: %18.10f %18.10f\n",StoredUHostCationBondDipoleBondDipoleReal,UHostCationBondDipoleBondDipoleReal[CurrentSystem]);
-      if(fabs(StoredUHostCationChargeChargeFourier)>1e-8) fprintf(stderr, "UHostCationChargeChargeFourier: %18.10f %18.10f\n",StoredUHostCationChargeChargeFourier,UHostCationChargeChargeFourier[CurrentSystem]);
-      if(fabs(StoredUHostCationChargeBondDipoleFourier)>1e-8) fprintf(stderr, "UHostCationChargeBondDipoleFourier: %18.10f %18.10f\n",StoredUHostCationChargeBondDipoleFourier,UHostCationChargeBondDipoleFourier[CurrentSystem]);
-      if(fabs(StoredUHostCationBondDipoleBondDipoleFourier)>1e-8) fprintf(stderr, "UHostCationBondDipoleBondDipoleFourier: %18.10f %18.10f\n",StoredUHostCationBondDipoleBondDipoleFourier,UHostCationBondDipoleBondDipoleFourier[CurrentSystem]);
-      if(fabs(StoredUHostCationCoulomb)>1e-8) fprintf(stderr, "UHostCationCoulomb: %18.10f %18.10f\n",StoredUHostCationCoulomb,UHostCationCoulomb[CurrentSystem]);
+      if(fabs(StoredUHostCation)>1e-8) fprintf(stderr, "UHostCation: %18.10f %18.10f\n",StoredUHostCation*ENERGY_TO_KELVIN,UHostCation[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostCationVDW)>1e-8) fprintf(stderr, "UHostCationVDW: %18.10f %18.10f\n",StoredUHostCationVDW*ENERGY_TO_KELVIN,UHostCationVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostCationChargeChargeReal)>1e-8) fprintf(stderr, "UHostCationChargeChargeReal: %18.10f %18.10f\n",StoredUHostCationChargeChargeReal*ENERGY_TO_KELVIN,UHostCationChargeChargeReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostCationChargeBondDipoleReal)>1e-8) fprintf(stderr, "UHostCationChargeBondDipoleReal: %18.10f %18.10f\n",StoredUHostCationChargeBondDipoleReal*ENERGY_TO_KELVIN,UHostCationChargeBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostCationBondDipoleBondDipoleReal)>1e-8) fprintf(stderr, "UHostCationBondDipoleBondDipoleReal: %18.10f %18.10f\n",StoredUHostCationBondDipoleBondDipoleReal*ENERGY_TO_KELVIN,UHostCationBondDipoleBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostCationChargeChargeFourier)>1e-8) fprintf(stderr, "UHostCationChargeChargeFourier: %18.10f %18.10f\n",StoredUHostCationChargeChargeFourier*ENERGY_TO_KELVIN,UHostCationChargeChargeFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostCationChargeBondDipoleFourier)>1e-8) fprintf(stderr, "UHostCationChargeBondDipoleFourier: %18.10f %18.10f\n",StoredUHostCationChargeBondDipoleFourier*ENERGY_TO_KELVIN,UHostCationChargeBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostCationBondDipoleBondDipoleFourier)>1e-8) fprintf(stderr, "UHostCationBondDipoleBondDipoleFourier: %18.10f %18.10f\n",StoredUHostCationBondDipoleBondDipoleFourier*ENERGY_TO_KELVIN,UHostCationBondDipoleBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUHostCationCoulomb)>1e-8) fprintf(stderr, "UHostCationCoulomb: %18.10f %18.10f\n",StoredUHostCationCoulomb*ENERGY_TO_KELVIN,UHostCationCoulomb[CurrentSystem]*ENERGY_TO_KELVIN);
 
-      if(fabs(StoredUAdsorbateAdsorbate)>1e-8) fprintf(stderr, "UAdsorbateAdsorbate: %18.10f %18.10f\n",StoredUAdsorbateAdsorbate,UAdsorbateAdsorbate[CurrentSystem]);
-      if(fabs(StoredUAdsorbateAdsorbateVDW)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateVDW: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateVDW,UAdsorbateAdsorbateVDW[CurrentSystem]);
-      if(fabs(StoredUAdsorbateAdsorbateChargeChargeReal)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateChargeChargeReal: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateChargeChargeReal,UAdsorbateAdsorbateChargeChargeReal[CurrentSystem]);
-      if(fabs(StoredUAdsorbateAdsorbateChargeBondDipoleReal)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateChargeBondDipoleReal: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateChargeBondDipoleReal,UAdsorbateAdsorbateChargeBondDipoleReal[CurrentSystem]);
-      if(fabs(StoredUAdsorbateAdsorbateBondDipoleBondDipoleReal)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateBondDipoleBondDipoleReal: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateBondDipoleBondDipoleReal,UAdsorbateAdsorbateBondDipoleBondDipoleReal[CurrentSystem]);
-      if(fabs(StoredUAdsorbateAdsorbateChargeChargeFourier)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateChargeChargeFourier: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateChargeChargeFourier,UAdsorbateAdsorbateChargeChargeFourier[CurrentSystem]);
-      if(fabs(StoredUAdsorbateAdsorbateChargeBondDipoleFourier)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateChargeBondDipoleFourier: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateChargeBondDipoleFourier,UAdsorbateAdsorbateChargeBondDipoleFourier[CurrentSystem]);
-      if(fabs(StoredUAdsorbateAdsorbateBondDipoleBondDipoleFourier)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateBondDipoleBondDipoleFourier: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateBondDipoleBondDipoleFourier,UAdsorbateAdsorbateBondDipoleBondDipoleFourier[CurrentSystem]);
-      if(fabs(StoredUAdsorbateAdsorbateCoulomb)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateCoulomb: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateCoulomb,UAdsorbateAdsorbateCoulomb[CurrentSystem]);
+      if(fabs(StoredUAdsorbateAdsorbate)>1e-8) fprintf(stderr, "UAdsorbateAdsorbate: %18.10f %18.10f\n",StoredUAdsorbateAdsorbate*ENERGY_TO_KELVIN,UAdsorbateAdsorbate[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateAdsorbateVDW)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateVDW: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateVDW*ENERGY_TO_KELVIN,UAdsorbateAdsorbateVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateAdsorbateChargeChargeReal)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateChargeChargeReal: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateChargeChargeReal*ENERGY_TO_KELVIN,UAdsorbateAdsorbateChargeChargeReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateAdsorbateChargeBondDipoleReal)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateChargeBondDipoleReal: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateChargeBondDipoleReal*ENERGY_TO_KELVIN,UAdsorbateAdsorbateChargeBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateAdsorbateBondDipoleBondDipoleReal)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateBondDipoleBondDipoleReal: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateBondDipoleBondDipoleReal*ENERGY_TO_KELVIN,UAdsorbateAdsorbateBondDipoleBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateAdsorbateChargeChargeFourier)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateChargeChargeFourier: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateChargeChargeFourier*ENERGY_TO_KELVIN,UAdsorbateAdsorbateChargeChargeFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateAdsorbateChargeBondDipoleFourier)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateChargeBondDipoleFourier: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateChargeBondDipoleFourier*ENERGY_TO_KELVIN,UAdsorbateAdsorbateChargeBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateAdsorbateBondDipoleBondDipoleFourier)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateBondDipoleBondDipoleFourier: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateBondDipoleBondDipoleFourier*ENERGY_TO_KELVIN,UAdsorbateAdsorbateBondDipoleBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateAdsorbateCoulomb)>1e-8) fprintf(stderr, "UAdsorbateAdsorbateCoulomb: %18.10f %18.10f\n",StoredUAdsorbateAdsorbateCoulomb*ENERGY_TO_KELVIN,UAdsorbateAdsorbateCoulomb[CurrentSystem]*ENERGY_TO_KELVIN);
 
-      if(fabs(StoredUAdsorbateCation)>1e-8) fprintf(stderr, "UAdsorbateCation: %18.10f %18.10f\n",StoredUAdsorbateCation,UAdsorbateCation[CurrentSystem]);
-      if(fabs(StoredUAdsorbateCationVDW)>1e-8) fprintf(stderr, "UAdsorbateCationVDW: %18.10f %18.10f\n",StoredUAdsorbateCationVDW,UAdsorbateCationVDW[CurrentSystem]);
-      if(fabs(StoredUAdsorbateCationChargeChargeReal)>1e-8) fprintf(stderr, "UAdsorbateCationChargeChargeReal: %18.10f %18.10f\n",StoredUAdsorbateCationChargeChargeReal,UAdsorbateCationChargeChargeReal[CurrentSystem]);
-      if(fabs(StoredUAdsorbateCationChargeBondDipoleReal)>1e-8) fprintf(stderr, "UAdsorbateCationChargeBondDipoleReal: %18.10f %18.10f\n",StoredUAdsorbateCationChargeBondDipoleReal,UAdsorbateCationChargeBondDipoleReal[CurrentSystem]);
-      if(fabs(StoredUAdsorbateCationBondDipoleBondDipoleReal)>1e-8) fprintf(stderr, "UAdsorbateCationBondDipoleBondDipoleReal: %18.10f %18.10f\n",StoredUAdsorbateCationBondDipoleBondDipoleReal,UAdsorbateCationBondDipoleBondDipoleReal[CurrentSystem]);
-      if(fabs(StoredUAdsorbateCationChargeChargeFourier)>1e-8) fprintf(stderr, "UAdsorbateCationChargeChargeFourier: %18.10f %18.10f\n",StoredUAdsorbateCationChargeChargeFourier,UAdsorbateCationChargeChargeFourier[CurrentSystem]);
-      if(fabs(StoredUAdsorbateCationChargeBondDipoleFourier)>1e-8) fprintf(stderr, "UAdsorbateCationChargeBondDipoleFourier: %18.10f %18.10f\n",StoredUAdsorbateCationChargeBondDipoleFourier,UAdsorbateCationChargeBondDipoleFourier[CurrentSystem]);
-      if(fabs(StoredUAdsorbateCationBondDipoleBondDipoleFourier)>1e-8) fprintf(stderr, "UAdsorbateCationBondDipoleBondDipoleFourier: %18.10f %18.10f\n",StoredUAdsorbateCationBondDipoleBondDipoleFourier,UAdsorbateCationBondDipoleBondDipoleFourier[CurrentSystem]);
-      if(fabs(StoredUAdsorbateCationCoulomb)>1e-8) fprintf(stderr, "UAdsorbateCationCoulomb: %18.10f %18.10f\n",StoredUAdsorbateCationCoulomb,UAdsorbateCationCoulomb[CurrentSystem]);
+      if(fabs(StoredUAdsorbateCation)>1e-8) fprintf(stderr, "UAdsorbateCation: %18.10f %18.10f\n",StoredUAdsorbateCation*ENERGY_TO_KELVIN,UAdsorbateCation[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateCationVDW)>1e-8) fprintf(stderr, "UAdsorbateCationVDW: %18.10f %18.10f\n",StoredUAdsorbateCationVDW*ENERGY_TO_KELVIN,UAdsorbateCationVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateCationChargeChargeReal)>1e-8) fprintf(stderr, "UAdsorbateCationChargeChargeReal: %18.10f %18.10f\n",StoredUAdsorbateCationChargeChargeReal*ENERGY_TO_KELVIN,UAdsorbateCationChargeChargeReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateCationChargeBondDipoleReal)>1e-8) fprintf(stderr, "UAdsorbateCationChargeBondDipoleReal: %18.10f %18.10f\n",StoredUAdsorbateCationChargeBondDipoleReal*ENERGY_TO_KELVIN,UAdsorbateCationChargeBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateCationBondDipoleBondDipoleReal)>1e-8) fprintf(stderr, "UAdsorbateCationBondDipoleBondDipoleReal: %18.10f %18.10f\n",StoredUAdsorbateCationBondDipoleBondDipoleReal*ENERGY_TO_KELVIN,UAdsorbateCationBondDipoleBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateCationChargeChargeFourier)>1e-8) fprintf(stderr, "UAdsorbateCationChargeChargeFourier: %18.10f %18.10f\n",StoredUAdsorbateCationChargeChargeFourier*ENERGY_TO_KELVIN,UAdsorbateCationChargeChargeFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateCationChargeBondDipoleFourier)>1e-8) fprintf(stderr, "UAdsorbateCationChargeBondDipoleFourier: %18.10f %18.10f\n",StoredUAdsorbateCationChargeBondDipoleFourier*ENERGY_TO_KELVIN,UAdsorbateCationChargeBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateCationBondDipoleBondDipoleFourier)>1e-8) fprintf(stderr, "UAdsorbateCationBondDipoleBondDipoleFourier: %18.10f %18.10f\n",StoredUAdsorbateCationBondDipoleBondDipoleFourier*ENERGY_TO_KELVIN,UAdsorbateCationBondDipoleBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUAdsorbateCationCoulomb)>1e-8) fprintf(stderr, "UAdsorbateCationCoulomb: %18.10f %18.10f\n",StoredUAdsorbateCationCoulomb*ENERGY_TO_KELVIN,UAdsorbateCationCoulomb[CurrentSystem]*ENERGY_TO_KELVIN);
 
-      if(fabs(StoredUCationCation)>1e-8) fprintf(stderr, "UCationCation: %18.10f %18.10f\n",StoredUCationCation,UCationCation[CurrentSystem]);
-      if(fabs(StoredUCationCationVDW)>1e-8) fprintf(stderr, "UCationCationVDW: %18.10f %18.10f\n",StoredUCationCationVDW,UCationCationVDW[CurrentSystem]);
-      if(fabs(StoredUCationCationChargeChargeReal)>1e-8) fprintf(stderr, "UCationCationChargeChargeReal: %18.10f %18.10f\n",StoredUCationCationChargeChargeReal,UCationCationChargeChargeReal[CurrentSystem]);
-      if(fabs(StoredUCationCationChargeBondDipoleReal)>1e-8) fprintf(stderr, "UCationCationChargeBondDipoleReal: %18.10f %18.10f\n",StoredUCationCationChargeBondDipoleReal,UCationCationChargeBondDipoleReal[CurrentSystem]);
-      if(fabs(StoredUCationCationBondDipoleBondDipoleReal)>1e-8) fprintf(stderr, "UCationCationBondDipoleBondDipoleReal: %18.10f %18.10f\n",StoredUCationCationBondDipoleBondDipoleReal,UCationCationBondDipoleBondDipoleReal[CurrentSystem]);
-      if(fabs(StoredUCationCationChargeChargeFourier)>1e-8) fprintf(stderr, "UCationCationChargeChargeFourier: %18.10f %18.10f\n",StoredUCationCationChargeChargeFourier,UCationCationChargeChargeFourier[CurrentSystem]);
-      if(fabs(StoredUCationCationChargeBondDipoleFourier)>1e-8) fprintf(stderr, "UCationCationChargeBondDipoleFourier: %18.10f %18.10f\n",StoredUCationCationChargeBondDipoleFourier,UCationCationChargeBondDipoleFourier[CurrentSystem]);
-      if(fabs(StoredUCationCationBondDipoleBondDipoleFourier)>1e-8) fprintf(stderr, "UCationCationBondDipoleBondDipoleFourier: %18.10f %18.10f\n",StoredUCationCationBondDipoleBondDipoleFourier,UCationCationBondDipoleBondDipoleFourier[CurrentSystem]);
-      if(fabs(StoredUCationCationCoulomb)>1e-8) fprintf(stderr, "UCationCationCoulomb: %18.10f %18.10f\n",StoredUCationCationCoulomb,UCationCationCoulomb[CurrentSystem]);
+      if(fabs(StoredUCationCation)>1e-8) fprintf(stderr, "UCationCation: %18.10f %18.10f\n",StoredUCationCation*ENERGY_TO_KELVIN,UCationCation[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationCationVDW)>1e-8) fprintf(stderr, "UCationCationVDW: %18.10f %18.10f\n",StoredUCationCationVDW*ENERGY_TO_KELVIN,UCationCationVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationCationChargeChargeReal)>1e-8) fprintf(stderr, "UCationCationChargeChargeReal: %18.10f %18.10f\n",StoredUCationCationChargeChargeReal*ENERGY_TO_KELVIN,UCationCationChargeChargeReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationCationChargeBondDipoleReal)>1e-8) fprintf(stderr, "UCationCationChargeBondDipoleReal: %18.10f %18.10f\n",StoredUCationCationChargeBondDipoleReal*ENERGY_TO_KELVIN,UCationCationChargeBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationCationBondDipoleBondDipoleReal)>1e-8) fprintf(stderr, "UCationCationBondDipoleBondDipoleReal: %18.10f %18.10f\n",StoredUCationCationBondDipoleBondDipoleReal*ENERGY_TO_KELVIN,UCationCationBondDipoleBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationCationChargeChargeFourier)>1e-8) fprintf(stderr, "UCationCationChargeChargeFourier: %18.10f %18.10f\n",StoredUCationCationChargeChargeFourier*ENERGY_TO_KELVIN,UCationCationChargeChargeFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationCationChargeBondDipoleFourier)>1e-8) fprintf(stderr, "UCationCationChargeBondDipoleFourier: %18.10f %18.10f\n",StoredUCationCationChargeBondDipoleFourier*ENERGY_TO_KELVIN,UCationCationChargeBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationCationBondDipoleBondDipoleFourier)>1e-8) fprintf(stderr, "UCationCationBondDipoleBondDipoleFourier: %18.10f %18.10f\n",StoredUCationCationBondDipoleBondDipoleFourier*ENERGY_TO_KELVIN,UCationCationBondDipoleBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(StoredUCationCationCoulomb)>1e-8) fprintf(stderr, "UCationCationCoulomb: %18.10f %18.10f\n",StoredUCationCationCoulomb*ENERGY_TO_KELVIN,UCationCationCoulomb[CurrentSystem]*ENERGY_TO_KELVIN);
 
-      if(fabs(UHostPolarizationStored)>1e-8) fprintf(stderr, "UHostPolarization: %18.10f %18.10f\n",UHostPolarizationStored,UHostPolarization[CurrentSystem]);
-      if(fabs(UAdsorbatePolarizationStored)>1e-8) fprintf(stderr, "UAdsorbatePolarization: %18.10f %18.10f\n",UAdsorbatePolarizationStored,UAdsorbatePolarization[CurrentSystem]);
-      if(fabs(UCationPolarizationStored)>1e-8) fprintf(stderr, "UCationPolarization: %18.10f %18.10f\n",UCationPolarizationStored,UCationPolarization[CurrentSystem]);
+      if(fabs(UHostPolarizationStored)>1e-8) fprintf(stderr, "UHostPolarization: %18.10f %18.10f\n",UHostPolarizationStored*ENERGY_TO_KELVIN,UHostPolarization[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(UAdsorbatePolarizationStored)>1e-8) fprintf(stderr, "UAdsorbatePolarization: %18.10f %18.10f\n",UAdsorbatePolarizationStored*ENERGY_TO_KELVIN,UAdsorbatePolarization[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(UCationPolarizationStored)>1e-8) fprintf(stderr, "UCationPolarization: %18.10f %18.10f\n",UCationPolarizationStored*ENERGY_TO_KELVIN,UCationPolarization[CurrentSystem]*ENERGY_TO_KELVIN);
 
-      if(fabs(UHostBackPolarizationStored)>1e-8) fprintf(stderr, "UHostBackPolarization: %18.10f %18.10f\n",UHostBackPolarizationStored,UHostBackPolarization[CurrentSystem]);
-      if(fabs(UAdsorbateBackPolarizationStored)>1e-8) fprintf(stderr, "UAdsorbateBackPolarization: %18.10f %18.10f\n",UAdsorbateBackPolarizationStored,UAdsorbateBackPolarization[CurrentSystem]);
-      if(fabs(UCationBackPolarizationStored)>1e-8) fprintf(stderr, "UCationBackPolarization: %18.10f %18.10f\n",UCationBackPolarizationStored,UCationBackPolarization[CurrentSystem]);
+      if(fabs(UHostBackPolarizationStored)>1e-8) fprintf(stderr, "UHostBackPolarization: %18.10f %18.10f\n",UHostBackPolarizationStored*ENERGY_TO_KELVIN,UHostBackPolarization[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(UAdsorbateBackPolarizationStored)>1e-8) fprintf(stderr, "UAdsorbateBackPolarization: %18.10f %18.10f\n",UAdsorbateBackPolarizationStored*ENERGY_TO_KELVIN,UAdsorbateBackPolarization[CurrentSystem]*ENERGY_TO_KELVIN);
+      if(fabs(UCationBackPolarizationStored)>1e-8) fprintf(stderr, "UCationBackPolarization: %18.10f %18.10f\n",UCationBackPolarizationStored*ENERGY_TO_KELVIN,UCationBackPolarization[CurrentSystem]*ENERGY_TO_KELVIN);
       fclose(OutputFilePtr[i]);
     }
     exit(0);
@@ -1376,7 +1376,7 @@ void DebugEnergyStatus(void)
   UCationCationCoulomb[CurrentSystem]=StoredUCationCationCoulomb;
 
   UHostPolarization[CurrentSystem]=UHostPolarizationStored;
-  UAdsorbatePolarization[CurrentSystem]=UHostPolarizationStored;
+  UAdsorbatePolarization[CurrentSystem]=UAdsorbatePolarizationStored;
   UCationPolarization[CurrentSystem]=UCationPolarizationStored;
 
   UHostBackPolarization[CurrentSystem]=UHostBackPolarizationStored;
@@ -1386,6 +1386,8 @@ void DebugEnergyStatus(void)
   UTotal[CurrentSystem]=StoredUTotal;
   UTailCorrection[CurrentSystem]=StoredUTailCorrection;
 
+  if((ChargeMethod==EWALD)&&(!OmitEwaldFourier))
+    RetrieveStoredEwaldStructureFactors(0,CurrentSystem);
 }
 
 

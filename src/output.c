@@ -6572,6 +6572,168 @@ void PrintPostSimulationStatus(void)
 
   }
 }
+void PrintEnergyStatusToStdOut()
+{
+  printf("\n");
+  printf("\n");
+  printf("Current Energy Status\n");
+  printf("===========================================================================\n");
+  printf("\n");
+
+  printf("Internal energy:\n");
+  printf("Host stretch energy:                                    %18.8lf\n",(double)UHostBond[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Host UreyBradley energy:                                %18.8lf\n",(double)UHostUreyBradley[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Host bend energy:                                       %18.8lf\n",(double)UHostBend[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Host inversion-bend energy:                             %18.8lf\n",(double)UHostInversionBend[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Host torsion energy:                                    %18.8lf\n",(double)UHostTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Host improper torsion energy:                           %18.8lf\n",(double)UHostImproperTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Host out-of-plane energy:                               %18.8lf\n",(double)UHostOutOfPlane[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Host stretch/stretch energy:                            %18.8lf\n",(double)UHostBondBond[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Host bend/bend energy:                                  %18.8lf\n",(double)UHostBendBend[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Host stretch/bend energy:                               %18.8lf\n",(double)UHostBondBend[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Host stretch/torsion energy:                            %18.8lf\n",(double)UHostBondTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Host bend/torsion energy:                               %18.8lf\n",(double)UHostBendTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\n");
+
+  printf("Adsorbate stretch energy:                               %18.8lf\n",(double)UAdsorbateBond[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate UreyBradley energy:                           %18.8lf\n",(double)UAdsorbateUreyBradley[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate bend energy:                                  %18.8lf\n",(double)UAdsorbateBend[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate inversion-bend energy:                        %18.8lf\n",(double)UAdsorbateInversionBend[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate torsion energy:                               %18.8lf\n",(double)UAdsorbateTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate improper torsion energy:                      %18.8lf\n",(double)UAdsorbateImproperTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate out-of-plane energy:                          %18.8lf\n",(double)UAdsorbateOutOfPlane[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate stretch/stretch energy:                       %18.8lf\n",(double)UAdsorbateBondBond[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate bend/bend energy:                             %18.8lf\n",(double)UAdsorbateBendBend[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate stretch/bend energy:                          %18.8lf\n",(double)UAdsorbateBondBend[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate stretch/torsion energy:                       %18.8lf\n",(double)UAdsorbateBondTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate bend/torsion energy:                          %18.8lf\n",(double)UAdsorbateBendTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate intra VDW energy:                             %18.8lf\n",(double)UAdsorbateIntraVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate intra charge-charge Coulomb energy:           %18.8lf\n",(double)UAdsorbateIntraChargeCharge[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate intra charge-bonddipole Coulomb energy:       %18.8lf\n",(double)UAdsorbateIntraChargeBondDipole[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Adsorbate intra bonddipole-bonddipole Coulomb energy:   %18.8lf\n",(double)UAdsorbateIntraBondDipoleBondDipole[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\n");
+
+  printf("Cation stretch energy:                                  %18.8lf\n",(double)UCationBond[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation UreyBradley energy:                              %18.8lf\n",(double)UCationUreyBradley[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation bend energy:                                     %18.8lf\n",(double)UCationBend[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation inversion-bend energy:                           %18.8lf\n",(double)UCationInversionBend[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation torsion energy:                                  %18.8lf\n",(double)UCationTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation improper torsion energy:                         %18.8lf\n",(double)UCationImproperTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation out-of-plane energy:                             %18.8lf\n",(double)UCationOutOfPlane[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation stretch/stretch energy:                          %18.8lf\n",(double)UCationBondBond[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation bend/bend energy:                                %18.8lf\n",(double)UCationBendBend[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation stretch/bend energy:                             %18.8lf\n",(double)UCationBondBend[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation stretch/torsion energy:                          %18.8lf\n",(double)UCationBondTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation bend/torsion energy:                             %18.8lf\n",(double)UCationBendTorsion[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation intra VDW energy:                                %18.8lf\n",(double)UCationIntraVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation intra charge-charge Coulomb energy:              %18.8lf\n",(double)UCationIntraChargeCharge[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation intra charge-bonddipole Coulomb energy:          %18.8lf\n",(double)UCationIntraChargeBondDipole[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Cation intra bonddipole-bonddipole Coulomb energy:      %18.8lf\n",(double)UCationIntraBondDipoleBondDipole[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\n");
+
+  printf("Host/Host energy:                                     %18.8lf\n",(double)UHostHost[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Host VDW energy:                                 %18.8lf\n",(double)UHostHostVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Host Coulomb energy:                             %18.8lf\n",(double)UHostHostCoulomb[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Host charge-charge Real energy:                  %18.8lf\n",(double)UHostHostChargeChargeReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Host charge-charge Fourier energy:               %18.8lf\n",(double)UHostHostChargeChargeFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Host charge-bonddipole Real energy:              %18.8lf\n",(double)UHostHostChargeBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Host charge-bonddipole Fourier energy:           %18.8lf\n",(double)UHostHostChargeBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Host bondipole-bonddipole Real energy:           %18.8lf\n",(double)UHostHostBondDipoleBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Host bondipole-bonddipole Fourier energy:        %18.8lf\n",(double)UHostHostBondDipoleBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\n");
+
+  printf("Host/Adsorbate energy:                                %18.8lf\n",(double)UHostAdsorbate[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Adsorbate VDW energy:                            %18.8lf\n",(double)UHostAdsorbateVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Adsorbate Coulomb energy:                        %18.8lf\n",(double)UHostAdsorbateCoulomb[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Adsorbate charge-charge Real energy:             %18.8lf\n",(double)UHostAdsorbateChargeChargeReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Adsorbate charge-charge Fourier energy:          %18.8lf\n",(double)UHostAdsorbateChargeChargeFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Adsorbate charge-bonddipole Real energy:         %18.8lf\n",(double)UHostAdsorbateChargeBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Adsorbate charge-bonddipole Fourier energy:      %18.8lf\n",(double)UHostAdsorbateChargeBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Adsorbate bondipole-bonddipole Real energy:      %18.8lf\n",(double)UHostAdsorbateBondDipoleBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Adsorbate bondipole-bonddipole Fourier energy:   %18.8lf\n",(double)UHostAdsorbateBondDipoleBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\n");
+
+  printf("Host/Cation energy:                                   %18.8lf\n",(double)UHostCation[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Cation VDW energy:                               %18.8lf\n",(double)UHostCationVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Cation Coulomb energy:                           %18.8lf\n",(double)UHostCationCoulomb[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Cation charge-charge Real energy:                %18.8lf\n",(double)UHostCationChargeChargeReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Cation charge-charge Fourier energy:             %18.8lf\n",(double)UHostCationChargeChargeFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Cation charge-bonddipole Real energy:            %18.8lf\n",(double)UHostCationChargeBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Cation charge-bonddipole Fourier energy:         %18.8lf\n",(double)UHostCationChargeBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Cation bondipole-bonddipole Real energy:         %18.8lf\n",(double)UHostCationBondDipoleBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost/Cation bondipole-bonddipole Fourier energy:      %18.8lf\n",(double)UHostCationBondDipoleBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\n");
+
+  printf("Adsorbate/Adsorbate energy:                                %18.8lf\n",(double)UAdsorbateAdsorbate[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Adsorbate VDW energy:                            %18.8lf\n",(double)UAdsorbateAdsorbateVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Adsorbate Coulomb energy:                        %18.8lf\n",(double)UAdsorbateAdsorbateCoulomb[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Adsorbate charge-charge Real energy:             %18.8lf\n",(double)UAdsorbateAdsorbateChargeChargeReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Adsorbate charge-charge Fourier energy:          %18.8lf\n",(double)UAdsorbateAdsorbateChargeChargeFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Adsorbate charge-bonddipole Real energy:         %18.8lf\n",(double)UAdsorbateAdsorbateChargeBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Adsorbate charge-bonddipole Fourier energy:      %18.8lf\n",(double)UAdsorbateAdsorbateChargeBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Adsorbate bondipole-bonddipole Real energy:      %18.8lf\n",(double)UAdsorbateAdsorbateBondDipoleBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Adsorbate bondipole-bonddipole Fourier energy:   %18.8lf\n",(double)UAdsorbateAdsorbateBondDipoleBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\n");
+
+  printf("Adsorbate/Cation energy:                                   %18.8lf\n",(double)UAdsorbateCation[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Cation VDW energy:                               %18.8lf\n",(double)UAdsorbateCationVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Cation Coulomb energy:                           %18.8lf\n",(double)UAdsorbateCationCoulomb[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Cation charge-charge Real energy:                %18.8lf\n",(double)UAdsorbateCationChargeChargeReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Cation charge-charge Fourier energy:             %18.8lf\n",(double)UAdsorbateCationChargeChargeFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Cation charge-bonddipole Real energy:            %18.8lf\n",(double)UAdsorbateCationChargeBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Cation charge-bonddipole Fourier energy:         %18.8lf\n",(double)UAdsorbateCationChargeBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Cation bondipole-bonddipole Real energy:         %18.8lf\n",(double)UAdsorbateCationBondDipoleBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate/Cation bondipole-bonddipole Fourier energy:      %18.8lf\n",(double)UAdsorbateCationBondDipoleBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\n");
+
+  printf("Cation/Cation energy:                                   %18.8lf\n",(double)UCationCation[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tCation/Cation VDW energy:                               %18.8lf\n",(double)UCationCationVDW[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tCation/Cation Coulomb energy:                           %18.8lf\n",(double)UCationCationCoulomb[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tCation/Cation charge-charge Real energy:                %18.8lf\n",(double)UCationCationChargeChargeReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tCation/Cation charge-charge Fourier energy:             %18.8lf\n",(double)UCationCationChargeChargeFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tCation/Cation charge-bonddipole Real energy:            %18.8lf\n",(double)UCationCationChargeBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tCation/Cation charge-bonddipole Fourier energy:         %18.8lf\n",(double)UCationCationChargeBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tCation/Cation bondipole-bonddipole Real energy:         %18.8lf\n",(double)UCationCationBondDipoleBondDipoleReal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tCation/Cation bondipole-bonddipole Fourier energy:      %18.8lf\n",(double)UCationCationBondDipoleBondDipoleFourier[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\n");
+
+
+  printf("Polarization energy:\n");
+  printf("\tHost polarization energy:                             %18.8lf\n",(double)UHostPolarization[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate polarization energy:                        %18.8lf\n",(double)UAdsorbatePolarization[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tCation polarization energy:                           %18.8lf\n",(double)UCationPolarization[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tHost back-polarization energy:                             %18.8lf\n",(double)UHostBackPolarization[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tAdsorbate back-polarization energy:                        %18.8lf\n",(double)UAdsorbateBackPolarization[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tCation back-polarization energy:                           %18.8lf\n",(double)UCationBackPolarization[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\n");
+
+  printf("Tail-correction energy:                               %18.8lf\n",(double)UTailCorrection[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\n");
+  printf("Distance constraints energy:                          %18.8lf\n",(double)UDistanceConstraints[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Angle constraints energy:                             %18.8lf\n",(double)UAngleConstraints[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Dihedral constraints energy:                          %18.8lf\n",(double)UDihedralConstraints[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Inversion-bend constraints energy:                    %18.8lf\n",(double)UInversionBendConstraints[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Out-of-plane distance constraints energy:             %18.8lf\n",(double)UOutOfPlaneDistanceConstraints[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("Exclusion constraints energy:                         %18.8lf\n",(double)UExclusionConstraints[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\n");
+
+  printf("===================================================================\n");
+  printf("Total energy: %18.12lf\n",(double)UTotal[CurrentSystem]*ENERGY_TO_KELVIN);
+  printf("\tTotal Van der Waals: %lf\n",(double)
+     (UHostHostVDW[CurrentSystem]+UHostAdsorbateVDW[CurrentSystem]+UHostCationVDW[CurrentSystem]+
+      UAdsorbateAdsorbateVDW[CurrentSystem]+UCationCationVDW[CurrentSystem]+UAdsorbateCationVDW[CurrentSystem])*ENERGY_TO_KELVIN);
+  printf("\tTotal Coulomb: %lf\n\n",(double)
+     (UHostHostCoulomb[CurrentSystem]+UHostCationCoulomb[CurrentSystem]+UHostAdsorbateCoulomb[CurrentSystem]+
+      UAdsorbateAdsorbateCoulomb[CurrentSystem]+UCationCationCoulomb[CurrentSystem]+UAdsorbateCationCoulomb[CurrentSystem]+
+      UAdsorbateIntraChargeCharge[CurrentSystem]+UAdsorbateIntraChargeBondDipole[CurrentSystem]+
+      UAdsorbateIntraBondDipoleBondDipole[CurrentSystem]+UCationIntraChargeCharge[CurrentSystem]+
+      UCationIntraChargeBondDipole[CurrentSystem]+UCationIntraBondDipoleBondDipole[CurrentSystem])*ENERGY_TO_KELVIN);
+  printf("\tTotal Polarization: %lf\n\n",(double)(UHostPolarization[CurrentSystem]+
+      UAdsorbatePolarization[CurrentSystem]+UCationPolarization[CurrentSystem]+UHostBackPolarization[CurrentSystem]+
+      UAdsorbateBackPolarization[CurrentSystem]+UCationBackPolarization[CurrentSystem])*ENERGY_TO_KELVIN);
+  printf("\n\n\n");
+}
+
 
 void PrintEnergyStatus(FILE *FilePtr,char *string)
 {
