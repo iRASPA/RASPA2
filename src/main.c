@@ -89,7 +89,7 @@ int main(int argc, char **argv)
         input_crystal = strdup(optarg);
         break;
       case 'v':
-        fprintf(stderr, "RASPA 1.6-2 (2012)\n");
+        fprintf(stderr, "RASPA 2.0 (2015)\n");
         return 0;
       default:
         return 1;

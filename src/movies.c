@@ -1874,6 +1874,10 @@ void FreeEnergyProfile3D(void)
   REAL_MATRIX3x3 Cell;
   REAL_MATRIX3x3 InverseCell;
 
+
+  // Modify overlap criteria to remove artifacts in the VTK pictures
+  EnergyOverlapCriteria=5e4;
+
   Histogram_3D=(REAL*)calloc(SIZE_X*SIZE_Y*SIZE_Z,sizeof(REAL));
   Histogram_Count_3D=(REAL*)calloc(SIZE_X*SIZE_Y*SIZE_Z,sizeof(REAL));
 
