@@ -90,6 +90,16 @@ void CreateWarnings(void)
         Warnings[k][NumberOfWarnings[k]++]=LOWENSTEIN_RULE_NOT_OBEYED;
     }
 
+    // check for appropriate use of unit cells
+    if((double)CutOffVDW*2 > (double)BoxProperties[k].cx || (double)CutOffVDW*2 > (double)BoxProperties[k].cy || (double)CutOffVDW*2 > (double)BoxProperties[k].cz)
+      {
+        if(NumberOfWarnings[k]<MAX_NUMBER_OF_WARNINGS)
+          {
+            Warnings[k][NumberOfWarnings[k]]=UNIT_CELL;
+            NumberOfWarnings[k]++;
+           }
+      }
+
     // check for net-charge of the system
     NetSystemCharge=0.0;
     for(f1=0;f1<Framework[k].NumberOfFrameworks;f1++)
@@ -215,6 +225,9 @@ void PrintWarningStatus(void)
         break;
       case LOWENSTEIN_RULE_NOT_OBEYED:
         fprintf(FilePtr,"WARNING: THE LOWENSTEIN RULE IS NOT OBEYED\n");
+        break;
+      case UNIT_CELL:
+        fprintf(FilePtr,"WARNING: INAPPROPRIATE NUMBER OF UNIT CELLS USED\n");
         break;
       case OMITTED_HOST_ADSORBATE_VDW_INTERACTIONS:
         fprintf(FilePtr,"WARNING: OMITTED VDW INTERACTIONS HOST-ADSORBATE\n");
