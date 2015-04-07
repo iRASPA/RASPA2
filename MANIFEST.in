@@ -1,5 +1,5 @@
-include README.md simulations/lib/libraspa2.so
-graft src/
+include README.md
+include src/*.c src/*.h
 recursive-include forcefield *.def
 recursive-include framework *.def
 recursive-include molecules *.def

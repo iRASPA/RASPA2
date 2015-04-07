@@ -12,8 +12,11 @@ Like any other software library, RASPA2 should be installed through a package
 manager. This can be done through pip.
 
 ```
-pip install git+https://github.com/numat/RASPA2
+pip install RASPA2
 ```
+
+If you want to stay on the cutting edge of RASPA2 development, you can also
+install directly from this git repo with `pip install git+https://github.com/numat/RASPA2`.
 
 If you are unfamiliar with package managers, read the
 [For New Coders](https://github.com/numat/RASPA2/wiki/For-New-Coders)
