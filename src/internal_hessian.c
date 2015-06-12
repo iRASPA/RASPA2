@@ -5756,8 +5756,8 @@ void CalculateAdsorbateTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX He
           DDF=2.0*parms[2]-6.0*parms[3]*CosPhi+12.0*parms[4]*CosPhi2-20.0*parms[5]*CosPhi2*CosPhi;
           break;
         case TRAPPE_DIHEDRAL:
-          // p_0[0]+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
-          // =============================================================
+          // p_0+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
+          // ==========================================================
           // p_0/k_B [K]
           // p_1/k_B [K]
           // p_2/k_B [K]
@@ -5765,6 +5765,18 @@ void CalculateAdsorbateTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX He
           U=parms[0]+(1.0+CosPhi)*(parms[1]+parms[3]-2.0*(CosPhi-1.0)*(parms[2]-2.0*parms[3]*CosPhi));
           DF=parms[1]-4.0*parms[2]*CosPhi+3.0*parms[3]*(4.0*CosPhi2-1.0);
           DDF=-4.0*(parms[2]-6.0*parms[3]*CosPhi);
+          break;
+        case TRAPPE_DIHEDRAL_EXTENDED:
+          // p_0+p_1*cos(phi)+p_2*cos(2*phi)+p_3*cos(3*phi)+p_4*cos(4*phi)
+          // =============================================================
+          // p_0/k_B [K]
+          // p_1/k_B [K]
+          // p_2/k_B [K]
+          // p_3/k_B [K]
+          // p_4/k_B [K]
+          U=parms[0]-parms[2]+parms[4]+(parms[1]-3.0*parms[3])*CosPhi+(2.0*parms[2]-8.0*parms[4])*CosPhi2+4.0*parms[3]*CosPhi2*CosPhi+8.0*parms[4]*SQR(CosPhi2);
+          DF=parms[1]-3.0*parms[3]+4.0*(parms[2]-4.0*parms[4])*CosPhi+12.0*parms[3]*CosPhi2+32.0*parms[4]*CosPhi2*CosPhi;
+          DDF=4.0*parms[2]-16.0*parms[4]+24.0*parms[3]*CosPhi+96.0*parms[4]*CosPhi2;
           break;
         case CVFF_DIHEDRAL:
           // p_0*(1+cos(p_1*phi-p_2))
@@ -6535,8 +6547,8 @@ void CalculateCationTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX Hessi
           DDF=2.0*parms[2]-6.0*parms[3]*CosPhi+12.0*parms[4]*CosPhi2-20.0*parms[5]*CosPhi2*CosPhi;
           break;
         case TRAPPE_DIHEDRAL:
-          // p_0[0]+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
-          // =============================================================
+          // p_0+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
+          // ==========================================================
           // p_0/k_B [K]
           // p_1/k_B [K]
           // p_2/k_B [K]
@@ -6544,6 +6556,18 @@ void CalculateCationTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX Hessi
           U=parms[0]+(1.0+CosPhi)*(parms[1]+parms[3]-2.0*(CosPhi-1.0)*(parms[2]-2.0*parms[3]*CosPhi));
           DF=parms[1]-4.0*parms[2]*CosPhi+3.0*parms[3]*(4.0*CosPhi2-1.0);
           DDF=-4.0*(parms[2]-6.0*parms[3]*CosPhi);
+          break;
+        case TRAPPE_DIHEDRAL_EXTENDED:
+          // p_0+p_1*cos(phi)+p_2*cos(2*phi)+p_3*cos(3*phi)+p_4*cos(4*phi)
+          // =============================================================
+          // p_0/k_B [K]
+          // p_1/k_B [K]
+          // p_2/k_B [K]
+          // p_3/k_B [K]
+          // p_4/k_B [K]
+          U=parms[0]-parms[2]+parms[4]+(parms[1]-3.0*parms[3])*CosPhi+(2.0*parms[2]-8.0*parms[4])*CosPhi2+4.0*parms[3]*CosPhi2*CosPhi+8.0*parms[4]*SQR(CosPhi2);
+          DF=parms[1]-3.0*parms[3]+4.0*(parms[2]-4.0*parms[4])*CosPhi+12.0*parms[3]*CosPhi2+32.0*parms[4]*CosPhi2*CosPhi;
+          DDF=4.0*parms[2]-16.0*parms[4]+24.0*parms[3]*CosPhi+96.0*parms[4]*CosPhi2;
           break;
         case CVFF_DIHEDRAL:
           // p_0*(1+cos(p_1*phi-p_2))
@@ -7301,8 +7325,8 @@ void CalculateAdsorbateImproperTorsionHessian(REAL *Energy,REAL* Gradient,REAL_M
           DDF=2.0*parms[2]-6.0*parms[3]*CosPhi+12.0*parms[4]*CosPhi2-20.0*parms[5]*CosPhi2*CosPhi;
           break;
         case TRAPPE_IMPROPER_DIHEDRAL:
-          // p_0[0]+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
-          // =============================================================
+          // p_0+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
+          // ==========================================================
           // p_0/k_B [K]
           // p_1/k_B [K]
           // p_2/k_B [K]
@@ -7310,6 +7334,18 @@ void CalculateAdsorbateImproperTorsionHessian(REAL *Energy,REAL* Gradient,REAL_M
           U=parms[0]+(1.0+CosPhi)*(parms[1]+parms[3]-2.0*(CosPhi-1.0)*(parms[2]-2.0*parms[3]*CosPhi));
           DF=parms[1]-4.0*parms[2]*CosPhi+3.0*parms[3]*(4.0*CosPhi2-1.0);
           DDF=-4.0*(parms[2]-6.0*parms[3]*CosPhi);
+          break;
+        case TRAPPE_IMPROPER_DIHEDRAL_EXTENDED:
+          // p_0+p_1*cos(phi)+p_2*cos(2*phi)+p_3*cos(3*phi)+p_4*cos(4*phi)
+          // =============================================================
+          // p_0/k_B [K]
+          // p_1/k_B [K]
+          // p_2/k_B [K]
+          // p_3/k_B [K]
+          // p_4/k_B [K]
+          U=parms[0]-parms[2]+parms[4]+(parms[1]-3.0*parms[3])*CosPhi+(2.0*parms[2]-8.0*parms[4])*CosPhi2+4.0*parms[3]*CosPhi2*CosPhi+8.0*parms[4]*SQR(CosPhi2);
+          DF=parms[1]-3.0*parms[3]+4.0*(parms[2]-4.0*parms[4])*CosPhi+12.0*parms[3]*CosPhi2+32.0*parms[4]*CosPhi2*CosPhi;
+          DDF=4.0*parms[2]-16.0*parms[4]+24.0*parms[3]*CosPhi+96.0*parms[4]*CosPhi2;
           break;
         case CVFF_IMPROPER_DIHEDRAL:
           // p_0*(1+cos(p_1*phi-p_2))
@@ -8067,8 +8103,8 @@ void CalculateCationImproperTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MATR
           DDF=2.0*parms[2]-6.0*parms[3]*CosPhi+12.0*parms[4]*CosPhi2-20.0*parms[5]*CosPhi2*CosPhi;
           break;
         case TRAPPE_IMPROPER_DIHEDRAL:
-          // p_0[0]+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
-          // =============================================================
+          // p_0+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
+          // ==========================================================
           // p_0/k_B [K]
           // p_1/k_B [K]
           // p_2/k_B [K]
@@ -8076,6 +8112,18 @@ void CalculateCationImproperTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MATR
           U=parms[0]+(1.0+CosPhi)*(parms[1]+parms[3]-2.0*(CosPhi-1.0)*(parms[2]-2.0*parms[3]*CosPhi));
           DF=parms[1]-4.0*parms[2]*CosPhi+3.0*parms[3]*(4.0*CosPhi2-1.0);
           DDF=-4.0*(parms[2]-6.0*parms[3]*CosPhi);
+          break;
+        case TRAPPE_IMPROPER_DIHEDRAL_EXTENDED:
+          // p_0+p_1*cos(phi)+p_2*cos(2*phi)+p_3*cos(3*phi)+p_4*cos(4*phi)
+          // =============================================================
+          // p_0/k_B [K]
+          // p_1/k_B [K]
+          // p_2/k_B [K]
+          // p_3/k_B [K]
+          // p_4/k_B [K]
+          U=parms[0]-parms[2]+parms[4]+(parms[1]-3.0*parms[3])*CosPhi+(2.0*parms[2]-8.0*parms[4])*CosPhi2+4.0*parms[3]*CosPhi2*CosPhi+8.0*parms[4]*SQR(CosPhi2);
+          DF=parms[1]-3.0*parms[3]+4.0*(parms[2]-4.0*parms[4])*CosPhi+12.0*parms[3]*CosPhi2+32.0*parms[4]*CosPhi2*CosPhi;
+          DDF=4.0*parms[2]-16.0*parms[4]+24.0*parms[3]*CosPhi+96.0*parms[4]*CosPhi2;
           break;
         case CVFF_IMPROPER_DIHEDRAL:
           // p_0*(1+cos(p_1*phi-p_2))
@@ -9047,8 +9095,8 @@ void CalculateCationIntraVDWHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX Hess
         typeA=Cations[CurrentSystem][m].Atoms[A].Type;
         typeB=Cations[CurrentSystem][m].Atoms[B].Type;
 
-        scalingA=Adsorbates[CurrentSystem][m].Atoms[A].CFVDWScalingParameter;
-        scalingB=Adsorbates[CurrentSystem][m].Atoms[B].CFVDWScalingParameter;
+        scalingA=Cations[CurrentSystem][m].Atoms[A].CFVDWScalingParameter;
+        scalingB=Cations[CurrentSystem][m].Atoms[B].CFVDWScalingParameter;
 
         PotentialSecondDerivative(typeA,typeB,rr,&energy,&DF,&DDF,scalingA*scalingB);
         energy*=Scaling;

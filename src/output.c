@@ -4637,6 +4637,21 @@ void PrintPreSimulationStatusCurrentSystem(int system)
                   (double)(Components[i].TorsionArguments[j][2]*ENERGY_TO_KELVIN),
                   (double)(Components[i].TorsionArguments[j][3]*ENERGY_TO_KELVIN));
                 break;
+              case TRAPPE_DIHEDRAL_EXTENDED:
+                // p_0[0]+p_1*cos(phi)+p_2*cos(2*phi)+p_3*cos(3*phi)+p_4*cos(4*phi)
+                // ================================================================
+                // p_0/k_B [K]
+                // p_1/k_B [K]
+                // p_2/k_B [K]
+                // p_3/k_B [K]
+                // p_4/k_B [K]
+                fprintf(FilePtr,"\t\tTRAPPE_DIHEDRAL_EXTENDED: p_0/k_B=%-10.6f [K], p_1/k_B=%-10.6f [K], p_2/k_B=%-10.6f [K], p_3/k_B=%-10.6f [K], p_4/k_B=%-10.6f [K]\n",
+                  (double)(Components[i].TorsionArguments[j][0]*ENERGY_TO_KELVIN),
+                  (double)(Components[i].TorsionArguments[j][1]*ENERGY_TO_KELVIN),
+                  (double)(Components[i].TorsionArguments[j][2]*ENERGY_TO_KELVIN),
+                  (double)(Components[i].TorsionArguments[j][3]*ENERGY_TO_KELVIN),
+                  (double)(Components[i].TorsionArguments[j][4]*ENERGY_TO_KELVIN));
+                break;
               case CVFF_DIHEDRAL:
                 // p_0*(1+cos(p_1*phi-p_2))
                 // ========================
@@ -4819,6 +4834,21 @@ void PrintPreSimulationStatusCurrentSystem(int system)
                   (double)(Components[i].ImproperTorsionArguments[j][1]*ENERGY_TO_KELVIN),
                   (double)(Components[i].ImproperTorsionArguments[j][2]*ENERGY_TO_KELVIN),
                   (double)(Components[i].ImproperTorsionArguments[j][3]*ENERGY_TO_KELVIN));
+                break;
+              case TRAPPE_IMPROPER_DIHEDRAL_EXTENDED:
+                // p_0[0]+p_1*cos(phi)+p_2*cos(2*phi)+p_3*cos(3*phi)+p_4*cos(4*phi)
+                // ================================================================
+                // p_0/k_B [K]
+                // p_1/k_B [K]
+                // p_2/k_B [K]
+                // p_3/k_B [K]
+                // p_4/k_B [K]
+                fprintf(FilePtr,"\t\tTRAPPE_IMPROPER_DIHEDRAL: p_0/k_B=%-10.6f [K], p_1/k_B=%-10.6f [K], p_2/k_B=%-10.6f [K], p_3/k_B=%-10.6f [K], p_4/k_B=%-10.6f [K]\n",
+                  (double)(Components[i].ImproperTorsionArguments[j][0]*ENERGY_TO_KELVIN),
+                  (double)(Components[i].ImproperTorsionArguments[j][1]*ENERGY_TO_KELVIN),
+                  (double)(Components[i].ImproperTorsionArguments[j][2]*ENERGY_TO_KELVIN),
+                  (double)(Components[i].ImproperTorsionArguments[j][3]*ENERGY_TO_KELVIN),
+                  (double)(Components[i].ImproperTorsionArguments[j][4]*ENERGY_TO_KELVIN));
                 break;
              case CVFF_IMPROPER_DIHEDRAL:
                 // p_0*(1+cos(p_1*phi-p_2))

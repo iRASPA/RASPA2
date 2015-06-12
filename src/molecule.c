@@ -2097,6 +2097,20 @@ void ReadComponentDefinition(int comp)
           Components[comp].TorsionArguments[i][2]/=ENERGY_TO_KELVIN;
           Components[comp].TorsionArguments[i][3]/=ENERGY_TO_KELVIN;
           break;
+        case TRAPPE_DIHEDRAL_EXTENDED:
+          // p_0[0]+p_1*cos(phi)+p_2*cos(2*phi)+p_3*cos(3*phi)+p_4*cos(4*phi)
+          // ================================================================
+          // p_0/k_B [K]
+          // p_1/k_B [K]
+          // p_2/k_B [K]
+          // p_3/k_B [K]
+          // p_4/k_B [K]
+          Components[comp].TorsionArguments[i][0]/=ENERGY_TO_KELVIN;
+          Components[comp].TorsionArguments[i][1]/=ENERGY_TO_KELVIN;
+          Components[comp].TorsionArguments[i][2]/=ENERGY_TO_KELVIN;
+          Components[comp].TorsionArguments[i][3]/=ENERGY_TO_KELVIN;
+          Components[comp].TorsionArguments[i][4]/=ENERGY_TO_KELVIN;
+          break;
         case CVFF_DIHEDRAL:
           // p_0*(1+cos(p_1*phi-p_2))
           // ========================
@@ -2275,6 +2289,20 @@ void ReadComponentDefinition(int comp)
           Components[comp].ImproperTorsionArguments[i][1]/=ENERGY_TO_KELVIN;
           Components[comp].ImproperTorsionArguments[i][2]/=ENERGY_TO_KELVIN;
           Components[comp].ImproperTorsionArguments[i][3]/=ENERGY_TO_KELVIN;
+          break;
+        case TRAPPE_IMPROPER_DIHEDRAL_EXTENDED:
+          // p_0[0]+p_1*cos(phi)+p_2*cos(2*phi)+p_3*cos(3*phi)+p_4*cos(4*phi)
+          // ================================================================
+          // p_0/k_B [K]
+          // p_1/k_B [K]
+          // p_2/k_B [K]
+          // p_3/k_B [K]
+          // p_4/k_B [K]
+          Components[comp].ImproperTorsionArguments[i][0]/=ENERGY_TO_KELVIN;
+          Components[comp].ImproperTorsionArguments[i][1]/=ENERGY_TO_KELVIN;
+          Components[comp].ImproperTorsionArguments[i][2]/=ENERGY_TO_KELVIN;
+          Components[comp].ImproperTorsionArguments[i][3]/=ENERGY_TO_KELVIN;
+          Components[comp].ImproperTorsionArguments[i][4]/=ENERGY_TO_KELVIN;
           break;
         case CVFF_IMPROPER_DIHEDRAL:
           // p_0*(1+cos(p_1*phi-p_2))

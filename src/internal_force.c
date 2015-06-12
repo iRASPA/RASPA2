@@ -2466,7 +2466,7 @@ void CalculateAdsorbateTorsionForce(int m)
         // p_3     [rad]
         // p_4     [rad]
         U=0.0;
-        DF=0.;
+        DF=0.0;
         break;
       case CFF_DIHEDRAL:
         // p_0*(1-cos(phi))+p_1*(1-cos(2*phi))+p_2*(1-cos(3*phi))
@@ -2503,14 +2503,25 @@ void CalculateAdsorbateTorsionForce(int m)
         DF=-parms[1]+2.0*parms[2]*CosPhi-3.0*parms[3]*CosPhi2+4.0*parms[4]*CosPhi2*CosPhi-5.0*parms[5]*SQR(CosPhi2);
         break;
       case TRAPPE_DIHEDRAL:
-        // p_0[0]+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
-        // =============================================================
+        // p_0+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
+        // ==========================================================
         // p_0/k_B [K]
         // p_1/k_B [K]
         // p_2/k_B [K]
         // p_3/k_B [K]
         U=parms[0]+(1.0+CosPhi)*(parms[1]+parms[3]-2.0*(CosPhi-1.0)*(parms[2]-2.0*parms[3]*CosPhi));
         DF=parms[1]-4.0*parms[2]*CosPhi+3.0*parms[3]*(4.0*CosPhi2-1.0);
+        break;
+      case TRAPPE_DIHEDRAL_EXTENDED:
+        // p_0+p_1*cos(phi)+p_2*cos(2*phi)+p_3*cos(3*phi)+p_4*cos(4*phi)
+        // =============================================================
+        // p_0/k_B [K]
+        // p_1/k_B [K]
+        // p_2/k_B [K]
+        // p_3/k_B [K]
+        // p_4/k_B [K]
+        U=parms[0]-parms[2]+parms[4]+(parms[1]-3.0*parms[3])*CosPhi+(2.0*parms[2]-8.0*parms[4])*CosPhi2+4.0*parms[3]*CosPhi2*CosPhi+8.0*parms[4]*SQR(CosPhi2);
+        DF=parms[1]-3.0*parms[3]+4.0*(parms[2]-4.0*parms[4])*CosPhi+12.0*parms[3]*CosPhi2+32.0*parms[4]*CosPhi2*CosPhi;
         break;
       case CVFF_DIHEDRAL:
         // p_0*(1+cos(p_1*phi-p_2))
@@ -2821,14 +2832,25 @@ void CalculateCationTorsionForce(int m)
         DF=-parms[1]+2.0*parms[2]*CosPhi-3.0*parms[3]*CosPhi2+4.0*parms[4]*CosPhi2*CosPhi-5.0*parms[5]*SQR(CosPhi2);
         break;
       case TRAPPE_DIHEDRAL:
-        // p_0[0]+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
-        // =============================================================
+        // p_0+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
+        // ==========================================================
         // p_0/k_B [K]
         // p_1/k_B [K]
         // p_2/k_B [K]
         // p_3/k_B [K]
         U=parms[0]+(1.0+CosPhi)*(parms[1]+parms[3]-2.0*(CosPhi-1.0)*(parms[2]-2.0*parms[3]*CosPhi));
         DF=parms[1]-4.0*parms[2]*CosPhi+3.0*parms[3]*(4.0*CosPhi2-1.0);
+        break;
+      case TRAPPE_DIHEDRAL_EXTENDED:
+        // p_0+p_1*cos(phi)+p_2*cos(2*phi)+p_3*cos(3*phi)+p_4*cos(4*phi)
+        // =============================================================
+        // p_0/k_B [K]
+        // p_1/k_B [K]
+        // p_2/k_B [K]
+        // p_3/k_B [K]
+        // p_4/k_B [K]
+        U=parms[0]-parms[2]+parms[4]+(parms[1]-3.0*parms[3])*CosPhi+(2.0*parms[2]-8.0*parms[4])*CosPhi2+4.0*parms[3]*CosPhi2*CosPhi+8.0*parms[4]*SQR(CosPhi2);
+        DF=parms[1]-3.0*parms[3]+4.0*(parms[2]-4.0*parms[4])*CosPhi+12.0*parms[3]*CosPhi2+32.0*parms[4]*CosPhi2*CosPhi;
         break;
       case CVFF_DIHEDRAL:
         // p_0*(1+cos(p_1*phi-p_2))
@@ -3132,14 +3154,25 @@ void CalculateAdsorbateImproperTorsionForce(int m)
         DF=-parms[1]+2.0*parms[2]*CosPhi-3.0*parms[3]*CosPhi2+4.0*parms[4]*CosPhi2*CosPhi-5.0*parms[5]*SQR(CosPhi2);
         break;
       case TRAPPE_IMPROPER_DIHEDRAL:
-        // p_0[0]+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
-        // =============================================================
+        // p_0+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
+        // ==========================================================
         // p_0/k_B [K]
         // p_1/k_B [K]
         // p_2/k_B [K]
         // p_3/k_B [K]
         U=parms[0]+(1.0+CosPhi)*(parms[1]+parms[3]-2.0*(CosPhi-1.0)*(parms[2]-2.0*parms[3]*CosPhi));
         DF=parms[1]-4.0*parms[2]*CosPhi+3.0*parms[3]*(4.0*CosPhi2-1.0);
+        break;
+      case TRAPPE_IMPROPER_DIHEDRAL_EXTENDED:
+        // p_0+p_1*cos(phi)+p_2*cos(2*phi)+p_3*cos(3*phi)+p_4*cos(4*phi)
+        // =============================================================
+        // p_0/k_B [K]
+        // p_1/k_B [K]
+        // p_2/k_B [K]
+        // p_3/k_B [K]
+        // p_4/k_B [K]
+        U=parms[0]-parms[2]+parms[4]+(parms[1]-3.0*parms[3])*CosPhi+(2.0*parms[2]-8.0*parms[4])*CosPhi2+4.0*parms[3]*CosPhi2*CosPhi+8.0*parms[4]*SQR(CosPhi2);
+        DF=parms[1]-3.0*parms[3]+4.0*(parms[2]-4.0*parms[4])*CosPhi+12.0*parms[3]*CosPhi2+32.0*parms[4]*CosPhi2*CosPhi;
         break;
       case CVFF_IMPROPER_DIHEDRAL:
         // p_0*(1+cos(p_1*phi-p_2))
@@ -3434,14 +3467,25 @@ void CalculateCationImproperTorsionForce(int m)
         DF=-parms[1]+2.0*parms[2]*CosPhi-3.0*parms[3]*CosPhi2+4.0*parms[4]*CosPhi2*CosPhi-5.0*parms[5]*SQR(CosPhi2);
         break;
       case TRAPPE_IMPROPER_DIHEDRAL:
-        // p_0[0]+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
-        // =============================================================
+        // p_0+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
+        // ==========================================================
         // p_0/k_B [K]
         // p_1/k_B [K]
         // p_2/k_B [K]
         // p_3/k_B [K]
         U=parms[0]+(1.0+CosPhi)*(parms[1]+parms[3]-2.0*(CosPhi-1.0)*(parms[2]-2.0*parms[3]*CosPhi));
         DF=parms[1]-4.0*parms[2]*CosPhi+3.0*parms[3]*(4.0*CosPhi2-1.0);
+        break;
+      case TRAPPE_IMPROPER_DIHEDRAL_EXTENDED:
+        // p_0+p_1*cos(phi)+p_2*cos(2*phi)+p_3*cos(3*phi)+p_4*cos(4*phi)
+        // =============================================================
+        // p_0/k_B [K]
+        // p_1/k_B [K]
+        // p_2/k_B [K]
+        // p_3/k_B [K]
+        // p_4/k_B [K]
+        U=parms[0]-parms[2]+parms[4]+(parms[1]-3.0*parms[3])*CosPhi+(2.0*parms[2]-8.0*parms[4])*CosPhi2+4.0*parms[3]*CosPhi2*CosPhi+8.0*parms[4]*SQR(CosPhi2);
+        DF=parms[1]-3.0*parms[3]+4.0*(parms[2]-4.0*parms[4])*CosPhi+12.0*parms[3]*CosPhi2+32.0*parms[4]*CosPhi2*CosPhi;
         break;
       case CVFF_IMPROPER_DIHEDRAL:
         // p_0*(1+cos(p_1*phi-p_2))
