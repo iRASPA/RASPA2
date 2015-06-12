@@ -439,7 +439,7 @@ extern REAL *CpuTimeBoxShapeChangeMove;
 extern REAL *CpuTimeGibbsVolumeChangeMove;
 extern REAL *CpuTimeFrameworkChangeMove;
 extern REAL *CpuTimeFrameworkShiftMove;
-extern REAL *CpuCFCRXMCLambdaChangeMove;
+extern REAL *CpuTimeCFCRXMCLambdaChangeMove;
 
 extern int OptimizeVolumeChange;
 extern int OptimizeGibbsVolumeChange;

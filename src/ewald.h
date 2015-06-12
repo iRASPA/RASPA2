@@ -86,6 +86,7 @@ int EwaldFourierForce(void);
 int EwaldFourierBornTerm(void);
 int CalculateEwaldFourierAdsorbate(int New,int old,int mol,int store);
 int CalculateEwaldFourierAdsorbateCF(int New,int old,int mol,int store);
+int CalculateEwaldFourierAdsorbateTupleLambda(int numberOfEwaldMolecules, int Molecules[],REAL CFChargeScalingNew[], REAL CFChargeScalingOld[],int store);
 int CalculateEwaldFourierCation(int New,int old,int mol,int store);
 int CalculateEwaldFourierCationCF(int New,int old,int mol,int store);
 void AcceptEwaldAdsorbateMove(int A);

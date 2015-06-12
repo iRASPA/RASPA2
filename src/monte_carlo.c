@@ -231,6 +231,8 @@ void MonteCarloSimulation(void)
             CFGibbsParticleTransferMove();
           else if(ran<Components[CurrentComponent].ProbabilityCBCFGibbsChangeMove)
             CBCFGibbsParticleTransferMove();
+          else if(ran<Components[CurrentComponent].ProbabilityExchangeFractionalParticleMove)
+            ExchangeFractionalParticleMove();
           else if(ran<Components[CurrentComponent].ProbabilityParallelTemperingMove)
             ParallelTemperingMove();
           else if(ran<Components[CurrentComponent].ProbabilityHyperParallelTemperingMove)
@@ -403,6 +405,8 @@ void MonteCarloSimulation(void)
               CFWangLandauIteration(SAMPLE);
               CBCFGibbsParticleTransferMove();
             }
+            else if(ran<Components[CurrentComponent].ProbabilityExchangeFractionalParticleMove)
+              ExchangeFractionalParticleMove();
             else if(ran<Components[CurrentComponent].ProbabilityParallelTemperingMove)
               ParallelTemperingMove();
             else if(ran<Components[CurrentComponent].ProbabilityHyperParallelTemperingMove)
@@ -432,6 +436,7 @@ void MonteCarloSimulation(void)
               CFCRXMCLambdaChangeMove();
               CFRXMCWangLandauIteration(SAMPLE);
             }
+
 
             #ifdef DEBUG
               DebugEnergyStatus();
@@ -721,6 +726,13 @@ void MonteCarloSimulation(void)
             Components[CurrentComponent].CpuTimeCBCFGibbsChangeMove[0]+=0.5*(cpu_after-cpu_before);
             Components[CurrentComponent].CpuTimeCBCFGibbsChangeMove[1]+=0.5*(cpu_after-cpu_before);
           }
+          else if(ran<Components[CurrentComponent].ProbabilityExchangeFractionalParticleMove)
+          {
+            cpu_before=get_cpu_time();
+            ExchangeFractionalParticleMove();
+            cpu_after=get_cpu_time();
+            Components[CurrentComponent].CpuTimeExchangeFractionalParticleMove[CurrentSystem]+=(cpu_after-cpu_before);
+          }
           else if(ran<Components[CurrentComponent].ProbabilityParallelTemperingMove) 
           {
             // note: cpu-timings done in the move itself
@@ -805,7 +817,7 @@ void MonteCarloSimulation(void)
             cpu_before=get_cpu_time();
             CFCRXMCLambdaChangeMove();
             cpu_after=get_cpu_time();
-            CpuCFCRXMCLambdaChangeMove[CurrentSystem]+=(cpu_after-cpu_before);
+            CpuTimeCFCRXMCLambdaChangeMove[CurrentSystem]+=(cpu_after-cpu_before);
           }
           
           #ifdef DEBUG

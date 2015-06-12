@@ -3839,6 +3839,7 @@ void PrintPreSimulationStatusCurrentSystem(int system)
         fprintf(FilePtr,"\t\t\tmove %d    component %d => %d\n",j,i,Components[i].GibbsIdentityChanges[j]);
       fprintf(FilePtr,"\t\tPercentage of CF Gibbs lambda-transfer moves:      %lf\n",(double)(100.0*Components[i].FractionOfCFGibbsChangeMove));
       fprintf(FilePtr,"\t\tPercentage of CB/CFMC Gibbs lambda-transfer moves: %lf\n",(double)(100.0*Components[i].FractionOfCBCFGibbsChangeMove));
+      fprintf(FilePtr,"\t\tPercentage of exchange frac./int. particle moves:  %lf\n",(double)(100.0*Components[i].FractionOfExchangeFractionalParticleMove));
       fprintf(FilePtr,"\n");
 
       fprintf(FilePtr,"\tSystem Moves:\n");
@@ -6413,6 +6414,7 @@ void PrintPostSimulationStatus(void)
     PrintCFGibbsLambdaStatistics(FilePtr);
     PrintCBCFGibbsLambdaStatistics(FilePtr);
     PrintRXMCStatistics(FilePtr);
+    PrintExchangeFractionalParticleStatistics(FilePtr);
     fprintf(FilePtr,"\n\n");
     PrintCPUStatistics(FilePtr);
     fprintf(FilePtr,"\n\n");

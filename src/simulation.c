@@ -401,7 +401,7 @@ REAL *CpuTimeBoxShapeChangeMove;
 REAL *CpuTimeGibbsVolumeChangeMove;
 REAL *CpuTimeFrameworkChangeMove;
 REAL *CpuTimeFrameworkShiftMove;
-REAL *CpuCFCRXMCLambdaChangeMove;
+REAL *CpuTimeCFCRXMCLambdaChangeMove;
 
 int OptimizeVolumeChange;
 int OptimizeGibbsVolumeChange;
@@ -1142,7 +1142,7 @@ void WriteRestartSimulation(FILE *FilePtr)
   fwrite(CpuTimeGibbsVolumeChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
   fwrite(CpuTimeFrameworkChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
   fwrite(CpuTimeFrameworkShiftMove,sizeof(REAL),NumberOfSystems,FilePtr);
-  fwrite(CpuCFCRXMCLambdaChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
+  fwrite(CpuTimeCFCRXMCLambdaChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
 
   fwrite(&OptimizeVolumeChange,sizeof(int),1,FilePtr);
   fwrite(&OptimizeGibbsVolumeChange,sizeof(int),1,FilePtr);
@@ -1196,7 +1196,7 @@ void AllocateSimulationMemory(void)
   CpuTimeGibbsVolumeChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   CpuTimeFrameworkChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   CpuTimeFrameworkShiftMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
-  CpuCFCRXMCLambdaChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+  CpuTimeCFCRXMCLambdaChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
 
   Box=(REAL_MATRIX3x3*)calloc(NumberOfSystems,sizeof(REAL_MATRIX3x3));
   InverseBox=(REAL_MATRIX3x3*)calloc(NumberOfSystems,sizeof(REAL_MATRIX3x3));
@@ -1805,7 +1805,7 @@ void ReadRestartSimulation(FILE *FilePtr)
   fread(CpuTimeGibbsVolumeChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
   fread(CpuTimeFrameworkChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
   fread(CpuTimeFrameworkShiftMove,sizeof(REAL),NumberOfSystems,FilePtr);
-  fread(CpuCFCRXMCLambdaChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
+  fread(CpuTimeCFCRXMCLambdaChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
 
   fread(&OptimizeVolumeChange,sizeof(int),1,FilePtr);
   fread(&OptimizeGibbsVolumeChange,sizeof(int),1,FilePtr);

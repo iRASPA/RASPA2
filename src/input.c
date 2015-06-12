@@ -2615,6 +2615,7 @@ int ReadInput(char *input)
     if(strcasecmp("RandomTranslationProbability",keyword)==0) sscanf(arguments,"%lf",&Components[CurrentComponent].ProbabilityRandomTranslationMove);
     if(strcasecmp("RotationProbability",keyword)==0) sscanf(arguments,"%lf",&Components[CurrentComponent].ProbabilityRotationMove);
     if(strcasecmp("RandomRotationProbability",keyword)==0) sscanf(arguments,"%lf",&Components[CurrentComponent].ProbabilityRandomRotationMove);
+    if(strcasecmp("ExchangeFractionalParticleProbability",keyword)==0) sscanf(arguments,"%lf",&Components[CurrentComponent].ProbabilityExchangeFractionalParticleMove);
     if(strcasecmp("CBMCProbability",keyword)==0) sscanf(arguments,"%lf",&Components[CurrentComponent].ProbabilityPartialReinsertionMove);
     if(strcasecmp("PartialReinsertionProbability",keyword)==0) sscanf(arguments,"%lf",&Components[CurrentComponent].ProbabilityPartialReinsertionMove);
     if(strcasecmp("ReinsertionProbability",keyword)==0) sscanf(arguments,"%lf",&Components[CurrentComponent].ProbabilityReinsertionMove);

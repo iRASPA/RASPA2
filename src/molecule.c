@@ -1143,6 +1143,7 @@ void ReadComponentDefinition(int comp)
   Components[comp].CpuTimeCFGibbsChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeCBCFGibbsChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeGibbsIdentityChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+  Components[comp].CpuTimeExchangeFractionalParticleMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
 
   Components[comp].MaximumCBMCChangeBondLength=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
   Components[comp].MaximumCBMCChangeBendAngle=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
@@ -3398,6 +3399,7 @@ void RescaleComponentProbabilities(void)
             Components[i].ProbabilityGibbsIdentityChangeMove+
             Components[i].ProbabilityCFGibbsChangeMove+
             Components[i].ProbabilityCBCFGibbsChangeMove+
+            Components[i].ProbabilityExchangeFractionalParticleMove+
             ProbabilityParallelTemperingMove+
             ProbabilityHyperParallelTemperingMove+
             ProbabilityParallelMolFractionMove+
@@ -3429,8 +3431,9 @@ void RescaleComponentProbabilities(void)
     Components[i].ProbabilityGibbsIdentityChangeMove+=Components[i].ProbabilityGibbsChangeMove;
     Components[i].ProbabilityCFGibbsChangeMove+=Components[i].ProbabilityGibbsIdentityChangeMove;
     Components[i].ProbabilityCBCFGibbsChangeMove+=Components[i].ProbabilityCFGibbsChangeMove;
+    Components[i].ProbabilityExchangeFractionalParticleMove+=Components[i].ProbabilityCBCFGibbsChangeMove;
 
-    Components[i].ProbabilityParallelTemperingMove=ProbabilityParallelTemperingMove+Components[i].ProbabilityCBCFGibbsChangeMove;
+    Components[i].ProbabilityParallelTemperingMove=ProbabilityParallelTemperingMove+Components[i].ProbabilityExchangeFractionalParticleMove;
     Components[i].ProbabilityHyperParallelTemperingMove=ProbabilityHyperParallelTemperingMove+Components[i].ProbabilityParallelTemperingMove;
     Components[i].ProbabilityParallelMolFractionMove=ProbabilityParallelMolFractionMove+Components[i].ProbabilityHyperParallelTemperingMove;
     Components[i].ProbabilityChiralInversionMove=ProbabilityChiralInversionMove+Components[i].ProbabilityParallelMolFractionMove;
@@ -3464,6 +3467,7 @@ void RescaleComponentProbabilities(void)
       Components[i].ProbabilityGibbsIdentityChangeMove/=TotProb;
       Components[i].ProbabilityCFGibbsChangeMove/=TotProb;
       Components[i].ProbabilityCBCFGibbsChangeMove/=TotProb;
+      Components[i].ProbabilityExchangeFractionalParticleMove/=TotProb;
 
       Components[i].ProbabilityParallelTemperingMove/=TotProb;
       Components[i].ProbabilityHyperParallelTemperingMove/=TotProb;
@@ -3498,8 +3502,9 @@ void RescaleComponentProbabilities(void)
     Components[i].FractionOfGibbsIdentityChangeMove=Components[i].ProbabilityGibbsIdentityChangeMove-Components[i].ProbabilityGibbsChangeMove;
     Components[i].FractionOfCFGibbsChangeMove=Components[i].ProbabilityCFGibbsChangeMove-Components[i].ProbabilityGibbsIdentityChangeMove;
     Components[i].FractionOfCBCFGibbsChangeMove=Components[i].ProbabilityCBCFGibbsChangeMove-Components[i].ProbabilityCFGibbsChangeMove;
+    Components[i].FractionOfExchangeFractionalParticleMove=Components[i].ProbabilityExchangeFractionalParticleMove-Components[i].ProbabilityCBCFGibbsChangeMove;
 
-    Components[i].FractionOfParallelTemperingMove=Components[i].ProbabilityParallelTemperingMove-Components[i].ProbabilityCBCFGibbsChangeMove;
+    Components[i].FractionOfParallelTemperingMove=Components[i].ProbabilityParallelTemperingMove-Components[i].ProbabilityExchangeFractionalParticleMove;
     Components[i].FractionOfHyperParallelTemperingMove=Components[i].ProbabilityHyperParallelTemperingMove-Components[i].ProbabilityParallelTemperingMove;
     Components[i].FractionOfParallelMolFractionMove=Components[i].ProbabilityParallelMolFractionMove-Components[i].ProbabilityHyperParallelTemperingMove;
     Components[i].FractionOfChiralInversionMove=Components[i].ProbabilityChiralInversionMove-Components[i].ProbabilityParallelMolFractionMove;
@@ -5790,12 +5795,12 @@ void PrintCPUStatistics(FILE *FilePtr)
   REAL CpuTimeIdentityChangeMove,CpuTimeSwapMoveInsertion,CpuTimeSwapMoveDeletion;
   REAL CpuTimeCFSwapLambdaMove,CpuTimeCBCFSwapLambdaMove,CpuTimeWidomMove;
   REAL CpuTimeSurfaceAreaMove,CpuTimeGibbsChangeMove,CpuTimeCFGibbsChangeMove;
-  REAL CpuTimeCBCFGibbsChangeMove,CpuTimeGibbsIdentityChangeMove;
+  REAL CpuTimeCBCFGibbsChangeMove,CpuTimeGibbsIdentityChangeMove,CpuTimeExchangeFractionalParticleMove;
   REAL CpuTimeParallelTemperingMoveTotal,CpuTimeHyperParallelTemperingMoveTotal,CpuTimeParallelMolFractionMoveTotal;
   REAL CpuTimeChiralInversionMoveTotal,CpuTimeHybridNVEMoveTotal,CpuTimeHybridNPHMoveTotal;
   REAL CpuTimeHybridNPHPRMoveTotal,CpuTimeVolumeChangeMoveTotal,CpuTimeBoxShapeChangeMoveTotal;
   REAL CpuTimeGibbsVolumeChangeMoveTotal,CpuTimeFrameworkChangeMoveTotal,CpuTimeFrameworkShiftMoveTotal;
-  REAL CpuCFCRXMCLambdaChangeMoveTotal;
+  REAL CpuTimeCFCRXMCLambdaChangeMoveTotal;
 
   CpuTimeTranslationMove=0.0;
   CpuTimeRandomTranslationMove=0.0;
@@ -5816,6 +5821,7 @@ void PrintCPUStatistics(FILE *FilePtr)
   CpuTimeCFGibbsChangeMove=0.0;
   CpuTimeCBCFGibbsChangeMove=0.0;
   CpuTimeGibbsIdentityChangeMove=0.0;
+  CpuTimeExchangeFractionalParticleMove=0.0;
 
 
   fprintf(FilePtr,"Total CPU timings:\n");
@@ -5850,6 +5856,7 @@ void PrintCPUStatistics(FILE *FilePtr)
     fprintf(FilePtr,"\tGibbs particle transform (CFMC):    %18.10g [s]\n",Components[i].CpuTimeCFGibbsChangeMove[CurrentSystem]);
     fprintf(FilePtr,"\tGibbs particle transform (CB/CFMC): %18.10g [s]\n",Components[i].CpuTimeCBCFGibbsChangeMove[CurrentSystem]);
     fprintf(FilePtr,"\tGibbs indentity change:             %18.10g [s]\n",Components[i].CpuTimeGibbsIdentityChangeMove[CurrentSystem]);
+    fprintf(FilePtr,"\tExchange fract./int. particle:      %18.10g [s]\n",Components[i].CpuTimeExchangeFractionalParticleMove[CurrentSystem]);
 
     CpuTimeTranslationMove+=Components[i].CpuTimeTranslationMove[CurrentSystem];
     CpuTimeRandomTranslationMove+=Components[i].CpuTimeRandomTranslationMove[CurrentSystem];
@@ -5870,6 +5877,7 @@ void PrintCPUStatistics(FILE *FilePtr)
     CpuTimeCFGibbsChangeMove+=Components[i].CpuTimeCFGibbsChangeMove[CurrentSystem];
     CpuTimeCBCFGibbsChangeMove+=Components[i].CpuTimeCBCFGibbsChangeMove[CurrentSystem];
     CpuTimeGibbsIdentityChangeMove+=Components[i].CpuTimeGibbsIdentityChangeMove[CurrentSystem];
+    CpuTimeExchangeFractionalParticleMove+=Components[i].CpuTimeExchangeFractionalParticleMove[CurrentSystem];
   }
 
   fprintf(FilePtr,"\nTotal all components:\n");
@@ -5891,7 +5899,8 @@ void PrintCPUStatistics(FILE *FilePtr)
   fprintf(FilePtr,"\tGibbs particle transform:           %18.10g [s]\n",CpuTimeGibbsChangeMove);
   fprintf(FilePtr,"\tGibbs particle transform (CFMC):    %18.10g [s]\n",CpuTimeCFGibbsChangeMove);
   fprintf(FilePtr,"\tGibbs particle transform (CB/CFMC): %18.10g [s]\n",CpuTimeCBCFGibbsChangeMove);
-  fprintf(FilePtr,"\tGibbs indentity change:             %18.10g [s]\n",CpuTimeGibbsIdentityChangeMove);
+  fprintf(FilePtr,"\tGibbs identity change:              %18.10g [s]\n",CpuTimeGibbsIdentityChangeMove);
+  fprintf(FilePtr,"\tExchange fract./int. particle:      %18.10g [s]\n",CpuTimeExchangeFractionalParticleMove);
 
   fprintf(FilePtr,"\nSystem moves:\n");
   fprintf(FilePtr,"\tparallel tempering:            %18.10g [s]\n",CpuTimeParallelTemperingMove[CurrentSystem]);
@@ -5906,7 +5915,7 @@ void PrintCPUStatistics(FILE *FilePtr)
   fprintf(FilePtr,"\tGibbs volume change:           %18.10g [s]\n",CpuTimeGibbsVolumeChangeMove[CurrentSystem]);
   fprintf(FilePtr,"\tframework change:              %18.10g [s]\n",CpuTimeFrameworkChangeMove[CurrentSystem]);
   fprintf(FilePtr,"\tframework shift:               %18.10g [s]\n",CpuTimeFrameworkShiftMove[CurrentSystem]);
-  fprintf(FilePtr,"\treaction MC move:              %18.10g [s]\n",CpuCFCRXMCLambdaChangeMove[CurrentSystem]);
+  fprintf(FilePtr,"\treaction MC move:              %18.10g [s]\n",CpuTimeCFCRXMCLambdaChangeMove[CurrentSystem]);
   fprintf(FilePtr,"\n");
 
 
@@ -5932,6 +5941,7 @@ void PrintCPUStatistics(FILE *FilePtr)
   CpuTimeCFGibbsChangeMove=0.0;
   CpuTimeCBCFGibbsChangeMove=0.0;
   CpuTimeGibbsIdentityChangeMove=0.0;
+  CpuTimeExchangeFractionalParticleMove=0.0;
 
   for(j=0;j<NumberOfSystems;j++)
   {
@@ -5956,6 +5966,7 @@ void PrintCPUStatistics(FILE *FilePtr)
       CpuTimeCFGibbsChangeMove+=Components[i].CpuTimeCFGibbsChangeMove[j];
       CpuTimeCBCFGibbsChangeMove+=Components[i].CpuTimeCBCFGibbsChangeMove[j];
       CpuTimeGibbsIdentityChangeMove+=Components[i].CpuTimeGibbsIdentityChangeMove[j];
+      CpuTimeExchangeFractionalParticleMove+=Components[i].CpuTimeExchangeFractionalParticleMove[j];
     }
   }
 
@@ -5979,6 +5990,7 @@ void PrintCPUStatistics(FILE *FilePtr)
   fprintf(FilePtr,"\tGibbs particle transform (CFMC):    %18.10g [s]\n",CpuTimeCFGibbsChangeMove);
   fprintf(FilePtr,"\tGibbs particle transform (CB/CFMC): %18.10g [s]\n",CpuTimeCBCFGibbsChangeMove);
   fprintf(FilePtr,"\tGibbs indentity change:             %18.10g [s]\n",CpuTimeGibbsIdentityChangeMove);
+  fprintf(FilePtr,"\tExchange frac./int. particle:       %18.10g [s]\n",CpuTimeExchangeFractionalParticleMove);
 
   CpuTimeParallelTemperingMoveTotal=0.0;
   CpuTimeHyperParallelTemperingMoveTotal=0.0;
@@ -5992,7 +6004,7 @@ void PrintCPUStatistics(FILE *FilePtr)
   CpuTimeGibbsVolumeChangeMoveTotal=0.0;
   CpuTimeFrameworkChangeMoveTotal=0.0;
   CpuTimeFrameworkShiftMoveTotal=0.0;
-  CpuCFCRXMCLambdaChangeMoveTotal=0.0;
+  CpuTimeCFCRXMCLambdaChangeMoveTotal=0.0;
   for(j=0;j<NumberOfSystems;j++)
   {
     CpuTimeParallelTemperingMoveTotal+=CpuTimeParallelTemperingMove[j];
@@ -6007,7 +6019,7 @@ void PrintCPUStatistics(FILE *FilePtr)
     CpuTimeGibbsVolumeChangeMoveTotal+=CpuTimeGibbsVolumeChangeMove[j];
     CpuTimeFrameworkChangeMoveTotal+=CpuTimeFrameworkChangeMove[j];
     CpuTimeFrameworkShiftMoveTotal+=CpuTimeFrameworkShiftMove[j];
-    CpuCFCRXMCLambdaChangeMoveTotal+=CpuCFCRXMCLambdaChangeMove[j];
+    CpuTimeCFCRXMCLambdaChangeMoveTotal+=CpuTimeCFCRXMCLambdaChangeMove[j];
   }
 
   fprintf(FilePtr,"\nSystem moves:\n");
@@ -6023,7 +6035,7 @@ void PrintCPUStatistics(FILE *FilePtr)
   fprintf(FilePtr,"\tGibbs volume change:           %18.10g [s]\n",CpuTimeGibbsVolumeChangeMoveTotal);
   fprintf(FilePtr,"\tframework change:              %18.10g [s]\n",CpuTimeFrameworkChangeMoveTotal);
   fprintf(FilePtr,"\tframework shift:               %18.10g [s]\n",CpuTimeFrameworkShiftMoveTotal);
-  fprintf(FilePtr,"\treaction MC move:              %18.10g [s]\n",CpuCFCRXMCLambdaChangeMoveTotal);
+  fprintf(FilePtr,"\treaction MC move:              %18.10g [s]\n",CpuTimeCFCRXMCLambdaChangeMoveTotal);
   fprintf(FilePtr,"\n");
 }
 

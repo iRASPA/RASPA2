@@ -187,6 +187,7 @@ void PrintCBCFSwapLambdaStatistics(FILE *FilePtr);
 void PrintCFGibbsLambdaStatistics(FILE *FilePtr);
 void PrintCBCFGibbsLambdaStatistics(FILE *FilePtr);
 void PrintRXMCStatistics(FILE *FilePtr);
+void PrintExchangeFractionalParticleStatistics(FILE *FilePtr);
 
 REAL WidomAdsorbateMove(void);
 REAL WidomCationMove(void);
