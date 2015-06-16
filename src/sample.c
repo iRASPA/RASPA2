@@ -10124,9 +10124,9 @@ void MeasurePrincipleMomentsOfInertia(void)
     }
 
     // register the principle moments of inertia per component type
-    PrincipleMomentsOfInertiaAverage[CurrentSystem][ComponentType][Block].x+=InertiaVector.x;
-    PrincipleMomentsOfInertiaAverage[CurrentSystem][ComponentType][Block].y+=InertiaVector.y;
-    PrincipleMomentsOfInertiaAverage[CurrentSystem][ComponentType][Block].z+=InertiaVector.z;
+    PrincipleMomentsOfInertiaAccumulated[CurrentSystem][ComponentType][Block].x+=InertiaVector.x;
+    PrincipleMomentsOfInertiaAccumulated[CurrentSystem][ComponentType][Block].y+=InertiaVector.y;
+    PrincipleMomentsOfInertiaAccumulated[CurrentSystem][ComponentType][Block].z+=InertiaVector.z;
 
     // CountMSDOrderNer needed because the amount of molecules could vary in GC-MC
     PrincipleMomentsOfInertiaCount[CurrentSystem][ComponentType][Block]+=1.0;
@@ -10232,9 +10232,9 @@ void MeasurePrincipleMomentsOfInertia(void)
     }
 
     // register the principle moments of inertia per component type
-    PrincipleMomentsOfInertiaAverage[CurrentSystem][ComponentType][Block].x+=InertiaVector.x;
-    PrincipleMomentsOfInertiaAverage[CurrentSystem][ComponentType][Block].y+=InertiaVector.y;
-    PrincipleMomentsOfInertiaAverage[CurrentSystem][ComponentType][Block].z+=InertiaVector.z;
+    PrincipleMomentsOfInertiaAccumulated[CurrentSystem][ComponentType][Block].x+=InertiaVector.x;
+    PrincipleMomentsOfInertiaAccumulated[CurrentSystem][ComponentType][Block].y+=InertiaVector.y;
+    PrincipleMomentsOfInertiaAccumulated[CurrentSystem][ComponentType][Block].z+=InertiaVector.z;
 
     // CountMSDOrderNer needed because the amount of molecules could vary in GC-MC
     PrincipleMomentsOfInertiaCount[CurrentSystem][ComponentType][Block]+=1.0;

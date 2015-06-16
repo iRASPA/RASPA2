@@ -1474,8 +1474,7 @@ void GaussJordan(REAL_MATRIX a,int n,REAL_MATRIX b,int m)
     indxc[i-1]=icol; // pivot element, located at irow and icol.
     if(a.element[icol-1][icol-1]==0.0)
     {
-      fprintf(stderr, "gaussj: Singular Matrix\n");
-      exit(0);
+      fprintf(stderr, "Matrix Inversion, Gauss-Jordan: Singular Matrix\n");
     }
     pivinv=1.0/a.element[icol-1][icol-1];
     a.element[icol-1][icol-1]=1.0;

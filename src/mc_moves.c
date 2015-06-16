@@ -7758,10 +7758,10 @@ REAL WidomAdsorbateMove(void)
          UHostAdsorbateBondDipoleBondDipoleFourierDelta[CurrentSystem]+UAdsorbateAdsorbateBondDipoleBondDipoleFourierDelta[CurrentSystem]+UAdsorbateCationBondDipoleBondDipoleFourierDelta[CurrentSystem]+
          UDeltaPolarization+UTailNew;
 
-  WidomEnergyDifferenceAverage[CurrentSystem][CurrentComponent][Block]+=(UTotal[CurrentSystem]+DeltaU)*RosenbluthNew;
-  WidomRosenbluthFactorAverage[CurrentSystem][CurrentComponent][Block]+=RosenbluthNew;
+  WidomEnergyDifferenceAccumulated[CurrentSystem][CurrentComponent][Block]+=(UTotal[CurrentSystem]+DeltaU)*RosenbluthNew;
+  WidomRosenbluthFactorAccumulated[CurrentSystem][CurrentComponent][Block]+=RosenbluthNew;
 
-  WidomEnergyFrameworkAverage[CurrentSystem][CurrentComponent][Block]+=UTotal[CurrentSystem];
+  WidomEnergyFrameworkAccumulated[CurrentSystem][CurrentComponent][Block]+=UTotal[CurrentSystem];
   WidomEnergyFrameworkCount[CurrentSystem][CurrentComponent][Block]+=1.0;
 
   return RosenbluthNew;
@@ -7849,10 +7849,10 @@ REAL WidomCationMove(void)
          UHostCationBondDipoleBondDipoleFourierDelta[CurrentSystem]+UCationCationBondDipoleBondDipoleFourierDelta[CurrentSystem]+UAdsorbateCationBondDipoleBondDipoleFourierDelta[CurrentSystem]+
          UDeltaPolarization+UTailNew;
 
-  WidomEnergyDifferenceAverage[CurrentSystem][CurrentComponent][Block]+=(UTotal[CurrentSystem]+DeltaU)*RosenbluthNew;
-  WidomRosenbluthFactorAverage[CurrentSystem][CurrentComponent][Block]+=RosenbluthNew;
+  WidomEnergyDifferenceAccumulated[CurrentSystem][CurrentComponent][Block]+=(UTotal[CurrentSystem]+DeltaU)*RosenbluthNew;
+  WidomRosenbluthFactorAccumulated[CurrentSystem][CurrentComponent][Block]+=RosenbluthNew;
 
-  WidomEnergyFrameworkAverage[CurrentSystem][CurrentComponent][Block]+=UTotal[CurrentSystem];
+  WidomEnergyFrameworkAccumulated[CurrentSystem][CurrentComponent][Block]+=UTotal[CurrentSystem];
   WidomEnergyFrameworkCount[CurrentSystem][CurrentComponent][Block]+=1.0;
 
   return RosenbluthNew;
@@ -15054,8 +15054,8 @@ void SurfaceAreaMove(void)
           }
         }
         temp=(counted/total)*4.0*M_PI*SQR(equilibrium_distance);
-        SurfaceAreaFrameworkAverage[CurrentSystem][Block]+=temp;
-        SurfaceAreaFrameworksAverage[CurrentSystem][CurrentFramework][Block]+=temp;
+        SurfaceAreaFrameworkAccumulated[CurrentSystem][Block]+=temp;
+        SurfaceAreaFrameworksAccumulated[CurrentSystem][CurrentFramework][Block]+=temp;
       }
     }
   }
@@ -15090,8 +15090,8 @@ void SurfaceAreaMove(void)
       }
     }
     temp=(counted/total)*4.0*M_PI*SQR(equilibrium_distance);
-    SurfaceAreaFrameworkAverage[CurrentSystem][Block]+=temp;
-    SurfaceAreaCationsAverage[CurrentSystem][Block]+=temp;
+    SurfaceAreaFrameworkAccumulated[CurrentSystem][Block]+=temp;
+    SurfaceAreaCationsAccumulated[CurrentSystem][Block]+=temp;
   }
   SurfaceAreaCount[CurrentSystem][Block]+=1.0;
 }
