@@ -147,6 +147,7 @@ static REAL **UTotalAccumulated;
 static REAL ***NumberOfMoleculesPerComponentAccumulated;
 static REAL ***NumberOfExcessMoleculesPerComponentAccumulated;
 static REAL ***DensityPerComponentAccumulated;
+static REAL **TotalEnergyTimesNumberOfMoleculesAccumulated;
 static REAL ***TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated;
 static REAL ***HostAdsorbateEnergyTimesNumberOfMoleculesAccumulated;
 static REAL ***AdsorbateAdsorbateEnergyTimesNumberOfMoleculesAccumulated;
@@ -872,7 +873,7 @@ void InitializesEnergiesCurrentSystem(void)
 
 void InitializesEnergyAveragesAllSystems(void)
 {
-  int i,j,k;
+  int i,j,k,l;
 
   Block=0;
 
@@ -1003,9 +1004,10 @@ void InitializesEnergyAveragesAllSystems(void)
         HostAdsorbateEnergyTimesNumberOfMoleculesAccumulated[k][j][i]=0.0;
         AdsorbateAdsorbateEnergyTimesNumberOfMoleculesAccumulated[k][j][i]=0.0;
 
-        for(int l=0;l<NumberOfComponents;l++)
+        for(l=0;l<NumberOfComponents;l++)
           NumberOfMoleculesPerComponentSquaredAccumulated[k][j][l][i]=0.0;
       }
+      TotalEnergyTimesNumberOfMoleculesAccumulated[k][i]=0.0;
       NumberOfMoleculesSquaredAccumulated[k][i]=0.0;
 
       TemperatureAccumulated[k][i]=0.0;
@@ -1217,6 +1219,8 @@ void UpdateEnergyAveragesCurrentSystem(void)
                                                  -NumberOfFractionalAdsorbateMolecules[CurrentSystem];
   NumberOfMoleculesSquaredAccumulated[CurrentSystem][Block]+=SQR(NumberOfAdsorbateMolecules[CurrentSystem]
                                                         -NumberOfFractionalAdsorbateMolecules[CurrentSystem]);
+  TotalEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][Block]+=UTotal[CurrentSystem]*(NumberOfAdsorbateMolecules[CurrentSystem]
+                                                 -NumberOfFractionalAdsorbateMolecules[CurrentSystem]);
 
   nr=NumberOfUnitCells[0].x*NumberOfUnitCells[0].y*NumberOfUnitCells[0].z;
   for(i=0;i<NumberOfComponents;i++)
@@ -3726,72 +3730,107 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   // enthalpy of desorption
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Enthalpy of adsorption:\n");
-  fprintf(FilePtr,"=======================\n");
+  fprintf(FilePtr,"=======================\n\n");
   sum=sum2=0.0;
 
-  HeatOfAdsorptionPerComponent=(REAL(*)[NR_BLOCKS])calloc(NumberOfComponents,sizeof(REAL[NR_BLOCKS]));
-
+  if(NumberOfComponents>1)
+  {
+    fprintf(FilePtr,"\tTotal enthalpy of adsorption\n");
+    fprintf(FilePtr,"\t----------------------------\n");
+  }
+  sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    matrix=CreateRealMatrix(NumberOfComponents,NumberOfComponents);
+    if(BlockCount[CurrentSystem][i]>0.0)
+    {
+      REAL UTotalTimesN = TotalEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
+      REAL UTotal = UTotalAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
+      REAL N = NumberOfMoleculesAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
+      REAL NSquared = NumberOfMoleculesSquaredAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
+
+      tmp=ENERGY_TO_KELVIN*((UTotalTimesN - UTotal*N)/(NSquared - SQR(N))-therm_baro_stats.ExternalTemperature[CurrentSystem]);
+      sum+=tmp;
+      sum2+=SQR(tmp);
+      fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)tmp);
+    }
+    else
+      fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)0.0);
+  }
+  fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
+  fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [K]\n",
+    (double)(sum/(REAL)NR_BLOCKS),
+    (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+  fprintf(FilePtr,"\t          %18.5lf +/- %18lf [KJ/MOL]\n",
+    (double)(sum/(REAL)NR_BLOCKS)*KELVIN_TO_KJ_PER_MOL,
+    (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))*KELVIN_TO_KJ_PER_MOL));
+  fprintf(FilePtr,"\tNote: Ug should be subtracted from this value\n");
+  fprintf(FilePtr,"\tNote: The heat of adsorption Q=-H\n\n");
+  
+  if(NumberOfComponents>1)
+  {
+    HeatOfAdsorptionPerComponent=(REAL(*)[NR_BLOCKS])calloc(NumberOfComponents,sizeof(REAL[NR_BLOCKS]));
+
+    for(i=0;i<NR_BLOCKS;i++)
+    {
+      matrix=CreateRealMatrix(NumberOfComponents,NumberOfComponents);
+
+      for(k1=0;k1<NumberOfComponents;k1++)
+      {
+        for(k2=0;k2<NumberOfComponents;k2++)
+        {
+          matrix.element[k1][k2]=NumberOfMoleculesPerComponentSquaredAccumulated[CurrentSystem][k1][k2][i]/BlockCount[CurrentSystem][i]-
+                              ( NumberOfMoleculesPerComponentAccumulated[CurrentSystem][k1][i]/BlockCount[CurrentSystem][i])*
+                              ( NumberOfMoleculesPerComponentAccumulated[CurrentSystem][k2][i]/BlockCount[CurrentSystem][i]);
+        }
+      }
+
+      InverseRealMatrix(matrix);
+
+      for (k1=0;k1<NumberOfComponents;k1++)
+      {
+        HeatOfAdsorptionPerComponent[k1][i]=0.0;
+        for (k2=0;k2<NumberOfComponents;k2++)
+        {
+          REAL UTotalTimesNcomp = TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[CurrentSystem][k2][i]/BlockCount[CurrentSystem][i];
+          REAL UTotal = UTotalAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
+          REAL Ncomp = NumberOfMoleculesPerComponentAccumulated[CurrentSystem][k2][i]/BlockCount[CurrentSystem][i];
+          HeatOfAdsorptionPerComponent[k1][i]+=ENERGY_TO_KELVIN*((UTotalTimesNcomp-UTotal*Ncomp)*matrix.element[k2][k1]);
+        }
+        HeatOfAdsorptionPerComponent[k1][i]-=ENERGY_TO_KELVIN*(therm_baro_stats.ExternalTemperature[CurrentSystem]);
+      }
+
+      DeleteRealMatrix(matrix);
+    }
 
     for(k1=0;k1<NumberOfComponents;k1++)
     {
-      for(k2=0;k2<NumberOfComponents;k2++)
+      sum=sum2=0.0;
+      fprintf(FilePtr,"\tComponent %d [%s]\n",k1,Components[k1].Name);
+      fprintf(FilePtr,"\t-------------------------------------------------------------\n");
+      for(i=0;i<NR_BLOCKS;i++)
       {
-        matrix.element[k1][k2]=NumberOfMoleculesPerComponentSquaredAccumulated[CurrentSystem][k1][k2][i]/BlockCount[CurrentSystem][i]-
-                            ( NumberOfMoleculesPerComponentAccumulated[CurrentSystem][k1][i]/BlockCount[CurrentSystem][i])*
-                            ( NumberOfMoleculesPerComponentAccumulated[CurrentSystem][k2][i]/BlockCount[CurrentSystem][i]);
+        if(BlockCount[CurrentSystem][i]>0.0)
+        {
+          sum+=HeatOfAdsorptionPerComponent[k1][i];
+          sum2+=SQR(HeatOfAdsorptionPerComponent[k1][i]);
+          fprintf(FilePtr,"\t\tBlock[%2d] %-18.5lf [-]\n",i,(double)(HeatOfAdsorptionPerComponent[k1][i]));
+        }
+        else
+          fprintf(FilePtr,"\t\tBlock[%2d] %-18.5lf [K]\n",i,(double)0.0);
       }
+      fprintf(FilePtr,"\t\t------------------------------------------------------------------------------\n");
+      fprintf(FilePtr,"\t\tAverage   %18.5lf +/- %18lf [K]\n",
+        (double)(sum/(REAL)NR_BLOCKS),
+        (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+      fprintf(FilePtr,"\t\t          %18.5lf +/- %18lf [KJ/MOL]\n",
+        (double)(sum/(REAL)NR_BLOCKS)*KELVIN_TO_KJ_PER_MOL,
+        (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))*KELVIN_TO_KJ_PER_MOL));
+      fprintf(FilePtr,"\t\tNote: Ug should be subtracted to this value\n");
+      fprintf(FilePtr,"\t\tNote: The heat of adsorption Q=-H\n\n");
     }
 
-    InverseRealMatrix(matrix);
-
-    for (k1=0;k1<NumberOfComponents;k1++)
-    {
-      HeatOfAdsorptionPerComponent[k1][i]=0.0;
-      for (k2=0;k2<NumberOfComponents;k2++)
-      {
-        REAL UTotalTimesNcomp = TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[CurrentSystem][k2][i]/BlockCount[CurrentSystem][i];
-        REAL UTotal = UTotalAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
-        REAL Ncomp = NumberOfMoleculesPerComponentAccumulated[CurrentSystem][k2][i]/BlockCount[CurrentSystem][i];
-        HeatOfAdsorptionPerComponent[k1][i]+=ENERGY_TO_KELVIN*((UTotalTimesNcomp-UTotal*Ncomp)*matrix.element[k2][k1]);
-      }
-      HeatOfAdsorptionPerComponent[k1][i]-=ENERGY_TO_KELVIN*(therm_baro_stats.ExternalTemperature[CurrentSystem]);
-    }
-
-    DeleteRealMatrix(matrix);
+    free(HeatOfAdsorptionPerComponent);
   }
-
-  for(k1=0;k1<NumberOfComponents;k1++)
-  {
-    sum=sum2=0.0;
-    fprintf(FilePtr,"\tComponent %d [%s]\n",k1,Components[k1].Name);
-    fprintf(FilePtr,"\t-------------------------------------------------------------\n");
-    for(i=0;i<NR_BLOCKS;i++)
-    {
-      if(BlockCount[CurrentSystem][i]>0.0)
-      {
-        sum+=HeatOfAdsorptionPerComponent[k1][i];
-        sum2+=SQR(HeatOfAdsorptionPerComponent[k1][i]);
-        fprintf(FilePtr,"\t\tBlock[%2d] %-18.5lf [-]\n",i,(double)(HeatOfAdsorptionPerComponent[k1][i]));
-      }
-      else
-        fprintf(FilePtr,"\t\tBlock[%2d] %-18.5lf [K]\n",i,(double)0.0);
-    }
-    fprintf(FilePtr,"\t\t------------------------------------------------------------------------------\n");
-    fprintf(FilePtr,"\t\tAverage   %18.5lf +/- %18lf [K]\n",
-      (double)(sum/(REAL)NR_BLOCKS),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
-    fprintf(FilePtr,"\t\t          %18.5lf +/- %18lf [KJ/MOL]\n",
-      (double)(sum/(REAL)NR_BLOCKS)*KELVIN_TO_KJ_PER_MOL,
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))*KELVIN_TO_KJ_PER_MOL));
-    fprintf(FilePtr,"\t\tNote: Ug should be subtracted to this value\n");
-    fprintf(FilePtr,"\t\tNote: The heat of adsorption Q=-H\n\n");
-  }
-
-  free(HeatOfAdsorptionPerComponent);
-
 
 
   // Derivative
@@ -4426,7 +4465,7 @@ void WriteRestartStatistics(FILE *FilePtr)
     fwrite(SurfaceAreaCationsAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fwrite(SurfaceAreaCount[i],sizeof(REAL),NumberOfBlocks,FilePtr);
 
-
+    fwrite(TotalEnergyTimesNumberOfMoleculesAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     for(j=0;j<NumberOfComponents;j++)
     {
       fwrite(TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
@@ -4615,7 +4654,8 @@ void AllocateStatisticsMemory(void)
   SurfaceAreaCationsAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
   SurfaceAreaCount=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
 
-  TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL*));
+  TotalEnergyTimesNumberOfMoleculesAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
+  TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
   HostAdsorbateEnergyTimesNumberOfMoleculesAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL*));
   AdsorbateAdsorbateEnergyTimesNumberOfMoleculesAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL*));
 
@@ -4793,6 +4833,8 @@ void AllocateStatisticsMemory(void)
     NumberOfMoleculesPerComponentAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
     NumberOfExcessMoleculesPerComponentAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
     DensityPerComponentAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
+
+    TotalEnergyTimesNumberOfMoleculesAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
 
     TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL));
     HostAdsorbateEnergyTimesNumberOfMoleculesAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL));
@@ -5009,6 +5051,7 @@ void ReadRestartStatistics(FILE *FilePtr)
     fread(SurfaceAreaCationsAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fread(SurfaceAreaCount[i],sizeof(REAL),NumberOfBlocks,FilePtr);
 
+    fread(TotalEnergyTimesNumberOfMoleculesAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
 
     for(j=0;j<NumberOfComponents;j++)
     {

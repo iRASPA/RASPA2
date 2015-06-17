@@ -6727,6 +6727,7 @@ void WriteRestartComponent(FILE *FilePtr)
     fwrite(Components[i].CpuTimeCFGibbsChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeCBCFGibbsChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeGibbsIdentityChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
+    fwrite(Components[i].CpuTimeExchangeFractionalParticleMove,sizeof(REAL),NumberOfSystems,FilePtr);
   }
 
 
@@ -7230,6 +7231,7 @@ void ReadRestartComponent(FILE *FilePtr)
     Components[i].CpuTimeCFGibbsChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeCBCFGibbsChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeGibbsIdentityChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+    Components[i].CpuTimeExchangeFractionalParticleMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
 
     fread(Components[i].CpuTimeTranslationMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeRandomTranslationMove,sizeof(REAL),NumberOfSystems,FilePtr);
@@ -7250,6 +7252,7 @@ void ReadRestartComponent(FILE *FilePtr)
     fread(Components[i].CpuTimeCFGibbsChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeCBCFGibbsChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeGibbsIdentityChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
+    fread(Components[i].CpuTimeExchangeFractionalParticleMove,sizeof(REAL),NumberOfSystems,FilePtr);
   }
 
 
