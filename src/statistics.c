@@ -3829,6 +3829,37 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
       fprintf(FilePtr,"\t\tNote: The heat of adsorption Q=-H\n\n");
     }
 
+    sum=sum2=0.0;
+    fprintf(FilePtr,"\tTotal enthalpy of adsorption from components and measured mol-fraction\n");
+    fprintf(FilePtr,"\t----------------------------------------------------------------------\n");
+    for(i=0;i<NR_BLOCKS;i++)
+    {
+      if(BlockCount[CurrentSystem][i]>0.0)
+      {
+        double loading_total = NumberOfMoleculesAccumulated[CurrentSystem][i];
+        double sumc=0.0;
+        for(k1=0;k1<NumberOfComponents;k1++)
+        {
+          double loading_i = NumberOfMoleculesPerComponentAccumulated[CurrentSystem][k1][i];
+          sumc+=(loading_i/loading_total)*HeatOfAdsorptionPerComponent[k1][i];
+        }
+        sum+=sumc;
+        sum2+=SQR(sumc);
+        fprintf(FilePtr,"\t\tBlock[%2d] %-18.5lf [-]\n",i,(double)sumc);
+      }
+      else
+        fprintf(FilePtr,"\t\tBlock[%2d] %-18.5lf [K]\n",i,(double)0.0);
+    }
+    fprintf(FilePtr,"\t\t------------------------------------------------------------------------------\n");
+    fprintf(FilePtr,"\t\tAverage   %18.5lf +/- %18lf [K]\n",
+      (double)(sum/(REAL)NR_BLOCKS),
+      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+    fprintf(FilePtr,"\t\t          %18.5lf +/- %18lf [KJ/MOL]\n",
+      (double)(sum/(REAL)NR_BLOCKS)*KELVIN_TO_KJ_PER_MOL,
+      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))*KELVIN_TO_KJ_PER_MOL));
+    fprintf(FilePtr,"\t\tNote: Ug should be subtracted to this value\n");
+    fprintf(FilePtr,"\t\tNote: The heat of adsorption Q=-H\n\n");
+
     free(HeatOfAdsorptionPerComponent);
   }
 
