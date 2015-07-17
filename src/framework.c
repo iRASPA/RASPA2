@@ -13450,11 +13450,11 @@ void ReadRestartFramework(FILE *FilePtr)
             }
           }
         }
-
-        // rather then store the exclusion matrix, recompute it when all required information is read
-        CurrentSystem=i;
-        MakeExclusionMatrix(i);
       }
+
+      // rather then store the exclusion matrix, recompute it when all required information is read
+      CurrentSystem=i;
+      MakeExclusionMatrix(i);
     }
   }
 

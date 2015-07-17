@@ -423,6 +423,7 @@ int ReadInput(char *input)
   NumberOfBlockElementsMSDOrderN=25;
   MaxNumberOfBlocksMSDOrderN=25;
   ComputeIndividualMSDOrderN=FALSE;
+  ComputeSiteTypeMSDOrderN=FALSE;
   ComputeMSDOrderNPerPseudoAtom=FALSE;
 
   NumberOfBlockElementsVACFOrderN=10;
@@ -1184,6 +1185,7 @@ int ReadInput(char *input)
     // sampling the mean-squared displacement using a modified order-N algorithm
     ComputeMSDOrderN[i]=FALSE;
     WriteMSDOrderNEvery[i]=5000;
+    NumberOfSitesMSDOrderN[i]=2;
     SampleMSDOrderNEvery[i]=1;
 
     // sampling the velocity autocorrelation function using a modified order-N algorithm
@@ -3210,6 +3212,7 @@ int ReadInput(char *input)
       if(strcasecmp("no",firstargument)==0) ComputeMSDOrderN[CurrentSystem]=FALSE;
     }
     if(strcasecmp("WriteMSDEvery",keyword)==0) sscanf(arguments,"%d",&WriteMSDOrderNEvery[CurrentSystem]);
+    if(strcasecmp("NumberOfSitesMSDOrderN",keyword)==0) sscanf(arguments,"%d",&NumberOfSitesMSDOrderN[CurrentSystem]);
     if(strcasecmp("SampleMSDEvery",keyword)==0) sscanf(arguments,"%d",&SampleMSDOrderNEvery[CurrentSystem]);
     if(strcasecmp("NumberOfBlockElementsMSD",keyword)==0) sscanf(arguments,"%d",&NumberOfBlockElementsMSDOrderN);
     if(strcasecmp("NumberOfBlocksMSD",keyword)==0) sscanf(arguments,"%d",&MaxNumberOfBlocksMSDOrderN);
@@ -3217,6 +3220,11 @@ int ReadInput(char *input)
     {
       if(strcasecmp("yes",firstargument)==0) ComputeIndividualMSDOrderN=TRUE;
       if(strcasecmp("no",firstargument)==0) ComputeIndividualMSDOrderN=FALSE;
+    }
+    if(strcasecmp("ComputeSiteTypeMSD",keyword)==0)
+    {
+      if(strcasecmp("yes",firstargument)==0) ComputeSiteTypeMSDOrderN=TRUE;
+      if(strcasecmp("no",firstargument)==0) ComputeSiteTypeMSDOrderN=FALSE;
     }
     if(strcasecmp("ComputeMSDPerPseudoAtom",keyword)==0)
     {

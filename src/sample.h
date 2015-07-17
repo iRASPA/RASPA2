@@ -201,9 +201,11 @@ void SampleMeanSquaredDisplacementOrderN(int);
 extern int *ComputeMSDOrderN;               // whether or not to compute the msd
 extern int *SampleMSDOrderNEvery;           // the sample frequency
 extern int *WriteMSDOrderNEvery;            // write output every 'WriteMSDOrderNEvery' steps
+extern int *NumberOfSitesMSDOrderN;         // the number of sites
 extern int NumberOfBlockElementsMSDOrderN;  // the number of elements per block
 extern int MaxNumberOfBlocksMSDOrderN;      // the maxmimum amount of blocks (data beyond this block is ignored)
 extern int ComputeIndividualMSDOrderN;      // whether or not to compute (self-)msd's for individual molecules
+extern int ComputeSiteTypeMSDOrderN;        // whether or not to compute (self-)msd's for individual molecules
 extern int ComputeMSDOrderNPerPseudoAtom;   // whether or not to compute (self-)msd's for (pseudo-)atoms
 
 // sampling the velocity autocorrelation function using a modified order-N algorithm

@@ -1052,6 +1052,112 @@ int ComputeNewPolarizationEnergy(int New,int excl_ads,int excl_cation)
 }
 
 /*********************************************************************************************************
+ * Name       | ComputeEnergyOfFractionalMoleculesAdsorbates                                             *
+ * ----------------------------------------------------------------------------------------------------- *
+ * Function   | Calculates the energy of the fractional adsorbate molecules                              *
+ * Parameters | -                                                                                        *
+ * Note       |                                                                                          *
+ * Used       | in 'statistic.c' to correct the energy for CFMC                                          *
+ *********************************************************************************************************/
+
+REAL ComputeEnergyOfFractionalMoleculesAdsorbates()
+{
+  int i;
+  REAL DeltaU;
+  int StoredCurrentComponent;
+ 
+  DeltaU=0; 
+  StoredCurrentComponent=CurrentComponent;
+  for(CurrentComponent=0;CurrentComponent<NumberOfComponents;CurrentComponent++)
+  { 
+    if((!Components[CurrentComponent].ExtraFrameworkMolecule) && (Components[CurrentComponent].CFMoleculePresent[CurrentSystem]))
+    {
+      CurrentAdsorbateMolecule=Components[CurrentComponent].FractionalMolecule[CurrentSystem];
+
+      // compute inter-molecular energy differences
+      CalculateInterVDWEnergyDifferenceAdsorbate(CurrentAdsorbateMolecule,CurrentComponent,FALSE,TRUE);
+      CalculateInterChargeChargeEnergyDifferenceAdsorbate(CurrentAdsorbateMolecule,CurrentComponent,FALSE,TRUE);
+      CalculateInterChargeBondDipoleEnergyDifferenceAdsorbate(CurrentAdsorbateMolecule,CurrentComponent,FALSE,TRUE);
+      CalculateInterBondDipoleBondDipoleEnergyDifferenceAdsorbate(CurrentAdsorbateMolecule,CurrentComponent,FALSE,TRUE);
+
+      CalculateFrameworkAdsorbateVDWEnergyDifference(CurrentAdsorbateMolecule,CurrentComponent,FALSE,TRUE,FALSE);
+      CalculateFrameworkAdsorbateChargeChargeEnergyDifference(CurrentAdsorbateMolecule,CurrentComponent,FALSE,TRUE,FALSE);
+      CalculateFrameworkAdsorbateChargeBondDipoleEnergyDifference(CurrentAdsorbateMolecule,CurrentComponent,FALSE,TRUE);
+      CalculateFrameworkAdsorbateBondDipoleBondDipoleEnergyDifference(CurrentAdsorbateMolecule,CurrentComponent,FALSE,TRUE);
+
+      // compute the energy differenes in Fourier-space
+      if((ChargeMethod==EWALD)&&(!OmitEwaldFourier))
+        CalculateEwaldFourierAdsorbate(FALSE,TRUE,CurrentAdsorbateMolecule,0);
+
+
+      DeltaU+=UHostVDWDelta[CurrentSystem]+UAdsorbateVDWDelta[CurrentSystem]+UCationVDWDelta[CurrentSystem]+
+              UHostChargeChargeRealDelta[CurrentSystem]+UAdsorbateChargeChargeRealDelta[CurrentSystem]+UCationChargeChargeRealDelta[CurrentSystem]+
+              UHostChargeBondDipoleRealDelta[CurrentSystem]+UAdsorbateChargeBondDipoleRealDelta[CurrentSystem]+UCationChargeBondDipoleRealDelta[CurrentSystem]+
+              UHostBondDipoleBondDipoleRealDelta[CurrentSystem]+UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]+UCationBondDipoleBondDipoleRealDelta[CurrentSystem]+
+              UHostAdsorbateChargeChargeFourierDelta[CurrentSystem]+UAdsorbateAdsorbateChargeChargeFourierDelta[CurrentSystem]+UAdsorbateCationChargeChargeFourierDelta[CurrentSystem]+
+              UHostAdsorbateChargeBondDipoleFourierDelta[CurrentSystem]+UAdsorbateAdsorbateChargeBondDipoleFourierDelta[CurrentSystem]+UAdsorbateCationChargeBondDipoleFourierDelta[CurrentSystem]+
+              UHostAdsorbateBondDipoleBondDipoleFourierDelta[CurrentSystem]+UAdsorbateAdsorbateBondDipoleBondDipoleFourierDelta[CurrentSystem]+UAdsorbateCationBondDipoleBondDipoleFourierDelta[CurrentSystem];
+    }
+  }
+  CurrentComponent=StoredCurrentComponent;
+
+  return DeltaU;
+}
+
+/*********************************************************************************************************
+ * Name       | ComputeEnergyOfFractionalMoleculesCations                                                *
+ * ----------------------------------------------------------------------------------------------------- *
+ * Function   | Calculates the energy of the fractional cations molecules                                *
+ * Parameters | -                                                                                        *
+ * Note       |                                                                                          *
+ * Used       | in 'statistic.c' to correct the energy for CFMC                                          *
+ *********************************************************************************************************/
+
+REAL ComputeEnergyOfFractionalMoleculesCations()
+{
+  int i;
+  REAL DeltaU;
+  int StoredCurrentComponent;
+ 
+  DeltaU=0; 
+  StoredCurrentComponent=CurrentComponent;
+  for(CurrentComponent=0;CurrentComponent<NumberOfComponents;CurrentComponent++)
+  { 
+    if((Components[CurrentComponent].ExtraFrameworkMolecule) && (Components[CurrentComponent].CFMoleculePresent[CurrentSystem]))
+    {
+      CurrentCationMolecule=Components[CurrentComponent].FractionalMolecule[CurrentSystem];
+
+      CalculateInterVDWEnergyDifferenceCation(CurrentCationMolecule,CurrentComponent,FALSE,TRUE);
+      CalculateInterChargeChargeEnergyDifferenceCation(CurrentCationMolecule,CurrentComponent,FALSE,TRUE);
+      CalculateInterChargeBondDipoleEnergyDifferenceCation(CurrentCationMolecule,CurrentComponent,FALSE,TRUE);
+      CalculateInterBondDipoleBondDipoleEnergyDifferenceCation(CurrentCationMolecule,CurrentComponent,FALSE,TRUE);
+
+      // compute energy differences framework-cation
+      CalculateFrameworkCationVDWEnergyDifference(CurrentCationMolecule,CurrentComponent,FALSE,TRUE,FALSE);
+      CalculateFrameworkCationChargeChargeEnergyDifference(CurrentCationMolecule,CurrentComponent,FALSE,TRUE,FALSE);
+      CalculateFrameworkCationChargeBondDipoleEnergyDifference(CurrentCationMolecule,CurrentComponent,FALSE,TRUE);
+      CalculateFrameworkCationBondDipoleBondDipoleEnergyDifference(CurrentCationMolecule,CurrentComponent,FALSE,TRUE);
+
+      // compute the energy differenes in Fourier-space
+      if((ChargeMethod==EWALD)&&(!OmitEwaldFourier))
+         CalculateEwaldFourierCation(FALSE,TRUE,CurrentCationMolecule,0);
+
+      DeltaU+=UHostVDWDelta[CurrentSystem]+UAdsorbateVDWDelta[CurrentSystem]+UCationVDWDelta[CurrentSystem]+
+              UHostChargeChargeRealDelta[CurrentSystem]+UAdsorbateChargeChargeRealDelta[CurrentSystem]+UCationChargeChargeRealDelta[CurrentSystem]+
+              UHostChargeBondDipoleRealDelta[CurrentSystem]+UAdsorbateChargeBondDipoleRealDelta[CurrentSystem]+UCationChargeBondDipoleRealDelta[CurrentSystem]+
+              UHostBondDipoleBondDipoleRealDelta[CurrentSystem]+UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]+UCationBondDipoleBondDipoleRealDelta[CurrentSystem]+
+              UHostCationChargeChargeFourierDelta[CurrentSystem]+UCationCationChargeChargeFourierDelta[CurrentSystem]+UAdsorbateCationChargeChargeFourierDelta[CurrentSystem]+
+              UHostCationChargeBondDipoleFourierDelta[CurrentSystem]+UCationCationChargeBondDipoleFourierDelta[CurrentSystem]+UAdsorbateCationChargeBondDipoleFourierDelta[CurrentSystem]+
+              UHostCationBondDipoleBondDipoleFourierDelta[CurrentSystem]+UCationCationBondDipoleBondDipoleFourierDelta[CurrentSystem]+UAdsorbateCationBondDipoleBondDipoleFourierDelta[CurrentSystem];
+    }
+  }
+  CurrentComponent=StoredCurrentComponent;
+
+  return DeltaU;
+}
+
+
+/*********************************************************************************************************
  * Name       | GetDisplacementVector                                                                    *
  * ----------------------------------------------------------------------------------------------------- *
  * Function   | Get the displacement vector for a translation move.                                      *
@@ -7012,6 +7118,12 @@ int SwapRemoveAdsorbateMove(void)
   // return if the component currently has zero molecules
   if(NumberOfAdsorbateMolecules[CurrentSystem]==0) return 0;
   if(Components[CurrentComponent].NumberOfMolecules[CurrentSystem]<=(Components[CurrentComponent].CFMoleculePresent[CurrentSystem]?1:0)) return 0;
+
+  int numberOfSelectableMolecules=Components[CurrentComponent].NumberOfMolecules[CurrentSystem]
+                                -(Components[CurrentComponent].CFMoleculePresent[CurrentSystem]?1:0)
+                                -numberOfReactionMoleculesForComponent(CurrentComponent);
+
+  if(numberOfSelectableMolecules<=0) return -1;
 
   CurrentAdsorbateMolecule=SelectRandomMoleculeOfTypeExcludingFractionalMolecule(CurrentComponent);
   CurrentCationMolecule=-1;
@@ -26764,7 +26876,6 @@ void PrintRXMCStatistics(FILE *FilePtr)
  * Function   | Swaps the fractional particle and a randomly chosen integer particle                     *
  * Parameters | -                                                                                        *
  *********************************************************************************************************/
-// HERE
 int ExchangeFractionalParticleMove(void)
 {
   int i,j,k,l;
@@ -27000,19 +27111,7 @@ int ExchangeFractionalParticleMove(void)
 
     UTailCorrection[CurrentSystem]+=UTailDelta;
 
-    UTotal[CurrentSystem]+=UAdsorbateVDWDeltaFirstStep1+UAdsorbateVDWDeltaFirstStep2-UAdsorbateVDWDeltaSecondStep1-UAdsorbateVDWDeltaSecondStep2+
-                           UAdsorbateChargeChargeDeltaFirstStep1+UAdsorbateChargeChargeDeltaFirstStep2
-                           -UAdsorbateChargeChargeDeltaSecondStep1-UAdsorbateChargeChargeDeltaSecondStep2+
-                           UCationVDWDeltaFirstStep1+UCationVDWDeltaFirstStep2-UCationVDWDeltaSecondStep1+UCationVDWDeltaSecondStep2+
-                           UCationChargeChargeDeltaFirstStep1+UCationChargeChargeDeltaFirstStep2
-                           -UCationChargeChargeDeltaSecondStep1-UCationChargeChargeDeltaSecondStep2+
-                           UAdsorbateChargeChargeFourierDeltaFirstStep+
-                           UCationChargeChargeFourierDeltaFirstStep+UTailDelta+
-                           UHostVDWDeltaFirstStep1+UHostVDWDeltaFirstStep2-UHostVDWDeltaSecondStep1-UHostVDWDeltaSecondStep2+
-                           UHostChargeChargeRealDeltaFirstStep1+UHostChargeChargeRealDeltaFirstStep2
-                           -UHostChargeChargeRealDeltaSecondStep1-UHostChargeChargeRealDeltaSecondStep2+
-                           UHostChargeChargeFourierDeltaFirstStep;
-
+    UTotal[CurrentSystem]+=DeltaU;
 
     if((ChargeMethod==EWALD)&&(!OmitEwaldFourier))
       AcceptEwaldAdsorbateMove(0);

@@ -1082,6 +1082,7 @@ void UpdateEnergyAveragesCurrentSystem(void)
   REAL NumberOfMolecules;
   REAL PressureIdealGas;
   REAL PressureTail;
+  REAL UCFMCAdsorbate,UCFMCCation;
 
   // check for new block
   if(CurrentCycle==BlockCycle[Block])
@@ -1213,20 +1214,24 @@ void UpdateEnergyAveragesCurrentSystem(void)
   UInversionBendConstraintsAccumulated[CurrentSystem][Block]+=UInversionBendConstraints[CurrentSystem];
   UOutOfPlaneDistanceConstraintsAccumulated[CurrentSystem][Block]+=UOutOfPlaneDistanceConstraints[CurrentSystem];
   UExclusionConstraintsAccumulated[CurrentSystem][Block]+=UExclusionConstraints[CurrentSystem];
-  UTotalAccumulated[CurrentSystem][Block]+=UTotal[CurrentSystem];
+
+  UCFMCAdsorbate = ComputeEnergyOfFractionalMoleculesAdsorbates();
+  UCFMCCation = ComputeEnergyOfFractionalMoleculesCations();
+  UTotalAccumulated[CurrentSystem][Block]+=UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation;
+
 
   NumberOfMoleculesAccumulated[CurrentSystem][Block]+=NumberOfAdsorbateMolecules[CurrentSystem]
                                                  -NumberOfFractionalAdsorbateMolecules[CurrentSystem];
   NumberOfMoleculesSquaredAccumulated[CurrentSystem][Block]+=SQR(NumberOfAdsorbateMolecules[CurrentSystem]
                                                         -NumberOfFractionalAdsorbateMolecules[CurrentSystem]);
-  TotalEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][Block]+=UTotal[CurrentSystem]*(NumberOfAdsorbateMolecules[CurrentSystem]
+  TotalEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][Block]+=(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation)*(NumberOfAdsorbateMolecules[CurrentSystem]
                                                  -NumberOfFractionalAdsorbateMolecules[CurrentSystem]);
 
   nr=NumberOfUnitCells[0].x*NumberOfUnitCells[0].y*NumberOfUnitCells[0].z;
   for(i=0;i<NumberOfComponents;i++)
   {
     REAL loading_i = (Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].CFMoleculePresent[CurrentSystem]?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem]);
-    TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=UTotal[CurrentSystem]*loading_i;
+    TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation)*loading_i;
     HostAdsorbateEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i][Block]+=UHostAdsorbate[CurrentSystem]*loading_i;
     AdsorbateAdsorbateEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i][Block]+=UAdsorbateAdsorbate[CurrentSystem]*loading_i;
     for(j=0;j<NumberOfComponents;j++)
@@ -1336,12 +1341,12 @@ void UpdateEnergyAveragesCurrentSystem(void)
   TotalEnergyAccumulated[CurrentSystem][Block]+=UTotal[CurrentSystem];
   TotalEnergySquaredAccumulated[CurrentSystem][Block]+=SQR(UTotal[CurrentSystem]);
 
-  Enthalpy=UTotal[CurrentSystem]+Volume[CurrentSystem]*therm_baro_stats.ExternalPressure[CurrentSystem][0];
+  Enthalpy=(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation)+Volume[CurrentSystem]*therm_baro_stats.ExternalPressure[CurrentSystem][0];
   EnthalpyAccumulated[CurrentSystem][Block]+=Enthalpy;
   EnthalpySquaredAccumulated[CurrentSystem][Block]+=SQR(Enthalpy);
 
   EnthalpyTimesVolumeAccumulated[CurrentSystem][Block]+=Enthalpy*Volume[CurrentSystem];
-  EnthalpyTimesEnergyAccumulated[CurrentSystem][Block]+=Enthalpy*UTotal[CurrentSystem];
+  EnthalpyTimesEnergyAccumulated[CurrentSystem][Block]+=Enthalpy*(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation);
 
   HeatOfVaporization[CurrentSystem][Block]+=therm_baro_stats.ExternalTemperature[CurrentSystem]-
                               (UAdsorbateAdsorbate[CurrentSystem]+UCationCation[CurrentSystem])/

@@ -102,6 +102,10 @@ extern REAL TargetAccRatioLambdaChange;
 
 void InitializeMCMovesStatisticsAllSystems(void);
 
+
+REAL ComputeEnergyOfFractionalMoleculesAdsorbates();
+REAL ComputeEnergyOfFractionalMoleculesCations();
+
 void TranslationMove(void);
 void RandomTranslationMove(void);
 void RotationMove(void);

@@ -304,7 +304,9 @@ int SelectRandomMoleculeOfTypeExcludingFractionalMolecule(int comp)
     do   // search for d-th molecule of the right type
     {
       CurrentMolecule++;
-      if((Cations[CurrentSystem][CurrentMolecule].Type==comp)&&(!IsFractionalCationMolecule(CurrentMolecule))) count++;
+      if((Cations[CurrentSystem][CurrentMolecule].Type==comp)&&
+         (!IsFractionalCationMolecule(CurrentMolecule))&&
+         (!IsFractionalReactionCationMolecule(CurrentMolecule))) count++;
     }
     while(d!=count);
   }
@@ -323,7 +325,9 @@ int SelectRandomMoleculeOfTypeExcludingFractionalMolecule(int comp)
     do   // search for d-th molecule of the right type
     {
       CurrentMolecule++;
-      if((Adsorbates[CurrentSystem][CurrentMolecule].Type==comp)&&(!IsFractionalAdsorbateMolecule(CurrentMolecule))) count++;
+      if((Adsorbates[CurrentSystem][CurrentMolecule].Type==comp)&&
+         (!IsFractionalAdsorbateMolecule(CurrentMolecule))&&
+         (!IsFractionalReactionAdsorbateMolecule(CurrentMolecule))) count++;
     }
     while(d!=count);
   }
