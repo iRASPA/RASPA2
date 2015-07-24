@@ -1432,24 +1432,24 @@ void GaussJordan(REAL_MATRIX a,int n,REAL_MATRIX b,int m)
   indxr=(int*)calloc(n,sizeof(int)); // for bookkeeping on the pivoting.
   ipiv=(int*)calloc(n,sizeof(int));
 
-  icol=irow=1;
+  icol=irow=0;
 
-  for (j=1;j<=n;j++) ipiv[j-1]=0;
-  for (i=1;i<=n;i++)
+  for (j=0;j<n;j++) ipiv[j]=0;
+  for (i=0;i<n;i++)
   {
     //This is the main loop over the columns to be reduced.
     big=0.0;
-    for (j=1;j<=n;j++)  //This is the outer loop of the search for a pivot element.
+    for (j=0;j<n;j++)  //This is the outer loop of the search for a pivot element.
     {
-      if (ipiv[j-1] != 1)
+      if (ipiv[j] != 1)
       {
-        for (k=1;k<=n;k++)
+        for (k=0;k<n;k++)
         {
-          if (ipiv[k-1] == 0)
+          if (ipiv[k] == 0)
           {
-            if (fabs(a.element[j-1][k-1]) >= big)
+            if (fabs(a.element[j][k]) >= big)
             {
-              big=fabs(a.element[j-1][k-1]);
+              big=fabs(a.element[j][k]);
               irow=j;
               icol=k;
             }
@@ -1457,7 +1457,7 @@ void GaussJordan(REAL_MATRIX a,int n,REAL_MATRIX b,int m)
         }
       }
     }
-    ++(ipiv[icol-1]);
+    ++(ipiv[icol]);
     // We now have the pivot element, so we interchange rows, if needed, to put the pivot
     // element on the diagonal. The columns are not physically interchanged, only relabeled:
     // indxc[i], the column of the ith pivot element, is the ith column that is reduced, while
@@ -1467,40 +1467,39 @@ void GaussJordan(REAL_MATRIX a,int n,REAL_MATRIX b,int m)
     // by columns.
     if(irow != icol)
     {
-      for (l=1;l<=n;l++) SWAP(a.element[irow-1][l-1],a.element[icol-1][l-1],temp)
-      for (l=1;l<=m;l++) SWAP(b.element[irow-1][l-1],b.element[icol-1][l-1],temp)
+      for (l=0;l<n;l++) SWAP(a.element[irow][l],a.element[icol][l],temp)
+      for (l=0;l<m;l++) SWAP(b.element[irow][l],b.element[icol][l],temp)
     }
-    indxr[i-1]=irow; // We are now ready to divide the pivot row by the
-    indxc[i-1]=icol; // pivot element, located at irow and icol.
-    if(a.element[icol-1][icol-1]==0.0)
+    indxr[i]=irow; // We are now ready to divide the pivot row by the
+    indxc[i]=icol; // pivot element, located at irow and icol.
+    if(a.element[icol][icol]==0.0)
     {
       fprintf(stderr, "Matrix Inversion, Gauss-Jordan: Singular Matrix\n");
     }
-    pivinv=1.0/a.element[icol-1][icol-1];
-    a.element[icol-1][icol-1]=1.0;
-    for (l=1;l<=n;l++) a.element[icol-1][l-1] *= pivinv;
-    for (l=1;l<=m;l++) b.element[icol-1][l-1] *= pivinv;
+    pivinv=1.0/a.element[icol][icol];
+    a.element[icol][icol]=1.0;
+    for (l=0;l<n;l++) a.element[icol][l] *= pivinv;
+    for (l=0;l<m;l++) b.element[icol][l] *= pivinv;
 
-    for (ll=1;ll<=n;ll++) // Next, we reduce the rows...
+    for (ll=0;ll<n;ll++) // Next, we reduce the rows...
     {
-      if (ll != icol)
+      if (ll != icol) // ...except for the pivot one, of course.
       {
-        // ...except for the pivot one, of course.
-        dum=a.element[ll-1][icol-1];
-        a.element[ll-1][icol-1]=0.0;
-        for (l=1;l<=n;l++) a.element[ll-1][l-1] -= a.element[icol-1][l-1]*dum;
-        for (l=1;l<=m;l++) b.element[ll-1][l-1] -= b.element[icol-1][l-1]*dum;
+        dum=a.element[ll][icol];
+        a.element[ll][icol]=0.0;
+        for (l=0;l<n;l++) a.element[ll][l] -= a.element[icol][l]*dum;
+        for (l=0;l<m;l++) b.element[ll][l] -= b.element[icol][l]*dum;
       }
     }
   }
   // This is the end of the main loop over columns of the reduction. It only remains to unscramble
   // the solution in view of the column interchanges. We do this by interchanging pairs of
   // columns in the reverse order that the permutation was built up.
-  for (l=n;l>=1;l--)
+  for (l=n-1;l>=0;l--)
   {
-    if (indxr[l-1] != indxc[l-1])
-      for (k=1;k<=n;k++)
-        SWAP(a.element[k-1][indxr[l-1]-1],a.element[k-1][indxc[l-1]-1],temp);
+    if (indxr[l] != indxc[l])
+      for (k=0;k<n;k++)
+        SWAP(a.element[k][indxr[l]],a.element[k][indxc[l]],temp);
   }
   free(ipiv);
   free(indxr);
