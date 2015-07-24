@@ -5277,7 +5277,7 @@ REAL CalculateIntraChargeChargeEnergyCation(int m)
     r=sqrt(rr);
 
     TypeB=Cations[CurrentSystem][m].Atoms[B].Type;
-    chargeB=Cations[CurrentSystem][m].Atoms[A].Charge;
+    chargeB=Cations[CurrentSystem][m].Atoms[B].Charge;
 
     UIntraCoulomb+=Scaling*COULOMBIC_CONVERSION_FACTOR*chargeA*chargeB/r;
   }

@@ -1432,7 +1432,7 @@ void GaussJordan(REAL_MATRIX a,int n,REAL_MATRIX b,int m)
   indxr=(int*)calloc(n,sizeof(int)); // for bookkeeping on the pivoting.
   ipiv=(int*)calloc(n,sizeof(int));
 
-  icol=irow=0;
+  icol=irow=1;
 
   for (j=1;j<=n;j++) ipiv[j-1]=0;
   for (i=1;i<=n;i++)
