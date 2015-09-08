@@ -3344,6 +3344,62 @@ void PrintPreSimulationStatusCurrentSystem(int system)
               (double)PotentialParms[i][j][2]*ENERGY_TO_KELVIN,
               (double)PotentialParms[i][j][3]);
             break;
+          case MIE_CUTOFF:
+            // p_0*[p_1/r^p_2-p_1/r^p_3] if r < p_4, otherwise 0
+            // ======================================================================================
+            // p_0/k_B [K]
+            // p_1/k_B [K A^p_2]
+            // p_2     [-]
+            // p_3     [-]
+            // p_4     [A]
+            // p_5/k_B [K]  (non-zero for a shifted potential)
+            fprintf(FilePtr,"%7s - %7s [MIE_CUTOFF] p_0/k_B: %8.5lf [K], p_1/k_B: %8.5lf [K A^p_2], p_2: %8.5lf [-], "
+                            "p_3: %8.5lf [-], p_4: %8.5lf [A], shift/k_B: %8.5lf [K]\n",
+              PseudoAtoms[i].Name,
+              PseudoAtoms[j].Name,
+              (double)PotentialParms[i][j][0]*ENERGY_TO_KELVIN,
+              (double)PotentialParms[i][j][1],
+              (double)PotentialParms[i][j][2]*ENERGY_TO_KELVIN,
+              (double)PotentialParms[i][j][3],
+              (double)PotentialParms[i][j][4],
+              (double)PotentialParms[i][j][5]*ENERGY_TO_KELVIN);
+            break;
+          case MIE_SMOOTHED3_CUTOFF:
+            // {p_0*[p_1/r^p_2-p_1/r^p_3]}*S(r) if r < p_4, otherwise 0
+            // ======================================================================================
+            // p_0/k_B [K]
+            // p_1/k_B [K A^p_2]
+            // p_2     [-]
+            // p_3     [-]
+            // p_4     [A]
+            fprintf(FilePtr,"%7s - %7s [MIE_SMOOTHED3_CUTOFF] p_0/k_B: %8.5lf [K], p_1/k_B: %8.5lf [K A^p_2], "
+                            "p_2: %8.5lf [-], p_3: %8.5lf [-], p_4: %8.5lf [A]\n",
+              PseudoAtoms[i].Name,
+              PseudoAtoms[j].Name,
+              (double)PotentialParms[i][j][0]*ENERGY_TO_KELVIN,
+              (double)PotentialParms[i][j][1],
+              (double)PotentialParms[i][j][2]*ENERGY_TO_KELVIN,
+              (double)PotentialParms[i][j][3],
+              (double)PotentialParms[i][j][4]);
+            break;
+          case MIE_SMOOTHED5_CUTOFF:
+            // {p_0*[p_1/r^p_2-p_1/r^p_3]}*S(r) if r < p_4, otherwise 0
+            // ======================================================================================
+            // p_0/k_B [K]
+            // p_1/k_B [K A^p_2]
+            // p_2     [-]
+            // p_3     [-]
+            // p_4     [A]
+            fprintf(FilePtr,"%7s - %7s [MIE_SMOOTHED5_CUTOFF] p_0/k_B: %8.5lf [K], p_1/k_B: %8.5lf [K A^p_2], "
+                            "p_2: %8.5lf [-], p_3: %8.5lf [-], p_4: %8.5lf [A]\n",
+              PseudoAtoms[i].Name,
+              PseudoAtoms[j].Name,
+              (double)PotentialParms[i][j][0]*ENERGY_TO_KELVIN,
+              (double)PotentialParms[i][j][1],
+              (double)PotentialParms[i][j][2]*ENERGY_TO_KELVIN,
+              (double)PotentialParms[i][j][3],
+              (double)PotentialParms[i][j][4]);
+            break;
           case BORN_HUGGINS_MEYER:
             // p_0*exp(p_1*(p_2-r))-p_3/r^6-p_4/r^8
             // ======================================================================================

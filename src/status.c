@@ -2995,6 +2995,90 @@ void PrintVDWEnergyStatus(int nr,char *string,int typeA,int typeB,REAL r,REAL en
           energy*ENERGY_TO_KJ_PER_MOL,
           energy*ENERGY_TO_KCAL_PER_MOL);
       break;
+    case MIE_CUTOFF:
+      // p_0*[p_1/r^p_2-p_1/r^p_3] if r < p_4, otherwise 0
+      // ======================================================================================
+      // p_0/k_B [K]
+      // p_1/k_B [K A^p_2]
+      // p_2     [-]
+      // p_3     [-]
+      // p_4     [-]
+      // p_5/k_B [K]  (non-zero for a shifted potential)
+      arg1=PotentialParms[typeA][typeB][0];
+      arg2=PotentialParms[typeA][typeB][1];
+      arg3=PotentialParms[typeA][typeB][2];
+      arg4=PotentialParms[typeA][typeB][3];
+      arg5=PotentialParms[typeA][typeB][4];
+      arg6=PotentialParms[typeA][typeB][5];
+      fprintf(OutputFilePtr[CurrentSystem],"%4d MIE_CUTOFF %s, p_0/k_B=%8.5f [K], p_1=%8.5f [A^p_2], p_2=%8.5f [-], p_3=%8.5f [-], p_4=%8.5f [A],"
+                                           "shift/k_B=%8.5f [K], Distance %8.5f [A], Energy: %10.5f [K] %8.5f [kJ/mol] %8.5f [kcal/mol]\n",
+          nr++,
+          string,
+          arg1*ENERGY_TO_KELVIN,
+          arg2*ENERGY_TO_KELVIN,
+          arg3,
+          arg4,
+          arg5,
+          arg6*ENERGY_TO_KELVIN,
+          r,
+          energy*ENERGY_TO_KELVIN,
+          energy*ENERGY_TO_KJ_PER_MOL,
+          energy*ENERGY_TO_KCAL_PER_MOL);
+      break;
+    case MIE_SMOOTHED3_CUTOFF:
+      // {p_0*[p_1/r^p_2-p_1/r^p_3]}*S(r) if r < p_4, otherwise 0
+      // ======================================================================================
+      // p_0/k_B [K]
+      // p_1/k_B [K A^p_2]
+      // p_2     [-]
+      // p_3     [-]
+      // p_4     [A]
+      arg1=PotentialParms[typeA][typeB][0];
+      arg2=PotentialParms[typeA][typeB][1];
+      arg3=PotentialParms[typeA][typeB][2];
+      arg4=PotentialParms[typeA][typeB][3];
+      arg5=PotentialParms[typeA][typeB][4];
+      fprintf(OutputFilePtr[CurrentSystem],"%4d MIE_SMOOTHED3_CUTOFF %s, p_0/k_B=%8.5f [K], p_1=%8.5f [A^p_2], p_2=%8.5f [-], p_3=%8.5f [-], p_4=%8.5f [A], "
+                                           "Distance %8.5f [A], Energy: %10.5f [K] %8.5f [kJ/mol] %8.5f [kcal/mol]\n",
+          nr++,
+          string,
+          arg1*ENERGY_TO_KELVIN,
+          arg2*ENERGY_TO_KELVIN,
+          arg3,
+          arg4,
+          arg5,
+          r,
+          energy*ENERGY_TO_KELVIN,
+          energy*ENERGY_TO_KJ_PER_MOL,
+          energy*ENERGY_TO_KCAL_PER_MOL);
+      break;
+    case MIE_SMOOTHED5_CUTOFF:
+      // {p_0*[p_1/r^p_2-p_1/r^p_3]}*S(r) if r < p_4, otherwise 0
+      // ======================================================================================
+      // p_0/k_B [K]
+      // p_1/k_B [K A^p_2]
+      // p_2     [-]
+      // p_3     [-]
+      // p_4     [A]
+      arg1=PotentialParms[typeA][typeB][0];
+      arg2=PotentialParms[typeA][typeB][1];
+      arg3=PotentialParms[typeA][typeB][2];
+      arg4=PotentialParms[typeA][typeB][3];
+      arg5=PotentialParms[typeA][typeB][4];
+      fprintf(OutputFilePtr[CurrentSystem],"%4d MIE_SMOOTHED5_CUTOFF %s, p_0/k_B=%8.5f [K], p_1=%8.5f [A^p_2], p_2=%8.5f [-], p_3=%8.5f [-], p_4=%8.5f [A], "
+                                           "Distance %8.5f [A], Energy: %10.5f [K] %8.5f [kJ/mol] %8.5f [kcal/mol]\n",
+          nr++,
+          string,
+          arg1*ENERGY_TO_KELVIN,
+          arg2*ENERGY_TO_KELVIN,
+          arg3,
+          arg4,
+          arg5,
+          r,
+          energy*ENERGY_TO_KELVIN,
+          energy*ENERGY_TO_KJ_PER_MOL,
+          energy*ENERGY_TO_KCAL_PER_MOL);
+      break;
     case BORN_HUGGINS_MEYER:
       // p_0*exp(p_1*(p_2-r))-p_3/r^6-p_4/r^8
       // ======================================================================================

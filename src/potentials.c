@@ -1266,6 +1266,65 @@ void ParseForceFieldSelfParameters(char *Arguments,int i,char *PotentialName)
     PotentialParms[i][i][3]=arg4;
     PotentialParms[i][i][4]=(REAL)0.0;
   }
+  // p_0/r^p_1-p_2/r^p_3 if r < p_4, otherwise 0
+  // ======================================================================================
+  // p_0/k_B [K A^p_1]
+  // p_1     [-]
+  // p_2/k_B [K A^p_3]
+  // p_3     [-]
+  // p_4     [A]
+  // p_5/k_B [K]  (non-zero for a shifted potential)
+  if(strcasecmp(PotentialName,"MIE_CUTOFF")==0)
+  {
+    PotentialType[i][i]=MIE_CUTOFF;
+    sscanf(Arguments,"%lf %lf %lf %lf %lf",&arg1,&arg2,&arg3,&arg4,&arg5);
+    PotentialParms[i][i][0]=arg1*KELVIN_TO_ENERGY;
+    PotentialParms[i][i][1]=arg2;
+    PotentialParms[i][i][2]=arg3*KELVIN_TO_ENERGY;
+    PotentialParms[i][i][3]=arg4;
+    PotentialParms[i][i][4]=arg5;
+    PotentialParms[i][i][5]=(REAL)0.0;
+  }
+  // {p_0/r^p_1-p_2/r^p_3}*S(r) if r < p_4, otherwise 0
+  // ======================================================================================
+  // p_0/k_B [K A^p_1]
+  // p_1     [-]
+  // p_2/k_B [K A^p_3]
+  // p_3     [-]
+  // p_4     [A]
+  if((strcasecmp(PotentialName,"MIE_SMOOTHED3_CUTOFF")==0)||(strcasecmp(PotentialName,"MIE-SMOOTHED3-CUTOFF")==0))
+  {
+    TailCorrection[i][i]=FALSE;
+    ShiftPotential[i][i]=FALSE;
+    PotentialType[i][i]=MIE_SMOOTHED3_CUTOFF;
+    sscanf(Arguments,"%lf %lf %lf %lf %lf",&arg1,&arg2,&arg3,&arg4,&arg5);
+    PotentialParms[i][i][0]=arg1*KELVIN_TO_ENERGY;
+    PotentialParms[i][i][1]=arg2;
+    PotentialParms[i][i][2]=arg3*KELVIN_TO_ENERGY;
+    PotentialParms[i][i][3]=arg4;
+    PotentialParms[i][i][4]=arg5;
+    PotentialParms[i][i][5]=(REAL)0.0;
+  }
+  // {p_0/r^p_1-p_2/r^p_3}*S(r) if r < p_4, otherwise 0
+  // ======================================================================================
+  // p_0/k_B [K A^p_1]
+  // p_1     [-]
+  // p_2/k_B [K A^p_3]
+  // p_3     [-]
+  // p_4     [A]
+  if((strcasecmp(PotentialName,"MIE_SMOOTHED5_CUTOFF")==0)||(strcasecmp(PotentialName,"MIE-SMOOTHED5-CUTOFF")==0))
+  {
+    TailCorrection[i][i]=FALSE;
+    ShiftPotential[i][i]=FALSE;
+    PotentialType[i][i]=MIE_SMOOTHED5_CUTOFF;
+    sscanf(Arguments,"%lf %lf %lf %lf %lf",&arg1,&arg2,&arg3,&arg4,&arg5);
+    PotentialParms[i][i][0]=arg1*KELVIN_TO_ENERGY;
+    PotentialParms[i][i][1]=arg2;
+    PotentialParms[i][i][2]=arg3*KELVIN_TO_ENERGY;
+    PotentialParms[i][i][3]=arg4;
+    PotentialParms[i][i][4]=arg5;
+    PotentialParms[i][i][5]=(REAL)0.0;
+  }
   // p_0*exp(p_1*(p_2-r))-p_3/r^6-p_4/r^8
   // ======================================================================================
   // p_0/k_B [K]
@@ -2706,6 +2765,85 @@ void ParseForceFieldBinaryParameters(char *Arguments,int i,int j,char *Potential
     PotentialParms[i][j][3]=arg4;
     PotentialParms[j][i][4]=(REAL)0.0;
     PotentialParms[i][j][4]=(REAL)0.0;
+  }
+  // p_0*[p_1/r^p_2-p_1/r^p_3] if r < p_4, otherwise 0
+  // ======================================================================================
+  // p_0/k_B [K]
+  // p_1/k_B [K A^p_2]
+  // p_2     [-]
+  // p_3     [-]
+  // p_4     [A]
+  // p_5/k_B [K]  (non-zero for a shifted potential)
+  if(strcasecmp(PotentialName,"MIE_CUTOFF")==0)
+  {
+    PotentialType[i][j]=MIE_CUTOFF;
+    PotentialType[j][i]=MIE_CUTOFF;
+    sscanf(Arguments,"%lf %lf %lf %lf %lf",&arg1,&arg2,&arg3,&arg4,&arg5);
+    PotentialParms[j][i][0]=arg1*KELVIN_TO_ENERGY;
+    PotentialParms[i][j][0]=arg1*KELVIN_TO_ENERGY;
+    PotentialParms[j][i][1]=arg2;
+    PotentialParms[i][j][1]=arg2;
+    PotentialParms[j][i][2]=arg3*KELVIN_TO_ENERGY;
+    PotentialParms[i][j][2]=arg3*KELVIN_TO_ENERGY;
+    PotentialParms[j][i][3]=arg4;
+    PotentialParms[i][j][3]=arg4;
+    PotentialParms[j][i][4]=arg5;
+    PotentialParms[i][j][4]=arg5;
+    PotentialParms[j][i][5]=(REAL)0.0;
+    PotentialParms[i][j][5]=(REAL)0.0;
+  }
+  // {p_0*[p_1/r^p_2-p_1/r^p_3]}*S(r) if r < p_4, otherwise 0
+  // ======================================================================================
+  // p_0/k_B [K]
+  // p_1/k_B [K A^p_2]
+  // p_2     [-]
+  // p_3     [-]
+  // p_4     [A]
+  if((strcasecmp(PotentialName,"MIE_SMOOTHED3_CUTOFF")==0)||(strcasecmp(PotentialName,"MIE-SMOOTHED3-CUTOFF")==0))
+  {
+    TailCorrection[i][j]=TailCorrection[j][i]=FALSE;
+    ShiftPotential[i][j]=ShiftPotential[j][i]=FALSE;
+    PotentialType[i][j]=MIE_SMOOTHED3_CUTOFF;
+    PotentialType[j][i]=MIE_SMOOTHED3_CUTOFF;
+    sscanf(Arguments,"%lf %lf %lf %lf %lf",&arg1,&arg2,&arg3,&arg4,&arg5);
+    PotentialParms[j][i][0]=arg1*KELVIN_TO_ENERGY;
+    PotentialParms[i][j][0]=arg1*KELVIN_TO_ENERGY;
+    PotentialParms[j][i][1]=arg2;
+    PotentialParms[i][j][1]=arg2;
+    PotentialParms[j][i][2]=arg3*KELVIN_TO_ENERGY;
+    PotentialParms[i][j][2]=arg3*KELVIN_TO_ENERGY;
+    PotentialParms[j][i][3]=arg4;
+    PotentialParms[i][j][3]=arg4;
+    PotentialParms[j][i][4]=arg5;
+    PotentialParms[i][j][4]=arg5;
+    PotentialParms[j][i][5]=(REAL)0.0;
+    PotentialParms[i][j][5]=(REAL)0.0;
+  }
+  // {p_0*[p_1/r^p_2-p_1/r^p_3]}*S(r)
+  // ======================================================================================
+  // p_0/k_B [K]
+  // p_1/k_B [K A^p_2]
+  // p_2     [-]
+  // p_3     [-]
+  if((strcasecmp(PotentialName,"MIE_SMOOTHED5_CUTOFF")==0)||(strcasecmp(PotentialName,"MIE-SMOOTHED5-CUTOFF")==0))
+  {
+    TailCorrection[i][j]=TailCorrection[j][i]=FALSE;
+    ShiftPotential[i][j]=ShiftPotential[j][i]=FALSE;
+    PotentialType[i][j]=MIE_SMOOTHED5_CUTOFF;
+    PotentialType[j][i]=MIE_SMOOTHED5_CUTOFF;
+    sscanf(Arguments,"%lf %lf %lf %lf %lf",&arg1,&arg2,&arg3,&arg4,&arg5);
+    PotentialParms[j][i][0]=arg1*KELVIN_TO_ENERGY;
+    PotentialParms[i][j][0]=arg1*KELVIN_TO_ENERGY;
+    PotentialParms[j][i][1]=arg2*KELVIN_TO_ENERGY;
+    PotentialParms[i][j][1]=arg2*KELVIN_TO_ENERGY;
+    PotentialParms[j][i][2]=arg3;
+    PotentialParms[i][j][2]=arg3;
+    PotentialParms[j][i][3]=arg4;
+    PotentialParms[i][j][3]=arg4;
+    PotentialParms[j][i][4]=arg5;
+    PotentialParms[i][j][4]=arg5;
+    PotentialParms[j][i][5]=(REAL)0.0;
+    PotentialParms[i][j][5]=(REAL)0.0;
   }
   // p_0*exp(p_1*(p_2-r))-p_3/r^6-p_4/r^8
   // ======================================================================================
@@ -5354,6 +5492,17 @@ void ComputePotentialShifts(void)
         case MIE_SMOOTHED3:
         case MIE_SMOOTHED5:
           break;
+        case MIE_CUTOFF:
+          if(ShiftPotential[i][j])
+            arg6=PotentialValue(i,j,CutOffVDWSquared,1.0);
+          else
+            arg6=(REAL)0.0;
+          PotentialParms[j][i][5]=arg6;
+          PotentialParms[i][j][5]=arg6;
+          break;
+        case MIE_SMOOTHED3_CUTOFF:
+        case MIE_SMOOTHED5_CUTOFF:
+          break;
         case BORN_HUGGINS_MEYER:
           if(ShiftPotential[i][j])
             arg6=PotentialValue(i,j,CutOffVDWSquared,1.0);
@@ -6847,6 +6996,71 @@ REAL PotentialValue(int typeA,int typeB,REAL rr,REAL scaling)
       arg3=PotentialParms[typeA][typeB][2];
       arg4=PotentialParms[typeA][typeB][3];
       r=sqrt(rr);
+      term1=arg1/pow(r,arg2);
+      term2=arg3/pow(r,arg4);
+      if(rr>CutOffVDWSwitchSquared)
+      {
+        SwitchingValue=SwitchingVDWFactors5[5]*(rr*rr*r)+SwitchingVDWFactors5[4]*(rr*rr)+SwitchingVDWFactors5[3]*(rr*r)+
+                        SwitchingVDWFactors5[2]*rr+SwitchingVDWFactors5[1]*r+SwitchingVDWFactors5[0];
+        return SwitchingValue*(term1-term2);
+      }
+      return (term1-term2);
+    case MIE_CUTOFF:
+      // p_0/r^p_1-p_2/r^p_3 if r < p_4 otherwise 0
+      // ======================================================================================
+      // p_0/k_B [K A^p_1]
+      // p_1     [-]
+      // p_2/k_B [K A^p_3]
+      // p_3     [-]
+      // p_4     [A]
+      // p_5/k_B [K]  (non-zero for a shifted potential)
+      arg1=PotentialParms[typeA][typeB][0];
+      arg2=PotentialParms[typeA][typeB][1];
+      arg3=PotentialParms[typeA][typeB][2];
+      arg4=PotentialParms[typeA][typeB][3];
+      arg5=PotentialParms[typeA][typeB][4];
+      arg6=PotentialParms[typeA][typeB][5];
+      r=sqrt(rr);
+      if (r>arg5) return 0.0;
+      return (arg1/pow(r,arg2)-arg3/pow(r,arg4))-arg6;
+    case MIE_SMOOTHED3_CUTOFF:
+      // {p_0/r^p_1-p_2/r^p_3}*S(r) if r < p_4, otherwise 0
+      // ======================================================================================
+      // p_0/k_B [K A^p_1]
+      // p_1     [-]
+      // p_2/k_B [K A^p_3]
+      // p_3     [-]
+      // p_4     [A]
+      arg1=PotentialParms[typeA][typeB][0];
+      arg2=PotentialParms[typeA][typeB][1];
+      arg3=PotentialParms[typeA][typeB][2];
+      arg4=PotentialParms[typeA][typeB][3];
+      arg5=PotentialParms[typeA][typeB][4];
+      r=sqrt(rr);
+      if (r>arg5) return 0.0;
+      term1=arg1/pow(r,arg2);
+      term2=arg3/pow(r,arg4);
+      if(rr>CutOffVDWSwitchSquared)
+      {
+        SwitchingValue=SwitchingVDWFactors3[3]*(rr*r)+SwitchingVDWFactors3[2]*rr+SwitchingVDWFactors3[1]*r+SwitchingVDWFactors3[0];
+        return SwitchingValue*(term1-term2);
+      }
+      return (term1-term2);
+    case MIE_SMOOTHED5_CUTOFF:
+      // {p_0/r^p_1-p_2/r^p_3}*S(r) if r < p_4, otherwise 0
+      // ======================================================================================
+      // p_0/k_B [K A^p_1]
+      // p_1     [-]
+      // p_2/k_B [K A^p_3]
+      // p_3     [-]
+      // p_4     [A]
+      arg1=PotentialParms[typeA][typeB][0];
+      arg2=PotentialParms[typeA][typeB][1];
+      arg3=PotentialParms[typeA][typeB][2];
+      arg4=PotentialParms[typeA][typeB][3];
+      arg5=PotentialParms[typeA][typeB][4];
+      r=sqrt(rr);
+      if (r>arg5) return 0.0;
       term1=arg1/pow(r,arg2);
       term2=arg3/pow(r,arg4);
       if(rr>CutOffVDWSwitchSquared)
@@ -8446,6 +8660,106 @@ void PotentialGradient(int typeA,int typeB,REAL rr,REAL *energy,REAL *force_fact
                                  2.0*SwitchingVDWFactors5[2]*r+SwitchingVDWFactors5[1];
         fcVal=U*SwitchingValueDerivative/r+fcVal*SwitchingValue;
         U*=SwitchingValue;
+      }
+      break;
+    case MIE_CUTOFF:
+      // p_0/r^p_1-p_2/r^p_3 if r < p_4, otherwise 0
+      // ======================================================================================
+      // p_0/k_B [K A^p_1]
+      // p_1     [-]
+      // p_2/k_B [K A^p_3]
+      // p_3     [-]
+      // p_4     [A]
+      // p_5/k_B [K]  (non-zero for a shifted potential)
+      arg1=PotentialParms[typeA][typeB][0];
+      arg2=PotentialParms[typeA][typeB][1];
+      arg3=PotentialParms[typeA][typeB][2];
+      arg4=PotentialParms[typeA][typeB][3];
+      arg5=PotentialParms[typeA][typeB][4];
+      arg6=PotentialParms[typeA][typeB][5];
+      r=sqrt(rr);
+      if (r<arg5)
+      {
+        term1=arg1/pow(r,arg2);
+        term2=arg3/pow(r,arg4);
+        U=(term1-term2)-arg6;
+        fcVal=(arg4*term2-arg2*term1)/rr;
+      }
+      else
+      {
+        U=0.0;
+        fcVal=0.0;
+      }
+      break;
+    case MIE_SMOOTHED3_CUTOFF:
+      // {p_0/r^p_1-p_2/r^p_3}*S(r) if r < p_4, otherwise 0
+      // ======================================================================================
+      // p_0/k_B [K A^p_1]
+      // p_1     [-]
+      // p_2/k_B [K A^p_3]
+      // p_3     [-]
+      // p_4     [A]
+      arg1=PotentialParms[typeA][typeB][0];
+      arg2=PotentialParms[typeA][typeB][1];
+      arg3=PotentialParms[typeA][typeB][2];
+      arg4=PotentialParms[typeA][typeB][3];
+      arg5=PotentialParms[typeA][typeB][4];
+      r=sqrt(rr);
+      if (r<arg5)
+      {
+        term1=arg1/pow(r,arg2);
+        term2=arg3/pow(r,arg4);
+        U=(term1-term2);
+        fcVal=(arg4*term2-arg2*term1)/rr;
+        if(rr>CutOffVDWSwitchSquared)
+        {
+          SwitchingValue=(SwitchingVDWFactors3[3]*(rr*r)+SwitchingVDWFactors3[2]*rr+
+                          SwitchingVDWFactors3[1]*r+SwitchingVDWFactors3[0]);
+          SwitchingValueDerivative=(3.0*SwitchingVDWFactors3[3]*rr+2.0*SwitchingVDWFactors3[2]*r+SwitchingVDWFactors3[1]);
+          fcVal=U*SwitchingValueDerivative/r+fcVal*SwitchingValue;
+          U*=SwitchingValue;
+        }
+      }
+      else
+      {
+        U=0.0;
+        fcVal=0.0;
+      }
+      break;
+    case MIE_SMOOTHED5_CUTOFF:
+      // {p_0/r^p_1-p_2/r^p_3}*S(r) if r < p_4, otherwise 0
+      // ======================================================================================
+      // p_0/k_B [K A^p_1]
+      // p_1     [-]
+      // p_2/k_B [K A^p_3]
+      // p_3     [-]
+      // p_4     [A]
+      arg1=PotentialParms[typeA][typeB][0];
+      arg2=PotentialParms[typeA][typeB][1];
+      arg3=PotentialParms[typeA][typeB][2];
+      arg4=PotentialParms[typeA][typeB][3];
+      arg5=PotentialParms[typeA][typeB][4];
+      r=sqrt(rr);
+      if (r<arg5)
+      {
+        term1=arg1/pow(r,arg2);
+        term2=arg3/pow(r,arg4);
+        U=(term1-term2);
+        fcVal=(arg4*term2-arg2*term1)/rr;
+        if(rr>CutOffVDWSwitchSquared)
+        {
+          SwitchingValue=SwitchingVDWFactors5[5]*(rr*rr*r)+SwitchingVDWFactors5[4]*(rr*rr)+SwitchingVDWFactors5[3]*(rr*r)+
+                         SwitchingVDWFactors5[2]*rr+SwitchingVDWFactors5[1]*r+SwitchingVDWFactors5[0];
+          SwitchingValueDerivative=5.0*SwitchingVDWFactors5[5]*rr*rr+4.0*SwitchingVDWFactors5[4]*rr*r+3.0*SwitchingVDWFactors5[3]*rr+
+                                   2.0*SwitchingVDWFactors5[2]*r+SwitchingVDWFactors5[1];
+          fcVal=U*SwitchingValueDerivative/r+fcVal*SwitchingValue;
+          U*=SwitchingValue;
+        }
+      }
+      else
+      {
+        U=0.0;
+        fcVal=0.0;
       }
       break;
     case BORN_HUGGINS_MEYER:
@@ -10303,6 +10617,121 @@ void PotentialSecondDerivative(int typeA,int typeB,REAL rr,REAL *energy,REAL *fa
         U*=SwitchingValue;
       }
       break;
+    case MIE_CUTOFF:
+      // p_0/r^p_1-p_2/r^p_3 if r < p_4 otherwise 0
+      // ======================================================================================
+      // p_0/k_B [K A^p_1]
+      // p_1     [-]
+      // p_2/k_B [K A^p_3]
+      // p_3     [-]
+      // p_4     [A]
+      // p_5/k_B [K]  (non-zero for a shifted potential)
+      arg1=PotentialParms[typeA][typeB][0];
+      arg2=PotentialParms[typeA][typeB][1];
+      arg3=PotentialParms[typeA][typeB][2];
+      arg4=PotentialParms[typeA][typeB][3];
+      arg5=PotentialParms[typeA][typeB][4];
+      arg6=PotentialParms[typeA][typeB][5];
+      r=sqrt(rr);
+      if (r<arg5)
+      {
+        term1=arg1/pow(r,arg2);
+        term2=arg3/pow(r,arg4);
+        U=(term1-term2)-arg5;
+        fcVal1=(arg4*term2-arg2*term1)/rr;
+        fcVal2=(arg2*(2+arg2)*term1-arg4*(2+arg4)*term2)/SQR(rr);
+      }
+      else
+      {
+        U=0.0;
+        fcVal1=0.0;
+        fcVal2=0.0;
+      }
+      break;
+    case MIE_SMOOTHED3_CUTOFF:
+      // {p_0/r^p_1-p_2/r^p_3}*S(r) if r < p_4, otherwise 0
+      // ======================================================================================
+      // p_0/k_B [K A^p_1]
+      // p_1     [-]
+      // p_2/k_B [K A^p_3]
+      // p_3     [-]
+      // p_4     [A]
+      arg1=PotentialParms[typeA][typeB][0];
+      arg2=PotentialParms[typeA][typeB][1];
+      arg3=PotentialParms[typeA][typeB][2];
+      arg4=PotentialParms[typeA][typeB][3];
+      arg5=PotentialParms[typeA][typeB][4];
+      r=sqrt(rr);
+      if (r<arg5)
+      {
+        term1=arg1/pow(r,arg2);
+        term2=arg3/pow(r,arg4);
+        U=(term1-term2);
+        fcVal1=(arg4*term2-arg2*term1)/rr;
+        fcVal2=(arg2*(2+arg2)*term1-arg4*(2+arg4)*term2)/SQR(rr);
+        if(rr>CutOffVDWSwitchSquared)
+        {
+          r3=rr*r;
+          SwitchingValue=SwitchingVDWFactors3[3]*r3+SwitchingVDWFactors3[2]*rr+SwitchingVDWFactors3[1]*r+SwitchingVDWFactors3[0];
+          SwitchingValueDerivative=3.0*SwitchingVDWFactors3[3]*rr+2.0*SwitchingVDWFactors3[2]*r+SwitchingVDWFactors3[1];
+          SwitchingValueDerivative2=6.0*SwitchingVDWFactors3[3]*r+2.0*SwitchingVDWFactors3[2];
+
+          fcVal2=U*(SwitchingValueDerivative2-SwitchingValueDerivative/r)/rr+2.0*fcVal1*SwitchingValueDerivative/r+fcVal2*SwitchingValue;
+          fcVal1=U*SwitchingValueDerivative/r+fcVal1*SwitchingValue;
+          U*=SwitchingValue;
+        }
+      }
+      else
+      {
+        U=0.0;
+        fcVal1=0.0;
+        fcVal2=0.0;
+      }
+      break;
+    case MIE_SMOOTHED5_CUTOFF:
+      // {p_0/r^p_1-p_2/r^p_3}*S(r) if r < p_4, otherwise 0
+      // ======================================================================================
+      // p_0/k_B [K A^p_1]
+      // p_1     [-]
+      // p_2/k_B [K A^p_3]
+      // p_3     [-]
+      // p_4     [A]
+      arg1=PotentialParms[typeA][typeB][0];
+      arg2=PotentialParms[typeA][typeB][1];
+      arg3=PotentialParms[typeA][typeB][2];
+      arg4=PotentialParms[typeA][typeB][3];
+      arg5=PotentialParms[typeA][typeB][4];
+      r=sqrt(rr);
+      if(r<arg5)
+      {
+        term1=arg1/pow(r,arg2);
+        term2=arg3/pow(r,arg4);
+        U=(term1-term2);
+        fcVal1=(arg4*term2-arg2*term1)/rr;
+        fcVal2=(arg2*(2+arg2)*term1-arg4*(2+arg4)*term2)/SQR(rr);
+        if(rr>CutOffVDWSwitchSquared)
+        {
+          r3=rr*r;
+          r4=rr*rr;
+          r5=r3*rr;
+          SwitchingValue=SwitchingVDWFactors5[5]*r5+SwitchingVDWFactors5[4]*r4+SwitchingVDWFactors5[3]*r3+
+                         SwitchingVDWFactors5[2]*rr+SwitchingVDWFactors5[1]*r+SwitchingVDWFactors5[0];
+          SwitchingValueDerivative=5.0*SwitchingVDWFactors5[5]*r4+4.0*SwitchingVDWFactors5[4]*r3+3.0*SwitchingVDWFactors5[3]*rr+
+                                    2.0*SwitchingVDWFactors5[2]*r+SwitchingVDWFactors5[1];
+          SwitchingValueDerivative2=20.0*SwitchingVDWFactors5[5]*r3+12.0*SwitchingVDWFactors5[4]*rr+6.0*SwitchingVDWFactors5[3]*r+2.0*SwitchingVDWFactors5[2];
+
+          fcVal2=U*(SwitchingValueDerivative2-SwitchingValueDerivative/r)/rr+2.0*fcVal1*SwitchingValueDerivative/r+fcVal2*SwitchingValue;
+          fcVal1=U*SwitchingValueDerivative/r+fcVal1*SwitchingValue;
+          U*=SwitchingValue;
+        }
+      }
+      else
+      {
+        U=0.0;
+        fcVal1=0.0;
+        fcVal2=0.0;
+      }
+      break;
     case BORN_HUGGINS_MEYER:
       // p_0*exp(p_1*(p_2-r))-p_3/r^6-p_4/r^8
       // ======================================================================================
@@ -10882,6 +11311,10 @@ REAL PotentialCorrection(int typeA,int typeB,REAL r)
     case MIE_SMOOTHED3:
     case MIE_SMOOTHED5:
       return 0.0;
+    case MIE_CUTOFF:
+    case MIE_SMOOTHED3_CUTOFF:
+    case MIE_SMOOTHED5_CUTOFF:
+      return 0.0;
     case BORN_HUGGINS_MEYER:
       // p_0*exp(p_1*(p_2-r))-p_3/r^6-p_4/r^8
       // ======================================================================================
@@ -11213,6 +11646,10 @@ REAL PotentialCorrectionPressure(int typeA,int typeB,REAL r)
       return (arg3*arg4*pow(r,3.0-arg4))/(arg4-3.0)-(arg1*arg2*pow(r,3.0-arg2))/(arg2-3.0);
     case MIE_SMOOTHED3:
     case MIE_SMOOTHED5:
+      return 0.0;
+    case MIE_CUTOFF:
+    case MIE_SMOOTHED3_CUTOFF:
+    case MIE_SMOOTHED5_CUTOFF:
       return 0.0;
     case BORN_HUGGINS_MEYER:
       // p_0*exp(p_1*(p_2-r))-p_3/r^6-p_4/r^8
