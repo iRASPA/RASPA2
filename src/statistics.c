@@ -3753,7 +3753,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
       REAL N = NumberOfMoleculesAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
       REAL NSquared = NumberOfMoleculesSquaredAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
 
-      tmp=ENERGY_TO_KELVIN*((UTotalTimesN - UTotal*N)/(NSquared - SQR(N))-therm_baro_stats.ExternalTemperature[CurrentSystem]);
+      tmp=ENERGY_TO_KELVIN*((UTotalTimesN - UTotal*N)/(NSquared - SQR(N)))-therm_baro_stats.ExternalTemperature[CurrentSystem];
       sum+=tmp;
       sum2+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)tmp);
@@ -3801,7 +3801,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
           REAL Ncomp = NumberOfMoleculesPerComponentAccumulated[CurrentSystem][k2][i]/BlockCount[CurrentSystem][i];
           HeatOfAdsorptionPerComponent[k1][i]+=ENERGY_TO_KELVIN*((UTotalTimesNcomp-UTotal*Ncomp)*matrix.element[k2][k1]);
         }
-        HeatOfAdsorptionPerComponent[k1][i]-=ENERGY_TO_KELVIN*(therm_baro_stats.ExternalTemperature[CurrentSystem]);
+        HeatOfAdsorptionPerComponent[k1][i]-=therm_baro_stats.ExternalTemperature[CurrentSystem];
       }
 
       DeleteRealMatrix(matrix);
