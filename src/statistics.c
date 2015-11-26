@@ -3841,7 +3841,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
     {
       if(BlockCount[CurrentSystem][i]>0.0)
       {
-        double loading_total = NumberOfMoleculesAccumulated[CurrentSystem][i];
+        double loading_total = 0.0;
+        for (j=0;j<NumberOfComponents;j++)
+           loading_total += NumberOfMoleculesPerComponentAccumulated[CurrentSystem][j][i];
         double sumc=0.0;
         for(k1=0;k1<NumberOfComponents;k1++)
         {
