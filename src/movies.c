@@ -1558,12 +1558,12 @@ int SamplePDBMovies(int Choice,int Subdir)
               r.x=MovieScale*(Framework[CurrentSystem].Atoms[f1][k].Position.x-flexible_drift.x);
               r.y=MovieScale*(Framework[CurrentSystem].Atoms[f1][k].Position.y-flexible_drift.y);
               r.z=MovieScale*(Framework[CurrentSystem].Atoms[f1][k].Position.z-flexible_drift.z);
-              fprintf(PDBFilePtrwork[CurrentSystem],"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%-4s%2s%2s\n",
+              fprintf(PDBFilePtrwork[CurrentSystem],"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%6s%-4s%2s%2s\n",
                    RecordName,SerialNumberFramework++,AtomName,RemotenessIndicator,BranchDesignator,AltLoc,ResIdueName,
-                   ChainId,ResSeq,iCode,(double)r.x,(double)r.y,(double)r.z,(double)Occupancy,(double)Temp,SegID,Element,charge);
-              fprintf(PDBFilePtrAll[CurrentSystem],"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%-4s%2s%2s\n",
+                   ChainId,ResSeq,iCode,(double)r.x,(double)r.y,(double)r.z,(double)Occupancy,(double)Temp,"      ",SegID,Element,charge);
+              fprintf(PDBFilePtrAll[CurrentSystem],"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%6s%-4s%2s%2s\n",
                    RecordName,SerialNumberAll++,AtomName,RemotenessIndicator,BranchDesignator,AltLoc,ResIdueName,
-                   ChainId,ResSeq,iCode,(double)r.x,(double)r.y,(double)r.z,(double)Occupancy,(double)Temp,SegID,Element,charge);
+                   ChainId,ResSeq,iCode,(double)r.x,(double)r.y,(double)r.z,(double)Occupancy,(double)Temp,"      ",SegID,Element,charge);
             }
           }
         }
@@ -1594,13 +1594,13 @@ int SamplePDBMovies(int Choice,int Subdir)
             snprintf(AtomName,5,"%2s",PseudoAtoms[AtomType].PrintToPDBName);
             snprintf(Element,3,"%2s",PseudoAtoms[AtomType].PrintToPDBName);
 
-            fprintf(PDBFilePtr[CurrentSystem][Type],"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%-4s%2s%2s\n",
+            fprintf(PDBFilePtr[CurrentSystem][Type],"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%6s%-4s%2s%2s\n",
                  RecordName,SerialNumber[Type]++,AtomName,RemotenessIndicator,BranchDesignator,AltLoc,ResIdueName,
-                 ChainId,ResSeq,iCode,(double)r.x,(double)r.y,(double)r.z,(double)Occupancy,(double)Temp,SegID,Element,charge);
+                 ChainId,ResSeq,iCode,(double)r.x,(double)r.y,(double)r.z,(double)Occupancy,(double)Temp,"      ",SegID,Element,charge);
 
-            fprintf(PDBFilePtrAll[CurrentSystem],"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%-4s%2s%2s\n",
+            fprintf(PDBFilePtrAll[CurrentSystem],"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%6s%-4s%2s%2s\n",
                  RecordName,SerialNumberAll++,AtomName,RemotenessIndicator,BranchDesignator,AltLoc,ResIdueName,
-                 ChainId,ResSeq,iCode,(double)r.x,(double)r.y,(double)r.z,(double)Occupancy,(double)Temp,SegID,Element,charge);
+                 ChainId,ResSeq,iCode,(double)r.x,(double)r.y,(double)r.z,(double)Occupancy,(double)Temp,"      ",SegID,Element,charge);
           }
         }
       }
@@ -1630,13 +1630,13 @@ int SamplePDBMovies(int Choice,int Subdir)
             snprintf(AtomName,5,"%2s",PseudoAtoms[AtomType].PrintToPDBName);
             snprintf(Element,3,"%2s",PseudoAtoms[AtomType].PrintToPDBName);
 
-            fprintf(PDBFilePtr[CurrentSystem][Type],"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%-4s%2s%2s\n",
+            fprintf(PDBFilePtr[CurrentSystem][Type],"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%6s%-4s%2s%2s\n",
                  RecordName,SerialNumber[Type]++,AtomName,RemotenessIndicator,BranchDesignator,AltLoc,ResIdueName,
-                 ChainId,ResSeq,iCode,(double)r.x,(double)r.y,(double)r.z,(double)Occupancy,(double)Temp,SegID,Element,charge);
+                 ChainId,ResSeq,iCode,(double)r.x,(double)r.y,(double)r.z,(double)Occupancy,(double)Temp,"      ",SegID,Element,charge);
 
-            fprintf(PDBFilePtrAll[CurrentSystem],"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%-4s%2s%2s\n",
+            fprintf(PDBFilePtrAll[CurrentSystem],"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%6s%-4s%2s%2s\n",
                  RecordName,SerialNumberAll++,AtomName,RemotenessIndicator,BranchDesignator,AltLoc,ResIdueName,
-                 ChainId,ResSeq,iCode,(double)r.x,(double)r.y,(double)r.z,(double)Occupancy,(double)Temp,SegID,Element,charge);
+                 ChainId,ResSeq,iCode,(double)r.x,(double)r.y,(double)r.z,(double)Occupancy,(double)Temp,"      ",SegID,Element,charge);
           }
         }
       }

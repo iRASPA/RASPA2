@@ -1191,9 +1191,9 @@ void MakeNormalModeMovie(int NumberOfPositionVariables,int NumberOfBoxVariables,
             pos=Framework[CurrentSystem].Atoms[f1][i].Position;
             sprintf(AtomName,"%2s",PseudoAtoms[Framework[CurrentSystem].Atoms[f1][i].Type].PrintToPDBName);
             sprintf(Element,"%2s",PseudoAtoms[Framework[CurrentSystem].Atoms[f1][i].Type].PrintToPDBName);
-            fprintf(FilePtr,"%s%-s %4s%s%s %s%s%s   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf      %s%s%s\n",
+            fprintf(FilePtr,"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%6s%-4s%2s%2s\n",
                       RecordName,SerialNumber,AtomName,AltLoc,ResIdueName,
-                      ChainId,ResSeq,iCode,(double)(scale*pos.x),(double)(scale*pos.y),(double)(scale*pos.z),(double)Occupancy,(double)Temp,SegID,Element,Charge);
+                      ChainId,ResSeq,iCode,(double)(scale*pos.x),(double)(scale*pos.y),(double)(scale*pos.z),(double)Occupancy,(double)Temp,"      ",SegID,Element,Charge);
           }
         }
         for(i=0;i<NumberOfAdsorbateMolecules[CurrentSystem];i++)
@@ -1208,9 +1208,9 @@ void MakeNormalModeMovie(int NumberOfPositionVariables,int NumberOfBoxVariables,
 
               sprintf(AtomName,"%2s",PseudoAtoms[Type].PrintToPDBName);
               sprintf(Element,"%2s",PseudoAtoms[Type].PrintToPDBName);
-              fprintf(FilePtr,"%s%-s %4s%s%s %s%s%s   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf      %s%s%s\n",
+              fprintf(FilePtr,"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%6s%-4s%2s%2s\n",
                       RecordName,SerialNumber,AtomName,AltLoc,ResIdueName,
-                      ChainId,ResSeq,iCode,(double)(scale*pos.x),(double)(scale*pos.y),(double)(scale*pos.z),(double)Occupancy,(double)Temp,SegID,Element,Charge);
+                      ChainId,ResSeq,iCode,(double)(scale*pos.x),(double)(scale*pos.y),(double)(scale*pos.z),(double)Occupancy,(double)Temp,"      ",SegID,Element,Charge);
             }
           }
         }

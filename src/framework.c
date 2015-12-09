@@ -3094,9 +3094,9 @@ void WriteFrameworkDefinitionMOL(char *string)
 
          sprintf(AtomName,"%2s",PseudoAtoms[Type].PrintToPDBName);
          sprintf(Element,"%2s",PseudoAtoms[Type].PrintToPDBName);
-         fprintf(FilePtr,"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%-4s%2s%2s\n",
+         fprintf(FilePtr,"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%6s%-4s%2s%2s\n",
          RecordName,SerialNumber++,AtomName,RemotenessIndicator,BranchDesignator,AltLoc,ResIdueName,
-         ChainId,ResSeq,iCode,(double)r.x,(double)r.y,(double)r.z,(double)Occupancy,(double)Temp,SegID,Element,charge);
+         ChainId,ResSeq,iCode,(double)r.x,(double)r.y,(double)r.z,(double)Occupancy,(double)Temp,"      ",SegID,Element,charge);
          }
          }
          fclose(FilePtr);
@@ -3617,12 +3617,12 @@ void WriteFrameworkDefinitionPDB(char *string)
             snprintf(AtomName,10,"%2s",PseudoAtoms[Framework[CurrentSystem].Atoms[CurrentFramework][j].Type].PrintToPDBName);
             snprintf(Element,10,"%2s",PseudoAtoms[Framework[CurrentSystem].Atoms[CurrentFramework][j].Type].PrintToPDBName);
             r=Framework[CurrentSystem].Atoms[CurrentFramework][j].Position;
-            fprintf(FilePtr,"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%-4s%2s%2s\n",
+            fprintf(FilePtr,"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%6s%-4s%2s%2s\n",
                     RecordName,SerialNumber++,AtomName,RemotenessIndicator,BranchDesignator,AltLoc,ResIdueName,
-                    ChainId,ResSeq,iCode,(double)(MovieScale*r.x),(double)(MovieScale*r.y),(double)(MovieScale*r.z),(double)Occupancy,(double)Temp,SegID,Element,charge);
-            fprintf(FilePtrAll,"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%-4s%2s%2s\n",
+                    ChainId,ResSeq,iCode,(double)(MovieScale*r.x),(double)(MovieScale*r.y),(double)(MovieScale*r.z),(double)Occupancy,(double)Temp,"      ",SegID,Element,charge);
+            fprintf(FilePtrAll,"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%6s%-4s%2s%2s\n",
                     RecordName,SerialNumberAll++,AtomName,RemotenessIndicator,BranchDesignator,AltLoc,ResIdueName,
-                    ChainId,ResSeq,iCode,(double)(MovieScale*r.x),(double)(MovieScale*r.y),(double)(MovieScale*r.z),(double)Occupancy,(double)Temp,SegID,Element,charge);
+                    ChainId,ResSeq,iCode,(double)(MovieScale*r.x),(double)(MovieScale*r.y),(double)(MovieScale*r.z),(double)Occupancy,(double)Temp,"      ",SegID,Element,charge);
           }
         }
         fclose(FilePtr);
