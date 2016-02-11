@@ -229,6 +229,7 @@ int ReadInput(char *input)
   int CurrentReaction;
   int typeA,typeB;
   int atom1,atom2;
+  int CFMoleculePresent=FALSE;
 
   CurrentReaction=0;
   RXMCLambdaHistogramSize=21;
@@ -957,6 +958,7 @@ int ReadInput(char *input)
 
     Components[i].RuizMonteroFactor=1.0;
     Components[i].UmbrellaFactor=1.0;
+    Components[i].InvertBlockPockets=FALSE;
 
     Components[i].Intra14VDWScalingValue=1.0;
     Components[i].Intra14ChargeChargeScalingValue=1.0;
@@ -2453,6 +2455,11 @@ int ReadInput(char *input)
         }
       }while(index<NumberOfSystems);
     }
+    if(strcasecmp("InvertBlockPockets",keyword)==0)
+    {
+      if(strcasecmp("yes",firstargument)==0) Components[CurrentComponent].InvertBlockPockets=TRUE;
+      if(strcasecmp("no",firstargument)==0) Components[CurrentComponent].InvertBlockPockets=FALSE;
+    }
     if(strcasecmp("BlockPocketsFileName",keyword)==0)
     {
       index=0;
@@ -2685,11 +2692,52 @@ int ReadInput(char *input)
       }
     }
     if(strcasecmp("WidomProbability",keyword)==0)
+    {
       if(sscanf(arguments,"%lf",&Components[CurrentComponent].ProbabilityWidomMove))
+      {
         if(Components[CurrentComponent].ProbabilityWidomMove>0.0)
           Components[CurrentComponent].Widom=TRUE;
+      }
+    }
+    if(strcasecmp("GibbsWidomProbability",keyword)==0)
+    {
+      if(sscanf(arguments,"%lf",&Components[CurrentComponent].ProbabilityGibbsWidomMove))
+      {
+        if(Components[CurrentComponent].ProbabilityGibbsWidomMove>0.0)
+          Components[CurrentComponent].Widom=TRUE;
+      }
+    }
     if(strcasecmp("WidomParticleInsertionComponent",keyword)==0) sscanf(arguments,"%d",&WidomParticleInsertionComponent);
     if(strcasecmp("SurfaceAreaProbability",keyword)==0) sscanf(arguments,"%lf",&Components[CurrentComponent].ProbabilitySurfaceAreaMove);
+
+    if(strcasecmp("CFGibbsSwapFractionalMoleculeToOtherBoxMoveProbability",keyword)==0) 
+    {
+      sscanf(arguments,"%lf",&Components[CurrentComponent].ProbabilityCFGibbsSwapFractionalMoleculeToOtherBoxMove);
+      if(Components[CurrentComponent].ProbabilityCFGibbsSwapFractionalMoleculeToOtherBoxMove>0.0)
+      {
+        Components[CurrentComponent].CFMoleculePresent[0]=TRUE;
+        SimulationSubType=GIBBS_CFCMC_SINGLE_FRACTIONAL_PARTICLE;
+      }
+    }
+    if(strcasecmp("CFGibbsLambdaChangeMoveProbability",keyword)==0) 
+    {
+      sscanf(arguments,"%lf",&Components[CurrentComponent].ProbabilityCFGibbsLambdaChangeMove);
+      if(Components[CurrentComponent].ProbabilityCFGibbsLambdaChangeMove>0.0)
+      {
+        Components[CurrentComponent].CFMoleculePresent[0]=TRUE;
+        SimulationSubType=GIBBS_CFCMC_SINGLE_FRACTIONAL_PARTICLE;
+      }
+    }
+    if(strcasecmp("CFGibbsFractionalToIntegerMoveProbability",keyword)==0) 
+    {
+      sscanf(arguments,"%lf",&Components[CurrentComponent].ProbabilityCFGibbsFractionalToIntegerMove);
+      if(Components[CurrentComponent].ProbabilityCFGibbsFractionalToIntegerMove>0.0)
+      {
+        Components[CurrentComponent].CFMoleculePresent[0]=TRUE;
+        SimulationSubType=GIBBS_CFCMC_SINGLE_FRACTIONAL_PARTICLE;
+      }
+    }
+
     if(strcasecmp("RestrictEnantionface",keyword)==0)
     {
       if(strcasecmp("yes",firstargument)==0) Components[CurrentComponent].RestrictEnantionface=TRUE;
@@ -6993,6 +7041,7 @@ int ReadInput(char *input)
     }
   }
 
+
   for(i=0;i<NumberOfSystems;i++)
   {
     for(j=0;j<NumberOfComponents;j++)
@@ -7007,47 +7056,135 @@ int ReadInput(char *input)
         else
           MakeInitialAdsorbates(Components[j].CreateNumberOfMolecules[i],j);
       }
+    }
+  }
 
-      if(Components[j].CFMoleculePresent[i])
+  switch(SimulationSubType)
+  {
+    case GIBBS_CFCMC_SINGLE_FRACTIONAL_PARTICLE:
+      for(j=0;j<NumberOfComponents;j++)
       {
-        NumberOfFractionalMolecules[i]++;
-        if(Components[j].ExtraFrameworkMolecule)
-          NumberOfFractionalCationMolecules[i]++;
-        else
-          NumberOfFractionalAdsorbateMolecules[i]++;
-
-        // CF: if number of molecules is zero, create an initial fractional molecule
-        CurrentSystem=i;
-        CalculateAnisotropicSites();
-        if(Components[j].NumberOfMolecules[i]==0)
+        int shouldAddFractionalMolecule=TRUE;
+        // test whether there is already a fractional molecule for this component in any system
+        for(i=0;i<NumberOfSystems;i++)
         {
-          fprintf(stderr, "Creating Lambda particle\n");
-          if(Components[j].ExtraFrameworkMolecule)
-            MakeInitialCations(1,j);
-          else
-            MakeInitialAdsorbates(1,j);
+          shouldAddFractionalMolecule=shouldAddFractionalMolecule && (Components[j].FractionalMolecule[i]<0);
         }
-        if(Components[j].FractionalMolecule[i]<0)
-        {
-          CurrentSystem=i;
-          Components[j].FractionalMolecule[i]=SelectRandomMoleculeOfType(j);
 
-          // start with Lambda=0.5
-          for(k=0;k<Components[j].NumberOfAtoms;k++)
+        if(shouldAddFractionalMolecule)
+        {
+          // add the fractional molecule always to system 0 (there needs to be only one for all systems)
+          NumberOfFractionalMolecules[0]++;
+          if(Components[j].ExtraFrameworkMolecule)
+            NumberOfFractionalCationMolecules[0]++;
+          else
+            NumberOfFractionalAdsorbateMolecules[0]++;
+
+          // CF: if number of molecules is zero, create an initial fractional molecule
+          CurrentSystem=0;
+          CalculateAnisotropicSites();
+          if(Components[j].NumberOfMolecules[0]==0)
           {
+            fprintf(stderr, "Creating Lambda particle\n");
             if(Components[j].ExtraFrameworkMolecule)
-            {
-              Cations[i][Components[j].FractionalMolecule[i]].Atoms[k].CFVDWScalingParameter=0.5;
-              Cations[i][Components[j].FractionalMolecule[i]].Atoms[k].CFChargeScalingParameter=pow(0.5,5);
-            }
+              MakeInitialCations(1,j);
             else
+              MakeInitialAdsorbates(1,j);
+          }
+          if(Components[j].FractionalMolecule[0]<0)
+          {
+            CurrentSystem=0;
+            Components[j].FractionalMolecule[0]=SelectRandomMoleculeOfType(j);
+
+            // start with Lambda=0.5
+            for(k=0;k<Components[j].NumberOfAtoms;k++)
             {
-              Adsorbates[i][Components[j].FractionalMolecule[i]].Atoms[k].CFVDWScalingParameter=0.5;
-              Adsorbates[i][Components[j].FractionalMolecule[i]].Atoms[k].CFChargeScalingParameter=pow(0.5,5);
+              if(Components[j].ExtraFrameworkMolecule)
+              {
+                Cations[0][Components[j].FractionalMolecule[0]].Atoms[k].CFVDWScalingParameter=0.5;
+                Cations[0][Components[j].FractionalMolecule[0]].Atoms[k].CFChargeScalingParameter=pow(0.5,5);
+              }
+              else
+              {
+                Adsorbates[0][Components[j].FractionalMolecule[0]].Atoms[k].CFVDWScalingParameter=0.5;
+                Adsorbates[0][Components[j].FractionalMolecule[0]].Atoms[k].CFChargeScalingParameter=pow(0.5,5);
+              }
+
+              // count the fractional-molecule pseudo-atom types (needed to correct the tail-correction energy)
+              NumberOfFractionalPseudoAtomsType[0][Components[j].Type[k]]++;
             }
           }
         }
       }
+      break;
+    default:
+      for(i=0;i<NumberOfSystems;i++)
+      {
+        for(j=0;j<NumberOfComponents;j++)
+        {
+          if(Components[j].CFMoleculePresent[i] && (Components[j].FractionalMolecule[i]<0))
+          {
+            NumberOfFractionalMolecules[i]++;
+            if(Components[j].ExtraFrameworkMolecule)
+              NumberOfFractionalCationMolecules[i]++;
+            else
+              NumberOfFractionalAdsorbateMolecules[i]++;
+
+            // CF: if number of molecules is zero, create an initial fractional molecule
+            CurrentSystem=i;
+            CalculateAnisotropicSites();
+            if(Components[j].NumberOfMolecules[i]==0)
+            {
+              fprintf(stderr, "Creating Lambda particle\n");
+              if(Components[j].ExtraFrameworkMolecule)
+                MakeInitialCations(1,j);
+              else
+                MakeInitialAdsorbates(1,j);
+            }
+            if(Components[j].FractionalMolecule[i]<0)
+            {
+              CurrentSystem=i;
+              Components[j].FractionalMolecule[i]=SelectRandomMoleculeOfType(j);
+
+              // start with Lambda=0.5
+              for(k=0;k<Components[j].NumberOfAtoms;k++)
+              {
+                if(Components[j].ExtraFrameworkMolecule)
+                {
+                  Cations[i][Components[j].FractionalMolecule[i]].Atoms[k].CFVDWScalingParameter=0.5;
+                  Cations[i][Components[j].FractionalMolecule[i]].Atoms[k].CFChargeScalingParameter=pow(0.5,5);
+                }
+                else
+                {
+                  Adsorbates[i][Components[j].FractionalMolecule[i]].Atoms[k].CFVDWScalingParameter=0.5;
+                  Adsorbates[i][Components[j].FractionalMolecule[i]].Atoms[k].CFChargeScalingParameter=pow(0.5,5);
+                }
+
+                // count the fractional-molecule pseudo-atom types (needed to correct the tail-correction energy)
+                NumberOfFractionalPseudoAtomsType[i][Components[j].Type[k]]++;
+              }
+            }
+          }
+        }
+      }
+      break;
+  }
+
+  // for some CF only 1 system has CFMoleculePresent true (1 fractional particle for all systems, i.e. Gibbs)
+  // At this point: set CFMoleculePresent the same for all systems
+  CFMoleculePresent=FALSE;
+  for(i=0;i<NumberOfSystems;i++)
+  {
+    for(j=0;j<NumberOfComponents;j++)
+    {
+      CFMoleculePresent=CFMoleculePresent || Components[j].CFMoleculePresent[i];
+    }
+  }
+  for(i=0;i<NumberOfSystems;i++)
+  {
+    for(j=0;j<NumberOfComponents;j++)
+    {
+      Components[j].CFMoleculePresent[i]=CFMoleculePresent;
     }
   }
 
@@ -8331,7 +8468,7 @@ void ReadRestartFile(void)
   int extra_framework_boolean;
   FILE *FilePtrIn;
   char buffer[256];
-  char line[1024],keyword[1024],arguments[1024];
+  char line[4096],keyword[4096],arguments[4096];
   int CurrentComponentRead;
   char ExtraFrameworkMoleculeRead[256];
   int NumberOfMoleculesRead;
@@ -8378,7 +8515,7 @@ void ReadRestartFile(void)
 
     totalNumberOfAdsorbateMolecules=0;
     totalNumberOfCationMolecules=0;
-    while(fgets(line,1024,FilePtrIn))
+    while(fgets(line,4096,FilePtrIn))
     {
       // extract first word
       strcpy(keyword,"keyword");
@@ -8407,7 +8544,7 @@ void ReadRestartFile(void)
     }
 
     CurrentComponent=0;
-    while(fgets(line,1024,FilePtrIn))
+    while(fgets(line,4096,FilePtrIn))
     {
       // extract first word
       strcpy(keyword,"keyword");
@@ -8496,7 +8633,7 @@ void ReadRestartFile(void)
 
     // read second time to fill in all values
     FilePtrIn=fopen(buffer,"r");
-    while(fgets(line,1024,FilePtrIn))
+    while(fgets(line,4096,FilePtrIn))
     {
       // extract first word
       strcpy(keyword,"keyword");
@@ -8587,8 +8724,7 @@ void ReadRestartFile(void)
         if(sscanf(arguments,"component %d: %d",&int_temp1,&int_temp2)==2)
         {
           FractionalMolecules[int_temp1]=int_temp2;
-          if(Components[int_temp1].CFMoleculePresent[CurrentSystem])
-            Components[int_temp1].FractionalMolecule[CurrentSystem]=int_temp2;
+          Components[int_temp1].FractionalMolecule[CurrentSystem]=int_temp2;
         }
       }
 
@@ -8597,16 +8733,13 @@ void ReadRestartFile(void)
         int_temp1=int_temp2=0;
         if(sscanf(arguments,"component %d: %d",&int_temp1,&int_temp2)==2)
         {
-          if(Components[int_temp1].CFMoleculePresent[CurrentSystem])
+          if(temp2!=Components[int_temp1].CFLambdaHistogramSize)
           {
-            if(temp2!=Components[int_temp1].CFLambdaHistogramSize)
-            {
-              Components[int_temp1].CFLambdaHistogramSize=int_temp2;
+            Components[int_temp1].CFLambdaHistogramSize=int_temp2;
 
-              // realloc memory
-              Components[int_temp1].CFBiasingFactors[CurrentSystem]=(REAL*)realloc(Components[int_temp1].CFBiasingFactors[CurrentSystem],
-                           Components[int_temp1].CFLambdaHistogramSize*sizeof(REAL));
-            }
+            // realloc memory
+            Components[int_temp1].CFBiasingFactors[CurrentSystem]=(REAL*)realloc(Components[int_temp1].CFBiasingFactors[CurrentSystem],
+                         Components[int_temp1].CFLambdaHistogramSize*sizeof(REAL));
           }
         }
       }
@@ -8615,15 +8748,12 @@ void ReadRestartFile(void)
         int_temp1=int_temp2=0;
         if(sscanf(arguments,"component %d: %n",&int_temp1,&n)==1)
         {
-          if(Components[int_temp1].CFMoleculePresent[CurrentSystem])
-          {
-            arg_pointer=arguments;
+          arg_pointer=arguments;
          
-            for(i=0;i<Components[int_temp1].CFLambdaHistogramSize;i++)
-            {
-              arg_pointer+=n;
-              sscanf(arg_pointer,"%lf%n",&Components[int_temp1].CFBiasingFactors[CurrentSystem][i],&n);
-            }
+          for(i=0;i<Components[int_temp1].CFLambdaHistogramSize;i++)
+          {
+            arg_pointer+=n;
+            sscanf(arg_pointer,"%lf%n",&Components[int_temp1].CFBiasingFactors[CurrentSystem][i],&n);
           }
         }
       }
@@ -8646,8 +8776,7 @@ void ReadRestartFile(void)
         temp1=temp2=temp3=0.0;
         if(sscanf(arguments,"component %d: %lf",&int_temp1,&temp1)==2)
         {
-          if(Components[int_temp1].CFMoleculePresent[CurrentSystem])
-            MaximumCFLambdaChange[CurrentSystem][int_temp1]=temp1;
+          MaximumCFLambdaChange[CurrentSystem][int_temp1]=temp1;
         }
       }
 
@@ -8657,8 +8786,7 @@ void ReadRestartFile(void)
         temp1=temp2=temp3=0.0;
         if(sscanf(arguments,"component %d: %lf",&int_temp1,&temp1)==2)
         {
-          if(Components[int_temp1].CFMoleculePresent[CurrentSystem])
-            MaximumCBCFLambdaChange[CurrentSystem][int_temp1]=temp1;
+          MaximumCBCFLambdaChange[CurrentSystem][int_temp1]=temp1;
         }
       }
 
@@ -8961,9 +9089,19 @@ void ReadRestartFile(void)
               CurrentAdsorbateMolecule=FractionalMolecules[CurrentComponent];
               RemoveAdsorbateMolecule();
             }
-
           }
         }
+      }
+
+      // set bias-factors to zero, because in CBMC the weight should be 1.0
+      NumberOfFractionalMolecules[CurrentSystem]=0;
+      NumberOfFractionalAdsorbateMolecules[CurrentSystem]=0;
+      NumberOfFractionalCationMolecules[CurrentSystem]=0;
+      for(i=0;i<NumberOfComponents;i++)
+      {
+        Components[i].FractionalMolecule[CurrentSystem]=-1;
+        for(j=0;j<Components[i].CFLambdaHistogramSize;j++)
+          Components[i].CFBiasingFactors[CurrentSystem][j]=0.0;
       }
     }
     CurrentComponent=0;

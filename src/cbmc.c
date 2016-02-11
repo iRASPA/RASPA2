@@ -3174,6 +3174,8 @@ REAL GrowMolecule(int Iicode)
   return RosenbluthNew;
 }
 
+
+
 // Create reservoir ideal-gas particle of type 'CurrentComponent' with only intra-interactions
 // Final positions for atoms 'i' are in 'NewPosition[CurrentSystem][i]'
 void GrowReservoirMolecule(void)

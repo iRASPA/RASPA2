@@ -60,6 +60,7 @@ int NumberOfPseudoAtoms;
 PSEUDO_ATOM *PseudoAtoms;
 int **NumberOfPseudoAtomsCount;
 int **NumberOfPseudoAtomsType;
+int **NumberOfFractionalPseudoAtomsType;
 int *NumberOfPseudoAtomsTypeNew;
 int *NumberOfPseudoAtomsTypeOld;
 int *MapPseudoAtom;
@@ -184,8 +185,10 @@ int AddPseudoAtom(PSEUDO_ATOM atom)
     {
       NumberOfPseudoAtomsCount[i]=(int*)realloc(NumberOfPseudoAtomsCount[i],(NumberOfPseudoAtoms+1)*sizeof(int));
       NumberOfPseudoAtomsType[i]=(int*)realloc(NumberOfPseudoAtomsType[i],(NumberOfPseudoAtoms+1)*sizeof(int));
+      NumberOfFractionalPseudoAtomsType[i]=(int*)realloc(NumberOfPseudoAtomsType[i],(NumberOfPseudoAtoms+1)*sizeof(int));
       NumberOfPseudoAtomsCount[i][NumberOfPseudoAtoms]=0;
       NumberOfPseudoAtomsType[i][NumberOfPseudoAtoms]=0;
+      NumberOfFractionalPseudoAtomsType[i][NumberOfPseudoAtoms]=0;
     }
 
     NumberOfPseudoAtoms++;
@@ -296,7 +299,7 @@ int SelectRandomMoleculeOfTypeExcludingFractionalMolecule(int comp)
     // 1) the CFMC fractional molecule (at most 1)
     // 2) RXMC molecules
     d=(int)(RandomNumber()*(Components[comp].NumberOfMolecules[CurrentSystem]
-            -(Components[comp].CFMoleculePresent[CurrentSystem]?1:0)
+            -(Components[comp].FractionalMolecule[CurrentSystem]>=0?1:0)
             -Components[comp].NumberOfRXMCMoleculesPresent[CurrentSystem]));
 
     count=-1;
@@ -317,7 +320,7 @@ int SelectRandomMoleculeOfTypeExcludingFractionalMolecule(int comp)
     // 1) the CFMC fractional molecule (at most 1)
     // 2) RXMC molecules
     d=(int)(RandomNumber()*(Components[comp].NumberOfMolecules[CurrentSystem]
-            -(Components[comp].CFMoleculePresent[CurrentSystem]?1:0)
+            -(Components[comp].FractionalMolecule[CurrentSystem]>=0?1:0)
             -Components[comp].NumberOfRXMCMoleculesPresent[CurrentSystem]));
 
     count=-1;
@@ -418,7 +421,7 @@ int SelectRandomMoleculeOfTypeExcludingReactionMolecules(int reaction,int **Lamb
   for(i=0;i<NumberOfComponents;i++)
   {
     numberOfSelectableMolecules=Components[i].NumberOfMolecules[CurrentSystem]
-                                -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
+                                -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
                                 -numberOfReactionMoleculesForComponent(i);
     for(j=0;j<ReactantsStoichiometry[reaction][i];j++)
     {
@@ -467,7 +470,7 @@ int SelectRandomMoleculeOfTypeExcludingProductMolecules(int reaction,int **Lambd
   for(i=0;i<NumberOfComponents;i++)
   {
     numberOfSelectableMolecules=Components[i].NumberOfMolecules[CurrentSystem]
-                                -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
+                                -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
                                 -numberOfReactionMoleculesForComponent(i);
     for(j=0;j<ProductsStoichiometry[reaction][i];j++)
     {
@@ -512,6 +515,7 @@ void ReadPseudoAtomsDefinitions(void)
 
   NumberOfPseudoAtomsCount=(int**)calloc(NumberOfSystems,sizeof(int*));
   NumberOfPseudoAtomsType=(int**)calloc(NumberOfSystems,sizeof(int*));
+  NumberOfFractionalPseudoAtomsType=(int**)calloc(NumberOfSystems,sizeof(int*));
 
   sprintf(buffer,"./pseudo_atoms.def");
   if(!(FilePtr=fopen(buffer,"r")))
@@ -539,6 +543,7 @@ void ReadPseudoAtomsDefinitions(void)
   {
     NumberOfPseudoAtomsCount[i]=(int*)calloc(NumberOfPseudoAtoms,sizeof(int));
     NumberOfPseudoAtomsType[i]=(int*)calloc(NumberOfPseudoAtoms,sizeof(int));
+    NumberOfFractionalPseudoAtomsType[i]=(int*)calloc(NumberOfPseudoAtoms,sizeof(int));
   }
 
   for(i=0;i<NumberOfPseudoAtoms;i++)
@@ -1142,12 +1147,16 @@ void ReadComponentDefinition(int comp)
   Components[comp].CpuTimeCFSwapLambdaMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeCBCFSwapLambdaMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeWidomMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+  Components[comp].CpuTimeGibbsWidomMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeSurfaceAreaMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeGibbsChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeCFGibbsChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeCBCFGibbsChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeGibbsIdentityChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeExchangeFractionalParticleMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+  Components[comp].CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+  Components[comp].CpuTimeCFGibbsLambdaChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+  Components[comp].CpuTimeCFGibbsFractionalToIntegerMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
 
   Components[comp].MaximumCBMCChangeBondLength=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
   Components[comp].MaximumCBMCChangeBendAngle=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
@@ -3426,12 +3435,16 @@ void RescaleComponentProbabilities(void)
             Components[i].ProbabilityCFSwapLambdaMove+
             Components[i].ProbabilityCBCFSwapLambdaMove+
             Components[i].ProbabilityWidomMove+
+            Components[i].ProbabilityGibbsWidomMove+
             Components[i].ProbabilitySurfaceAreaMove+
             Components[i].ProbabilityGibbsChangeMove+
             Components[i].ProbabilityGibbsIdentityChangeMove+
             Components[i].ProbabilityCFGibbsChangeMove+
             Components[i].ProbabilityCBCFGibbsChangeMove+
             Components[i].ProbabilityExchangeFractionalParticleMove+
+            Components[i].ProbabilityCFGibbsSwapFractionalMoleculeToOtherBoxMove+
+            Components[i].ProbabilityCFGibbsLambdaChangeMove+
+            Components[i].ProbabilityCFGibbsFractionalToIntegerMove+
             ProbabilityParallelTemperingMove+
             ProbabilityHyperParallelTemperingMove+
             ProbabilityParallelMolFractionMove+
@@ -3458,14 +3471,19 @@ void RescaleComponentProbabilities(void)
     Components[i].ProbabilityCFSwapLambdaMove+=Components[i].ProbabilitySwapMove;
     Components[i].ProbabilityCBCFSwapLambdaMove+=Components[i].ProbabilityCFSwapLambdaMove;
     Components[i].ProbabilityWidomMove+=Components[i].ProbabilityCBCFSwapLambdaMove;
-    Components[i].ProbabilitySurfaceAreaMove+=Components[i].ProbabilityWidomMove;
+    Components[i].ProbabilityGibbsWidomMove+=Components[i].ProbabilityWidomMove;
+    Components[i].ProbabilitySurfaceAreaMove+=Components[i].ProbabilityGibbsWidomMove;
     Components[i].ProbabilityGibbsChangeMove+=Components[i].ProbabilitySurfaceAreaMove;
     Components[i].ProbabilityGibbsIdentityChangeMove+=Components[i].ProbabilityGibbsChangeMove;
     Components[i].ProbabilityCFGibbsChangeMove+=Components[i].ProbabilityGibbsIdentityChangeMove;
     Components[i].ProbabilityCBCFGibbsChangeMove+=Components[i].ProbabilityCFGibbsChangeMove;
     Components[i].ProbabilityExchangeFractionalParticleMove+=Components[i].ProbabilityCBCFGibbsChangeMove;
 
-    Components[i].ProbabilityParallelTemperingMove=ProbabilityParallelTemperingMove+Components[i].ProbabilityExchangeFractionalParticleMove;
+    Components[i].ProbabilityCFGibbsSwapFractionalMoleculeToOtherBoxMove+=Components[i].ProbabilityExchangeFractionalParticleMove;
+    Components[i].ProbabilityCFGibbsLambdaChangeMove+=Components[i].ProbabilityCFGibbsSwapFractionalMoleculeToOtherBoxMove;
+    Components[i].ProbabilityCFGibbsFractionalToIntegerMove+=Components[i].ProbabilityCFGibbsLambdaChangeMove;
+
+    Components[i].ProbabilityParallelTemperingMove=ProbabilityParallelTemperingMove+Components[i].ProbabilityCFGibbsFractionalToIntegerMove;
     Components[i].ProbabilityHyperParallelTemperingMove=ProbabilityHyperParallelTemperingMove+Components[i].ProbabilityParallelTemperingMove;
     Components[i].ProbabilityParallelMolFractionMove=ProbabilityParallelMolFractionMove+Components[i].ProbabilityHyperParallelTemperingMove;
     Components[i].ProbabilityChiralInversionMove=ProbabilityChiralInversionMove+Components[i].ProbabilityParallelMolFractionMove;
@@ -3494,12 +3512,16 @@ void RescaleComponentProbabilities(void)
       Components[i].ProbabilityCFSwapLambdaMove/=TotProb;
       Components[i].ProbabilityCBCFSwapLambdaMove/=TotProb;
       Components[i].ProbabilityWidomMove/=TotProb;
+      Components[i].ProbabilityGibbsWidomMove/=TotProb;
       Components[i].ProbabilitySurfaceAreaMove/=TotProb;
       Components[i].ProbabilityGibbsChangeMove/=TotProb;
       Components[i].ProbabilityGibbsIdentityChangeMove/=TotProb;
       Components[i].ProbabilityCFGibbsChangeMove/=TotProb;
       Components[i].ProbabilityCBCFGibbsChangeMove/=TotProb;
       Components[i].ProbabilityExchangeFractionalParticleMove/=TotProb;
+      Components[i].ProbabilityCFGibbsSwapFractionalMoleculeToOtherBoxMove/=TotProb;
+      Components[i].ProbabilityCFGibbsLambdaChangeMove/=TotProb;
+      Components[i].ProbabilityCFGibbsFractionalToIntegerMove/=TotProb;
 
       Components[i].ProbabilityParallelTemperingMove/=TotProb;
       Components[i].ProbabilityHyperParallelTemperingMove/=TotProb;
@@ -3529,14 +3551,19 @@ void RescaleComponentProbabilities(void)
     Components[i].FractionOfCFSwapLambdaMove=Components[i].ProbabilityCFSwapLambdaMove-Components[i].ProbabilitySwapMove;
     Components[i].FractionOfCBCFSwapLambdaMove=Components[i].ProbabilityCBCFSwapLambdaMove-Components[i].ProbabilityCFSwapLambdaMove;
     Components[i].FractionOfWidomMove=Components[i].ProbabilityWidomMove-Components[i].ProbabilityCBCFSwapLambdaMove;
-    Components[i].FractionOfSurfaceAreaMove=Components[i].ProbabilitySurfaceAreaMove-Components[i].ProbabilityWidomMove;
+    Components[i].FractionOfGibbsWidomMove=Components[i].ProbabilityGibbsWidomMove-Components[i].ProbabilityWidomMove;
+    Components[i].FractionOfSurfaceAreaMove=Components[i].ProbabilitySurfaceAreaMove-Components[i].ProbabilityGibbsWidomMove;
     Components[i].FractionOfGibbsChangeMove=Components[i].ProbabilityGibbsChangeMove-Components[i].ProbabilitySurfaceAreaMove;
     Components[i].FractionOfGibbsIdentityChangeMove=Components[i].ProbabilityGibbsIdentityChangeMove-Components[i].ProbabilityGibbsChangeMove;
     Components[i].FractionOfCFGibbsChangeMove=Components[i].ProbabilityCFGibbsChangeMove-Components[i].ProbabilityGibbsIdentityChangeMove;
     Components[i].FractionOfCBCFGibbsChangeMove=Components[i].ProbabilityCBCFGibbsChangeMove-Components[i].ProbabilityCFGibbsChangeMove;
     Components[i].FractionOfExchangeFractionalParticleMove=Components[i].ProbabilityExchangeFractionalParticleMove-Components[i].ProbabilityCBCFGibbsChangeMove;
 
-    Components[i].FractionOfParallelTemperingMove=Components[i].ProbabilityParallelTemperingMove-Components[i].ProbabilityExchangeFractionalParticleMove;
+    Components[i].FractionOfCFGibbsSwapFractionalMoleculeToOtherBoxMove=Components[i].ProbabilityCFGibbsSwapFractionalMoleculeToOtherBoxMove-Components[i].ProbabilityExchangeFractionalParticleMove;
+    Components[i].FractionOfCFGibbsLambdaChangeMove=Components[i].ProbabilityCFGibbsLambdaChangeMove-Components[i].ProbabilityCFGibbsSwapFractionalMoleculeToOtherBoxMove;
+    Components[i].FractionOfCFGibbsFractionalToIntegerMove=Components[i].ProbabilityCFGibbsFractionalToIntegerMove-Components[i].ProbabilityCFGibbsLambdaChangeMove;
+
+    Components[i].FractionOfParallelTemperingMove=Components[i].ProbabilityParallelTemperingMove-Components[i].ProbabilityCFGibbsFractionalToIntegerMove;
     Components[i].FractionOfHyperParallelTemperingMove=Components[i].ProbabilityHyperParallelTemperingMove-Components[i].ProbabilityParallelTemperingMove;
     Components[i].FractionOfParallelMolFractionMove=Components[i].ProbabilityParallelMolFractionMove-Components[i].ProbabilityHyperParallelTemperingMove;
     Components[i].FractionOfChiralInversionMove=Components[i].ProbabilityChiralInversionMove-Components[i].ProbabilityParallelMolFractionMove;
@@ -5681,6 +5708,156 @@ void ReadBiasingProfile(int comp)
 }
 
 /*********************************************************************************************************
+ * Name       | TotalNumberOfIntegerMolecules                                                            *
+ * ----------------------------------------------------------------------------------------------------- *
+ * Function   | Dynamically computes the number of integer molecule for the current system.              *
+ * Parameters | -                                                                                        *
+ * Note       | The number of fractional molecules can vary for the new Gibbs method.                    *
+ *********************************************************************************************************/
+int TotalNumberOfIntegerMolecules()
+{
+  int i;
+  int total=0;
+
+  for(i=0;i<NumberOfComponents;i++)
+  {
+    total += Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem];
+  }
+  return total;
+}
+
+int TotalNumberOfIntegerAdsorbates()
+{
+  int i;
+  int total=0;
+
+  for(i=0;i<NumberOfComponents;i++)
+  {
+    if(!Components[i].ExtraFrameworkMolecule)
+    {
+      total += Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem];
+    }
+  }
+  return total;
+}
+
+int TotalNumberOfFractionalAdsorbates()
+{
+  int i;
+  int total=0;
+
+  for(i=0;i<NumberOfComponents;i++)
+  {
+    if(!Components[i].ExtraFrameworkMolecule)
+    {
+      total += Components[i].FractionalMolecule[CurrentSystem]>=0?1:0;
+    }
+  }
+  return total;
+}
+
+
+int TotalNumberOfIntegerCations()
+{
+  int i;
+  int total=0;
+
+  for(i=0;i<NumberOfComponents;i++)
+  {
+    if(Components[i].ExtraFrameworkMolecule)
+    {
+      total += Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem];
+    }
+  }
+  return total;
+}
+
+int TotalNumberOfFractionalCations()
+{
+  int i;
+  int total=0;
+
+  for(i=0;i<NumberOfComponents;i++)
+  {
+    if(Components[i].ExtraFrameworkMolecule)
+    {
+      total += Components[i].FractionalMolecule[CurrentSystem]>=0?1:0;
+    }
+  }
+  return total;
+}
+
+int TotalNumberOfFractionalMolecules()
+{
+  int i;
+  int total=0;
+
+  for(i=0;i<NumberOfComponents;i++)
+  {
+    total += (Components[i].FractionalMolecule[CurrentSystem]>=0?1:0);
+  }
+  return total;
+}
+
+int TotalNumberOfIntegerMoleculesForSystem(int k)
+{
+  int i;
+  int total=0;
+
+  for(i=0;i<NumberOfComponents;i++)
+  {
+    total += Components[i].NumberOfMolecules[k]-
+            (Components[i].FractionalMolecule[k]>=0?1:0)-
+             Components[i].NumberOfRXMCMoleculesPresent[k];
+  }
+  return total;
+}
+
+int TotalNumberOfFractionalMoleculesForSystem(int k)
+{
+  int i;
+  int total=0;
+
+  for(i=0;i<NumberOfComponents;i++)
+  {
+    total += (Components[i].FractionalMolecule[k]>=0?1:0);
+  }
+  return total;
+}
+
+// The biasing is the sum of the weights of the components
+REAL CFBiasingWeight()
+{
+  int i,j,index;
+  int  FractionalMolecule;
+  REAL weight,Lambda;
+
+  weight=0.0;
+  for(i=0;i<NumberOfSystems;i++)
+  {
+    for(j=0;j<NumberOfComponents;j++)
+    {
+      FractionalMolecule=Components[j].FractionalMolecule[i];
+      if(FractionalMolecule>=0)
+      {
+        if(Components[j].ExtraFrameworkMolecule)
+          Lambda=Cations[i][FractionalMolecule].Atoms[0].CFVDWScalingParameter;
+        else
+          Lambda=Adsorbates[i][FractionalMolecule].Atoms[0].CFVDWScalingParameter;
+
+        index=(int)(Components[j].CFLambdaHistogramSize*Lambda);
+        if(index==Components[j].CFLambdaHistogramSize) index--;
+        weight+=Components[j].CFBiasingFactors[i][index];
+      }
+    }
+  }
+
+  return exp(-weight);
+}
+
+
+
+/*********************************************************************************************************
  * Name       | ValidFractionalPoint                                                                     *
  * ----------------------------------------------------------------------------------------------------- *
  * Function   | Determines whether a fractional position is allowed or not.                              *
@@ -5825,9 +6002,10 @@ void PrintCPUStatistics(FILE *FilePtr)
   REAL CpuTimeTranslationMove,CpuTimeRandomTranslationMove,CpuTimeRotationMove,CpuTimeRandomRotationMove,CpuTimePartialReinsertionMove;
   REAL CpuTimeReinsertionMove,CpuTimeReinsertionInPlaceMove,CpuTimeReinsertionInPlaneMove;
   REAL CpuTimeIdentityChangeMove,CpuTimeSwapMoveInsertion,CpuTimeSwapMoveDeletion;
-  REAL CpuTimeCFSwapLambdaMove,CpuTimeCBCFSwapLambdaMove,CpuTimeWidomMove;
+  REAL CpuTimeCFSwapLambdaMove,CpuTimeCBCFSwapLambdaMove,CpuTimeWidomMove,CpuTimeGibbsWidomMove;
   REAL CpuTimeSurfaceAreaMove,CpuTimeGibbsChangeMove,CpuTimeCFGibbsChangeMove;
   REAL CpuTimeCBCFGibbsChangeMove,CpuTimeGibbsIdentityChangeMove,CpuTimeExchangeFractionalParticleMove;
+  REAL CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove,CpuTimeCFGibbsLambdaChangeMove,CpuTimeCFGibbsFractionalToIntegerMove;
   REAL CpuTimeParallelTemperingMoveTotal,CpuTimeHyperParallelTemperingMoveTotal,CpuTimeParallelMolFractionMoveTotal;
   REAL CpuTimeChiralInversionMoveTotal,CpuTimeHybridNVEMoveTotal,CpuTimeHybridNPHMoveTotal;
   REAL CpuTimeHybridNPHPRMoveTotal,CpuTimeVolumeChangeMoveTotal,CpuTimeBoxShapeChangeMoveTotal;
@@ -5848,13 +6026,16 @@ void PrintCPUStatistics(FILE *FilePtr)
   CpuTimeCFSwapLambdaMove=0.0;
   CpuTimeCBCFSwapLambdaMove=0.0;
   CpuTimeWidomMove=0.0;
+  CpuTimeGibbsWidomMove=0.0;
   CpuTimeSurfaceAreaMove=0.0;
   CpuTimeGibbsChangeMove=0.0;
   CpuTimeCFGibbsChangeMove=0.0;
   CpuTimeCBCFGibbsChangeMove=0.0;
   CpuTimeGibbsIdentityChangeMove=0.0;
   CpuTimeExchangeFractionalParticleMove=0.0;
-
+  CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove=0.0;
+  CpuTimeCFGibbsLambdaChangeMove=0.0;
+  CpuTimeCFGibbsFractionalToIntegerMove=0.0;
 
   fprintf(FilePtr,"Total CPU timings:\n");
   fprintf(FilePtr,"===========================================\n");
@@ -5883,12 +6064,16 @@ void PrintCPUStatistics(FILE *FilePtr)
     fprintf(FilePtr,"\tswap lambda (CFMC):                 %18.10g [s]\n",Components[i].CpuTimeCFSwapLambdaMove[CurrentSystem]);
     fprintf(FilePtr,"\tswap lambda (CB/CFMC):              %18.10g [s]\n",Components[i].CpuTimeCBCFSwapLambdaMove[CurrentSystem]);
     fprintf(FilePtr,"\tWidom:                              %18.10g [s]\n",Components[i].CpuTimeWidomMove[CurrentSystem]);
+    fprintf(FilePtr,"\tGibbs Widom:                        %18.10g [s]\n",Components[i].CpuTimeGibbsWidomMove[CurrentSystem]);
     fprintf(FilePtr,"\tsurface area:                       %18.10g [s]\n",Components[i].CpuTimeSurfaceAreaMove[CurrentSystem]);
     fprintf(FilePtr,"\tGibbs particle transform:           %18.10g [s]\n",Components[i].CpuTimeGibbsChangeMove[CurrentSystem]);
     fprintf(FilePtr,"\tGibbs particle transform (CFMC):    %18.10g [s]\n",Components[i].CpuTimeCFGibbsChangeMove[CurrentSystem]);
     fprintf(FilePtr,"\tGibbs particle transform (CB/CFMC): %18.10g [s]\n",Components[i].CpuTimeCBCFGibbsChangeMove[CurrentSystem]);
     fprintf(FilePtr,"\tGibbs indentity change:             %18.10g [s]\n",Components[i].CpuTimeGibbsIdentityChangeMove[CurrentSystem]);
     fprintf(FilePtr,"\tExchange fract./int. particle:      %18.10g [s]\n",Components[i].CpuTimeExchangeFractionalParticleMove[CurrentSystem]);
+    fprintf(FilePtr,"\tSwap Gibbs-fractional molecules:    %18.10g [s]\n",Components[i].CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove[CurrentSystem]);
+    fprintf(FilePtr,"\tChange Gibs-lambda value:           %18.10g [s]\n",Components[i].CpuTimeCFGibbsLambdaChangeMove[CurrentSystem]);
+    fprintf(FilePtr,"\tConvert Gibbs fract. to integer:    %18.10g [s]\n",Components[i].CpuTimeCFGibbsFractionalToIntegerMove[CurrentSystem]);
 
     CpuTimeTranslationMove+=Components[i].CpuTimeTranslationMove[CurrentSystem];
     CpuTimeRandomTranslationMove+=Components[i].CpuTimeRandomTranslationMove[CurrentSystem];
@@ -5904,12 +6089,16 @@ void PrintCPUStatistics(FILE *FilePtr)
     CpuTimeCFSwapLambdaMove+=Components[i].CpuTimeCFSwapLambdaMove[CurrentSystem];
     CpuTimeCBCFSwapLambdaMove+=Components[i].CpuTimeCBCFSwapLambdaMove[CurrentSystem];
     CpuTimeWidomMove+=Components[i].CpuTimeWidomMove[CurrentSystem];
+    CpuTimeGibbsWidomMove+=Components[i].CpuTimeGibbsWidomMove[CurrentSystem];
     CpuTimeSurfaceAreaMove+=Components[i].CpuTimeSurfaceAreaMove[CurrentSystem];
     CpuTimeGibbsChangeMove+=Components[i].CpuTimeGibbsChangeMove[CurrentSystem];
     CpuTimeCFGibbsChangeMove+=Components[i].CpuTimeCFGibbsChangeMove[CurrentSystem];
     CpuTimeCBCFGibbsChangeMove+=Components[i].CpuTimeCBCFGibbsChangeMove[CurrentSystem];
     CpuTimeGibbsIdentityChangeMove+=Components[i].CpuTimeGibbsIdentityChangeMove[CurrentSystem];
     CpuTimeExchangeFractionalParticleMove+=Components[i].CpuTimeExchangeFractionalParticleMove[CurrentSystem];
+    CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove+=Components[i].CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove[CurrentSystem];
+    CpuTimeCFGibbsLambdaChangeMove+=Components[i].CpuTimeCFGibbsLambdaChangeMove[CurrentSystem];
+    CpuTimeCFGibbsFractionalToIntegerMove+=Components[i].CpuTimeCFGibbsFractionalToIntegerMove[CurrentSystem];
   }
 
   fprintf(FilePtr,"\nTotal all components:\n");
@@ -5927,12 +6116,16 @@ void PrintCPUStatistics(FILE *FilePtr)
   fprintf(FilePtr,"\tswap lambda (CFMC):                 %18.10g [s]\n",CpuTimeCFSwapLambdaMove);
   fprintf(FilePtr,"\tswap lambda (CB/CFMC):              %18.10g [s]\n",CpuTimeCBCFSwapLambdaMove);
   fprintf(FilePtr,"\tWidom:                              %18.10g [s]\n",CpuTimeWidomMove);
+  fprintf(FilePtr,"\tGibbs Widom:                        %18.10g [s]\n",CpuTimeGibbsWidomMove);
   fprintf(FilePtr,"\tsurface area:                       %18.10g [s]\n",CpuTimeSurfaceAreaMove);
   fprintf(FilePtr,"\tGibbs particle transform:           %18.10g [s]\n",CpuTimeGibbsChangeMove);
   fprintf(FilePtr,"\tGibbs particle transform (CFMC):    %18.10g [s]\n",CpuTimeCFGibbsChangeMove);
   fprintf(FilePtr,"\tGibbs particle transform (CB/CFMC): %18.10g [s]\n",CpuTimeCBCFGibbsChangeMove);
   fprintf(FilePtr,"\tGibbs identity change:              %18.10g [s]\n",CpuTimeGibbsIdentityChangeMove);
   fprintf(FilePtr,"\tExchange fract./int. particle:      %18.10g [s]\n",CpuTimeExchangeFractionalParticleMove);
+  fprintf(FilePtr,"\tSwap Gibbs-fractional molecules:    %18.10g [s]\n",CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove);
+  fprintf(FilePtr,"\tChange Gibs-lambda value:           %18.10g [s]\n",CpuTimeCFGibbsLambdaChangeMove);
+  fprintf(FilePtr,"\tConvert Gibbs fract. to integer:    %18.10g [s]\n",CpuTimeCFGibbsFractionalToIntegerMove);
 
   fprintf(FilePtr,"\nSystem moves:\n");
   fprintf(FilePtr,"\tparallel tempering:            %18.10g [s]\n",CpuTimeParallelTemperingMove[CurrentSystem]);
@@ -5968,12 +6161,16 @@ void PrintCPUStatistics(FILE *FilePtr)
   CpuTimeCFSwapLambdaMove=0.0;
   CpuTimeCBCFSwapLambdaMove=0.0;
   CpuTimeWidomMove=0.0;
+  CpuTimeGibbsWidomMove=0.0;
   CpuTimeSurfaceAreaMove=0.0;
   CpuTimeGibbsChangeMove=0.0;
   CpuTimeCFGibbsChangeMove=0.0;
   CpuTimeCBCFGibbsChangeMove=0.0;
   CpuTimeGibbsIdentityChangeMove=0.0;
   CpuTimeExchangeFractionalParticleMove=0.0;
+  CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove=0.0;
+  CpuTimeCFGibbsLambdaChangeMove=0.0;
+  CpuTimeCFGibbsFractionalToIntegerMove=0.0;
 
   for(j=0;j<NumberOfSystems;j++)
   {
@@ -5993,12 +6190,16 @@ void PrintCPUStatistics(FILE *FilePtr)
       CpuTimeCFSwapLambdaMove+=Components[i].CpuTimeCFSwapLambdaMove[j];
       CpuTimeCBCFSwapLambdaMove+=Components[i].CpuTimeCBCFSwapLambdaMove[j];
       CpuTimeWidomMove+=Components[i].CpuTimeWidomMove[j];
+      CpuTimeGibbsWidomMove+=Components[i].CpuTimeGibbsWidomMove[j];
       CpuTimeSurfaceAreaMove+=Components[i].CpuTimeSurfaceAreaMove[j];
       CpuTimeGibbsChangeMove+=Components[i].CpuTimeGibbsChangeMove[j];
       CpuTimeCFGibbsChangeMove+=Components[i].CpuTimeCFGibbsChangeMove[j];
       CpuTimeCBCFGibbsChangeMove+=Components[i].CpuTimeCBCFGibbsChangeMove[j];
       CpuTimeGibbsIdentityChangeMove+=Components[i].CpuTimeGibbsIdentityChangeMove[j];
       CpuTimeExchangeFractionalParticleMove+=Components[i].CpuTimeExchangeFractionalParticleMove[j];
+      CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove+=Components[i].CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove[j];
+      CpuTimeCFGibbsLambdaChangeMove+=Components[i].CpuTimeCFGibbsLambdaChangeMove[j];
+      CpuTimeCFGibbsFractionalToIntegerMove+=Components[i].CpuTimeCFGibbsFractionalToIntegerMove[j];
     }
   }
 
@@ -6017,12 +6218,16 @@ void PrintCPUStatistics(FILE *FilePtr)
   fprintf(FilePtr,"\tswap lambda (CFMC):                 %18.10g [s]\n",CpuTimeCFSwapLambdaMove);
   fprintf(FilePtr,"\tswap lambda (CB/CFMC):              %18.10g [s]\n",CpuTimeCBCFSwapLambdaMove);
   fprintf(FilePtr,"\tWidom:                              %18.10g [s]\n",CpuTimeWidomMove);
+  fprintf(FilePtr,"\tGibbs Widom:                        %18.10g [s]\n",CpuTimeGibbsWidomMove);
   fprintf(FilePtr,"\tsurface area:                       %18.10g [s]\n",CpuTimeSurfaceAreaMove);
   fprintf(FilePtr,"\tGibbs particle transform:           %18.10g [s]\n",CpuTimeGibbsChangeMove);
   fprintf(FilePtr,"\tGibbs particle transform (CFMC):    %18.10g [s]\n",CpuTimeCFGibbsChangeMove);
   fprintf(FilePtr,"\tGibbs particle transform (CB/CFMC): %18.10g [s]\n",CpuTimeCBCFGibbsChangeMove);
   fprintf(FilePtr,"\tGibbs indentity change:             %18.10g [s]\n",CpuTimeGibbsIdentityChangeMove);
   fprintf(FilePtr,"\tExchange frac./int. particle:       %18.10g [s]\n",CpuTimeExchangeFractionalParticleMove);
+  fprintf(FilePtr,"\tSwap Gibbs-fractional molecules:    %18.10g [s]\n",CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove);
+  fprintf(FilePtr,"\tChange Gibs-lambda value:           %18.10g [s]\n",CpuTimeCFGibbsLambdaChangeMove);
+  fprintf(FilePtr,"\tConvert Gibbs fract. to integer:    %18.10g [s]\n",CpuTimeCFGibbsFractionalToIntegerMove);
 
   CpuTimeParallelTemperingMoveTotal=0.0;
   CpuTimeHyperParallelTemperingMoveTotal=0.0;
@@ -6097,6 +6302,7 @@ void WriteRestartPseudoAtoms(FILE *FilePtr)
   {
     fwrite(NumberOfPseudoAtomsCount[i],sizeof(int),NumberOfPseudoAtoms,FilePtr);
     fwrite(NumberOfPseudoAtomsType[i],sizeof(int),NumberOfPseudoAtoms,FilePtr);
+    fwrite(NumberOfFractionalPseudoAtomsType[i],sizeof(int),NumberOfPseudoAtoms,FilePtr);
   }
   fwrite(MapPseudoAtom,sizeof(int),NumberOfPseudoAtoms,FilePtr);
 
@@ -6129,6 +6335,7 @@ void ReadRestartPseudoAtoms(FILE *FilePtr)
   ShiftPotential=(int**)calloc(NumberOfPseudoAtoms,sizeof(int*));
   NumberOfPseudoAtomsCount=(int**)calloc(NumberOfSystems,sizeof(int*));
   NumberOfPseudoAtomsType=(int**)calloc(NumberOfSystems,sizeof(int*));
+  NumberOfFractionalPseudoAtomsType=(int**)calloc(NumberOfSystems,sizeof(int*));
   NumberOfPseudoAtomsTypeNew=(int*)calloc(NumberOfPseudoAtoms,sizeof(int));
   NumberOfPseudoAtomsTypeOld=(int*)calloc(NumberOfPseudoAtoms,sizeof(int));
   MapPseudoAtom=(int*)calloc(NumberOfPseudoAtoms,sizeof(int));
@@ -6143,6 +6350,7 @@ void ReadRestartPseudoAtoms(FILE *FilePtr)
   {
     NumberOfPseudoAtomsCount[i]=(int*)calloc(NumberOfPseudoAtoms,sizeof(int));
     NumberOfPseudoAtomsType[i]=(int*)calloc(NumberOfPseudoAtoms,sizeof(int));
+    NumberOfFractionalPseudoAtomsType[i]=(int*)calloc(NumberOfPseudoAtoms,sizeof(int));
   }
 
   fread(PseudoAtoms,sizeof(PSEUDO_ATOM),NumberOfPseudoAtoms,FilePtr);
@@ -6157,6 +6365,7 @@ void ReadRestartPseudoAtoms(FILE *FilePtr)
   {
     fread(NumberOfPseudoAtomsCount[i],sizeof(int),NumberOfPseudoAtoms,FilePtr);
     fread(NumberOfPseudoAtomsType[i],sizeof(int),NumberOfPseudoAtoms,FilePtr);
+    fread(NumberOfFractionalPseudoAtomsType[i],sizeof(int),NumberOfPseudoAtoms,FilePtr);
   }
   fread(MapPseudoAtom,sizeof(int),NumberOfPseudoAtoms,FilePtr);
 
@@ -6726,12 +6935,16 @@ void WriteRestartComponent(FILE *FilePtr)
     fwrite(Components[i].CpuTimeCFSwapLambdaMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeCBCFSwapLambdaMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeWidomMove,sizeof(REAL),NumberOfSystems,FilePtr);
+    fwrite(Components[i].CpuTimeGibbsWidomMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeSurfaceAreaMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeGibbsChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeCFGibbsChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeCBCFGibbsChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeGibbsIdentityChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeExchangeFractionalParticleMove,sizeof(REAL),NumberOfSystems,FilePtr);
+    fwrite(Components[i].CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove,sizeof(REAL),NumberOfSystems,FilePtr);
+    fwrite(Components[i].CpuTimeCFGibbsLambdaChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
+    fwrite(Components[i].CpuTimeCFGibbsFractionalToIntegerMove,sizeof(REAL),NumberOfSystems,FilePtr);
   }
 
 
@@ -7230,12 +7443,16 @@ void ReadRestartComponent(FILE *FilePtr)
     Components[i].CpuTimeCFSwapLambdaMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeCBCFSwapLambdaMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeWidomMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+    Components[i].CpuTimeGibbsWidomMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeSurfaceAreaMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeGibbsChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeCFGibbsChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeCBCFGibbsChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeGibbsIdentityChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeExchangeFractionalParticleMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+    Components[i].CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+    Components[i].CpuTimeCFGibbsLambdaChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+    Components[i].CpuTimeCFGibbsFractionalToIntegerMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
 
     fread(Components[i].CpuTimeTranslationMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeRandomTranslationMove,sizeof(REAL),NumberOfSystems,FilePtr);
@@ -7251,12 +7468,16 @@ void ReadRestartComponent(FILE *FilePtr)
     fread(Components[i].CpuTimeCFSwapLambdaMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeCBCFSwapLambdaMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeWidomMove,sizeof(REAL),NumberOfSystems,FilePtr);
+    fread(Components[i].CpuTimeGibbsWidomMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeSurfaceAreaMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeGibbsChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeCFGibbsChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeCBCFGibbsChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeGibbsIdentityChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeExchangeFractionalParticleMove,sizeof(REAL),NumberOfSystems,FilePtr);
+    fread(Components[i].CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove,sizeof(REAL),NumberOfSystems,FilePtr);
+    fread(Components[i].CpuTimeCFGibbsLambdaChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
+    fread(Components[i].CpuTimeCFGibbsFractionalToIntegerMove,sizeof(REAL),NumberOfSystems,FilePtr);
   }
 
 

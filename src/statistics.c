@@ -56,6 +56,7 @@
 #include "mc_moves.h"
 
 long long *BlockCycle;
+REAL **BlockWeightedCount;
 REAL **BlockCount;
 int Block;
 
@@ -144,7 +145,8 @@ static REAL **UExclusionConstraintsAccumulated;
 
 static REAL **UTotalAccumulated;
 
-static REAL ***NumberOfMoleculesPerComponentAccumulated;
+static REAL ***NumberOfIntegerMoleculesPerComponentAccumulated;
+static REAL ***NumberOfFractionalMoleculesPerComponentAccumulated;
 static REAL ***NumberOfExcessMoleculesPerComponentAccumulated;
 static REAL ***DensityPerComponentAccumulated;
 static REAL **TotalEnergyTimesNumberOfMoleculesAccumulated;
@@ -158,10 +160,11 @@ static VECTOR **TotalSystemDipoleSquaredAccumulated;
 static REAL **TotalSystemNormDipoleAccumulated;
 static REAL **TotalSystemNormDipoleSquaredAccumulated;
 
-static REAL **NumberOfMoleculesAccumulated;
+static REAL **NumberOfIntegerMoleculesAccumulated;
 static REAL **NumberOfMoleculesSquaredAccumulated;
 static REAL ****NumberOfMoleculesPerComponentSquaredAccumulated;
 static REAL **DensityAccumulated;
+static REAL **GibbsDensityAccumulated;
 
 static VECTOR **BoxAccumulated;
 static REAL **BoxAXAccumulated;
@@ -218,11 +221,16 @@ static REAL_MATRIX3x3 **StressTensorAccumulated;
 
 REAL ***WidomRosenbluthFactorAccumulated;
 REAL ***WidomRosenbluthFactorCount;
-
 REAL ***WidomEnergyDifferenceAccumulated;
-
 REAL ***WidomEnergyFrameworkAccumulated;
 REAL ***WidomEnergyFrameworkCount;
+
+REAL ***GibbsWidomRosenbluthFactorAccumulated;
+REAL ***GibbsWidomIdealGasAccumulated;
+REAL ***GibbsWidomRosenbluthFactorCount;
+REAL ***GibbsWidomEnergyDifferenceAccumulated;
+REAL ***GibbsWidomEnergyFrameworkAccumulated;
+REAL ***GibbsWidomEnergyFrameworkCount;
 
 REAL **SurfaceAreaFrameworkAccumulated;
 REAL ***SurfaceAreaFrameworksAccumulated;
@@ -432,7 +440,7 @@ REAL_MATRIX3x3 ComputeCurrentAverageStressTensor(void)
   Average.az=0.0; Average.bz=0.0; Average.cz=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       Average.ax+=StressTensorAccumulated[CurrentSystem][i].ax;
       Average.ay+=StressTensorAccumulated[CurrentSystem][i].ay;
@@ -446,7 +454,7 @@ REAL_MATRIX3x3 ComputeCurrentAverageStressTensor(void)
       Average.cy+=StressTensorAccumulated[CurrentSystem][i].cy;
       Average.cz+=StressTensorAccumulated[CurrentSystem][i].cz;
 
-      count+=BlockCount[CurrentSystem][i];
+      count+=BlockWeightedCount[CurrentSystem][i];
     }
   }
   if(count>0)
@@ -470,7 +478,7 @@ REAL_MATRIX3x3 ComputeCurrentAverageConfigurationalStressTensor(void)
   Average.az=0.0; Average.bz=0.0; Average.cz=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       Average.ax+=ConfigurationalStressTensorAccumulated[CurrentSystem][i].ax;
       Average.ay+=ConfigurationalStressTensorAccumulated[CurrentSystem][i].ay;
@@ -484,7 +492,7 @@ REAL_MATRIX3x3 ComputeCurrentAverageConfigurationalStressTensor(void)
       Average.cy+=ConfigurationalStressTensorAccumulated[CurrentSystem][i].cy;
       Average.cz+=ConfigurationalStressTensorAccumulated[CurrentSystem][i].cz;
 
-      count+=BlockCount[CurrentSystem][i];
+      count+=BlockWeightedCount[CurrentSystem][i];
     }
   }
   if(count>0)
@@ -504,10 +512,10 @@ REAL GetAverageTemperature(void)
 
   sum1=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum1+=TemperatureAccumulated[CurrentSystem][i];
-      sum2+=BlockCount[CurrentSystem][i];
+      sum2+=BlockWeightedCount[CurrentSystem][i];
     }
   if((sum1>0.0)&&(sum2>0.0))
     return sum1/sum2;
@@ -522,10 +530,10 @@ REAL GetAverageCellTemperature(void)
 
   sum1=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum1+=TemperatureCellAccumulated[CurrentSystem][i];
-      sum2+=BlockCount[CurrentSystem][i];
+      sum2+=BlockWeightedCount[CurrentSystem][i];
     }
   if((sum1>0.0)&&(sum2>0.0))
     return sum1/sum2;
@@ -542,10 +550,10 @@ REAL GetAverageVolume(void)
   count=sum=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum+=VolumeAccumulated[CurrentSystem][i];
-      count+=BlockCount[CurrentSystem][i];
+      count+=BlockWeightedCount[CurrentSystem][i];
     }
   }
   return sum/count;
@@ -580,7 +588,7 @@ REAL_MATRIX6x6 ComputeCurrentAverageElasticConstants(REAL_MATRIX6x6 *ElasticBorn
   Stress.az=Stress.bz=Stress.cz=0.0;
 
   for(i=0;i<NR_BLOCKS;i++)
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       AddRealMatrix9x9(&BornTerm,BornTerm,BornTermAccumulated[CurrentSystem][i]);
       AddRealMatrix9x9(&StressFluctuationTerm,StressFluctuationTerm,ConfigurationalStressFluctuationTermAccumulated[CurrentSystem][i]);
@@ -597,7 +605,7 @@ REAL_MATRIX6x6 ComputeCurrentAverageElasticConstants(REAL_MATRIX6x6 *ElasticBorn
       Stress.cy+=ConfigurationalStressTensorAccumulated[CurrentSystem][i].cy;
       Stress.cz+=ConfigurationalStressTensorAccumulated[CurrentSystem][i].cz;
 
-      count+=BlockCount[CurrentSystem][i];
+      count+=BlockWeightedCount[CurrentSystem][i];
     }
 
   DivideRealMatrix9x9ByReal(&BornTerm,BornTerm,count);
@@ -881,7 +889,10 @@ void InitializesEnergyAveragesAllSystems(void)
   {
     BlockCycle[i]=(long long)((i+1)*NumberOfCycles/(double)NR_BLOCKS);
     for(j=0;j<NumberOfSystems;j++)
+    {
+      BlockWeightedCount[j][i]=0.0;
       BlockCount[j][i]=0.0;
+    }
   }
 
   for(k=0;k<NumberOfSystems;k++)
@@ -984,21 +995,28 @@ void InitializesEnergyAveragesAllSystems(void)
       UCationBackPolarizationAccumulated[k][i]=0.0;
 
       UTotalAccumulated[k][i]=0.0;
-      NumberOfMoleculesAccumulated[k][i]=0.0;
+      NumberOfIntegerMoleculesAccumulated[k][i]=0.0;
       DensityAccumulated[k][i]=0.0;
+      GibbsDensityAccumulated[k][i]=0.0;
       for(j=0;j<NumberOfComponents;j++)
       {
-        NumberOfMoleculesPerComponentAccumulated[k][j][i]=0.0;
+        NumberOfIntegerMoleculesPerComponentAccumulated[k][j][i]=0.0;
+        NumberOfFractionalMoleculesPerComponentAccumulated[k][j][i]=0.0;
         NumberOfExcessMoleculesPerComponentAccumulated[k][j][i]=0.0;
         DensityPerComponentAccumulated[k][j][i]=0.0;
 
         WidomRosenbluthFactorAccumulated[k][j][i]=0.0;
         WidomRosenbluthFactorCount[k][j][i]=0.0;
-
         WidomEnergyDifferenceAccumulated[k][j][i]=0.0;
-
         WidomEnergyFrameworkAccumulated[k][j][i]=0.0;
         WidomEnergyFrameworkCount[k][j][i]=0.0;
+
+        GibbsWidomRosenbluthFactorAccumulated[k][j][i]=0.0;
+        GibbsWidomIdealGasAccumulated[k][j][i]=0.0;
+        GibbsWidomRosenbluthFactorCount[k][j][i]=0.0;
+        GibbsWidomEnergyDifferenceAccumulated[k][j][i]=0.0;
+        GibbsWidomEnergyFrameworkAccumulated[k][j][i]=0.0;
+        GibbsWidomEnergyFrameworkCount[k][j][i]=0.0;
 
         TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[k][j][i]=0.0;
         HostAdsorbateEnergyTimesNumberOfMoleculesAccumulated[k][j][i]=0.0;
@@ -1083,285 +1101,294 @@ void UpdateEnergyAveragesCurrentSystem(void)
   REAL PressureIdealGas;
   REAL PressureTail;
   REAL UCFMCAdsorbate,UCFMCCation;
+  REAL weight;
 
   // check for new block
   if(CurrentCycle==BlockCycle[Block])
     Block++;
 
+  // get the Lambda-weight for CFCMC; the weight=1.0 for CBMC
+  weight=CFBiasingWeight();
+
+  BlockWeightedCount[CurrentSystem][Block]+=weight;
   BlockCount[CurrentSystem][Block]+=1.0;
 
   if(ComputeBornTerm)
     AddBornTermToAverages();
 
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].ax+=ConfigurationalStressTensor[CurrentSystem].ax;
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].bx+=ConfigurationalStressTensor[CurrentSystem].bx;
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].cx+=ConfigurationalStressTensor[CurrentSystem].cx;
+  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].ax+=weight*ConfigurationalStressTensor[CurrentSystem].ax;
+  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].bx+=weight*ConfigurationalStressTensor[CurrentSystem].bx;
+  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].cx+=weight*ConfigurationalStressTensor[CurrentSystem].cx;
 
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].ay+=ConfigurationalStressTensor[CurrentSystem].ay;
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].by+=ConfigurationalStressTensor[CurrentSystem].by;
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].cy+=ConfigurationalStressTensor[CurrentSystem].cy;
+  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].ay+=weight*ConfigurationalStressTensor[CurrentSystem].ay;
+  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].by+=weight*ConfigurationalStressTensor[CurrentSystem].by;
+  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].cy+=weight*ConfigurationalStressTensor[CurrentSystem].cy;
 
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].az+=ConfigurationalStressTensor[CurrentSystem].az;
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].bz+=ConfigurationalStressTensor[CurrentSystem].bz;
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].cz+=ConfigurationalStressTensor[CurrentSystem].cz;
+  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].az+=weight*ConfigurationalStressTensor[CurrentSystem].az;
+  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].bz+=weight*ConfigurationalStressTensor[CurrentSystem].bz;
+  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].cz+=weight*ConfigurationalStressTensor[CurrentSystem].cz;
 
-  StressTensorAccumulated[CurrentSystem][Block].ax+=StressTensor[CurrentSystem].ax;
-  StressTensorAccumulated[CurrentSystem][Block].bx+=StressTensor[CurrentSystem].bx;
-  StressTensorAccumulated[CurrentSystem][Block].cx+=StressTensor[CurrentSystem].cx;
+  StressTensorAccumulated[CurrentSystem][Block].ax+=weight*StressTensor[CurrentSystem].ax;
+  StressTensorAccumulated[CurrentSystem][Block].bx+=weight*StressTensor[CurrentSystem].bx;
+  StressTensorAccumulated[CurrentSystem][Block].cx+=weight*StressTensor[CurrentSystem].cx;
 
-  StressTensorAccumulated[CurrentSystem][Block].ay+=StressTensor[CurrentSystem].ay;
-  StressTensorAccumulated[CurrentSystem][Block].by+=StressTensor[CurrentSystem].by;
-  StressTensorAccumulated[CurrentSystem][Block].cy+=StressTensor[CurrentSystem].cy;
+  StressTensorAccumulated[CurrentSystem][Block].ay+=weight*StressTensor[CurrentSystem].ay;
+  StressTensorAccumulated[CurrentSystem][Block].by+=weight*StressTensor[CurrentSystem].by;
+  StressTensorAccumulated[CurrentSystem][Block].cy+=weight*StressTensor[CurrentSystem].cy;
 
-  StressTensorAccumulated[CurrentSystem][Block].az+=StressTensor[CurrentSystem].az;
-  StressTensorAccumulated[CurrentSystem][Block].bz+=StressTensor[CurrentSystem].bz;
-  StressTensorAccumulated[CurrentSystem][Block].cz+=StressTensor[CurrentSystem].cz;
+  StressTensorAccumulated[CurrentSystem][Block].az+=weight*StressTensor[CurrentSystem].az;
+  StressTensorAccumulated[CurrentSystem][Block].bz+=weight*StressTensor[CurrentSystem].bz;
+  StressTensorAccumulated[CurrentSystem][Block].cz+=weight*StressTensor[CurrentSystem].cz;
 
 
 
-  UHostBondAccumulated[CurrentSystem][Block]+=UHostBond[CurrentSystem];
-  UHostUreyBradleyAccumulated[CurrentSystem][Block]+=UHostUreyBradley[CurrentSystem];
-  UHostBendAccumulated[CurrentSystem][Block]+=UHostBend[CurrentSystem];
-  UHostInversionBendAccumulated[CurrentSystem][Block]+=UHostInversionBend[CurrentSystem];
-  UHostTorsionAccumulated[CurrentSystem][Block]+=UHostTorsion[CurrentSystem];
-  UHostImproperTorsionAccumulated[CurrentSystem][Block]+=UHostImproperTorsion[CurrentSystem];
-  UHostBondBondAccumulated[CurrentSystem][Block]+=UHostBondBond[CurrentSystem];
-  UHostBendBendAccumulated[CurrentSystem][Block]+=UHostBendBend[CurrentSystem];
-  UHostBondBendAccumulated[CurrentSystem][Block]+=UHostBondBend[CurrentSystem];
-  UHostBondTorsionAccumulated[CurrentSystem][Block]+=UHostBondTorsion[CurrentSystem];
-  UHostBendTorsionAccumulated[CurrentSystem][Block]+=UHostBendTorsion[CurrentSystem];
+  UHostBondAccumulated[CurrentSystem][Block]+=weight*UHostBond[CurrentSystem];
+  UHostUreyBradleyAccumulated[CurrentSystem][Block]+=weight*UHostUreyBradley[CurrentSystem];
+  UHostBendAccumulated[CurrentSystem][Block]+=weight*UHostBend[CurrentSystem];
+  UHostInversionBendAccumulated[CurrentSystem][Block]+=weight*UHostInversionBend[CurrentSystem];
+  UHostTorsionAccumulated[CurrentSystem][Block]+=weight*UHostTorsion[CurrentSystem];
+  UHostImproperTorsionAccumulated[CurrentSystem][Block]+=weight*UHostImproperTorsion[CurrentSystem];
+  UHostBondBondAccumulated[CurrentSystem][Block]+=weight*UHostBondBond[CurrentSystem];
+  UHostBendBendAccumulated[CurrentSystem][Block]+=weight*UHostBendBend[CurrentSystem];
+  UHostBondBendAccumulated[CurrentSystem][Block]+=weight*UHostBondBend[CurrentSystem];
+  UHostBondTorsionAccumulated[CurrentSystem][Block]+=weight*UHostBondTorsion[CurrentSystem];
+  UHostBendTorsionAccumulated[CurrentSystem][Block]+=weight*UHostBendTorsion[CurrentSystem];
 
-  UCationBondAccumulated[CurrentSystem][Block]+=UCationBond[CurrentSystem];
-  UCationUreyBradleyAccumulated[CurrentSystem][Block]+=UCationUreyBradley[CurrentSystem];
-  UCationBendAccumulated[CurrentSystem][Block]+=UCationBend[CurrentSystem];
-  UCationInversionBendAccumulated[CurrentSystem][Block]+=UCationInversionBend[CurrentSystem];
-  UCationTorsionAccumulated[CurrentSystem][Block]+=UCationTorsion[CurrentSystem];
-  UCationImproperTorsionAccumulated[CurrentSystem][Block]+=UCationImproperTorsion[CurrentSystem];
-  UCationBondBondAccumulated[CurrentSystem][Block]+=UCationBondBond[CurrentSystem];
-  UCationBendBendAccumulated[CurrentSystem][Block]+=UCationBendBend[CurrentSystem];
-  UCationBondBendAccumulated[CurrentSystem][Block]+=UCationBondBend[CurrentSystem];
-  UCationBondTorsionAccumulated[CurrentSystem][Block]+=UCationBondTorsion[CurrentSystem];
-  UCationBendTorsionAccumulated[CurrentSystem][Block]+=UCationBendTorsion[CurrentSystem];
-  UCationIntraVDWAccumulated[CurrentSystem][Block]+=UCationIntraVDW[CurrentSystem];
-  UCationIntraChargeChargeAccumulated[CurrentSystem][Block]+=UCationIntraChargeCharge[CurrentSystem];
-  UCationIntraChargeBondDipoleAccumulated[CurrentSystem][Block]+=UCationIntraChargeBondDipole[CurrentSystem];
-  UCationIntraBondDipoleBondDipoleAccumulated[CurrentSystem][Block]+=UCationIntraBondDipoleBondDipole[CurrentSystem];
+  UCationBondAccumulated[CurrentSystem][Block]+=weight*UCationBond[CurrentSystem];
+  UCationUreyBradleyAccumulated[CurrentSystem][Block]+=weight*UCationUreyBradley[CurrentSystem];
+  UCationBendAccumulated[CurrentSystem][Block]+=weight*UCationBend[CurrentSystem];
+  UCationInversionBendAccumulated[CurrentSystem][Block]+=weight*UCationInversionBend[CurrentSystem];
+  UCationTorsionAccumulated[CurrentSystem][Block]+=weight*UCationTorsion[CurrentSystem];
+  UCationImproperTorsionAccumulated[CurrentSystem][Block]+=weight*UCationImproperTorsion[CurrentSystem];
+  UCationBondBondAccumulated[CurrentSystem][Block]+=weight*UCationBondBond[CurrentSystem];
+  UCationBendBendAccumulated[CurrentSystem][Block]+=weight*UCationBendBend[CurrentSystem];
+  UCationBondBendAccumulated[CurrentSystem][Block]+=weight*UCationBondBend[CurrentSystem];
+  UCationBondTorsionAccumulated[CurrentSystem][Block]+=weight*UCationBondTorsion[CurrentSystem];
+  UCationBendTorsionAccumulated[CurrentSystem][Block]+=weight*UCationBendTorsion[CurrentSystem];
+  UCationIntraVDWAccumulated[CurrentSystem][Block]+=weight*UCationIntraVDW[CurrentSystem];
+  UCationIntraChargeChargeAccumulated[CurrentSystem][Block]+=weight*UCationIntraChargeCharge[CurrentSystem];
+  UCationIntraChargeBondDipoleAccumulated[CurrentSystem][Block]+=weight*UCationIntraChargeBondDipole[CurrentSystem];
+  UCationIntraBondDipoleBondDipoleAccumulated[CurrentSystem][Block]+=weight*UCationIntraBondDipoleBondDipole[CurrentSystem];
 
-  UAdsorbateBondAccumulated[CurrentSystem][Block]+=UAdsorbateBond[CurrentSystem];
-  UAdsorbateUreyBradleyAccumulated[CurrentSystem][Block]+=UAdsorbateUreyBradley[CurrentSystem];
-  UAdsorbateBendAccumulated[CurrentSystem][Block]+=UAdsorbateBend[CurrentSystem];
-  UAdsorbateInversionBendAccumulated[CurrentSystem][Block]+=UAdsorbateInversionBend[CurrentSystem];
-  UAdsorbateTorsionAccumulated[CurrentSystem][Block]+=UAdsorbateTorsion[CurrentSystem];
-  UAdsorbateImproperTorsionAccumulated[CurrentSystem][Block]+=UAdsorbateImproperTorsion[CurrentSystem];
-  UAdsorbateBondBondAccumulated[CurrentSystem][Block]+=UAdsorbateBondBond[CurrentSystem];
-  UAdsorbateBendBendAccumulated[CurrentSystem][Block]+=UAdsorbateBendBend[CurrentSystem];
-  UAdsorbateBondBendAccumulated[CurrentSystem][Block]+=UAdsorbateBondBend[CurrentSystem];
-  UAdsorbateBondTorsionAccumulated[CurrentSystem][Block]+=UAdsorbateBondTorsion[CurrentSystem];
-  UAdsorbateBendTorsionAccumulated[CurrentSystem][Block]+=UAdsorbateBendTorsion[CurrentSystem];
-  UAdsorbateIntraVDWAccumulated[CurrentSystem][Block]+=UAdsorbateIntraVDW[CurrentSystem];
-  UAdsorbateIntraChargeChargeAccumulated[CurrentSystem][Block]+=UAdsorbateIntraChargeCharge[CurrentSystem];
-  UAdsorbateIntraChargeBondDipoleAccumulated[CurrentSystem][Block]+=UAdsorbateIntraChargeBondDipole[CurrentSystem];
-  UAdsorbateIntraBondDipoleBondDipoleAccumulated[CurrentSystem][Block]+=UAdsorbateIntraBondDipoleBondDipole[CurrentSystem];
+  UAdsorbateBondAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBond[CurrentSystem];
+  UAdsorbateUreyBradleyAccumulated[CurrentSystem][Block]+=weight*UAdsorbateUreyBradley[CurrentSystem];
+  UAdsorbateBendAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBend[CurrentSystem];
+  UAdsorbateInversionBendAccumulated[CurrentSystem][Block]+=weight*UAdsorbateInversionBend[CurrentSystem];
+  UAdsorbateTorsionAccumulated[CurrentSystem][Block]+=weight*UAdsorbateTorsion[CurrentSystem];
+  UAdsorbateImproperTorsionAccumulated[CurrentSystem][Block]+=weight*UAdsorbateImproperTorsion[CurrentSystem];
+  UAdsorbateBondBondAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBondBond[CurrentSystem];
+  UAdsorbateBendBendAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBendBend[CurrentSystem];
+  UAdsorbateBondBendAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBondBend[CurrentSystem];
+  UAdsorbateBondTorsionAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBondTorsion[CurrentSystem];
+  UAdsorbateBendTorsionAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBendTorsion[CurrentSystem];
+  UAdsorbateIntraVDWAccumulated[CurrentSystem][Block]+=weight*UAdsorbateIntraVDW[CurrentSystem];
+  UAdsorbateIntraChargeChargeAccumulated[CurrentSystem][Block]+=weight*UAdsorbateIntraChargeCharge[CurrentSystem];
+  UAdsorbateIntraChargeBondDipoleAccumulated[CurrentSystem][Block]+=weight*UAdsorbateIntraChargeBondDipole[CurrentSystem];
+  UAdsorbateIntraBondDipoleBondDipoleAccumulated[CurrentSystem][Block]+=weight*UAdsorbateIntraBondDipoleBondDipole[CurrentSystem];
 
-  UHostHostAccumulated[CurrentSystem][Block]+=UHostHost[CurrentSystem];
-  UAdsorbateAdsorbateAccumulated[CurrentSystem][Block]+=UAdsorbateAdsorbate[CurrentSystem];
-  UCationCationAccumulated[CurrentSystem][Block]+=UCationCation[CurrentSystem];
-  UHostAdsorbateAccumulated[CurrentSystem][Block]+=UHostAdsorbate[CurrentSystem];
-  UHostCationAccumulated[CurrentSystem][Block]+=UHostCation[CurrentSystem];
-  UAdsorbateCationAccumulated[CurrentSystem][Block]+=UAdsorbateCation[CurrentSystem];
+  UHostHostAccumulated[CurrentSystem][Block]+=weight*UHostHost[CurrentSystem];
+  UAdsorbateAdsorbateAccumulated[CurrentSystem][Block]+=weight*UAdsorbateAdsorbate[CurrentSystem];
+  UCationCationAccumulated[CurrentSystem][Block]+=weight*UCationCation[CurrentSystem];
+  UHostAdsorbateAccumulated[CurrentSystem][Block]+=weight*UHostAdsorbate[CurrentSystem];
+  UHostCationAccumulated[CurrentSystem][Block]+=weight*UHostCation[CurrentSystem];
+  UAdsorbateCationAccumulated[CurrentSystem][Block]+=weight*UAdsorbateCation[CurrentSystem];
 
-  UHostHostVDWAccumulated[CurrentSystem][Block]+=UHostHostVDW[CurrentSystem];
-  UAdsorbateAdsorbateVDWAccumulated[CurrentSystem][Block]+=UAdsorbateAdsorbateVDW[CurrentSystem];
-  UCationCationVDWAccumulated[CurrentSystem][Block]+=UCationCationVDW[CurrentSystem];
-  UHostAdsorbateVDWAccumulated[CurrentSystem][Block]+=UHostAdsorbateVDW[CurrentSystem];
-  UHostCationVDWAccumulated[CurrentSystem][Block]+=UHostCationVDW[CurrentSystem];
-  UAdsorbateCationVDWAccumulated[CurrentSystem][Block]+=UAdsorbateCationVDW[CurrentSystem];
+  UHostHostVDWAccumulated[CurrentSystem][Block]+=weight*UHostHostVDW[CurrentSystem];
+  UAdsorbateAdsorbateVDWAccumulated[CurrentSystem][Block]+=weight*UAdsorbateAdsorbateVDW[CurrentSystem];
+  UCationCationVDWAccumulated[CurrentSystem][Block]+=weight*UCationCationVDW[CurrentSystem];
+  UHostAdsorbateVDWAccumulated[CurrentSystem][Block]+=weight*UHostAdsorbateVDW[CurrentSystem];
+  UHostCationVDWAccumulated[CurrentSystem][Block]+=weight*UHostCationVDW[CurrentSystem];
+  UAdsorbateCationVDWAccumulated[CurrentSystem][Block]+=weight*UAdsorbateCationVDW[CurrentSystem];
 
-  UHostHostCoulombAccumulated[CurrentSystem][Block]+=UHostHostCoulomb[CurrentSystem];
-  UAdsorbateAdsorbateCoulombAccumulated[CurrentSystem][Block]+=UAdsorbateAdsorbateCoulomb[CurrentSystem];
-  UCationCationCoulombAccumulated[CurrentSystem][Block]+=UCationCationCoulomb[CurrentSystem];
-  UHostAdsorbateCoulombAccumulated[CurrentSystem][Block]+=UHostAdsorbateCoulomb[CurrentSystem];
-  UHostCationCoulombAccumulated[CurrentSystem][Block]+=UHostCationCoulomb[CurrentSystem];
-  UAdsorbateCationCoulombAccumulated[CurrentSystem][Block]+=UAdsorbateCationCoulomb[CurrentSystem];
+  UHostHostCoulombAccumulated[CurrentSystem][Block]+=weight*UHostHostCoulomb[CurrentSystem];
+  UAdsorbateAdsorbateCoulombAccumulated[CurrentSystem][Block]+=weight*UAdsorbateAdsorbateCoulomb[CurrentSystem];
+  UCationCationCoulombAccumulated[CurrentSystem][Block]+=weight*UCationCationCoulomb[CurrentSystem];
+  UHostAdsorbateCoulombAccumulated[CurrentSystem][Block]+=weight*UHostAdsorbateCoulomb[CurrentSystem];
+  UHostCationCoulombAccumulated[CurrentSystem][Block]+=weight*UHostCationCoulomb[CurrentSystem];
+  UAdsorbateCationCoulombAccumulated[CurrentSystem][Block]+=weight*UAdsorbateCationCoulomb[CurrentSystem];
 
   dipole_adsorbates=ComputeTotalDipoleMomentSystemAdsorbates();
   dipole_cations=ComputeTotalDipoleMomentSystemCations();
   dipole_cations.x=dipole_cations.y=dipole_cations.z=0.0;
 
-  TotalSystemDipoleAccumulated[CurrentSystem][Block].x+=dipole_adsorbates.x+dipole_cations.x;
-  TotalSystemDipoleAccumulated[CurrentSystem][Block].y+=dipole_adsorbates.y+dipole_cations.y;
-  TotalSystemDipoleAccumulated[CurrentSystem][Block].z+=dipole_adsorbates.z+dipole_cations.z;
-  TotalSystemNormDipoleAccumulated[CurrentSystem][Block]+=sqrt(SQR(dipole_adsorbates.x+dipole_cations.x)+
+  TotalSystemDipoleAccumulated[CurrentSystem][Block].x+=weight*(dipole_adsorbates.x+dipole_cations.x);
+  TotalSystemDipoleAccumulated[CurrentSystem][Block].y+=weight*(dipole_adsorbates.y+dipole_cations.y);
+  TotalSystemDipoleAccumulated[CurrentSystem][Block].z+=weight*(dipole_adsorbates.z+dipole_cations.z);
+  TotalSystemNormDipoleAccumulated[CurrentSystem][Block]+=weight*(sqrt(SQR(dipole_adsorbates.x+dipole_cations.x)+
+        SQR(dipole_adsorbates.y+dipole_cations.y)+SQR(dipole_adsorbates.z+dipole_cations.z)));
+
+  TotalSystemDipoleSquaredAccumulated[CurrentSystem][Block].x+=weight*SQR(dipole_adsorbates.x+dipole_cations.x);
+  TotalSystemDipoleSquaredAccumulated[CurrentSystem][Block].y+=weight*SQR(dipole_adsorbates.y+dipole_cations.y);
+  TotalSystemDipoleSquaredAccumulated[CurrentSystem][Block].z+=weight*SQR(dipole_adsorbates.z+dipole_cations.z);
+  TotalSystemNormDipoleSquaredAccumulated[CurrentSystem][Block]+=weight*(SQR(dipole_adsorbates.x+dipole_cations.x)+
         SQR(dipole_adsorbates.y+dipole_cations.y)+SQR(dipole_adsorbates.z+dipole_cations.z));
 
-  TotalSystemDipoleSquaredAccumulated[CurrentSystem][Block].x+=SQR(dipole_adsorbates.x+dipole_cations.x);
-  TotalSystemDipoleSquaredAccumulated[CurrentSystem][Block].y+=SQR(dipole_adsorbates.y+dipole_cations.y);
-  TotalSystemDipoleSquaredAccumulated[CurrentSystem][Block].z+=SQR(dipole_adsorbates.z+dipole_cations.z);
-  TotalSystemNormDipoleSquaredAccumulated[CurrentSystem][Block]+=SQR(dipole_adsorbates.x+dipole_cations.x)+
-        SQR(dipole_adsorbates.y+dipole_cations.y)+SQR(dipole_adsorbates.z+dipole_cations.z);
+  UHostPolarizationAccumulated[CurrentSystem][Block]+=weight*UHostPolarization[CurrentSystem];
+  UAdsorbatePolarizationAccumulated[CurrentSystem][Block]+=weight*UAdsorbatePolarization[CurrentSystem];
+  UCationPolarizationAccumulated[CurrentSystem][Block]+=weight*UCationPolarization[CurrentSystem];
+  UHostBackPolarizationAccumulated[CurrentSystem][Block]+=weight*UHostBackPolarization[CurrentSystem];
+  UAdsorbateBackPolarizationAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBackPolarization[CurrentSystem];
+  UCationBackPolarizationAccumulated[CurrentSystem][Block]+=weight*UCationBackPolarization[CurrentSystem];
 
-  UHostPolarizationAccumulated[CurrentSystem][Block]+=UHostPolarization[CurrentSystem];
-  UAdsorbatePolarizationAccumulated[CurrentSystem][Block]+=UAdsorbatePolarization[CurrentSystem];
-  UCationPolarizationAccumulated[CurrentSystem][Block]+=UCationPolarization[CurrentSystem];
-  UHostBackPolarizationAccumulated[CurrentSystem][Block]+=UHostBackPolarization[CurrentSystem];
-  UAdsorbateBackPolarizationAccumulated[CurrentSystem][Block]+=UAdsorbateBackPolarization[CurrentSystem];
-  UCationBackPolarizationAccumulated[CurrentSystem][Block]+=UCationBackPolarization[CurrentSystem];
-
-  UTailCorrectionAccumulated[CurrentSystem][Block]+=UTailCorrection[CurrentSystem];
-  UDistanceConstraintsAccumulated[CurrentSystem][Block]+=UDistanceConstraints[CurrentSystem];
-  UAngleConstraintsAccumulated[CurrentSystem][Block]+=UAngleConstraints[CurrentSystem];
-  UDihedralConstraintsAccumulated[CurrentSystem][Block]+=UDihedralConstraints[CurrentSystem];
-  UInversionBendConstraintsAccumulated[CurrentSystem][Block]+=UInversionBendConstraints[CurrentSystem];
-  UOutOfPlaneDistanceConstraintsAccumulated[CurrentSystem][Block]+=UOutOfPlaneDistanceConstraints[CurrentSystem];
-  UExclusionConstraintsAccumulated[CurrentSystem][Block]+=UExclusionConstraints[CurrentSystem];
+  UTailCorrectionAccumulated[CurrentSystem][Block]+=weight*UTailCorrection[CurrentSystem];
+  UDistanceConstraintsAccumulated[CurrentSystem][Block]+=weight*UDistanceConstraints[CurrentSystem];
+  UAngleConstraintsAccumulated[CurrentSystem][Block]+=weight*UAngleConstraints[CurrentSystem];
+  UDihedralConstraintsAccumulated[CurrentSystem][Block]+=weight*UDihedralConstraints[CurrentSystem];
+  UInversionBendConstraintsAccumulated[CurrentSystem][Block]+=weight*UInversionBendConstraints[CurrentSystem];
+  UOutOfPlaneDistanceConstraintsAccumulated[CurrentSystem][Block]+=weight*UOutOfPlaneDistanceConstraints[CurrentSystem];
+  UExclusionConstraintsAccumulated[CurrentSystem][Block]+=weight*UExclusionConstraints[CurrentSystem];
 
   UCFMCAdsorbate = ComputeEnergyOfFractionalMoleculesAdsorbates();
   UCFMCCation = ComputeEnergyOfFractionalMoleculesCations();
-  UTotalAccumulated[CurrentSystem][Block]+=UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation;
+  UTotalAccumulated[CurrentSystem][Block]+=weight*(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation);
 
+  NumberOfIntegerMoleculesAccumulated[CurrentSystem][Block]+=weight*TotalNumberOfIntegerAdsorbates();
 
-  NumberOfMoleculesAccumulated[CurrentSystem][Block]+=NumberOfAdsorbateMolecules[CurrentSystem]
-                                                 -NumberOfFractionalAdsorbateMolecules[CurrentSystem];
-  NumberOfMoleculesSquaredAccumulated[CurrentSystem][Block]+=SQR(NumberOfAdsorbateMolecules[CurrentSystem]
-                                                        -NumberOfFractionalAdsorbateMolecules[CurrentSystem]);
-  TotalEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][Block]+=(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation)*(NumberOfAdsorbateMolecules[CurrentSystem]
-                                                 -NumberOfFractionalAdsorbateMolecules[CurrentSystem]);
+  NumberOfMoleculesSquaredAccumulated[CurrentSystem][Block]+=weight*(SQR(TotalNumberOfIntegerAdsorbates()));
+  TotalEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][Block]+=weight*((UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation)*
+                 TotalNumberOfIntegerAdsorbates());
 
   nr=NumberOfUnitCells[0].x*NumberOfUnitCells[0].y*NumberOfUnitCells[0].z;
   for(i=0;i<NumberOfComponents;i++)
   {
-    REAL loading_i = (Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].CFMoleculePresent[CurrentSystem]?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem]);
-    TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation)*loading_i;
-    HostAdsorbateEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i][Block]+=UHostAdsorbate[CurrentSystem]*loading_i;
-    AdsorbateAdsorbateEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i][Block]+=UAdsorbateAdsorbate[CurrentSystem]*loading_i;
+    REAL loading_i = (Components[i].NumberOfMolecules[CurrentSystem]
+                    -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
+                    -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem]);
+    TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=weight*((UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation)*loading_i);
+    HostAdsorbateEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i][Block]+=weight*(UHostAdsorbate[CurrentSystem]*loading_i);
+    AdsorbateAdsorbateEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i][Block]+=weight*(UAdsorbateAdsorbate[CurrentSystem]*loading_i);
     for(j=0;j<NumberOfComponents;j++)
     {
-      REAL loading_j = (Components[j].NumberOfMolecules[CurrentSystem]-(Components[j].CFMoleculePresent[CurrentSystem]?1:0)-Components[j].NumberOfRXMCMoleculesPresent[CurrentSystem]);
-      NumberOfMoleculesPerComponentSquaredAccumulated[CurrentSystem][i][j][Block]+=loading_i*loading_j;
+      REAL loading_j = (Components[j].NumberOfMolecules[CurrentSystem]
+                      -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
+                      -Components[j].NumberOfRXMCMoleculesPresent[CurrentSystem]);
+      NumberOfMoleculesPerComponentSquaredAccumulated[CurrentSystem][i][j][Block]+=weight*loading_i*loading_j;
     }
 
-    NumberOfMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=Components[i].NumberOfMolecules[CurrentSystem]
-                         -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
-                         -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem];
+    NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=weight*(Components[i].NumberOfMolecules[CurrentSystem]
+                         -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
+                         -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem]);
+    NumberOfFractionalMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=(Components[i].FractionalMolecule[CurrentSystem]>=0?1.0:0.0);
     NumberOfExcessMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=
-             (REAL)Components[i].NumberOfMolecules[CurrentSystem]
+             weight*((REAL)Components[i].NumberOfMolecules[CurrentSystem]
               -Components[i].AmountOfExcessMolecules[CurrentSystem]
-              -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
-              -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem];
+              -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
+              -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem]);
     density=Components[i].Mass*(REAL)(Components[i].NumberOfMolecules[CurrentSystem]
-                    -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
+                    -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
                     -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])
                     /Volume[CurrentSystem];
-    DensityPerComponentAccumulated[CurrentSystem][i][Block]+=density;
-    DensityAccumulated[CurrentSystem][Block]+=density;
+    DensityPerComponentAccumulated[CurrentSystem][i][Block]+=weight*density;
+    DensityAccumulated[CurrentSystem][Block]+=weight*density;
+    GibbsDensityAccumulated[CurrentSystem][Block]+=weight*(Volume[CurrentSystem]/(TotalNumberOfIntegerMolecules()+1.0));
   }
 
-  TemperatureAccumulated[CurrentSystem][Block]+=2.0*UKinetic[CurrentSystem]/(K_B*DegreesOfFreedom[CurrentSystem]);
-  TemperatureCellAccumulated[CurrentSystem][Block]+=GetCellTemperature();
-  TemperatureTranslationAccumulated[CurrentSystem][Block]+=2.0*(UAdsorbateTranslationalKinetic[CurrentSystem]+
-         UCationTranslationalKinetic[CurrentSystem]+UHostKinetic[CurrentSystem])/(K_B*DegreesOfFreedomTranslation[CurrentSystem]);
-  TemperatureRotationAccumulated[CurrentSystem][Block]+=2.0*(UAdsorbateRotationalKinetic[CurrentSystem]+
-         UCationRotationalKinetic[CurrentSystem])/(K_B*DegreesOfFreedomRotation[CurrentSystem]);
-  TemperatureRotationAdsorbateAccumulated[CurrentSystem][Block]+=2.0*(UAdsorbateRotationalKinetic[CurrentSystem])/
-         (K_B*DegreesOfFreedomRotationalAdsorbates[CurrentSystem]);
-  TemperatureTranslationAdsorbateAccumulated[CurrentSystem][Block]+=2.0*(UAdsorbateTranslationalKinetic[CurrentSystem])/
-         (K_B*DegreesOfFreedomTranslationalAdsorbates[CurrentSystem]);
+  TemperatureAccumulated[CurrentSystem][Block]+=weight*(2.0*UKinetic[CurrentSystem]/(K_B*DegreesOfFreedom[CurrentSystem]));
+  TemperatureCellAccumulated[CurrentSystem][Block]+=weight*GetCellTemperature();
+  TemperatureTranslationAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateTranslationalKinetic[CurrentSystem]+
+         UCationTranslationalKinetic[CurrentSystem]+UHostKinetic[CurrentSystem])/(K_B*DegreesOfFreedomTranslation[CurrentSystem]));
+  TemperatureRotationAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateRotationalKinetic[CurrentSystem]+
+         UCationRotationalKinetic[CurrentSystem])/(K_B*DegreesOfFreedomRotation[CurrentSystem]));
+  TemperatureRotationAdsorbateAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateRotationalKinetic[CurrentSystem])/
+         (K_B*DegreesOfFreedomRotationalAdsorbates[CurrentSystem]));
+  TemperatureTranslationAdsorbateAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateTranslationalKinetic[CurrentSystem])/
+         (K_B*DegreesOfFreedomTranslationalAdsorbates[CurrentSystem]));
 
-  TemperatureAdsorbatesAccumulated[CurrentSystem][Block]+=2.0*(UAdsorbateTranslationalKinetic[CurrentSystem]+
-              UAdsorbateRotationalKinetic[CurrentSystem])/(K_B*DegreesOfFreedomAdsorbates[CurrentSystem]);
-  TemperatureCationsAccumulated[CurrentSystem][Block]+=2.0*UCationKinetic[CurrentSystem]/
-                                             (K_B*DegreesOfFreedomCations[CurrentSystem]);
-  TemperatureFrameworkAccumulated[CurrentSystem][Block]+=2.0*UHostKinetic[CurrentSystem]/
-                                             (K_B*DegreesOfFreedomFramework[CurrentSystem]);
+  TemperatureAdsorbatesAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateTranslationalKinetic[CurrentSystem]+
+              UAdsorbateRotationalKinetic[CurrentSystem])/(K_B*DegreesOfFreedomAdsorbates[CurrentSystem]));
+  TemperatureCationsAccumulated[CurrentSystem][Block]+=weight*(2.0*UCationKinetic[CurrentSystem]/
+                                             (K_B*DegreesOfFreedomCations[CurrentSystem]));
+  TemperatureFrameworkAccumulated[CurrentSystem][Block]+=weight*(2.0*UHostKinetic[CurrentSystem]/
+                                             (K_B*DegreesOfFreedomFramework[CurrentSystem]));
 
-  NumberOfMolecules=NumberOfAdsorbateMolecules[CurrentSystem]+NumberOfCationMolecules[CurrentSystem];
+  NumberOfMolecules=TotalNumberOfIntegerMolecules();
 
   if(ComputeMolecularPressure[CurrentSystem])
   {
     ComputeMolecularPressureTensor(&MolecularStressTensor[CurrentSystem],&PressureIdealGas,&PressureTail);
 
-    PressureIdealGasPartAccumulated[CurrentSystem][Block]+=PressureIdealGas;
-    PressureExcessPartAccumulated[CurrentSystem][Block]-=(MolecularStressTensor[CurrentSystem].ax+MolecularStressTensor[CurrentSystem].by+
-                MolecularStressTensor[CurrentSystem].cz)/(3.0*Volume[CurrentSystem]);
-    PressureTailCorrectionAccumulated[CurrentSystem][Block]+=PressureTail;
+    PressureIdealGasPartAccumulated[CurrentSystem][Block]+=weight*PressureIdealGas;
+    PressureExcessPartAccumulated[CurrentSystem][Block]-=weight*((MolecularStressTensor[CurrentSystem].ax+MolecularStressTensor[CurrentSystem].by+
+                MolecularStressTensor[CurrentSystem].cz)/(3.0*Volume[CurrentSystem]));
+    PressureTailCorrectionAccumulated[CurrentSystem][Block]+=weight*PressureTail;
 
-    MolecularStressTensor[CurrentSystem].ax=PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].ax/Volume[CurrentSystem];
-    MolecularStressTensor[CurrentSystem].ay=-MolecularStressTensor[CurrentSystem].ay/Volume[CurrentSystem];
-    MolecularStressTensor[CurrentSystem].az=-MolecularStressTensor[CurrentSystem].az/Volume[CurrentSystem];
+    MolecularStressTensor[CurrentSystem].ax=weight*(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].ax/Volume[CurrentSystem]);
+    MolecularStressTensor[CurrentSystem].ay=weight*(-MolecularStressTensor[CurrentSystem].ay/Volume[CurrentSystem]);
+    MolecularStressTensor[CurrentSystem].az=weight*(-MolecularStressTensor[CurrentSystem].az/Volume[CurrentSystem]);
 
-    MolecularStressTensor[CurrentSystem].bx=-MolecularStressTensor[CurrentSystem].bx/Volume[CurrentSystem];
-    MolecularStressTensor[CurrentSystem].by=PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].by/Volume[CurrentSystem];
-    MolecularStressTensor[CurrentSystem].bz=-MolecularStressTensor[CurrentSystem].bz/Volume[CurrentSystem];
+    MolecularStressTensor[CurrentSystem].bx=weight*(-MolecularStressTensor[CurrentSystem].bx/Volume[CurrentSystem]);
+    MolecularStressTensor[CurrentSystem].by=weight*(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].by/Volume[CurrentSystem]);
+    MolecularStressTensor[CurrentSystem].bz=weight*(-MolecularStressTensor[CurrentSystem].bz/Volume[CurrentSystem]);
 
-    MolecularStressTensor[CurrentSystem].cx=-MolecularStressTensor[CurrentSystem].cx/Volume[CurrentSystem];
-    MolecularStressTensor[CurrentSystem].cy=-MolecularStressTensor[CurrentSystem].cy/Volume[CurrentSystem];
-    MolecularStressTensor[CurrentSystem].cz=PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].cz/Volume[CurrentSystem];
+    MolecularStressTensor[CurrentSystem].cx=weight*(-MolecularStressTensor[CurrentSystem].cx/Volume[CurrentSystem]);
+    MolecularStressTensor[CurrentSystem].cy=weight*(-MolecularStressTensor[CurrentSystem].cy/Volume[CurrentSystem]);
+    MolecularStressTensor[CurrentSystem].cz=weight*(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].cz/Volume[CurrentSystem]);
 
-    MolecularStressTensorAccumulated[CurrentSystem][Block].ax+=MolecularStressTensor[CurrentSystem].ax;
-    MolecularStressTensorAccumulated[CurrentSystem][Block].ay+=MolecularStressTensor[CurrentSystem].ay;
-    MolecularStressTensorAccumulated[CurrentSystem][Block].az+=MolecularStressTensor[CurrentSystem].az;
+    MolecularStressTensorAccumulated[CurrentSystem][Block].ax+=weight*MolecularStressTensor[CurrentSystem].ax;
+    MolecularStressTensorAccumulated[CurrentSystem][Block].ay+=weight*MolecularStressTensor[CurrentSystem].ay;
+    MolecularStressTensorAccumulated[CurrentSystem][Block].az+=weight*MolecularStressTensor[CurrentSystem].az;
 
-    MolecularStressTensorAccumulated[CurrentSystem][Block].bx+=MolecularStressTensor[CurrentSystem].bx;
-    MolecularStressTensorAccumulated[CurrentSystem][Block].by+=MolecularStressTensor[CurrentSystem].by;
-    MolecularStressTensorAccumulated[CurrentSystem][Block].bz+=MolecularStressTensor[CurrentSystem].bz;
+    MolecularStressTensorAccumulated[CurrentSystem][Block].bx+=weight*MolecularStressTensor[CurrentSystem].bx;
+    MolecularStressTensorAccumulated[CurrentSystem][Block].by+=weight*MolecularStressTensor[CurrentSystem].by;
+    MolecularStressTensorAccumulated[CurrentSystem][Block].bz+=weight*MolecularStressTensor[CurrentSystem].bz;
 
-    MolecularStressTensorAccumulated[CurrentSystem][Block].cx+=MolecularStressTensor[CurrentSystem].cx;
-    MolecularStressTensorAccumulated[CurrentSystem][Block].cy+=MolecularStressTensor[CurrentSystem].cy;
-    MolecularStressTensorAccumulated[CurrentSystem][Block].cz+=MolecularStressTensor[CurrentSystem].cz;
+    MolecularStressTensorAccumulated[CurrentSystem][Block].cx+=weight*MolecularStressTensor[CurrentSystem].cx;
+    MolecularStressTensorAccumulated[CurrentSystem][Block].cy+=weight*MolecularStressTensor[CurrentSystem].cy;
+    MolecularStressTensorAccumulated[CurrentSystem][Block].cz+=weight*MolecularStressTensor[CurrentSystem].cz;
   }
 
-  UNoseHooverAccumulated[CurrentSystem][Block]+=UNoseHoover[CurrentSystem];
+  UNoseHooverAccumulated[CurrentSystem][Block]+=weight*UNoseHoover[CurrentSystem];
 
-  BoxAccumulated[CurrentSystem][Block].x+=Box[CurrentSystem].ax;
-  BoxAccumulated[CurrentSystem][Block].y+=Box[CurrentSystem].by;
-  BoxAccumulated[CurrentSystem][Block].z+=Box[CurrentSystem].cz;
+  BoxAccumulated[CurrentSystem][Block].x+=weight*Box[CurrentSystem].ax;
+  BoxAccumulated[CurrentSystem][Block].y+=weight*Box[CurrentSystem].by;
+  BoxAccumulated[CurrentSystem][Block].z+=weight*Box[CurrentSystem].cz;
 
-  BoxAXAccumulated[CurrentSystem][Block]+=Box[CurrentSystem].ax;
-  BoxAYAccumulated[CurrentSystem][Block]+=Box[CurrentSystem].ay;
-  BoxAZAccumulated[CurrentSystem][Block]+=Box[CurrentSystem].az;
-  BoxBXAccumulated[CurrentSystem][Block]+=Box[CurrentSystem].bx;
-  BoxBYAccumulated[CurrentSystem][Block]+=Box[CurrentSystem].by;
-  BoxBZAccumulated[CurrentSystem][Block]+=Box[CurrentSystem].bz;
-  BoxCXAccumulated[CurrentSystem][Block]+=Box[CurrentSystem].cx;
-  BoxCYAccumulated[CurrentSystem][Block]+=Box[CurrentSystem].cy;
-  BoxCZAccumulated[CurrentSystem][Block]+=Box[CurrentSystem].cz;
+  BoxAXAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].ax;
+  BoxAYAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].ay;
+  BoxAZAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].az;
+  BoxBXAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].bx;
+  BoxBYAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].by;
+  BoxBZAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].bz;
+  BoxCXAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].cx;
+  BoxCYAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].cy;
+  BoxCZAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].cz;
 
-  BoxLengthAccumulated[CurrentSystem][Block].x+=BoxProperties[CurrentSystem].ax;
-  BoxLengthAccumulated[CurrentSystem][Block].y+=BoxProperties[CurrentSystem].ay;
-  BoxLengthAccumulated[CurrentSystem][Block].z+=BoxProperties[CurrentSystem].az;
+  BoxLengthAccumulated[CurrentSystem][Block].x+=weight*BoxProperties[CurrentSystem].ax;
+  BoxLengthAccumulated[CurrentSystem][Block].y+=weight*BoxProperties[CurrentSystem].ay;
+  BoxLengthAccumulated[CurrentSystem][Block].z+=weight*BoxProperties[CurrentSystem].az;
 
-  AlphaAngleAccumulated[CurrentSystem][Block]+=AlphaAngle[CurrentSystem]*RAD2DEG;
-  BetaAngleAccumulated[CurrentSystem][Block]+=BetaAngle[CurrentSystem]*RAD2DEG;
-  GammaAngleAccumulated[CurrentSystem][Block]+=GammaAngle[CurrentSystem]*RAD2DEG;
+  AlphaAngleAccumulated[CurrentSystem][Block]+=weight*AlphaAngle[CurrentSystem]*RAD2DEG;
+  BetaAngleAccumulated[CurrentSystem][Block]+=weight*BetaAngle[CurrentSystem]*RAD2DEG;
+  GammaAngleAccumulated[CurrentSystem][Block]+=weight*GammaAngle[CurrentSystem]*RAD2DEG;
 
-  VolumeAccumulated[CurrentSystem][Block]+=Volume[CurrentSystem];
+  VolumeAccumulated[CurrentSystem][Block]+=weight*Volume[CurrentSystem];
 
-  VolumeSquaredAccumulated[CurrentSystem][Block]+=SQR(Volume[CurrentSystem]);
+  VolumeSquaredAccumulated[CurrentSystem][Block]+=weight*SQR(Volume[CurrentSystem]);
 
-  TotalEnergyAccumulated[CurrentSystem][Block]+=UTotal[CurrentSystem];
-  TotalEnergySquaredAccumulated[CurrentSystem][Block]+=SQR(UTotal[CurrentSystem]);
+  TotalEnergyAccumulated[CurrentSystem][Block]+=weight*UTotal[CurrentSystem];
+  TotalEnergySquaredAccumulated[CurrentSystem][Block]+=weight*SQR(UTotal[CurrentSystem]);
 
   Enthalpy=(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation)+Volume[CurrentSystem]*therm_baro_stats.ExternalPressure[CurrentSystem][0];
-  EnthalpyAccumulated[CurrentSystem][Block]+=Enthalpy;
-  EnthalpySquaredAccumulated[CurrentSystem][Block]+=SQR(Enthalpy);
+  EnthalpyAccumulated[CurrentSystem][Block]+=weight*Enthalpy;
+  EnthalpySquaredAccumulated[CurrentSystem][Block]+=weight*SQR(Enthalpy);
 
-  EnthalpyTimesVolumeAccumulated[CurrentSystem][Block]+=Enthalpy*Volume[CurrentSystem];
-  EnthalpyTimesEnergyAccumulated[CurrentSystem][Block]+=Enthalpy*(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation);
+  EnthalpyTimesVolumeAccumulated[CurrentSystem][Block]+=weight*Enthalpy*Volume[CurrentSystem];
+  EnthalpyTimesEnergyAccumulated[CurrentSystem][Block]+=weight*Enthalpy*(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation);
 
-  HeatOfVaporization[CurrentSystem][Block]+=therm_baro_stats.ExternalTemperature[CurrentSystem]-
+  HeatOfVaporization[CurrentSystem][Block]+=weight*(therm_baro_stats.ExternalTemperature[CurrentSystem]-
                               (UAdsorbateAdsorbate[CurrentSystem]+UCationCation[CurrentSystem])/
-                              (NumberOfAdsorbateMolecules[CurrentSystem]+NumberOfCationMolecules[CurrentSystem]);
+                              (NumberOfAdsorbateMolecules[CurrentSystem]+NumberOfCationMolecules[CurrentSystem]));
   if(NumberOfMolecules>0)
   {
-    EnergyPerMolecule[CurrentSystem][Block]+=UTotal[CurrentSystem]/NumberOfMolecules;
-    VolumePerMolecule[CurrentSystem][Block]+=Volume[CurrentSystem]/NumberOfMolecules;
+    EnergyPerMolecule[CurrentSystem][Block]+=weight*UTotal[CurrentSystem]/NumberOfMolecules;
+    VolumePerMolecule[CurrentSystem][Block]+=weight*Volume[CurrentSystem]/NumberOfMolecules;
   }
 
   if(ComputePrincipleMomentsOfInertia)
     MeasurePrincipleMomentsOfInertia();
 
-  CompressibilityAccumulated[CurrentSystem][Block]+=((MolecularStressTensor[CurrentSystem].ax+MolecularStressTensor[CurrentSystem].by+MolecularStressTensor[CurrentSystem].cz)/3.0)*
-           Volume[CurrentSystem]*Beta[CurrentSystem]/NumberOfMolecules;
+  CompressibilityAccumulated[CurrentSystem][Block]+=weight*(((MolecularStressTensor[CurrentSystem].ax+MolecularStressTensor[CurrentSystem].by+MolecularStressTensor[CurrentSystem].cz)/3.0)*
+           Volume[CurrentSystem]*Beta[CurrentSystem]/NumberOfMolecules);
 
   //UpdateCrystallographics();
 }
@@ -1384,6 +1411,24 @@ REAL GetAverageProperty(REAL **Property)
     return 0.0;
 }
 
+REAL GetAverageWeightedProperty(REAL **Property)
+{
+  int i;
+  REAL sum1,sum2;
+
+  sum1=sum2=0.0;
+  for(i=0;i<NR_BLOCKS;i++)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
+    {
+      sum1+=Property[CurrentSystem][i];
+      sum2+=BlockWeightedCount[CurrentSystem][i];
+    }
+  if(sum2>0.0)
+    return sum1/sum2;
+  else
+    return 0.0;
+}
+
 VECTOR GetAverageVectorProperty(VECTOR **Property)
 {
   int i;
@@ -1392,12 +1437,12 @@ VECTOR GetAverageVectorProperty(VECTOR **Property)
 
   sum1.x=sum1.y=sum1.z=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum1.x+=Property[CurrentSystem][i].x;
       sum1.y+=Property[CurrentSystem][i].y;
       sum1.z+=Property[CurrentSystem][i].z;
-      sum2+=BlockCount[CurrentSystem][i];
+      sum2+=BlockWeightedCount[CurrentSystem][i];
     }
   if(sum2>0.0)
   {
@@ -1422,16 +1467,15 @@ REAL_MATRIX9x9 GetAverageRealMatrix9x9Property(REAL_MATRIX9x9 **Property)
   sum2=0.0;
   InitializeMatrix9x9(&sum1);
   for(i=0;i<NR_BLOCKS;i++)
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       AddRealMatrix9x9(&sum1,sum1,Property[CurrentSystem][i]);
-      sum2+=BlockCount[CurrentSystem][i];
+      sum2+=BlockWeightedCount[CurrentSystem][i];
     }
   if(sum2>0.0)
     DivideRealMatrix9x9ByReal(&sum1,sum1,sum2);
   return sum1;
 }
-
 
 REAL GetAverageComponentProperty(REAL ***Property,int comp)
 {
@@ -1451,6 +1495,25 @@ REAL GetAverageComponentProperty(REAL ***Property,int comp)
     return 0.0;
 }
 
+
+REAL GetAverageWeightedComponentProperty(REAL ***Property,int comp)
+{
+  int i;
+  REAL sum1,sum2;
+
+  sum1=sum2=0.0;
+  for(i=0;i<NR_BLOCKS;i++)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
+    {
+      sum1+=Property[CurrentSystem][comp][i];
+      sum2+=BlockWeightedCount[CurrentSystem][i];
+    }
+  if(sum2>0.0)
+    return sum1/sum2;
+  else
+    return 0.0;
+}
+
 VECTOR GetAverageComponentVectorProperty(VECTOR ***Property,int comp)
 {
   int i;
@@ -1460,12 +1523,12 @@ VECTOR GetAverageComponentVectorProperty(VECTOR ***Property,int comp)
   sum1.x=sum1.y=sum1.z=0.0;
   sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum1.x+=Property[CurrentSystem][comp][i].x;
       sum1.y+=Property[CurrentSystem][comp][i].y;
       sum1.z+=Property[CurrentSystem][comp][i].z;
-      sum2+=BlockCount[CurrentSystem][i];
+      sum2+=BlockWeightedCount[CurrentSystem][i];
     }
   if(sum2>0.0)
   {
@@ -1569,30 +1632,41 @@ void PrintIntervalStatusInit(long long CurrentCycle,long long NumberOfCycles,FIL
       fprintf(FilePtr,"Component %d (%s), current number of integer/fractional/reaction molecules: %d/%d/%d, density: %9.5lf [kg/m^3]\n",
         i,
         Components[i].Name,
-        Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].CFMoleculePresent[CurrentSystem]?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
-        Components[i].CFMoleculePresent[CurrentSystem]?1:0,
+        Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
+        (Components[i].FractionalMolecule[CurrentSystem]>=0?1:0),
         Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
         (double)((Components[i].Mass*(REAL)(Components[i].NumberOfMolecules[CurrentSystem]
-                 -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
+                 -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
                  -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])/
                   Volume[CurrentSystem])*DENSITY_CONVERSION_FACTOR));
 
       if(Components[i].CFMoleculePresent[CurrentSystem])
       {
+        char FractionalMoleculeString[6];
         FractionalMolecule=Components[i].FractionalMolecule[CurrentSystem];
-        fprintf(FilePtr,"\tFractional molecule-id: %d, max. Lambda-change: %5lf (CFMC) %5lf (CB/CFMC)\n",FractionalMolecule,MaximumCFLambdaChange[CurrentSystem][i],MaximumCBCFLambdaChange[CurrentSystem][i]);
+        if (FractionalMolecule<0)
+          strcpy(FractionalMoleculeString,"-");
+        else
+          sprintf(FractionalMoleculeString,"%d", FractionalMolecule);
+
+        fprintf(FilePtr,"\tFractional molecule-id: %s, max. Lambda-change: %5lf (CFMC) %5lf (CB/CFMC)\n",FractionalMoleculeString,MaximumCFLambdaChange[CurrentSystem][i],MaximumCBCFLambdaChange[CurrentSystem][i]);
         fprintf(FilePtr,"\tLambda factors: ");
         for(k=0;k<Components[i].NumberOfAtoms;k++)
         {
-          if(Components[i].ExtraFrameworkMolecule)
-            Lambda=Cations[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
-          else
-            Lambda=Adsorbates[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
+          Lambda=0.0;
+          if(FractionalMolecule>=0)
+          {
+            if(Components[i].ExtraFrameworkMolecule)
+              Lambda=Cations[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
+            else
+              Lambda=Adsorbates[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
+          }
           fprintf(FilePtr,"%4f ",Lambda);
           if((k+1)%10==0&&(k+1)!=Components[i].NumberOfAtoms)  fprintf(FilePtr,"\n\t                ");
         }
         fprintf(FilePtr,"\n");
         shift=Components[i].CFBiasingFactors[CurrentSystem][0];
+        shift=0.0;
         fprintf(FilePtr,"\tBiasing Factors: ");
         for(k=0;k<Components[i].CFLambdaHistogramSize;k++)
         {
@@ -1613,11 +1687,11 @@ void PrintIntervalStatusInit(long long CurrentCycle,long long NumberOfCycles,FIL
       fprintf(FilePtr,"Component %d (%s), current number of integer/fractional/reaction molecules: %d/%d/%d, density: %9.5lf [kg/m^3]\n",
         i,
         Components[i].Name,
-        Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].CFMoleculePresent[CurrentSystem]?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
-        (Components[i].CFMoleculePresent[CurrentSystem]?1:0),
+        Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
+        (Components[i].FractionalMolecule[CurrentSystem]>=0?1:0),
         Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
         (double)(Components[i].Mass*(REAL)(Components[i].NumberOfMolecules[CurrentSystem]
-                                           -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
+                                           -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
                                            -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])
                                            /Volume[CurrentSystem])*DENSITY_CONVERSION_FACTOR);
       if(Components[i].CFMoleculePresent[CurrentSystem])
@@ -1636,6 +1710,7 @@ void PrintIntervalStatusInit(long long CurrentCycle,long long NumberOfCycles,FIL
         }
         fprintf(FilePtr,"\n");
         shift=Components[i].CFBiasingFactors[CurrentSystem][0];
+        shift=0.0;     
         fprintf(FilePtr,"\tBiasing Factors: ");
         for(k=0;k<Components[i].CFLambdaHistogramSize;k++)
         {
@@ -1646,9 +1721,9 @@ void PrintIntervalStatusInit(long long CurrentCycle,long long NumberOfCycles,FIL
       }
 
       loading=(REAL)(Components[i].NumberOfMolecules[CurrentSystem]
-                    -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
+                    -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
                     -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])/(REAL)number_of_unit_cells;
-      average_loading=GetAverageComponentProperty(NumberOfMoleculesPerComponentAccumulated,i)/(REAL)number_of_unit_cells;
+      average_loading=GetAverageWeightedComponentProperty(NumberOfIntegerMoleculesPerComponentAccumulated,i)/(REAL)number_of_unit_cells;
       fprintf(FilePtr,"\tabsolute adsorption: %9.5lf [mol/uc], %14.4lf [mol/kg],      %14.4lf [mg/g]\n",
          (double)loading,
          (double)(Components[i].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*loading),
@@ -1659,9 +1734,9 @@ void PrintIntervalStatusInit(long long CurrentCycle,long long NumberOfCycles,FIL
 
       loading=((REAL)Components[i].NumberOfMolecules[CurrentSystem]
                     -Components[i].AmountOfExcessMolecules[CurrentSystem]
-                    -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
+                    -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
                     -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])/(REAL)number_of_unit_cells;
-      average_loading=GetAverageComponentProperty(NumberOfExcessMoleculesPerComponentAccumulated,i)/(REAL)number_of_unit_cells;
+      average_loading=GetAverageWeightedComponentProperty(NumberOfExcessMoleculesPerComponentAccumulated,i)/(REAL)number_of_unit_cells;
       fprintf(FilePtr,"\texcess adsorption:   %9.5lf [mol/uc], %14.4lf [mol/kg],      %14.4lf [mg/g]\n",
          (double)loading,
          (double)(Components[i].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*loading),
@@ -1679,13 +1754,13 @@ void PrintIntervalStatusInit(long long CurrentCycle,long long NumberOfCycles,FIL
   fprintf(FilePtr,"Number of Framework-atoms: %6d\n",Framework[CurrentSystem].TotalNumberOfAtoms);
   fprintf(FilePtr,"Number of Adsorbates:      %6d (%d integer, %d fractional, %d reaction)\n",
           NumberOfAdsorbateMolecules[CurrentSystem],
-          NumberOfAdsorbateMolecules[CurrentSystem]-NumberOfFractionalAdsorbateMolecules[CurrentSystem]-NumberOfReactionAdsorbateMolecules[CurrentSystem],
-          NumberOfFractionalAdsorbateMolecules[CurrentSystem],
+          TotalNumberOfIntegerAdsorbates(),
+          TotalNumberOfFractionalAdsorbates(),
           NumberOfReactionAdsorbateMolecules[CurrentSystem]);
   fprintf(FilePtr,"Number of Cations:         %6d (%d integer, %d fractional, %d reaction\n",
       NumberOfCationMolecules[CurrentSystem],
-      NumberOfCationMolecules[CurrentSystem]-NumberOfFractionalCationMolecules[CurrentSystem]-NumberOfReactionCationMolecules[CurrentSystem],
-      NumberOfFractionalCationMolecules[CurrentSystem],
+      TotalNumberOfIntegerCations(),
+      TotalNumberOfFractionalCations(),
       NumberOfReactionCationMolecules[CurrentSystem]);
   fprintf(FilePtr,"\n");
 
@@ -1846,29 +1921,39 @@ void PrintIntervalStatusEquilibration(long long CurrentCycle,long long NumberOfC
       fprintf(FilePtr,"Component %d (%s), current number of integer/fractional/reaction molecules: %d/%d/%d, density: %9.5lf [kg/m^3]\n",
         i,
         Components[i].Name,
-        Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].CFMoleculePresent[CurrentSystem]?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
-        Components[i].CFMoleculePresent[CurrentSystem]?1:0,
+        Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
+        (Components[i].FractionalMolecule[CurrentSystem]>=0?1:0),
         Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
         (double)((Components[i].Mass*(REAL)(Components[i].NumberOfMolecules[CurrentSystem]
-                       -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
+                       -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
                        -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])/
                         Volume[CurrentSystem])*DENSITY_CONVERSION_FACTOR));
       if(Components[i].CFMoleculePresent[CurrentSystem])
       {
+        char FractionalMoleculeString[6];
         FractionalMolecule=Components[i].FractionalMolecule[CurrentSystem];
-        fprintf(FilePtr,"\tFractional molecule-id: %d, max. Lambda-change: %5lf (CFMC) %5lf (CB/CFMC)\n",FractionalMolecule,MaximumCFLambdaChange[CurrentSystem][i],MaximumCBCFLambdaChange[CurrentSystem][i]);
+        if (FractionalMolecule<0)
+          strcpy(FractionalMoleculeString,"-");
+        else
+          sprintf(FractionalMoleculeString,"%d", FractionalMolecule);
+        fprintf(FilePtr,"\tFractional molecule-id: %s, max. Lambda-change: %5lf (CFMC) %5lf (CB/CFMC)\n",FractionalMoleculeString,MaximumCFLambdaChange[CurrentSystem][i],MaximumCBCFLambdaChange[CurrentSystem][i]);
         fprintf(FilePtr,"\tLambda factors: ");
         for(k=0;k<Components[i].NumberOfAtoms;k++)
         {
-          if(Components[i].ExtraFrameworkMolecule)
-            Lambda=Cations[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
-          else
-            Lambda=Adsorbates[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
+          Lambda=0.0;
+          if(FractionalMolecule>=0)
+          {
+            if(Components[i].ExtraFrameworkMolecule)
+              Lambda=Cations[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
+            else
+              Lambda=Adsorbates[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
+          }
           fprintf(FilePtr,"%4f ",Lambda);
           if((k+1)%10==0&&(k+1)!=Components[i].NumberOfAtoms)  fprintf(FilePtr,"\n\t                ");
         }
         fprintf(FilePtr,"\n");
         shift=Components[i].CFBiasingFactors[CurrentSystem][0];
+        shift=0.0;
         fprintf(FilePtr,"\tBiasing Factors: ");
         for(k=0;k<Components[i].CFLambdaHistogramSize;k++)
         {
@@ -1889,29 +1974,39 @@ void PrintIntervalStatusEquilibration(long long CurrentCycle,long long NumberOfC
       fprintf(FilePtr,"Component %d (%s), current number of integer/fractional/reaction molecules: %d/%d/%d, density: %9.5lf [kg/m^3]\n",
         i,
         Components[i].Name,
-        Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].CFMoleculePresent[CurrentSystem]?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
-        (Components[i].CFMoleculePresent[CurrentSystem]?1:0),
+        Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
+        (Components[i].FractionalMolecule[CurrentSystem]>=0?1:0),
         Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
         (double)(Components[i].Mass*(REAL)(Components[i].NumberOfMolecules[CurrentSystem]
-                                         -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
+                                         -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
                                          -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])/
                                           Volume[CurrentSystem])*DENSITY_CONVERSION_FACTOR);
       if(Components[i].CFMoleculePresent[CurrentSystem])
       {
+        char FractionalMoleculeString[6];
         FractionalMolecule=Components[i].FractionalMolecule[CurrentSystem];
-        fprintf(FilePtr,"\tFractional molecule-id: %d, max. Lambda-change: %5lf (CFMC) %5lf (CB/CFMC)\n",FractionalMolecule,MaximumCFLambdaChange[CurrentSystem][i],MaximumCBCFLambdaChange[CurrentSystem][i]);
+        if (FractionalMolecule<0)
+          strcpy(FractionalMoleculeString,"-");
+        else
+          sprintf(FractionalMoleculeString,"%d", FractionalMolecule);
+        fprintf(FilePtr,"\tFractional molecule-id: %s, max. Lambda-change: %5lf (CFMC) %5lf (CB/CFMC)\n",FractionalMoleculeString,MaximumCFLambdaChange[CurrentSystem][i],MaximumCBCFLambdaChange[CurrentSystem][i]);
         fprintf(FilePtr,"\tLambda factors: ");
         for(k=0;k<Components[i].NumberOfAtoms;k++)
         {
-          if(Components[i].ExtraFrameworkMolecule)
-            Lambda=Cations[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
-          else
-            Lambda=Adsorbates[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
+          Lambda=0.0;
+          if(FractionalMolecule>=0)
+          {
+            if(Components[i].ExtraFrameworkMolecule)
+              Lambda=Cations[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
+            else
+              Lambda=Adsorbates[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
+          }
           fprintf(FilePtr,"%4f ",Lambda);
           if((k+1)%10==0&&(k+1)!=Components[i].NumberOfAtoms)  fprintf(FilePtr,"\n\t                ");
         }
         fprintf(FilePtr,"\n");
         shift=Components[i].CFBiasingFactors[CurrentSystem][0];
+        shift=0.0;
         fprintf(FilePtr,"\tBiasing Factors: ");
         for(k=0;k<Components[i].CFLambdaHistogramSize;k++)
         {
@@ -1922,9 +2017,9 @@ void PrintIntervalStatusEquilibration(long long CurrentCycle,long long NumberOfC
       }
 
       loading=(REAL)(Components[i].NumberOfMolecules[CurrentSystem]
-                   -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
+                   -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
                    -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])/(REAL)number_of_unit_cells;
-      average_loading=GetAverageComponentProperty(NumberOfMoleculesPerComponentAccumulated,i)/(REAL)number_of_unit_cells;
+      average_loading=GetAverageWeightedComponentProperty(NumberOfIntegerMoleculesPerComponentAccumulated,i)/(REAL)number_of_unit_cells;
       fprintf(FilePtr,"\tabsolute adsorption: %9.5lf [mol/uc], %14.4lf [mol/kg],      %14.4lf [mg/g]\n",
          (double)loading,
          (double)(Components[i].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*loading),
@@ -1935,9 +2030,9 @@ void PrintIntervalStatusEquilibration(long long CurrentCycle,long long NumberOfC
 
       loading=((REAL)Components[i].NumberOfMolecules[CurrentSystem]
                     -Components[i].AmountOfExcessMolecules[CurrentSystem]
-                    -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
+                    -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
                     -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])/(REAL)number_of_unit_cells;
-      average_loading=GetAverageComponentProperty(NumberOfExcessMoleculesPerComponentAccumulated,i)/(REAL)number_of_unit_cells;
+      average_loading=GetAverageWeightedComponentProperty(NumberOfExcessMoleculesPerComponentAccumulated,i)/(REAL)number_of_unit_cells;
       fprintf(FilePtr,"\texcess adsorption:   %9.5lf [mol/uc], %14.4lf [mol/kg],      %14.4lf [mg/g]\n",
          (double)loading,
          (double)(Components[i].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*loading),
@@ -1954,13 +2049,13 @@ void PrintIntervalStatusEquilibration(long long CurrentCycle,long long NumberOfC
   fprintf(FilePtr,"Number of Framework-atoms: %6d\n",Framework[CurrentSystem].TotalNumberOfAtoms);
   fprintf(FilePtr,"Number of Adsorbates:      %6d (%d integer, %d fractional, %d reaction)\n",
           NumberOfAdsorbateMolecules[CurrentSystem],
-          NumberOfAdsorbateMolecules[CurrentSystem]-NumberOfFractionalAdsorbateMolecules[CurrentSystem]-NumberOfReactionAdsorbateMolecules[CurrentSystem],
-          NumberOfFractionalAdsorbateMolecules[CurrentSystem],
+          TotalNumberOfIntegerAdsorbates(),
+          TotalNumberOfFractionalAdsorbates(),
           NumberOfReactionAdsorbateMolecules[CurrentSystem]);
   fprintf(FilePtr,"Number of Cations:         %6d (%d integer, %d fractional, %d reaction)\n",
           NumberOfCationMolecules[CurrentSystem],
-          NumberOfCationMolecules[CurrentSystem]-NumberOfFractionalCationMolecules[CurrentSystem]-NumberOfReactionCationMolecules[CurrentSystem],
-          NumberOfFractionalCationMolecules[CurrentSystem],
+          TotalNumberOfIntegerCations(),
+          TotalNumberOfFractionalCations(),
           NumberOfReactionCationMolecules[CurrentSystem]);
   fprintf(FilePtr,"\n");
 
@@ -2055,10 +2150,10 @@ REAL GetAverageAdsorbatesTemperature(void)
 
   sum1=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum1+=TemperatureAdsorbatesAccumulated[CurrentSystem][i];
-      sum2+=BlockCount[CurrentSystem][i];
+      sum2+=BlockWeightedCount[CurrentSystem][i];
     }
   if((sum1>0.0)&&(sum2>0.0))
     return sum1/sum2;
@@ -2073,10 +2168,10 @@ REAL GetAverageCationsTemperature(void)
 
   sum1=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum1+=TemperatureCationsAccumulated[CurrentSystem][i];
-      sum2+=BlockCount[CurrentSystem][i];
+      sum2+=BlockWeightedCount[CurrentSystem][i];
     }
   if((sum1>0.0)&&(sum2>0.0))
     return sum1/sum2;
@@ -2091,10 +2186,10 @@ REAL GetAverageFrameworkTemperature(void)
 
   sum1=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum1+=TemperatureFrameworkAccumulated[CurrentSystem][i];
-      sum2+=BlockCount[CurrentSystem][i];
+      sum2+=BlockWeightedCount[CurrentSystem][i];
     }
   if((sum1>0.0)&&(sum2>0.0))
     return sum1/sum2;
@@ -2109,10 +2204,10 @@ REAL GetAverageMolecularPressure(void)
 
   sum1=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum1+=MolecularPressureAccumulated[CurrentSystem][i];
-      sum2+=BlockCount[CurrentSystem][i];
+      sum2+=BlockWeightedCount[CurrentSystem][i];
     }
   if(sum2>0.0)
     return sum1/sum2;
@@ -2127,10 +2222,10 @@ REAL GetAverageCompressibility(void)
 
   sum1=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum1+=CompressibilityAccumulated[CurrentSystem][i];
-      sum2+=BlockCount[CurrentSystem][i];
+      sum2+=BlockWeightedCount[CurrentSystem][i];
     }
   if(sum2>0.0)
     return sum1/sum2;
@@ -2145,10 +2240,10 @@ REAL GetAveragePressure(void)
 
   sum1=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum1+=MolecularPressureAccumulated[CurrentSystem][i];
-      sum2+=BlockCount[CurrentSystem][i];
+      sum2+=BlockWeightedCount[CurrentSystem][i];
     }
   if(sum2>0.0)
     return sum1/sum2;
@@ -2167,7 +2262,7 @@ REAL_MATRIX3x3 GetAverageMolecularStressTensor(void)
   Stress.ay=Stress.by=Stress.cy=0.0;
   Stress.az=Stress.bz=Stress.cz=0.0;
   for(i=0;i<NR_BLOCKS;i++)
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       Stress.ax+=MolecularStressTensorAccumulated[CurrentSystem][i].ax;
       Stress.ay+=MolecularStressTensorAccumulated[CurrentSystem][i].ay;
@@ -2178,7 +2273,7 @@ REAL_MATRIX3x3 GetAverageMolecularStressTensor(void)
       Stress.cx+=MolecularStressTensorAccumulated[CurrentSystem][i].cx;
       Stress.cy+=MolecularStressTensorAccumulated[CurrentSystem][i].cy;
       Stress.cz+=MolecularStressTensorAccumulated[CurrentSystem][i].cz;
-      sum+=BlockCount[CurrentSystem][i];
+      sum+=BlockWeightedCount[CurrentSystem][i];
     }
   if(sum>0.0)
   {
@@ -2197,10 +2292,10 @@ REAL GetAverageIdealGasPartPressure(void)
   count=sum=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum+=PressureIdealGasPartAccumulated[CurrentSystem][i];
-      count+=BlockCount[CurrentSystem][i];
+      count+=BlockWeightedCount[CurrentSystem][i];
     }
   }
   return sum/count;
@@ -2214,10 +2309,10 @@ REAL GetAverageExcessPartPressure(void)
   count=sum=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum+=PressureExcessPartAccumulated[CurrentSystem][i];
-      count+=BlockCount[CurrentSystem][i];
+      count+=BlockWeightedCount[CurrentSystem][i];
     }
   }
   return sum/count;
@@ -2232,10 +2327,10 @@ REAL GetAverageTailCorrectionPressure(void)
   count=sum=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum+=PressureTailCorrectionAccumulated[CurrentSystem][i];
-      count+=BlockCount[CurrentSystem][i];
+      count+=BlockWeightedCount[CurrentSystem][i];
     }
   }
   return sum/count;
@@ -2250,10 +2345,10 @@ REAL GetAverageVolumeSquared(void)
   count=sum=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       sum+=VolumeSquaredAccumulated[CurrentSystem][i];
-      count+=BlockCount[CurrentSystem][i];
+      count+=BlockWeightedCount[CurrentSystem][i];
     }
   }
   return sum/count;
@@ -2270,12 +2365,12 @@ REAL GetAverageIsothermalExpansionCoefficient(void)
   HV=V=H=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       HV+=EnthalpyTimesVolumeAccumulated[CurrentSystem][i];
       V+=VolumeAccumulated[CurrentSystem][i];
       H+=EnthalpyAccumulated[CurrentSystem][i];
-      count+=BlockCount[CurrentSystem][i];
+      count+=BlockWeightedCount[CurrentSystem][i];
     }
   }
   if(count>0.0)
@@ -2299,11 +2394,11 @@ REAL GetAverageIsothermalCompressibilityCoefficient(void)
   V=V2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       V+=VolumeAccumulated[CurrentSystem][i];
       V2+=VolumeSquaredAccumulated[CurrentSystem][i];
-      count+=BlockCount[CurrentSystem][i];
+      count+=BlockWeightedCount[CurrentSystem][i];
     }
   }
   if(count>0.0)
@@ -2330,14 +2425,14 @@ REAL GetAverageHeatCapacityConstantPressure(void)
   H=VH=V=U=UH=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       H+=EnthalpyAccumulated[CurrentSystem][i];
       VH+=EnthalpyTimesVolumeAccumulated[CurrentSystem][i];
       V+=VolumeAccumulated[CurrentSystem][i];
       U+=TotalEnergyAccumulated[CurrentSystem][i];
       UH+=EnthalpyTimesEnergyAccumulated[CurrentSystem][i];
-      count+=BlockCount[CurrentSystem][i];
+      count+=BlockWeightedCount[CurrentSystem][i];
     }
   }
   if(count>0.0)
@@ -2375,10 +2470,10 @@ REAL GetAverageHeatCapacity(void)
   NumberOfBlocks=0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      H2=EnthalpySquaredAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
-      H=EnthalpyAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
+      H2=EnthalpySquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      H=EnthalpyAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
       sum+=HEAT_CAPACITY_CONVERSION_FACTOR*(H2-SQR(H));
       NumberOfBlocks++;
     }
@@ -2400,11 +2495,11 @@ REAL GetAverageHeatCapacityConstantPressure(void)
   H2=H=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       H2+=EnthalpySquaredAccumulated[CurrentSystem][i];
       H+=EnthalpyAccumulated[CurrentSystem][i];
-      count+=BlockCount[CurrentSystem][i];
+      count+=BlockWeightedCount[CurrentSystem][i];
     }
   }
   if(count>0.0)
@@ -2456,6 +2551,61 @@ REAL GetAverageRosenbluthWeight(int comp)
       sum+=WidomRosenbluthFactorAccumulated[CurrentSystem][comp][i];
       count+=WidomRosenbluthFactorCount[CurrentSystem][comp][i];
     }
+  }
+  if(count>0.0)
+    return sum/count;
+  else return 0.0;
+}
+
+REAL GetAverageGibbsWidom(int comp)
+{
+  int i;
+  REAL count,sum;
+
+  count=sum=0.0;
+  for(i=0;i<NR_BLOCKS;i++)
+  {
+    if(GibbsWidomRosenbluthFactorCount[CurrentSystem][comp][i]>0.0)
+    {
+      sum+=GibbsWidomRosenbluthFactorAccumulated[CurrentSystem][comp][i];
+      count+=GibbsWidomRosenbluthFactorCount[CurrentSystem][comp][i];
+    }
+  }
+  if(count>0.0)
+    return sum/count;
+  else return 0.0;
+}
+
+
+REAL GetAverageGibbsWidomIdealGas(int comp)
+{
+  int i;
+  REAL count,sum;
+
+  count=sum=0.0;
+  for(i=0;i<NR_BLOCKS;i++)
+  {
+    if(GibbsWidomRosenbluthFactorCount[CurrentSystem][comp][i]>0.0)
+    {
+      sum+=GibbsWidomIdealGasAccumulated[CurrentSystem][comp][i];
+      count+=GibbsWidomRosenbluthFactorCount[CurrentSystem][comp][i];
+    }
+  }
+  if(count>0.0)
+    return sum/count;
+  else return 0.0;
+}
+
+REAL GetAverageGibbsDensity()
+{
+  int i;
+  REAL count,sum;
+
+  count=sum=0.0;
+  for(i=0;i<NR_BLOCKS;i++)
+  {
+    sum+=GibbsDensityAccumulated[CurrentSystem][i];
+    count+=BlockWeightedCount[CurrentSystem][i];
   }
   if(count>0.0)
     return sum/count;
@@ -2578,9 +2728,9 @@ void PrintPropertyStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
   fprintf(FilePtr,"Isothermal expansion coefficient: %18.10lf [10^6 K^-1]\n",(double)GetAverageIsothermalExpansionCoefficient());
   fprintf(FilePtr,"Isothermal compressibility coefficient: %18.10lf [10^12 Pa^-1]\n",
           (double)GetAverageIsothermalCompressibilityCoefficient());
-  fprintf(FilePtr,"Heat of vaporization: %18.10lf [J/mole/K]\n",(double)GetAverageProperty(HeatOfVaporization));
+  fprintf(FilePtr,"Heat of vaporization: %18.10lf [J/mole/K]\n",(double)GetAverageWeightedProperty(HeatOfVaporization));
 */
-  fprintf(FilePtr,"Compressibility: %18.10lf [-]\n",(double)GetAverageProperty(CompressibilityAccumulated));
+  fprintf(FilePtr,"Compressibility: %18.10lf [-]\n",(double)GetAverageWeightedProperty(CompressibilityAccumulated));
   //fprintf(FilePtr,"Heat capacity Cp: %18.10lf [J/mole/K]\n",(double)GetAverageHeatCapacity());
   //fprintf(FilePtr,"Heat capacity Cp: %18.10lf [J/mole/K]\n",(double)GetAverageHeatCapacityConstantPressure());
 
@@ -2593,9 +2743,22 @@ void PrintPropertyStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
   for(i=0;i<NumberOfComponents;i++)
   {
     if(Components[i].Widom)
+    {
       fprintf(FilePtr,"\tComponent %d: %18.10lf [K]  (%18.10lf [kJ/mol])\n",i,
         (double)((GetWidomHeat(i)-GetFrameworkHeat(i))*ENERGY_TO_KELVIN),
         (double)((GetWidomHeat(i)-GetFrameworkHeat(i))*ENERGY_TO_KELVIN*KELVIN_TO_KJ_PER_MOL));
+    }
+
+    if(Components[i].FractionOfGibbsWidomMove>0.0)
+    {
+      fprintf(FilePtr,"Component [%s] average Gibbs Widom: %18.10f, average chemical potential: %18.10f [K]\n",
+        Components[i].Name,GetAverageGibbsWidom(i),
+        (-log(GetAverageGibbsWidom(i))/Beta[CurrentSystem])*ENERGY_TO_KELVIN);
+      fprintf(FilePtr,"\t\t(average excess chemical potential: %18.10f [K], ideal-gas contribution: %18.10f [K])\n",
+             (-log(GetAverageGibbsWidom(i))/Beta[CurrentSystem])*ENERGY_TO_KELVIN
+            -(-log(GetAverageGibbsWidomIdealGas(i))/Beta[CurrentSystem])*ENERGY_TO_KELVIN,
+            (-log(GetAverageGibbsWidomIdealGas(i))/Beta[CurrentSystem])*ENERGY_TO_KELVIN);
+    }
   }
   fprintf(FilePtr,"\n");
 
@@ -2635,7 +2798,7 @@ void PrintPropertyStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
       InertiaAverage.x=InertiaAverage.y=InertiaAverage.z=0.0;
       for(i=0;i<NR_BLOCKS;i++)
       {
-        if(BlockCount[CurrentSystem][i]>0.0)
+        if(BlockWeightedCount[CurrentSystem][i]>0.0)
         {
           InertiaAverage.x+=PrincipleMomentsOfInertiaAccumulated[CurrentSystem][k][i].x;
           InertiaAverage.y+=PrincipleMomentsOfInertiaAccumulated[CurrentSystem][k][i].y;
@@ -2660,7 +2823,7 @@ void PrintPropertyStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
   fprintf(FilePtr,"\n");
 }
 
-void PrintIntervalStatus(long long CurrentCycle,long long NumberOfCycles, FILE *FilePtr)
+void PrintIntervalStatusProduction(long long CurrentCycle,long long NumberOfCycles, FILE *FilePtr)
 {
   int i,j,k;
   REAL number_of_unit_cells;
@@ -2681,13 +2844,13 @@ void PrintIntervalStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
   // write out the boxlengths
   fprintf(FilePtr,"Current Box: %9.5lf %9.5lf %9.5lf [A]   Average Box: %9.5lf %9.5lf %9.5lf [A]\n",
           (double)Box[CurrentSystem].ax,(double)Box[CurrentSystem].bx,(double)Box[CurrentSystem].cx,
-          (double)GetAverageProperty(BoxAXAccumulated),(double)GetAverageProperty(BoxBXAccumulated),(double)GetAverageProperty(BoxCXAccumulated));
+          (double)GetAverageWeightedProperty(BoxAXAccumulated),(double)GetAverageWeightedProperty(BoxBXAccumulated),(double)GetAverageWeightedProperty(BoxCXAccumulated));
   fprintf(FilePtr,"             %9.5lf %9.5lf %9.5lf [A]                %9.5lf %9.5lf %9.5lf [A]\n",
           (double)Box[CurrentSystem].ay,(double)Box[CurrentSystem].by,(double)Box[CurrentSystem].cy,
-          (double)GetAverageProperty(BoxAYAccumulated),(double)GetAverageProperty(BoxBYAccumulated),(double)GetAverageProperty(BoxCYAccumulated));
+          (double)GetAverageWeightedProperty(BoxAYAccumulated),(double)GetAverageWeightedProperty(BoxBYAccumulated),(double)GetAverageWeightedProperty(BoxCYAccumulated));
   fprintf(FilePtr,"             %9.5lf %9.5lf %9.5lf [A]                %9.5lf %9.5lf %9.5lf [A]\n",
           (double)Box[CurrentSystem].az,(double)Box[CurrentSystem].bz,(double)Box[CurrentSystem].cz,
-          (double)GetAverageProperty(BoxAZAccumulated),(double)GetAverageProperty(BoxBZAccumulated),(double)GetAverageProperty(BoxCZAccumulated));
+          (double)GetAverageWeightedProperty(BoxAZAccumulated),(double)GetAverageWeightedProperty(BoxBZAccumulated),(double)GetAverageWeightedProperty(BoxCZAccumulated));
   fprintf(FilePtr,"Box-lengths:  %9.5lf %9.5lf %9.5lf [A] Average: %9.5lf %9.5lf %9.5lf [A]\n",
           (double)BoxProperties[CurrentSystem].ax,
           (double)BoxProperties[CurrentSystem].ay,
@@ -2699,11 +2862,11 @@ void PrintIntervalStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
           (double)AlphaAngle[CurrentSystem]*RAD2DEG,
           (double)BetaAngle[CurrentSystem]*RAD2DEG,
           (double)GammaAngle[CurrentSystem]*RAD2DEG,
-          (double)GetAverageProperty(AlphaAngleAccumulated),
-          (double)GetAverageProperty(BetaAngleAccumulated),
-          (double)GetAverageProperty(GammaAngleAccumulated));
+          (double)GetAverageWeightedProperty(AlphaAngleAccumulated),
+          (double)GetAverageWeightedProperty(BetaAngleAccumulated),
+          (double)GetAverageWeightedProperty(GammaAngleAccumulated));
   fprintf(FilePtr,"Volume: %9.5lf [A^3] Average Volume: %9.5lf [A^3]\n\n",
-          (double)Volume[CurrentSystem],(double)GetAverageProperty(VolumeAccumulated));
+          (double)Volume[CurrentSystem],(double)GetAverageWeightedProperty(VolumeAccumulated));
   if(Framework[CurrentSystem].FrameworkModel==FLEXIBLE)
   {
     com=GetFrameworkCenterOfMass();
@@ -2823,27 +2986,37 @@ void PrintIntervalStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
     fprintf(FilePtr,"----------------------------------------------------------------------------------------------------------------------------------------------------\n");
     for(i=0;i<NumberOfComponents;i++)
     {
-      fprintf(FilePtr,"Component %d (%s), current number of integer/fractional/reaction molecules: %d/%d/%d (average %9.5lf), density: %9.5lf (average %9.5lf) kg/m^3]\n",
+      fprintf(FilePtr,"Component %d (%s), current number of integer/fractional/reaction molecules: %d/%d/%d (average %9.5lf/%9.5lf), density: %9.5lf (average %9.5lf) kg/m^3]\n",
         i,
         Components[i].Name,
-        Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].CFMoleculePresent[CurrentSystem]?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
-        (Components[i].CFMoleculePresent[CurrentSystem]?1:0),
+        Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
+        (Components[i].FractionalMolecule[CurrentSystem]>=0?1:0),
         Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
-        (double)(GetAverageComponentProperty(NumberOfMoleculesPerComponentAccumulated,i)/(REAL)number_of_unit_cells),
-        (double)((Components[i].Mass*(REAL)(Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].CFMoleculePresent[CurrentSystem]?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])/
+        (double)(GetAverageWeightedComponentProperty(NumberOfIntegerMoleculesPerComponentAccumulated,i)/(REAL)number_of_unit_cells),
+        (double)GetAverageComponentProperty(NumberOfFractionalMoleculesPerComponentAccumulated,i),
+        (double)((Components[i].Mass*(REAL)(Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])/
                  Volume[CurrentSystem])*DENSITY_CONVERSION_FACTOR),
-        (double)(GetAverageComponentProperty(DensityPerComponentAccumulated,i)*DENSITY_CONVERSION_FACTOR));
+        (double)(GetAverageWeightedComponentProperty(DensityPerComponentAccumulated,i)*DENSITY_CONVERSION_FACTOR));
       if(Components[i].CFMoleculePresent[CurrentSystem])
       {
+        char FractionalMoleculeString[6];
         FractionalMolecule=Components[i].FractionalMolecule[CurrentSystem];
-        fprintf(FilePtr,"\tFractional molecule-id: %d, max. Lambda-change: %5lf (CFMC) %5lf (CB/CFMC)\n",FractionalMolecule,MaximumCFLambdaChange[CurrentSystem][i],MaximumCBCFLambdaChange[CurrentSystem][i]);
+        if (FractionalMolecule<0)
+          strcpy(FractionalMoleculeString,"-");
+        else
+          sprintf(FractionalMoleculeString,"%d", FractionalMolecule);
+        fprintf(FilePtr,"\tFractional molecule-id: %s, max. Lambda-change: %5lf (CFMC) %5lf (CB/CFMC)\n",FractionalMoleculeString,MaximumCFLambdaChange[CurrentSystem][i],MaximumCBCFLambdaChange[CurrentSystem][i]);
         fprintf(FilePtr,"\tLambda factors: ");
         for(k=0;k<Components[i].NumberOfAtoms;k++)
         {
-          if(Components[i].ExtraFrameworkMolecule)
-            Lambda=Cations[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
-          else
-            Lambda=Adsorbates[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
+          Lambda=0.0;
+          if(FractionalMolecule>=0)
+          {
+            if(Components[i].ExtraFrameworkMolecule)
+              Lambda=Cations[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
+            else
+              Lambda=Adsorbates[CurrentSystem][FractionalMolecule].Atoms[k].CFVDWScalingParameter;
+          }
           fprintf(FilePtr,"%4f ",Lambda);
           if((k+1)%10==0&&(k+1)!=Components[i].NumberOfAtoms)  fprintf(FilePtr,"\n\t                ");
         }
@@ -2870,13 +3043,13 @@ void PrintIntervalStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
       fprintf(FilePtr,"Component %d (%s), current number of integer/fractional/reaction molecules: %d/%d/%d (avg. %9.5lf), density: %9.5lf (avg. %9.5lf) [kg/m^3]\n",
         i,
         Components[i].Name,
-        Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].CFMoleculePresent[CurrentSystem]?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
-        (Components[i].CFMoleculePresent[CurrentSystem]?1:0),
+        Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
+        (Components[i].FractionalMolecule[CurrentSystem]>=0?1:0),
         Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem],
-        (double)GetAverageComponentProperty(NumberOfMoleculesPerComponentAccumulated,i),
-        (double)(Components[i].Mass*(REAL)(Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].CFMoleculePresent[CurrentSystem]?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])/
+        (double)GetAverageWeightedComponentProperty(NumberOfIntegerMoleculesPerComponentAccumulated,i),
+        (double)(Components[i].Mass*(REAL)(Components[i].NumberOfMolecules[CurrentSystem]-(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)-Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])/
                 Volume[CurrentSystem])*DENSITY_CONVERSION_FACTOR,
-        (double)GetAverageComponentProperty(DensityPerComponentAccumulated,i)*DENSITY_CONVERSION_FACTOR);
+        (double)GetAverageWeightedComponentProperty(DensityPerComponentAccumulated,i)*DENSITY_CONVERSION_FACTOR);
       if(Components[i].CFMoleculePresent[CurrentSystem])
       {
         FractionalMolecule=Components[i].FractionalMolecule[CurrentSystem];
@@ -2903,9 +3076,9 @@ void PrintIntervalStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
       }
 
       loading=(REAL)(Components[i].NumberOfMolecules[CurrentSystem]
-                   -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
+                   -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
                    -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])/(REAL)number_of_unit_cells;
-      average_loading=GetAverageComponentProperty(NumberOfMoleculesPerComponentAccumulated,i)/(REAL)number_of_unit_cells;
+      average_loading=GetAverageWeightedComponentProperty(NumberOfIntegerMoleculesPerComponentAccumulated,i)/(REAL)number_of_unit_cells;
       fprintf(FilePtr,"\tabsolute adsorption: %9.5lf (avg. %9.5lf) [mol/uc], %14.10lf (avg. %14.10lf) [mol/kg], %14.10lf (avg. %14.10lf) [mg/g]\n",
          (double)loading,
          (double)average_loading,
@@ -2922,9 +3095,9 @@ void PrintIntervalStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
 
       loading=((REAL)Components[i].NumberOfMolecules[CurrentSystem]
                     -Components[i].AmountOfExcessMolecules[CurrentSystem]
-                    -(Components[i].CFMoleculePresent[CurrentSystem]?1:0)
+                    -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
                     -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])/(REAL)number_of_unit_cells;
-      average_loading=GetAverageComponentProperty(NumberOfExcessMoleculesPerComponentAccumulated,i)/(REAL)number_of_unit_cells;
+      average_loading=GetAverageWeightedComponentProperty(NumberOfExcessMoleculesPerComponentAccumulated,i)/(REAL)number_of_unit_cells;
       fprintf(FilePtr,"\texcess adsorption:   %14.10lf (avg. %14.10lf) [mol/uc], %14.10lf (avg. %14.10lf) [mol/kg], %14.10lf (avg. %14.10lf) [mg/g]\n",
          (double)loading,
          (double)average_loading,
@@ -2946,13 +3119,13 @@ void PrintIntervalStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
   fprintf(FilePtr,"Number of Framework-atoms: %6d\n",Framework[CurrentSystem].TotalNumberOfAtoms);
   fprintf(FilePtr,"Number of Adsorbates:      %6d (%d integer, %d fractional, %d reaction)\n",
           NumberOfAdsorbateMolecules[CurrentSystem],
-          NumberOfAdsorbateMolecules[CurrentSystem]-NumberOfFractionalAdsorbateMolecules[CurrentSystem]-NumberOfReactionAdsorbateMolecules[CurrentSystem],
-          NumberOfFractionalAdsorbateMolecules[CurrentSystem],
+          TotalNumberOfIntegerAdsorbates(),
+          TotalNumberOfFractionalAdsorbates(),
           NumberOfReactionAdsorbateMolecules[CurrentSystem]);
   fprintf(FilePtr,"Number of Cations:         %6d (%d integer, %d fractional, %d reaction)\n",
           NumberOfCationMolecules[CurrentSystem],
-          NumberOfCationMolecules[CurrentSystem]-NumberOfFractionalCationMolecules[CurrentSystem]-NumberOfReactionCationMolecules[CurrentSystem],
-          NumberOfFractionalCationMolecules[CurrentSystem],
+          TotalNumberOfIntegerCations(),
+          TotalNumberOfFractionalCations(),
           NumberOfReactionCationMolecules[CurrentSystem]);
   fprintf(FilePtr,"\n");
 
@@ -2966,91 +3139,91 @@ void PrintIntervalStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
     {
       fprintf(FilePtr,"Temperature:            % 8.3lf (avg. % 8.3lf), Translational (avg. % 8.3lf), Rotational (avg. % 8.3lf)\n",
         (double)(2.0*UKinetic[CurrentSystem]/(K_B*DegreesOfFreedom[CurrentSystem])),
-        (double)GetAverageProperty(TemperatureAccumulated),
-        (double)GetAverageProperty(TemperatureTranslationAccumulated),
-        (double)GetAverageProperty(TemperatureRotationAccumulated));
+        (double)GetAverageWeightedProperty(TemperatureAccumulated),
+        (double)GetAverageWeightedProperty(TemperatureTranslationAccumulated),
+        (double)GetAverageWeightedProperty(TemperatureRotationAccumulated));
     }
     if(Framework[CurrentSystem].FrameworkModel==FLEXIBLE)
       fprintf(FilePtr,"Temperature Framework:  % 8.3lf (avg. % 8.3lf)\n",
         (double)(2.0*UHostKinetic[CurrentSystem]/(K_B*DegreesOfFreedomFramework[CurrentSystem])),
-        (double)GetAverageProperty(TemperatureFrameworkAccumulated));
+        (double)GetAverageWeightedProperty(TemperatureFrameworkAccumulated));
     if(DegreesOfFreedomAdsorbates[CurrentSystem]>0)
         fprintf(FilePtr,"Temperature Adsorbates: % 8.3lf (avg. % 8.3lf), Translational (avg. % 8.3lf), Rotational (avg. % 8.3lf)\n",
         (double)(2.0*UAdsorbateKinetic[CurrentSystem]/(K_B*DegreesOfFreedomAdsorbates[CurrentSystem])),
-        (double)GetAverageProperty(TemperatureAdsorbatesAccumulated),
-        (double)GetAverageProperty(TemperatureTranslationAdsorbateAccumulated),
-        (double)GetAverageProperty(TemperatureRotationAdsorbateAccumulated));
+        (double)GetAverageWeightedProperty(TemperatureAdsorbatesAccumulated),
+        (double)GetAverageWeightedProperty(TemperatureTranslationAdsorbateAccumulated),
+        (double)GetAverageWeightedProperty(TemperatureRotationAdsorbateAccumulated));
     if(DegreesOfFreedomCations[CurrentSystem]>0)
       fprintf(FilePtr,"Temperature Cations:    % 8.3lf (avg. % 8.3lf)\n",
         (double)(2.0*UCationKinetic[CurrentSystem]/(K_B*DegreesOfFreedomCations[CurrentSystem])),
-        (double)GetAverageProperty(TemperatureCationsAccumulated));
+        (double)GetAverageWeightedProperty(TemperatureCationsAccumulated));
     fprintf(FilePtr,"Cell temperature: % 8.3lf (avg. % 8.3lf)\n",GetCellTemperature(),GetAverageCellTemperature());
     fprintf(FilePtr,"Current total kinetic energy:       % 22.10lf [K]\n",(double)UKinetic[CurrentSystem]);
     fprintf(FilePtr,"Current total Nose-Hoover energy:   % 22.10lf [K]\n",(double)UNoseHoover[CurrentSystem]);
   }
   fprintf(FilePtr,"Current total potential energy:       % 22.10lf [K]  (avg. % 22.10lf)\n",
-      (double)UTotal[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UTotalAccumulated)*ENERGY_TO_KELVIN);
+      (double)UTotal[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UTotalAccumulated)*ENERGY_TO_KELVIN);
 
   fprintf(FilePtr,"\tCurrent Host-Host energy:           % 22.10lf [K]  (avg. % 22.10lf)\n",
-      (double)UHostHost[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UHostHostAccumulated)*ENERGY_TO_KELVIN);
+      (double)UHostHost[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UHostHostAccumulated)*ENERGY_TO_KELVIN);
   fprintf(FilePtr,"\tCurrent Host-Adsorbate energy:      % 22.10lf [K]  (avg. % 22.10lf)\n",
-      (double)UHostAdsorbate[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UHostAdsorbateAccumulated)*ENERGY_TO_KELVIN);
+      (double)UHostAdsorbate[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UHostAdsorbateAccumulated)*ENERGY_TO_KELVIN);
   fprintf(FilePtr,"\tCurrent Host-Cation energy:         % 22.10lf [K]  (avg. % 22.10lf)\n",
-      (double)UHostCation[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UHostCationAccumulated)*ENERGY_TO_KELVIN);
+      (double)UHostCation[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UHostCationAccumulated)*ENERGY_TO_KELVIN);
   fprintf(FilePtr,"\tCurrent Adsorbate-Adsorbate energy: % 22.10lf [K]  (avg. % 22.10lf)\n",
-      (double)UAdsorbateAdsorbate[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UAdsorbateAdsorbateAccumulated)*ENERGY_TO_KELVIN);
+      (double)UAdsorbateAdsorbate[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UAdsorbateAdsorbateAccumulated)*ENERGY_TO_KELVIN);
   fprintf(FilePtr,"\tCurrent Cation-Cation energy:       % 22.10lf [K]  (avg. % 22.10lf)\n",
-      (double)UCationCation[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UCationCationAccumulated)*ENERGY_TO_KELVIN);
+      (double)UCationCation[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UCationCationAccumulated)*ENERGY_TO_KELVIN);
   fprintf(FilePtr,"\tCurrent Adsorbate-Cation energy:    % 22.10lf [K]  (avg. % 22.10lf)\n",
-      (double)UAdsorbateCation[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UAdsorbateCationAccumulated)*ENERGY_TO_KELVIN);
+      (double)UAdsorbateCation[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UAdsorbateCationAccumulated)*ENERGY_TO_KELVIN);
 
   if(ComputePolarization)
   {
     fprintf(FilePtr,"\tCurrent polarization energy:        % 22.10lf [K]  (avg. % 22.10lf)\n",(double)(UHostPolarization[CurrentSystem]+
          UAdsorbatePolarization[CurrentSystem]+UCationPolarization[CurrentSystem])*ENERGY_TO_KELVIN,
-         (double)(GetAverageProperty(UHostPolarizationAccumulated)+GetAverageProperty(UAdsorbatePolarizationAccumulated)+
-                 GetAverageProperty(UCationPolarizationAccumulated))*ENERGY_TO_KELVIN);
+         (double)(GetAverageWeightedProperty(UHostPolarizationAccumulated)+GetAverageWeightedProperty(UAdsorbatePolarizationAccumulated)+
+                 GetAverageWeightedProperty(UCationPolarizationAccumulated))*ENERGY_TO_KELVIN);
     fprintf(FilePtr,"\tCurrent back-polarization energy:   % 22.10lf [K]  (avg. % 22.10lf)\n",(double)(UHostBackPolarization[CurrentSystem]+
          UAdsorbateBackPolarization[CurrentSystem]+UCationBackPolarization[CurrentSystem])*ENERGY_TO_KELVIN,
-         (double)(GetAverageProperty(UHostBackPolarizationAccumulated)+GetAverageProperty(UAdsorbateBackPolarizationAccumulated)+
-                 GetAverageProperty(UCationBackPolarizationAccumulated))*ENERGY_TO_KELVIN);
+         (double)(GetAverageWeightedProperty(UHostBackPolarizationAccumulated)+GetAverageWeightedProperty(UAdsorbateBackPolarizationAccumulated)+
+                 GetAverageWeightedProperty(UCationBackPolarizationAccumulated))*ENERGY_TO_KELVIN);
   }
 
   if(Framework[CurrentSystem].FrameworkModel==FLEXIBLE)
   {
     if(Framework[CurrentSystem].NumberOfBondsDefinitions>0)
       fprintf(FilePtr,"\t\tCurrent Host-Bond energy:             % 22.10lf [K]  (avg. % 22.10lf)\n",
-          (double)UHostBond[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UHostBondAccumulated)*ENERGY_TO_KELVIN);
+          (double)UHostBond[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UHostBondAccumulated)*ENERGY_TO_KELVIN);
     if(Framework[CurrentSystem].NumberOfUreyBradleyDefinitions>0)
       fprintf(FilePtr,"\t\tCurrent Host-UreyBradly energy:       % 22.10lf [K]  (avg. % 22.10lf)\n",
-          (double)UHostUreyBradley[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UHostUreyBradleyAccumulated)*ENERGY_TO_KELVIN);
+          (double)UHostUreyBradley[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UHostUreyBradleyAccumulated)*ENERGY_TO_KELVIN);
     if(Framework[CurrentSystem].NumberOfBendDefinitions>0)
       fprintf(FilePtr,"\t\tCurrent Host-Bend energy:             % 22.10lf [K]  (avg. % 22.10lf)\n",
-          (double)UHostBend[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UHostBendAccumulated)*ENERGY_TO_KELVIN);
+          (double)UHostBend[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UHostBendAccumulated)*ENERGY_TO_KELVIN);
     if(Framework[CurrentSystem].NumberOfInversionBendDefinitions>0)
       fprintf(FilePtr,"\t\tCurrent Host-Inversion Bend energy:   % 22.10lf [K]  (avg. % 22.10lf)\n",
-          (double)UHostInversionBend[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UHostInversionBendAccumulated)*ENERGY_TO_KELVIN);
+          (double)UHostInversionBend[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UHostInversionBendAccumulated)*ENERGY_TO_KELVIN);
     if(Framework[CurrentSystem].NumberOfTorsionDefinitions>0)
       fprintf(FilePtr,"\t\tCurrent Host-Torsion energy:          % 22.10lf [K]  (avg. % 22.10lf)\n",
-          (double)UHostTorsion[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UHostTorsionAccumulated)*ENERGY_TO_KELVIN);
+          (double)UHostTorsion[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UHostTorsionAccumulated)*ENERGY_TO_KELVIN);
     if(Framework[CurrentSystem].NumberOfImproperTorsionDefinitions>0)
       fprintf(FilePtr,"\t\tCurrent Host-Improper torsion energy: % 22.10lf [K]  (avg. % 22.10lf)\n",
-          (double)UHostImproperTorsion[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UHostImproperTorsionAccumulated)*ENERGY_TO_KELVIN);
+          (double)UHostImproperTorsion[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UHostImproperTorsionAccumulated)*ENERGY_TO_KELVIN);
     if(Framework[CurrentSystem].NumberOfBondBondDefinitions>0)
       fprintf(FilePtr,"\t\tCurrent Host-Bond/Bond energy:        % 22.10lf [K]  (avg. % 22.10lf)\n",
-          (double)UHostBondBond[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UHostBondBondAccumulated)*ENERGY_TO_KELVIN);
+          (double)UHostBondBond[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UHostBondBondAccumulated)*ENERGY_TO_KELVIN);
     if(Framework[CurrentSystem].NumberOfBendBendDefinitions>0)
       fprintf(FilePtr,"\t\tCurrent Host-Bend/Bend energy:        % 22.10lf [K]  (avg. % 22.10lf)\n",
-          (double)UHostBendBend[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UHostBendBendAccumulated)*ENERGY_TO_KELVIN);
+          (double)UHostBendBend[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UHostBendBendAccumulated)*ENERGY_TO_KELVIN);
     if(Framework[CurrentSystem].NumberOfBondBendDefinitions>0)
       fprintf(FilePtr,"\t\tCurrent Host-Bond/Bend energy:        % 22.10lf [K]  (avg. % 22.10lf)\n",
-          (double)UHostBondBend[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UHostBondBendAccumulated)*ENERGY_TO_KELVIN);
+          (double)UHostBondBend[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UHostBondBendAccumulated)*ENERGY_TO_KELVIN);
     if(Framework[CurrentSystem].NumberOfBondTorsionDefinitions>0)
       fprintf(FilePtr,"\t\tCurrent Host-Bond/Torsion energy:     % 22.10lf [K]  (avg. % 22.10lf)\n",
-          (double)UHostBondTorsion[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UHostBondTorsionAccumulated)*ENERGY_TO_KELVIN);
+          (double)UHostBondTorsion[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UHostBondTorsionAccumulated)*ENERGY_TO_KELVIN);
     if(Framework[CurrentSystem].NumberOfBendTorsionDefinitions>0)
       fprintf(FilePtr,"\t\tCurrent Host-Bend/Torsion energy:     % 22.10lf [K]  (avg. % 22.10lf)\n\n",
-          (double)UHostBendTorsion[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageProperty(UHostBendTorsionAccumulated)*ENERGY_TO_KELVIN);
+          (double)UHostBendTorsion[CurrentSystem]*ENERGY_TO_KELVIN,(double)GetAverageWeightedProperty(UHostBendTorsionAccumulated)*ENERGY_TO_KELVIN);
   }
 
   fprintf(FilePtr,"\n");
@@ -3069,9 +3242,9 @@ void PrintProperty(FILE *FilePtr,char *string,char *units,REAL conv_factor,REAL 
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=conv_factor*(Property[CurrentSystem][i]/BlockCount[CurrentSystem][i]);
+      tmp=conv_factor*(Property[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
       sum2+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf %s\n",i,(double)tmp,units);
@@ -3097,11 +3270,11 @@ void PrintEnergies(FILE *FilePtr,char *string,char *units,REAL conv_factor,REAL 
   sum2=sum_vdw2=sum_coul2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=conv_factor*(Property[CurrentSystem][i]/BlockCount[CurrentSystem][i]);
-      tmp_vdw=conv_factor*(PropertyVDW[CurrentSystem][i]/BlockCount[CurrentSystem][i]);
-      tmp_coul=conv_factor*(PropertyCoulomb[CurrentSystem][i]/BlockCount[CurrentSystem][i]);
+      tmp=conv_factor*(Property[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
+      tmp_vdw=conv_factor*(PropertyVDW[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
+      tmp_coul=conv_factor*(PropertyCoulomb[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
       sum_vdw+=tmp_vdw;
       sum_coul+=tmp_coul;
@@ -3141,7 +3314,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   REAL (*HeatOfAdsorptionPerComponent)[NR_BLOCKS];
   REAL_MATRIX matrix;
 
-  AverageVolume=GetAverageProperty(VolumeAccumulated);
+  AverageVolume=GetAverageWeightedProperty(VolumeAccumulated);
 
   nr_molecules=0.0;
   for(j=0;j<NumberOfComponents;j++)
@@ -3152,13 +3325,13 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
     sum2=sum_vdw2=sum_coul2=0.0;
     for(i=0;i<NR_BLOCKS;i++)
     {
-      if(BlockCount[CurrentSystem][i]>0.0)
+      if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
-        sum+=NumberOfMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockCount[CurrentSystem][i];
-        sum2+=SQR(NumberOfMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockCount[CurrentSystem][i]);
+        sum+=NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i];
+        sum2+=SQR(NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i]);
 
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,
-                (double)(NumberOfMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockCount[CurrentSystem][i]));
+                (double)(NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i]));
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,(double)0.0);
@@ -3174,10 +3347,10 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
     if(Components[j].ExtraFrameworkMolecule)
     {
       for(i=0;i<NR_BLOCKS;i++)
-        if(BlockCount[CurrentSystem][i]>0.0)
+        if(BlockWeightedCount[CurrentSystem][i]>0.0)
         {
-          sum+=NumberOfMoleculesPerComponentAccumulated[CurrentSystem][j][i];
-          sum2+=BlockCount[CurrentSystem][i];
+          sum+=NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i];
+          sum2+=BlockWeightedCount[CurrentSystem][i];
         }
       CationMass=(sum/sum2)*Components[j].Mass;
     }
@@ -3194,9 +3367,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=TemperatureAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
+      tmp=TemperatureAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
       sum+=tmp;
       sum2+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [K]\n",i,(double)tmp);
@@ -3218,10 +3391,10 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
       sum=sum2=0.0;
       for(i=0;i<NR_BLOCKS;i++)
       {
-        if(BlockCount[CurrentSystem][i]>0.0)
+        if(BlockWeightedCount[CurrentSystem][i]>0.0)
         {
           tmp=((MolecularStressTensorAccumulated[CurrentSystem][i].ax+MolecularStressTensorAccumulated[CurrentSystem][i].by+MolecularStressTensorAccumulated[CurrentSystem][i].cz)/
-               (3.0*BlockCount[CurrentSystem][i]))*PRESSURE_CONVERSION_FACTOR;
+               (3.0*BlockWeightedCount[CurrentSystem][i]))*PRESSURE_CONVERSION_FACTOR;
 
           sum+=tmp;
           sum2+=SQR(tmp);
@@ -3243,12 +3416,12 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
       sum=sum2=0.0;
       for(i=0;i<NR_BLOCKS;i++)
       {
-        if(BlockCount[CurrentSystem][i]>0.0)
+        if(BlockWeightedCount[CurrentSystem][i]>0.0)
         {
           // NEW
-          //tmp=(MolecularPressureAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i])*PRESSURE_CONVERSION_FACTOR;
+          //tmp=(MolecularPressureAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i])*PRESSURE_CONVERSION_FACTOR;
           tmp=((StressTensorAccumulated[CurrentSystem][i].ax+StressTensorAccumulated[CurrentSystem][i].by+StressTensorAccumulated[CurrentSystem][i].cz)/
-               (3.0*BlockCount[CurrentSystem][i]))*PRESSURE_CONVERSION_FACTOR;
+               (3.0*BlockWeightedCount[CurrentSystem][i]))*PRESSURE_CONVERSION_FACTOR;
           sum+=tmp;
           sum2+=SQR(tmp);
           fprintf(FilePtr,"\tBlock[%2d] %18.5lf [Pa]\n",i,(double)tmp);
@@ -3274,9 +3447,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=(VolumeAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i]);
+      tmp=(VolumeAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
       sum2+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
@@ -3296,9 +3469,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=(BoxAccumulated[CurrentSystem][i].x/BlockCount[CurrentSystem][i]);
+      tmp=(BoxAccumulated[CurrentSystem][i].x/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
       sum2+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
@@ -3313,9 +3486,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=(BoxAccumulated[CurrentSystem][i].y/BlockCount[CurrentSystem][i]);
+      tmp=(BoxAccumulated[CurrentSystem][i].y/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
       sum2+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
@@ -3330,9 +3503,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=(BoxAccumulated[CurrentSystem][i].z/BlockCount[CurrentSystem][i]);
+      tmp=(BoxAccumulated[CurrentSystem][i].z/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
       sum2+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
@@ -3347,9 +3520,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=(AlphaAngleAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i]);
+      tmp=(AlphaAngleAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
       sum2+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
@@ -3365,9 +3538,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=(BetaAngleAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i]);
+      tmp=(BetaAngleAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
       sum2+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
@@ -3383,9 +3556,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=(GammaAngleAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i]);
+      tmp=(GammaAngleAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
       sum2+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
@@ -3438,9 +3611,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   Mass=GetTotalAdsorbateMass()+GetTotalCationMass();
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=(DensityAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i])*DENSITY_CONVERSION_FACTOR;
+      tmp=(DensityAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i])*DENSITY_CONVERSION_FACTOR;
       sum+=tmp;
       sum2+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [kg/m^3]\n",i,(double)tmp);
@@ -3460,9 +3633,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
     sum=sum2=0.0;
     for(i=0;i<NR_BLOCKS;i++)
     {
-      if(BlockCount[CurrentSystem][i]>0.0)
+      if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
-        tmp=(DensityPerComponentAccumulated[CurrentSystem][j][i]/BlockCount[CurrentSystem][i])*DENSITY_CONVERSION_FACTOR;
+        tmp=(DensityPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i])*DENSITY_CONVERSION_FACTOR;
         sum+=tmp;
         sum2+=SQR(tmp);
 
@@ -3483,9 +3656,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=CompressibilityAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
+      tmp=CompressibilityAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
       sum+=tmp;
       sum2+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [-]\n",i,(double)tmp);
@@ -3506,10 +3679,10 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   dipole_norm=dipole_norm_squared=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      dipole_norm=TotalSystemNormDipoleAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
-      dipole_norm_squared=TotalSystemNormDipoleSquaredAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
+      dipole_norm=TotalSystemNormDipoleAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      dipole_norm_squared=TotalSystemNormDipoleSquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
       tmp=1.0+(4.0*M_PI*Beta[CurrentSystem]/(3.0*vol))*(dipole_norm_squared-SQR(dipole_norm))*
           DIELECTRIC_CONSTANT_CONVERSION_FACTOR/DIELECTRIC_CONSTANT_VACUUM;
       sum+=tmp;
@@ -3530,11 +3703,11 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       T=therm_baro_stats.ExternalTemperature[CurrentSystem];
-      V=VolumeAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
-      V2=VolumeSquaredAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
+      V=VolumeAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      V2=VolumeSquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
       tmp=1e12*ISOTHERMAL_COMPRESSIBILITY_CONVERSION_FACTOR*(V2-SQR(V))/(K_B*T*V);
       sum+=tmp;
       sum2+=SQR(tmp);
@@ -3560,11 +3733,11 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      HV=EnthalpyTimesVolumeAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
-      V=VolumeAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
-      H=EnthalpyAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
+      HV=EnthalpyTimesVolumeAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      V=VolumeAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      H=EnthalpyAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
       T=therm_baro_stats.ExternalTemperature[CurrentSystem];
       tmp=1e5*VOLUMETRIC_EXPANSION_COEFFICIENT_CONVERSION_FACTOR*(HV-H*V)/(K_B*V*SQR(T));
       sum+=tmp;
@@ -3590,10 +3763,10 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
     N+=Framework[CurrentSystem].TotalNumberOfAtoms;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      H2=TotalEnergySquaredAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
-      H=TotalEnergyAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
+      H2=TotalEnergySquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      H=TotalEnergyAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
       T=therm_baro_stats.ExternalTemperature[CurrentSystem];
       tmp=HEAT_CAPACITY_CONVERSION_FACTOR*((H2-SQR(H))/(N*K_B*SQR(T))+3.0*K_B/2.0);
       sum+=tmp;
@@ -3623,12 +3796,12 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
       N+=Framework[CurrentSystem].TotalNumberOfAtoms;
     for(i=0;i<NR_BLOCKS;i++)
     {
-      if(BlockCount[CurrentSystem][i]>0.0)
+      if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
-        tmp=ENERGY_TO_KELVIN*((fabs(EnergyPerMolecule[CurrentSystem][i]-EnergyPerMolecule[1-CurrentSystem][i])/BlockCount[CurrentSystem][i])
+        tmp=ENERGY_TO_KELVIN*((fabs(EnergyPerMolecule[CurrentSystem][i]-EnergyPerMolecule[1-CurrentSystem][i])/BlockWeightedCount[CurrentSystem][i])
              +((MolecularStressTensorAccumulated[CurrentSystem][i].ax+MolecularStressTensorAccumulated[CurrentSystem][i].by+
-              MolecularStressTensorAccumulated[CurrentSystem][i].cz)/(3.0*BlockCount[CurrentSystem][i]))*
-              (fabs(VolumePerMolecule[CurrentSystem][i]-VolumePerMolecule[1-CurrentSystem][i])/BlockCount[CurrentSystem][i]));
+              MolecularStressTensorAccumulated[CurrentSystem][i].cz)/(3.0*BlockWeightedCount[CurrentSystem][i]))*
+              (fabs(VolumePerMolecule[CurrentSystem][i]-VolumePerMolecule[1-CurrentSystem][i])/BlockWeightedCount[CurrentSystem][i]));
         sum+=tmp;
         sum2+=SQR(tmp);
 
@@ -3653,9 +3826,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
     sum=sum2=0.0;
     for(i=0;i<NR_BLOCKS;i++)
     {
-      if(BlockCount[CurrentSystem][i]>0.0)
+      if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
-        tmp=ENERGY_TO_KELVIN*fabs(EnergyPerMolecule[CurrentSystem][i]-EnergyPerMolecule[1-CurrentSystem][i])/BlockCount[CurrentSystem][i];
+        tmp=ENERGY_TO_KELVIN*fabs(EnergyPerMolecule[CurrentSystem][i]-EnergyPerMolecule[1-CurrentSystem][i])/BlockWeightedCount[CurrentSystem][i];
         sum+=tmp;
         sum2+=SQR(tmp);
 
@@ -3682,11 +3855,11 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
       N+=Framework[CurrentSystem].TotalNumberOfAtoms;
     for(i=0;i<NR_BLOCKS;i++)
     {
-      if(BlockCount[CurrentSystem][i]>0.0)
+      if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
         tmp=ENERGY_TO_KELVIN*fabs(((MolecularStressTensorAccumulated[CurrentSystem][i].ax+MolecularStressTensorAccumulated[CurrentSystem][i].by+
-              MolecularStressTensorAccumulated[CurrentSystem][i].cz)/(3.0*BlockCount[CurrentSystem][i]))*
-             (VolumePerMolecule[CurrentSystem][i]-VolumePerMolecule[1-CurrentSystem][i])/BlockCount[CurrentSystem][i]);
+              MolecularStressTensorAccumulated[CurrentSystem][i].cz)/(3.0*BlockWeightedCount[CurrentSystem][i]))*
+             (VolumePerMolecule[CurrentSystem][i]-VolumePerMolecule[1-CurrentSystem][i])/BlockWeightedCount[CurrentSystem][i]);
         sum+=tmp;
         sum2+=SQR(tmp);
 
@@ -3712,10 +3885,10 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      H2=EnthalpySquaredAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
-      H=EnthalpyAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
+      H2=EnthalpySquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      H=EnthalpyAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
       T=therm_baro_stats.ExternalTemperature[CurrentSystem];
       tmp=HEAT_CAPACITY_CONVERSION_FACTOR*((H2-SQR(H))/(K_B*SQR(T)));
       sum+=tmp;
@@ -3746,12 +3919,12 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      REAL UTotalTimesN = TotalEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
-      REAL UTotal = UTotalAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
-      REAL N = NumberOfMoleculesAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
-      REAL NSquared = NumberOfMoleculesSquaredAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
+      REAL UTotalTimesN = TotalEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      REAL UTotal = UTotalAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      REAL N = NumberOfIntegerMoleculesAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      REAL NSquared = NumberOfMoleculesSquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
 
       tmp=ENERGY_TO_KELVIN*((UTotalTimesN - UTotal*N)/(NSquared - SQR(N)))-therm_baro_stats.ExternalTemperature[CurrentSystem];
       sum+=tmp;
@@ -3783,9 +3956,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
       {
         for(k2=0;k2<NumberOfComponents;k2++)
         {
-          matrix.element[k1][k2]=NumberOfMoleculesPerComponentSquaredAccumulated[CurrentSystem][k1][k2][i]/BlockCount[CurrentSystem][i]-
-                              ( NumberOfMoleculesPerComponentAccumulated[CurrentSystem][k1][i]/BlockCount[CurrentSystem][i])*
-                              ( NumberOfMoleculesPerComponentAccumulated[CurrentSystem][k2][i]/BlockCount[CurrentSystem][i]);
+          matrix.element[k1][k2]=NumberOfMoleculesPerComponentSquaredAccumulated[CurrentSystem][k1][k2][i]/BlockWeightedCount[CurrentSystem][i]-
+                              ( NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][k1][i]/BlockWeightedCount[CurrentSystem][i])*
+                              ( NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][k2][i]/BlockWeightedCount[CurrentSystem][i]);
         }
       }
 
@@ -3796,9 +3969,9 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
         HeatOfAdsorptionPerComponent[k1][i]=0.0;
         for (k2=0;k2<NumberOfComponents;k2++)
         {
-          REAL UTotalTimesNcomp = TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[CurrentSystem][k2][i]/BlockCount[CurrentSystem][i];
-          REAL UTotal = UTotalAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i];
-          REAL Ncomp = NumberOfMoleculesPerComponentAccumulated[CurrentSystem][k2][i]/BlockCount[CurrentSystem][i];
+          REAL UTotalTimesNcomp = TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[CurrentSystem][k2][i]/BlockWeightedCount[CurrentSystem][i];
+          REAL UTotal = UTotalAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+          REAL Ncomp = NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][k2][i]/BlockWeightedCount[CurrentSystem][i];
           HeatOfAdsorptionPerComponent[k1][i]+=ENERGY_TO_KELVIN*((UTotalTimesNcomp-UTotal*Ncomp)*matrix.element[k2][k1]);
         }
         HeatOfAdsorptionPerComponent[k1][i]-=therm_baro_stats.ExternalTemperature[CurrentSystem];
@@ -3814,7 +3987,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
       fprintf(FilePtr,"\t-------------------------------------------------------------\n");
       for(i=0;i<NR_BLOCKS;i++)
       {
-        if(BlockCount[CurrentSystem][i]>0.0)
+        if(BlockWeightedCount[CurrentSystem][i]>0.0)
         {
           sum+=HeatOfAdsorptionPerComponent[k1][i];
           sum2+=SQR(HeatOfAdsorptionPerComponent[k1][i]);
@@ -3839,15 +4012,15 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
     fprintf(FilePtr,"\t----------------------------------------------------------------------\n");
     for(i=0;i<NR_BLOCKS;i++)
     {
-      if(BlockCount[CurrentSystem][i]>0.0)
+      if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
         double loading_total = 0.0;
         for (j=0;j<NumberOfComponents;j++)
-           loading_total += NumberOfMoleculesPerComponentAccumulated[CurrentSystem][j][i];
+           loading_total += NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i];
         double sumc=0.0;
         for(k1=0;k1<NumberOfComponents;k1++)
         {
-          double loading_i = NumberOfMoleculesPerComponentAccumulated[CurrentSystem][k1][i];
+          double loading_i = NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][k1][i];
           sumc+=(loading_i/loading_total)*HeatOfAdsorptionPerComponent[k1][i];
         }
         sum+=sumc;
@@ -3878,11 +4051,11 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    if(BlockCount[CurrentSystem][i]>0.0)
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
       tmp=ENERGY_TO_KELVIN*(Volume[0]*therm_baro_stats.ExternalTemperature[CurrentSystem]/
-          (NumberOfMoleculesSquaredAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i]-
-          SQR(NumberOfMoleculesAccumulated[CurrentSystem][i]/BlockCount[CurrentSystem][i])));
+          (NumberOfMoleculesSquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]-
+          SQR(NumberOfIntegerMoleculesAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i])));
       sum+=tmp;
       sum2+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,(double)tmp);
@@ -4164,13 +4337,13 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
     sum2=sum_vdw2=sum_coul2=0.0;
     for(i=0;i<NR_BLOCKS;i++)
     {
-      if(BlockCount[CurrentSystem][i]>0.0)
+      if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
-        sum+=NumberOfMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockCount[CurrentSystem][i];
-        sum2+=SQR(NumberOfMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockCount[CurrentSystem][i]);
+        sum+=NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i];
+        sum2+=SQR(NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i]);
 
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,
-                (double)(NumberOfMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockCount[CurrentSystem][i]));
+                (double)(NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i]));
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,(double)0.0);
@@ -4206,13 +4379,13 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
     sum2=sum_vdw2=sum_coul2=0.0;
     for(i=0;i<NR_BLOCKS;i++)
     {
-      if(BlockCount[CurrentSystem][i]>0.0)
+      if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
-        sum+=(NumberOfExcessMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockCount[CurrentSystem][i]);
-        sum2+=SQR(NumberOfExcessMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockCount[CurrentSystem][i]);
+        sum+=(NumberOfExcessMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i]);
+        sum2+=SQR(NumberOfExcessMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i]);
 
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,
-                (double)(NumberOfMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockCount[CurrentSystem][i]));
+                (double)(NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i]));
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,(double)0.0);
@@ -4271,6 +4444,118 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
       (double)(sum/(REAL)NR_BLOCKS),
       (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
   }
+
+  // Average Gibbs Widom Rosenbluth factor
+  fprintf(FilePtr,"\n");
+  fprintf(FilePtr,"Average Gibbs Widom Rosenbluth factor:\n");
+  fprintf(FilePtr,"======================================\n");
+  for(j=0;j<NumberOfComponents;j++)
+  {
+    sum=sum2=0.0;
+    for(i=0;i<NR_BLOCKS;i++)
+    {
+      if(GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
+      {
+        tmp=GibbsWidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
+            GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i];
+        sum+=tmp;
+        sum2+=SQR(tmp);
+        fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
+      }
+      else
+        fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
+    }
+    fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
+    fprintf(FilePtr,"\t[%s] Average Gibbs Widom:   %lg +/- %lf [-]\n",
+      Components[j].Name,
+      (double)(sum/(REAL)NR_BLOCKS),
+      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+  }
+
+
+  // Average Gibbs chemical potential
+  fprintf(FilePtr,"\n");
+  fprintf(FilePtr,"Average Gibbs Widom chemical potential:\n");
+  fprintf(FilePtr,"=======================================\n");
+  for(j=0;j<NumberOfComponents;j++)
+  {
+    sum=sum2=0.0;
+    for(i=0;i<NR_BLOCKS;i++)
+    {
+      if(GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
+      {
+        tmp=(-log(GibbsWidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
+                  GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
+        sum+=tmp;
+        sum2+=SQR(tmp);
+        fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
+      }
+      else
+        fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
+    }
+    fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
+    fprintf(FilePtr,"\t[%s] Average excess chemical potential:   %lg +/- %lf [K]\n",
+      Components[j].Name,
+      (double)(sum/(REAL)NR_BLOCKS),
+      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+  }
+
+  // Average Gibbs Widom ideal-gas contribution
+  fprintf(FilePtr,"\n");
+  fprintf(FilePtr,"Average Gibbs Widom Ideal-gas contribution:\n");
+  fprintf(FilePtr,"===========================================\n");
+  for(j=0;j<NumberOfComponents;j++)
+  {
+    sum=sum2=0.0;
+    for(i=0;i<NR_BLOCKS;i++)
+    {
+      if(GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
+      {
+        tmp=(-log(GibbsWidomIdealGasAccumulated[CurrentSystem][j][i]/
+                  GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
+        sum+=tmp;
+        sum2+=SQR(tmp);
+        fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
+      }
+      else
+        fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
+    }
+    fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
+    fprintf(FilePtr,"\t[%s] Average Gibbs Widom Ideal-gas:   %lg +/- %lf [-]\n",
+      Components[j].Name,
+      (double)(sum/(REAL)NR_BLOCKS),
+      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+  }
+
+  // Average Gibbs Widom excess contribution
+  fprintf(FilePtr,"\n");
+  fprintf(FilePtr,"Average Gibbs Widom excess contribution:\n");
+  fprintf(FilePtr,"===========================================\n");
+  for(j=0;j<NumberOfComponents;j++)
+  {
+    sum=sum2=0.0;
+    for(i=0;i<NR_BLOCKS;i++)
+    {
+      if(GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
+      {
+        tmp=(-log(GibbsWidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
+                  GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN
+            +(log(GibbsWidomIdealGasAccumulated[CurrentSystem][j][i]/
+                  GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
+        sum+=tmp;
+        sum2+=SQR(tmp);
+        fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
+      }
+      else
+        fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
+    }
+    fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
+    fprintf(FilePtr,"\t[%s] Average Gibbs Widom excess:   %lg +/- %lf [-]\n",
+      Components[j].Name,
+      (double)(sum/(REAL)NR_BLOCKS),
+      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+  }
+
 
   // Average Henry Coefficient
   fprintf(FilePtr,"\n");
@@ -4351,6 +4636,7 @@ void WriteRestartStatistics(FILE *FilePtr)
 
   for(i=0;i<NumberOfSystems;i++)
   {
+    fwrite(BlockWeightedCount[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fwrite(BlockCount[i],sizeof(REAL),NumberOfBlocks,FilePtr);
 
     fwrite(UHostHostAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
@@ -4441,9 +4727,10 @@ void WriteRestartStatistics(FILE *FilePtr)
     fwrite(TotalSystemNormDipoleAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fwrite(TotalSystemNormDipoleSquaredAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
 
-    fwrite(NumberOfMoleculesAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
+    fwrite(NumberOfIntegerMoleculesAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fwrite(NumberOfMoleculesSquaredAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fwrite(DensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
+    fwrite(GibbsDensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
 
     fwrite(BoxAccumulated[i],sizeof(VECTOR),NumberOfBlocks,FilePtr);
     fwrite(BoxAXAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
@@ -4504,23 +4791,31 @@ void WriteRestartStatistics(FILE *FilePtr)
     fwrite(SurfaceAreaCount[i],sizeof(REAL),NumberOfBlocks,FilePtr);
 
     fwrite(TotalEnergyTimesNumberOfMoleculesAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
+
     for(j=0;j<NumberOfComponents;j++)
     {
+
       fwrite(TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fwrite(HostAdsorbateEnergyTimesNumberOfMoleculesAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fwrite(AdsorbateAdsorbateEnergyTimesNumberOfMoleculesAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
 
-      fwrite(NumberOfMoleculesPerComponentAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fwrite(NumberOfIntegerMoleculesPerComponentAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fwrite(NumberOfFractionalMoleculesPerComponentAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fwrite(NumberOfExcessMoleculesPerComponentAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fwrite(DensityPerComponentAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
 
       fwrite(WidomRosenbluthFactorAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fwrite(WidomRosenbluthFactorCount[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
-
       fwrite(WidomEnergyDifferenceAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
-
       fwrite(WidomEnergyFrameworkAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fwrite(WidomEnergyFrameworkCount[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+
+      fwrite(GibbsWidomRosenbluthFactorAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fwrite(GibbsWidomIdealGasAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fwrite(GibbsWidomRosenbluthFactorCount[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fwrite(GibbsWidomEnergyDifferenceAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fwrite(GibbsWidomEnergyFrameworkAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fwrite(GibbsWidomEnergyFrameworkCount[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
 
       fwrite(PrincipleMomentsOfInertiaAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fwrite(PrincipleMomentsOfInertiaCount[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
@@ -4542,6 +4837,7 @@ void AllocateStatisticsMemory(void)
   NumberOfBlocks=NR_BLOCKS;
 
   BlockCycle=(long long*)calloc(NumberOfBlocks,sizeof(long long));
+  BlockWeightedCount=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
   BlockCount=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
 
   UHostHostAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
@@ -4631,9 +4927,10 @@ void AllocateStatisticsMemory(void)
   TotalSystemNormDipoleAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
   TotalSystemNormDipoleSquaredAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
 
-  NumberOfMoleculesAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
+  NumberOfIntegerMoleculesAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
   NumberOfMoleculesSquaredAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
   DensityAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
+  GibbsDensityAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
 
   BoxAccumulated=(VECTOR**)calloc(NumberOfSystems,sizeof(VECTOR*));
   BoxAXAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
@@ -4697,17 +4994,23 @@ void AllocateStatisticsMemory(void)
   HostAdsorbateEnergyTimesNumberOfMoleculesAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL*));
   AdsorbateAdsorbateEnergyTimesNumberOfMoleculesAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL*));
 
-  NumberOfMoleculesPerComponentAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
+  NumberOfIntegerMoleculesPerComponentAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
+  NumberOfFractionalMoleculesPerComponentAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
   NumberOfExcessMoleculesPerComponentAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
   DensityPerComponentAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
 
   WidomRosenbluthFactorAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
   WidomRosenbluthFactorCount=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
-
   WidomEnergyDifferenceAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
-
   WidomEnergyFrameworkAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
   WidomEnergyFrameworkCount=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
+
+  GibbsWidomRosenbluthFactorAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
+  GibbsWidomIdealGasAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
+  GibbsWidomRosenbluthFactorCount=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
+  GibbsWidomEnergyDifferenceAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
+  GibbsWidomEnergyFrameworkAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
+  GibbsWidomEnergyFrameworkCount=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
 
   PrincipleMomentsOfInertiaAccumulated=(VECTOR***)calloc(NumberOfSystems,sizeof(VECTOR**));
   PrincipleMomentsOfInertiaCount=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
@@ -4716,6 +5019,7 @@ void AllocateStatisticsMemory(void)
 
   for(i=0;i<NumberOfSystems;i++)
   {
+    BlockWeightedCount[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
     BlockCount[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
 
     UHostHostAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
@@ -4805,9 +5109,10 @@ void AllocateStatisticsMemory(void)
     TotalSystemNormDipoleAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
     TotalSystemNormDipoleSquaredAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
 
-    NumberOfMoleculesAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+    NumberOfIntegerMoleculesAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
     NumberOfMoleculesSquaredAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
     DensityAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+    GibbsDensityAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
 
     BoxAccumulated[i]=(VECTOR*)calloc(NumberOfBlocks,sizeof(VECTOR));
     BoxAXAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
@@ -4868,7 +5173,8 @@ void AllocateStatisticsMemory(void)
     SurfaceAreaCationsAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
     SurfaceAreaCount[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
 
-    NumberOfMoleculesPerComponentAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
+    NumberOfIntegerMoleculesPerComponentAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
+    NumberOfFractionalMoleculesPerComponentAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
     NumberOfExcessMoleculesPerComponentAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
     DensityPerComponentAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
 
@@ -4880,11 +5186,16 @@ void AllocateStatisticsMemory(void)
 
     WidomRosenbluthFactorAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
     WidomRosenbluthFactorCount[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
-
     WidomEnergyDifferenceAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
-
     WidomEnergyFrameworkAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
     WidomEnergyFrameworkCount[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
+
+    GibbsWidomRosenbluthFactorAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
+    GibbsWidomIdealGasAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
+    GibbsWidomRosenbluthFactorCount[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
+    GibbsWidomEnergyDifferenceAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
+    GibbsWidomEnergyFrameworkAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
+    GibbsWidomEnergyFrameworkCount[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
 
     PrincipleMomentsOfInertiaAccumulated[i]=(VECTOR**)calloc(NumberOfComponents,sizeof(VECTOR*));
     PrincipleMomentsOfInertiaCount[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
@@ -4897,17 +5208,23 @@ void AllocateStatisticsMemory(void)
       HostAdsorbateEnergyTimesNumberOfMoleculesAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
       AdsorbateAdsorbateEnergyTimesNumberOfMoleculesAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
 
-      NumberOfMoleculesPerComponentAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+      NumberOfIntegerMoleculesPerComponentAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+      NumberOfFractionalMoleculesPerComponentAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
       NumberOfExcessMoleculesPerComponentAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
       DensityPerComponentAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
 
       WidomRosenbluthFactorAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
       WidomRosenbluthFactorCount[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
-
       WidomEnergyDifferenceAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
-
       WidomEnergyFrameworkAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
       WidomEnergyFrameworkCount[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+
+      GibbsWidomRosenbluthFactorAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+      GibbsWidomIdealGasAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+      GibbsWidomRosenbluthFactorCount[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+      GibbsWidomEnergyDifferenceAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+      GibbsWidomEnergyFrameworkAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+      GibbsWidomEnergyFrameworkCount[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
 
       PrincipleMomentsOfInertiaAccumulated[i][j]=(VECTOR*)calloc(NumberOfBlocks,sizeof(VECTOR));
       PrincipleMomentsOfInertiaCount[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
@@ -4938,6 +5255,7 @@ void ReadRestartStatistics(FILE *FilePtr)
   for(i=0;i<NumberOfSystems;i++)
   {
 
+    fread(BlockWeightedCount[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fread(BlockCount[i],sizeof(REAL),NumberOfBlocks,FilePtr);
 
     fread(UHostHostAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
@@ -5027,9 +5345,10 @@ void ReadRestartStatistics(FILE *FilePtr)
     fread(TotalSystemNormDipoleAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fread(TotalSystemNormDipoleSquaredAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
 
-    fread(NumberOfMoleculesAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
+    fread(NumberOfIntegerMoleculesAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fread(NumberOfMoleculesSquaredAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fread(DensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
+    fread(GibbsDensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
 
     fread(BoxAccumulated[i],sizeof(VECTOR),NumberOfBlocks,FilePtr);
     fread(BoxAXAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
@@ -5097,17 +5416,23 @@ void ReadRestartStatistics(FILE *FilePtr)
       fread(HostAdsorbateEnergyTimesNumberOfMoleculesAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fread(AdsorbateAdsorbateEnergyTimesNumberOfMoleculesAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
 
-      fread(NumberOfMoleculesPerComponentAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fread(NumberOfIntegerMoleculesPerComponentAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fread(NumberOfFractionalMoleculesPerComponentAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fread(NumberOfExcessMoleculesPerComponentAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fread(DensityPerComponentAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
 
       fread(WidomRosenbluthFactorAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fread(WidomRosenbluthFactorCount[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
-
       fread(WidomEnergyDifferenceAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
-
       fread(WidomEnergyFrameworkAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fread(WidomEnergyFrameworkCount[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+
+      fread(GibbsWidomRosenbluthFactorAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fread(GibbsWidomIdealGasAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fread(GibbsWidomRosenbluthFactorCount[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fread(GibbsWidomEnergyDifferenceAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fread(GibbsWidomEnergyFrameworkAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fread(GibbsWidomEnergyFrameworkCount[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
 
       fread(PrincipleMomentsOfInertiaAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fread(PrincipleMomentsOfInertiaCount[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);

@@ -34,11 +34,16 @@
 
 extern REAL ***WidomRosenbluthFactorAccumulated;
 extern REAL ***WidomRosenbluthFactorCount;
-
 extern REAL ***WidomEnergyDifferenceAccumulated;
-
 extern REAL ***WidomEnergyFrameworkAccumulated;
 extern REAL ***WidomEnergyFrameworkCount;
+
+extern REAL ***GibbsWidomRosenbluthFactorAccumulated;
+extern REAL ***GibbsWidomIdealGasAccumulated;
+extern REAL ***GibbsWidomRosenbluthFactorCount;
+extern REAL ***GibbsWidomEnergyDifferenceAccumulated;
+extern REAL ***GibbsWidomEnergyFrameworkAccumulated;
+extern REAL ***GibbsWidomEnergyFrameworkCount;
 
 extern REAL **SurfaceAreaFrameworkAccumulated;
 extern REAL ***SurfaceAreaFrameworksAccumulated;
@@ -75,7 +80,7 @@ void InitializesEnergyAveragesAllSystems(void);
 void UpdateEnergyAveragesCurrentSystem(void);
 void PrintIntervalStatusInit(long long CurrentCycle,long long NumberOfCycles, FILE *FilePtr);
 void PrintIntervalStatusEquilibration(long long CurrentCycle,long long NumberOfCycles, FILE *FilePtr);
-void PrintIntervalStatus(long long CurrentCycle,long long NumberOfCycles, FILE *FilePtr);
+void PrintIntervalStatusProduction(long long CurrentCycle,long long NumberOfCycles, FILE *FilePtr);
 void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr);
 
 REAL GetAverageMolecularPressure(void);
@@ -88,6 +93,8 @@ REAL GetAverageIsothermalCompressibilityCoefficient(void);
 REAL GetAverageHeatCapacity(void);
 REAL GetAverageHenryCoefficient(int comp);
 REAL GetAverageRosenbluthWeight(int comp);
+REAL GetAverageGibbsWidom(int comp);
+REAL GetAverageGibbsDensity(void);
 
 void WriteRestartStatistics(FILE *FilePtr);
 void AllocateStatisticsMemory(void);

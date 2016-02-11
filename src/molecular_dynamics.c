@@ -383,7 +383,7 @@ void MolecularDynamicsSimulation(void)
 
       if(CurrentCycle%PrintEvery==0)
       {
-        PrintIntervalStatus(CurrentCycle,NumberOfCycles,OutputFilePtr[CurrentSystem]);
+        PrintIntervalStatusProduction(CurrentCycle,NumberOfCycles,OutputFilePtr[CurrentSystem]);
         PrintRestartFile();
       }
 

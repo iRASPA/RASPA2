@@ -152,6 +152,7 @@ extern int NumberOfPseudoAtoms;
 extern PSEUDO_ATOM *PseudoAtoms;
 extern int **NumberOfPseudoAtomsCount;
 extern int **NumberOfPseudoAtomsType;
+extern int **NumberOfFractionalPseudoAtomsType;
 extern int *NumberOfPseudoAtomsTypeNew;
 extern int *NumberOfPseudoAtomsTypeOld;
 
@@ -222,10 +223,12 @@ typedef struct atom
   REAL Charge;
   REAL CFVDWScalingParameter;    // the Van der Waals scaling parameter for the Continuous Fraction method
   REAL CFChargeScalingParameter; // the electrostatics scaling parameter for the Continuous Fraction method
+  REAL CFStoredScalingParameter; // used to set all fractional particles to zero and to restore the values
   int Modified;                   // not used (yet)
   int OriginalType;               // not used (yet)
   int CreationState;
   int AssymetricType;             // the 'asymmetric' type
+  REAL temp;
 
   // MC/MD properties
   POINT Position;                 // the position of the atom
@@ -325,7 +328,7 @@ typedef struct Component
   TRIPLE orientation;              // three atoms to define an orientation for sampling orientations
 
   int *FractionalMolecule;         // the fractional molecule for each system
-  int *CFMoleculePresent;          // whether or not there is a fractional molecule present for each system
+  int *CFMoleculePresent;          // whether or not there could be a fractional molecule present for each system
   REAL *CFWangLandauScalingFactor; // the CF Wang-Landau scaling factor
   int CFLambdaHistogramSize;       // the size of the histogram and biasing-array
   REAL **CFBiasingFactors;         // the biasing-factors for conventional CF
@@ -382,6 +385,7 @@ typedef struct Component
   REAL UmbrellaFactor;
 
   int *BlockPockets;
+  int InvertBlockPockets;
   int *ComputeFreeEnergyProfile;
   char (*BlockPocketsFilename)[256];
   int *NumberOfBlockCenters;
@@ -522,6 +526,7 @@ typedef struct Component
   REAL ProbabilityCFSwapLambdaMove;
   REAL ProbabilityCBCFSwapLambdaMove;
   REAL ProbabilityWidomMove;
+  REAL ProbabilityGibbsWidomMove;
   REAL ProbabilitySurfaceAreaMove;
   REAL ProbabilityGibbsChangeMove;
   REAL ProbabilityGibbsIdentityChangeMove;
@@ -542,6 +547,9 @@ typedef struct Component
   REAL ProbabilityFrameworkShiftMove;
   REAL ProbabilityCFCRXMCLambdaChangeMove;
   REAL ProbabilityExchangeFractionalParticleMove;
+  REAL ProbabilityCFGibbsSwapFractionalMoleculeToOtherBoxMove;
+  REAL ProbabilityCFGibbsLambdaChangeMove;
+  REAL ProbabilityCFGibbsFractionalToIntegerMove;
 
   REAL *CpuTimeTranslationMove;
   REAL *CpuTimeRandomTranslationMove;
@@ -557,12 +565,16 @@ typedef struct Component
   REAL *CpuTimeCFSwapLambdaMove;
   REAL *CpuTimeCBCFSwapLambdaMove;
   REAL *CpuTimeWidomMove;
+  REAL *CpuTimeGibbsWidomMove;
   REAL *CpuTimeSurfaceAreaMove;
   REAL *CpuTimeGibbsChangeMove;
   REAL *CpuTimeGibbsIdentityChangeMove;
   REAL *CpuTimeCFGibbsChangeMove;
   REAL *CpuTimeCBCFGibbsChangeMove;
   REAL *CpuTimeExchangeFractionalParticleMove;
+  REAL *CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove;
+  REAL *CpuTimeCFGibbsLambdaChangeMove;
+  REAL *CpuTimeCFGibbsFractionalToIntegerMove;
 
   int RestrictMovesToBox;
   VECTOR BoxAxisABC_Min,BoxAxisABC_Min2,BoxAxisABC_Min3,BoxAxisABC_Min4;
@@ -602,12 +614,17 @@ typedef struct Component
   REAL FractionOfCFSwapLambdaMove;
   REAL FractionOfCBCFSwapLambdaMove;
   REAL FractionOfWidomMove;
+  REAL FractionOfGibbsWidomMove;
   REAL FractionOfSurfaceAreaMove;
   REAL FractionOfGibbsChangeMove;
   REAL FractionOfGibbsIdentityChangeMove;
   REAL FractionOfCFGibbsChangeMove;
   REAL FractionOfCBCFGibbsChangeMove;
   REAL FractionOfExchangeFractionalParticleMove;
+  REAL FractionOfCFGibbsSwapFractionalMoleculeToOtherBoxMove;
+  REAL FractionOfCFGibbsLambdaChangeMove;
+  REAL FractionOfCFGibbsFractionalToIntegerMove;
+
 
   REAL FractionOfParallelTemperingMove;
   REAL FractionOfHyperParallelTemperingMove;
@@ -756,6 +773,16 @@ int ReturnAtomBondedToHydrogen(int Type,int c);
 void CalculateAnisotropicSites(void);
 
 void ReadBiasingProfile(int);
+
+int TotalNumberOfIntegerMolecules();
+int TotalNumberOfIntegerAdsorbates();
+int TotalNumberOfIntegerCations();
+int TotalNumberOfIntegerMoleculesForSystem(int k);
+int TotalNumberOfFractionalMolecules();
+int TotalNumberOfFractionalAdsorbates();
+int TotalNumberOfFractionalCations();
+int TotalNumberOfFractionalMoleculesForSystem(int k);
+REAL CFBiasingWeight();
 
 int IsFractionalAdsorbateMolecule(int m);
 int IsFractionalCationMolecule(int m);

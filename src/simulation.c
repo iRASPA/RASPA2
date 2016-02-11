@@ -50,6 +50,7 @@ char FileNameAppend[256];
 char ForceField[256];
 
 int SimulationType;
+int SimulationSubType;
 
 int NumberOfSystems;                 // the number of systems
 int CurrentSystem;                   // the current system
@@ -805,6 +806,7 @@ void WriteRestartSimulation(FILE *FilePtr)
   fwrite(&Dimension,sizeof(Dimension),1,FilePtr);
 
   fwrite(&SimulationType,sizeof(SimulationType),1,FilePtr);
+  fwrite(&SimulationSubType,sizeof(SimulationSubType),1,FilePtr);
 
   fwrite(&NumberOfSystems,sizeof(NumberOfSystems),1,FilePtr);
   fwrite(&CurrentSystem,sizeof(CurrentSystem),1,FilePtr);
@@ -1463,6 +1465,7 @@ void ReadRestartSimulation(FILE *FilePtr)
   fread(&Dimension,sizeof(Dimension),1,FilePtr);
 
   fread(&SimulationType,sizeof(SimulationType),1,FilePtr);
+  fread(&SimulationSubType,sizeof(SimulationSubType),1,FilePtr);
 
   fread(&NumberOfSystems,sizeof(NumberOfSystems),1,FilePtr);
   fread(&CurrentSystem,sizeof(CurrentSystem),1,FilePtr);

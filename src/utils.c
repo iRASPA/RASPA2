@@ -812,7 +812,7 @@ VECTOR Perpendicular(VECTOR a,VECTOR b)
 }
 
 
-// Random-rotation matrix Shoemake’s method
+// Random-rotation matrix Shoemake's method
 void RandomArrayRotationMatrix(VECTOR *Cord,int n)
 {
   int i;

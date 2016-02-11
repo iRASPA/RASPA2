@@ -252,7 +252,7 @@ void PrintPreSimulationStatusCurrentSystem(int system)
   fprintf(FilePtr,"Compiler and run-time data\n");
   fprintf(FilePtr,"===========================================================================\n");
 
-  fprintf(FilePtr,"%s\n","RASPA 2.0.1");
+  fprintf(FilePtr,"%s\n","RASPA 2.0.2");
 
   #if defined (__LP64__) || defined (__64BIT__) || defined (_LP64) || (__WORDSIZE == 64)
     fprintf(FilePtr,"Compiled as a 64-bits application\n");
@@ -3888,6 +3888,7 @@ void PrintPreSimulationStatusCurrentSystem(int system)
       fprintf(FilePtr,"\t\tPercentage of CF swap lambda moves:                %lf\n",(double)(100.0*Components[i].FractionOfCFSwapLambdaMove));
       fprintf(FilePtr,"\t\tPercentage of CB/CFMC swap lambda moves:           %lf\n",(double)(100.0*Components[i].FractionOfCBCFSwapLambdaMove));
       fprintf(FilePtr,"\t\tPercentage of Widom insertion moves:               %lf\n",(double)(100.0*Components[i].FractionOfWidomMove));
+      fprintf(FilePtr,"\t\tPercentage of Gibbs Widom insertion moves:         %lf\n",(double)(100.0*Components[i].FractionOfGibbsWidomMove));
       fprintf(FilePtr,"\t\tPercentage of surface-area moves:                  %lf\n",(double)(100.0*Components[i].FractionOfSurfaceAreaMove));
       fprintf(FilePtr,"\t\tPercentage of Gibbs particle-transfer moves:       %lf\n",(double)(100.0*Components[i].FractionOfGibbsChangeMove));
       fprintf(FilePtr,"\t\tPercentage of Gibbs identity-change moves:         %lf\n",(double)(100.0*Components[i].FractionOfGibbsIdentityChangeMove));
@@ -3896,6 +3897,10 @@ void PrintPreSimulationStatusCurrentSystem(int system)
       fprintf(FilePtr,"\t\tPercentage of CF Gibbs lambda-transfer moves:      %lf\n",(double)(100.0*Components[i].FractionOfCFGibbsChangeMove));
       fprintf(FilePtr,"\t\tPercentage of CB/CFMC Gibbs lambda-transfer moves: %lf\n",(double)(100.0*Components[i].FractionOfCBCFGibbsChangeMove));
       fprintf(FilePtr,"\t\tPercentage of exchange frac./int. particle moves:  %lf\n",(double)(100.0*Components[i].FractionOfExchangeFractionalParticleMove));
+
+      fprintf(FilePtr,"\t\tPercentage of fractional mol. to other box moves:  %lf\n",(double)(100.0*Components[i].FractionOfCFGibbsSwapFractionalMoleculeToOtherBoxMove));
+      fprintf(FilePtr,"\t\tPercentage of lambda-change moves:                 %lf\n",(double)(100.0*Components[i].FractionOfCFGibbsLambdaChangeMove));
+      fprintf(FilePtr,"\t\tPercentage of fractional to integer moves:         %lf\n",(double)(100.0*Components[i].FractionOfCFGibbsFractionalToIntegerMove));
       fprintf(FilePtr,"\n");
 
       fprintf(FilePtr,"\tSystem Moves:\n");
@@ -6501,6 +6506,11 @@ void PrintPostSimulationStatus(void)
     PrintCBCFGibbsLambdaStatistics(FilePtr);
     PrintRXMCStatistics(FilePtr);
     PrintExchangeFractionalParticleStatistics(FilePtr);
+    PrintCFGibbsLambdaChangeStatistics(FilePtr);
+    PrintCFGibbsSwapFractionalMoleculeToOtherBoxStatistics(FilePtr);
+    PrintCFGibbsFractionalToIntegerStatistics(FilePtr);
+    PrintCFGibbsWidomStatistics(FilePtr);
+
     fprintf(FilePtr,"\n\n");
     PrintCPUStatistics(FilePtr);
     fprintf(FilePtr,"\n\n");
@@ -7259,6 +7269,7 @@ void PrintRestartFile(void)
   VECTOR flexible_drift;
   VECTOR com;
   REAL shift;
+  REAL Lambda;
 
   if (STREAM)
       return;
@@ -7339,8 +7350,6 @@ void PrintRestartFile(void)
 
 
   
-
-
   fprintf(FilePtrOut,"Components: %d (Adsorbates %d, Cations %d)\n",NumberOfComponents,
      NumberOfAdsorbateMolecules[CurrentSystem],NumberOfCationMolecules[CurrentSystem]);
   fprintf(FilePtrOut,"========================================================================\n");
@@ -7348,31 +7357,36 @@ void PrintRestartFile(void)
   {
     // write CB/CFMC biasing data
     FractionalMolecule=Components[l].FractionalMolecule[CurrentSystem];
-    if(FractionalMolecule>=0)
+
+    fprintf(FilePtrOut,"Component %d (%s)\n",l,Components[l].Name);
+    fprintf(FilePtrOut,"\tFractional-molecule-id component %d: %d\n",l,Components[l].FractionalMolecule[CurrentSystem]);
+
+    fprintf(FilePtrOut,"\tLambda-factors component %d: ",l);
+    for(i=0;i<Components[l].NumberOfAtoms;i++)
     {
-      fprintf(FilePtrOut,"Component %d (%s)\n",l,Components[l].Name);
-      fprintf(FilePtrOut,"\tFractional-molecule-id component %d: %d\n",l,Components[l].FractionalMolecule[CurrentSystem]);
-
-      fprintf(FilePtrOut,"\tLambda-factors component %d: ",l);
-      for(i=0;i<Components[l].NumberOfAtoms;i++)
-      {
+      Lambda=0.0;
+      if(FractionalMolecule>=0)
+      { 
         if(Components[l].ExtraFrameworkMolecule)
-          fprintf(FilePtrOut," %lf",Cations[CurrentSystem][FractionalMolecule].Atoms[i].CFVDWScalingParameter);
+          Lambda=Cations[CurrentSystem][FractionalMolecule].Atoms[i].CFVDWScalingParameter;
         else
-          fprintf(FilePtrOut," %lf",Adsorbates[CurrentSystem][FractionalMolecule].Atoms[i].CFVDWScalingParameter);
+          Lambda=Adsorbates[CurrentSystem][FractionalMolecule].Atoms[i].CFVDWScalingParameter;
       }
-      fprintf(FilePtrOut,"\n");
-
-      fprintf(FilePtrOut,"\tNumber-of-biasing-factors component %d: %d\n",l,Components[l].CFLambdaHistogramSize);
-      fprintf(FilePtrOut,"\tBiasing-factors component %d: ",l);
-      for(i=0;i<Components[l].CFLambdaHistogramSize;i++)
-        fprintf(FilePtrOut," %lf",Components[l].CFBiasingFactors[CurrentSystem][i]);
-      fprintf(FilePtrOut,"\n");
-
-      fprintf(FilePtrOut,"\tMaximum-CF-Lambda-change component %d: %lf\n",l,MaximumCFLambdaChange[CurrentSystem][l]);
-      fprintf(FilePtrOut,"\tMaximum-CBCF-Lambda-change component %d: %lf\n",l,MaximumCBCFLambdaChange[CurrentSystem][l]);
-      fprintf(FilePtrOut,"\n");
+      fprintf(FilePtrOut," %lf",Lambda);
     }
+    fprintf(FilePtrOut,"\n");
+
+
+    fprintf(FilePtrOut,"\tNumber-of-biasing-factors component %d: %d\n",l,Components[l].CFLambdaHistogramSize);
+    fprintf(FilePtrOut,"\tBiasing-factors component %d: ",l);
+    for(i=0;i<Components[l].CFLambdaHistogramSize;i++)
+      fprintf(FilePtrOut," %lf",Components[l].CFBiasingFactors[CurrentSystem][i]);
+    fprintf(FilePtrOut,"\n");
+
+    fprintf(FilePtrOut,"\tMaximum-CF-Lambda-change component %d: %lf\n",l,MaximumCFLambdaChange[CurrentSystem][l]);
+    fprintf(FilePtrOut,"\tMaximum-CBCF-Lambda-change component %d: %lf\n",l,MaximumCBCFLambdaChange[CurrentSystem][l]);
+    fprintf(FilePtrOut,"\n");
+     
     fprintf(FilePtrOut,"\tMaximum-translation-change component %d: %lf,%lf,%lf\n",l,
        (double)MaximumTranslation[CurrentSystem][l].x,(double)MaximumTranslation[CurrentSystem][l].y,(double)MaximumTranslation[CurrentSystem][l].z);
     fprintf(FilePtrOut,"\tMaximum-translation-in-plane-change component %d: %lf,%lf,%lf\n",l,

@@ -6081,47 +6081,48 @@ void ReadBlockingPockets(void)
                 RASPA_DIRECTORY,
                 Components[CurrentComponent].BlockPocketsFilename[CurrentSystem],
                 "block");
-        if((FilePtr=fopen(buffer,"r")))
+        if(!(FilePtr=fopen(buffer,"r")))
         {
-          fscanf(FilePtr,"%d\n",&Components[CurrentComponent].NumberOfBlockCenters[CurrentSystem]);
-
-          nr_pockets=Components[CurrentComponent].NumberOfBlockCenters[CurrentSystem]*NumberOfUnitCells[CurrentSystem].x*
-                     NumberOfUnitCells[CurrentSystem].y*NumberOfUnitCells[CurrentSystem].z;
-
-          Components[CurrentComponent].BlockDistance[CurrentSystem]=(REAL*)calloc(nr_pockets,sizeof(REAL));
-          Components[CurrentComponent].BlockCenters[CurrentSystem]=(VECTOR*)calloc(nr_pockets,sizeof(VECTOR));
-
-          index=0;
-          for(i=0;i<Components[CurrentComponent].NumberOfBlockCenters[CurrentSystem];i++)
-          {
-            fscanf(FilePtr,"%lf %lf %lf %lf\n",
-                  &tempr.x,&tempr.y,&tempr.z,&temp);
-            tempr.x+=Framework[CurrentSystem].ShiftUnitCell[0].x;
-            tempr.y+=Framework[CurrentSystem].ShiftUnitCell[0].y;
-            tempr.z+=Framework[CurrentSystem].ShiftUnitCell[0].z;
-            for(j=0;j<NumberOfUnitCells[CurrentSystem].x;j++)
-              for(k=0;k<NumberOfUnitCells[CurrentSystem].y;k++)
-                for(l=0;l<NumberOfUnitCells[CurrentSystem].z;l++)
-                {
-                  // convert to xyz (zeolite atoms are stored in xyz)
-
-                  vec.x=(tempr.x+j)/NumberOfUnitCells[CurrentSystem].x;
-                  vec.y=(tempr.y+k)/NumberOfUnitCells[CurrentSystem].y;
-                  vec.z=(tempr.z+l)/NumberOfUnitCells[CurrentSystem].z;
-
-                  Components[CurrentComponent].BlockCenters[CurrentSystem][index]=ConvertFromABCtoXYZ(vec);
-                  Components[CurrentComponent].BlockDistance[CurrentSystem][index]=temp;
-
-                  index++;
-                }
-          }
-          Components[CurrentComponent].NumberOfBlockCenters[CurrentSystem]*=
-             NumberOfUnitCells[CurrentSystem].x*NumberOfUnitCells[CurrentSystem].y*NumberOfUnitCells[CurrentSystem].z;
-          fclose(FilePtr);
+          fprintf(stderr, "'Blocking-pocket' file not found and therefore not used\n");
+          return;
         }
-        else
-          fprintf(stderr, "Warning:  file %s does not exist.\n",buffer);
       }
+
+      fscanf(FilePtr,"%d\n",&Components[CurrentComponent].NumberOfBlockCenters[CurrentSystem]);
+
+      nr_pockets=Components[CurrentComponent].NumberOfBlockCenters[CurrentSystem]*NumberOfUnitCells[CurrentSystem].x*
+                 NumberOfUnitCells[CurrentSystem].y*NumberOfUnitCells[CurrentSystem].z;
+
+      Components[CurrentComponent].BlockDistance[CurrentSystem]=(REAL*)calloc(nr_pockets,sizeof(REAL));
+      Components[CurrentComponent].BlockCenters[CurrentSystem]=(VECTOR*)calloc(nr_pockets,sizeof(VECTOR));
+
+      index=0;
+      for(i=0;i<Components[CurrentComponent].NumberOfBlockCenters[CurrentSystem];i++)
+      {
+        fscanf(FilePtr,"%lf %lf %lf %lf\n",
+              &tempr.x,&tempr.y,&tempr.z,&temp);
+        tempr.x+=Framework[CurrentSystem].ShiftUnitCell[0].x;
+        tempr.y+=Framework[CurrentSystem].ShiftUnitCell[0].y;
+        tempr.z+=Framework[CurrentSystem].ShiftUnitCell[0].z;
+        for(j=0;j<NumberOfUnitCells[CurrentSystem].x;j++)
+          for(k=0;k<NumberOfUnitCells[CurrentSystem].y;k++)
+            for(l=0;l<NumberOfUnitCells[CurrentSystem].z;l++)
+            {
+              // convert to xyz (zeolite atoms are stored in xyz)
+
+              vec.x=(tempr.x+j)/NumberOfUnitCells[CurrentSystem].x;
+              vec.y=(tempr.y+k)/NumberOfUnitCells[CurrentSystem].y;
+              vec.z=(tempr.z+l)/NumberOfUnitCells[CurrentSystem].z;
+
+              Components[CurrentComponent].BlockCenters[CurrentSystem][index]=ConvertFromABCtoXYZ(vec);
+              Components[CurrentComponent].BlockDistance[CurrentSystem][index]=temp;
+
+              index++;
+            }
+      }
+      Components[CurrentComponent].NumberOfBlockCenters[CurrentSystem]*=
+         NumberOfUnitCells[CurrentSystem].x*NumberOfUnitCells[CurrentSystem].y*NumberOfUnitCells[CurrentSystem].z;
+      fclose(FilePtr);
     }
   }
 }
@@ -6138,22 +6139,53 @@ int BlockedPocket(VECTOR pos)
   int i;
   VECTOR dr;
   REAL r;
+  int blocked;
 
   if(NumberOfComponents==0) return FALSE;
 
   if(Components[CurrentComponent].BlockPockets[CurrentSystem])
   {
-    for(i=0;i<Components[CurrentComponent].NumberOfBlockCenters[CurrentSystem];i++)
+    // molecules must be inside the block-pockets for 'InvertBlockPockets'
+    if(Components[CurrentComponent].InvertBlockPockets)
     {
-      dr.x=Components[CurrentComponent].BlockCenters[CurrentSystem][i].x-pos.x;
-      dr.y=Components[CurrentComponent].BlockCenters[CurrentSystem][i].y-pos.y;
-      dr.z=Components[CurrentComponent].BlockCenters[CurrentSystem][i].z-pos.z;
-      dr=ApplyBoundaryConditionUnitCell(dr);
-      r=sqrt(SQR(dr.x)+SQR(dr.y)+SQR(dr.z));
-      if(r<Components[CurrentComponent].BlockDistance[CurrentSystem][i])
+      for(i=0;i<Components[CurrentComponent].NumberOfBlockCenters[CurrentSystem];i++)
       {
-        return TRUE;
+        dr.x=Components[CurrentComponent].BlockCenters[CurrentSystem][i].x-pos.x;
+        dr.y=Components[CurrentComponent].BlockCenters[CurrentSystem][i].y-pos.y;
+        dr.z=Components[CurrentComponent].BlockCenters[CurrentSystem][i].z-pos.z;
+        dr=ApplyBoundaryConditionUnitCell(dr);
+        r=sqrt(SQR(dr.x)+SQR(dr.y)+SQR(dr.z));
+
+        // if inside blockPockets, then it is allowed (return 'false' for blocking)
+        if(r<Components[CurrentComponent].BlockDistance[CurrentSystem][i])
+        {
+          return FALSE;
+        }
       }
+
+      // molecule is not in any of the blocking-pockets, so block it
+      return TRUE; 
+    }
+    else
+    {
+      // molecules are blocked when inside any of the block-pockets
+      for(i=0;i<Components[CurrentComponent].NumberOfBlockCenters[CurrentSystem];i++)
+      {
+        dr.x=Components[CurrentComponent].BlockCenters[CurrentSystem][i].x-pos.x;
+        dr.y=Components[CurrentComponent].BlockCenters[CurrentSystem][i].y-pos.y;
+        dr.z=Components[CurrentComponent].BlockCenters[CurrentSystem][i].z-pos.z;
+        dr=ApplyBoundaryConditionUnitCell(dr);
+        r=sqrt(SQR(dr.x)+SQR(dr.y)+SQR(dr.z));
+
+        // if inside block-pocket, then block (return 'true')
+        if(r<Components[CurrentComponent].BlockDistance[CurrentSystem][i])
+        {
+          return TRUE;
+        }
+      }
+
+      // molecule is not in any of the blocking-pockets, is is allowed (return 'false' for blocking)
+      return FALSE;
     }
   }
   return FALSE;
