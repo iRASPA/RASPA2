@@ -28294,9 +28294,12 @@ void PrintCFGibbsLambdaChangeStatistics(FILE *FilePtr)
   REAL norm,norm2,total,volume,numberOfMolecules;
   REAL valueLast,valuePreLast,extrapolatedValue;
   REAL valuePrePreLast;
+  REAL extrapolatedValueFirstOrder;
   REAL extrapolatedValueSecondOrder;
   REAL a,b,c,y,B;
   REAL value,minimum;
+  REAL referenceValue;
+  int lastIndex,preLastindex,prePreLastindex;
 
   MoveUsed=FALSE;
   for(i=0;i<NumberOfComponents;i++)
@@ -28348,35 +28351,33 @@ void PrintCFGibbsLambdaChangeStatistics(FILE *FilePtr)
                  (exp(-Components[i].CFBiasingFactors[CurrentSystem][0])*CFLambdaHistogram[CurrentSystem][i][0]))/Beta[CurrentSystem])*ENERGY_TO_KELVIN,
             (-log(exp(-Components[i].CFBiasingFactors[CurrentSystem][k])*CFLambdaHistogram[CurrentSystem][i][k]/
                  (exp(-Components[i].CFBiasingFactors[CurrentSystem][0])*CFLambdaHistogram[CurrentSystem][i][0]))/Beta[CurrentSystem])*ENERGY_TO_KELVIN
-             -(log(1.0/GetAverageGibbsDensity())/Beta[CurrentSystem])*ENERGY_TO_KELVIN,
+             -(log(GetAverageGibbsInverseDensity())/Beta[CurrentSystem])*ENERGY_TO_KELVIN,
             Components[i].CFBiasingFactors[CurrentSystem][k]);
         }
         fprintf(FilePtr,"\n");
-        valueLast=-log(exp(-Components[i].CFBiasingFactors[CurrentSystem][Components[i].CFLambdaHistogramSize-1])*
-                         CFLambdaHistogram[CurrentSystem][i][Components[i].CFLambdaHistogramSize-1]/
-                      (exp(-Components[i].CFBiasingFactors[CurrentSystem][0])*CFLambdaHistogram[CurrentSystem][i][0]))/Beta[CurrentSystem]
-                  -(log(1.0/GetAverageGibbsDensity())/Beta[CurrentSystem]);
-        valuePreLast=-log(exp(-Components[i].CFBiasingFactors[CurrentSystem][Components[i].CFLambdaHistogramSize-2])*
-                         CFLambdaHistogram[CurrentSystem][i][Components[i].CFLambdaHistogramSize-2]/
-                        (exp(-Components[i].CFBiasingFactors[CurrentSystem][0])*CFLambdaHistogram[CurrentSystem][i][0]))/Beta[CurrentSystem]
-                     -(log(1.0/GetAverageGibbsDensity())/Beta[CurrentSystem]);
-        valuePrePreLast=-log(exp(-Components[i].CFBiasingFactors[CurrentSystem][Components[i].CFLambdaHistogramSize-3])*
-                         CFLambdaHistogram[CurrentSystem][i][Components[i].CFLambdaHistogramSize-3]/
-                        (exp(-Components[i].CFBiasingFactors[CurrentSystem][0])*CFLambdaHistogram[CurrentSystem][i][0]))/Beta[CurrentSystem]
-                     -(log(1.0/GetAverageGibbsDensity())/Beta[CurrentSystem]);
-        extrapolatedValue=valueLast+(valueLast-valuePreLast)*0.5;
 
+        lastIndex=Components[i].CFLambdaHistogramSize-1;
+        preLastindex=Components[i].CFLambdaHistogramSize-2;
+        prePreLastindex=Components[i].CFLambdaHistogramSize-3;
+
+        referenceValue=exp(-Components[i].CFBiasingFactors[CurrentSystem][0])*CFLambdaHistogram[CurrentSystem][i][0];
+        valueLast=exp(-Components[i].CFBiasingFactors[CurrentSystem][lastIndex])*CFLambdaHistogram[CurrentSystem][i][lastIndex];
+        valuePreLast=exp(-Components[i].CFBiasingFactors[CurrentSystem][preLastindex])*CFLambdaHistogram[CurrentSystem][i][preLastindex];
+        valuePrePreLast=exp(-Components[i].CFBiasingFactors[CurrentSystem][prePreLastindex])*CFLambdaHistogram[CurrentSystem][i][prePreLastindex];
+        extrapolatedValue=valueLast+(valueLast-valuePreLast)*0.5;
+        extrapolatedValueFirstOrder=(-log(extrapolatedValue/referenceValue)-log(GetAverageGibbsInverseDensity()))/Beta[CurrentSystem];
 
         B=Components[i].CFLambdaHistogramSize-1;
         a=0.5*(valueLast-2.0*valuePreLast+valuePrePreLast);
         b=0.5*(valueLast-valuePrePreLast)-2.0*a*(B-1.0);
         c=valueLast-a*SQR(B)-b*B;
         y=B+0.5;
-        extrapolatedValueSecondOrder=a*SQR(y)+b*y+c;
+        extrapolatedValue=a*SQR(y)+b*y+c;
+        extrapolatedValueSecondOrder=(-log(extrapolatedValue/referenceValue)-log(GetAverageGibbsInverseDensity()))/Beta[CurrentSystem];
       }
-      fprintf(FilePtr,"Extrapolated chemical potential, linear: %18.10f [K], quadratic: %18.10f\n",extrapolatedValue*ENERGY_TO_KELVIN,
-        extrapolatedValueSecondOrder*ENERGY_TO_KELVIN);
-      fprintf(FilePtr,"Ideal gas value: %18.10f [K]\n",-(log(1.0/GetAverageGibbsDensity())/Beta[CurrentSystem]));
+      fprintf(FilePtr,"Extrapolated chemical potential, linear: %18.10f [K], quadratic: %18.10f\n",
+              extrapolatedValueFirstOrder*ENERGY_TO_KELVIN,extrapolatedValueSecondOrder*ENERGY_TO_KELVIN);
+      fprintf(FilePtr,"Ideal gas value: %18.10f [K]\n",-(log(GetAverageGibbsInverseDensity())/Beta[CurrentSystem])*ENERGY_TO_KELVIN);
     }
     fprintf(FilePtr,"\n");
   }

@@ -94,7 +94,7 @@ REAL GetAverageHeatCapacity(void);
 REAL GetAverageHenryCoefficient(int comp);
 REAL GetAverageRosenbluthWeight(int comp);
 REAL GetAverageGibbsWidom(int comp);
-REAL GetAverageGibbsDensity(void);
+REAL GetAverageGibbsInverseDensity(void);
 
 void WriteRestartStatistics(FILE *FilePtr);
 void AllocateStatisticsMemory(void);

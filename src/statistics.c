@@ -164,7 +164,7 @@ static REAL **NumberOfIntegerMoleculesAccumulated;
 static REAL **NumberOfMoleculesSquaredAccumulated;
 static REAL ****NumberOfMoleculesPerComponentSquaredAccumulated;
 static REAL **DensityAccumulated;
-static REAL **GibbsDensityAccumulated;
+static REAL **GibbsInverseDensityAccumulated;
 
 static VECTOR **BoxAccumulated;
 static REAL **BoxAXAccumulated;
@@ -997,7 +997,7 @@ void InitializesEnergyAveragesAllSystems(void)
       UTotalAccumulated[k][i]=0.0;
       NumberOfIntegerMoleculesAccumulated[k][i]=0.0;
       DensityAccumulated[k][i]=0.0;
-      GibbsDensityAccumulated[k][i]=0.0;
+      GibbsInverseDensityAccumulated[k][i]=0.0;
       for(j=0;j<NumberOfComponents;j++)
       {
         NumberOfIntegerMoleculesPerComponentAccumulated[k][j][i]=0.0;
@@ -1280,7 +1280,7 @@ void UpdateEnergyAveragesCurrentSystem(void)
                     /Volume[CurrentSystem];
     DensityPerComponentAccumulated[CurrentSystem][i][Block]+=weight*density;
     DensityAccumulated[CurrentSystem][Block]+=weight*density;
-    GibbsDensityAccumulated[CurrentSystem][Block]+=weight*(Volume[CurrentSystem]/(TotalNumberOfIntegerMolecules()+1.0));
+    GibbsInverseDensityAccumulated[CurrentSystem][Block]+=weight*(Volume[CurrentSystem]/(TotalNumberOfIntegerMolecules()+1.0));
   }
 
   TemperatureAccumulated[CurrentSystem][Block]+=weight*(2.0*UKinetic[CurrentSystem]/(K_B*DegreesOfFreedom[CurrentSystem]));
@@ -2596,7 +2596,7 @@ REAL GetAverageGibbsWidomIdealGas(int comp)
   else return 0.0;
 }
 
-REAL GetAverageGibbsDensity()
+REAL GetAverageGibbsInverseDensity()
 {
   int i;
   REAL count,sum;
@@ -2604,7 +2604,7 @@ REAL GetAverageGibbsDensity()
   count=sum=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
-    sum+=GibbsDensityAccumulated[CurrentSystem][i];
+    sum+=GibbsInverseDensityAccumulated[CurrentSystem][i];
     count+=BlockWeightedCount[CurrentSystem][i];
   }
   if(count>0.0)
@@ -4730,7 +4730,7 @@ void WriteRestartStatistics(FILE *FilePtr)
     fwrite(NumberOfIntegerMoleculesAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fwrite(NumberOfMoleculesSquaredAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fwrite(DensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
-    fwrite(GibbsDensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
+    fwrite(GibbsInverseDensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
 
     fwrite(BoxAccumulated[i],sizeof(VECTOR),NumberOfBlocks,FilePtr);
     fwrite(BoxAXAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
@@ -4930,7 +4930,7 @@ void AllocateStatisticsMemory(void)
   NumberOfIntegerMoleculesAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
   NumberOfMoleculesSquaredAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
   DensityAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
-  GibbsDensityAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
+  GibbsInverseDensityAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
 
   BoxAccumulated=(VECTOR**)calloc(NumberOfSystems,sizeof(VECTOR*));
   BoxAXAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
@@ -5112,7 +5112,7 @@ void AllocateStatisticsMemory(void)
     NumberOfIntegerMoleculesAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
     NumberOfMoleculesSquaredAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
     DensityAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
-    GibbsDensityAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+    GibbsInverseDensityAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
 
     BoxAccumulated[i]=(VECTOR*)calloc(NumberOfBlocks,sizeof(VECTOR));
     BoxAXAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
@@ -5348,7 +5348,7 @@ void ReadRestartStatistics(FILE *FilePtr)
     fread(NumberOfIntegerMoleculesAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fread(NumberOfMoleculesSquaredAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fread(DensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
-    fread(GibbsDensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
+    fread(GibbsInverseDensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
 
     fread(BoxAccumulated[i],sizeof(VECTOR),NumberOfBlocks,FilePtr);
     fread(BoxAXAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
