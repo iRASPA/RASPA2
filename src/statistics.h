@@ -33,6 +33,7 @@
 #define NR_BLOCKS 5
 
 extern REAL ***WidomRosenbluthFactorAccumulated;
+extern REAL ***WidomIdealGasAccumulated;
 extern REAL ***WidomRosenbluthFactorCount;
 extern REAL ***WidomEnergyDifferenceAccumulated;
 extern REAL ***WidomEnergyFrameworkAccumulated;
@@ -95,6 +96,8 @@ REAL GetAverageHenryCoefficient(int comp);
 REAL GetAverageRosenbluthWeight(int comp);
 REAL GetAverageGibbsWidom(int comp);
 REAL GetAverageGibbsInverseDensity(void);
+REAL GetAverageWidom(int comp);
+REAL GetAverageInverseDensity(void);
 
 void WriteRestartStatistics(FILE *FilePtr);
 void AllocateStatisticsMemory(void);
