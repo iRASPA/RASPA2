@@ -30,6 +30,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 #include "constants.h"
 #include "cbmc.h"
 #include "simulation.h"
@@ -164,6 +165,7 @@ static REAL **NumberOfIntegerMoleculesAccumulated;
 static REAL **NumberOfMoleculesSquaredAccumulated;
 static REAL ****NumberOfMoleculesPerComponentSquaredAccumulated;
 static REAL **DensityAccumulated;
+static REAL **InverseDensityAccumulated;
 static REAL **GibbsInverseDensityAccumulated;
 
 static VECTOR **BoxAccumulated;
@@ -220,6 +222,7 @@ static REAL_MATRIX3x3 **ConfigurationalStressTensorAccumulated;
 static REAL_MATRIX3x3 **StressTensorAccumulated;
 
 REAL ***WidomRosenbluthFactorAccumulated;
+REAL ***WidomIdealGasAccumulated;
 REAL ***WidomRosenbluthFactorCount;
 REAL ***WidomEnergyDifferenceAccumulated;
 REAL ***WidomEnergyFrameworkAccumulated;
@@ -997,6 +1000,7 @@ void InitializesEnergyAveragesAllSystems(void)
       UTotalAccumulated[k][i]=0.0;
       NumberOfIntegerMoleculesAccumulated[k][i]=0.0;
       DensityAccumulated[k][i]=0.0;
+      InverseDensityAccumulated[k][i]=0.0;
       GibbsInverseDensityAccumulated[k][i]=0.0;
       for(j=0;j<NumberOfComponents;j++)
       {
@@ -1006,6 +1010,7 @@ void InitializesEnergyAveragesAllSystems(void)
         DensityPerComponentAccumulated[k][j][i]=0.0;
 
         WidomRosenbluthFactorAccumulated[k][j][i]=0.0;
+        WidomIdealGasAccumulated[k][j][i]=0.0;
         WidomRosenbluthFactorCount[k][j][i]=0.0;
         WidomEnergyDifferenceAccumulated[k][j][i]=0.0;
         WidomEnergyFrameworkAccumulated[k][j][i]=0.0;
@@ -1280,6 +1285,7 @@ void UpdateEnergyAveragesCurrentSystem(void)
                     /Volume[CurrentSystem];
     DensityPerComponentAccumulated[CurrentSystem][i][Block]+=weight*density;
     DensityAccumulated[CurrentSystem][Block]+=weight*density;
+    InverseDensityAccumulated[CurrentSystem][Block]+=weight*(Volume[CurrentSystem]/((REAL)TotalNumberOfIntegerMolecules()+1.0));
     GibbsInverseDensityAccumulated[CurrentSystem][Block]+=weight*(Volume[CurrentSystem]/(TotalNumberOfIntegerMolecules()+1.0));
   }
 
@@ -2576,6 +2582,25 @@ REAL GetAverageGibbsWidom(int comp)
   else return 0.0;
 }
 
+REAL GetAverageWidomExcess(int comp)
+{
+  int i;
+  REAL count,sum;
+
+  count=sum=0.0;
+  for(i=0;i<NR_BLOCKS;i++)
+  {
+    if(WidomRosenbluthFactorCount[CurrentSystem][comp][i]>0.0)
+    {
+      sum+=WidomRosenbluthFactorAccumulated[CurrentSystem][comp][i];
+      count+=WidomRosenbluthFactorCount[CurrentSystem][comp][i];
+    }
+  }
+  if(count>0.0)
+    return sum/count;
+  else return 0.0;
+}
+
 
 REAL GetAverageGibbsWidomIdealGas(int comp)
 {
@@ -2596,6 +2621,25 @@ REAL GetAverageGibbsWidomIdealGas(int comp)
   else return 0.0;
 }
 
+REAL GetAverageWidomIdealGas(int comp)
+{
+  int i;
+  REAL count,sum;
+
+  count=sum=0.0;
+  for(i=0;i<NR_BLOCKS;i++)
+  {
+    if(WidomRosenbluthFactorCount[CurrentSystem][comp][i]>0.0)
+    {
+      sum+=WidomIdealGasAccumulated[CurrentSystem][comp][i];
+      count+=WidomRosenbluthFactorCount[CurrentSystem][comp][i];
+    }
+  }
+  if(count>0.0)
+    return sum/count;
+  else return 0.0;
+}
+
 REAL GetAverageGibbsInverseDensity()
 {
   int i;
@@ -2605,6 +2649,22 @@ REAL GetAverageGibbsInverseDensity()
   for(i=0;i<NR_BLOCKS;i++)
   {
     sum+=GibbsInverseDensityAccumulated[CurrentSystem][i];
+    count+=BlockWeightedCount[CurrentSystem][i];
+  }
+  if(count>0.0)
+    return sum/count;
+  else return 0.0;
+}
+
+REAL GetAverageInverseDensity()
+{
+  int i;
+  REAL count,sum;
+
+  count=sum=0.0;
+  for(i=0;i<NR_BLOCKS;i++)
+  {
+    sum+=InverseDensityAccumulated[CurrentSystem][i];
     count+=BlockWeightedCount[CurrentSystem][i];
   }
   if(count>0.0)
@@ -2747,6 +2807,15 @@ void PrintPropertyStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
       fprintf(FilePtr,"\tComponent %d: %18.10lf [K]  (%18.10lf [kJ/mol])\n",i,
         (double)((GetWidomHeat(i)-GetFrameworkHeat(i))*ENERGY_TO_KELVIN),
         (double)((GetWidomHeat(i)-GetFrameworkHeat(i))*ENERGY_TO_KELVIN*KELVIN_TO_KJ_PER_MOL));
+    }
+    if(Components[i].FractionOfWidomMove>0.0)
+    {
+      fprintf(FilePtr,"Component [%s] average Widom: %18.10f, average chemical potential: %18.10f [K]\n",
+        Components[i].Name,GetAverageWidomExcess(i),
+        ((-log(GetAverageWidomExcess(i))-log(GetAverageWidomIdealGas(i)))/Beta[CurrentSystem])*ENERGY_TO_KELVIN);
+      fprintf(FilePtr,"\t\t(average excess chemical potential: %18.10f [K], ideal-gas contribution: %18.10f [K])\n",
+            (-log(GetAverageWidomExcess(i))/Beta[CurrentSystem])*ENERGY_TO_KELVIN,
+            (-log(GetAverageWidomIdealGas(i))/Beta[CurrentSystem])*ENERGY_TO_KELVIN);
     }
 
     if(Components[i].FractionOfGibbsWidomMove>0.0)
@@ -4418,7 +4487,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
     fprintf(FilePtr,"\n");
   }
 
-  // Average Widom Rosenbluth factor
+  // Average fixed volume Widom Rosenbluth factor
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Widom Rosenbluth factor:\n");
   fprintf(FilePtr,"================================\n");
@@ -4439,11 +4508,96 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
     }
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-    fprintf(FilePtr,"\t[%s] Average Widom:   %lg +/- %lf [-]\n",
+    fprintf(FilePtr,"\t[%s] Average Widom Rosenbluth-weight:   %lg +/- %lf [-]\n",
       Components[j].Name,
       (double)(sum/(REAL)NR_BLOCKS),
       (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
   }
+
+  // Average fixed volume chemical potential
+  fprintf(FilePtr,"\n");
+  fprintf(FilePtr,"Average Gibbs Widom chemical potential:\n");
+  fprintf(FilePtr,"=======================================\n");
+  for(j=0;j<NumberOfComponents;j++)
+  {
+    sum=sum2=0.0;
+    for(i=0;i<NR_BLOCKS;i++)
+    {
+      if(WidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
+      {
+        tmp=(-log(WidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
+                  WidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN+
+            (-log(WidomIdealGasAccumulated[CurrentSystem][j][i]/
+                  WidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
+        sum+=tmp;
+        sum2+=SQR(tmp);
+        fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
+      }
+      else
+        fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
+    }
+    fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
+    fprintf(FilePtr,"\t[%s] Average chemical potential:   %lg +/- %lf [K]\n",
+      Components[j].Name,
+      (double)(sum/(REAL)NR_BLOCKS),
+      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+  }
+
+  // Average fixed volume Widom ideal-gas contribution
+  fprintf(FilePtr,"\n");
+  fprintf(FilePtr,"Average Widom Ideal-gas contribution:\n");
+  fprintf(FilePtr,"=====================================\n");
+  for(j=0;j<NumberOfComponents;j++)
+  {
+    sum=sum2=0.0;
+    for(i=0;i<NR_BLOCKS;i++)
+    {
+      if(WidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
+      {
+        tmp=(-log(WidomIdealGasAccumulated[CurrentSystem][j][i]/
+                  WidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
+        sum+=tmp;
+        sum2+=SQR(tmp);
+        fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
+      }
+      else
+        fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
+    }
+    fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
+    fprintf(FilePtr,"\t[%s] Average Widom Ideal-gas chemical potential:   %lg +/- %lf [-]\n",
+      Components[j].Name,
+      (double)(sum/(REAL)NR_BLOCKS),
+      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+  }
+
+  // Average fixed volume Widom excess contribution
+  fprintf(FilePtr,"\n");
+  fprintf(FilePtr,"Average Widom excess contribution:\n");
+  fprintf(FilePtr,"==================================\n");
+  for(j=0;j<NumberOfComponents;j++)
+  {
+    sum=sum2=0.0;
+    for(i=0;i<NR_BLOCKS;i++)
+    {
+      if(WidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
+      {
+        tmp=(-log(WidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
+                  WidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
+        sum+=tmp;
+        sum2+=SQR(tmp);
+        fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
+      }
+      else
+        fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
+    }
+    fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
+    fprintf(FilePtr,"\t[%s] Average Widom excess chemical potential:   %lg +/- %lf [-]\n",
+      Components[j].Name,
+      (double)(sum/(REAL)NR_BLOCKS),
+      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+  }
+
+
 
   // Average Gibbs Widom Rosenbluth factor
   fprintf(FilePtr,"\n");
@@ -4466,7 +4620,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
     }
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-    fprintf(FilePtr,"\t[%s] Average Gibbs Widom:   %lg +/- %lf [-]\n",
+    fprintf(FilePtr,"\t[%s] Average Gibbs Widom Rosenbluth-weight:   %lg +/- %lf [-]\n",
       Components[j].Name,
       (double)(sum/(REAL)NR_BLOCKS),
       (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
@@ -4494,7 +4648,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
     }
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-    fprintf(FilePtr,"\t[%s] Average excess chemical potential:   %lg +/- %lf [K]\n",
+    fprintf(FilePtr,"\t[%s] Average Gibbs chemical potential:   %lg +/- %lf [K]\n",
       Components[j].Name,
       (double)(sum/(REAL)NR_BLOCKS),
       (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
@@ -4521,7 +4675,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
     }
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-    fprintf(FilePtr,"\t[%s] Average Gibbs Widom Ideal-gas:   %lg +/- %lf [-]\n",
+    fprintf(FilePtr,"\t[%s] Average Gibbs Ideal-gas chemical potential:   %lg +/- %lf [-]\n",
       Components[j].Name,
       (double)(sum/(REAL)NR_BLOCKS),
       (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
@@ -4550,7 +4704,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
     }
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-    fprintf(FilePtr,"\t[%s] Average Gibbs Widom excess:   %lg +/- %lf [-]\n",
+    fprintf(FilePtr,"\t[%s] Average Gibbs excess chemical potential:   %lg +/- %lf [-]\n",
       Components[j].Name,
       (double)(sum/(REAL)NR_BLOCKS),
       (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
@@ -4730,6 +4884,7 @@ void WriteRestartStatistics(FILE *FilePtr)
     fwrite(NumberOfIntegerMoleculesAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fwrite(NumberOfMoleculesSquaredAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fwrite(DensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
+    fwrite(InverseDensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fwrite(GibbsInverseDensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
 
     fwrite(BoxAccumulated[i],sizeof(VECTOR),NumberOfBlocks,FilePtr);
@@ -4805,6 +4960,7 @@ void WriteRestartStatistics(FILE *FilePtr)
       fwrite(DensityPerComponentAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
 
       fwrite(WidomRosenbluthFactorAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fwrite(WidomIdealGasAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fwrite(WidomRosenbluthFactorCount[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fwrite(WidomEnergyDifferenceAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fwrite(WidomEnergyFrameworkAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
@@ -4930,6 +5086,7 @@ void AllocateStatisticsMemory(void)
   NumberOfIntegerMoleculesAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
   NumberOfMoleculesSquaredAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
   DensityAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
+  InverseDensityAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
   GibbsInverseDensityAccumulated=(REAL**)calloc(NumberOfSystems,sizeof(REAL*));
 
   BoxAccumulated=(VECTOR**)calloc(NumberOfSystems,sizeof(VECTOR*));
@@ -5000,6 +5157,7 @@ void AllocateStatisticsMemory(void)
   DensityPerComponentAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
 
   WidomRosenbluthFactorAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
+  WidomIdealGasAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
   WidomRosenbluthFactorCount=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
   WidomEnergyDifferenceAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
   WidomEnergyFrameworkAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
@@ -5112,6 +5270,7 @@ void AllocateStatisticsMemory(void)
     NumberOfIntegerMoleculesAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
     NumberOfMoleculesSquaredAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
     DensityAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+    InverseDensityAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
     GibbsInverseDensityAccumulated[i]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
 
     BoxAccumulated[i]=(VECTOR*)calloc(NumberOfBlocks,sizeof(VECTOR));
@@ -5185,6 +5344,7 @@ void AllocateStatisticsMemory(void)
     AdsorbateAdsorbateEnergyTimesNumberOfMoleculesAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL));
 
     WidomRosenbluthFactorAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
+    WidomIdealGasAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
     WidomRosenbluthFactorCount[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
     WidomEnergyDifferenceAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
     WidomEnergyFrameworkAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
@@ -5214,6 +5374,7 @@ void AllocateStatisticsMemory(void)
       DensityPerComponentAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
 
       WidomRosenbluthFactorAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+      WidomIdealGasAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
       WidomRosenbluthFactorCount[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
       WidomEnergyDifferenceAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
       WidomEnergyFrameworkAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
@@ -5348,6 +5509,7 @@ void ReadRestartStatistics(FILE *FilePtr)
     fread(NumberOfIntegerMoleculesAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fread(NumberOfMoleculesSquaredAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fread(DensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
+    fread(InverseDensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
     fread(GibbsInverseDensityAccumulated[i],sizeof(REAL),NumberOfBlocks,FilePtr);
 
     fread(BoxAccumulated[i],sizeof(VECTOR),NumberOfBlocks,FilePtr);
@@ -5422,6 +5584,7 @@ void ReadRestartStatistics(FILE *FilePtr)
       fread(DensityPerComponentAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
 
       fread(WidomRosenbluthFactorAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
+      fread(WidomIdealGasAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fread(WidomRosenbluthFactorCount[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fread(WidomEnergyDifferenceAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);
       fread(WidomEnergyFrameworkAccumulated[i][j],sizeof(REAL),NumberOfBlocks,FilePtr);

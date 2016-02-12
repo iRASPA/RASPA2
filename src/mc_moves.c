@@ -7801,68 +7801,6 @@ void PrintSwapRemoveStatistics(FILE *FilePtr)
     fprintf(FilePtr,"Swap deletion move was OFF for all components\n\n");
 }
 
-void setAllFractionalMoleculesToZero()
-{
-  int i,j;
-  int FractionalMolecule;
-  REAL Lambda;
-
-  for(j=0;j<NumberOfComponents;j++)
-  {
-    FractionalMolecule=Components[j].FractionalMolecule[CurrentSystem];
-    if(FractionalMolecule>=0)
-    {
-      for(i=0;i<Components[j].NumberOfAtoms;i++)
-      {
-        if(Components[j].ExtraFrameworkMolecule)
-        {
-          Lambda=Cations[CurrentSystem][FractionalMolecule].Atoms[i].CFVDWScalingParameter;
-          Cations[CurrentSystem][FractionalMolecule].Atoms[i].CFStoredScalingParameter=Lambda;
-          Cations[CurrentSystem][FractionalMolecule].Atoms[i].CFVDWScalingParameter=0.0;
-          Cations[CurrentSystem][FractionalMolecule].Atoms[i].CFChargeScalingParameter=0.0;
-        }
-        else
-        {
-          Lambda=Adsorbates[CurrentSystem][FractionalMolecule].Atoms[i].CFVDWScalingParameter;
-          Adsorbates[CurrentSystem][FractionalMolecule].Atoms[i].CFStoredScalingParameter=Lambda;
-          Adsorbates[CurrentSystem][FractionalMolecule].Atoms[i].CFVDWScalingParameter=0.0;
-          Adsorbates[CurrentSystem][FractionalMolecule].Atoms[i].CFChargeScalingParameter=0.0;
-        }
-      }
-    }
-  }
-}
-
-void restoreAllFractionalMolecules()
-{
-  int i,j;
-  int FractionalMolecule;
-  REAL Lambda;
-
-  for(j=0;j<NumberOfComponents;j++)
-  {
-    FractionalMolecule=Components[j].FractionalMolecule[CurrentSystem];
-    if(FractionalMolecule>=0)
-    {
-      for(i=0;i<Components[j].NumberOfAtoms;i++)
-      {
-        if(Components[j].ExtraFrameworkMolecule)
-        {
-          Lambda=Cations[CurrentSystem][FractionalMolecule].Atoms[i].CFStoredScalingParameter;
-          Cations[CurrentSystem][FractionalMolecule].Atoms[i].CFVDWScalingParameter=Lambda;
-          Cations[CurrentSystem][FractionalMolecule].Atoms[i].CFChargeScalingParameter=pow(Lambda,5.0);
-        }
-        else
-        {
-          Lambda=Adsorbates[CurrentSystem][FractionalMolecule].Atoms[i].CFStoredScalingParameter;
-          Adsorbates[CurrentSystem][FractionalMolecule].Atoms[i].CFVDWScalingParameter=Lambda;
-          Adsorbates[CurrentSystem][FractionalMolecule].Atoms[i].CFChargeScalingParameter=pow(Lambda,5.0);
-        }
-      }
-    }
-  }
-}
-
 
 
 /*********************************************************************************************************
@@ -7881,6 +7819,7 @@ REAL WidomAdsorbateMove(void)
   int StoredNumberOfTrialPositionsFirstBead;
   REAL weight;
   REAL UCFMCAdsorbate;
+  int NumberOfMolecules;
 
   StoredNumberOfTrialPositions=NumberOfTrialPositions;
   StoredNumberOfTrialPositionsFirstBead=NumberOfTrialPositionsForTheFirstBead;
@@ -7889,7 +7828,9 @@ REAL WidomAdsorbateMove(void)
   CurrentCationMolecule=NumberOfCationMolecules[CurrentSystem];
 
   weight=CFBiasingWeight();
+  NumberOfMolecules=TotalNumberOfIntegerMolecules();
   WidomRosenbluthFactorCount[CurrentSystem][CurrentComponent][Block]+=weight;
+  WidomIdealGasAccumulated[CurrentSystem][CurrentComponent][Block]+=weight*(Volume[CurrentSystem]/((REAL)NumberOfMolecules+1.0));
 
   // set Continuous Fraction (CF) atomic scaling-factors to unity (probed as an integer molecule)
   for(i=0;i<Components[CurrentComponent].NumberOfAtoms;i++)
@@ -7901,9 +7842,7 @@ REAL WidomAdsorbateMove(void)
   NumberOfBeadsAlreadyPlaced=0;
   NumberOfTrialPositions=NumberOfTrialPositionsWidom;
   NumberOfTrialPositionsForTheFirstBead=NumberOfTrialPositionsForTheFirstBeadWidom;
-  //setAllFractionalMoleculesToZero();
   RosenbluthNew=GrowMolecule(CBMC_INSERTION);
-  //restoreAllFractionalMolecules();
   NumberOfTrialPositions=StoredNumberOfTrialPositions;
   NumberOfTrialPositionsForTheFirstBead=StoredNumberOfTrialPositionsFirstBead;
 
@@ -7982,6 +7921,7 @@ REAL WidomCationMove(void)
   int StoredNumberOfTrialPositionsFirstBead;
   REAL weight;
   REAL UCFMCCation;
+  int NumberOfMolecules;
 
   StoredNumberOfTrialPositions=NumberOfTrialPositions;
   StoredNumberOfTrialPositionsFirstBead=NumberOfTrialPositionsForTheFirstBead;
@@ -7990,7 +7930,9 @@ REAL WidomCationMove(void)
   CurrentAdsorbateMolecule=NumberOfAdsorbateMolecules[CurrentSystem];
 
   weight=CFBiasingWeight();
+  NumberOfMolecules=TotalNumberOfIntegerMolecules();
   WidomRosenbluthFactorCount[CurrentSystem][CurrentComponent][Block]+=weight;
+  WidomIdealGasAccumulated[CurrentSystem][CurrentComponent][Block]+=weight*(Volume[CurrentSystem]/((REAL)NumberOfMolecules+1.0));
 
   // set Continuous Fraction (CF) atomic scaling-factors to unity (probed as an integer molecule)
   for(i=0;i<Components[CurrentComponent].NumberOfAtoms;i++)
@@ -8002,9 +7944,7 @@ REAL WidomCationMove(void)
   NumberOfBeadsAlreadyPlaced=0;
   NumberOfTrialPositions=NumberOfTrialPositionsWidom;
   NumberOfTrialPositionsForTheFirstBead=NumberOfTrialPositionsForTheFirstBeadWidom;
-  //setAllFractionalMoleculesToZero();
   RosenbluthNew=GrowMolecule(CBMC_INSERTION);
-  //restoreAllFractionalMolecules();
   NumberOfTrialPositions=StoredNumberOfTrialPositions;
   NumberOfTrialPositionsForTheFirstBead=StoredNumberOfTrialPositionsFirstBead;
   if(OVERLAP) return 0;
@@ -8113,9 +8053,7 @@ REAL GibbsWidomAdsorbateMove(void)
   NumberOfBeadsAlreadyPlaced=0;
   NumberOfTrialPositions=NumberOfTrialPositionsWidom;
   NumberOfTrialPositionsForTheFirstBead=NumberOfTrialPositionsForTheFirstBeadWidom;
-  //setAllFractionalMoleculesToZero();
   RosenbluthNew=GrowMolecule(CBMC_INSERTION);
-  //restoreAllFractionalMolecules();
   NumberOfTrialPositions=StoredNumberOfTrialPositions;
   NumberOfTrialPositionsForTheFirstBead=StoredNumberOfTrialPositionsFirstBead;
 
@@ -8210,9 +8148,7 @@ REAL GibbsWidomCationMove(void)
   NumberOfBeadsAlreadyPlaced=0;
   NumberOfTrialPositions=NumberOfTrialPositionsWidom;
   NumberOfTrialPositionsForTheFirstBead=NumberOfTrialPositionsForTheFirstBeadWidom;
-  //setAllFractionalMoleculesToZero();
   RosenbluthNew=GrowMolecule(CBMC_INSERTION);
-  //restoreAllFractionalMolecules();
   NumberOfTrialPositions=StoredNumberOfTrialPositions;
   NumberOfTrialPositionsForTheFirstBead=StoredNumberOfTrialPositionsFirstBead;
   if(OVERLAP) return 0;
@@ -17262,7 +17198,15 @@ void OptimizeCFLambdaAcceptence(void)
 void PrintCFSwapLambdaStatistics(FILE *FilePtr)
 {
   int i,k,MoveUsed;
-  REAL total;
+  REAL total,norm,norm2;
+  REAL valueLast,valuePreLast,extrapolatedValue;
+  REAL valuePrePreLast;
+  REAL extrapolatedValueFirstOrder;
+  REAL extrapolatedValueSecondOrder;
+  REAL a,b,c,y,B;
+  REAL value,minimum;
+  REAL referenceValue;
+  int lastIndex,preLastindex,prePreLastindex;
 
   MoveUsed=FALSE;
   for(i=0;i<NumberOfComponents;i++)
@@ -17299,6 +17243,7 @@ void PrintCFSwapLambdaStatistics(FILE *FilePtr)
           (double)(CFSwapLambdaAttempts[CurrentSystem][i][2]>(REAL)0.0?
             100.0*CFSwapLambdaAccepted[CurrentSystem][i][2]/CFSwapLambdaAttempts[CurrentSystem][i][2]:(REAL)0.0));
 
+/*
         total=0.0;
         for(k=0;k<Components[i].CFLambdaHistogramSize;k++)
           total+=CFLambdaHistogram[CurrentSystem][i][k];
@@ -17309,7 +17254,61 @@ void PrintCFSwapLambdaStatistics(FILE *FilePtr)
           fprintf(FilePtr,"\tLambda [ %4f - %4f ]: %18.10f (biasing factor: %18.10f)\n",
             (REAL)k/Components[i].CFLambdaHistogramSize,(REAL)(k+1)/Components[i].CFLambdaHistogramSize,
             100.0*CFLambdaHistogram[CurrentSystem][i][k]/total,Components[i].CFBiasingFactors[CurrentSystem][k]);
+*/
+        total=0.0;
+        for(k=0;k<Components[i].CFLambdaHistogramSize;k++)
+          total+=CFLambdaHistogram[CurrentSystem][i][k];
+
+        norm=0.0;
+        for(k=0;k<Components[i].CFLambdaHistogramSize;k++)
+          norm+=Components[i].CFBiasingFactors[CurrentSystem][k];
+
+        norm2=0.0;
+        for(k=0;k<Components[i].CFLambdaHistogramSize;k++)
+          norm2+=exp(-Components[i].CFBiasingFactors[CurrentSystem][k])*CFLambdaHistogram[CurrentSystem][i][k];
+
+
+
+        fprintf(FilePtr,"\n\tLambda probabilities:\n");
+        fprintf(FilePtr,"\t---------------------\n");
+        for(k=0;k<Components[i].CFLambdaHistogramSize;k++)
+        {
+          fprintf(FilePtr,"\tLambda [ %4f - %4f ]: %18.10f, Boltzmann: %18.10f excess chemical potential: %18.10f, chemical potential: %18.10f [K]  (biasing factor: %18.10f)\n",
+            (REAL)k/Components[i].CFLambdaHistogramSize,
+            (REAL)(k+1)/Components[i].CFLambdaHistogramSize,
+            CFLambdaHistogram[CurrentSystem][i][k]/total,
+            exp(-Components[i].CFBiasingFactors[CurrentSystem][k])*CFLambdaHistogram[CurrentSystem][i][k]/norm2,
+            (-log(exp(-Components[i].CFBiasingFactors[CurrentSystem][k])*CFLambdaHistogram[CurrentSystem][i][k]/
+                 (exp(-Components[i].CFBiasingFactors[CurrentSystem][0])*CFLambdaHistogram[CurrentSystem][i][0]))/Beta[CurrentSystem])*ENERGY_TO_KELVIN,
+            (-log(exp(-Components[i].CFBiasingFactors[CurrentSystem][k])*CFLambdaHistogram[CurrentSystem][i][k]/
+                 (exp(-Components[i].CFBiasingFactors[CurrentSystem][0])*CFLambdaHistogram[CurrentSystem][i][0]))/Beta[CurrentSystem])*ENERGY_TO_KELVIN
+             -(log(GetAverageInverseDensity())/Beta[CurrentSystem])*ENERGY_TO_KELVIN,
+            Components[i].CFBiasingFactors[CurrentSystem][k]);
+        }
+        fprintf(FilePtr,"\n");
+
+        lastIndex=Components[i].CFLambdaHistogramSize-1;
+        preLastindex=Components[i].CFLambdaHistogramSize-2;
+        prePreLastindex=Components[i].CFLambdaHistogramSize-3;
+
+        referenceValue=exp(-Components[i].CFBiasingFactors[CurrentSystem][0])*CFLambdaHistogram[CurrentSystem][i][0];
+        valueLast=exp(-Components[i].CFBiasingFactors[CurrentSystem][lastIndex])*CFLambdaHistogram[CurrentSystem][i][lastIndex];
+        valuePreLast=exp(-Components[i].CFBiasingFactors[CurrentSystem][preLastindex])*CFLambdaHistogram[CurrentSystem][i][preLastindex];
+        valuePrePreLast=exp(-Components[i].CFBiasingFactors[CurrentSystem][prePreLastindex])*CFLambdaHistogram[CurrentSystem][i][prePreLastindex];
+        extrapolatedValue=valueLast+(valueLast-valuePreLast)*0.5;
+        extrapolatedValueFirstOrder=(-log(extrapolatedValue/referenceValue)-log(GetAverageInverseDensity()))/Beta[CurrentSystem];
+
+        B=Components[i].CFLambdaHistogramSize-1;
+        a=0.5*(valueLast-2.0*valuePreLast+valuePrePreLast);
+        b=0.5*(valueLast-valuePrePreLast)-2.0*a*(B-1.0);
+        c=valueLast-a*SQR(B)-b*B;
+        y=B+0.5;
+        extrapolatedValue=a*SQR(y)+b*y+c;
+        extrapolatedValueSecondOrder=(-log(extrapolatedValue/referenceValue)-log(GetAverageInverseDensity()))/Beta[CurrentSystem];
       }
+      fprintf(FilePtr,"Extrapolated chemical potential, linear: %18.10f [K], quadratic: %18.10f\n",
+              extrapolatedValueFirstOrder*ENERGY_TO_KELVIN,extrapolatedValueSecondOrder*ENERGY_TO_KELVIN);
+      fprintf(FilePtr,"Ideal gas value: %18.10f [K]\n",-(log(GetAverageInverseDensity())/Beta[CurrentSystem])*ENERGY_TO_KELVIN);
       fprintf(FilePtr,"\n");
     }
     fprintf(FilePtr,"\n");
