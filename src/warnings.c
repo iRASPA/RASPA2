@@ -91,14 +91,16 @@ void CreateWarnings(void)
     }
 
     // check for appropriate use of unit cells
-    if((double)CutOffVDW*2 > (double)BoxProperties[k].cx || (double)CutOffVDW*2 > (double)BoxProperties[k].cy || (double)CutOffVDW*2 > (double)BoxProperties[k].cz)
+    if((double)CutOffVDW*2 > NumberOfReplicaCells[CurrentSystem].x*(double)BoxProperties[k].cx || 
+       (double)CutOffVDW*2 > NumberOfReplicaCells[CurrentSystem].y*(double)BoxProperties[k].cy || 
+       (double)CutOffVDW*2 > NumberOfReplicaCells[CurrentSystem].z*(double)BoxProperties[k].cz)
+    {
+      if(NumberOfWarnings[k]<MAX_NUMBER_OF_WARNINGS)
       {
-        if(NumberOfWarnings[k]<MAX_NUMBER_OF_WARNINGS)
-          {
-            Warnings[k][NumberOfWarnings[k]]=UNIT_CELL;
-            NumberOfWarnings[k]++;
-           }
+        Warnings[k][NumberOfWarnings[k]]=UNIT_CELL;
+        NumberOfWarnings[k]++;
       }
+    }
 
     // check for net-charge of the system
     NetSystemCharge=0.0;

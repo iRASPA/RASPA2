@@ -185,7 +185,7 @@ int AddPseudoAtom(PSEUDO_ATOM atom)
     {
       NumberOfPseudoAtomsCount[i]=(int*)realloc(NumberOfPseudoAtomsCount[i],(NumberOfPseudoAtoms+1)*sizeof(int));
       NumberOfPseudoAtomsType[i]=(int*)realloc(NumberOfPseudoAtomsType[i],(NumberOfPseudoAtoms+1)*sizeof(int));
-      NumberOfFractionalPseudoAtomsType[i]=(int*)realloc(NumberOfPseudoAtomsType[i],(NumberOfPseudoAtoms+1)*sizeof(int));
+      NumberOfFractionalPseudoAtomsType[i]=(int*)realloc(NumberOfFractionalPseudoAtomsType[i],(NumberOfPseudoAtoms+1)*sizeof(int));
       NumberOfPseudoAtomsCount[i][NumberOfPseudoAtoms]=0;
       NumberOfPseudoAtomsType[i][NumberOfPseudoAtoms]=0;
       NumberOfFractionalPseudoAtomsType[i][NumberOfPseudoAtoms]=0;
