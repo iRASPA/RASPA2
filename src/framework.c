@@ -12828,9 +12828,11 @@ void ReadRestartFramework(FILE *FilePtr)
       {
         Framework[i].CoreShellDefinitions=(PAIR*)calloc(Framework[i].NumberOfCoreShellDefinitions,sizeof(PAIR));
         Framework[i].NumberOfCoreShellsPerType=(int*)calloc(Framework[i].NumberOfCoreShellDefinitions,sizeof(int));
+        Framework[i].CoreShellConnectivity=(int*)calloc(Framework[i].NumberOfFrameworks,sizeof(int));
 
         fread(Framework[i].CoreShellDefinitions,sizeof(PAIR),Framework[i].NumberOfCoreShellDefinitions,FilePtr);
         fread(Framework[i].NumberOfCoreShellsPerType,sizeof(int),Framework[i].NumberOfCoreShellDefinitions,FilePtr);
+
 
         for(j=0;j<Framework[i].NumberOfFrameworks;j++)
         {
