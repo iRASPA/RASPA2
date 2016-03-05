@@ -252,7 +252,7 @@ void PrintPreSimulationStatusCurrentSystem(int system)
   fprintf(FilePtr,"Compiler and run-time data\n");
   fprintf(FilePtr,"===========================================================================\n");
 
-  fprintf(FilePtr,"%s\n","RASPA 2.0.5");
+  fprintf(FilePtr,"%s\n","RASPA 2.0.6");
 
   #if defined (__LP64__) || defined (__64BIT__) || defined (_LP64) || (__WORDSIZE == 64)
     fprintf(FilePtr,"Compiled as a 64-bits application\n");
@@ -4773,9 +4773,24 @@ void PrintPreSimulationStatusCurrentSystem(int system)
                   (double)(Components[i].TorsionArguments[j][4]*ENERGY_TO_KELVIN),
                   (double)(Components[i].TorsionArguments[j][5]*ENERGY_TO_KELVIN));
                 break;
-             case FIXED_DIHEDRAL:
+              case FIXED_DIHEDRAL:
                  fprintf(FilePtr,"\t\tphi_0=%-18.10f [degrees]\n",
                    (double)(Components[i].TorsionArguments[j][0]*RAD2DEG));
+                break;
+              case MOD_TRAPPE_DIHEDRAL:
+                // p_0[0]+p_1*(1+cos(phi))+p_2*(1-cos(2*phi))+p_3*(1+cos(3*phi))
+                // =============================================================
+                // p_0/k_B [K]
+                // p_1/k_B [K]
+                // p_2/k_B [K]
+                // p_3/k_B [K]
+                // p_4     [degrees]
+                fprintf(FilePtr,"\t\tMOD_TRAPPE_DIHEDRAL: p_0/k_B=%-10.6f [K], p_1/k_B=%-10.6f [K], p_2/k_B=%-10.6f [K], p_3/k_B=%-10.6f [K], p_4=%-10.6f [degrees]\n",
+                  (double)(Components[i].TorsionArguments[j][0]*ENERGY_TO_KELVIN),
+                  (double)(Components[i].TorsionArguments[j][1]*ENERGY_TO_KELVIN),
+                  (double)(Components[i].TorsionArguments[j][2]*ENERGY_TO_KELVIN),
+                  (double)(Components[i].TorsionArguments[j][3]*ENERGY_TO_KELVIN),
+                  (double)(Components[i].TorsionArguments[j][4]*RAD2DEG));
                 break;
               default:
                 fprintf(stderr, "Unknown torsion-potential\n");

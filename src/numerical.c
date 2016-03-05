@@ -251,7 +251,7 @@ void NumericallyComputeDerivatives(int np,int nb,REAL *x,REAL *GradientNumerical
   REAL_MATRIX Hessian;
   REAL_MATRIX3x3 StrainDerivative;
 
-  delta=1e-6;
+  delta=1e-4;
   Gradient=(REAL*)calloc(np+nb,sizeof(REAL));
   GradientForward1=(REAL*)calloc(np+nb,sizeof(REAL));
   GradientForward2=(REAL*)calloc(np+nb,sizeof(REAL));

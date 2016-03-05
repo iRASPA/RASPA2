@@ -4134,6 +4134,7 @@ void ComputeFrameworkTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX Hess
   VECTOR Dab,Dcb,Ddc,dr,ds;
   REAL dot_ab,dot_cd,r,s,sign;
   REAL U,CosPhi,Phi,CosPhi2,SinPhi;
+  REAL ShiftedCosPhi,ShiftedCosPhi2,ShiftedSinPhi;
   VECTOR dtA,dtB,dtC,dtD,Pb,Pc;
   REAL *parms;
   INT_VECTOR3 index_i,index_j,index_k,index_l;
@@ -4356,6 +4357,33 @@ void ComputeFrameworkTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX Hess
           U=parms[0]-parms[2]+parms[4]+(parms[1]-3.0*parms[3])*CosPhi+(2.0*parms[2]-8.0*parms[4])*CosPhi2+4.0*parms[3]*CosPhi2*CosPhi+8.0*parms[4]*SQR(CosPhi2);
           DF=parms[1]-3.0*parms[3]+4.0*(parms[2]-4.0*parms[4])*CosPhi+12.0*parms[3]*CosPhi2+32.0*parms[4]*CosPhi2*CosPhi;
           DDF=4.0*parms[2]-16.0*parms[4]+24.0*parms[3]*CosPhi+96.0*parms[4]*CosPhi2;
+          break;
+        case MOD_TRAPPE_DIHEDRAL:
+          /* Salvador modification: 16/08/2016
+           add phase in cos function:
+           p_0+p_1*(1+cos(phi-p_4))+p_2*(1-cos(2*(phi-p_4)))+p_3*(1+cos(3*(phi-p_4)))
+          */
+          Pb.x=Dab.z*Dcb.y-Dab.y*Dcb.z;
+          Pb.y=Dab.x*Dcb.z-Dab.z*Dcb.x;
+          Pb.z=Dab.y*Dcb.x-Dab.x*Dcb.y;
+          Pc.x=Dcb.y*Ddc.z-Dcb.z*Ddc.y;
+          Pc.y=Dcb.z*Ddc.x-Dcb.x*Ddc.z;
+          Pc.z=Dcb.x*Ddc.y-Dcb.y*Ddc.x;
+          sign=(Dcb.x*(Pc.z*Pb.y-Pc.y*Pb.z)+Dcb.y*(Pb.z*Pc.x-Pb.x*Pc.z)
+                +Dcb.z*(Pc.y*Pb.x-Pc.x*Pb.y));
+          Phi=SIGN(acos(CosPhi),sign);
+          SinPhi=sin(Phi);
+          SinPhi=SIGN(MAX2((REAL)1.0e-8,fabs(SinPhi)),SinPhi); // remove singularity
+          Phi-=parms[4];           // shift Phi as Phi+parms[4]
+          Phi-=NINT(Phi/(2.0*M_PI))*2.0*M_PI;
+          ShiftedCosPhi=cos(Phi);
+          ShiftedSinPhi=sin(Phi);
+          ShiftedCosPhi2=SQR(ShiftedCosPhi);
+          U=parms[0]+parms[1]+parms[3]+(parms[1]-3.0*parms[3])*ShiftedCosPhi -2.0*parms[2]*ShiftedCosPhi2 +4.0*parms[3]*ShiftedCosPhi*ShiftedCosPhi2;
+          DF=((parms[1]-3.0*parms[3])*ShiftedSinPhi -4.0*parms[2]*ShiftedCosPhi*ShiftedSinPhi + 12.0*parms[3]*ShiftedCosPhi2*ShiftedSinPhi)/SinPhi;
+          DDF=-(parms[1]-3.0*parms[3])*sin(parms[4])/CUBE(SinPhi)+
+              4.0*parms[2]*(ShiftedCosPhi2-ShiftedCosPhi*ShiftedSinPhi*CosPhi/SinPhi-SQR(ShiftedSinPhi))/SQR(SinPhi)+
+              12.0*parms[3]*ShiftedCosPhi*(-ShiftedCosPhi2+ShiftedCosPhi*ShiftedSinPhi*CosPhi/SinPhi+2.0*SQR(ShiftedSinPhi))/SQR(SinPhi);
           break;
         case CVFF_DIHEDRAL:
           // p_0*(1+cos(p_1*phi-p_2))

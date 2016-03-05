@@ -164,6 +164,7 @@ int GibbsVolumeMove(void);
 int GibbsIdentityChangeAdsorbateMove(void);
 int FrameworkChangeMove(void);
 int FrameworkShiftMove(void);
+int ExchangeFractionalParticleMove(void);
 
 void PrintGibbsSwapStatistics(FILE *FilePtr);
 void PrintTranslationStatistics(FILE *FilePtr);

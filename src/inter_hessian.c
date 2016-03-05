@@ -4022,7 +4022,7 @@ void ComputeInterVDWMolecularHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX Hes
         typeA=Cations[CurrentSystem][I].Atoms[i].Type;
         posA=Cations[CurrentSystem][I].Atoms[i].Position;
 
-        scalingA=Cations[CurrentSystem][I].Atoms[j].CFVDWScalingParameter;
+        scalingA=Cations[CurrentSystem][I].Atoms[i].CFVDWScalingParameter;
 
         // second loop over cations
         ncell=0;

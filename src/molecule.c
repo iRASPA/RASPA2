@@ -2124,6 +2124,17 @@ void ReadComponentDefinition(int comp)
           Components[comp].TorsionArguments[i][3]/=ENERGY_TO_KELVIN;
           Components[comp].TorsionArguments[i][4]/=ENERGY_TO_KELVIN;
           break;
+        case MOD_TRAPPE_DIHEDRAL:
+          /* Salvador modification: 16/08/2016
+           add phase in cos function:
+           p_0+p_1*(1+cos(phi-p_4))+p_2*(1-cos(2*(phi-p_4)))+p_3*(1+cos(3*(phi-p_4)))
+          */
+          Components[comp].TorsionArguments[i][0]/=ENERGY_TO_KELVIN;
+          Components[comp].TorsionArguments[i][1]/=ENERGY_TO_KELVIN;
+          Components[comp].TorsionArguments[i][2]/=ENERGY_TO_KELVIN;
+          Components[comp].TorsionArguments[i][3]/=ENERGY_TO_KELVIN;
+          Components[comp].TorsionArguments[i][4]*=DEG2RAD;
+          break;
         case CVFF_DIHEDRAL:
           // p_0*(1+cos(p_1*phi-p_2))
           // ========================

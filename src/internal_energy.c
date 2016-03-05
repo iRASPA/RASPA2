@@ -2174,6 +2174,7 @@ REAL CalculateTorsionEnergy(int Itype,int Iu)
   VECTOR Dab,Dbc,Dcd,dr,ds;
   REAL dot_ab,dot_cd,r,s,sign;
   REAL CosPhi,Phi,CosPhi2;
+  REAL ShiftedCosPhi,ShiftedCosPhi2;
   VECTOR Pb,Pc;
   REAL *parms;
 
@@ -2332,6 +2333,26 @@ REAL CalculateTorsionEnergy(int Itype,int Iu)
       // p_4/k_B [K]
       energy=parms[0]-parms[2]+parms[4]+(parms[1]-3.0*parms[3])*CosPhi+(2.0*parms[2]-8.0*parms[4])*CosPhi2+4.0*parms[3]*CosPhi2*CosPhi+8.0*parms[4]*SQR(CosPhi2);
       break;
+   case MOD_TRAPPE_DIHEDRAL:
+     /* Salvador modification: 16/08/2016
+      add phase in cos function:
+      p_0+p_1*(1+cos(phi-p_4))+p_2*(1-cos(2*(phi-p_4)))+p_3*(1+cos(3*(phi-p_4)))
+     */
+      Pb.x=Dab.z*Dbc.y-Dab.y*Dbc.z;
+      Pb.y=Dab.x*Dbc.z-Dab.z*Dbc.x;
+      Pb.z=Dab.y*Dbc.x-Dab.x*Dbc.y;
+      Pc.x=Dbc.y*Dcd.z-Dbc.z*Dcd.y;
+      Pc.y=Dbc.z*Dcd.x-Dbc.x*Dcd.z;
+      Pc.z=Dbc.x*Dcd.y-Dbc.y*Dcd.x;
+      sign=(Dbc.x*(Pc.z*Pb.y-Pc.y*Pb.z)+Dbc.y*(Pb.z*Pc.x-Pb.x*Pc.z)
+            +Dbc.z*(Pc.y*Pb.x-Pc.x*Pb.y));
+      Phi=SIGN(acos(CosPhi),sign);
+      Phi-=parms[4];           // shift Phi as Phi+parms[4]
+      Phi-=NINT(Phi/(2.0*M_PI))*2.0*M_PI;
+      ShiftedCosPhi=cos(Phi);
+      ShiftedCosPhi2=SQR(ShiftedCosPhi);
+      energy=parms[0]+parms[1]+parms[3]+(parms[1]-3.0*parms[3])*ShiftedCosPhi -2.0*parms[2]*ShiftedCosPhi2 +4.0*parms[3]*ShiftedCosPhi*ShiftedCosPhi2;
+      break;
     case CVFF_DIHEDRAL:
       // p_0*(1+cos(p_1*phi-p_2))
       // ========================
@@ -2408,6 +2429,7 @@ REAL CalculateTorsionEnergyAdsorbate(int m)
   VECTOR Dab,Dbc,Dcd,dr,ds;
   REAL dot_ab,dot_cd,r,s,sign;
   REAL CosPhi,Phi,CosPhi2;
+  REAL ShiftedCosPhi,ShiftedCosPhi2;
   VECTOR Pb,Pc;
   REAL *parms;
 
@@ -2570,6 +2592,26 @@ REAL CalculateTorsionEnergyAdsorbate(int m)
         // p_4/k_B [K]
         UTorsion+=parms[0]-parms[2]+parms[4]+(parms[1]-3.0*parms[3])*CosPhi+(2.0*parms[2]-8.0*parms[4])*CosPhi2+4.0*parms[3]*CosPhi2*CosPhi+8.0*parms[4]*SQR(CosPhi2);
         break;
+      case MOD_TRAPPE_DIHEDRAL:
+        /* Salvador modification: 16/08/2016
+         add phase in cos function:
+         p_0+p_1*(1+cos(phi-p_4))+p_2*(1-cos(2*(phi-p_4)))+p_3*(1+cos(3*(phi-p_4)))
+        */
+        Pb.x=Dab.z*Dbc.y-Dab.y*Dbc.z;
+        Pb.y=Dab.x*Dbc.z-Dab.z*Dbc.x;
+        Pb.z=Dab.y*Dbc.x-Dab.x*Dbc.y;
+        Pc.x=Dbc.y*Dcd.z-Dbc.z*Dcd.y;
+        Pc.y=Dbc.z*Dcd.x-Dbc.x*Dcd.z;
+        Pc.z=Dbc.x*Dcd.y-Dbc.y*Dcd.x;
+        sign=(Dbc.x*(Pc.z*Pb.y-Pc.y*Pb.z)+Dbc.y*(Pb.z*Pc.x-Pb.x*Pc.z)
+              +Dbc.z*(Pc.y*Pb.x-Pc.x*Pb.y));
+        Phi=SIGN(acos(CosPhi),sign);
+        Phi-=parms[4];           // shift Phi as Phi+parms[4]
+        Phi-=NINT(Phi/(2.0*M_PI))*2.0*M_PI;
+        ShiftedCosPhi=cos(Phi);
+        ShiftedCosPhi2=SQR(ShiftedCosPhi);
+        UTorsion+=parms[0]+parms[1]+parms[3]+(parms[1]-3.0*parms[3])*ShiftedCosPhi -2.0*parms[2]*ShiftedCosPhi2 +4.0*parms[3]*ShiftedCosPhi*ShiftedCosPhi2;
+        break;
       case CVFF_DIHEDRAL:
         // p_0*(1+cos(p_1*phi-p_2))
         // ========================
@@ -2655,6 +2697,7 @@ REAL CalculateTorsionEnergyCation(int m)
   VECTOR Dab,Dbc,Dcd,dr,ds;
   REAL dot_ab,dot_cd,r,s,sign;
   REAL CosPhi,Phi,CosPhi2;
+  REAL ShiftedCosPhi,ShiftedCosPhi2;
   VECTOR Pb,Pc;
   REAL *parms;
 
@@ -2816,6 +2859,26 @@ REAL CalculateTorsionEnergyCation(int m)
         // p_3/k_B [K]
         // p_4/k_B [K]
         UTorsion+=parms[0]-parms[2]+parms[4]+(parms[1]-3.0*parms[3])*CosPhi+(2.0*parms[2]-8.0*parms[4])*CosPhi2+4.0*parms[3]*CosPhi2*CosPhi+8.0*parms[4]*SQR(CosPhi2);
+        break;
+      case MOD_TRAPPE_DIHEDRAL:
+        /* Salvador modification: 16/08/2016
+         add phase in cos function:
+         p_0+p_1*(1+cos(phi-p_4))+p_2*(1-cos(2*(phi-p_4)))+p_3*(1+cos(3*(phi-p_4)))
+        */
+        Pb.x=Dab.z*Dbc.y-Dab.y*Dbc.z;
+        Pb.y=Dab.x*Dbc.z-Dab.z*Dbc.x;
+        Pb.z=Dab.y*Dbc.x-Dab.x*Dbc.y;
+        Pc.x=Dbc.y*Dcd.z-Dbc.z*Dcd.y;
+        Pc.y=Dbc.z*Dcd.x-Dbc.x*Dcd.z;
+        Pc.z=Dbc.x*Dcd.y-Dbc.y*Dcd.x;
+        sign=(Dbc.x*(Pc.z*Pb.y-Pc.y*Pb.z)+Dbc.y*(Pb.z*Pc.x-Pb.x*Pc.z)
+              +Dbc.z*(Pc.y*Pb.x-Pc.x*Pb.y));
+        Phi=SIGN(acos(CosPhi),sign);
+        Phi-=parms[4];           // shift Phi as Phi+parms[4]
+        Phi-=NINT(Phi/(2.0*M_PI))*2.0*M_PI;
+        ShiftedCosPhi=cos(Phi);
+        ShiftedCosPhi2=SQR(ShiftedCosPhi);
+        UTorsion+=parms[0]+parms[1]+parms[3]+(parms[1]-3.0*parms[3])*ShiftedCosPhi -2.0*parms[2]*ShiftedCosPhi2 +4.0*parms[3]*ShiftedCosPhi*ShiftedCosPhi2;
         break;
       case CVFF_DIHEDRAL:
         // p_0*(1+cos(p_1*phi-p_2))

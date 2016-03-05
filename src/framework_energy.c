@@ -1093,6 +1093,7 @@ REAL CalculateFrameworkTorsionEnergy(int flag,int f2,int atom_id)
   VECTOR Dab,Dcb,Ddc,dr,ds;
   REAL dot_ab,dot_cd,r,s,sign;
   REAL CosPhi,Phi,CosPhi2,SinPhi,UHostTorsion;
+  REAL ShiftedCosPhi,ShiftedCosPhi2,ShiftedSinPhi;
   VECTOR Pb,Pc;
   REAL *parms;
 
@@ -1266,6 +1267,27 @@ REAL CalculateFrameworkTorsionEnergy(int flag,int f2,int atom_id)
               // p_3/k_B [K]
               // p_4/k_B [K]
               U=parms[0]-parms[2]+parms[4]+(parms[1]-3.0*parms[3])*CosPhi+(2.0*parms[2]-8.0*parms[4])*CosPhi2+4.0*parms[3]*CosPhi2*CosPhi+8.0*parms[4]*SQR(CosPhi2);
+              break;
+            case MOD_TRAPPE_DIHEDRAL:
+              /* Salvador modification: 16/08/2016
+               add phase in cos function:
+               p_0+p_1*(1+cos(phi-p_4))+p_2*(1-cos(2*(phi-p_4)))+p_3*(1+cos(3*(phi-p_4)))
+              */
+              Pb.x=Dab.z*Dcb.y-Dab.y*Dcb.z;
+              Pb.y=Dab.x*Dcb.z-Dab.z*Dcb.x;
+              Pb.z=Dab.y*Dcb.x-Dab.x*Dcb.y;
+              Pc.x=Dcb.y*Ddc.z-Dcb.z*Ddc.y;
+              Pc.y=Dcb.z*Ddc.x-Dcb.x*Ddc.z;
+              Pc.z=Dcb.x*Ddc.y-Dcb.y*Ddc.x;
+              sign=(Dcb.x*(Pc.z*Pb.y-Pc.y*Pb.z)+Dcb.y*(Pb.z*Pc.x-Pb.x*Pc.z)
+                    +Dcb.z*(Pc.y*Pb.x-Pc.x*Pb.y));
+              Phi=SIGN(acos(CosPhi),sign);
+              SinPhi=sin(Phi);
+              Phi-=parms[4];           // shift Phi as Phi+parms[4]
+              Phi-=NINT(Phi/(2.0*M_PI))*2.0*M_PI;
+              ShiftedCosPhi=cos(Phi);
+              ShiftedCosPhi2=SQR(ShiftedCosPhi);
+              U=parms[0]+parms[1]+parms[3]+(parms[1]-3.0*parms[3])*ShiftedCosPhi -2.0*parms[2]*ShiftedCosPhi2 +4.0*parms[3]*ShiftedCosPhi*ShiftedCosPhi2;
               break;
             case CVFF_DIHEDRAL:
               // p_0*(1+cos(p_1*phi-p_2))
