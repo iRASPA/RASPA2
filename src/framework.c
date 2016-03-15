@@ -1535,6 +1535,15 @@ void ReadFrameworkDefinitionCIF(void)
             strcpy(CurrentPseudoAtom.PrintToPDBName,CurrentPseudoAtom.ChemicalElement);
           }
 
+          // no label-name set for the atom
+          if(strlen(CurrentPseudoAtom.Name)==0)
+          {
+            sscanf(CurrentPseudoAtom.ChemicalElement,"%[a-zA-Z]",CurrentPseudoAtom.Name);
+            strcpy(CurrentPseudoAtom.PrintToPDBName,CurrentPseudoAtom.Name);
+          }
+
+         
+
           // chemical element set, remove oxidation state to get element for use in pdb
           sscanf(CurrentPseudoAtom.ChemicalElement,"%[a-zA-Z]",CurrentPseudoAtom.PrintToPDBName);
 
