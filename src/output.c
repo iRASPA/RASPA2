@@ -129,7 +129,7 @@ FILE **OutputFilePtr;
 void OpenOutputFile(void)
 {
   int i;
-  char buffer[1024],buffer2[256];
+  char buffer[1024],buffer2[300],buffer3[256];
 
   OutputFilePtr=(FILE**)calloc(NumberOfSystems,sizeof(FILE*));
   FILE_CONTENTS = (char**)malloc(NumberOfSystems * sizeof(char*));
@@ -167,8 +167,8 @@ void OpenOutputFile(void)
               FileNameAppend);
 
       // limit length of file-name
-      strncpy(buffer2,buffer,250);
-      sprintf(buffer2,"%s.data",buffer2);
+      strncpy(buffer3,buffer,256);
+      sprintf(buffer2,"%s.data",buffer3);
       OutputFilePtr[i]=fopen(buffer2,"w");
     }
   }
@@ -7923,7 +7923,7 @@ void ReadRestartOutput(FILE* FilePtr)
 {
   int i;
   fpos_t pos;
-  char buffer[1024],buffer2[256];
+  char buffer[1024],buffer2[300],buffer3[256];
   REAL Check;
   char test_byte;
 
@@ -7961,8 +7961,9 @@ void ReadRestartOutput(FILE* FilePtr)
             FileNameAppend);
 
     // limit length of file-name
-    strncpy(buffer2,buffer,250);
-    sprintf(buffer2,"%s.data",buffer2);
+    strncpy(buffer3,buffer,256);
+    sprintf(buffer2,"%s.data",buffer3);
+    OutputFilePtr[i]=fopen(buffer2,"w");
 
     // check if the file exist
     if( access(buffer2,F_OK )==0) 
