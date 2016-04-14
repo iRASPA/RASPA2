@@ -3969,7 +3969,7 @@ void CalculateEnergyDifferenceFrameworkMoveCharge(int atom_id)
             dr=ApplyReplicaBoundaryCondition(dr);
             rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
             if(rr<CutOffChargeChargeSquared[CurrentSystem])
-              UHostChargeChargeRealDelta[CurrentSystem]+=PotentialValueCoulombic(chargeA,chargeB,r);
+              UHostChargeChargeRealDelta[CurrentSystem]+=PotentialValueCoulombic(chargeA,chargeB,sqrt(rr));
 
             dr.x=posA_old.x-(posB.x+ReplicaShift[ncell].x);
             dr.y=posA_old.y-(posB.y+ReplicaShift[ncell].y);
@@ -3977,7 +3977,7 @@ void CalculateEnergyDifferenceFrameworkMoveCharge(int atom_id)
             dr=ApplyReplicaBoundaryCondition(dr);
             rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
             if(rr<CutOffChargeChargeSquared[CurrentSystem])
-              UHostChargeChargeRealDelta[CurrentSystem]-=PotentialValueCoulombic(chargeA,chargeB,r);
+              UHostChargeChargeRealDelta[CurrentSystem]-=PotentialValueCoulombic(chargeA,chargeB,sqrt(rr));
           }
         }
       }
@@ -4000,7 +4000,7 @@ void CalculateEnergyDifferenceFrameworkMoveCharge(int atom_id)
             dr=ApplyReplicaBoundaryCondition(dr);
             rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
             if(rr<CutOffChargeChargeSquared[CurrentSystem])
-              UHostChargeChargeRealDelta[CurrentSystem]+=PotentialValueCoulombic(chargeA,chargeB,r);
+              UHostChargeChargeRealDelta[CurrentSystem]+=PotentialValueCoulombic(chargeA,chargeB,sqrt(rr));
 
             dr.x=posA_old.x-(posB.x+ReplicaShift[ncell].x);
             dr.y=posA_old.y-(posB.y+ReplicaShift[ncell].y);
@@ -4008,7 +4008,7 @@ void CalculateEnergyDifferenceFrameworkMoveCharge(int atom_id)
             dr=ApplyReplicaBoundaryCondition(dr);
             rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
             if(rr<CutOffChargeChargeSquared[CurrentSystem])
-              UHostChargeChargeRealDelta[CurrentSystem]-=PotentialValueCoulombic(chargeA,chargeB,r);
+              UHostChargeChargeRealDelta[CurrentSystem]-=PotentialValueCoulombic(chargeA,chargeB,sqrt(rr));
           }
         }
       }
@@ -4034,7 +4034,7 @@ void CalculateEnergyDifferenceFrameworkMoveCharge(int atom_id)
           rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
           if(rr<CutOffChargeChargeSquared[CurrentSystem])
-            UHostChargeChargeRealDelta[CurrentSystem]+=PotentialValueCoulombic(chargeA,chargeB,r);
+            UHostChargeChargeRealDelta[CurrentSystem]+=PotentialValueCoulombic(chargeA,chargeB,sqrt(rr));
 
           dr.x=posA_old.x-posB.x;
           dr.y=posA_old.y-posB.y;
@@ -4043,7 +4043,7 @@ void CalculateEnergyDifferenceFrameworkMoveCharge(int atom_id)
           rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
           if(rr<CutOffChargeChargeSquared[CurrentSystem])
-            UHostChargeChargeRealDelta[CurrentSystem]-=PotentialValueCoulombic(chargeA,chargeB,r);
+            UHostChargeChargeRealDelta[CurrentSystem]-=PotentialValueCoulombic(chargeA,chargeB,sqrt(rr));
         }
       }
 
@@ -4261,7 +4261,7 @@ void CalculateFrameworkEnergyDifferenceShiftedFramework(void)
               UHostVDWDelta[CurrentSystem]+=PotentialValue(typeA,typeB,rr,1.0);
 
           if(rr<CutOffChargeChargeSquared[CurrentSystem])
-            UHostChargeChargeRealDelta[CurrentSystem]+=PotentialValueCoulombic(chargeA,chargeB,r);
+            UHostChargeChargeRealDelta[CurrentSystem]+=PotentialValueCoulombic(chargeA,chargeB,sqrt(rr));
 
           dr.x=posA_old.x-posB.x;
           dr.y=posA_old.y-posB.y;
@@ -4273,7 +4273,7 @@ void CalculateFrameworkEnergyDifferenceShiftedFramework(void)
               UHostVDWDelta[CurrentSystem]-=PotentialValue(typeA,typeB,rr,1.0);
 
           if(rr<CutOffChargeChargeSquared[CurrentSystem])
-            UHostChargeChargeRealDelta[CurrentSystem]-=PotentialValueCoulombic(chargeA,chargeB,r);
+            UHostChargeChargeRealDelta[CurrentSystem]-=PotentialValueCoulombic(chargeA,chargeB,sqrt(rr));
         }
 
         // compute the charge-bond-dipole interactions
@@ -4759,7 +4759,7 @@ int CalculateFrameworkAdsorbateReplicaChargeChargeEnergy(void)
 
               if(rr<CutOffChargeChargeSquared[CurrentSystem])
               {
-                energy=PotentialValueCoulombic(chargeA,chargeB,r);
+                energy=PotentialValueCoulombic(chargeA,chargeB,sqrt(rr));
 
                 // energy
                 UHostAdsorbateChargeChargeReal[CurrentSystem]+=energy;
@@ -4820,7 +4820,7 @@ int CalculateFrameworkCationReplicaChargeChargeEnergy(void)
 
               if(rr<CutOffChargeChargeSquared[CurrentSystem])
               {
-                energy=PotentialValueCoulombic(chargeA,chargeB,r);
+                energy=PotentialValueCoulombic(chargeA,chargeB,sqrt(rr));
 
                 // energy
                 UHostCationChargeChargeReal[CurrentSystem]+=energy;
