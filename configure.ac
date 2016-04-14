@@ -2,14 +2,14 @@ AC_INIT([RASPA], [2.0])
 AC_CONFIG_SRCDIR([src/main.c])
 AM_INIT_AUTOMAKE
 
-AC_CHECK_LIB(blas,ddot_,[LIBS="-lblas ${LIBS}"],,${LIBS})
-AC_CHECK_LIB(lapack,dsyevd_,[LIBS="-llapack ${LIBS}"] HAVE_LAPACK="yes",,${LIBS})
+AC_SEARCH_LIBS(ddot_,blas)
+AC_SEARCH_LIBS(dsyevd_,lapack,HAVE_LAPACK="yes")
 
 if test "$HAVE_LAPACK" = yes; then
   AC_DEFINE(HAVE_LAPACK, 0, [Define if you have LAPACK library.])
 fi
 
-AC_CHECK_LIB(fftw3,fftw_plan_dft_r2c_1d,[LIBS="-lfftw3 ${LIBS}"] HAVE_FFTW3="yes",,${LIBS})
+AC_SEARCH_LIBS(fftw_plan_dft_r2c_1d,fftw3,HAVE_FFTW3="yes")
 
 if test "$HAVE_FFTW3" = yes; then
   AC_DEFINE(HAVE_FFTW3, 0, [Define if you have FFTW library.])
