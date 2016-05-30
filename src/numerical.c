@@ -339,8 +339,11 @@ void PlaceFrameworkInBoxFromReferenceValues(void)
 
   for(f1=0;f1<Framework[CurrentSystem].NumberOfFrameworks;f1++)
     for(i=0;i<Framework[CurrentSystem].NumberOfAtoms[f1];i++)
+    {
       Framework[CurrentSystem].Atoms[f1][i].Position=
           ConvertFromABCtoXYZ(Framework[CurrentSystem].Atoms[f1][i].ReferencePosition);
+      Framework[CurrentSystem].Atoms[f1][i].AnisotropicPosition = Framework[CurrentSystem].Atoms[f1][i].Position;
+    }
 }
 
 void SaveAdsorbateAtomPositionsToReferenceValues(void)
@@ -369,7 +372,10 @@ void PlaceAdsorbateAtomsInBoxFromReferenceValues(void)
     for(i=0;i<Components[Type].NumberOfGroups;i++)
       Adsorbates[CurrentSystem][m].Groups[i].CenterOfMassPosition=ConvertFromABCtoXYZ(Adsorbates[CurrentSystem][m].Groups[i].CenterOfMassReferencePosition);
     for(i=0;i<Components[Type].NumberOfAtoms;i++)
+    {
       Adsorbates[CurrentSystem][m].Atoms[i].Position=ConvertFromABCtoXYZ(Adsorbates[CurrentSystem][m].Atoms[i].ReferencePosition);
+      Adsorbates[CurrentSystem][m].Atoms[i].AnisotropicPosition=Adsorbates[CurrentSystem][m].Atoms[i].Position;
+    }
   }
 }
 
@@ -399,7 +405,10 @@ void PlaceCationAtomsInBoxFromReferenceValues(void)
     for(i=0;i<Components[Type].NumberOfGroups;i++)
       Cations[CurrentSystem][m].Groups[i].CenterOfMassPosition=ConvertFromABCtoXYZ(Cations[CurrentSystem][m].Groups[i].CenterOfMassReferencePosition);
     for(i=0;i<Components[Type].NumberOfAtoms;i++)
+    {
       Cations[CurrentSystem][m].Atoms[i].Position=ConvertFromABCtoXYZ(Cations[CurrentSystem][m].Atoms[i].ReferencePosition);
+      Cations[CurrentSystem][m].Atoms[i].AnisotropicPosition=Cations[CurrentSystem][m].Atoms[i].Position;
+    }
   }
 }
 

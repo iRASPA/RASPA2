@@ -8698,6 +8698,14 @@ int VolumeMove(void)
 
     UnitCellSize[CurrentSystem]=StoredUnitCellSize;
 
+    // store the structure-factors for the Ewald-summations
+    if((ChargeMethod==EWALD)&&(!OmitEwaldFourier))
+    {
+      SetupKVectors();
+      EwaldEnergyIon();
+    }
+
+
     if(Framework[CurrentSystem].FrameworkModel==FLEXIBLE)
       for(f1=0;f1<Framework[CurrentSystem].NumberOfFrameworks;f1++)
         for(i=0;i<Framework[CurrentSystem].NumberOfAtoms[f1];i++)
@@ -9334,6 +9342,13 @@ int BoxShapeChangeMove(void)
     AlphaAngle[CurrentSystem]=StoredAlphaAngle;
     BetaAngle[CurrentSystem]=StoredBetaAngle;
     GammaAngle[CurrentSystem]=StoredGammaAngle;
+
+    // store the structure-factors for the Ewald-summations
+    if((ChargeMethod==EWALD)&&(!OmitEwaldFourier))
+    {
+      SetupKVectors();
+      EwaldEnergyIon();
+    }
 
     for(f1=0;f1<Framework[CurrentSystem].NumberOfFrameworks;f1++)
       for(i=0;i<Framework[CurrentSystem].NumberOfAtoms[f1];i++)
@@ -14754,6 +14769,13 @@ void HybridNPHMove(void)
     Invert3x3Matrix(&Box[CurrentSystem],&InverseBox[CurrentSystem],&det);
     CellProperties(&Box[CurrentSystem],&BoxProperties[CurrentSystem],&det);
 
+    // store the structure-factors for the Ewald-summations
+    if((ChargeMethod==EWALD)&&(!OmitEwaldFourier))
+    {
+      SetupKVectors();
+      EwaldEnergyIon();
+    }
+
     // restore all the positions to the Old state
     PlaceFrameworkInBoxFromReferenceValues();
     PlaceAdsorbateAtomsInBoxFromReferenceValues();
@@ -15067,6 +15089,7 @@ void HybridNPHPRMove(void)
   ReferenceEnergy=ConservedEnergy[CurrentSystem];
   Drift=0.0;
 
+
   // integrated the system 'NumberOfHybridNPHPRSteps' steps
   for(i=0;i<NumberOfHybridNPHPRSteps;i++)
   {
@@ -15296,6 +15319,14 @@ void HybridNPHPRMove(void)
     Volume[CurrentSystem]=StoredVolume;
     Invert3x3Matrix(&Box[CurrentSystem],&InverseBox[CurrentSystem],&det);
     CellProperties(&Box[CurrentSystem],&BoxProperties[CurrentSystem],&det);
+
+
+    // store the structure-factors for the Ewald-summations
+    if((ChargeMethod==EWALD)&&(!OmitEwaldFourier))
+    {
+      SetupKVectors();
+      EwaldEnergyIon();
+    }
 
     // restore all the positions to the Old state
     PlaceFrameworkInBoxFromReferenceValues();
