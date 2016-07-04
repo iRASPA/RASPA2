@@ -57,6 +57,8 @@ extern long long *BlockCycle;
 extern REAL **BlockCount;
 extern int Block;
 
+extern REAL MeasureLambdaBelow;
+
 extern int DensityProfile;
 
 extern VECTOR ***PrincipleMomentsOfInertiaAccumulated;

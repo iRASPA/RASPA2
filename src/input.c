@@ -233,6 +233,7 @@ int ReadInput(char *input)
 
   CurrentReaction=0;
   RXMCLambdaHistogramSize=21;
+  MeasureLambdaBelow=1.0;
   RemoveFractionalMoleculesFromRestartFile=FALSE;
 
   NumberOfFixedAtomTypes=0;
@@ -2512,6 +2513,7 @@ int ReadInput(char *input)
        for(i=0;i<NumberOfReactions;i++)
          MaximumReactionLambdaChange[CurrentSystem][i]=temp_real;
     }
+    if(strcasecmp("MeasureLambdaBelow",keyword)==0) sscanf(arguments,"%lf",&MeasureLambdaBelow);
 
 
     //--------------------------------------------------------------------------------------------------------------------------------------------------------
