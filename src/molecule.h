@@ -783,6 +783,7 @@ int TotalNumberOfFractionalAdsorbates();
 int TotalNumberOfFractionalCations();
 int TotalNumberOfFractionalMoleculesForSystem(int k);
 REAL CFBiasingWeight();
+REAL CFBiasingLambda();
 
 int IsFractionalAdsorbateMolecule(int m);
 int IsFractionalCationMolecule(int m);
