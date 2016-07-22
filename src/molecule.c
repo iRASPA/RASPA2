@@ -5866,6 +5866,23 @@ REAL CFBiasingWeight()
   return exp(-weight);
 }
 
+REAL CFBiasingLambda(int system, int comp)
+{
+  int  FractionalMolecule;
+  REAL Lambda;
+
+  Lambda=0.0;
+  FractionalMolecule=Components[comp].FractionalMolecule[system];
+  if(FractionalMolecule>=0)
+  {
+    if(Components[comp].ExtraFrameworkMolecule)
+      Lambda=Cations[system][FractionalMolecule].Atoms[0].CFVDWScalingParameter;
+    else
+      Lambda=Adsorbates[system][FractionalMolecule].Atoms[0].CFVDWScalingParameter;
+  }
+
+  return Lambda;
+}
 
 
 /*********************************************************************************************************

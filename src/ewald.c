@@ -3341,6 +3341,15 @@ int EwaldFourierForce(void)
           sum_bonddipole_cation.im+=StoreRigidBondDipolesCations[CurrentSystem][nvec].im;
 
 
+          // Store the total structure factors
+          StoreTotalChargeFramework[CurrentSystem][nvec]=sum_framework;
+          StoreTotalChargeAdsorbates[CurrentSystem][nvec]=sum_adsorbate;
+          StoreTotalChargeCations[CurrentSystem][nvec]=sum_cation;
+
+          StoreTotalBondDipolesFramework[CurrentSystem][nvec]=sum_bonddipole_framework;
+          StoreTotalBondDipolesAdsorbates[CurrentSystem][nvec]=sum_bonddipole_adsorbate;
+          StoreTotalBondDipolesCations[CurrentSystem][nvec]=sum_bonddipole_cation;
+
           // precomputed wavevector dependent pre-factor
           temp=kfactor[nvec];
 

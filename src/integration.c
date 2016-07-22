@@ -1297,6 +1297,7 @@ void Integration(void)
         }
       }
 
+
       // compute the forces on all the atoms
       CalculateForce();
 
@@ -1330,6 +1331,13 @@ void Integration(void)
         }
       }
 
+      // store the structure-factors for the Ewald-summations
+      if((ChargeMethod==EWALD)&&(!OmitEwaldFourier))
+      {
+        SetupKVectors();
+        EwaldEnergyIon();
+      }
+
       // compute the forces on all the atoms
       CalculateForce();
 
@@ -1350,6 +1358,13 @@ void Integration(void)
 
       // evolve the part of rigid bodies involving free rotation
       NoSquishFreeRotorOrderTwo();
+
+      // store the structure-factors for the Ewald-summations
+      if((ChargeMethod==EWALD)&&(!OmitEwaldFourier))
+      {
+        SetupKVectors();
+        EwaldEnergyIon();
+      }
 
       // compute the forces on all the atoms
       CalculateForce();

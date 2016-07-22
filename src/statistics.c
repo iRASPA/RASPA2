@@ -61,6 +61,8 @@ REAL **BlockWeightedCount;
 REAL **BlockCount;
 int Block;
 
+REAL MeasureLambdaBelow;
+
 // average energies
 static REAL **UHostHostAccumulated;
 static REAL **UAdsorbateAdsorbateAccumulated;
@@ -242,6 +244,7 @@ REAL **SurfaceAreaCount;
 
 VECTOR ***PrincipleMomentsOfInertiaAccumulated;
 REAL ***PrincipleMomentsOfInertiaCount;
+
 
 void AddBornTermToAverages(void)
 {
@@ -1106,7 +1109,7 @@ void UpdateEnergyAveragesCurrentSystem(void)
   REAL PressureIdealGas;
   REAL PressureTail;
   REAL UCFMCAdsorbate,UCFMCCation;
-  REAL weight;
+  REAL weight,lambda;
 
   // check for new block
   if(CurrentCycle==BlockCycle[Block])
@@ -1114,289 +1117,292 @@ void UpdateEnergyAveragesCurrentSystem(void)
 
   // get the Lambda-weight for CFCMC; the weight=1.0 for CBMC
   weight=CFBiasingWeight();
+  lambda=CFBiasingLambda(CurrentSystem,0);
 
-  BlockWeightedCount[CurrentSystem][Block]+=weight;
-  BlockCount[CurrentSystem][Block]+=1.0;
-
-  if(ComputeBornTerm)
-    AddBornTermToAverages();
-
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].ax+=weight*ConfigurationalStressTensor[CurrentSystem].ax;
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].bx+=weight*ConfigurationalStressTensor[CurrentSystem].bx;
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].cx+=weight*ConfigurationalStressTensor[CurrentSystem].cx;
-
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].ay+=weight*ConfigurationalStressTensor[CurrentSystem].ay;
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].by+=weight*ConfigurationalStressTensor[CurrentSystem].by;
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].cy+=weight*ConfigurationalStressTensor[CurrentSystem].cy;
-
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].az+=weight*ConfigurationalStressTensor[CurrentSystem].az;
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].bz+=weight*ConfigurationalStressTensor[CurrentSystem].bz;
-  ConfigurationalStressTensorAccumulated[CurrentSystem][Block].cz+=weight*ConfigurationalStressTensor[CurrentSystem].cz;
-
-  StressTensorAccumulated[CurrentSystem][Block].ax+=weight*StressTensor[CurrentSystem].ax;
-  StressTensorAccumulated[CurrentSystem][Block].bx+=weight*StressTensor[CurrentSystem].bx;
-  StressTensorAccumulated[CurrentSystem][Block].cx+=weight*StressTensor[CurrentSystem].cx;
-
-  StressTensorAccumulated[CurrentSystem][Block].ay+=weight*StressTensor[CurrentSystem].ay;
-  StressTensorAccumulated[CurrentSystem][Block].by+=weight*StressTensor[CurrentSystem].by;
-  StressTensorAccumulated[CurrentSystem][Block].cy+=weight*StressTensor[CurrentSystem].cy;
-
-  StressTensorAccumulated[CurrentSystem][Block].az+=weight*StressTensor[CurrentSystem].az;
-  StressTensorAccumulated[CurrentSystem][Block].bz+=weight*StressTensor[CurrentSystem].bz;
-  StressTensorAccumulated[CurrentSystem][Block].cz+=weight*StressTensor[CurrentSystem].cz;
-
-
-
-  UHostBondAccumulated[CurrentSystem][Block]+=weight*UHostBond[CurrentSystem];
-  UHostUreyBradleyAccumulated[CurrentSystem][Block]+=weight*UHostUreyBradley[CurrentSystem];
-  UHostBendAccumulated[CurrentSystem][Block]+=weight*UHostBend[CurrentSystem];
-  UHostInversionBendAccumulated[CurrentSystem][Block]+=weight*UHostInversionBend[CurrentSystem];
-  UHostTorsionAccumulated[CurrentSystem][Block]+=weight*UHostTorsion[CurrentSystem];
-  UHostImproperTorsionAccumulated[CurrentSystem][Block]+=weight*UHostImproperTorsion[CurrentSystem];
-  UHostBondBondAccumulated[CurrentSystem][Block]+=weight*UHostBondBond[CurrentSystem];
-  UHostBendBendAccumulated[CurrentSystem][Block]+=weight*UHostBendBend[CurrentSystem];
-  UHostBondBendAccumulated[CurrentSystem][Block]+=weight*UHostBondBend[CurrentSystem];
-  UHostBondTorsionAccumulated[CurrentSystem][Block]+=weight*UHostBondTorsion[CurrentSystem];
-  UHostBendTorsionAccumulated[CurrentSystem][Block]+=weight*UHostBendTorsion[CurrentSystem];
-
-  UCationBondAccumulated[CurrentSystem][Block]+=weight*UCationBond[CurrentSystem];
-  UCationUreyBradleyAccumulated[CurrentSystem][Block]+=weight*UCationUreyBradley[CurrentSystem];
-  UCationBendAccumulated[CurrentSystem][Block]+=weight*UCationBend[CurrentSystem];
-  UCationInversionBendAccumulated[CurrentSystem][Block]+=weight*UCationInversionBend[CurrentSystem];
-  UCationTorsionAccumulated[CurrentSystem][Block]+=weight*UCationTorsion[CurrentSystem];
-  UCationImproperTorsionAccumulated[CurrentSystem][Block]+=weight*UCationImproperTorsion[CurrentSystem];
-  UCationBondBondAccumulated[CurrentSystem][Block]+=weight*UCationBondBond[CurrentSystem];
-  UCationBendBendAccumulated[CurrentSystem][Block]+=weight*UCationBendBend[CurrentSystem];
-  UCationBondBendAccumulated[CurrentSystem][Block]+=weight*UCationBondBend[CurrentSystem];
-  UCationBondTorsionAccumulated[CurrentSystem][Block]+=weight*UCationBondTorsion[CurrentSystem];
-  UCationBendTorsionAccumulated[CurrentSystem][Block]+=weight*UCationBendTorsion[CurrentSystem];
-  UCationIntraVDWAccumulated[CurrentSystem][Block]+=weight*UCationIntraVDW[CurrentSystem];
-  UCationIntraChargeChargeAccumulated[CurrentSystem][Block]+=weight*UCationIntraChargeCharge[CurrentSystem];
-  UCationIntraChargeBondDipoleAccumulated[CurrentSystem][Block]+=weight*UCationIntraChargeBondDipole[CurrentSystem];
-  UCationIntraBondDipoleBondDipoleAccumulated[CurrentSystem][Block]+=weight*UCationIntraBondDipoleBondDipole[CurrentSystem];
-
-  UAdsorbateBondAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBond[CurrentSystem];
-  UAdsorbateUreyBradleyAccumulated[CurrentSystem][Block]+=weight*UAdsorbateUreyBradley[CurrentSystem];
-  UAdsorbateBendAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBend[CurrentSystem];
-  UAdsorbateInversionBendAccumulated[CurrentSystem][Block]+=weight*UAdsorbateInversionBend[CurrentSystem];
-  UAdsorbateTorsionAccumulated[CurrentSystem][Block]+=weight*UAdsorbateTorsion[CurrentSystem];
-  UAdsorbateImproperTorsionAccumulated[CurrentSystem][Block]+=weight*UAdsorbateImproperTorsion[CurrentSystem];
-  UAdsorbateBondBondAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBondBond[CurrentSystem];
-  UAdsorbateBendBendAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBendBend[CurrentSystem];
-  UAdsorbateBondBendAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBondBend[CurrentSystem];
-  UAdsorbateBondTorsionAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBondTorsion[CurrentSystem];
-  UAdsorbateBendTorsionAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBendTorsion[CurrentSystem];
-  UAdsorbateIntraVDWAccumulated[CurrentSystem][Block]+=weight*UAdsorbateIntraVDW[CurrentSystem];
-  UAdsorbateIntraChargeChargeAccumulated[CurrentSystem][Block]+=weight*UAdsorbateIntraChargeCharge[CurrentSystem];
-  UAdsorbateIntraChargeBondDipoleAccumulated[CurrentSystem][Block]+=weight*UAdsorbateIntraChargeBondDipole[CurrentSystem];
-  UAdsorbateIntraBondDipoleBondDipoleAccumulated[CurrentSystem][Block]+=weight*UAdsorbateIntraBondDipoleBondDipole[CurrentSystem];
-
-  UHostHostAccumulated[CurrentSystem][Block]+=weight*UHostHost[CurrentSystem];
-  UAdsorbateAdsorbateAccumulated[CurrentSystem][Block]+=weight*UAdsorbateAdsorbate[CurrentSystem];
-  UCationCationAccumulated[CurrentSystem][Block]+=weight*UCationCation[CurrentSystem];
-  UHostAdsorbateAccumulated[CurrentSystem][Block]+=weight*UHostAdsorbate[CurrentSystem];
-  UHostCationAccumulated[CurrentSystem][Block]+=weight*UHostCation[CurrentSystem];
-  UAdsorbateCationAccumulated[CurrentSystem][Block]+=weight*UAdsorbateCation[CurrentSystem];
-
-  UHostHostVDWAccumulated[CurrentSystem][Block]+=weight*UHostHostVDW[CurrentSystem];
-  UAdsorbateAdsorbateVDWAccumulated[CurrentSystem][Block]+=weight*UAdsorbateAdsorbateVDW[CurrentSystem];
-  UCationCationVDWAccumulated[CurrentSystem][Block]+=weight*UCationCationVDW[CurrentSystem];
-  UHostAdsorbateVDWAccumulated[CurrentSystem][Block]+=weight*UHostAdsorbateVDW[CurrentSystem];
-  UHostCationVDWAccumulated[CurrentSystem][Block]+=weight*UHostCationVDW[CurrentSystem];
-  UAdsorbateCationVDWAccumulated[CurrentSystem][Block]+=weight*UAdsorbateCationVDW[CurrentSystem];
-
-  UHostHostCoulombAccumulated[CurrentSystem][Block]+=weight*UHostHostCoulomb[CurrentSystem];
-  UAdsorbateAdsorbateCoulombAccumulated[CurrentSystem][Block]+=weight*UAdsorbateAdsorbateCoulomb[CurrentSystem];
-  UCationCationCoulombAccumulated[CurrentSystem][Block]+=weight*UCationCationCoulomb[CurrentSystem];
-  UHostAdsorbateCoulombAccumulated[CurrentSystem][Block]+=weight*UHostAdsorbateCoulomb[CurrentSystem];
-  UHostCationCoulombAccumulated[CurrentSystem][Block]+=weight*UHostCationCoulomb[CurrentSystem];
-  UAdsorbateCationCoulombAccumulated[CurrentSystem][Block]+=weight*UAdsorbateCationCoulomb[CurrentSystem];
-
-  dipole_adsorbates=ComputeTotalDipoleMomentSystemAdsorbates();
-  dipole_cations=ComputeTotalDipoleMomentSystemCations();
-  dipole_cations.x=dipole_cations.y=dipole_cations.z=0.0;
-
-  TotalSystemDipoleAccumulated[CurrentSystem][Block].x+=weight*(dipole_adsorbates.x+dipole_cations.x);
-  TotalSystemDipoleAccumulated[CurrentSystem][Block].y+=weight*(dipole_adsorbates.y+dipole_cations.y);
-  TotalSystemDipoleAccumulated[CurrentSystem][Block].z+=weight*(dipole_adsorbates.z+dipole_cations.z);
-  TotalSystemNormDipoleAccumulated[CurrentSystem][Block]+=weight*(sqrt(SQR(dipole_adsorbates.x+dipole_cations.x)+
-        SQR(dipole_adsorbates.y+dipole_cations.y)+SQR(dipole_adsorbates.z+dipole_cations.z)));
-
-  TotalSystemDipoleSquaredAccumulated[CurrentSystem][Block].x+=weight*SQR(dipole_adsorbates.x+dipole_cations.x);
-  TotalSystemDipoleSquaredAccumulated[CurrentSystem][Block].y+=weight*SQR(dipole_adsorbates.y+dipole_cations.y);
-  TotalSystemDipoleSquaredAccumulated[CurrentSystem][Block].z+=weight*SQR(dipole_adsorbates.z+dipole_cations.z);
-  TotalSystemNormDipoleSquaredAccumulated[CurrentSystem][Block]+=weight*(SQR(dipole_adsorbates.x+dipole_cations.x)+
-        SQR(dipole_adsorbates.y+dipole_cations.y)+SQR(dipole_adsorbates.z+dipole_cations.z));
-
-  UHostPolarizationAccumulated[CurrentSystem][Block]+=weight*UHostPolarization[CurrentSystem];
-  UAdsorbatePolarizationAccumulated[CurrentSystem][Block]+=weight*UAdsorbatePolarization[CurrentSystem];
-  UCationPolarizationAccumulated[CurrentSystem][Block]+=weight*UCationPolarization[CurrentSystem];
-  UHostBackPolarizationAccumulated[CurrentSystem][Block]+=weight*UHostBackPolarization[CurrentSystem];
-  UAdsorbateBackPolarizationAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBackPolarization[CurrentSystem];
-  UCationBackPolarizationAccumulated[CurrentSystem][Block]+=weight*UCationBackPolarization[CurrentSystem];
-
-  UTailCorrectionAccumulated[CurrentSystem][Block]+=weight*UTailCorrection[CurrentSystem];
-  UDistanceConstraintsAccumulated[CurrentSystem][Block]+=weight*UDistanceConstraints[CurrentSystem];
-  UAngleConstraintsAccumulated[CurrentSystem][Block]+=weight*UAngleConstraints[CurrentSystem];
-  UDihedralConstraintsAccumulated[CurrentSystem][Block]+=weight*UDihedralConstraints[CurrentSystem];
-  UInversionBendConstraintsAccumulated[CurrentSystem][Block]+=weight*UInversionBendConstraints[CurrentSystem];
-  UOutOfPlaneDistanceConstraintsAccumulated[CurrentSystem][Block]+=weight*UOutOfPlaneDistanceConstraints[CurrentSystem];
-  UExclusionConstraintsAccumulated[CurrentSystem][Block]+=weight*UExclusionConstraints[CurrentSystem];
-
-  UCFMCAdsorbate = ComputeEnergyOfFractionalMoleculesAdsorbates();
-  UCFMCCation = ComputeEnergyOfFractionalMoleculesCations();
-  UTotalAccumulated[CurrentSystem][Block]+=weight*(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation);
-
-  NumberOfIntegerMoleculesAccumulated[CurrentSystem][Block]+=weight*TotalNumberOfIntegerAdsorbates();
-
-  NumberOfMoleculesSquaredAccumulated[CurrentSystem][Block]+=weight*(SQR(TotalNumberOfIntegerAdsorbates()));
-  TotalEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][Block]+=weight*((UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation)*
-                 TotalNumberOfIntegerAdsorbates());
-
-  nr=NumberOfUnitCells[0].x*NumberOfUnitCells[0].y*NumberOfUnitCells[0].z;
-  for(i=0;i<NumberOfComponents;i++)
+  if (lambda>=0.0 && lambda <= MeasureLambdaBelow)
   {
-    REAL loading_i = (Components[i].NumberOfMolecules[CurrentSystem]
-                    -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
-                    -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem]);
-    TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=weight*((UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation)*loading_i);
-    HostAdsorbateEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i][Block]+=weight*(UHostAdsorbate[CurrentSystem]*loading_i);
-    AdsorbateAdsorbateEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i][Block]+=weight*(UAdsorbateAdsorbate[CurrentSystem]*loading_i);
-    for(j=0;j<NumberOfComponents;j++)
+    BlockWeightedCount[CurrentSystem][Block]+=weight;
+    BlockCount[CurrentSystem][Block]+=1.0;
+
+    if(ComputeBornTerm)
+      AddBornTermToAverages();
+
+    ConfigurationalStressTensorAccumulated[CurrentSystem][Block].ax+=weight*ConfigurationalStressTensor[CurrentSystem].ax;
+    ConfigurationalStressTensorAccumulated[CurrentSystem][Block].bx+=weight*ConfigurationalStressTensor[CurrentSystem].bx;
+    ConfigurationalStressTensorAccumulated[CurrentSystem][Block].cx+=weight*ConfigurationalStressTensor[CurrentSystem].cx;
+
+    ConfigurationalStressTensorAccumulated[CurrentSystem][Block].ay+=weight*ConfigurationalStressTensor[CurrentSystem].ay;
+    ConfigurationalStressTensorAccumulated[CurrentSystem][Block].by+=weight*ConfigurationalStressTensor[CurrentSystem].by;
+    ConfigurationalStressTensorAccumulated[CurrentSystem][Block].cy+=weight*ConfigurationalStressTensor[CurrentSystem].cy;
+
+    ConfigurationalStressTensorAccumulated[CurrentSystem][Block].az+=weight*ConfigurationalStressTensor[CurrentSystem].az;
+    ConfigurationalStressTensorAccumulated[CurrentSystem][Block].bz+=weight*ConfigurationalStressTensor[CurrentSystem].bz;
+    ConfigurationalStressTensorAccumulated[CurrentSystem][Block].cz+=weight*ConfigurationalStressTensor[CurrentSystem].cz;
+
+    StressTensorAccumulated[CurrentSystem][Block].ax+=weight*StressTensor[CurrentSystem].ax;
+    StressTensorAccumulated[CurrentSystem][Block].bx+=weight*StressTensor[CurrentSystem].bx;
+    StressTensorAccumulated[CurrentSystem][Block].cx+=weight*StressTensor[CurrentSystem].cx;
+
+    StressTensorAccumulated[CurrentSystem][Block].ay+=weight*StressTensor[CurrentSystem].ay;
+    StressTensorAccumulated[CurrentSystem][Block].by+=weight*StressTensor[CurrentSystem].by;
+    StressTensorAccumulated[CurrentSystem][Block].cy+=weight*StressTensor[CurrentSystem].cy;
+
+    StressTensorAccumulated[CurrentSystem][Block].az+=weight*StressTensor[CurrentSystem].az;
+    StressTensorAccumulated[CurrentSystem][Block].bz+=weight*StressTensor[CurrentSystem].bz;
+    StressTensorAccumulated[CurrentSystem][Block].cz+=weight*StressTensor[CurrentSystem].cz;
+
+
+
+    UHostBondAccumulated[CurrentSystem][Block]+=weight*UHostBond[CurrentSystem];
+    UHostUreyBradleyAccumulated[CurrentSystem][Block]+=weight*UHostUreyBradley[CurrentSystem];
+    UHostBendAccumulated[CurrentSystem][Block]+=weight*UHostBend[CurrentSystem];
+    UHostInversionBendAccumulated[CurrentSystem][Block]+=weight*UHostInversionBend[CurrentSystem];
+    UHostTorsionAccumulated[CurrentSystem][Block]+=weight*UHostTorsion[CurrentSystem];
+    UHostImproperTorsionAccumulated[CurrentSystem][Block]+=weight*UHostImproperTorsion[CurrentSystem];
+    UHostBondBondAccumulated[CurrentSystem][Block]+=weight*UHostBondBond[CurrentSystem];
+    UHostBendBendAccumulated[CurrentSystem][Block]+=weight*UHostBendBend[CurrentSystem];
+    UHostBondBendAccumulated[CurrentSystem][Block]+=weight*UHostBondBend[CurrentSystem];
+    UHostBondTorsionAccumulated[CurrentSystem][Block]+=weight*UHostBondTorsion[CurrentSystem];
+    UHostBendTorsionAccumulated[CurrentSystem][Block]+=weight*UHostBendTorsion[CurrentSystem];
+
+    UCationBondAccumulated[CurrentSystem][Block]+=weight*UCationBond[CurrentSystem];
+    UCationUreyBradleyAccumulated[CurrentSystem][Block]+=weight*UCationUreyBradley[CurrentSystem];
+    UCationBendAccumulated[CurrentSystem][Block]+=weight*UCationBend[CurrentSystem];
+    UCationInversionBendAccumulated[CurrentSystem][Block]+=weight*UCationInversionBend[CurrentSystem];
+    UCationTorsionAccumulated[CurrentSystem][Block]+=weight*UCationTorsion[CurrentSystem];
+    UCationImproperTorsionAccumulated[CurrentSystem][Block]+=weight*UCationImproperTorsion[CurrentSystem];
+    UCationBondBondAccumulated[CurrentSystem][Block]+=weight*UCationBondBond[CurrentSystem];
+    UCationBendBendAccumulated[CurrentSystem][Block]+=weight*UCationBendBend[CurrentSystem];
+    UCationBondBendAccumulated[CurrentSystem][Block]+=weight*UCationBondBend[CurrentSystem];
+    UCationBondTorsionAccumulated[CurrentSystem][Block]+=weight*UCationBondTorsion[CurrentSystem];
+    UCationBendTorsionAccumulated[CurrentSystem][Block]+=weight*UCationBendTorsion[CurrentSystem];
+    UCationIntraVDWAccumulated[CurrentSystem][Block]+=weight*UCationIntraVDW[CurrentSystem];
+    UCationIntraChargeChargeAccumulated[CurrentSystem][Block]+=weight*UCationIntraChargeCharge[CurrentSystem];
+    UCationIntraChargeBondDipoleAccumulated[CurrentSystem][Block]+=weight*UCationIntraChargeBondDipole[CurrentSystem];
+    UCationIntraBondDipoleBondDipoleAccumulated[CurrentSystem][Block]+=weight*UCationIntraBondDipoleBondDipole[CurrentSystem];
+
+    UAdsorbateBondAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBond[CurrentSystem];
+    UAdsorbateUreyBradleyAccumulated[CurrentSystem][Block]+=weight*UAdsorbateUreyBradley[CurrentSystem];
+    UAdsorbateBendAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBend[CurrentSystem];
+    UAdsorbateInversionBendAccumulated[CurrentSystem][Block]+=weight*UAdsorbateInversionBend[CurrentSystem];
+    UAdsorbateTorsionAccumulated[CurrentSystem][Block]+=weight*UAdsorbateTorsion[CurrentSystem];
+    UAdsorbateImproperTorsionAccumulated[CurrentSystem][Block]+=weight*UAdsorbateImproperTorsion[CurrentSystem];
+    UAdsorbateBondBondAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBondBond[CurrentSystem];
+    UAdsorbateBendBendAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBendBend[CurrentSystem];
+    UAdsorbateBondBendAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBondBend[CurrentSystem];
+    UAdsorbateBondTorsionAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBondTorsion[CurrentSystem];
+    UAdsorbateBendTorsionAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBendTorsion[CurrentSystem];
+    UAdsorbateIntraVDWAccumulated[CurrentSystem][Block]+=weight*UAdsorbateIntraVDW[CurrentSystem];
+    UAdsorbateIntraChargeChargeAccumulated[CurrentSystem][Block]+=weight*UAdsorbateIntraChargeCharge[CurrentSystem];
+    UAdsorbateIntraChargeBondDipoleAccumulated[CurrentSystem][Block]+=weight*UAdsorbateIntraChargeBondDipole[CurrentSystem];
+    UAdsorbateIntraBondDipoleBondDipoleAccumulated[CurrentSystem][Block]+=weight*UAdsorbateIntraBondDipoleBondDipole[CurrentSystem];
+
+    UHostHostAccumulated[CurrentSystem][Block]+=weight*UHostHost[CurrentSystem];
+    UAdsorbateAdsorbateAccumulated[CurrentSystem][Block]+=weight*UAdsorbateAdsorbate[CurrentSystem];
+    UCationCationAccumulated[CurrentSystem][Block]+=weight*UCationCation[CurrentSystem];
+    UHostAdsorbateAccumulated[CurrentSystem][Block]+=weight*UHostAdsorbate[CurrentSystem];
+    UHostCationAccumulated[CurrentSystem][Block]+=weight*UHostCation[CurrentSystem];
+    UAdsorbateCationAccumulated[CurrentSystem][Block]+=weight*UAdsorbateCation[CurrentSystem];
+
+    UHostHostVDWAccumulated[CurrentSystem][Block]+=weight*UHostHostVDW[CurrentSystem];
+    UAdsorbateAdsorbateVDWAccumulated[CurrentSystem][Block]+=weight*UAdsorbateAdsorbateVDW[CurrentSystem];
+    UCationCationVDWAccumulated[CurrentSystem][Block]+=weight*UCationCationVDW[CurrentSystem];
+    UHostAdsorbateVDWAccumulated[CurrentSystem][Block]+=weight*UHostAdsorbateVDW[CurrentSystem];
+    UHostCationVDWAccumulated[CurrentSystem][Block]+=weight*UHostCationVDW[CurrentSystem];
+    UAdsorbateCationVDWAccumulated[CurrentSystem][Block]+=weight*UAdsorbateCationVDW[CurrentSystem];
+
+    UHostHostCoulombAccumulated[CurrentSystem][Block]+=weight*UHostHostCoulomb[CurrentSystem];
+    UAdsorbateAdsorbateCoulombAccumulated[CurrentSystem][Block]+=weight*UAdsorbateAdsorbateCoulomb[CurrentSystem];
+    UCationCationCoulombAccumulated[CurrentSystem][Block]+=weight*UCationCationCoulomb[CurrentSystem];
+    UHostAdsorbateCoulombAccumulated[CurrentSystem][Block]+=weight*UHostAdsorbateCoulomb[CurrentSystem];
+    UHostCationCoulombAccumulated[CurrentSystem][Block]+=weight*UHostCationCoulomb[CurrentSystem];
+    UAdsorbateCationCoulombAccumulated[CurrentSystem][Block]+=weight*UAdsorbateCationCoulomb[CurrentSystem];
+
+    dipole_adsorbates=ComputeTotalDipoleMomentSystemAdsorbates();
+    dipole_cations=ComputeTotalDipoleMomentSystemCations();
+    dipole_cations.x=dipole_cations.y=dipole_cations.z=0.0;
+
+    TotalSystemDipoleAccumulated[CurrentSystem][Block].x+=weight*(dipole_adsorbates.x+dipole_cations.x);
+    TotalSystemDipoleAccumulated[CurrentSystem][Block].y+=weight*(dipole_adsorbates.y+dipole_cations.y);
+    TotalSystemDipoleAccumulated[CurrentSystem][Block].z+=weight*(dipole_adsorbates.z+dipole_cations.z);
+    TotalSystemNormDipoleAccumulated[CurrentSystem][Block]+=weight*(sqrt(SQR(dipole_adsorbates.x+dipole_cations.x)+
+          SQR(dipole_adsorbates.y+dipole_cations.y)+SQR(dipole_adsorbates.z+dipole_cations.z)));
+
+    TotalSystemDipoleSquaredAccumulated[CurrentSystem][Block].x+=weight*SQR(dipole_adsorbates.x+dipole_cations.x);
+    TotalSystemDipoleSquaredAccumulated[CurrentSystem][Block].y+=weight*SQR(dipole_adsorbates.y+dipole_cations.y);
+    TotalSystemDipoleSquaredAccumulated[CurrentSystem][Block].z+=weight*SQR(dipole_adsorbates.z+dipole_cations.z);
+    TotalSystemNormDipoleSquaredAccumulated[CurrentSystem][Block]+=weight*(SQR(dipole_adsorbates.x+dipole_cations.x)+
+          SQR(dipole_adsorbates.y+dipole_cations.y)+SQR(dipole_adsorbates.z+dipole_cations.z));
+
+    UHostPolarizationAccumulated[CurrentSystem][Block]+=weight*UHostPolarization[CurrentSystem];
+    UAdsorbatePolarizationAccumulated[CurrentSystem][Block]+=weight*UAdsorbatePolarization[CurrentSystem];
+    UCationPolarizationAccumulated[CurrentSystem][Block]+=weight*UCationPolarization[CurrentSystem];
+    UHostBackPolarizationAccumulated[CurrentSystem][Block]+=weight*UHostBackPolarization[CurrentSystem];
+    UAdsorbateBackPolarizationAccumulated[CurrentSystem][Block]+=weight*UAdsorbateBackPolarization[CurrentSystem];
+    UCationBackPolarizationAccumulated[CurrentSystem][Block]+=weight*UCationBackPolarization[CurrentSystem];
+
+    UTailCorrectionAccumulated[CurrentSystem][Block]+=weight*UTailCorrection[CurrentSystem];
+    UDistanceConstraintsAccumulated[CurrentSystem][Block]+=weight*UDistanceConstraints[CurrentSystem];
+    UAngleConstraintsAccumulated[CurrentSystem][Block]+=weight*UAngleConstraints[CurrentSystem];
+    UDihedralConstraintsAccumulated[CurrentSystem][Block]+=weight*UDihedralConstraints[CurrentSystem];
+    UInversionBendConstraintsAccumulated[CurrentSystem][Block]+=weight*UInversionBendConstraints[CurrentSystem];
+    UOutOfPlaneDistanceConstraintsAccumulated[CurrentSystem][Block]+=weight*UOutOfPlaneDistanceConstraints[CurrentSystem];
+    UExclusionConstraintsAccumulated[CurrentSystem][Block]+=weight*UExclusionConstraints[CurrentSystem];
+
+    UCFMCAdsorbate = ComputeEnergyOfFractionalMoleculesAdsorbates();
+    UCFMCCation = ComputeEnergyOfFractionalMoleculesCations();
+    UTotalAccumulated[CurrentSystem][Block]+=weight*(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation);
+
+    NumberOfIntegerMoleculesAccumulated[CurrentSystem][Block]+=weight*TotalNumberOfIntegerAdsorbates();
+
+    NumberOfMoleculesSquaredAccumulated[CurrentSystem][Block]+=weight*(SQR(TotalNumberOfIntegerAdsorbates()));
+    TotalEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][Block]+=weight*((UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation)*
+                   TotalNumberOfIntegerAdsorbates());
+
+    nr=NumberOfUnitCells[0].x*NumberOfUnitCells[0].y*NumberOfUnitCells[0].z;
+    for(i=0;i<NumberOfComponents;i++)
     {
-      REAL loading_j = (Components[j].NumberOfMolecules[CurrentSystem]
+      REAL loading_i = (Components[i].NumberOfMolecules[CurrentSystem]
                       -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
-                      -Components[j].NumberOfRXMCMoleculesPresent[CurrentSystem]);
-      NumberOfMoleculesPerComponentSquaredAccumulated[CurrentSystem][i][j][Block]+=weight*loading_i*loading_j;
+                      -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem]);
+      TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=weight*((UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation)*loading_i);
+      HostAdsorbateEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i][Block]+=weight*(UHostAdsorbate[CurrentSystem]*loading_i);
+      AdsorbateAdsorbateEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i][Block]+=weight*(UAdsorbateAdsorbate[CurrentSystem]*loading_i);
+      for(j=0;j<NumberOfComponents;j++)
+      {
+        REAL loading_j = (Components[j].NumberOfMolecules[CurrentSystem]
+                        -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
+                        -Components[j].NumberOfRXMCMoleculesPresent[CurrentSystem]);
+        NumberOfMoleculesPerComponentSquaredAccumulated[CurrentSystem][i][j][Block]+=weight*loading_i*loading_j;
+      }
+
+      NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=weight*(Components[i].NumberOfMolecules[CurrentSystem]
+                           -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
+                           -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem]);
+      NumberOfFractionalMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=(Components[i].FractionalMolecule[CurrentSystem]>=0?1.0:0.0);
+      NumberOfExcessMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=
+               weight*((REAL)Components[i].NumberOfMolecules[CurrentSystem]
+                -Components[i].AmountOfExcessMolecules[CurrentSystem]
+                -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
+                -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem]);
+      density=Components[i].Mass*(REAL)(Components[i].NumberOfMolecules[CurrentSystem]
+                      -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
+                      -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])
+                      /Volume[CurrentSystem];
+      DensityPerComponentAccumulated[CurrentSystem][i][Block]+=weight*density;
+      DensityAccumulated[CurrentSystem][Block]+=weight*density;
+      InverseDensityAccumulated[CurrentSystem][Block]+=weight*(Volume[CurrentSystem]/((REAL)TotalNumberOfIntegerMolecules()+1.0));
+      GibbsInverseDensityAccumulated[CurrentSystem][Block]+=weight*(Volume[CurrentSystem]/(TotalNumberOfIntegerMolecules()+1.0));
     }
 
-    NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=weight*(Components[i].NumberOfMolecules[CurrentSystem]
-                         -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
-                         -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem]);
-    NumberOfFractionalMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=(Components[i].FractionalMolecule[CurrentSystem]>=0?1.0:0.0);
-    NumberOfExcessMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=
-             weight*((REAL)Components[i].NumberOfMolecules[CurrentSystem]
-              -Components[i].AmountOfExcessMolecules[CurrentSystem]
-              -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
-              -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem]);
-    density=Components[i].Mass*(REAL)(Components[i].NumberOfMolecules[CurrentSystem]
-                    -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
-                    -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])
-                    /Volume[CurrentSystem];
-    DensityPerComponentAccumulated[CurrentSystem][i][Block]+=weight*density;
-    DensityAccumulated[CurrentSystem][Block]+=weight*density;
-    InverseDensityAccumulated[CurrentSystem][Block]+=weight*(Volume[CurrentSystem]/((REAL)TotalNumberOfIntegerMolecules()+1.0));
-    GibbsInverseDensityAccumulated[CurrentSystem][Block]+=weight*(Volume[CurrentSystem]/(TotalNumberOfIntegerMolecules()+1.0));
+    TemperatureAccumulated[CurrentSystem][Block]+=weight*(2.0*UKinetic[CurrentSystem]/(K_B*DegreesOfFreedom[CurrentSystem]));
+    TemperatureCellAccumulated[CurrentSystem][Block]+=weight*GetCellTemperature();
+    TemperatureTranslationAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateTranslationalKinetic[CurrentSystem]+
+           UCationTranslationalKinetic[CurrentSystem]+UHostKinetic[CurrentSystem])/(K_B*DegreesOfFreedomTranslation[CurrentSystem]));
+    TemperatureRotationAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateRotationalKinetic[CurrentSystem]+
+           UCationRotationalKinetic[CurrentSystem])/(K_B*DegreesOfFreedomRotation[CurrentSystem]));
+    TemperatureRotationAdsorbateAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateRotationalKinetic[CurrentSystem])/
+           (K_B*DegreesOfFreedomRotationalAdsorbates[CurrentSystem]));
+    TemperatureTranslationAdsorbateAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateTranslationalKinetic[CurrentSystem])/
+           (K_B*DegreesOfFreedomTranslationalAdsorbates[CurrentSystem]));
+
+    TemperatureAdsorbatesAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateTranslationalKinetic[CurrentSystem]+
+                UAdsorbateRotationalKinetic[CurrentSystem])/(K_B*DegreesOfFreedomAdsorbates[CurrentSystem]));
+    TemperatureCationsAccumulated[CurrentSystem][Block]+=weight*(2.0*UCationKinetic[CurrentSystem]/
+                                               (K_B*DegreesOfFreedomCations[CurrentSystem]));
+    TemperatureFrameworkAccumulated[CurrentSystem][Block]+=weight*(2.0*UHostKinetic[CurrentSystem]/
+                                               (K_B*DegreesOfFreedomFramework[CurrentSystem]));
+
+    NumberOfMolecules=TotalNumberOfIntegerMolecules();
+
+    if(ComputeMolecularPressure[CurrentSystem])
+    {
+      ComputeMolecularPressureTensor(&MolecularStressTensor[CurrentSystem],&PressureIdealGas,&PressureTail);
+
+      PressureIdealGasPartAccumulated[CurrentSystem][Block]+=weight*PressureIdealGas;
+      PressureExcessPartAccumulated[CurrentSystem][Block]-=weight*((MolecularStressTensor[CurrentSystem].ax+MolecularStressTensor[CurrentSystem].by+
+                  MolecularStressTensor[CurrentSystem].cz)/(3.0*Volume[CurrentSystem]));
+      PressureTailCorrectionAccumulated[CurrentSystem][Block]+=weight*PressureTail;
+
+      MolecularStressTensor[CurrentSystem].ax=weight*(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].ax/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].ay=weight*(-MolecularStressTensor[CurrentSystem].ay/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].az=weight*(-MolecularStressTensor[CurrentSystem].az/Volume[CurrentSystem]);
+
+      MolecularStressTensor[CurrentSystem].bx=weight*(-MolecularStressTensor[CurrentSystem].bx/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].by=weight*(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].by/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].bz=weight*(-MolecularStressTensor[CurrentSystem].bz/Volume[CurrentSystem]);
+
+      MolecularStressTensor[CurrentSystem].cx=weight*(-MolecularStressTensor[CurrentSystem].cx/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].cy=weight*(-MolecularStressTensor[CurrentSystem].cy/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].cz=weight*(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].cz/Volume[CurrentSystem]);
+
+      MolecularStressTensorAccumulated[CurrentSystem][Block].ax+=weight*MolecularStressTensor[CurrentSystem].ax;
+      MolecularStressTensorAccumulated[CurrentSystem][Block].ay+=weight*MolecularStressTensor[CurrentSystem].ay;
+      MolecularStressTensorAccumulated[CurrentSystem][Block].az+=weight*MolecularStressTensor[CurrentSystem].az;
+
+      MolecularStressTensorAccumulated[CurrentSystem][Block].bx+=weight*MolecularStressTensor[CurrentSystem].bx;
+      MolecularStressTensorAccumulated[CurrentSystem][Block].by+=weight*MolecularStressTensor[CurrentSystem].by;
+      MolecularStressTensorAccumulated[CurrentSystem][Block].bz+=weight*MolecularStressTensor[CurrentSystem].bz;
+
+      MolecularStressTensorAccumulated[CurrentSystem][Block].cx+=weight*MolecularStressTensor[CurrentSystem].cx;
+      MolecularStressTensorAccumulated[CurrentSystem][Block].cy+=weight*MolecularStressTensor[CurrentSystem].cy;
+      MolecularStressTensorAccumulated[CurrentSystem][Block].cz+=weight*MolecularStressTensor[CurrentSystem].cz;
+    }
+
+    UNoseHooverAccumulated[CurrentSystem][Block]+=weight*UNoseHoover[CurrentSystem];
+
+    BoxAccumulated[CurrentSystem][Block].x+=weight*Box[CurrentSystem].ax;
+    BoxAccumulated[CurrentSystem][Block].y+=weight*Box[CurrentSystem].by;
+    BoxAccumulated[CurrentSystem][Block].z+=weight*Box[CurrentSystem].cz;
+
+    BoxAXAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].ax;
+    BoxAYAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].ay;
+    BoxAZAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].az;
+    BoxBXAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].bx;
+    BoxBYAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].by;
+    BoxBZAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].bz;
+    BoxCXAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].cx;
+    BoxCYAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].cy;
+    BoxCZAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].cz;
+
+    BoxLengthAccumulated[CurrentSystem][Block].x+=weight*BoxProperties[CurrentSystem].ax;
+    BoxLengthAccumulated[CurrentSystem][Block].y+=weight*BoxProperties[CurrentSystem].ay;
+    BoxLengthAccumulated[CurrentSystem][Block].z+=weight*BoxProperties[CurrentSystem].az;
+
+    AlphaAngleAccumulated[CurrentSystem][Block]+=weight*AlphaAngle[CurrentSystem]*RAD2DEG;
+    BetaAngleAccumulated[CurrentSystem][Block]+=weight*BetaAngle[CurrentSystem]*RAD2DEG;
+    GammaAngleAccumulated[CurrentSystem][Block]+=weight*GammaAngle[CurrentSystem]*RAD2DEG;
+
+    VolumeAccumulated[CurrentSystem][Block]+=weight*Volume[CurrentSystem];
+
+    VolumeSquaredAccumulated[CurrentSystem][Block]+=weight*SQR(Volume[CurrentSystem]);
+
+    TotalEnergyAccumulated[CurrentSystem][Block]+=weight*UTotal[CurrentSystem];
+    TotalEnergySquaredAccumulated[CurrentSystem][Block]+=weight*SQR(UTotal[CurrentSystem]);
+
+    Enthalpy=(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation)+Volume[CurrentSystem]*therm_baro_stats.ExternalPressure[CurrentSystem][0];
+    EnthalpyAccumulated[CurrentSystem][Block]+=weight*Enthalpy;
+    EnthalpySquaredAccumulated[CurrentSystem][Block]+=weight*SQR(Enthalpy);
+
+    EnthalpyTimesVolumeAccumulated[CurrentSystem][Block]+=weight*Enthalpy*Volume[CurrentSystem];
+    EnthalpyTimesEnergyAccumulated[CurrentSystem][Block]+=weight*Enthalpy*(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation);
+
+    HeatOfVaporization[CurrentSystem][Block]+=weight*(therm_baro_stats.ExternalTemperature[CurrentSystem]-
+                                (UAdsorbateAdsorbate[CurrentSystem]+UCationCation[CurrentSystem])/
+                                (NumberOfAdsorbateMolecules[CurrentSystem]+NumberOfCationMolecules[CurrentSystem]));
+    if(NumberOfMolecules>0)
+    {
+      EnergyPerMolecule[CurrentSystem][Block]+=weight*UTotal[CurrentSystem]/NumberOfMolecules;
+      VolumePerMolecule[CurrentSystem][Block]+=weight*Volume[CurrentSystem]/NumberOfMolecules;
+    }
+
+    if(ComputePrincipleMomentsOfInertia)
+      MeasurePrincipleMomentsOfInertia();
+
+    CompressibilityAccumulated[CurrentSystem][Block]+=weight*(((MolecularStressTensor[CurrentSystem].ax+MolecularStressTensor[CurrentSystem].by+MolecularStressTensor[CurrentSystem].cz)/3.0)*
+             Volume[CurrentSystem]*Beta[CurrentSystem]/NumberOfMolecules);
+
   }
-
-  TemperatureAccumulated[CurrentSystem][Block]+=weight*(2.0*UKinetic[CurrentSystem]/(K_B*DegreesOfFreedom[CurrentSystem]));
-  TemperatureCellAccumulated[CurrentSystem][Block]+=weight*GetCellTemperature();
-  TemperatureTranslationAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateTranslationalKinetic[CurrentSystem]+
-         UCationTranslationalKinetic[CurrentSystem]+UHostKinetic[CurrentSystem])/(K_B*DegreesOfFreedomTranslation[CurrentSystem]));
-  TemperatureRotationAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateRotationalKinetic[CurrentSystem]+
-         UCationRotationalKinetic[CurrentSystem])/(K_B*DegreesOfFreedomRotation[CurrentSystem]));
-  TemperatureRotationAdsorbateAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateRotationalKinetic[CurrentSystem])/
-         (K_B*DegreesOfFreedomRotationalAdsorbates[CurrentSystem]));
-  TemperatureTranslationAdsorbateAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateTranslationalKinetic[CurrentSystem])/
-         (K_B*DegreesOfFreedomTranslationalAdsorbates[CurrentSystem]));
-
-  TemperatureAdsorbatesAccumulated[CurrentSystem][Block]+=weight*(2.0*(UAdsorbateTranslationalKinetic[CurrentSystem]+
-              UAdsorbateRotationalKinetic[CurrentSystem])/(K_B*DegreesOfFreedomAdsorbates[CurrentSystem]));
-  TemperatureCationsAccumulated[CurrentSystem][Block]+=weight*(2.0*UCationKinetic[CurrentSystem]/
-                                             (K_B*DegreesOfFreedomCations[CurrentSystem]));
-  TemperatureFrameworkAccumulated[CurrentSystem][Block]+=weight*(2.0*UHostKinetic[CurrentSystem]/
-                                             (K_B*DegreesOfFreedomFramework[CurrentSystem]));
-
-  NumberOfMolecules=TotalNumberOfIntegerMolecules();
-
-  if(ComputeMolecularPressure[CurrentSystem])
-  {
-    ComputeMolecularPressureTensor(&MolecularStressTensor[CurrentSystem],&PressureIdealGas,&PressureTail);
-
-    PressureIdealGasPartAccumulated[CurrentSystem][Block]+=weight*PressureIdealGas;
-    PressureExcessPartAccumulated[CurrentSystem][Block]-=weight*((MolecularStressTensor[CurrentSystem].ax+MolecularStressTensor[CurrentSystem].by+
-                MolecularStressTensor[CurrentSystem].cz)/(3.0*Volume[CurrentSystem]));
-    PressureTailCorrectionAccumulated[CurrentSystem][Block]+=weight*PressureTail;
-
-    MolecularStressTensor[CurrentSystem].ax=weight*(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].ax/Volume[CurrentSystem]);
-    MolecularStressTensor[CurrentSystem].ay=weight*(-MolecularStressTensor[CurrentSystem].ay/Volume[CurrentSystem]);
-    MolecularStressTensor[CurrentSystem].az=weight*(-MolecularStressTensor[CurrentSystem].az/Volume[CurrentSystem]);
-
-    MolecularStressTensor[CurrentSystem].bx=weight*(-MolecularStressTensor[CurrentSystem].bx/Volume[CurrentSystem]);
-    MolecularStressTensor[CurrentSystem].by=weight*(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].by/Volume[CurrentSystem]);
-    MolecularStressTensor[CurrentSystem].bz=weight*(-MolecularStressTensor[CurrentSystem].bz/Volume[CurrentSystem]);
-
-    MolecularStressTensor[CurrentSystem].cx=weight*(-MolecularStressTensor[CurrentSystem].cx/Volume[CurrentSystem]);
-    MolecularStressTensor[CurrentSystem].cy=weight*(-MolecularStressTensor[CurrentSystem].cy/Volume[CurrentSystem]);
-    MolecularStressTensor[CurrentSystem].cz=weight*(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].cz/Volume[CurrentSystem]);
-
-    MolecularStressTensorAccumulated[CurrentSystem][Block].ax+=weight*MolecularStressTensor[CurrentSystem].ax;
-    MolecularStressTensorAccumulated[CurrentSystem][Block].ay+=weight*MolecularStressTensor[CurrentSystem].ay;
-    MolecularStressTensorAccumulated[CurrentSystem][Block].az+=weight*MolecularStressTensor[CurrentSystem].az;
-
-    MolecularStressTensorAccumulated[CurrentSystem][Block].bx+=weight*MolecularStressTensor[CurrentSystem].bx;
-    MolecularStressTensorAccumulated[CurrentSystem][Block].by+=weight*MolecularStressTensor[CurrentSystem].by;
-    MolecularStressTensorAccumulated[CurrentSystem][Block].bz+=weight*MolecularStressTensor[CurrentSystem].bz;
-
-    MolecularStressTensorAccumulated[CurrentSystem][Block].cx+=weight*MolecularStressTensor[CurrentSystem].cx;
-    MolecularStressTensorAccumulated[CurrentSystem][Block].cy+=weight*MolecularStressTensor[CurrentSystem].cy;
-    MolecularStressTensorAccumulated[CurrentSystem][Block].cz+=weight*MolecularStressTensor[CurrentSystem].cz;
-  }
-
-  UNoseHooverAccumulated[CurrentSystem][Block]+=weight*UNoseHoover[CurrentSystem];
-
-  BoxAccumulated[CurrentSystem][Block].x+=weight*Box[CurrentSystem].ax;
-  BoxAccumulated[CurrentSystem][Block].y+=weight*Box[CurrentSystem].by;
-  BoxAccumulated[CurrentSystem][Block].z+=weight*Box[CurrentSystem].cz;
-
-  BoxAXAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].ax;
-  BoxAYAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].ay;
-  BoxAZAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].az;
-  BoxBXAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].bx;
-  BoxBYAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].by;
-  BoxBZAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].bz;
-  BoxCXAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].cx;
-  BoxCYAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].cy;
-  BoxCZAccumulated[CurrentSystem][Block]+=weight*Box[CurrentSystem].cz;
-
-  BoxLengthAccumulated[CurrentSystem][Block].x+=weight*BoxProperties[CurrentSystem].ax;
-  BoxLengthAccumulated[CurrentSystem][Block].y+=weight*BoxProperties[CurrentSystem].ay;
-  BoxLengthAccumulated[CurrentSystem][Block].z+=weight*BoxProperties[CurrentSystem].az;
-
-  AlphaAngleAccumulated[CurrentSystem][Block]+=weight*AlphaAngle[CurrentSystem]*RAD2DEG;
-  BetaAngleAccumulated[CurrentSystem][Block]+=weight*BetaAngle[CurrentSystem]*RAD2DEG;
-  GammaAngleAccumulated[CurrentSystem][Block]+=weight*GammaAngle[CurrentSystem]*RAD2DEG;
-
-  VolumeAccumulated[CurrentSystem][Block]+=weight*Volume[CurrentSystem];
-
-  VolumeSquaredAccumulated[CurrentSystem][Block]+=weight*SQR(Volume[CurrentSystem]);
-
-  TotalEnergyAccumulated[CurrentSystem][Block]+=weight*UTotal[CurrentSystem];
-  TotalEnergySquaredAccumulated[CurrentSystem][Block]+=weight*SQR(UTotal[CurrentSystem]);
-
-  Enthalpy=(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation)+Volume[CurrentSystem]*therm_baro_stats.ExternalPressure[CurrentSystem][0];
-  EnthalpyAccumulated[CurrentSystem][Block]+=weight*Enthalpy;
-  EnthalpySquaredAccumulated[CurrentSystem][Block]+=weight*SQR(Enthalpy);
-
-  EnthalpyTimesVolumeAccumulated[CurrentSystem][Block]+=weight*Enthalpy*Volume[CurrentSystem];
-  EnthalpyTimesEnergyAccumulated[CurrentSystem][Block]+=weight*Enthalpy*(UTotal[CurrentSystem]-UCFMCAdsorbate-UCFMCCation);
-
-  HeatOfVaporization[CurrentSystem][Block]+=weight*(therm_baro_stats.ExternalTemperature[CurrentSystem]-
-                              (UAdsorbateAdsorbate[CurrentSystem]+UCationCation[CurrentSystem])/
-                              (NumberOfAdsorbateMolecules[CurrentSystem]+NumberOfCationMolecules[CurrentSystem]));
-  if(NumberOfMolecules>0)
-  {
-    EnergyPerMolecule[CurrentSystem][Block]+=weight*UTotal[CurrentSystem]/NumberOfMolecules;
-    VolumePerMolecule[CurrentSystem][Block]+=weight*Volume[CurrentSystem]/NumberOfMolecules;
-  }
-
-  if(ComputePrincipleMomentsOfInertia)
-    MeasurePrincipleMomentsOfInertia();
-
-  CompressibilityAccumulated[CurrentSystem][Block]+=weight*(((MolecularStressTensor[CurrentSystem].ax+MolecularStressTensor[CurrentSystem].by+MolecularStressTensor[CurrentSystem].cz)/3.0)*
-           Volume[CurrentSystem]*Beta[CurrentSystem]/NumberOfMolecules);
-
-  //UpdateCrystallographics();
 }
 
 REAL GetAverageProperty(REAL **Property)
