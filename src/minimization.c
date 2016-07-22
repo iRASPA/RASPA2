@@ -359,6 +359,7 @@ void Minimization(int run)
   VECTOR MidPoint1,MidPoint2,dr;
   int ncell,k1,k2,k3;
   REAL delta,det;
+  REAL denominator;
   REAL_MATRIX3x3 ReferenceBox,ReferenceReplicaBox,strain;
   REAL energy;
   REAL_MATRIX3x3 StrainFirstDerivative;
@@ -421,6 +422,23 @@ void Minimization(int run)
     // Note these deformations are volume conserving
     switch(ElasticConstantEnergyVolume)
     {
+      case ELASTIC_CONSTANT_ORTHO_C11:
+        strain.ax=1.0;       strain.bx=0.5*delta; strain.cx=0.0;
+        strain.ay=0.5*delta; strain.by=1.0;       strain.cy=0.0;
+        strain.az=0.0;       strain.bz=0.0;       strain.cz=1.0+SQR(delta)/(4.0-SQR(delta));
+        break;
+      case ELASTIC_CONSTANT_ORTHO_C12:
+        denominator = pow(1.0-SQR(delta),1.0/3.0);
+        strain.ax=(1.0+delta)/denominator; strain.bx=0.0;                     strain.cx=0.0;
+        strain.ay=0.0;                     strain.by=(1.0-delta)/denominator; strain.cy=0.0;
+        strain.az=0.0;                     strain.bz=0.0;                     strain.cz=1.0/denominator;
+        break;
+      case ELASTIC_CONSTANT_ORTHO_C13:
+        denominator = pow(1.0-SQR(delta),1.0/3.0);
+        strain.ax=(1.0+delta)/denominator; strain.bx=0.0;             strain.cx=0.0;
+        strain.ay=0.0;                     strain.by=1.0/denominator; strain.cy=0.0;
+        strain.az=0.0;                     strain.bz=0.0;             strain.cz=(1.0-delta)/denominator;
+        break;
       case ELASTIC_CONSTANT_CUBIC_C44:
         strain.ax=1.0;       strain.bx=0.5*delta; strain.cx=0.0;
         strain.ay=0.5*delta; strain.by=1.0;       strain.cy=0.0;
@@ -5227,6 +5245,10 @@ void ComputeElasticConstantsAfterMinimization(int np,int nb,REAL *x)
       PressureCorrection.xxxx-=therm_baro_stats.ExternalPressure[CurrentSystem][0]*Volume[CurrentSystem];
       PressureCorrection.yyyy-=therm_baro_stats.ExternalPressure[CurrentSystem][0]*Volume[CurrentSystem];
       PressureCorrection.zzzz-=therm_baro_stats.ExternalPressure[CurrentSystem][0]*Volume[CurrentSystem];
+
+      PressureCorrection.xyxy-=0.5*therm_baro_stats.ExternalPressure[CurrentSystem][0]*Volume[CurrentSystem];
+      PressureCorrection.xzxz-=0.5*therm_baro_stats.ExternalPressure[CurrentSystem][0]*Volume[CurrentSystem];
+      PressureCorrection.yzyz-=0.5*therm_baro_stats.ExternalPressure[CurrentSystem][0]*Volume[CurrentSystem];
 
       if(UseReducedUnits)
         Factor=1.0;

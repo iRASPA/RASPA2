@@ -3633,6 +3633,9 @@ int ReadInput(char *input)
       if(strcasecmp("CUBIC_C66",firstargument)==0) ElasticConstantEnergyVolume=ELASTIC_CONSTANT_CUBIC_C66;
       if(strcasecmp("HEXAGONAL_C44",firstargument)==0) ElasticConstantEnergyVolume=ELASTIC_CONSTANT_HEXAGONAL_C44;
       if(strcasecmp("BULK_MODULUS",firstargument)==0) ElasticConstantEnergyVolume=ELASTIC_CONSTANT_BULK_MODULUS;
+      if(strcasecmp("ORTHO_C11",firstargument)==0) ElasticConstantEnergyVolume=ELASTIC_CONSTANT_ORTHO_C11;
+      if(strcasecmp("ORTHO_C12",firstargument)==0) ElasticConstantEnergyVolume=ELASTIC_CONSTANT_ORTHO_C12;
+      if(strcasecmp("ORTHO_C13",firstargument)==0) ElasticConstantEnergyVolume=ELASTIC_CONSTANT_ORTHO_C13;
     }
     if(strcasecmp("MinimizationPotentialMethod",keyword)==0)
     {
