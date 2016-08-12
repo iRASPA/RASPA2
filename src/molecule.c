@@ -5872,13 +5872,16 @@ REAL CFBiasingLambda(int system, int comp)
   REAL Lambda;
 
   Lambda=0.0;
-  FractionalMolecule=Components[comp].FractionalMolecule[system];
-  if(FractionalMolecule>=0)
+  if(NumberOfComponents>0)
   {
-    if(Components[comp].ExtraFrameworkMolecule)
-      Lambda=Cations[system][FractionalMolecule].Atoms[0].CFVDWScalingParameter;
-    else
-      Lambda=Adsorbates[system][FractionalMolecule].Atoms[0].CFVDWScalingParameter;
+    FractionalMolecule=Components[comp].FractionalMolecule[system];
+    if(FractionalMolecule>=0)
+    {
+      if(Components[comp].ExtraFrameworkMolecule)
+        Lambda=Cations[system][FractionalMolecule].Atoms[0].CFVDWScalingParameter;
+      else
+        Lambda=Adsorbates[system][FractionalMolecule].Atoms[0].CFVDWScalingParameter;
+    }
   }
 
   return Lambda;
