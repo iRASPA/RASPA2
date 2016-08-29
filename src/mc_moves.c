@@ -8778,7 +8778,6 @@ void PrintVolumeChangeStatistics(FILE *FilePtr)
    fprintf(FilePtr,"Volume move was OFF\n\n");
 }
 
-
 /*********************************************************************************************************
  * Name       | BoxShapeChangeMove                                                                       *
  * ----------------------------------------------------------------------------------------------------- *
@@ -8792,7 +8791,7 @@ int BoxShapeChangeMove(void)
   int i,j,f1;
   int NumberOfMolecules,ShapeChange;
   REAL det;
-  REAL_MATRIX3x3 StoredBox,StoredUnitCellBox;
+  REAL_MATRIX3x3 StoredBox,StoredInverseBox,StoredUnitCellBox;
   REAL StoredAlphaAngle,StoredBetaAngle,StoredGammaAngle;
   VECTOR StoredUnitCellSize;
   REAL Pressure,StoredVolume;
@@ -8847,6 +8846,7 @@ int BoxShapeChangeMove(void)
   Pressure=therm_baro_stats.ExternalPressure[CurrentSystem][0];
 
   StoredBox=Box[CurrentSystem];
+  StoredInverseBox=InverseBox[CurrentSystem]; 
   StoredVolume=Volume[CurrentSystem];
   StoredUnitCellBox=UnitCellBox[CurrentSystem];
   StoredUnitCellSize=UnitCellSize[CurrentSystem];
@@ -9002,7 +9002,9 @@ int BoxShapeChangeMove(void)
   }
 
   // choose which index to alter
-  ShapeChange=(int)((REAL)6.0*RandomNumber());
+    ShapeChange=(int)((REAL)6.0*RandomNumber());
+
+
 
   switch(ShapeChange)
   {
@@ -9086,9 +9088,9 @@ int BoxShapeChangeMove(void)
           pos=Framework[CurrentSystem].Atoms[f1][i].Position;
 
           // convert from xyz to abc
-          s.x=InverseBox[CurrentSystem].ax*pos.x+InverseBox[CurrentSystem].bx*pos.y+InverseBox[CurrentSystem].cx*pos.z;
-          s.y=InverseBox[CurrentSystem].ay*pos.x+InverseBox[CurrentSystem].by*pos.y+InverseBox[CurrentSystem].cy*pos.z;
-          s.z=InverseBox[CurrentSystem].az*pos.x+InverseBox[CurrentSystem].bz*pos.y+InverseBox[CurrentSystem].cz*pos.z;
+          s.x=StoredInverseBox.ax*pos.x+StoredInverseBox.bx*pos.y+StoredInverseBox.cx*pos.z;
+          s.y=StoredInverseBox.ay*pos.x+StoredInverseBox.by*pos.y+StoredInverseBox.cy*pos.z;
+          s.z=StoredInverseBox.az*pos.x+StoredInverseBox.bz*pos.y+StoredInverseBox.cz*pos.z;
 
           // convert from abc to xyz
           pos.x=Box[CurrentSystem].ax*s.x+Box[CurrentSystem].bx*s.y+Box[CurrentSystem].cx*s.z;
@@ -9107,9 +9109,9 @@ int BoxShapeChangeMove(void)
       com=GetIndividualFrameworkCenterOfMass(f1);
 
       // convert from xyz to abc
-      s.x=InverseBox[CurrentSystem].ax*com.x+InverseBox[CurrentSystem].bx*com.y+InverseBox[CurrentSystem].cx*com.z;
-      s.y=InverseBox[CurrentSystem].ay*com.x+InverseBox[CurrentSystem].by*com.y+InverseBox[CurrentSystem].cy*com.z;
-      s.z=InverseBox[CurrentSystem].az*com.x+InverseBox[CurrentSystem].bz*com.y+InverseBox[CurrentSystem].cz*com.z;
+      s.x=StoredInverseBox.ax*com.x+StoredInverseBox.bx*com.y+StoredInverseBox.cx*com.z;
+      s.y=StoredInverseBox.ay*com.x+StoredInverseBox.by*com.y+StoredInverseBox.cy*com.z;
+      s.z=StoredInverseBox.az*com.x+StoredInverseBox.bz*com.y+StoredInverseBox.cz*com.z;
 
       // convert from abc to xyz
       pos.x=Box[CurrentSystem].ax*s.x+Box[CurrentSystem].bx*s.y+Box[CurrentSystem].cx*s.z;
@@ -9134,9 +9136,9 @@ int BoxShapeChangeMove(void)
     com=GetAdsorbateCenterOfMass(i);
 
     // convert from xyz to abc
-    s.x=InverseBox[CurrentSystem].ax*com.x+InverseBox[CurrentSystem].bx*com.y+InverseBox[CurrentSystem].cx*com.z;
-    s.y=InverseBox[CurrentSystem].ay*com.x+InverseBox[CurrentSystem].by*com.y+InverseBox[CurrentSystem].cy*com.z;
-    s.z=InverseBox[CurrentSystem].az*com.x+InverseBox[CurrentSystem].bz*com.y+InverseBox[CurrentSystem].cz*com.z;
+    s.x=StoredInverseBox.ax*com.x+StoredInverseBox.bx*com.y+StoredInverseBox.cx*com.z;
+    s.y=StoredInverseBox.ay*com.x+StoredInverseBox.by*com.y+StoredInverseBox.cy*com.z;
+    s.z=StoredInverseBox.az*com.x+StoredInverseBox.bz*com.y+StoredInverseBox.cz*com.z;
 
     // convert from abc to xyz
     pos.x=Box[CurrentSystem].ax*s.x+Box[CurrentSystem].bx*s.y+Box[CurrentSystem].cx*s.z;
@@ -9160,9 +9162,9 @@ int BoxShapeChangeMove(void)
     com=GetCationCenterOfMass(i);
 
     // convert from xyz to abc
-    s.x=InverseBox[CurrentSystem].ax*com.x+InverseBox[CurrentSystem].bx*com.y+InverseBox[CurrentSystem].cx*com.z;
-    s.y=InverseBox[CurrentSystem].ay*com.x+InverseBox[CurrentSystem].by*com.y+InverseBox[CurrentSystem].cy*com.z;
-    s.z=InverseBox[CurrentSystem].az*com.x+InverseBox[CurrentSystem].bz*com.y+InverseBox[CurrentSystem].cz*com.z;
+    s.x=StoredInverseBox.ax*com.x+StoredInverseBox.bx*com.y+StoredInverseBox.cx*com.z;
+    s.y=StoredInverseBox.ay*com.x+StoredInverseBox.by*com.y+StoredInverseBox.cy*com.z;
+    s.z=StoredInverseBox.az*com.x+StoredInverseBox.bz*com.y+StoredInverseBox.cz*com.z;
 
     // convert from abc to xyz
     pos.x=Box[CurrentSystem].ax*s.x+Box[CurrentSystem].bx*s.y+Box[CurrentSystem].cx*s.z;
@@ -9387,7 +9389,7 @@ void PrintBoxShapeChangeStatistics(FILE *FilePtr)
   {
     fprintf(FilePtr,"Performance of the box shape change move:\n");
     fprintf(FilePtr,"=========================================\n");
-    if(BoxShapeChangeAttempts[CurrentSystem].ax>0.0)
+    if(BoxShapeChangeAttempts[CurrentSystem].cz>0.0)
     {
        fprintf(FilePtr,"Box[ax] total tried: %lf accepted: %lf (%lf [%%])\n",
           (double)BoxShapeChangeAttempts[CurrentSystem].ax,
@@ -9433,8 +9435,6 @@ void PrintBoxShapeChangeStatistics(FILE *FilePtr)
   else
     fprintf(FilePtr,"Box shape change move was OFF\n\n");
 }
-
-
 /*********************************************************************************************************
  * Name       | ParallelTemperingMove                                                                    *
  * ----------------------------------------------------------------------------------------------------- *
