@@ -513,6 +513,8 @@ void WriteAsymmetricUnitCell(int sp);
 void ReadFrameworkDefinitionCIF(void);
 void WriteFrameworkDefinitionCIF(char * string);
 
+void WriteFrameworkDefinitionShell(char * string);
+
 void WriteFrameworkDefinitionCSSR(char *string);
 void WriteFrameworkDefinitionGulp(char *string);
 void WriteFrameworkDefinitionVASP(char *string);

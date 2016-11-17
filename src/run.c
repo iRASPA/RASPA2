@@ -91,6 +91,7 @@ char* run(char *inputData, char *inputCrystal, char *raspaDir, bool stream)
   // write the initial positions to files
   if (!STREAM)
   {
+    WriteFrameworkDefinitionShell("initial");
     WriteFrameworkDefinitionCSSR("initial");
     WriteFrameworkDefinitionGulp("initial");
     WriteFrameworkDefinitionVASP("initial");
