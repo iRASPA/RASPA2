@@ -2049,7 +2049,6 @@ void ReadFrameworkDefinitionCIF(void)
   }
 }
 
-// HERE
 void WriteFrameworkDefinitionShell(char * string)
 {
   int i,j;
@@ -2059,79 +2058,82 @@ void WriteFrameworkDefinitionShell(char * string)
   char buffer[256],name[256];
   FILE *FilePtr;
 
+  mkdir("Movies",S_IRWXU);
   for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
-  {
-  for(CurrentFramework=0;CurrentFramework<Framework[CurrentSystem].NumberOfFrameworks;CurrentFramework++)
   {
     sprintf(buffer,"Movies/System_%d",CurrentSystem);
     mkdir(buffer,S_IRWXU);
 
-    sprintf(buffer,"Movies/System_%d/Framework_%d_%s_%d_%d_%d%s.cell",
-            CurrentSystem,CurrentFramework,string,
-            NumberOfUnitCells[CurrentSystem].x,NumberOfUnitCells[CurrentSystem].y,NumberOfUnitCells[CurrentSystem].z,
-            FileNameAppend);
-
-    FilePtr=fopen(buffer,"w");
-
-    fprintf(FilePtr,"%%BLOCK LATTICE_CART\n");
-    fprintf(FilePtr,"ang    # angstrom units\n");
-    fprintf(FilePtr," % -18.12f % -18.12f % -18.12f\n",UnitCellBox[CurrentSystem].ax,UnitCellBox[CurrentSystem].ay,UnitCellBox[CurrentSystem].az);
-    fprintf(FilePtr," % -18.12f % -18.12f % -18.12f\n",UnitCellBox[CurrentSystem].bx,UnitCellBox[CurrentSystem].by,UnitCellBox[CurrentSystem].bz);
-    fprintf(FilePtr," % -18.12f % -18.12f % -18.12f\n",UnitCellBox[CurrentSystem].cx,UnitCellBox[CurrentSystem].cy,UnitCellBox[CurrentSystem].cz);
-    fprintf(FilePtr,"%%ENDBLOCK LATTICE_CART\n");
-    fprintf(FilePtr,"\n");
-    fprintf(FilePtr,"%%BLOCK POSITIONS_FRAC\n");
-
-    for(i=0;i<Framework[CurrentSystem].NumberOfAtoms[CurrentFramework];i++)
+    for(CurrentFramework=0;CurrentFramework<Framework[CurrentSystem].NumberOfFrameworks;CurrentFramework++)
     {
-      // convert position from Cartesian to fractional positions
-      pos.x=Framework[CurrentSystem].Atoms[CurrentFramework][i].Position.x;
-      pos.y=Framework[CurrentSystem].Atoms[CurrentFramework][i].Position.y;
-      pos.z=Framework[CurrentSystem].Atoms[CurrentFramework][i].Position.z;
-      pos=ConvertFromXYZtoABC(pos);
 
-      Type=Framework[CurrentSystem].Atoms[CurrentFramework][i].Type;
+      sprintf(buffer,"Movies/System_%d/Framework_%d_%s_%d_%d_%d%s.cell",
+              CurrentSystem,CurrentFramework,string,
+              NumberOfUnitCells[CurrentSystem].x,NumberOfUnitCells[CurrentSystem].y,NumberOfUnitCells[CurrentSystem].z,
+              FileNameAppend);
 
-      strcpy(symbol,PseudoAtoms[Type].ChemicalElement);
+      FilePtr=fopen(buffer,"w");
 
-      fprintf(FilePtr,"%-5s % -18.12f % -18.12f % -18.12f\n",
-              symbol,
-              fabs(pos.x)<1e-12?0.0:pos.x,
-              fabs(pos.y)<1e-12?0.0:pos.y,
-              fabs(pos.z)<1e-12?0.0:pos.z);
+      fprintf(FilePtr,"%%BLOCK LATTICE_CART\n");
+      fprintf(FilePtr,"ang    # angstrom units\n");
+      fprintf(FilePtr," % -18.12f % -18.12f % -18.12f\n",UnitCellBox[CurrentSystem].ax,UnitCellBox[CurrentSystem].ay,UnitCellBox[CurrentSystem].az);
+      fprintf(FilePtr," % -18.12f % -18.12f % -18.12f\n",UnitCellBox[CurrentSystem].bx,UnitCellBox[CurrentSystem].by,UnitCellBox[CurrentSystem].bz);
+      fprintf(FilePtr," % -18.12f % -18.12f % -18.12f\n",UnitCellBox[CurrentSystem].cx,UnitCellBox[CurrentSystem].cy,UnitCellBox[CurrentSystem].cz);
+      fprintf(FilePtr,"%%ENDBLOCK LATTICE_CART\n");
+      fprintf(FilePtr,"\n");
+      fprintf(FilePtr,"%%BLOCK POSITIONS_FRAC\n");
+
+      for(i=0;i<Framework[CurrentSystem].NumberOfAtoms[CurrentFramework];i++)
+      {
+        // convert position from Cartesian to fractional positions
+        pos.x=Framework[CurrentSystem].Atoms[CurrentFramework][i].Position.x;
+        pos.y=Framework[CurrentSystem].Atoms[CurrentFramework][i].Position.y;
+        pos.z=Framework[CurrentSystem].Atoms[CurrentFramework][i].Position.z;
+        pos=ConvertFromXYZtoABC(pos);
+
+        Type=Framework[CurrentSystem].Atoms[CurrentFramework][i].Type;
+
+        strcpy(symbol,PseudoAtoms[Type].ChemicalElement);
+
+        fprintf(FilePtr,"%-5s % -18.12f % -18.12f % -18.12f\n",
+                symbol,
+                fabs(pos.x)<1e-12?0.0:pos.x,
+                fabs(pos.y)<1e-12?0.0:pos.y,
+                fabs(pos.z)<1e-12?0.0:pos.z);
+      }
+
+      fprintf(FilePtr,"%%ENDBLOCK POSITIONS_FRAC\n");
+      fclose(FilePtr);
+
+
+      sprintf(buffer,"Movies/System_%d/Framework_%d_%s_%d_%d_%d%s.txt",
+              CurrentSystem,CurrentFramework,string,
+              NumberOfUnitCells[CurrentSystem].x,NumberOfUnitCells[CurrentSystem].y,NumberOfUnitCells[CurrentSystem].z,
+              FileNameAppend);
+
+      FilePtr=fopen(buffer,"w");
+      fprintf(FilePtr,"[double3(%14.12f,%14.12f,%14.12f),double3(%14.12f,%14.12f,%14.12f),double3(%14.12f,%14.12f,%14.12f)]\n",
+           UnitCellBox[CurrentSystem].ax,UnitCellBox[CurrentSystem].ay,UnitCellBox[CurrentSystem].az,
+           UnitCellBox[CurrentSystem].bx,UnitCellBox[CurrentSystem].by,UnitCellBox[CurrentSystem].bz,
+           UnitCellBox[CurrentSystem].cx,UnitCellBox[CurrentSystem].cy,UnitCellBox[CurrentSystem].cz);
+      fprintf(FilePtr,"\n");
+
+      for(i=0;i<Framework[CurrentSystem].NumberOfAtoms[CurrentFramework];i++)
+      {
+        // convert position from Cartesian to fractional positions
+        pos.x=Framework[CurrentSystem].Atoms[CurrentFramework][i].Position.x;
+        pos.y=Framework[CurrentSystem].Atoms[CurrentFramework][i].Position.y;
+        pos.z=Framework[CurrentSystem].Atoms[CurrentFramework][i].Position.z;
+        pos=ConvertFromXYZtoABC(pos);
+
+        fprintf(FilePtr,"double3(%13.12f,%13.12f,%13.12f),\n",
+                fabs(pos.x)<1e-12?0.0:pos.x,
+                fabs(pos.y)<1e-12?0.0:pos.y,
+                fabs(pos.z)<1e-12?0.0:pos.z);
+      }
+
+      fclose(FilePtr);
     }
-
-    fprintf(FilePtr,"%%ENDBLOCK POSITIONS_FRAC\n");
-    fclose(FilePtr);
-
-    sprintf(buffer,"Movies/System_%d/Framework_%d_%s_%d_%d_%d%s.txt",
-            CurrentSystem,CurrentFramework,string,
-            NumberOfUnitCells[CurrentSystem].x,NumberOfUnitCells[CurrentSystem].y,NumberOfUnitCells[CurrentSystem].z,
-            FileNameAppend);
-
-    FilePtr=fopen(buffer,"w");
-    fprintf(FilePtr,"[double3(%14.12f,%14.12f,%14.12f),double3(%14.12f,%14.12f,%14.12f),double3(%14.12f,%14.12f,%14.12f)]\n",
-         UnitCellBox[CurrentSystem].ax,UnitCellBox[CurrentSystem].ay,UnitCellBox[CurrentSystem].az,
-         UnitCellBox[CurrentSystem].bx,UnitCellBox[CurrentSystem].by,UnitCellBox[CurrentSystem].bz,
-         UnitCellBox[CurrentSystem].cx,UnitCellBox[CurrentSystem].cy,UnitCellBox[CurrentSystem].cz);
-    fprintf(FilePtr,"\n");
-
-    for(i=0;i<Framework[CurrentSystem].NumberOfAtoms[CurrentFramework];i++)
-    {
-      // convert position from Cartesian to fractional positions
-      pos.x=Framework[CurrentSystem].Atoms[CurrentFramework][i].Position.x;
-      pos.y=Framework[CurrentSystem].Atoms[CurrentFramework][i].Position.y;
-      pos.z=Framework[CurrentSystem].Atoms[CurrentFramework][i].Position.z;
-      pos=ConvertFromXYZtoABC(pos);
-
-      fprintf(FilePtr,"double3(%13.12f,%13.12f,%13.12f),\n",
-              fabs(pos.x)<1e-12?0.0:pos.x,
-              fabs(pos.y)<1e-12?0.0:pos.y,
-              fabs(pos.z)<1e-12?0.0:pos.z);
-    }
-
-    fclose(FilePtr);
-  }
   }
 }
 
