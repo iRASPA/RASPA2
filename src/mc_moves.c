@@ -26362,6 +26362,8 @@ void CFCRXMCLambdaChangeMove(void)
 
   UTailDelta=0.0;
 
+  if (NumberOfReactions<=0) return;
+
   // choose one of the reactions randomly
   CurrentReaction=(int)(RandomNumber()*NumberOfReactions);
 
