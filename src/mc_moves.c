@@ -6311,6 +6311,12 @@ int IdentityChangeAdsorbateMove(void)
   // return if no molecules of the 'Old'-component are currently present
   if(Components[OldComponent].NumberOfMolecules[CurrentSystem]<=(Components[OldComponent].FractionalMolecule[CurrentSystem]>=0?1:0)) return 0;
 
+  int numberOfSelectableMolecules=Components[OldComponent].NumberOfMolecules[CurrentSystem]
+                                -(Components[OldComponent].FractionalMolecule[CurrentSystem]>=0?1:0)
+                                -numberOfReactionMoleculesForComponent(OldComponent);
+
+  if(numberOfSelectableMolecules<=0) return -1;
+
   // choose a random molecule of the 'Old'-component
   CurrentCationMolecule=-1;
   CurrentAdsorbateMolecule=SelectRandomMoleculeOfTypeExcludingFractionalMolecule(OldComponent);
@@ -6610,6 +6616,12 @@ int IdentityChangeCationMove(void)
 
   // return if no molecules of the 'Old'-component are currently present
   if(Components[OldComponent].NumberOfMolecules[CurrentSystem]<=(Components[OldComponent].FractionalMolecule[CurrentSystem]>=0?1:0)) return 0;
+
+  int numberOfSelectableMolecules=Components[OldComponent].NumberOfMolecules[CurrentSystem]
+                                -(Components[OldComponent].FractionalMolecule[CurrentSystem]>=0?1:0)
+                                -numberOfReactionMoleculesForComponent(OldComponent);
+
+  if(numberOfSelectableMolecules<=0) return -1;
 
   // choose a random molecule of this component
   CurrentAdsorbateMolecule=-1;
