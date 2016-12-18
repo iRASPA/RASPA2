@@ -11403,6 +11403,12 @@ int GibbsParticleTransferAdsorbateMove(void)
   // return if there are no particles of the chosen component in box B
   if(Components[CurrentComponent].NumberOfMolecules[B]<=(Components[CurrentComponent].FractionalMolecule[B]>=0?1:0)) return 0;
 
+  int numberOfSelectableMolecules=Components[CurrentComponent].NumberOfMolecules[B]
+                                -(Components[CurrentComponent].FractionalMolecule[B]>=0?1:0)
+                                -numberOfReactionMoleculesForComponent(CurrentComponent);
+
+  if(numberOfSelectableMolecules<=0) return -1;
+
   // first grow a particle of the chosen type in box A
   CurrentSystem=A;
 
@@ -11800,6 +11806,13 @@ int GibbsParticleTransferCationMove(void)
 
   // return if there are no particles of the chosen component in box B
   if(Components[CurrentComponent].NumberOfMolecules[B]<=(Components[CurrentComponent].FractionalMolecule[B]>=0?1:0)) return 0;
+
+  int numberOfSelectableMolecules=Components[CurrentComponent].NumberOfMolecules[B]
+                                -(Components[CurrentComponent].FractionalMolecule[B]>=0?1:0)
+                                -numberOfReactionMoleculesForComponent(CurrentComponent);
+
+  if(numberOfSelectableMolecules<=0) return -1;
+
 
   // first grow a particle of the chosen type in box A
   CurrentSystem=A;
