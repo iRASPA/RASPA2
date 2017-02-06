@@ -7177,19 +7177,22 @@ int ReadInput(char *input)
 
   // for some CF only 1 system has CFMoleculePresent true (1 fractional particle for all systems, i.e. Gibbs)
   // At this point: set CFMoleculePresent the same for all systems
-  CFMoleculePresent=FALSE;
-  for(i=0;i<NumberOfSystems;i++)
+  if (SimulationSubType==GIBBS_CFCMC_SINGLE_FRACTIONAL_PARTICLE)
   {
-    for(j=0;j<NumberOfComponents;j++)
+    CFMoleculePresent=FALSE;
+    for(i=0;i<NumberOfSystems;i++)
     {
-      CFMoleculePresent=CFMoleculePresent || Components[j].CFMoleculePresent[i];
+      for(j=0;j<NumberOfComponents;j++)
+      {
+        CFMoleculePresent=CFMoleculePresent || Components[j].CFMoleculePresent[i];
+      }
     }
-  }
-  for(i=0;i<NumberOfSystems;i++)
-  {
-    for(j=0;j<NumberOfComponents;j++)
+    for(i=0;i<NumberOfSystems;i++)
     {
-      Components[j].CFMoleculePresent[i]=CFMoleculePresent;
+      for(j=0;j<NumberOfComponents;j++)
+      {
+        Components[j].CFMoleculePresent[i]=CFMoleculePresent;
+      }
     }
   }
 
