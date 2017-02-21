@@ -5861,7 +5861,9 @@ int ReadInput(char *input)
   {
     nr_sites=NumberOfChargesPerSystem[i];
     for(j=0;j<Framework[i].NumberOfFrameworks;j++)
-      nr_sites+=Framework[i].NumberOfCharges[j];
+    {
+      nr_sites+=Framework[i].NumberOfCharges[j]+Framework[i].NumberOfCoreShells[j];
+    }
     if(nr_sites>LargestNumberOfCoulombicSites) LargestNumberOfCoulombicSites=nr_sites;
 
     NumberOfAtomsPerSystem[i]=0;
@@ -8425,6 +8427,7 @@ int ReadInput(char *input)
 
   CheckForErrors();
 
+ 
   // precompute contributions to the Ewald sums from fixed atoms
   // setup k-vectors in advance
   for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
