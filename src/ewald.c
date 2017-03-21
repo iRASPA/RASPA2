@@ -20852,13 +20852,13 @@ int CalculateEwaldFourierDerivatives(REAL *Energy,REAL* Gradient,REAL_MATRIX Hes
         considered_charged=(fabs(ChargeA)>1e-10)||(PseudoAtoms[TypeA].IsPolarizable);
         if(considered_charged)
         {
-          ChargeA*=Adsorbates[CurrentSystem][m].Atoms[A].CFChargeScalingParameter;
+          ChargeA*=Cations[CurrentSystem][m].Atoms[A].CFChargeScalingParameter;
           TypeB=Cations[CurrentSystem][m].Atoms[B].Type;
           ChargeB=Cations[CurrentSystem][m].Atoms[B].Charge;
           considered_charged=(fabs(ChargeB)>1e-10)||(PseudoAtoms[TypeB].IsPolarizable);
           if(considered_charged)
           {
-            ChargeB*=Adsorbates[CurrentSystem][m].Atoms[B].CFChargeScalingParameter;
+            ChargeB*=Cations[CurrentSystem][m].Atoms[B].CFChargeScalingParameter;
             comA=posA=Cations[CurrentSystem][m].Atoms[A].Position;
             comB=posB=Cations[CurrentSystem][m].Atoms[B].Position;
 

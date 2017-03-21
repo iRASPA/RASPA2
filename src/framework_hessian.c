@@ -2725,7 +2725,7 @@ void ComputeFrameworkCationChargeChargeHessian(REAL *Energy,REAL* Gradient,REAL_
 
                   if(rr<CutOffChargeChargeSquared[CurrentSystem])
                   {
-                    scalingB=Adsorbates[CurrentSystem][J].Atoms[j].CFChargeScalingParameter;
+                    scalingB=Cations[CurrentSystem][J].Atoms[j].CFChargeScalingParameter;
                     ChargeB=scalingB*Cations[CurrentSystem][J].Atoms[j].Charge;
 
                     PotentialSecondDerivativeCoulombic(ChargeA,ChargeB,rr,&U,&f1,&f2);

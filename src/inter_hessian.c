@@ -4082,7 +4082,7 @@ void ComputeInterVDWMolecularHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX Hes
                       if(ncell==0) ReplicaFactor=1.0;
                       else ReplicaFactor=0.5;
 
-                      scalingB=Adsorbates[CurrentSystem][J].Atoms[j].CFVDWScalingParameter;
+                      scalingB=Cations[CurrentSystem][J].Atoms[j].CFVDWScalingParameter;
 
                       PotentialSecondDerivative(typeA,typeB,rr,&energy,&f1,&f2,scalingA*scalingB);
 
