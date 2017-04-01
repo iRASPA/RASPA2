@@ -26824,60 +26824,71 @@ void CFCRXMCLambdaChangeMove(void)
           SWAP(Components[CurrentComponent].ReactantFractionalMolecules[CurrentSystem][CurrentReaction][k],LambdaRetraceMolecules[CurrentComponent][k],temp_int);
       }
 
-      // delete retrace molecule and update all identifiers
+      // delete retrace molecule in order (highest id first) and update all identifiers
+      int *deleted = (int*)calloc(numberOfRetraceMolecules,sizeof(int));
+      int number_deleted=0;
       for(CurrentComponent=0;CurrentComponent<NumberOfComponents;CurrentComponent++)
       {
         for(k=0;k<ReactantsStoichiometry[CurrentReaction][CurrentComponent];k++)
         {
-          CurrentAdsorbateMolecule=LambdaRetraceMolecules[CurrentComponent][k];
-
-          UAdsorbateBondFirstStep=CalculateBondEnergyAdsorbate(CurrentAdsorbateMolecule);
-          UAdsorbateUreyBradleyFirstStep=CalculateUreyBradleyEnergyAdsorbate(CurrentAdsorbateMolecule);
-          UAdsorbateBendFirstStep=CalculateBendEnergyAdsorbate(CurrentAdsorbateMolecule);
-          UAdsorbateBendBendFirstStep=CalculateBendBendEnergyAdsorbate(CurrentAdsorbateMolecule);
-          UAdsorbateInversionBendFirstStep=CalculateInversionBendEnergyAdsorbate(CurrentAdsorbateMolecule);
-          UAdsorbateTorsionFirstStep=CalculateTorsionEnergyAdsorbate(CurrentAdsorbateMolecule);
-          UAdsorbateImproperTorsionFirstStep=CalculateImproperTorsionEnergyAdsorbate(CurrentAdsorbateMolecule);
-          UAdsorbateBondBondFirstStep=CalculateBondBondEnergyAdsorbate(CurrentAdsorbateMolecule);
-          UAdsorbateBondBendFirstStep=CalculateBondBendEnergyAdsorbate(CurrentAdsorbateMolecule);
-          UAdsorbateBondTorsionFirstStep=CalculateBondTorsionEnergyAdsorbate(CurrentAdsorbateMolecule);
-          UAdsorbateBendTorsionFirstStep=CalculateBendTorsionEnergyAdsorbate(CurrentAdsorbateMolecule);
-          UAdsorbateIntraVDWFirstStep=CalculateIntraVDWEnergyAdsorbate(CurrentAdsorbateMolecule);
-
-          if(ChargeMethod!=NONE)
-          {
-            UAdsorbateIntraChargeChargeFirstStep=CalculateIntraChargeChargeEnergyAdsorbate(CurrentAdsorbateMolecule);
-            UAdsorbateIntraChargeBondDipoleFirstStep=CalculateIntraChargeBondDipoleEnergyAdsorbate(CurrentAdsorbateMolecule);
-            UAdsorbateIntraBondDipoleBondDipoleFirstStep=CalculateIntraBondDipoleBondDipoleEnergyAdsorbate(CurrentAdsorbateMolecule);
-          }
-
-          UAdsorbateBond[CurrentSystem]-=UAdsorbateBondFirstStep;
-          UAdsorbateUreyBradley[CurrentSystem]-=UAdsorbateUreyBradleyFirstStep;
-          UAdsorbateBend[CurrentSystem]-=UAdsorbateBendFirstStep;
-          UAdsorbateBendBend[CurrentSystem]-=UAdsorbateBendBendFirstStep;
-          UAdsorbateInversionBend[CurrentSystem]-=UAdsorbateInversionBendFirstStep;
-          UAdsorbateTorsion[CurrentSystem]-=UAdsorbateTorsionFirstStep;
-          UAdsorbateImproperTorsion[CurrentSystem]-=UAdsorbateImproperTorsionFirstStep;
-          UAdsorbateBondBond[CurrentSystem]-=UAdsorbateBondBondFirstStep;
-          UAdsorbateBondBend[CurrentSystem]-=UAdsorbateBondBendFirstStep;
-          UAdsorbateBondTorsion[CurrentSystem]-=UAdsorbateBondTorsionFirstStep;
-          UAdsorbateBendTorsion[CurrentSystem]-=UAdsorbateBendTorsionFirstStep;
-          UAdsorbateIntraVDW[CurrentSystem]-=UAdsorbateIntraVDWFirstStep;
-          UTotal[CurrentSystem]-=UAdsorbateBondFirstStep+UAdsorbateUreyBradleyFirstStep+UAdsorbateBendFirstStep+UAdsorbateBendBendFirstStep+
-                UAdsorbateInversionBendFirstStep+UAdsorbateTorsionFirstStep+UAdsorbateImproperTorsionFirstStep+UAdsorbateBondBondFirstStep+
-                UAdsorbateBondBendFirstStep+UAdsorbateBondTorsionFirstStep+UAdsorbateBendTorsionFirstStep+UAdsorbateIntraVDWFirstStep;
-
-          if(ChargeMethod!=NONE)
-          {
-            UAdsorbateIntraChargeCharge[CurrentSystem]-=UAdsorbateIntraChargeChargeFirstStep;
-            UAdsorbateIntraChargeBondDipole[CurrentSystem]-=UAdsorbateIntraChargeBondDipoleFirstStep;
-            UAdsorbateIntraBondDipoleBondDipole[CurrentSystem]-=UAdsorbateIntraBondDipoleBondDipoleFirstStep;
-            UTotal[CurrentSystem]-=UAdsorbateIntraChargeChargeFirstStep+UAdsorbateIntraChargeBondDipoleFirstStep+UAdsorbateIntraBondDipoleBondDipoleFirstStep;
-          }
-
-          RemoveAdsorbateMolecule();
+          deleted[number_deleted]=LambdaRetraceMolecules[CurrentComponent][k];
+          number_deleted++;
         }
       }
+      bubble_sort(deleted,number_deleted);
+
+      for(k=number_deleted-1;k>=0;k--)
+      {
+        CurrentAdsorbateMolecule=deleted[k];
+        CurrentComponent=Adsorbates[CurrentSystem][CurrentAdsorbateMolecule].Type;
+
+        UAdsorbateBondFirstStep=CalculateBondEnergyAdsorbate(CurrentAdsorbateMolecule);
+        UAdsorbateUreyBradleyFirstStep=CalculateUreyBradleyEnergyAdsorbate(CurrentAdsorbateMolecule);
+        UAdsorbateBendFirstStep=CalculateBendEnergyAdsorbate(CurrentAdsorbateMolecule);
+        UAdsorbateBendBendFirstStep=CalculateBendBendEnergyAdsorbate(CurrentAdsorbateMolecule);
+        UAdsorbateInversionBendFirstStep=CalculateInversionBendEnergyAdsorbate(CurrentAdsorbateMolecule);
+        UAdsorbateTorsionFirstStep=CalculateTorsionEnergyAdsorbate(CurrentAdsorbateMolecule);
+        UAdsorbateImproperTorsionFirstStep=CalculateImproperTorsionEnergyAdsorbate(CurrentAdsorbateMolecule);
+        UAdsorbateBondBondFirstStep=CalculateBondBondEnergyAdsorbate(CurrentAdsorbateMolecule);
+        UAdsorbateBondBendFirstStep=CalculateBondBendEnergyAdsorbate(CurrentAdsorbateMolecule);
+        UAdsorbateBondTorsionFirstStep=CalculateBondTorsionEnergyAdsorbate(CurrentAdsorbateMolecule);
+        UAdsorbateBendTorsionFirstStep=CalculateBendTorsionEnergyAdsorbate(CurrentAdsorbateMolecule);
+        UAdsorbateIntraVDWFirstStep=CalculateIntraVDWEnergyAdsorbate(CurrentAdsorbateMolecule);
+
+        if(ChargeMethod!=NONE)
+        {
+          UAdsorbateIntraChargeChargeFirstStep=CalculateIntraChargeChargeEnergyAdsorbate(CurrentAdsorbateMolecule);
+          UAdsorbateIntraChargeBondDipoleFirstStep=CalculateIntraChargeBondDipoleEnergyAdsorbate(CurrentAdsorbateMolecule);
+          UAdsorbateIntraBondDipoleBondDipoleFirstStep=CalculateIntraBondDipoleBondDipoleEnergyAdsorbate(CurrentAdsorbateMolecule);
+        }
+
+        UAdsorbateBond[CurrentSystem]-=UAdsorbateBondFirstStep;
+        UAdsorbateUreyBradley[CurrentSystem]-=UAdsorbateUreyBradleyFirstStep;
+        UAdsorbateBend[CurrentSystem]-=UAdsorbateBendFirstStep;
+        UAdsorbateBendBend[CurrentSystem]-=UAdsorbateBendBendFirstStep;
+        UAdsorbateInversionBend[CurrentSystem]-=UAdsorbateInversionBendFirstStep;
+        UAdsorbateTorsion[CurrentSystem]-=UAdsorbateTorsionFirstStep;
+        UAdsorbateImproperTorsion[CurrentSystem]-=UAdsorbateImproperTorsionFirstStep;
+        UAdsorbateBondBond[CurrentSystem]-=UAdsorbateBondBondFirstStep;
+        UAdsorbateBondBend[CurrentSystem]-=UAdsorbateBondBendFirstStep;
+        UAdsorbateBondTorsion[CurrentSystem]-=UAdsorbateBondTorsionFirstStep;
+        UAdsorbateBendTorsion[CurrentSystem]-=UAdsorbateBendTorsionFirstStep;
+        UAdsorbateIntraVDW[CurrentSystem]-=UAdsorbateIntraVDWFirstStep;
+        UTotal[CurrentSystem]-=UAdsorbateBondFirstStep+UAdsorbateUreyBradleyFirstStep+UAdsorbateBendFirstStep+UAdsorbateBendBendFirstStep+
+              UAdsorbateInversionBendFirstStep+UAdsorbateTorsionFirstStep+UAdsorbateImproperTorsionFirstStep+UAdsorbateBondBondFirstStep+
+              UAdsorbateBondBendFirstStep+UAdsorbateBondTorsionFirstStep+UAdsorbateBendTorsionFirstStep+UAdsorbateIntraVDWFirstStep;
+
+        if(ChargeMethod!=NONE)
+        {
+          UAdsorbateIntraChargeCharge[CurrentSystem]-=UAdsorbateIntraChargeChargeFirstStep;
+          UAdsorbateIntraChargeBondDipole[CurrentSystem]-=UAdsorbateIntraChargeBondDipoleFirstStep;
+          UAdsorbateIntraBondDipoleBondDipole[CurrentSystem]-=UAdsorbateIntraBondDipoleBondDipoleFirstStep;
+          UTotal[CurrentSystem]-=UAdsorbateIntraChargeChargeFirstStep+UAdsorbateIntraChargeBondDipoleFirstStep+UAdsorbateIntraBondDipoleBondDipoleFirstStep;
+        }
+
+        RemoveAdsorbateMolecule();
+      }
+      free(deleted);
     }
 
     if(MoveType==CF_DELETE_MOVE)
