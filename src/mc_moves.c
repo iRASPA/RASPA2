@@ -28549,7 +28549,10 @@ int CFGibbsFractionalToIntegerMove(void)
   CFGibbsFractionalToIntegerAttempts[A][CurrentComponent]++;
 
 
-  if (TotalNumberOfIntegerMoleculesForSystem(B)==0)
+  int totalNumberOfIntegerMoleculesB = Components[CurrentComponent].NumberOfMolecules[B]-
+            (Components[CurrentComponent].FractionalMolecule[B]>=0?1:0)-
+             Components[CurrentComponent].NumberOfRXMCMoleculesPresent[B];
+  if (totalNumberOfIntegerMoleculesB==0)
   {
     return 0;
   }
@@ -28730,7 +28733,15 @@ int CFGibbsFractionalToIntegerMove(void)
                         UAdsorbateAdsorbateBondDipoleBondDipoleFourierDelta[CurrentSystem]+UAdsorbateCationBondDipoleBondDipoleFourierDelta[CurrentSystem]+
                         UDeltaPolarization+UTailDelta[CurrentSystem];
 
-  if(RandomNumber()<(TotalNumberOfIntegerMoleculesForSystem(B)/(TotalNumberOfIntegerMoleculesForSystem(A)+1.0))*exp(-Beta[CurrentSystem]*(DeltaU[A]+DeltaU[B])+(BiasB-BiasA)))
+  int totalNumberOfIntegerMoleculesForSystemA = Components[CurrentComponent].NumberOfMolecules[A]-
+            (Components[CurrentComponent].FractionalMolecule[A]>=0?1:0)-
+             Components[CurrentComponent].NumberOfRXMCMoleculesPresent[A];
+
+  int totalNumberOfIntegerMoleculesForSystemB = Components[CurrentComponent].NumberOfMolecules[B]-
+            (Components[CurrentComponent].FractionalMolecule[B]>=0?1:0)-
+             Components[CurrentComponent].NumberOfRXMCMoleculesPresent[B];
+
+  if(RandomNumber()<(totalNumberOfIntegerMoleculesForSystemB/(totalNumberOfIntegerMoleculesForSystemA+1.0))*exp(-Beta[CurrentSystem]*(DeltaU[A]+DeltaU[B])+(BiasB-BiasA)))
   {
     #ifdef DEBUG
       fprintf(stderr, "Lambda-move adsorbate accepted\n");
