@@ -27658,6 +27658,12 @@ int CFGibbsSwapFractionalMoleculeToOtherBoxMove(void)
   int index;
   int StoreCurrentSystem;
 
+  REAL UAdsorbateBondFirstStep,UAdsorbateUreyBradleyFirstStep,UAdsorbateBendFirstStep,UAdsorbateBendBendFirstStep;
+  REAL UAdsorbateInversionBendFirstStep,UAdsorbateTorsionFirstStep,UAdsorbateImproperTorsionFirstStep;
+  REAL UAdsorbateBondBondFirstStep,UAdsorbateBondBendFirstStep,UAdsorbateBondTorsionFirstStep;
+  REAL UAdsorbateBendTorsionFirstStep,UAdsorbateIntraVDWFirstStep;
+  REAL UAdsorbateIntraChargeChargeFirstStep,UAdsorbateIntraChargeBondDipoleFirstStep,UAdsorbateIntraBondDipoleBondDipoleFirstStep;
+
   // get the current-system of the fractional particle
   if(Components[CurrentComponent].FractionalMolecule[0]>=0)
   {
@@ -27892,6 +27898,8 @@ int CFGibbsSwapFractionalMoleculeToOtherBoxMove(void)
     CFGibbsSwapFractionalMoleculeToOtherBoxAccepted[A][CurrentComponent]+=1.0;
 
     CurrentSystem=A;
+
+
     UAdsorbateAdsorbate[CurrentSystem]+=UAdsorbateVDWDelta[CurrentSystem];
     UAdsorbateAdsorbateVDW[CurrentSystem]+=UAdsorbateVDWDelta[CurrentSystem];
     UHostAdsorbate[CurrentSystem]+=UHostVDWDelta[CurrentSystem];
@@ -27954,6 +27962,43 @@ int CFGibbsSwapFractionalMoleculeToOtherBoxMove(void)
 
     UTotal[CurrentSystem]+=DeltaU[A];
 
+    // account for internal energies changes
+    UAdsorbateBondFirstStep=CalculateBondEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateUreyBradleyFirstStep=CalculateUreyBradleyEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateBendFirstStep=CalculateBendEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateBendBendFirstStep=CalculateBendBendEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateInversionBendFirstStep=CalculateInversionBendEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateTorsionFirstStep=CalculateTorsionEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateImproperTorsionFirstStep=CalculateImproperTorsionEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateBondBondFirstStep=CalculateBondBondEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateBondBendFirstStep=CalculateBondBendEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateBondTorsionFirstStep=CalculateBondTorsionEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateBendTorsionFirstStep=CalculateBendTorsionEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateIntraVDWFirstStep=CalculateIntraVDWEnergyAdsorbate(FractionalMolecule);
+
+    if(ChargeMethod!=NONE)
+    {
+      UAdsorbateIntraChargeChargeFirstStep=CalculateIntraChargeChargeEnergyAdsorbate(FractionalMolecule);
+      UAdsorbateIntraChargeBondDipoleFirstStep=CalculateIntraChargeBondDipoleEnergyAdsorbate(FractionalMolecule);
+      UAdsorbateIntraBondDipoleBondDipoleFirstStep=CalculateIntraBondDipoleBondDipoleEnergyAdsorbate(FractionalMolecule);
+    }
+
+    UAdsorbateBond[CurrentSystem]-=UAdsorbateBondFirstStep;
+    UAdsorbateUreyBradley[CurrentSystem]-=UAdsorbateUreyBradleyFirstStep;
+    UAdsorbateBend[CurrentSystem]-=UAdsorbateBendFirstStep;
+    UAdsorbateBendBend[CurrentSystem]-=UAdsorbateBendBendFirstStep;
+    UAdsorbateInversionBend[CurrentSystem]-=UAdsorbateInversionBendFirstStep;
+    UAdsorbateTorsion[CurrentSystem]-=UAdsorbateTorsionFirstStep;
+    UAdsorbateImproperTorsion[CurrentSystem]-=UAdsorbateImproperTorsionFirstStep;
+    UAdsorbateBondBond[CurrentSystem]-=UAdsorbateBondBondFirstStep;
+    UAdsorbateBondBend[CurrentSystem]-=UAdsorbateBondBendFirstStep;
+    UAdsorbateBondTorsion[CurrentSystem]-=UAdsorbateBondTorsionFirstStep;
+    UAdsorbateBendTorsion[CurrentSystem]-=UAdsorbateBendTorsionFirstStep;
+    UAdsorbateIntraVDW[CurrentSystem]-=UAdsorbateIntraVDWFirstStep;
+    UTotal[CurrentSystem]-=UAdsorbateBondFirstStep+UAdsorbateUreyBradleyFirstStep+UAdsorbateBendFirstStep+UAdsorbateBendBendFirstStep+
+          UAdsorbateInversionBendFirstStep+UAdsorbateTorsionFirstStep+UAdsorbateImproperTorsionFirstStep+UAdsorbateBondBondFirstStep+
+          UAdsorbateBondBendFirstStep+UAdsorbateBondTorsionFirstStep+UAdsorbateBendTorsionFirstStep+UAdsorbateIntraVDWFirstStep;
+
     // correct the number of fractional pseudo-atoms (used to correct the tail-correction)
     for(i=0;i<Components[CurrentComponent].NumberOfAtoms;i++)
     {
@@ -27966,6 +28011,8 @@ int CFGibbsSwapFractionalMoleculeToOtherBoxMove(void)
     RemoveAdsorbateMolecule();
 
     CurrentSystem=B;
+
+
     UAdsorbateAdsorbate[CurrentSystem]+=UAdsorbateVDWDelta[CurrentSystem];
     UAdsorbateAdsorbateVDW[CurrentSystem]+=UAdsorbateVDWDelta[CurrentSystem];
     UHostAdsorbate[CurrentSystem]+=UHostVDWDelta[CurrentSystem];
@@ -28044,6 +28091,43 @@ int CFGibbsSwapFractionalMoleculeToOtherBoxMove(void)
 
     FractionalMolecule=NumberOfAdsorbateMolecules[CurrentSystem]-1;
     Components[CurrentComponent].FractionalMolecule[B]=FractionalMolecule;
+
+    // account for internal energies changes
+    UAdsorbateBondFirstStep=CalculateBondEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateUreyBradleyFirstStep=CalculateUreyBradleyEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateBendFirstStep=CalculateBendEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateBendBendFirstStep=CalculateBendBendEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateInversionBendFirstStep=CalculateInversionBendEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateTorsionFirstStep=CalculateTorsionEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateImproperTorsionFirstStep=CalculateImproperTorsionEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateBondBondFirstStep=CalculateBondBondEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateBondBendFirstStep=CalculateBondBendEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateBondTorsionFirstStep=CalculateBondTorsionEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateBendTorsionFirstStep=CalculateBendTorsionEnergyAdsorbate(FractionalMolecule);
+    UAdsorbateIntraVDWFirstStep=CalculateIntraVDWEnergyAdsorbate(FractionalMolecule);
+
+    if(ChargeMethod!=NONE)
+    {
+      UAdsorbateIntraChargeChargeFirstStep=CalculateIntraChargeChargeEnergyAdsorbate(FractionalMolecule);
+      UAdsorbateIntraChargeBondDipoleFirstStep=CalculateIntraChargeBondDipoleEnergyAdsorbate(FractionalMolecule);
+      UAdsorbateIntraBondDipoleBondDipoleFirstStep=CalculateIntraBondDipoleBondDipoleEnergyAdsorbate(FractionalMolecule);
+    }
+
+    UAdsorbateBond[CurrentSystem]+=UAdsorbateBondFirstStep;
+    UAdsorbateUreyBradley[CurrentSystem]+=UAdsorbateUreyBradleyFirstStep;
+    UAdsorbateBend[CurrentSystem]+=UAdsorbateBendFirstStep;
+    UAdsorbateBendBend[CurrentSystem]+=UAdsorbateBendBendFirstStep;
+    UAdsorbateInversionBend[CurrentSystem]+=UAdsorbateInversionBendFirstStep;
+    UAdsorbateTorsion[CurrentSystem]+=UAdsorbateTorsionFirstStep;
+    UAdsorbateImproperTorsion[CurrentSystem]+=UAdsorbateImproperTorsionFirstStep;
+    UAdsorbateBondBond[CurrentSystem]+=UAdsorbateBondBondFirstStep;
+    UAdsorbateBondBend[CurrentSystem]+=UAdsorbateBondBendFirstStep;
+    UAdsorbateBondTorsion[CurrentSystem]+=UAdsorbateBondTorsionFirstStep;
+    UAdsorbateBendTorsion[CurrentSystem]+=UAdsorbateBendTorsionFirstStep;
+    UAdsorbateIntraVDW[CurrentSystem]+=UAdsorbateIntraVDWFirstStep;
+    UTotal[CurrentSystem]+=UAdsorbateBondFirstStep+UAdsorbateUreyBradleyFirstStep+UAdsorbateBendFirstStep+UAdsorbateBendBendFirstStep+
+          UAdsorbateInversionBendFirstStep+UAdsorbateTorsionFirstStep+UAdsorbateImproperTorsionFirstStep+UAdsorbateBondBondFirstStep+
+          UAdsorbateBondBendFirstStep+UAdsorbateBondTorsionFirstStep+UAdsorbateBendTorsionFirstStep+UAdsorbateIntraVDWFirstStep;
   }
   else
   {
