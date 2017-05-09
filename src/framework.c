@@ -4113,10 +4113,6 @@ void ExpandAsymmetricFrameworkToFullFramework(void)
               dr.y-=NINT(dr.y);
               dr.z-=NINT(dr.z);
 
-              dr.x*=(REAL)NumberOfUnitCells[CurrentSystem].x;  // EVL added
-              dr.y*=(REAL)NumberOfUnitCells[CurrentSystem].y;  // EVL added
-              dr.z*=(REAL)NumberOfUnitCells[CurrentSystem].z;  // EVL added
-
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
               if(rr<1e-4) index=k;
             }
