@@ -1,0 +1,18 @@
+# critical constants: Temperature [T], Pressure [Pa], and Acentric factor [-]
+33.19
+1315000.0
+-0.214
+#Number Of Atoms
+1
+# Number of groups
+1
+# H2-group
+rigid
+# number of atoms
+1
+# atomic positions
+0 H_h2  
+# Chiral centers Bond  BondDipoles Bend  UrayBradley InvBend  Torsion Imp. Torsion Bond/Bond Stretch/Bend Bend/Bend Stretch/Torsion Bend/Torsion IntraVDW IntraCoulomb
+               0    0            0    0            0       0        0            0         0            0         0               0            0        0            0
+# Number of config moves
+0

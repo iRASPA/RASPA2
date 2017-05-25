@@ -1,0 +1,22 @@
+SimulationType                MonteCarlo
+NumberOfCycles                5000
+NumberOfInitializationCycles  10000
+PrintEvery                    100
+RestartFile                   no
+
+Forcefield                    TraPPE
+
+Box 0
+BoxLengths 30 30 30
+ExternalTemperature 400.0
+ExternalPressure 10e6
+ComputeMolecularPressure yes
+
+VolumeChangeProbability       0.05
+
+Component 0 MoleculeName             CO2
+            MoleculeDefinition       TraPPE
+            TranslationProbability   0.5
+            RotationProbability      0.5
+            RegrowProbability        0.5
+            CreateNumberOfMolecules  100

@@ -1590,6 +1590,12 @@ int SamplePDBMovies(int Choice,int Subdir)
             r.y=MovieScale*(Adsorbates[CurrentSystem][j].Atoms[k].Position.y-dr.y-flexible_drift.y);
             r.z=MovieScale*(Adsorbates[CurrentSystem][j].Atoms[k].Position.z-dr.z-flexible_drift.z);
 
+            Occupancy = 1.0;
+            if (IsFractionalReactionAdsorbateMolecule(j))
+            {
+              Occupancy = 0.5;
+            }
+
             AtomType=Adsorbates[CurrentSystem][j].Atoms[k].Type;
             snprintf(AtomName,5,"%2s",PseudoAtoms[AtomType].PrintToPDBName);
             snprintf(Element,3,"%2s",PseudoAtoms[AtomType].PrintToPDBName);
@@ -1629,6 +1635,12 @@ int SamplePDBMovies(int Choice,int Subdir)
             AtomType=Cations[CurrentSystem][j].Atoms[k].Type;
             snprintf(AtomName,5,"%2s",PseudoAtoms[AtomType].PrintToPDBName);
             snprintf(Element,3,"%2s",PseudoAtoms[AtomType].PrintToPDBName);
+
+            Occupancy = 1.0;
+            if (IsFractionalReactionCationMolecule(j))
+            {
+              Occupancy = 0.5;
+            }
 
             fprintf(PDBFilePtr[CurrentSystem][Type],"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%6s%-4s%2s%2s\n",
                  RecordName,SerialNumber[Type]++,AtomName,RemotenessIndicator,BranchDesignator,AltLoc,ResIdueName,

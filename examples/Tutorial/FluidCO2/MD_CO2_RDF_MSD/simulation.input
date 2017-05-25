@@ -1,0 +1,24 @@
+SimulationType                MolecularDynamics
+NumberOfCycles                5000000000
+NumberOfInitializationCycles  1000
+NumberOfEquilibrationCycles   10000
+PrintEvery                    5000
+RestartFile                   no
+
+Forcefield                    TraPPE
+
+Box 0
+BoxLengths 35.17472 35.17472 35.17472
+ExternalTemperature 400.0
+ExternalPressure 0.0
+ComputeRDF yes
+WriteRDFEvery 1000
+ComputeMSD yes
+PrintMSDEvery 1000
+
+Component 0 MoleculeName             CO2
+            MoleculeDefinition       TraPPE
+            TranslationProbability   0.5
+            RotationProbability      0.5
+            RegrowProbability        0.5
+            CreateNumberOfMolecules  100
