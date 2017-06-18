@@ -1,6 +1,6 @@
 /*************************************************************************************************************
     RASPA: a molecular-dynamics, monte-carlo and optimization code for nanoporous materials
-    Copyright (C) 2006-2015 David Dubbeldam, Sofia Calero, Thijs Vlugt, Donald E. Ellis, and Randall Q. Snurr.
+    Copyright (C) 2006-2017 David Dubbeldam, Sofia Calero, Thijs Vlugt, Donald E. Ellis, and Randall Q. Snurr.
 
     D.Dubbeldam@uva.nl            http://molsim.science.uva.nl/
     scaldia@upo.es                http://www.upo.es/raspa/
@@ -32,6 +32,7 @@
 #include <errno.h>
 #include <string.h>
 #include <math.h>
+#include <signal.h>
 #include "constants.h"
 #include "molecule.h"
 #include "framework.h"
@@ -197,6 +198,60 @@ int AddPseudoAtom(PSEUDO_ATOM atom)
 }
 
 
+void CheckNumberOfMolecules()
+{
+  int k,l;
+  int total;
+  int measuredNumber;
+
+  for(k=0;k<NumberOfSystems;k++)
+  {
+    total=NumberOfAdsorbateMolecules[k];
+
+    measuredNumber=0;
+    for(l=0;l<NumberOfComponents;l++)
+    {
+      measuredNumber+=Components[l].NumberOfMolecules[k];
+    }
+    if(measuredNumber!=total)
+    {
+      fprintf(stdout,"CheckNumberOfMolecules: Number of molecules (%d) not equal to the sum of the components (%d)\n", total, measuredNumber);
+      __builtin_trap();
+    }
+  }
+}
+
+void CheckTypeOfMolecules()
+{
+  int i,k,l;
+  int total;
+  int measuredNumber;
+
+
+  for(k=0;k<NumberOfSystems;k++)
+  {
+    for(l=0;l<NumberOfComponents;l++)
+    {
+      total=Components[l].NumberOfMolecules[k];
+
+      measuredNumber=0;
+      for(i=0;i<NumberOfAdsorbateMolecules[k];i++)
+      {
+        if(Adsorbates[k][i].Type==l) measuredNumber++;
+      }
+      if(measuredNumber!=total)
+      {
+        fprintf(stdout,"CheckTypeOfMolecules: Number of molecules of type %d (%d) not equal to the sum over all molecules (%d)\n",l, total, measuredNumber);
+        __builtin_trap();
+      }
+    }
+  }
+
+}
+
+
+
+
 int SelectRandomMoleculeOfType(int comp)
 {
   int d,count;
@@ -219,6 +274,13 @@ int SelectRandomMoleculeOfType(int comp)
       if(Adsorbates[CurrentSystem][++CurrentMolecule].Type==comp) count++;
     while(d!=count);
   }
+
+  if(CurrentMolecule>=NumberOfAdsorbateMolecules[CurrentSystem])
+  {
+    fprintf(stdout,"comp: %d total: %d\n",comp, Components[comp].NumberOfMolecules[CurrentSystem]);
+    __builtin_trap();
+  }
+
   return CurrentMolecule;
 }
 

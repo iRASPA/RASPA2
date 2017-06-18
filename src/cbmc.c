@@ -1,6 +1,6 @@
 /*****************************************************************************************************
     RASPA: a molecular-dynamics, monte-carlo and optimization code for nanoporous materials
-    Copyright (C) 2006-2015 David Dubbeldam, Sofia Calero, Thijs Vlugt, Donald E. Ellis, and Randall Q. Snurr.
+    Copyright (C) 2006-2017 David Dubbeldam, Sofia Calero, Thijs Vlugt, Donald E. Ellis, and Randall Q. Snurr.
 
     D.Dubbeldam@uva.nl            http://molsim.science.uva.nl/
     scaldia@upo.es                http://www.upo.es/raspa/
