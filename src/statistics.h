@@ -100,6 +100,7 @@ REAL GetAverageGibbsWidom(int comp);
 REAL GetAverageGibbsInverseDensity(void);
 REAL GetAverageWidom(int comp);
 REAL GetAverageInverseDensity(void);
+REAL GetAverageGibbsInverseDensityForComponent(int comp);
 
 void WriteRestartStatistics(FILE *FilePtr);
 void AllocateStatisticsMemory(void);

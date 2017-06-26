@@ -169,6 +169,7 @@ static REAL ****NumberOfMoleculesPerComponentSquaredAccumulated;
 static REAL **DensityAccumulated;
 static REAL **InverseDensityAccumulated;
 static REAL **GibbsInverseDensityAccumulated;
+static REAL ***GibbsInverseDensityPerComponentAccumulated;
 
 static VECTOR **BoxAccumulated;
 static REAL **BoxAXAccumulated;
@@ -1007,6 +1008,7 @@ void InitializesEnergyAveragesAllSystems(void)
       GibbsInverseDensityAccumulated[k][i]=0.0;
       for(j=0;j<NumberOfComponents;j++)
       {
+        GibbsInverseDensityPerComponentAccumulated[k][j][i]=0.0;
         NumberOfIntegerMoleculesPerComponentAccumulated[k][j][i]=0.0;
         NumberOfFractionalMoleculesPerComponentAccumulated[k][j][i]=0.0;
         NumberOfExcessMoleculesPerComponentAccumulated[k][j][i]=0.0;
@@ -1104,12 +1106,14 @@ void UpdateEnergyAveragesCurrentSystem(void)
 {
   int i,j,nr;
   VECTOR dipole_adsorbates,dipole_cations;
-  REAL Enthalpy,density;
+  REAL Enthalpy,densityForComponent;
   REAL NumberOfMolecules;
   REAL PressureIdealGas;
   REAL PressureTail;
   REAL UCFMCAdsorbate,UCFMCCation;
   REAL weight,lambda;
+  int numberOfAbsoluteIntegerMoleculesForComponent;
+  int numberOfExcessIntegerMoleculesForComponent;
 
   // check for new block
   if(CurrentCycle==BlockCycle[Block])
@@ -1276,23 +1280,22 @@ void UpdateEnergyAveragesCurrentSystem(void)
         NumberOfMoleculesPerComponentSquaredAccumulated[CurrentSystem][i][j][Block]+=weight*loading_i*loading_j;
       }
 
-      NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=weight*(Components[i].NumberOfMolecules[CurrentSystem]
-                           -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
-                           -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem]);
+      numberOfAbsoluteIntegerMoleculesForComponent=(Components[i].NumberOfMolecules[CurrentSystem]
+                                                   -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
+                                                   -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem]);
+      numberOfExcessIntegerMoleculesForComponent=numberOfAbsoluteIntegerMoleculesForComponent-Components[i].AmountOfExcessMolecules[CurrentSystem];
+
+      NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=weight*numberOfAbsoluteIntegerMoleculesForComponent;
       NumberOfFractionalMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=(Components[i].FractionalMolecule[CurrentSystem]>=0?1.0:0.0);
       NumberOfExcessMoleculesPerComponentAccumulated[CurrentSystem][i][Block]+=
-               weight*((REAL)Components[i].NumberOfMolecules[CurrentSystem]
-                -Components[i].AmountOfExcessMolecules[CurrentSystem]
-                -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
-                -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem]);
-      density=Components[i].Mass*(REAL)(Components[i].NumberOfMolecules[CurrentSystem]
-                      -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
-                      -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])
-                      /Volume[CurrentSystem];
-      DensityPerComponentAccumulated[CurrentSystem][i][Block]+=weight*density;
-      DensityAccumulated[CurrentSystem][Block]+=weight*density;
+               weight*numberOfExcessIntegerMoleculesForComponent;
+
+      densityForComponent=Components[i].Mass*(REAL)numberOfAbsoluteIntegerMoleculesForComponent/Volume[CurrentSystem];
+      DensityPerComponentAccumulated[CurrentSystem][i][Block]+=weight*densityForComponent;
+      DensityAccumulated[CurrentSystem][Block]+=weight*densityForComponent;
       InverseDensityAccumulated[CurrentSystem][Block]+=weight*(Volume[CurrentSystem]/((REAL)TotalNumberOfIntegerMolecules()+1.0));
       GibbsInverseDensityAccumulated[CurrentSystem][Block]+=weight*(Volume[CurrentSystem]/(TotalNumberOfIntegerMolecules()+1.0));
+      GibbsInverseDensityPerComponentAccumulated[CurrentSystem][i][Block]+=weight*(Volume[CurrentSystem]/(numberOfAbsoluteIntegerMoleculesForComponent+1.0));
     }
 
     TemperatureAccumulated[CurrentSystem][Block]+=weight*(2.0*UKinetic[CurrentSystem]/(K_B*DegreesOfFreedom[CurrentSystem]));
@@ -2661,6 +2664,23 @@ REAL GetAverageGibbsInverseDensity()
     return sum/count;
   else return 0.0;
 }
+
+REAL GetAverageGibbsInverseDensityForComponent(int comp)
+{
+  int i;
+  REAL count,sum;
+
+  count=sum=0.0;
+  for(i=0;i<NR_BLOCKS;i++)
+  {
+    sum+=GibbsInverseDensityPerComponentAccumulated[CurrentSystem][comp][i];
+    count+=BlockWeightedCount[CurrentSystem][i];
+  }
+  if(count>0.0)
+    return sum/count;
+  else return 0.0;
+}
+
 
 REAL GetAverageInverseDensity()
 {
@@ -5175,6 +5195,7 @@ void AllocateStatisticsMemory(void)
   GibbsWidomEnergyDifferenceAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
   GibbsWidomEnergyFrameworkAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
   GibbsWidomEnergyFrameworkCount=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
+  GibbsInverseDensityPerComponentAccumulated=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
 
   PrincipleMomentsOfInertiaAccumulated=(VECTOR***)calloc(NumberOfSystems,sizeof(VECTOR**));
   PrincipleMomentsOfInertiaCount=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
@@ -5362,6 +5383,7 @@ void AllocateStatisticsMemory(void)
     GibbsWidomEnergyDifferenceAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
     GibbsWidomEnergyFrameworkAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
     GibbsWidomEnergyFrameworkCount[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
+    GibbsInverseDensityPerComponentAccumulated[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
 
     PrincipleMomentsOfInertiaAccumulated[i]=(VECTOR**)calloc(NumberOfComponents,sizeof(VECTOR*));
     PrincipleMomentsOfInertiaCount[i]=(REAL**)calloc(NumberOfComponents,sizeof(REAL*));
@@ -5392,6 +5414,7 @@ void AllocateStatisticsMemory(void)
       GibbsWidomEnergyDifferenceAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
       GibbsWidomEnergyFrameworkAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
       GibbsWidomEnergyFrameworkCount[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+      GibbsInverseDensityPerComponentAccumulated[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
 
       PrincipleMomentsOfInertiaAccumulated[i][j]=(VECTOR*)calloc(NumberOfBlocks,sizeof(VECTOR));
       PrincipleMomentsOfInertiaCount[i][j]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
@@ -5400,6 +5423,7 @@ void AllocateStatisticsMemory(void)
 
       for(k=0;k<NumberOfComponents;k++)
         NumberOfMoleculesPerComponentSquaredAccumulated[i][j][k]=(REAL*)calloc(NumberOfBlocks,sizeof(REAL));
+
     }
   }
 }

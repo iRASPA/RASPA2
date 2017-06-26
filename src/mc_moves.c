@@ -28528,7 +28528,7 @@ void PrintCFGibbsLambdaChangeStatistics(FILE *FilePtr)
                  (exp(-Components[i].CFBiasingFactors[CurrentSystem][0])*CFLambdaHistogram[CurrentSystem][i][0]))/Beta[CurrentSystem])*ENERGY_TO_KELVIN,
             (-log(exp(-Components[i].CFBiasingFactors[CurrentSystem][k])*CFLambdaHistogram[CurrentSystem][i][k]/
                  (exp(-Components[i].CFBiasingFactors[CurrentSystem][0])*CFLambdaHistogram[CurrentSystem][i][0]))/Beta[CurrentSystem])*ENERGY_TO_KELVIN
-             -(log(GetAverageGibbsInverseDensity())/Beta[CurrentSystem])*ENERGY_TO_KELVIN,
+             -(log(GetAverageGibbsInverseDensityForComponent(i))/Beta[CurrentSystem])*ENERGY_TO_KELVIN,
             Components[i].CFBiasingFactors[CurrentSystem][k]);
         }
         fprintf(FilePtr,"\n");
@@ -28552,7 +28552,7 @@ void PrintCFGibbsLambdaChangeStatistics(FILE *FilePtr)
         extrapolatedValue=a*SQR(y)+b*y+c;
         extrapolatedValueSecondOrder=-log(extrapolatedValue/referenceValue)/Beta[CurrentSystem];
 
-        idealGasValue=-log(GetAverageGibbsInverseDensity())/Beta[CurrentSystem];
+        idealGasValue=-log(GetAverageGibbsInverseDensityForComponent(i))/Beta[CurrentSystem];
 
         fprintf(FilePtr,"Extrapolated chemical potential, linear: %18.10f [K], quadratic: %18.10f\n",
               (extrapolatedValueFirstOrder+idealGasValue)*ENERGY_TO_KELVIN,(extrapolatedValueSecondOrder+idealGasValue)*ENERGY_TO_KELVIN);
