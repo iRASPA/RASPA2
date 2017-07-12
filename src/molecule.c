@@ -275,11 +275,6 @@ int SelectRandomMoleculeOfType(int comp)
     while(d!=count);
   }
 
-  if(CurrentMolecule>=NumberOfAdsorbateMolecules[CurrentSystem])
-  {
-    fprintf(stdout,"comp: %d total: %d\n",comp, Components[comp].NumberOfMolecules[CurrentSystem]);
-    __builtin_trap();
-  }
 
   return CurrentMolecule;
 }
