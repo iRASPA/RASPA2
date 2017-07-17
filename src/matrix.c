@@ -150,7 +150,7 @@ void AddRealMatrix6x6(REAL_MATRIX6x6 *c,REAL_MATRIX6x6 a,REAL_MATRIX6x6 b)
   c->C11=a.C11+b.C11; c->C21=a.C21+b.C21; c->C31=a.C31+b.C31; c->C41=a.C41+b.C41; c->C51=a.C51+b.C51; c->C61=a.C61+b.C61;
   c->C12=a.C12+b.C12; c->C22=a.C22+b.C22; c->C32=a.C32+b.C32; c->C42=a.C42+b.C42; c->C52=a.C52+b.C52; c->C62=a.C62+b.C62;
   c->C13=a.C13+b.C13; c->C23=a.C23+b.C23; c->C33=a.C33+b.C33; c->C43=a.C43+b.C43; c->C53=a.C53+b.C53; c->C63=a.C63+b.C63;
-  c->C14=a.C14+b.C14; c->C24=a.C24+b.C24; c->C34=a.C34+b.C34; c->C44=a.C44+b.C44; c->C54=a.C55+b.C54; c->C64=a.C64+b.C64;
+  c->C14=a.C14+b.C14; c->C24=a.C24+b.C24; c->C34=a.C34+b.C34; c->C44=a.C44+b.C44; c->C54=a.C54+b.C54; c->C64=a.C64+b.C64;
   c->C15=a.C15+b.C15; c->C25=a.C25+b.C25; c->C35=a.C35+b.C35; c->C45=a.C45+b.C45; c->C55=a.C55+b.C55; c->C65=a.C65+b.C65;
   c->C16=a.C16+b.C16; c->C26=a.C26+b.C26; c->C36=a.C36+b.C36; c->C46=a.C46+b.C46; c->C56=a.C56+b.C56; c->C66=a.C66+b.C66;
 }
@@ -160,7 +160,7 @@ void SubtractRealMatrix6x6(REAL_MATRIX6x6 *c,REAL_MATRIX6x6 a,REAL_MATRIX6x6 b)
   c->C11=a.C11-b.C11; c->C21=a.C21-b.C21; c->C31=a.C31-b.C31; c->C41=a.C41-b.C41; c->C51=a.C51-b.C51; c->C61=a.C61-b.C61;
   c->C12=a.C12-b.C12; c->C22=a.C22-b.C22; c->C32=a.C32-b.C32; c->C42=a.C42-b.C42; c->C52=a.C52-b.C52; c->C62=a.C62-b.C62;
   c->C13=a.C13-b.C13; c->C23=a.C23-b.C23; c->C33=a.C33-b.C33; c->C43=a.C43-b.C43; c->C53=a.C53-b.C53; c->C63=a.C63-b.C63;
-  c->C14=a.C14-b.C14; c->C24=a.C24-b.C24; c->C34=a.C34-b.C34; c->C44=a.C44-b.C44; c->C54=a.C55-b.C54; c->C64=a.C64-b.C64;
+  c->C14=a.C14-b.C14; c->C24=a.C24-b.C24; c->C34=a.C34-b.C34; c->C44=a.C44-b.C44; c->C54=a.C54-b.C54; c->C64=a.C64-b.C64;
   c->C15=a.C15-b.C15; c->C25=a.C25-b.C25; c->C35=a.C35-b.C35; c->C45=a.C45-b.C45; c->C55=a.C55-b.C55; c->C65=a.C65-b.C65;
   c->C16=a.C16-b.C16; c->C26=a.C26-b.C26; c->C36=a.C36-b.C36; c->C46=a.C46-b.C46; c->C56=a.C56-b.C56; c->C66=a.C66-b.C66;
 }
