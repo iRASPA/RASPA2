@@ -3676,15 +3676,15 @@ void SampleEnergyHistogram(int Switch)
       EnergyHistogram=(REAL***)calloc(NumberOfSystems,sizeof(REAL**));
       for(i=0;i<NumberOfSystems;i++)
       {
-        EnergyHistogram[i]=(REAL**)calloc(4,sizeof(REAL*));
-        for(j=0;j<4;j++)
+        EnergyHistogram[i]=(REAL**)calloc(6,sizeof(REAL*));
+        for(j=0;j<6;j++)
           EnergyHistogram[i][j]=(REAL*)calloc(EnergyHistogramSize[i],sizeof(REAL));
       }
       break;
     case INITIALIZE:
       for(i=0;i<NumberOfSystems;i++)
       {
-        for(j=0;j<4;j++)
+        for(j=0;j<6;j++)
           for(k=0;k<EnergyHistogramSize[i];k++)
             EnergyHistogram[i][j][k]=0.0;
       }
@@ -3715,6 +3715,18 @@ void SampleEnergyHistogram(int Switch)
       index=(int)((U-EnergyHistogramLowerLimit[CurrentSystem])*EnergyHistogramSize[CurrentSystem]/Range);
       if(index>=0&&index<EnergyHistogramSize[CurrentSystem])
         EnergyHistogram[CurrentSystem][3][index]+=1.0;
+
+      // Energy host-guest
+      U=(UHostAdsorbate[CurrentSystem]+UHostCation[CurrentSystem])*ENERGY_TO_KELVIN;
+      index=(int)((U-EnergyHistogramLowerLimit[CurrentSystem])*EnergyHistogramSize[CurrentSystem]/Range);
+      if(index>=0&&index<EnergyHistogramSize[CurrentSystem])
+        EnergyHistogram[CurrentSystem][4][index]+=1.0;
+
+      // Energy guest-guest
+      U=(UAdsorbateAdsorbate[CurrentSystem]+UAdsorbateCation[CurrentSystem]+UCationCation[CurrentSystem])*ENERGY_TO_KELVIN;
+      index=(int)((U-EnergyHistogramLowerLimit[CurrentSystem])*EnergyHistogramSize[CurrentSystem]/Range);
+      if(index>=0&&index<EnergyHistogramSize[CurrentSystem])
+        EnergyHistogram[CurrentSystem][5][index]+=1.0;
       break;
     case PRINT:
       if((!ComputeEnergyHistogram[CurrentSystem])||(CurrentCycle%WriteEnergyHistogramEvery[CurrentSystem]!=0)) return;
@@ -3791,11 +3803,45 @@ void SampleEnergyHistogram(int Switch)
           fprintf(FilePtr,"%g %g\n",(double)U,(double)(EnergyHistogram[CurrentSystem][3][k]/norm));
       }
       fclose(FilePtr);
+
+      norm=0.0;
+      for(k=0;k<EnergyHistogramSize[CurrentSystem];k++)
+        norm+=EnergyHistogram[CurrentSystem][4][k];
+      norm*=Range/(REAL)EnergyHistogramSize[CurrentSystem];
+
+      sprintf(buffer,"EnergyHistograms/System_%d/Histogram_HostGuest_Energy_%g%s.dat",CurrentSystem,
+              (double)(therm_baro_stats.ExternalPressure[CurrentSystem][CurrentIsothermPressure]*PRESSURE_CONVERSION_FACTOR),
+              FileNameAppend);
+      FilePtr=fopen(buffer,"w");
+      for(k=0;k<EnergyHistogramSize[CurrentSystem];k++)
+      {
+        U=(REAL)k*(Range/EnergyHistogramSize[CurrentSystem])+EnergyHistogramLowerLimit[CurrentSystem];
+        if(EnergyHistogram[CurrentSystem][4][k]>0.0)
+          fprintf(FilePtr,"%g %g\n",(double)U,(double)(EnergyHistogram[CurrentSystem][4][k]/norm));
+      }
+      fclose(FilePtr);
+
+      norm=0.0;
+      for(k=0;k<EnergyHistogramSize[CurrentSystem];k++)
+        norm+=EnergyHistogram[CurrentSystem][5][k];
+      norm*=Range/(REAL)EnergyHistogramSize[CurrentSystem];
+
+      sprintf(buffer,"EnergyHistograms/System_%d/Histogram_GuestGuest_Energy_%g%s.dat",CurrentSystem,
+              (double)(therm_baro_stats.ExternalPressure[CurrentSystem][CurrentIsothermPressure]*PRESSURE_CONVERSION_FACTOR),
+              FileNameAppend);
+      FilePtr=fopen(buffer,"w");
+      for(k=0;k<EnergyHistogramSize[CurrentSystem];k++)
+      {
+        U=(REAL)k*(Range/EnergyHistogramSize[CurrentSystem])+EnergyHistogramLowerLimit[CurrentSystem];
+        if(EnergyHistogram[CurrentSystem][5][k]>0.0)
+          fprintf(FilePtr,"%g %g\n",(double)U,(double)(EnergyHistogram[CurrentSystem][5][k]/norm));
+      }
+      fclose(FilePtr);
       break;
     case FINALIZE:
       for(i=0;i<NumberOfSystems;i++)
       {
-        for(j=0;j<4;j++)
+        for(j=0;j<6;j++)
           free(EnergyHistogram[i][j]);
         free(EnergyHistogram[i]);
       }
