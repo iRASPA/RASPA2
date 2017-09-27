@@ -10014,18 +10014,18 @@ int CalculateEwaldFourierAdsorbateCF(int NewMolecule,int OldMolecule,int mol,int
           if(NumberOfCationMolecules[CurrentSystem]>0)
           {
             energy_charge_adsorbates_cations+=temp*
-              (NewTotalChargeCations[store][nvec].re*(sum_adsorbates.re-NewTotalChargeAdsorbates[store][nvec].re)
-              +NewTotalChargeCations[store][nvec].im*(sum_adsorbates.im-NewTotalChargeAdsorbates[store][nvec].im));
+              (StoreTotalChargeCations[store][nvec].re*(sum_adsorbates.re-NewTotalChargeAdsorbates[store][nvec].re)
+              +StoreTotalChargeCations[store][nvec].im*(sum_adsorbates.im-NewTotalChargeAdsorbates[store][nvec].im));
 
             energy_charge_bonddipole_adsorbates_cations+=temp*
-              (NewTotalChargeCations[store][nvec].im*(sum_bonddipole_adsorbates.re-NewTotalBondDipolesAdsorbates[store][nvec].re)
-              +NewTotalChargeCations[store][nvec].re*(NewTotalBondDipolesAdsorbates[store][nvec].im-sum_bonddipole_adsorbates.im)
-              +NewTotalBondDipolesCations[store][nvec].re*(sum_adsorbates.im-NewTotalChargeAdsorbates[store][nvec].im)
-              +NewTotalBondDipolesCations[store][nvec].im*(NewTotalChargeAdsorbates[store][nvec].re-sum_adsorbates.re));
+              (StoreTotalChargeCations[store][nvec].im*(sum_bonddipole_adsorbates.re-NewTotalBondDipolesAdsorbates[store][nvec].re)
+              +StoreTotalChargeCations[store][nvec].re*(NewTotalBondDipolesAdsorbates[store][nvec].im-sum_bonddipole_adsorbates.im)
+              +StoreTotalBondDipolesCations[store][nvec].re*(sum_adsorbates.im-NewTotalChargeAdsorbates[store][nvec].im)
+              +StoreTotalBondDipolesCations[store][nvec].im*(NewTotalChargeAdsorbates[store][nvec].re-sum_adsorbates.re));
 
             energy_bonddipole_adsorbates_cations+=temp*
-              (NewTotalBondDipolesCations[store][nvec].re*(sum_bonddipole_adsorbates.re-NewTotalBondDipolesAdsorbates[store][nvec].re)
-              +NewTotalBondDipolesCations[store][nvec].im*(sum_bonddipole_adsorbates.im-NewTotalBondDipolesAdsorbates[store][nvec].im));
+              (StoreTotalBondDipolesCations[store][nvec].re*(sum_bonddipole_adsorbates.re-NewTotalBondDipolesAdsorbates[store][nvec].re)
+              +StoreTotalBondDipolesCations[store][nvec].im*(sum_bonddipole_adsorbates.im-NewTotalBondDipolesAdsorbates[store][nvec].im));
           }
 
           // store the new sums, these will be the current ones on acceptance of the mc-move
@@ -10284,6 +10284,7 @@ int CalculateEwaldFourierAdsorbateCF(int NewMolecule,int OldMolecule,int mol,int
     UAdsorbateCationBondDipoleBondDipoleFourierDelta[CurrentSystem]=2.0*energy_bonddipole_adsorbates_cations;
     UAdsorbateCationChargeChargeFourierDelta[CurrentSystem]+=2.0*UIon[CurrentSystem]*NetChargeCations[CurrentSystem]*(NetChargeAdsorbates[CurrentSystem]+NetChargeAdsorbateDelta)-
                                                              2.0*UIon[CurrentSystem]*NetChargeCations[CurrentSystem]*(NetChargeAdsorbates[CurrentSystem]);
+
   }
 
   UHostAdsorbateChargeChargeFourierDelta[CurrentSystem]=2.0*energy_charge_framework_adsorbates;
