@@ -2153,6 +2153,12 @@ int ReadInput(char *input)
             Ensemble[index]=InitEnsemble[index]=RunEnsemble[index]=NPTPR;
           if(strcasecmp("NPHPR",keyword)==0)
             Ensemble[index]=InitEnsemble[index]=RunEnsemble[index]=NPHPR;
+          if(strcasecmp("MuPT",keyword)==0)
+            Ensemble[index]=InitEnsemble[index]=RunEnsemble[index]=MuPT;
+          if(strcasecmp("MuVT",keyword)==0)
+            Ensemble[index]=InitEnsemble[index]=RunEnsemble[index]=MuVT;
+          if(strcasecmp("MuPTPR",keyword)==0)
+            Ensemble[index]=InitEnsemble[index]=RunEnsemble[index]=MuPTPR;
           if(strcasecmp("NPTPR_ISO",keyword)==0) {Ensemble[index]=InitEnsemble[index]=RunEnsemble[index]=NPTPR; NPTPRCellType[index]=ISOTROPIC;}
           if(strcasecmp("NPTPR_ANISO",keyword)==0) {Ensemble[index]=InitEnsemble[index]=RunEnsemble[index]=NPTPR; NPTPRCellType[index]=ANISOTROPIC;}
           if(strcasecmp("NPTPR_MONO",keyword)==0) {Ensemble[index]=InitEnsemble[index]=RunEnsemble[index]=NPTPR; NPTPRCellType[index]=MONOCLINIC;}
@@ -2176,6 +2182,9 @@ int ReadInput(char *input)
           if(strcasecmp("NPH",keyword)==0) InitEnsemble[index]=NPH;
           if(strcasecmp("NPTPR",keyword)==0) InitEnsemble[index]=NPTPR;
           if(strcasecmp("NPHPR",keyword)==0) InitEnsemble[index]=NPHPR;
+          if(strcasecmp("MuPT",keyword)==0) InitEnsemble[index]=MuPT;
+          if(strcasecmp("MuVT",keyword)==0) InitEnsemble[index]=MuVT;
+          if(strcasecmp("MuPTPR",keyword)==0) InitEnsemble[index]=MuPTPR;
           if(strcasecmp("NPTPR_ISO",keyword)==0) {InitEnsemble[index]=NPTPR; NPTPRCellType[index]=ISOTROPIC;}
           if(strcasecmp("NPTPR_ANISO",keyword)==0) {InitEnsemble[index]=NPTPR; NPTPRCellType[index]=ANISOTROPIC;}
           if(strcasecmp("NPTPR_MONO",keyword)==0) {InitEnsemble[index]=NPTPR; NPTPRCellType[index]=MONOCLINIC;}
@@ -2198,6 +2207,9 @@ int ReadInput(char *input)
           if(strcasecmp("NPH",keyword)==0) RunEnsemble[index]=NPH;
           if(strcasecmp("NPTPR",keyword)==0) RunEnsemble[index]=NPTPR;
           if(strcasecmp("NPHPR",keyword)==0) RunEnsemble[index]=NPHPR;
+          if(strcasecmp("MuPT",keyword)==0) RunEnsemble[index]=MuPT;
+          if(strcasecmp("MuVT",keyword)==0) RunEnsemble[index]=MuVT;
+          if(strcasecmp("MuPTPR",keyword)==0) RunEnsemble[index]=MuPTPR;
           if(strcasecmp("NPTPR_ISO",keyword)==0) {RunEnsemble[index]=NPTPR; NPTPRCellType[index]=ISOTROPIC;}
           if(strcasecmp("NPTPR_ANISO",keyword)==0) {RunEnsemble[index]=NPTPR; NPTPRCellType[index]=ANISOTROPIC;}
           if(strcasecmp("NPTPR_MONO",keyword)==0) {RunEnsemble[index]=NPTPR; NPTPRCellType[index]=MONOCLINIC;}

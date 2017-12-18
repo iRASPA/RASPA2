@@ -1273,6 +1273,7 @@ void Integration(void)
   switch(Ensemble[CurrentSystem])
   {
     case NPTPR:
+    case MuPTPR:
       NoseHooverNPTPR();
 
       if(DegreesOfFreedomRotation[CurrentSystem]>0)
@@ -1285,18 +1286,6 @@ void Integration(void)
 
       // evolve the part of rigid bodies involving free rotation
       NoSquishFreeRotorOrderTwo();
-
-      if(Ensemble[CurrentSystem]==MuPT)
-      {
-        CurrentComponent=(int)(RandomNumber()*(REAL)NumberOfComponents);
-        if((CurrentCycle%(Components[CurrentComponent].SwapEvery)==0)&&
-           (Components[CurrentComponent].FractionOfSwapMove>0.0))
-        {
-          if(RandomNumber()<0.5) SwapAddMove();
-          else SwapRemoveMove();
-        }
-      }
-
 
       // compute the forces on all the atoms
       CalculateForce();
@@ -1319,17 +1308,6 @@ void Integration(void)
 
       // evolve the part of rigid bodies involving free rotation
       NoSquishFreeRotorOrderTwo();
-
-      if(Ensemble[CurrentSystem]==MuPT)
-      {
-        CurrentComponent=(int)(RandomNumber()*(REAL)NumberOfComponents);
-        if((CurrentCycle%(Components[CurrentComponent].SwapEvery)==0)&&
-           (Components[CurrentComponent].FractionOfSwapMove>0.0))
-        {
-          if(RandomNumber()<0.5) SwapAddMove();
-          else SwapRemoveMove();
-        }
-      }
 
       // store the structure-factors for the Ewald-summations
       if((ChargeMethod==EWALD)&&(!OmitEwaldFourier))
@@ -1405,17 +1383,6 @@ void Integration(void)
       // evolve the part of rigid bodies involving free rotation
       NoSquishFreeRotorOrderTwo();
 
-      if(Ensemble[CurrentSystem]==MuPT)
-      {
-        CurrentComponent=(int)(RandomNumber()*(REAL)NumberOfComponents);
-        if((CurrentCycle%(Components[CurrentComponent].SwapEvery)==0)&&
-           (Components[CurrentComponent].FractionOfSwapMove>0.0))
-        {
-          if(RandomNumber()<0.5) SwapAddMove();
-          else SwapRemoveMove();
-        }
-      }
-
       // compute the forces on all the atoms
       CalculateForce();
 
@@ -1442,6 +1409,7 @@ void Integration(void)
       NoseHooverNPT();
       break;
     case NVT:
+    case MuVT:
       if(Framework[CurrentSystem].FrameworkModel==FLEXIBLE)
         NoseHooverNVTFramework();
 
@@ -1465,17 +1433,6 @@ void Integration(void)
 
       // evolve the part of rigid bodies involving free rotation
       NoSquishFreeRotorOrderTwo();
-
-      if(Ensemble[CurrentSystem]==MuPT)
-      {
-        CurrentComponent=(int)(RandomNumber()*(REAL)NumberOfComponents);
-        if((CurrentCycle%(Components[CurrentComponent].SwapEvery)==0)&&
-           (Components[CurrentComponent].FractionOfSwapMove>0.0))
-        {
-          if(RandomNumber()<0.5) SwapAddMove();
-          else SwapRemoveMove();
-        }
-      }
 
       // compute the forces on all the atoms
       CalculateForce();
@@ -1513,17 +1470,6 @@ void Integration(void)
 
       // evolve the part of rigid bodies involving free rotation
       NoSquishFreeRotorOrderTwo();
-
-      if(Ensemble[CurrentSystem]==MuPT)
-      {
-        CurrentComponent=(int)(RandomNumber()*(REAL)NumberOfComponents);
-        if((CurrentCycle%(Components[CurrentComponent].SwapEvery)==0)&&
-           (Components[CurrentComponent].FractionOfSwapMove>0.0))
-        {
-          if(RandomNumber()<0.5) SwapAddMove();
-          else SwapRemoveMove();
-        }
-      }
 
       // compute the forces on all the atoms
       CalculateForce();

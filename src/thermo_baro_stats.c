@@ -417,6 +417,7 @@ void InitializeNoseHooverCurrentSystem(void)
   switch(Ensemble[CurrentSystem])
   {
     case NPTPR:
+    case MuPTPR:
     case NPHPR:
       switch(NPTPRCellType[CurrentSystem])
       {
@@ -527,6 +528,7 @@ void InitializeNoseHooverCurrentSystem(void)
       LnVolumeVelocity[CurrentSystem]=RandomGaussianNumber()*sqrt(K_B*therm_baro_stats.ExternalTemperature[CurrentSystem]/LnVolumeMass[CurrentSystem]);
       break;
     case NPTPR:
+    case MuPTPR:
     case NPHPR:
       CellVelocity[CurrentSystem].ax=RandomGaussianNumber()*sqrt(K_B*therm_baro_stats.ExternalTemperature[CurrentSystem]/CellMass[CurrentSystem]);
       CellVelocity[CurrentSystem].ay=RandomGaussianNumber()*sqrt(K_B*therm_baro_stats.ExternalTemperature[CurrentSystem]/CellMass[CurrentSystem]);
@@ -641,6 +643,7 @@ void InitializeNoseHooverAllSystems(void)
     switch(Ensemble[CurrentSystem])
     {
       case NPTPR:
+      case MuPTPR:
       case NPHPR:
         switch(NPTPRCellType[CurrentSystem])
         {
@@ -783,10 +786,12 @@ void InitializeNoseHooverAllSystems(void)
     switch(Ensemble[CurrentSystem])
     {
       case NPT:
+      case MuPT:
       case NPH:
         LnVolumeVelocity[CurrentSystem]=RandomGaussianNumber()*sqrt(K_B*therm_baro_stats.ExternalTemperature[CurrentSystem]/LnVolumeMass[CurrentSystem]);
         break;
       case NPTPR:
+      case MuPTPR:
       case NPHPR:
         switch(NPTPRCellType[CurrentSystem])
         {
@@ -878,6 +883,7 @@ void ComputeNoseHooverEnergySystem(void)
                  K_B*therm_baro_stats.ExternalTemperature[CurrentSystem]*BarostatPosition[CurrentSystem][i];
       // fall through
     case NVT:
+    case MuVT:
       if(DegreesOfFreedomFramework[CurrentSystem]>0)
       {
         UNoseHoover[CurrentSystem]+=0.5*SQR(ThermostatVelocityTranslationFramework[CurrentSystem][0])*
@@ -927,6 +933,7 @@ void ComputeNoseHooverEnergySystem(void)
       }
       break;
     case NPTPR:
+    case MuPTPR:
       UNoseHoover[CurrentSystem]=therm_baro_stats.ExternalPressure[CurrentSystem][0]*Volume[CurrentSystem];
 
       UNoseHoover[CurrentSystem]+=0.5*CellMass[CurrentSystem]*
@@ -1029,7 +1036,9 @@ void UpdateVelocities(void)
       break;
     case NVE:
     case NVT:
+    case MuVT:
     case NPTPR:
+    case MuPTPR:
     case NPHPR:
     default:
       aa=1.0;
@@ -1168,6 +1177,7 @@ void UpdatePositions(void)
       break;
     case NVE:
     case NVT:
+    case MuVT:
     default:
       aa=1.0;
       aa2=1.0;
@@ -1601,11 +1611,13 @@ REAL GetCellTemperature(void)
   switch(Ensemble[CurrentSystem])
   {
     case NPT:
+    case MuPT:
     case NPH:
       UKineticCell=0.5*LnVolumeMass[CurrentSystem]*SQR(LnVolumeVelocity[CurrentSystem]);
       T=2.0*UKineticCell/K_B;
       break;
     case NPTPR:
+    case MuPTPR:
     case NPHPR:
       UKineticCell=0.5*CellMass[CurrentSystem]*
          (SQR(CellVelocity[CurrentSystem].ax)+SQR(CellVelocity[CurrentSystem].ay)+SQR(CellVelocity[CurrentSystem].az)+

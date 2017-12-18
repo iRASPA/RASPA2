@@ -3168,7 +3168,11 @@ void InsertAdsorbateMolecule(void)
       DegreesOfFreedom[CurrentSystem]+=3*Components[CurrentComponent].Groups[i].NumberOfGroupAtoms;
     }
   }
-  //InitializeNoseHooverCurrentSystem();
+// reinitialize the Nose-Hoover internal variables based on the current number of molecules for MuPT, MuPTPR and MuVT ensembles 
+  if((Ensemble[CurrentSystem]==MuPT)||(Ensemble[CurrentSystem]==MuPTPR)||(Ensemble[CurrentSystem]==MuVT))
+  {
+    InitializeNoseHooverCurrentSystem();
+  }
 }
 
 void RemoveAdsorbateMolecule(void)
@@ -3256,7 +3260,11 @@ void RemoveAdsorbateMolecule(void)
       DegreesOfFreedom[CurrentSystem]-=3*Components[CurrentComponent].Groups[i].NumberOfGroupAtoms;
     }
   }
-  //InitializeNoseHooverCurrentSystem();
+// reinitialize the Nose-Hoover internal variables based on the current number of molecules for MuPT, MuPTPR and MuVT ensembles 
+  if((Ensemble[CurrentSystem]==MuPT)||(Ensemble[CurrentSystem]==MuPTPR)||(Ensemble[CurrentSystem]==MuVT))
+  {
+    InitializeNoseHooverCurrentSystem();
+  }
 }
 
 

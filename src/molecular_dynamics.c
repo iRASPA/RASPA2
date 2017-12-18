@@ -297,8 +297,8 @@ void MolecularDynamicsSimulation(void)
         PrintRestartFile();
       }
 
-      // insertion/deletion for the osmotic-ensemble
-      if(Ensemble[CurrentSystem]==MuPT)
+      // particle insertion/deletion move for the osmotic-ensemble(MuPT), anisotropic osmotic-ensemble (MuPTPR) and MuVT ensemble
+      if((Ensemble[CurrentSystem]==MuPT)||(Ensemble[CurrentSystem]==MuPTPR)||(Ensemble[CurrentSystem]==MuVT))
       {
         CurrentComponent=(int)(RandomNumber()*NumberOfComponents);
         if((CurrentCycle%(Components[CurrentComponent].SwapEvery)==0)&&
@@ -387,8 +387,8 @@ void MolecularDynamicsSimulation(void)
         PrintRestartFile();
       }
 
-      // insertion/deletion for the osmotic-ensemble
-      if(Ensemble[CurrentSystem]==MuPT)
+      // particle insertion/deletion move for the osmotic-ensemble(MuPT), anisotropic osmotic-ensemble (MuPTPR) and MuVT ensemble
+      if((Ensemble[CurrentSystem]==MuPT)||(Ensemble[CurrentSystem]==MuPTPR)||(Ensemble[CurrentSystem]==MuVT))
       {
         CurrentComponent=(int)(RandomNumber()*NumberOfComponents);
         if((CurrentCycle%(Components[CurrentComponent].SwapEvery)==0)&&

@@ -252,7 +252,7 @@ void PrintPreSimulationStatusCurrentSystem(int system)
   fprintf(FilePtr,"Compiler and run-time data\n");
   fprintf(FilePtr,"===========================================================================\n");
 
-  fprintf(FilePtr,"%s\n","RASPA 2.0.26");
+  fprintf(FilePtr,"%s\n","RASPA 2.0.27");
 
   #if defined (__LP64__) || defined (__64BIT__) || defined (_LP64) || (__WORDSIZE == 64)
     fprintf(FilePtr,"Compiled as a 64-bits application\n");
@@ -380,7 +380,11 @@ void PrintPreSimulationStatusCurrentSystem(int system)
     case MuPT:
       fprintf(FilePtr,"Initialization Ensemble: MuPT (constant chemical potential mu, constant average pressure P, constant average temperature T)\n");
       break;
+    case MuVT:
+      fprintf(FilePtr,"Initialization Ensemble: MuVT (constant chemical potential mu, constant volume V, constant average temperature T)\n");
+      break;
     case NPTPR:
+    case MuPTPR:
       switch(NPTPRCellType[system])
       {
         case REGULAR:
@@ -517,7 +521,11 @@ void PrintPreSimulationStatusCurrentSystem(int system)
     case MuPT:
       fprintf(FilePtr,"Production run ensemble: MuPT (constant chemical potential mu, constant average pressure P, constant average temperature T)\n");
       break;
+    case MuVT:
+      fprintf(FilePtr,"Production run ensemble: MuVT (constant chemical potential mu, constant volume V, constant average temperature T)\n");
+      break;
     case NPTPR:
+    case MuPTPR:
       switch(NPTPRCellType[system])
       {
         case REGULAR:
