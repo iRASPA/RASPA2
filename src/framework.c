@@ -4048,7 +4048,7 @@ void ExpandAsymmetricFrameworkToFullFramework(void)
   int k1,k2,k3;
   int index,insert_index;
   int Type;
-  VECTOR dr,pos;
+  VECTOR dr,ds,pos;
   REAL rr;
   REAL charge;
 
@@ -4106,15 +4106,16 @@ void ExpandAsymmetricFrameworkToFullFramework(void)
             index=-1;
             for(k=0;k<insert_index;k++)
             {
-              dr.x=Framework[CurrentSystem].Atoms[CurrentFramework][k].Position.x-pos.x;
-              dr.y=Framework[CurrentSystem].Atoms[CurrentFramework][k].Position.y-pos.y;
-              dr.z=Framework[CurrentSystem].Atoms[CurrentFramework][k].Position.z-pos.z;
-              dr.x-=NINT(dr.x);
-              dr.y-=NINT(dr.y);
-              dr.z-=NINT(dr.z);
+              ds.x=Framework[CurrentSystem].Atoms[CurrentFramework][k].Position.x-pos.x;
+              ds.y=Framework[CurrentSystem].Atoms[CurrentFramework][k].Position.y-pos.y;
+              ds.z=Framework[CurrentSystem].Atoms[CurrentFramework][k].Position.z-pos.z;
+              ds.x-=NINT(ds.x);
+              ds.y-=NINT(ds.y);
+              ds.z-=NINT(ds.z);
 
+              dr=ConvertFromABCtoXYZ(ds); 
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
-              if(rr<1e-4) index=k;
+              if(rr<1e-3) index=k;
             }
 
             // the symmetry position is new -> insert it as a framework atom
@@ -4193,7 +4194,7 @@ void ExpandAsymmetricIonsToFullCell(void)
   int k1,k2,k3;
   int index,insert_index;
   int Type;
-  VECTOR dr,pos;
+  VECTOR dr,ds,pos;
   REAL rr;
 
   // allocate memory for an initial maximum of 1024 atoms, reallocate more when needed
@@ -4241,14 +4242,16 @@ void ExpandAsymmetricIonsToFullCell(void)
             index=-1;
             for(k=0;k<insert_index;k++)
             {
-              dr.x=Framework[CurrentSystem].Ions[k].Position.x-pos.x;
-              dr.y=Framework[CurrentSystem].Ions[k].Position.y-pos.y;
-              dr.z=Framework[CurrentSystem].Ions[k].Position.z-pos.z;
-              dr.x-=NINT(dr.x);
-              dr.y-=NINT(dr.y);
-              dr.z-=NINT(dr.z);
+              ds.x=Framework[CurrentSystem].Ions[k].Position.x-pos.x;
+              ds.y=Framework[CurrentSystem].Ions[k].Position.y-pos.y;
+              ds.z=Framework[CurrentSystem].Ions[k].Position.z-pos.z;
+              ds.x-=NINT(ds.x);
+              ds.y-=NINT(ds.y);
+              ds.z-=NINT(ds.z);
+
+              dr=ConvertFromABCtoXYZ(ds);
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
-              if(rr<1e-4) index=k;
+              if(rr<1e-3) index=k;
             }
 
             // the symmetry position is new -> insert it as a framework atom
