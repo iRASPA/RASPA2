@@ -3000,11 +3000,11 @@ void ReadComponentDefinition(int comp)
         B2=Components[comp].Bends[k].B;
         C2=Components[comp].Bends[k].C;
 
-        // case 1
+        // 4 cases
         if((B1==A2)&&(C1==B2)&&(((A1==A)&&(C2==B))||((A1==B)&&(C2==A)))) Components[comp].IntraVDWScaling[i]=Components[comp].Intra14VDWScalingValue;
-        if((B1==C2)&&(C1==B2)&&(((A1==A)&&(C2==B))||((A1==B)&&(C2==A)))) Components[comp].IntraVDWScaling[i]=Components[comp].Intra14VDWScalingValue;
+        if((B1==C2)&&(C1==B2)&&(((A1==A)&&(A2==B))||((A1==B)&&(A2==A)))) Components[comp].IntraVDWScaling[i]=Components[comp].Intra14VDWScalingValue;
         if((A1==B2)&&(B1==A2)&&(((C1==A)&&(C2==B))||((C1==B)&&(C2==A)))) Components[comp].IntraVDWScaling[i]=Components[comp].Intra14VDWScalingValue;
-        if((A1==B2)&&(B1==C2)&&(((C1==A)&&(C2==B))||((C1==B)&&(C2==A)))) Components[comp].IntraVDWScaling[i]=Components[comp].Intra14VDWScalingValue;
+        if((A1==B2)&&(B1==C2)&&(((C1==A)&&(A2==B))||((C1==B)&&(A2==A)))) Components[comp].IntraVDWScaling[i]=Components[comp].Intra14VDWScalingValue;
       }
     }
   }
@@ -3029,11 +3029,11 @@ void ReadComponentDefinition(int comp)
         B2=Components[comp].Bends[k].B;
         C2=Components[comp].Bends[k].C;
 
-        // case 1
+        // 4 cases
         if((B1==A2)&&(C1==B2)&&(((A1==A)&&(C2==B))||((A1==B)&&(C2==A)))) Components[comp].IntraChargeChargeScaling[i]=Components[comp].Intra14ChargeChargeScalingValue;
-        if((B1==C2)&&(C1==B2)&&(((A1==A)&&(C2==B))||((A1==B)&&(C2==A)))) Components[comp].IntraChargeChargeScaling[i]=Components[comp].Intra14ChargeChargeScalingValue;
+        if((B1==C2)&&(C1==B2)&&(((A1==A)&&(A2==B))||((A1==B)&&(A2==A)))) Components[comp].IntraChargeChargeScaling[i]=Components[comp].Intra14ChargeChargeScalingValue;
         if((A1==B2)&&(B1==A2)&&(((C1==A)&&(C2==B))||((C1==B)&&(C2==A)))) Components[comp].IntraChargeChargeScaling[i]=Components[comp].Intra14ChargeChargeScalingValue;
-        if((A1==B2)&&(B1==C2)&&(((C1==A)&&(C2==B))||((C1==B)&&(C2==A)))) Components[comp].IntraChargeChargeScaling[i]=Components[comp].Intra14ChargeChargeScalingValue;
+        if((A1==B2)&&(B1==C2)&&(((C1==A)&&(A2==B))||((C1==B)&&(A2==A)))) Components[comp].IntraChargeChargeScaling[i]=Components[comp].Intra14ChargeChargeScalingValue;
       }
     }
   }
