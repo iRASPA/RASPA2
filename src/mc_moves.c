@@ -12795,22 +12795,12 @@ int GibbsIdentityChangeAdsorbateMove(void)
      (Components[ComponentB].NumberOfMolecules[BoxII]==0)) return 0;
 
   // choose a random molecule of the 'Old'-component in box I
-  d=(int)(RandomNumber()*(REAL)Components[ComponentA].NumberOfMolecules[BoxI]);
-  count=-1;
-  CurrentCationMolecule=-1;
-  AdsorbateMoleculeA=-1;
-  do   // search for d-th molecule of the right type
-    if(Adsorbates[BoxI][++AdsorbateMoleculeA].Type==ComponentA) count++;
-  while(d!=count);
+  CurrentSystem = BoxI;
+  AdsorbateMoleculeA=SelectRandomMoleculeOfTypeExcludingFractionalMolecule(ComponentA);
 
   // choose a random molecule of the 'New'-component in box II
-  d=(int)(RandomNumber()*(REAL)Components[ComponentB].NumberOfMolecules[BoxII]);
-  count=-1;
-  CurrentCationMolecule=-1;
-  AdsorbateMoleculeB=-1;
-  do   // search for d-th molecule of the right type
-    if(Adsorbates[BoxII][++AdsorbateMoleculeB].Type==ComponentB) count++;
-  while(d!=count);
+  CurrentSystem = BoxII;
+  AdsorbateMoleculeB=SelectRandomMoleculeOfTypeExcludingFractionalMolecule(ComponentB);
 
   // in box A an attempt is made to change a molecule of type A into B
   CurrentSystem=BoxI;
@@ -13033,6 +13023,10 @@ int GibbsIdentityChangeAdsorbateMove(void)
       }
     }
 
+
+
+
+
     // register the changes in the energies for system B
     UAdsorbateBond[BoxII]+=UBondNew[BoxII]-UBondOld[BoxII];
     UAdsorbateUreyBradley[BoxII]+=UUreyBradleyNew[BoxII]-UUreyBradleyOld[BoxII];
@@ -13130,6 +13124,12 @@ int GibbsIdentityChangeAdsorbateMove(void)
       type=Components[ComponentB].Type[i];
       Adsorbates[BoxI][AdsorbateMoleculeA].Atoms[i].Type=type;
       Adsorbates[BoxI][AdsorbateMoleculeA].Atoms[i].Charge=Components[ComponentB].Charge[i];
+      Adsorbates[BoxI][AdsorbateMoleculeA].Atoms[i].AnisotropicPosition=TrialAnisotropicPosition[BoxI][i];
+      Adsorbates[BoxI][AdsorbateMoleculeA].Atoms[i].Fixed.x=Components[ComponentB].Fixed[i];
+      Adsorbates[BoxI][AdsorbateMoleculeA].Atoms[i].Fixed.y=Components[ComponentB].Fixed[i];
+      Adsorbates[BoxI][AdsorbateMoleculeA].Atoms[i].Fixed.z=Components[ComponentB].Fixed[i];
+      Adsorbates[BoxI][AdsorbateMoleculeA].Atoms[i].CFVDWScalingParameter=1.0;
+      Adsorbates[BoxI][AdsorbateMoleculeA].Atoms[i].CFChargeScalingParameter=1.0;
       NumberOfPseudoAtomsType[BoxI][type]++;
     }
 
@@ -13151,7 +13151,89 @@ int GibbsIdentityChangeAdsorbateMove(void)
       type=Components[ComponentA].Type[i];
       Adsorbates[BoxII][AdsorbateMoleculeB].Atoms[i].Type=type;
       Adsorbates[BoxII][AdsorbateMoleculeB].Atoms[i].Charge=Components[ComponentA].Charge[i];
+      Adsorbates[BoxII][AdsorbateMoleculeB].Atoms[i].AnisotropicPosition=TrialAnisotropicPosition[BoxII][i];
+      Adsorbates[BoxII][AdsorbateMoleculeB].Atoms[i].Fixed.x=Components[ComponentA].Fixed[i];
+      Adsorbates[BoxII][AdsorbateMoleculeB].Atoms[i].Fixed.y=Components[ComponentA].Fixed[i];
+      Adsorbates[BoxII][AdsorbateMoleculeB].Atoms[i].Fixed.z=Components[ComponentA].Fixed[i];
+      Adsorbates[BoxII][AdsorbateMoleculeB].Atoms[i].CFVDWScalingParameter=1.0;
+      Adsorbates[BoxII][AdsorbateMoleculeB].Atoms[i].CFChargeScalingParameter=1.0;
       NumberOfPseudoAtomsType[BoxII][type]++;
+    }
+
+    // modify the degrees of freedom
+    for(i=0;i<Components[ComponentB].NumberOfGroups;i++)
+    {
+      if(Components[ComponentB].Groups[i].Rigid)
+      {
+        DegreesOfFreedomAdsorbates[BoxI]+=3;
+        DegreesOfFreedomTranslation[BoxI]+=3;
+        DegreesOfFreedomTranslationalAdsorbates[BoxI]+=3;
+        DegreesOfFreedom[BoxI]+=3;
+
+        DegreesOfFreedomRotation[BoxI]+=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomAdsorbates[BoxI]+=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomRotationalAdsorbates[BoxI]+=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedom[BoxI]+=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+
+        DegreesOfFreedomAdsorbates[BoxII]-=3;
+        DegreesOfFreedomTranslation[BoxII]-=3;
+        DegreesOfFreedomTranslationalAdsorbates[BoxII]-=3;
+        DegreesOfFreedom[BoxII]-=3;
+
+        DegreesOfFreedomRotation[BoxII]-=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomAdsorbates[BoxII]-=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomRotationalAdsorbates[BoxII]-=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedom[BoxII]-=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+      }
+      else
+      {
+        DegreesOfFreedomTranslation[BoxI]+=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomAdsorbates[BoxI]+=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomTranslationalAdsorbates[BoxI]+=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedom[BoxI]+=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+
+        DegreesOfFreedomTranslation[BoxII]-=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomAdsorbates[BoxII]-=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomTranslationalAdsorbates[BoxII]-=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedom[BoxII]-=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+      }
+    }
+    for(i=0;i<Components[ComponentA].NumberOfGroups;i++)
+    {
+      if(Components[ComponentA].Groups[i].Rigid)
+      {
+        DegreesOfFreedomAdsorbates[BoxI]-=3;
+        DegreesOfFreedomTranslation[BoxI]-=3;
+        DegreesOfFreedomTranslationalAdsorbates[BoxI]-=3;
+        DegreesOfFreedom[BoxI]-=3;
+
+        DegreesOfFreedomRotation[BoxI]-=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomAdsorbates[BoxI]-=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomRotationalAdsorbates[BoxI]-=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedom[BoxI]-=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+
+        DegreesOfFreedomAdsorbates[BoxII]+=3;
+        DegreesOfFreedomTranslation[BoxII]+=3;
+        DegreesOfFreedomTranslationalAdsorbates[BoxII]+=3;
+        DegreesOfFreedom[BoxII]+=3;
+
+        DegreesOfFreedomRotation[BoxII]+=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomAdsorbates[BoxII]+=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomRotationalAdsorbates[BoxII]+=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedom[BoxII]+=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+      }
+      else
+      {
+        DegreesOfFreedomTranslation[BoxI]-=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomAdsorbates[BoxI]-=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomTranslationalAdsorbates[BoxI]-=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedom[BoxI]-=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+
+        DegreesOfFreedomTranslation[BoxII]+=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomAdsorbates[BoxII]+=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomTranslationalAdsorbates[BoxII]+=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedom[BoxII]+=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+      }
     }
 
 
@@ -13170,6 +13252,7 @@ int GibbsIdentityChangeAdsorbateMove(void)
     UpdateGroupCenterOfMassAdsorbate(AdsorbateMoleculeB);
 
     // recompute the total energy
+    CurrentSystem=BoxI;
     UTotal[BoxI]=
          // inter
          UHostHost[CurrentSystem]+UCationCation[CurrentSystem]+UAdsorbateAdsorbate[CurrentSystem]+
@@ -13198,6 +13281,7 @@ int GibbsIdentityChangeAdsorbateMove(void)
          // tailcorrection
          UTailCorrection[CurrentSystem];
 
+    CurrentSystem=BoxII;
     UTotal[BoxII]=
          // inter
          UHostHost[CurrentSystem]+UCationCation[CurrentSystem]+UAdsorbateAdsorbate[CurrentSystem]+
@@ -13428,11 +13512,10 @@ int GibbsIdentityChangeCationMove(void)
 
   RosenbluthIdealNew=RosenbluthIdealOld=1.0;
 
-
   // acceptance-rule
   if(RandomNumber()<((PreFactorA*PreFactorB*RosenbluthNewA*RosenbluthNewB/(RosenbluthIdealNew*RosenbluthIdealOld*RosenbluthOldA*RosenbluthOldB))*
-                    ((REAL)Components[BoxI].NumberOfMolecules[BoxI]*(REAL)Components[BoxII].NumberOfMolecules[BoxII])/
-                    (((REAL)Components[BoxI].NumberOfMolecules[BoxII]+1.0)*((REAL)Components[BoxII].NumberOfMolecules[BoxI]+1.0))))
+                    ((REAL)Components[ComponentA].NumberOfMolecules[BoxI]*(REAL)Components[ComponentB].NumberOfMolecules[BoxII])/
+                    (((REAL)Components[ComponentA].NumberOfMolecules[BoxII]+1.0)*((REAL)Components[ComponentB].NumberOfMolecules[BoxI]+1.0))))
   {
     // register an succesfull growth/retrace after acceptance
     GibbsIdentityChangeAccepted[BoxI][ComponentA][ComponentB][1]+=1.0;
@@ -13612,6 +13695,12 @@ int GibbsIdentityChangeCationMove(void)
       type=Components[ComponentB].Type[i];
       Cations[BoxI][CationMoleculeA].Atoms[i].Type=type;
       Cations[BoxI][CationMoleculeA].Atoms[i].Charge=Components[ComponentB].Charge[i];
+      Cations[BoxI][CationMoleculeA].Atoms[i].AnisotropicPosition=TrialAnisotropicPosition[BoxI][i];
+      Cations[BoxI][CationMoleculeA].Atoms[i].Fixed.x=Components[ComponentB].Fixed[i];
+      Cations[BoxI][CationMoleculeA].Atoms[i].Fixed.y=Components[ComponentB].Fixed[i];
+      Cations[BoxI][CationMoleculeA].Atoms[i].Fixed.z=Components[ComponentB].Fixed[i];
+      Cations[BoxI][CationMoleculeA].Atoms[i].CFVDWScalingParameter=1.0;
+      Cations[BoxI][CationMoleculeA].Atoms[i].CFChargeScalingParameter=1.0;
       NumberOfPseudoAtomsType[BoxI][type]++;
     }
 
@@ -13633,9 +13722,90 @@ int GibbsIdentityChangeCationMove(void)
       type=Components[ComponentA].Type[i];
       Cations[BoxII][CationMoleculeB].Atoms[i].Type=type;
       Cations[BoxII][CationMoleculeB].Atoms[i].Charge=Components[ComponentA].Charge[i];
+      Cations[BoxII][CationMoleculeB].Atoms[i].AnisotropicPosition=TrialAnisotropicPosition[BoxII][i];
+      Cations[BoxII][CationMoleculeB].Atoms[i].Fixed.x=Components[ComponentA].Fixed[i];
+      Cations[BoxII][CationMoleculeB].Atoms[i].Fixed.y=Components[ComponentA].Fixed[i];
+      Cations[BoxII][CationMoleculeB].Atoms[i].Fixed.z=Components[ComponentA].Fixed[i];
+      Cations[BoxII][CationMoleculeB].Atoms[i].CFVDWScalingParameter=1.0;
+      Cations[BoxII][CationMoleculeB].Atoms[i].CFChargeScalingParameter=1.0;
       NumberOfPseudoAtomsType[BoxII][type]++;
     }
 
+    // modify the degrees of freedom
+    for(i=0;i<Components[ComponentB].NumberOfGroups;i++)
+    {
+      if(Components[ComponentB].Groups[i].Rigid)
+      {
+        DegreesOfFreedomCations[BoxI]+=3;
+        DegreesOfFreedomTranslation[BoxI]+=3;
+        DegreesOfFreedomTranslationalCations[BoxI]+=3;
+        DegreesOfFreedom[BoxI]+=3;
+
+        DegreesOfFreedomRotation[BoxI]+=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomCations[BoxI]+=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomRotationalCations[BoxI]+=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedom[BoxI]+=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+
+        DegreesOfFreedomCations[BoxII]-=3;
+        DegreesOfFreedomTranslation[BoxII]-=3;
+        DegreesOfFreedomTranslationalCations[BoxII]-=3;
+        DegreesOfFreedom[BoxII]-=3;
+
+        DegreesOfFreedomRotation[BoxII]-=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomCations[BoxII]-=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomRotationalCations[BoxII]-=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedom[BoxII]-=Components[ComponentB].Groups[i].RotationalDegreesOfFreedom;
+      }
+      else
+      {
+        DegreesOfFreedomTranslation[BoxI]+=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomCations[BoxI]+=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomTranslationalCations[BoxI]+=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedom[BoxI]+=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+
+        DegreesOfFreedomTranslation[BoxII]-=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomCations[BoxII]-=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomTranslationalCations[BoxII]-=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedom[BoxII]-=3*Components[ComponentB].Groups[i].NumberOfGroupAtoms;
+      }
+    }
+    for(i=0;i<Components[ComponentA].NumberOfGroups;i++)
+    {
+      if(Components[ComponentA].Groups[i].Rigid)
+      {
+        DegreesOfFreedomCations[BoxI]-=3;
+        DegreesOfFreedomTranslation[BoxI]-=3;
+        DegreesOfFreedomTranslationalCations[BoxI]-=3;
+        DegreesOfFreedom[BoxI]-=3;
+
+        DegreesOfFreedomRotation[BoxI]-=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomCations[BoxI]-=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomRotationalCations[BoxI]-=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedom[BoxI]-=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+
+        DegreesOfFreedomCations[BoxII]+=3;
+        DegreesOfFreedomTranslation[BoxII]+=3;
+        DegreesOfFreedomTranslationalCations[BoxII]+=3;
+        DegreesOfFreedom[BoxII]+=3;
+
+        DegreesOfFreedomRotation[BoxII]+=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomCations[BoxII]+=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedomRotationalCations[BoxII]+=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+        DegreesOfFreedom[BoxII]+=Components[ComponentA].Groups[i].RotationalDegreesOfFreedom;
+      }
+      else
+      {
+        DegreesOfFreedomTranslation[BoxI]-=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomCations[BoxI]-=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomTranslationalCations[BoxI]-=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedom[BoxI]-=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+
+        DegreesOfFreedomTranslation[BoxII]+=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomCations[BoxII]+=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedomTranslationalCations[BoxII]+=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+        DegreesOfFreedom[BoxII]+=3*Components[ComponentA].Groups[i].NumberOfGroupAtoms;
+      }
+    }
 
     // register the changes in the amount of molecules of each type
     Components[ComponentA].NumberOfMolecules[BoxI]--;
@@ -13652,6 +13822,7 @@ int GibbsIdentityChangeCationMove(void)
     UpdateGroupCenterOfMassCation(CationMoleculeB);
 
     // recompute the total energy
+    CurrentSystem=BoxI;
     UTotal[BoxI]=
          // inter
          UHostHost[CurrentSystem]+UCationCation[CurrentSystem]+UAdsorbateAdsorbate[CurrentSystem]+
@@ -13680,6 +13851,7 @@ int GibbsIdentityChangeCationMove(void)
          // tailcorrection
          UTailCorrection[CurrentSystem];
 
+    CurrentSystem=BoxII;
     UTotal[BoxII]=
          // inter
          UHostHost[CurrentSystem]+UCationCation[CurrentSystem]+UAdsorbateAdsorbate[CurrentSystem]+
