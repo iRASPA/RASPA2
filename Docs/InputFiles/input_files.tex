@@ -411,7 +411,7 @@ The scaling factor for intra-molecular 1-4 charge/charge interactions. For examp
 The ideal Rosenbluth weight is the growth factor of the CBMC algorithm for a single chain in an empty box. The value only depends on temperature and therefore needs to be computed
 only once. For adsorption, specifying the value in advance is convenient because the applied pressure does not need to be corrected afterwards (the Rosenbluth weight corresponds to a shift
 in the chemical potential reference value, and the chemical potential is directly obtained from the fugacity). For equimolar mixtures this is essential.
-\item{GibbSwapProbability [real]}\\
+\item{GibbsSwapProbability [real]}\\
 The relative probability to attempt a Gibbs swap MC move for the current component. The `GibbsSwapMove' transfers a randomly selected particle from one box to the other
 (50\% probability to transfer a particle from box I to II, an 50\% visa versa).
 \item{TranslationProbability [real]}\\
@@ -461,7 +461,7 @@ any component defined in the `IdentityChangesList' list, and from that list the 
 The number of `IdentityChangesList' elements for the current component.
 \item{IdentityChangesList [list-of-int]}\\
 The list of components that the current component can be changed into. The identity-change move will randomly choose the new component from this list.
-\item{GibbIdentityChangeProbability [real]}\\
+\item{GibbsIdentityChangeProbability [real]}\\
 The relative probability to attempt an identity change for the current component in the Gibbs ensemble.
 It is a very useful move to for mixture of $n$ components. Out of the $n$ components, two components $i\not=j$ are selected at random.
 At random, it is selected to switch the identity of component $i$
