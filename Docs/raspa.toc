@@ -67,41 +67,46 @@
 \contentsline {section}{\numberline {4.2}Basic examples}{88}{section.4.2}
 \contentsline {section}{\numberline {4.3}Non-basic examples}{95}{section.4.3}
 \contentsline {section}{\numberline {4.4}Advanced examples}{102}{section.4.4}
-\contentsline {section}{\numberline {4.5}Auxiliary examples}{108}{section.4.5}
+\contentsline {subsubsection}{Computing the free energy profile}{109}{section*.65}
+\contentsline {subsubsection}{Computing TST-estimates}{110}{section*.66}
+\contentsline {subsubsection}{Computing free energies at finite loading with brute-force MD}{110}{section*.68}
+\contentsline {subsubsection}{Computing free energies at finite loading using Umbrella sampling}{111}{section*.69}
+\contentsline {subsubsection}{Computing the dynamical correction}{111}{section*.70}
+\contentsline {section}{\numberline {4.5}Auxiliary examples}{113}{section.4.5}
 \gdef \the@ipfilectr {}
 \gdef \the@ipfilectr {@-5}
-\contentsline {chapter}{\numberline {5}The source code}{113}{chapter.5}
-\contentsline {section}{\numberline {5.1}Introduction}{113}{section.5.1}
-\contentsline {section}{\numberline {5.2}Data types}{113}{section.5.2}
-\contentsline {section}{\numberline {5.3}Datastructures}{114}{section.5.3}
-\contentsline {section}{\numberline {5.4}Modifying}{121}{section.5.4}
-\contentsline {subsection}{\numberline {5.4.1}Monte Carlo}{121}{subsection.5.4.1}
-\contentsline {subsection}{\numberline {5.4.2}Molecular Dynamics}{124}{subsection.5.4.2}
-\contentsline {section}{\numberline {5.5}Debugging}{126}{section.5.5}
-\contentsline {subsection}{\numberline {5.5.1}Linux}{126}{subsection.5.5.1}
-\contentsline {subsection}{\numberline {5.5.2}Mac OSX}{126}{subsection.5.5.2}
+\contentsline {chapter}{\numberline {5}The source code}{119}{chapter.5}
+\contentsline {section}{\numberline {5.1}Introduction}{119}{section.5.1}
+\contentsline {section}{\numberline {5.2}Data types}{119}{section.5.2}
+\contentsline {section}{\numberline {5.3}Datastructures}{120}{section.5.3}
+\contentsline {section}{\numberline {5.4}Modifying}{127}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Monte Carlo}{127}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}Molecular Dynamics}{130}{subsection.5.4.2}
+\contentsline {section}{\numberline {5.5}Debugging}{132}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Linux}{132}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.5.2}Mac OSX}{132}{subsection.5.5.2}
 \gdef \the@ipfilectr {}
 \gdef \the@ipfilectr {@-6}
-\contentsline {chapter}{\numberline {6}Troubleshooting}{129}{chapter.6}
+\contentsline {chapter}{\numberline {6}Troubleshooting}{135}{chapter.6}
 \gdef \the@ipfilectr {}
-\contentsline {part}{II\hspace {1em}Utilities}{133}{part.2}
+\contentsline {part}{II\hspace {1em}Utilities}{139}{part.2}
 \gdef \the@ipfilectr {@-7}
-\contentsline {chapter}{\numberline {7}Visualization}{135}{chapter.7}
-\contentsline {section}{\numberline {7.1}Making pictures using VTK}{135}{section.7.1}
-\contentsline {section}{\numberline {7.2}Ball and stick}{135}{section.7.2}
-\contentsline {section}{\numberline {7.3}Framework surface}{137}{section.7.3}
-\contentsline {section}{\numberline {7.4}Density plots}{140}{section.7.4}
-\contentsline {section}{\numberline {7.5}Determining blocking pockets}{143}{section.7.5}
-\contentsline {section}{\numberline {7.6}Making movies}{143}{section.7.6}
-\contentsline {subsection}{\numberline {7.6.1}Using VMD}{143}{subsection.7.6.1}
-\contentsline {subsection}{\numberline {7.6.2}Combining pictures into a movie}{143}{subsection.7.6.2}
+\contentsline {chapter}{\numberline {7}Visualization}{141}{chapter.7}
+\contentsline {section}{\numberline {7.1}Making pictures using VTK}{141}{section.7.1}
+\contentsline {section}{\numberline {7.2}Ball and stick}{141}{section.7.2}
+\contentsline {section}{\numberline {7.3}Framework surface}{143}{section.7.3}
+\contentsline {section}{\numberline {7.4}Density plots}{146}{section.7.4}
+\contentsline {section}{\numberline {7.5}Determining blocking pockets}{149}{section.7.5}
+\contentsline {section}{\numberline {7.6}Making movies}{149}{section.7.6}
+\contentsline {subsection}{\numberline {7.6.1}Using VMD}{149}{subsection.7.6.1}
+\contentsline {subsection}{\numberline {7.6.2}Combining pictures into a movie}{149}{subsection.7.6.2}
 \gdef \the@ipfilectr {}
-\contentsline {part}{III\hspace {1em}Tutorial}{145}{part.3}
+\contentsline {part}{III\hspace {1em}Tutorial}{151}{part.3}
 \gdef \the@ipfilectr {@-8}
-\contentsline {chapter}{\numberline {8}Tutorial}{147}{chapter.8}
-\contentsline {section}{\numberline {8.1}Adsorption isotherm of N$_2$ in a metal-organic framework (MOF), Henry coefficients, enthalpy of adsorption}{147}{section.8.1}
-\contentsline {section}{\numberline {8.2}NPT density of super-critical CO$_2$, RDF, diffusion}{150}{section.8.2}
-\contentsline {section}{\numberline {8.3}Reaction-ensemble of ammonia}{152}{section.8.3}
+\contentsline {chapter}{\numberline {8}Tutorial}{153}{chapter.8}
+\contentsline {section}{\numberline {8.1}Adsorption isotherm of N$_2$ in a metal-organic framework (MOF), Henry coefficients, enthalpy of adsorption}{153}{section.8.1}
+\contentsline {section}{\numberline {8.2}NPT density of super-critical CO$_2$, RDF, diffusion}{156}{section.8.2}
+\contentsline {section}{\numberline {8.3}Reaction-ensemble of ammonia}{158}{section.8.3}
 \gdef \the@ipfilectr {}
 \gdef \the@ipfilectr {@-9}
 \gdef \the@ipfilectr {}

@@ -1828,6 +1828,315 @@ followed by the actual data points:
 \end{itemize}
 
 
+\subsection*{Example 8: dcTST diffusivities}
+
+The first step for dcTST is to compute the free energy profile as a function of a one-dimensional reaction coordinate.
+In general this mapping is complex, but for certain zeolites the mapping is trivial.
+As an example, we use the LTA-type zeolite with a cubic unit cell of 24.555 \AA.
+For this structure, the mapping can be dan in $x$, $y$, or $z$ and all three give identical results.
+We can define a reaction coordinate from $x=0$ to $x=1$ with several key values:
+\begin{itemize}
+ \item{x=0}:\quad the window on the left.
+ \item{x=0.25}\quad the center of the left cage $A$.
+ \item{x=0.5}:\quad the window in the middle seperating the left cage $A$ from the right cage $B$.
+ \item{x=0.75}\quad the center of the right cage $A$.
+ \item{x=1}:\quad the window on the right.
+\end{itemize}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=7.5cm]{./Examples/Figures/LTA_dcTST.png}
+  \caption{The reaction coordinate mapping for the LTA-type structure.}
+  \label{Fig: LTA dcTST}
+\end{figure}
+
+\subsubsection{Computing the free energy profile}
+
+The first step is to compute the free energy profile.
+A convenient way at low loading is to use Widom insertion.
+
+\begin{tiny}
+\begin{verbatim}
+SimulationType                   MonteCarlo
+NumberOfCycles                   1000000000000000
+NumberOfInitializationCycles     1000
+PrintEvery                       10000
+
+Forcefield                       GenericZeolites
+
+Framework                        0
+FrameworkName                    LTA_SI
+RemoveAtomNumberCodeFromLabel    yes
+ShiftUnitCells                   0.0 0.0 0.0
+UnitCells                        1 1 1
+ExternalTemperature              600.0
+
+WriteFreeEnergyProfileEvery      5000
+
+component 0 MoleculeName                     methane
+            StartingBead                     0
+            MoleculeDefinition               TraPPE
+            ComputeFreeEnergyProfile         yes
+            BlockPockets                     yes
+            BlockPocketsFileName             LTA_SI
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            CreateNumberOfMolecules          0
+\end{verbatim}
+\end{tiny}
+
+The result converge slowly to a nice profile. The scatter is the highest at places where the free energy is high, and
+the scatter in the data is low at places of low free energy. We can now define the diffusion in terms of
+figure \ref{Fig: LTA Widom}: we compute the diffusion of a molecule from $g_A$ in cage $A$ to $g_B$ in cage $B$
+across barrier $q_A^*$.
+To input this information we make a "biasing profile"-file (\verb+Profile.dat+) with this data at the top
+\begin{small}
+\begin{verbatim}
+# 1801
+# 0.5
+# 0.25 0.75 12.2775
+# 0.0  0.5
+......
+\end{verbatim}
+\end{small}
+First line is the number of data points (here 1801), then the position of the barrier $q_A^*$ (here 0.5),
+then $g_A$, $g_B$, and the distance in Angstrom between them (here 0.25, 0.75, and 12.2775, respectively).
+and lastly the range of cage $A$ (here from 0.0 to 0.5).
+
+\subsubsection{Computing TST-estimates}
+
+We can now use this file
+\begin{verbatim}
+  BiasingProfile                   Profile.dat
+  BiasingMethod                    Umbrella
+  BiasingDirection                 A
+\end{verbatim}
+to for example perform Umbrella sampling. In addition, it will create a spline-file
+\verb+BiasingSpline_methane_0.dat+, that contains a lot of information and a fitting spline.
+\begin{small}
+\begin{verbatim}
+# Dividing surfaces:     0.500000000000 [-]
+# Free energy minima:     0.250000000000 [-]     0.750000000000 [-]  lattice distance:    12.277500000000 [A]
+# Left and right boundary:     0.000000000000 [-]     0.500000000000 [-]
+# F(QstarA):     5.794749230708
+# Exp(-Beta QStarA):   0.00304349354572
+# Integral Exp(-Beta q) over region left boundary (0) to q* (0.5):  1.10187629401e-09
+# Mass reaction bead:    16.042460000000 [au]
+# |v|=Sqrt(k_B T/(2.0*PI*Mass)):   222.467902978164 [m/s]
+# P(q*) dq:      2762100.93845 [1/m]
+# k^TST= |v| P(q*) dq, i.e. the TST hopping rate:       614478803.59 [1/s]
+# D^TST:  9.26246952572e-10 [m^2/s]
+
+# RM Int1, Integral Exp(Beta q) over region gA to gB:    18.077489357418
+# RM Int2, Integral Exp(-Beta q) over full region:     0.448738054981
+# RM Int1*Int2:     8.112057413187
+# RM 1/(Int1*Int2):     0.123273289261
+
+# <n_A>:    24.555000000000
+# 1/<n_A>:     0.040724903278
+\end{verbatim}
+\end{small}
+It uses the computed smoothed spline that fits the data to calculate the integrals and dcTST information.
+The $k^\text{TST}$ is 614478803.59 events per second, and $D^\text{TST}=9.26246952572e-10$ m$^2$/s.
+The spline (column 1 and 2) is convenient as it is continuous and smooth.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=7.5cm]{./Examples/Figures/Umbrella/BiasingProfile/BiasingSpline.pdf}
+  \caption{The free energy obtained with Widom insertion.}
+  \label{Fig: LTA Widom}
+\end{figure}
+
+\subsubsection{Computing free energies at finite loading with brute-force MD}
+
+Of course, one can try to compute the free energy using brute-force MD, for example at an average of 8 molecules per cage.
+\begin{tiny}
+\begin{verbatim}
+SimulationType                   MD
+NumberOfCycles                   100000000
+NumberOfInitializationCycles     5000
+NumberOfEquilibrationCycles      10000
+PrintEvery                       10000
+
+Forcefield                       GenericZeolites
+
+Framework                        0
+FrameworkName                    LTA_SI
+RemoveAtomNumberCodeFromLabel    yes
+ShiftUnitCells                   0.0 0.0 0.0
+UnitCells                        1 1 1
+ExternalTemperature              600.0
+
+ComputePositionHistogram         yes
+WritePositionHistogramEvery      10000
+
+component 0 MoleculeName                     methane
+            StartingBead                     0
+            MoleculeDefinition               TraPPE
+            BlockPockets                     yes
+            BlockPocketsFileName             LTA_SI
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            CreateNumberOfMolecules          64
+\end{verbatim}
+\end{tiny}
+
+However, this only works for low free energy barriers.
+
+\subsubsection{Computing free energies at finite loading using Umbrella sampling}
+
+With Umbrelle samplign we can bias the movement of a single tagged molecule at the proper chosen loading.
+We therefore need two components: component one is a single biased molecule, and component two are the
+other (unbiased) particles.
+We can compute the histogram of the positions and for component one, recomputed the actual free energy
+taking the biasing into account.
+
+\begin{tiny}
+\begin{verbatim}
+SimulationType                   MonteCarlo
+NumberOfCycles                   1000000000000000
+NumberOfInitializationCycles     1000
+PrintEvery                       1000
+
+Forcefield                       GenericZeolites
+
+Framework                        0
+FrameworkName                    LTA_SI
+ShiftUnitCells                   0.0 0.0 0.0
+UnitCells                        1 1 1
+ExternalTemperature              600.0
+
+ComputePositionHistogram         yes
+WritePositionHistogramEvery      10000
+
+component 0 MoleculeName                     methane
+            StartingBead                     0
+            MoleculeDefinition               TraPPE
+            BiasingProfile                   Profile.dat
+            BiasingMethod                    Umbrella
+            BiasingDirection                 A
+            BlockPockets                     yes
+            BlockPocketsFileName             LTA_SI
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            CreateNumberOfMolecules          1
+
+component 1 MoleculeName                     methane
+            StartingBead                     0
+            MoleculeDefinition               TraPPE
+            BlockPockets                     yes
+            BlockPocketsFileName             LTA_SI
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            CreateNumberOfMolecules          63
+\end{verbatim}
+\end{tiny}
+
+\subsubsection{Computing the dynamical correction}
+
+The TST estimates are \dots estimates. In reality, not all particles at the dividing surface actually cross
+the boundary. We have to explicitly compute this property using many short MD trajectories.
+Step one is to compute initial state for these trajectories:
+\begin{tiny}
+\begin{verbatim}
+SimulationType                   MonteCarlo
+NumberOfCycles                   100000000
+NumberOfInitializationCycles     1000
+PrintEvery                       100
+
+Forcefield                       GenericZeolites
+
+Framework                        0
+FrameworkName                    LTA_SI
+RemoveAtomNumberCodeFromLabel    yes
+ShiftUnitCells                   0.0 0.0 0.0
+UnitCells                        1 1 1
+ExternalTemperature              600.0
+
+WritedcTSTSnapShotsToFile        yes
+PutMoleculeOnBarrier             yes
+BarrierPosition                  0.5 0.25 0.25
+WritedcTSTSnapShotsEvery         100
+
+
+component 0 MoleculeName                     methane
+            StartingBead                     0
+            MoleculeDefinition               TraPPE
+            TranslationProbability           1.0
+              TranslationDirection             bc
+            RotationProbability              1.0
+            RegrowInPlaceProbability         1.0
+            CreateNumberOfMolecules          0
+
+component 1 MoleculeName                     methane
+            StartingBead                     0
+            MoleculeDefinition               TraPPE
+            ComputeFreeEnergyProfile         yes
+            BlockPockets                     yes
+            BlockPocketsFileName             LTA_SI
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            CreateNumberOfMolecules          63
+\end{verbatim}
+\end{tiny}
+
+To sample configurations, we need to write out "snapshots", but with some sampling in between to diminish the
+correlation between the snapshots. We also need to place the particle at the barrier and define the barrier position.
+
+\begin{small}
+\begin{verbatim}
+  WritedcTSTSnapShotsToFile        yes
+  PutMoleculeOnBarrier             yes
+  BarrierPosition                  0.5 0.25 0.25
+  WritedcTSTSnapShotsEvery         100
+\end{verbatim}
+\end{small}
+Also note, that the particle on the barrier is restricted to only move one the barrier plane.
+\begin{small}
+\begin{verbatim}
+  TranslationProbability           1.0
+  TranslationDirection             bc
+\end{verbatim}
+\end{small}
+
+We can do uses the sampled snapshots to run many barrier-recrossing MD trajectories.
+\begin{small}
+\begin{verbatim}
+SimulationType                   BarrierRecrossing
+  
+Forcefield                       GenericZeolites
+
+Framework                        0
+FrameworkName                    LTA_SI
+RemoveAtomNumberCodeFromLabel    yes
+ShiftUnitCells                   0.0 0.0 0.0
+UnitCells                        1 1 1
+ExternalTemperature              600.0
+
+PutMoleculeOnBarrier             yes
+FreeEnergyMappingType            A
+BarrierPosition                  0.5 0.25 0.25
+MaxBarrierDistance               4.0
+MaxBarrierTime                   10.0
+NumberOfVelocities               1
+
+component 0 MoleculeName                     methane
+            StartingBead                     0
+            MoleculeDefinition               TraPPE
+            CreateNumberOfMolecules          0
+
+component 1 MoleculeName                     methane
+            StartingBead                     0
+            MoleculeDefinition               TraPPE
+            CreateNumberOfMolecules          63
+\end{verbatim}
+\end{small}
+
 \section{Auxiliary examples}
 
 \subsection*{Example 1: Computing the ideal gas Rosenbluth weight of a molecule}
