@@ -28,7 +28,7 @@ Usage
 There are currently two ways to use RASPA: through configuration files in the
 command line, or through Python functions.
 
-###Command Line
+### Command Line
 
 This approach uses RASPA script files and a set of directories to load
 structures, gases, and forcefield files. It outputs a set of folders and files
@@ -43,7 +43,7 @@ simulate -h
 To write and configure simulation input files, read
 [Docs/raspa.pdf](https://github.com/numat/RASPA2/blob/master/Docs/raspa.pdf).
 
-###Python
+### Python
 
 The previous approach is useful for long-running jobs, but can become
 cumbersome when you want to manage a large number of simulations. In this use

@@ -26,7 +26,7 @@ for structure_type in structure_types:
 
 setup(
     name="RASPA2",
-    version="2.0.2",
+    version="2.0.3",
     description="A general purpose classical simulation package.",
     url="http://github.com/numat/RASPA2/",
     author="David Dubbeldam",
