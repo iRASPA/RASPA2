@@ -1776,7 +1776,7 @@ int main( int argc, char *argv[] )
   renWin->SetSize(ImageSizeX,ImageSizeY);
 
   // set this to 8 for final picture
-  renWin->SetAAFrames(AA);
+  renWin->SetMultiSamples(AA);
   renWin->Render();
 
   vtkRenderLargeImage *renderLarge =vtkRenderLargeImage::New();

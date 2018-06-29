@@ -3700,6 +3700,12 @@ void WriteFrameworkDefinitionPDB(char *string)
         sprintf(buffer,"Movies/System_%d/Framework_%d_%s%s.pdb",CurrentSystem,CurrentFramework,string,FileNameAppend);
         FilePtr=fopen(buffer,"w");
         SerialNumber=1;
+        fprintf(FilePtrAll,"REMARK   Raspa-1.0 PDB file\n");
+        fprintf(FilePtrAll,"CRYST1%9.3lf%9.3lf%9.3lf%7.2lf%7.2lf%7.2lf\n",
+                (double)(MovieScale*BoxProperties[CurrentSystem].ax),
+                (double)(MovieScale*BoxProperties[CurrentSystem].ay),
+                (double)(MovieScale*BoxProperties[CurrentSystem].az),
+                (double)AlphaAngle[CurrentSystem]*RAD2DEG,(double)BetaAngle[CurrentSystem]*RAD2DEG,(double)GammaAngle[CurrentSystem]*RAD2DEG);
         fprintf(FilePtr,"REMARK   Raspa-1.0 PDB file\n");
         fprintf(FilePtr,"CRYST1%9.3lf%9.3lf%9.3lf%7.2lf%7.2lf%7.2lf\n",
                 (double)(MovieScale*BoxProperties[CurrentSystem].ax),

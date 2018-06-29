@@ -1595,6 +1595,7 @@ int SamplePDBMovies(int Choice,int Subdir)
             {
               Occupancy = 0.5;
             }
+	    Occupancy=Adsorbates[CurrentSystem][j].Atoms[k].CFVDWScalingParameter;
 
             AtomType=Adsorbates[CurrentSystem][j].Atoms[k].Type;
             snprintf(AtomName,5,"%2s",PseudoAtoms[AtomType].PrintToPDBName);
@@ -1641,6 +1642,7 @@ int SamplePDBMovies(int Choice,int Subdir)
             {
               Occupancy = 0.5;
             }
+	    Occupancy=Cations[CurrentSystem][j].Atoms[k].CFVDWScalingParameter;
 
             fprintf(PDBFilePtr[CurrentSystem][Type],"%s%5d %2s%c%c%c%3s %c%4s%c   %8.3lf%8.3lf%8.3lf%6.2lf%6.2lf%6s%-4s%2s%2s\n",
                  RecordName,SerialNumber[Type]++,AtomName,RemotenessIndicator,BranchDesignator,AltLoc,ResIdueName,
