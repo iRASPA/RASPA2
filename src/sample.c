@@ -6541,6 +6541,12 @@ void SampleMeanSquaredDisplacementOrderN(int Switch)
       sprintf(buffer,"MSDOrderN/System_%d/msd_self_total%s.dat",CurrentSystem,FileNameAppend);
 
       FilePtr=fopen(buffer,"w");
+      fprintf(FilePtr,"# column 1: time [ps]\n");
+      fprintf(FilePtr,"# column 2: msd xyz [A^2]\n");
+      fprintf(FilePtr,"# column 3: msd x [A^2]\n");
+      fprintf(FilePtr,"# column 4: msd y [A^2]\n");
+      fprintf(FilePtr,"# column 5: msd z [A^2]\n");
+      fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
       for(CurrentBlock=0;CurrentBlock<MIN2(MaxNumberOfBlocksMSDOrderN,NumberOfBlocksMSDOrderN[CurrentSystem]);CurrentBlock++)
       {
@@ -6566,7 +6572,7 @@ void SampleMeanSquaredDisplacementOrderN(int Switch)
 
             fprintf(FilePtr,"%g %g %g %g %g (count: %g)\n",
                 (double)(j*dt),
-                (double)(fac*value_dir_avg/3.0),
+                (double)(fac*value_dir_avg),
                 (double)(fac*value.x),
                 (double)(fac*value.y),
                 (double)(fac*value.z),
@@ -6585,6 +6591,12 @@ void SampleMeanSquaredDisplacementOrderN(int Switch)
                 CurrentSystem,Components[i].Name,i,FileNameAppend);
 
         FilePtr=fopen(buffer,"w");
+        fprintf(FilePtr,"# column 1: time [ps]\n");
+        fprintf(FilePtr,"# column 2: msd xyz [A^2]\n");
+        fprintf(FilePtr,"# column 3: msd x [A^2]\n");
+        fprintf(FilePtr,"# column 4: msd y [A^2]\n");
+        fprintf(FilePtr,"# column 5: msd z [A^2]\n");
+        fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
 
         // write msd results averaged per component to file
@@ -6624,6 +6636,12 @@ void SampleMeanSquaredDisplacementOrderN(int Switch)
                   CurrentSystem,i,FileNameAppend);
 
           FilePtr=fopen(buffer,"w");
+          fprintf(FilePtr,"# column 1: time [ps]\n");
+          fprintf(FilePtr,"# column 2: msd xyz [A^2]\n");
+          fprintf(FilePtr,"# column 3: msd x [A^2]\n");
+          fprintf(FilePtr,"# column 4: msd y [A^2]\n");
+          fprintf(FilePtr,"# column 5: msd z [A^2]\n");
+          fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
           // write results to file
           for(CurrentBlock=0;CurrentBlock<MIN2(MaxNumberOfBlocksMSDOrderN,NumberOfBlocksMSDOrderN[CurrentSystem]);CurrentBlock++)
@@ -6661,6 +6679,12 @@ void SampleMeanSquaredDisplacementOrderN(int Switch)
                   CurrentSystem,i,FileNameAppend);
 
           FilePtr=fopen(buffer,"w");
+          fprintf(FilePtr,"# column 1: time [ps]\n");
+          fprintf(FilePtr,"# column 2: msd xyz [A^2]\n");
+          fprintf(FilePtr,"# column 3: msd x [A^2]\n");
+          fprintf(FilePtr,"# column 4: msd y [A^2]\n");
+          fprintf(FilePtr,"# column 5: msd z [A^2]\n");
+          fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
           // write results to file
           for(CurrentBlock=0;CurrentBlock<MIN2(MaxNumberOfBlocksMSDOrderN,NumberOfBlocksMSDOrderN[CurrentSystem]);CurrentBlock++)
@@ -6700,6 +6724,12 @@ void SampleMeanSquaredDisplacementOrderN(int Switch)
                   CurrentSystem,i,FileNameAppend);
 
           FilePtr=fopen(buffer,"w");
+          fprintf(FilePtr,"# column 1: time [ps]\n");
+          fprintf(FilePtr,"# column 2: msd xyz [A^2]\n");
+          fprintf(FilePtr,"# column 3: msd x [A^2]\n");
+          fprintf(FilePtr,"# column 4: msd y [A^2]\n");
+          fprintf(FilePtr,"# column 5: msd z [A^2]\n");
+          fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
           // write results to file
           for(CurrentBlock=0;CurrentBlock<MIN2(MaxNumberOfBlocksMSDOrderN,NumberOfBlocksMSDOrderN[CurrentSystem]);CurrentBlock++)
@@ -6733,6 +6763,13 @@ void SampleMeanSquaredDisplacementOrderN(int Switch)
       sprintf(buffer,"MSDOrderN/System_%d/msd_onsager_total%s.dat",CurrentSystem,FileNameAppend);
 
       FilePtr=fopen(buffer,"w");
+      fprintf(FilePtr,"# column 1: time [ps]\n");
+      fprintf(FilePtr,"# column 2: msd xyz [A^2]\n");
+      fprintf(FilePtr,"# column 3: msd x [A^2]\n");
+      fprintf(FilePtr,"# column 4: msd y [A^2]\n");
+      fprintf(FilePtr,"# column 5: msd z [A^2]\n");
+      fprintf(FilePtr,"# column 6: number of samples [-]\n");
+
       for(CurrentBlock=0;CurrentBlock<MIN2(MaxNumberOfBlocksMSDOrderN,NumberOfBlocksMSDOrderN[CurrentSystem]);CurrentBlock++)
       {
         CurrentBlocklength=MIN2(BlockLengthMSDOrderN[CurrentSystem][CurrentBlock],NumberOfBlockElementsMSDOrderN);
@@ -6763,6 +6800,12 @@ void SampleMeanSquaredDisplacementOrderN(int Switch)
                   CurrentSystem,Components[j].Name,j,Components[k].Name,k,FileNameAppend);
 
           FilePtr=fopen(buffer,"w");
+          fprintf(FilePtr,"# column 1: time [ps]\n");
+          fprintf(FilePtr,"# column 2: msd xyz [A^2]\n");
+          fprintf(FilePtr,"# column 3: msd x [A^2]\n");
+          fprintf(FilePtr,"# column 4: msd y [A^2]\n");
+          fprintf(FilePtr,"# column 5: msd z [A^2]\n");
+          fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
           // write msd results averaged per component to file
           for(CurrentBlock=0;CurrentBlock<MIN2(MaxNumberOfBlocksMSDOrderN,NumberOfBlocksMSDOrderN[CurrentSystem]);CurrentBlock++)
@@ -7217,6 +7260,12 @@ void SampleVelocityAutoCorrelationFunctionOrderN(int Switch)
       sprintf(buffer,"VACFOrderN/System_%d/vacf_self_total%s.dat",CurrentSystem,FileNameAppend);
 
       FilePtr=fopen(buffer,"w");
+      fprintf(FilePtr,"# column 1: time [ps]\n");
+      fprintf(FilePtr,"# column 2: vacf xyz\n");
+      fprintf(FilePtr,"# column 3: vacf x\n");
+      fprintf(FilePtr,"# column 4: vacf y\n");
+      fprintf(FilePtr,"# column 5: vacf z\n");
+      fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
       for(CurrentBlock=0;CurrentBlock<MIN2(MaxNumberOfBlocksVACFOrderN,NumberOfBlocksVACFOrderN[CurrentSystem]);CurrentBlock++)
       {
@@ -7261,7 +7310,12 @@ void SampleVelocityAutoCorrelationFunctionOrderN(int Switch)
                 CurrentSystem,Components[i].Name,i,FileNameAppend);
 
         FilePtr=fopen(buffer,"w");
-
+        fprintf(FilePtr,"# column 1: time [ps]\n");
+        fprintf(FilePtr,"# column 2: vacf xyz\n");
+        fprintf(FilePtr,"# column 3: vacf x\n");
+        fprintf(FilePtr,"# column 4: vacf y\n");
+        fprintf(FilePtr,"# column 5: vacf z\n");
+        fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
         // write vacf results averaged per component to file
         D=0.0;
@@ -7315,6 +7369,12 @@ void SampleVelocityAutoCorrelationFunctionOrderN(int Switch)
                   CurrentSystem,i,FileNameAppend);
 
           FilePtr=fopen(buffer,"w");
+          fprintf(FilePtr,"# column 1: time [ps]\n");
+          fprintf(FilePtr,"# column 2: vacf xyz\n");
+          fprintf(FilePtr,"# column 3: vacf x\n");
+          fprintf(FilePtr,"# column 4: vacf y\n");
+          fprintf(FilePtr,"# column 5: vacf z\n");
+          fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
           D=0.0;
           for(CurrentBlock=0;CurrentBlock<MIN2(MaxNumberOfBlocksVACFOrderN,NumberOfBlocksVACFOrderN[CurrentSystem]);CurrentBlock++)
@@ -7365,6 +7425,12 @@ void SampleVelocityAutoCorrelationFunctionOrderN(int Switch)
                   CurrentSystem,i,FileNameAppend);
 
           FilePtr=fopen(buffer,"w");
+          fprintf(FilePtr,"# column 1: time [ps]\n");
+          fprintf(FilePtr,"# column 2: vacf xyz\n");
+          fprintf(FilePtr,"# column 3: vacf x\n");
+          fprintf(FilePtr,"# column 4: vacf y\n");
+          fprintf(FilePtr,"# column 5: vacf z\n");
+          fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
           // write results to file
 
@@ -7412,6 +7478,13 @@ void SampleVelocityAutoCorrelationFunctionOrderN(int Switch)
       sprintf(buffer,"VACFOrderN/System_%d/vacf_onsager_total%s.dat",CurrentSystem,FileNameAppend);
 
       FilePtr=fopen(buffer,"w");
+      fprintf(FilePtr,"# column 1: time [ps]\n");
+      fprintf(FilePtr,"# column 2: vacf xyz\n");
+      fprintf(FilePtr,"# column 3: vacf x\n");
+      fprintf(FilePtr,"# column 4: vacf y\n");
+      fprintf(FilePtr,"# column 5: vacf z\n");
+      fprintf(FilePtr,"# column 6: number of samples [-]\n");
+
       for(CurrentBlock=0;CurrentBlock<MIN2(MaxNumberOfBlocksVACFOrderN,NumberOfBlocksVACFOrderN[CurrentSystem]);CurrentBlock++)
       {
         CurrentBlocklength=MIN2(BlockLengthVACFOrderN[CurrentSystem][CurrentBlock],NumberOfBlockElementsVACFOrderN);
@@ -7443,6 +7516,12 @@ void SampleVelocityAutoCorrelationFunctionOrderN(int Switch)
                   CurrentSystem,Components[j].Name,j,Components[k].Name,k,FileNameAppend);
 
           FilePtr=fopen(buffer,"w");
+          fprintf(FilePtr,"# column 1: time [ps]\n");
+          fprintf(FilePtr,"# column 2: vacf xyz\n");
+          fprintf(FilePtr,"# column 3: vacf x\n");
+          fprintf(FilePtr,"# column 4: vacf y\n");
+          fprintf(FilePtr,"# column 5: vacf z\n");
+          fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
           // write vacf results averaged per component to file
           D=0.0;
@@ -7873,6 +7952,12 @@ void SampleRotationalVelocityAutoCorrelationFunctionOrderN(int Switch)
       sprintf(buffer,"RVACFOrderN/System_%d/vacf_self_total%s.dat",CurrentSystem,FileNameAppend);
 
       FilePtr=fopen(buffer,"w");
+      fprintf(FilePtr,"# column 1: time [ps]\n");
+      fprintf(FilePtr,"# column 2: rvacf xyz\n");
+      fprintf(FilePtr,"# column 3: rvacf x\n");
+      fprintf(FilePtr,"# column 4: rvacf y\n");
+      fprintf(FilePtr,"# column 5: rvacf z\n");
+      fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
       for(CurrentBlock=0;CurrentBlock<MIN2(MaxNumberOfBlocksRVACFOrderN,NumberOfBlocksRVACFOrderN[CurrentSystem]);CurrentBlock++)
       {
@@ -7917,6 +8002,12 @@ void SampleRotationalVelocityAutoCorrelationFunctionOrderN(int Switch)
                 CurrentSystem,Components[i].Name,i,FileNameAppend);
 
         FilePtr=fopen(buffer,"w");
+        fprintf(FilePtr,"# column 1: time [ps]\n");
+        fprintf(FilePtr,"# column 2: rvacf xyz\n");
+        fprintf(FilePtr,"# column 3: rvacf x\n");
+        fprintf(FilePtr,"# column 4: rvacf y\n");
+        fprintf(FilePtr,"# column 5: rvacf z\n");
+        fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
 
         // write vacf results averaged per component to file
@@ -7971,6 +8062,12 @@ void SampleRotationalVelocityAutoCorrelationFunctionOrderN(int Switch)
                   CurrentSystem,i,FileNameAppend);
 
           FilePtr=fopen(buffer,"w");
+          fprintf(FilePtr,"# column 1: time [ps]\n");
+          fprintf(FilePtr,"# column 2: rvacf xyz\n");
+          fprintf(FilePtr,"# column 3: rvacf x\n");
+          fprintf(FilePtr,"# column 4: rvacf y\n");
+          fprintf(FilePtr,"# column 5: rvacf z\n");
+          fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
           D=0.0;
           for(CurrentBlock=0;CurrentBlock<MIN2(MaxNumberOfBlocksRVACFOrderN,NumberOfBlocksRVACFOrderN[CurrentSystem]);CurrentBlock++)
@@ -8021,6 +8118,12 @@ void SampleRotationalVelocityAutoCorrelationFunctionOrderN(int Switch)
                   CurrentSystem,i,FileNameAppend);
 
           FilePtr=fopen(buffer,"w");
+          fprintf(FilePtr,"# column 1: time [ps]\n");
+          fprintf(FilePtr,"# column 2: rvacf xyz\n");
+          fprintf(FilePtr,"# column 3: rvacf x\n");
+          fprintf(FilePtr,"# column 4: rvacf y\n");
+          fprintf(FilePtr,"# column 5: rvacf z\n");
+          fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
           // write results to file
 
@@ -8068,6 +8171,13 @@ void SampleRotationalVelocityAutoCorrelationFunctionOrderN(int Switch)
       sprintf(buffer,"RVACFOrderN/System_%d/vacf_onsager_total%s.dat",CurrentSystem,FileNameAppend);
 
       FilePtr=fopen(buffer,"w");
+      fprintf(FilePtr,"# column 1: time [ps]\n");
+      fprintf(FilePtr,"# column 2: rvacf xyz\n");
+      fprintf(FilePtr,"# column 3: rvacf x\n");
+      fprintf(FilePtr,"# column 4: rvacf y\n");
+      fprintf(FilePtr,"# column 5: rvacf z\n");
+      fprintf(FilePtr,"# column 6: number of samples [-]\n");
+
       for(CurrentBlock=0;CurrentBlock<MIN2(MaxNumberOfBlocksRVACFOrderN,NumberOfBlocksRVACFOrderN[CurrentSystem]);CurrentBlock++)
       {
         CurrentBlocklength=MIN2(BlockLengthRVACFOrderN[CurrentSystem][CurrentBlock],NumberOfBlockElementsRVACFOrderN);
@@ -8099,6 +8209,12 @@ void SampleRotationalVelocityAutoCorrelationFunctionOrderN(int Switch)
                   CurrentSystem,Components[j].Name,j,Components[k].Name,k,FileNameAppend);
 
           FilePtr=fopen(buffer,"w");
+          fprintf(FilePtr,"# column 1: time [ps]\n");
+          fprintf(FilePtr,"# column 2: rvacf xyz\n");
+          fprintf(FilePtr,"# column 3: rvacf x\n");
+          fprintf(FilePtr,"# column 4: rvacf y\n");
+          fprintf(FilePtr,"# column 5: rvacf z\n");
+          fprintf(FilePtr,"# column 6: number of samples [-]\n");
 
           // write vacf results averaged per component to file
           D=0.0;
@@ -9052,6 +9168,11 @@ void SampleMeanSquaredDisplacement(int Switch)
                 FileNameAppend);
 
         FilePtr=fopen(buffer,"w");
+        fprintf(FilePtr,"# column 1: time [ps]\n");
+        fprintf(FilePtr,"# column 2: msd xyz [A^2]\n");
+        fprintf(FilePtr,"# column 3: msd x [A^2]\n");
+        fprintf(FilePtr,"# column 4: msd y [A^2]\n");
+        fprintf(FilePtr,"# column 5: msd z [A^2]\n");
 
         for(i=0;i<BufferLengthMSD;i++)
           fprintf(FilePtr,"%g %g %g %g %g\n",i*SampleMSDEvery[CurrentSystem]*DeltaT,
@@ -9071,6 +9192,11 @@ void SampleMeanSquaredDisplacement(int Switch)
                   CurrentSystem,Components[k].Name,k,Components[l].Name,l,FileNameAppend);
 
           FilePtr=fopen(buffer,"w");
+          fprintf(FilePtr,"# column 1: time [ps]\n");
+          fprintf(FilePtr,"# column 2: msd xyz [A^2]\n");
+          fprintf(FilePtr,"# column 3: msd x [A^2]\n");
+          fprintf(FilePtr,"# column 4: msd y [A^2]\n");
+          fprintf(FilePtr,"# column 5: msd z [A^2]\n");
 
           for(i=0;i<BufferLengthMSD;i++)
             fprintf(FilePtr,"%g %g %g %g %g\n",i*SampleMSDEvery[CurrentSystem]*DeltaT,
@@ -9303,6 +9429,11 @@ void SampleVelocityAutoCorrelationFunction(int Switch)
                 FileNameAppend);
 
         FilePtr=fopen(buffer,"w");
+        fprintf(FilePtr,"# column 1: time [ps]\n");
+        fprintf(FilePtr,"# column 2: vacf xyz\n");
+        fprintf(FilePtr,"# column 3: vacf x\n");
+        fprintf(FilePtr,"# column 4: vacf y\n");
+        fprintf(FilePtr,"# column 5: vacf z\n");
 
         D=DIFFUSION_CONVERSION_FACTOR*fac*IntegrateGeneralizedSimpsonConventional(&AccumulatedAcfDirAvgVACF[CurrentSystem][k][0],DeltaT*SampleVACFEvery[CurrentSystem],BufferLengthVACF)/3.0;
         fprintf(FilePtr,"# D: %g [m^2/s]\n",D);
@@ -9334,6 +9465,11 @@ void SampleVelocityAutoCorrelationFunction(int Switch)
                   CurrentSystem,Components[k].Name,k,Components[l].Name,l,FileNameAppend);
 
           FilePtr=fopen(buffer,"w");
+          fprintf(FilePtr,"# column 1: time [ps]\n");
+          fprintf(FilePtr,"# column 2: vacf xyz\n");
+          fprintf(FilePtr,"# column 3: vacf x\n");
+          fprintf(FilePtr,"# column 4: vacf y\n");
+          fprintf(FilePtr,"# column 5: vacf z\n");
 
           D=DIFFUSION_CONVERSION_FACTOR*fac*IntegrateGeneralizedSimpsonConventional(&AccumulatedAcfOnsagerDirAvgVACF[CurrentSystem][k][l][0],
                   DeltaT*SampleVACFEvery[CurrentSystem],BufferLengthVACF)/3.0;

@@ -4860,7 +4860,7 @@ int CalculateFrameworkCationReplicaChargeChargeEnergy(void)
  *            | int CBCFSwapLambaMove(void)                                                              *
  *********************************************************************************************************/
 
-int CalculateFrameworkAdsorbateVDWEnergyDifference(int m,int comp,int New,int Old,int CanUseGrid)
+int CalculateFrameworkAdsorbateVDWEnergyDifference(int m,int comp,int New,int Old,int CanUseGridNew, int CanUseGridOld)
 {
   int i,j,k,nr_atoms,typeA,typeB,f1;
   POINT posA_new,posA_old,posB;
@@ -4885,7 +4885,7 @@ int CalculateFrameworkAdsorbateVDWEnergyDifference(int m,int comp,int New,int Ol
         posA_new=TrialAnisotropicPosition[CurrentSystem][j];
         scaling_new=CFVDWScaling[j];
 
-        if((Framework[CurrentSystem].FrameworkModel==GRID)&&(VDWGrid[typeA])&&CanUseGrid)
+        if((Framework[CurrentSystem].FrameworkModel==GRID)&&(VDWGrid[typeA])&&CanUseGridNew)
           UHostVDWDelta[CurrentSystem]+=InterpolateVDWGrid(typeA,posA_new);
         else if(UseCellLists[CurrentSystem])
         {
@@ -5009,7 +5009,7 @@ int CalculateFrameworkAdsorbateVDWEnergyDifference(int m,int comp,int New,int Ol
         posA_old=Adsorbates[CurrentSystem][m].Atoms[j].AnisotropicPosition;
         scaling_old=Adsorbates[CurrentSystem][m].Atoms[j].CFVDWScalingParameter;
 
-        if((Framework[CurrentSystem].FrameworkModel==GRID)&&(VDWGrid[typeA])&&CanUseGrid)
+        if((Framework[CurrentSystem].FrameworkModel==GRID)&&(VDWGrid[typeA])&&CanUseGridOld)
           UHostVDWDelta[CurrentSystem]-=InterpolateVDWGrid(typeA,posA_old);
         else if(UseCellLists[CurrentSystem])
         {
@@ -5131,7 +5131,7 @@ int CalculateFrameworkAdsorbateVDWEnergyDifference(int m,int comp,int New,int Ol
  *            | int CBCFSwapLambaMove(void)                                                              *
  *********************************************************************************************************/
 
-int CalculateFrameworkCationVDWEnergyDifference(int m,int comp,int New,int Old,int CanUseGrid)
+int CalculateFrameworkCationVDWEnergyDifference(int m,int comp,int New,int Old,int CanUseGridNew, int CanUseGridOld)
 {
   int i,j,k,nr_atoms,typeA,typeB,f1;
   POINT posA_new,posA_old,posB;
@@ -5155,7 +5155,7 @@ int CalculateFrameworkCationVDWEnergyDifference(int m,int comp,int New,int Old,i
         posA_new=TrialAnisotropicPosition[CurrentSystem][j];
         scaling_new=CFVDWScaling[j];
 
-        if((Framework[CurrentSystem].FrameworkModel==GRID)&&(VDWGrid[typeA])&&CanUseGrid)
+        if((Framework[CurrentSystem].FrameworkModel==GRID)&&(VDWGrid[typeA])&&CanUseGridNew)
           UHostVDWDelta[CurrentSystem]+=InterpolateVDWGrid(typeA,posA_new);
         else if(UseCellLists[CurrentSystem])
         {
@@ -5278,7 +5278,7 @@ int CalculateFrameworkCationVDWEnergyDifference(int m,int comp,int New,int Old,i
         posA_old=Cations[CurrentSystem][m].Atoms[j].AnisotropicPosition;
         scaling_old=Cations[CurrentSystem][m].Atoms[j].CFVDWScalingParameter;
 
-        if((Framework[CurrentSystem].FrameworkModel==GRID)&&(VDWGrid[typeA])&&CanUseGrid)
+        if((Framework[CurrentSystem].FrameworkModel==GRID)&&(VDWGrid[typeA])&&CanUseGridOld)
           UHostVDWDelta[CurrentSystem]-=InterpolateVDWGrid(typeA,posA_old);
         else if(UseCellLists[CurrentSystem])
         {
@@ -5402,7 +5402,7 @@ int CalculateFrameworkCationVDWEnergyDifference(int m,int comp,int New,int Old,i
  *            | int CBCFSwapLambaMove(void)                                                              *
  *********************************************************************************************************/
 
-int CalculateFrameworkAdsorbateChargeChargeEnergyDifference(int m,int comp,int New,int Old,int CanUseGrid)
+int CalculateFrameworkAdsorbateChargeChargeEnergyDifference(int m,int comp,int New,int Old,int CanUseGridNew, int CanUseGridOld)
 {
   int j,k,f1,typeA;
   POINT posA_new,posA_old,posB;
@@ -5427,7 +5427,7 @@ int CalculateFrameworkAdsorbateChargeChargeEnergyDifference(int m,int comp,int N
         typeA=Components[comp].Type[j];
         chargeA_new=CFChargeScaling[j]*PseudoAtoms[typeA].Charge1;
 
-        if((ChargeMethod!=NONE)&&(Framework[CurrentSystem].FrameworkModel==GRID)&&(CoulombGrid)&&CanUseGrid)
+        if((ChargeMethod!=NONE)&&(Framework[CurrentSystem].FrameworkModel==GRID)&&(CoulombGrid)&&CanUseGridNew)
           UHostChargeChargeRealDelta[CurrentSystem]+=InterpolateCoulombGrid(typeA,posA_new);
         else if(UseReplicas[CurrentSystem])
         {
@@ -5495,7 +5495,7 @@ int CalculateFrameworkAdsorbateChargeChargeEnergyDifference(int m,int comp,int N
         typeA=Adsorbates[CurrentSystem][m].Atoms[j].Type;
         chargeA_old=Adsorbates[CurrentSystem][m].Atoms[j].CFChargeScalingParameter*Adsorbates[CurrentSystem][m].Atoms[j].Charge;
         
-        if((ChargeMethod!=NONE)&&(Framework[CurrentSystem].FrameworkModel==GRID)&&(CoulombGrid)&&CanUseGrid)
+        if((ChargeMethod!=NONE)&&(Framework[CurrentSystem].FrameworkModel==GRID)&&(CoulombGrid)&&CanUseGridOld)
           UHostChargeChargeRealDelta[CurrentSystem]-=InterpolateCoulombGrid(typeA,posA_old);
         else if(UseReplicas[CurrentSystem])
         {
@@ -5570,7 +5570,7 @@ int CalculateFrameworkAdsorbateChargeChargeEnergyDifference(int m,int comp,int N
  *            | int CBCFSwapLambaMove(void)                                                              *
  *********************************************************************************************************/
 
-int CalculateFrameworkCationChargeChargeEnergyDifference(int m,int comp,int New,int Old,int CanUseGrid)
+int CalculateFrameworkCationChargeChargeEnergyDifference(int m,int comp,int New,int Old,int CanUseGridNew, CanUseGridOld)
 {
   int j,k,f1,typeA;
   POINT posA_new,posA_old,posB;
@@ -5595,7 +5595,7 @@ int CalculateFrameworkCationChargeChargeEnergyDifference(int m,int comp,int New,
         typeA=Components[comp].Type[j];
         chargeA_new=CFChargeScaling[j]*PseudoAtoms[typeA].Charge1;;
         
-        if((ChargeMethod!=NONE)&&(Framework[CurrentSystem].FrameworkModel==GRID)&&(CoulombGrid)&&CanUseGrid)
+        if((ChargeMethod!=NONE)&&(Framework[CurrentSystem].FrameworkModel==GRID)&&(CoulombGrid)&&CanUseGridNew)
           UHostChargeChargeRealDelta[CurrentSystem]+=InterpolateCoulombGrid(typeA,posA_new);
         else if(UseReplicas[CurrentSystem])
         {
@@ -5655,7 +5655,7 @@ int CalculateFrameworkCationChargeChargeEnergyDifference(int m,int comp,int New,
         typeA=Cations[CurrentSystem][m].Atoms[j].Type;
         chargeA_old=Cations[CurrentSystem][m].Atoms[j].CFChargeScalingParameter*Cations[CurrentSystem][m].Atoms[j].Charge;
         
-        if((ChargeMethod!=NONE)&&(Framework[CurrentSystem].FrameworkModel==GRID)&&(CoulombGrid)&&CanUseGrid)
+        if((ChargeMethod!=NONE)&&(Framework[CurrentSystem].FrameworkModel==GRID)&&(CoulombGrid)&&CanUseGridOld)
           UHostChargeChargeRealDelta[CurrentSystem]-=InterpolateCoulombGrid(typeA,posA_old);
         else if(UseReplicas[CurrentSystem])
         {

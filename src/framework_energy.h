@@ -84,11 +84,11 @@ REAL CalculateEnergyDifferenceFrameworkMoveVDW(int atom_id,VECTOR posA,int typeA
 void CalculateEnergyDifferenceFrameworkMoveCharge(int index);
 void CalculateFrameworkEnergyDifferenceShiftedFramework(void);
 
-int CalculateFrameworkAdsorbateVDWEnergyDifference(int m,int comp,int New,int Old,int CanUseGrid);
-int CalculateFrameworkCationVDWEnergyDifference(int m,int comp,int New,int Old,int CanUseGrid);
+int CalculateFrameworkAdsorbateVDWEnergyDifference(int m,int comp,int New,int Old,int CanUseGridNew,int CanUseGridOld);
+int CalculateFrameworkCationVDWEnergyDifference(int m,int comp,int New,int Old,int CanUseGridNew,int CanUseGridOld);
 
-int CalculateFrameworkAdsorbateChargeChargeEnergyDifference(int m,int comp,int New,int Old,int CanUseGrid);
-int CalculateFrameworkCationChargeChargeEnergyDifference(int m,int comp,int New,int Old,int CanUseGrid);
+int CalculateFrameworkAdsorbateChargeChargeEnergyDifference(int m,int comp,int New,int Old,int CanUseGridNew,int CanUseGridOld);
+int CalculateFrameworkCationChargeChargeEnergyDifference(int m,int comp,int New,int Old,int CanUseGridNew,int CanUseGridOld);
 
 int CalculateFrameworkAdsorbateChargeBondDipoleEnergyDifference(int m,int comp,int New,int Old);
 int CalculateFrameworkCationChargeBondDipoleEnergyDifference(int m,int comp,int New,int Old);
