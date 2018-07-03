@@ -5570,7 +5570,7 @@ int CalculateFrameworkAdsorbateChargeChargeEnergyDifference(int m,int comp,int N
  *            | int CBCFSwapLambaMove(void)                                                              *
  *********************************************************************************************************/
 
-int CalculateFrameworkCationChargeChargeEnergyDifference(int m,int comp,int New,int Old,int CanUseGridNew, CanUseGridOld)
+int CalculateFrameworkCationChargeChargeEnergyDifference(int m,int comp,int New,int Old,int CanUseGridNew, int CanUseGridOld)
 {
   int j,k,f1,typeA;
   POINT posA_new,posA_old,posB;
