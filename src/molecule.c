@@ -165,6 +165,13 @@ int AddPseudoAtom(PSEUDO_ATOM atom)
 
   if(AlreadyPresent)
   {
+    // for polarizable atoms which have zero charge, the inclusion is still needed to
+    // compute the electric-field at that position
+    if(fabs(atom.Charge1)>1e-10)
+    {
+      PseudoAtoms[j].HasCharges=TRUE;
+    }
+
     return j;
   }
   else
