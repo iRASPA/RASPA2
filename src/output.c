@@ -252,7 +252,7 @@ void PrintPreSimulationStatusCurrentSystem(int system)
   fprintf(FilePtr,"Compiler and run-time data\n");
   fprintf(FilePtr,"===========================================================================\n");
 
-  fprintf(FilePtr,"%s\n","RASPA 2.0.34");
+  fprintf(FilePtr,"%s\n","RASPA 2.0.35");
 
   #if defined (__LP64__) || defined (__64BIT__) || defined (_LP64) || (__WORDSIZE == 64)
     fprintf(FilePtr,"Compiled as a 64-bits application\n");
@@ -363,285 +363,288 @@ void PrintPreSimulationStatusCurrentSystem(int system)
       break;
   }
   fprintf(FilePtr,"Timestep: %lf\n",DeltaT);
-  switch(InitEnsemble[system])
+  if(SimulationType==MOLECULAR_DYNAMICS)
   {
-    case NVE:
-      fprintf(FilePtr,"Initialization Ensemble: NVE (constant number of particles N, constant volume V, constant energy E)\n");
-      break;
-    case NVT:
-      fprintf(FilePtr,"Initialization Ensemble: NVT (constant number of particles N, constant volume V, constant average temperature T)\n");
-      break;
-    case NPT:
-      fprintf(FilePtr,"Initialization Ensemble: NPT (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-      break;
-    case NPH:
-      fprintf(FilePtr,"Initialization Ensemble: NPH (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
-      break;
-    case MuPT:
-      fprintf(FilePtr,"Initialization Ensemble: MuPT (constant chemical potential mu, constant average pressure P, constant average temperature T)\n");
-      break;
-    case MuVT:
-      fprintf(FilePtr,"Initialization Ensemble: MuVT (constant chemical potential mu, constant volume V, constant average temperature T)\n");
-      break;
-    case NPTPR:
-    case MuPTPR:
-      switch(NPTPRCellType[system])
-      {
-        case REGULAR:
-          fprintf(FilePtr,"Initialization Ensemble: NPT (Parinello-Rahman)\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-          break;
-        case ANISOTROPIC:
-          fprintf(FilePtr,"Initialization Ensemble: NPT angles fixed, box-lengths are allowed to vary anisotropically (Parinello-Rahman)\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-          break;
-        case ISOTROPIC:
-          fprintf(FilePtr,"Initialization Ensemble: NPT angles fixed, box-lengths are allowed to vary isotropically (Parinello-Rahman)\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-          break;
-        case MONOCLINIC:
-          switch(MonoclinicAngleType[CurrentSystem])
-          {
-            case MONOCLINIC_ALPHA_ANGLE:
-              fprintf(FilePtr,"Initialization Ensemble: NPT beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_BETA_ANGLE:
-              fprintf(FilePtr,"Initialization Ensemble: NPT alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_GAMMA_ANGLE:
-              fprintf(FilePtr,"Initialization Ensemble: NPT alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-          }
-          break;
-        case REGULAR_UPPER_TRIANGLE:
-          fprintf(FilePtr,"Initialization Ensemble: NPT full cell fluctuations (Parinello-Rahman) using the upper triangle of the box-matrix\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-          break;
-        case MONOCLINIC_UPPER_TRIANGLE:
-          switch(MonoclinicAngleType[CurrentSystem])
-          {
-            case MONOCLINIC_ALPHA_ANGLE:
-              fprintf(FilePtr,"Initialization Ensemble: NPT beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_BETA_ANGLE:
-              fprintf(FilePtr,"Initialization Ensemble: NPT alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_GAMMA_ANGLE:
-              fprintf(FilePtr,"Initialization Ensemble: NPT alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-          }
-          break;
-        default:
-          fprintf(stderr, "Undefined cell type for NPTPR\n");
-          exit(0);
-          break;
-      }
-      break;
-    case NPHPR:
-      switch(NPTPRCellType[system])
-      {
-        case REGULAR:
-          fprintf(FilePtr,"Initialization Ensemble: NPH (Parinello-Rahman)\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
-          break;
-        case ANISOTROPIC:
-          fprintf(FilePtr,"Initialization Ensemble: NPH angles fixed, box-lengths are allowed to vary anisotropically (Parinello-Rahman)\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
-          break;
-        case ISOTROPIC:
-          fprintf(FilePtr,"Initialization Ensemble: NPH angles fixed, box-lengths are allowed to vary isotropically (Parinello-Rahman)\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
-          break;
-        case MONOCLINIC:
-          switch(MonoclinicAngleType[CurrentSystem])
-          {
-            case MONOCLINIC_ALPHA_ANGLE:
-              fprintf(FilePtr,"Initialization Ensemble: NPH beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_BETA_ANGLE:
-              fprintf(FilePtr,"Initialization Ensemble: NPH alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_GAMMA_ANGLE:
-              fprintf(FilePtr,"Initialization Ensemble: NPH alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-          }
-          break;
-        case REGULAR_UPPER_TRIANGLE:
-          fprintf(FilePtr,"Initialization Ensemble: NPH full cell fluctuations (Parinello-Rahman) using the upper triangle of the box-matrix\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy)\n");
-          break;
-        case MONOCLINIC_UPPER_TRIANGLE:
-          switch(MonoclinicAngleType[CurrentSystem])
-          {
-            case MONOCLINIC_ALPHA_ANGLE:
-              fprintf(FilePtr,"Initialization Ensemble: NPH beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_BETA_ANGLE:
-              fprintf(FilePtr,"Initialization Ensemble: NPH alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_GAMMA_ANGLE:
-              fprintf(FilePtr,"Initialization Ensemble: NPH alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-          }
-          break;
-        default:
-          fprintf(stderr, "Undefined cell type for NPHPR\n");
-          exit(0);
-          break;
-      }
-      break;
-  }
-
-  switch(RunEnsemble[system])
-  {
-    case NVE:
-      fprintf(FilePtr,"Production run ensemble: NVE (constant number of particles N, constant volume V, constant energy E)\n");
-      break;
-    case NVT:
-      fprintf(FilePtr,"Production run ensemble: NVT (constant number of particles N, constant volume V, constant average temperature T)\n");
-      break;
-    case NPT:
-      fprintf(FilePtr,"Production run ensemble: NPT (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-      break;
-    case NPH:
-      fprintf(FilePtr,"Production run ensemble: NPH (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
-      break;
-    case MuPT:
-      fprintf(FilePtr,"Production run ensemble: MuPT (constant chemical potential mu, constant average pressure P, constant average temperature T)\n");
-      break;
-    case MuVT:
-      fprintf(FilePtr,"Production run ensemble: MuVT (constant chemical potential mu, constant volume V, constant average temperature T)\n");
-      break;
-    case NPTPR:
-    case MuPTPR:
-      switch(NPTPRCellType[system])
-      {
-        case REGULAR:
-          fprintf(FilePtr,"Production run ensemble: NPT (Parinello-Rahman)\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-          break;
-        case ANISOTROPIC:
-          fprintf(FilePtr,"Production run ensemble: NPT angles fixed, box-lengths are allowed to vary anisotropically (Parinello-Rahman)\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-          break;          case ISOTROPIC:
-          fprintf(FilePtr,"Production run ensemble: NPT angles fixed, box-lengths are allowed to vary isotropically (Parinello-Rahman)\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-          break;
-        case MONOCLINIC:
-          switch(MonoclinicAngleType[CurrentSystem])
-          {
-            case MONOCLINIC_ALPHA_ANGLE:
-              fprintf(FilePtr,"Production run Ensemble: NPT beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_BETA_ANGLE:
-              fprintf(FilePtr,"Production run Ensemble: NPT alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_GAMMA_ANGLE:
-              fprintf(FilePtr,"Production run Ensemble: NPT alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-          }
-          break;
-        case REGULAR_UPPER_TRIANGLE:
-          fprintf(FilePtr,"Production run ensemble: NPT full cell fluctuations (Parinello-Rahman) using the upper triangle of the box-matrix\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-          break;
-        case MONOCLINIC_UPPER_TRIANGLE:
-          switch(MonoclinicAngleType[CurrentSystem])
-          {
-            case MONOCLINIC_ALPHA_ANGLE:
-              fprintf(FilePtr,"Production run Ensemble: NPT beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_BETA_ANGLE:
-              fprintf(FilePtr,"Production run Ensemble: NPT alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_GAMMA_ANGLE:
-              fprintf(FilePtr,"Production run Ensemble: NPT alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-          }
-          break;
-        default:
-          fprintf(stderr, "Undefined cell type for NPTPR\n");
-          exit(0);
-          break;
-      }
-      break;
-    case NPHPR:
-      switch(NPTPRCellType[system])
-      {
-        case REGULAR:
-          fprintf(FilePtr,"Production run ensemble: NPH (Parinello-Rahman)\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
-          break;
-        case ANISOTROPIC:
-          fprintf(FilePtr,"Production run ensemble: NPH angles fixed, box-lengths are allowed to vary anisotropically (Parinello-Rahman)\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
-          break;
-        case ISOTROPIC:
-          fprintf(FilePtr,"Production run ensemble: NPH angles fixed, box-lengths are allowed to vary isotropically (Parinello-Rahman)\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
-          break;
-        case MONOCLINIC:
-          switch(MonoclinicAngleType[CurrentSystem])
-          {
-            case MONOCLINIC_ALPHA_ANGLE:
-              fprintf(FilePtr,"Production run Ensemble: NPH beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_BETA_ANGLE:
-              fprintf(FilePtr,"Production run Ensemble: NPH alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_GAMMA_ANGLE:
-              fprintf(FilePtr,"Production run Ensemble: NPH alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-          }
-          break;
-        case REGULAR_UPPER_TRIANGLE:
-          fprintf(FilePtr,"Production run ensemble: NPH full cell fluctuations (Parinello-Rahman) using the upper triangle of the box-matrix\n");
-          fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy)\n");
-          break;
-        case MONOCLINIC_UPPER_TRIANGLE:
-          switch(MonoclinicAngleType[CurrentSystem])
-          {
-            case MONOCLINIC_ALPHA_ANGLE:
-              fprintf(FilePtr,"Production run Ensemble: NPH beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_BETA_ANGLE:
-              fprintf(FilePtr,"Production run Ensemble: NPH alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-            case MONOCLINIC_GAMMA_ANGLE:
-              fprintf(FilePtr,"Production run Ensemble: NPH alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
-              fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
-              break;
-          }
-          break;
-        default:
-          fprintf(stderr, "Undefined cell type for NPHPR\n");
-          exit(0);
-          break;
-      }
-      break;
+    switch(InitEnsemble[system])
+    {
+      case NVE:
+        fprintf(FilePtr,"Initialization Ensemble: NVE (constant number of particles N, constant volume V, constant energy E)\n");
+        break;
+      case NVT:
+        fprintf(FilePtr,"Initialization Ensemble: NVT (constant number of particles N, constant volume V, constant average temperature T)\n");
+        break;
+      case NPT:
+        fprintf(FilePtr,"Initialization Ensemble: NPT (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+        break;
+      case NPH:
+        fprintf(FilePtr,"Initialization Ensemble: NPH (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
+        break;
+      case MuPT:
+        fprintf(FilePtr,"Initialization Ensemble: MuPT (constant chemical potential mu, constant average pressure P, constant average temperature T)\n");
+        break;
+      case MuVT:
+        fprintf(FilePtr,"Initialization Ensemble: MuVT (constant chemical potential mu, constant volume V, constant average temperature T)\n");
+        break;
+      case NPTPR:
+      case MuPTPR:
+        switch(NPTPRCellType[system])
+        {
+          case REGULAR:
+            fprintf(FilePtr,"Initialization Ensemble: NPT (Parinello-Rahman)\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+            break;
+          case ANISOTROPIC:
+            fprintf(FilePtr,"Initialization Ensemble: NPT angles fixed, box-lengths are allowed to vary anisotropically (Parinello-Rahman)\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+            break;
+          case ISOTROPIC:
+            fprintf(FilePtr,"Initialization Ensemble: NPT angles fixed, box-lengths are allowed to vary isotropically (Parinello-Rahman)\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+            break;
+          case MONOCLINIC:
+            switch(MonoclinicAngleType[CurrentSystem])
+            {
+              case MONOCLINIC_ALPHA_ANGLE:
+                fprintf(FilePtr,"Initialization Ensemble: NPT beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_BETA_ANGLE:
+                fprintf(FilePtr,"Initialization Ensemble: NPT alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_GAMMA_ANGLE:
+                fprintf(FilePtr,"Initialization Ensemble: NPT alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+            }
+            break;
+          case REGULAR_UPPER_TRIANGLE:
+            fprintf(FilePtr,"Initialization Ensemble: NPT full cell fluctuations (Parinello-Rahman) using the upper triangle of the box-matrix\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+            break;
+          case MONOCLINIC_UPPER_TRIANGLE:
+            switch(MonoclinicAngleType[CurrentSystem])
+            {
+              case MONOCLINIC_ALPHA_ANGLE:
+                fprintf(FilePtr,"Initialization Ensemble: NPT beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_BETA_ANGLE:
+                fprintf(FilePtr,"Initialization Ensemble: NPT alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_GAMMA_ANGLE:
+                fprintf(FilePtr,"Initialization Ensemble: NPT alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+            }
+            break;
+          default:
+            fprintf(stderr, "Undefined cell type for NPTPR\n");
+            exit(0);
+            break;
+        }
+        break;
+      case NPHPR:
+        switch(NPTPRCellType[system])
+        {
+          case REGULAR:
+            fprintf(FilePtr,"Initialization Ensemble: NPH (Parinello-Rahman)\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
+            break;
+          case ANISOTROPIC:
+            fprintf(FilePtr,"Initialization Ensemble: NPH angles fixed, box-lengths are allowed to vary anisotropically (Parinello-Rahman)\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
+            break;
+          case ISOTROPIC:
+            fprintf(FilePtr,"Initialization Ensemble: NPH angles fixed, box-lengths are allowed to vary isotropically (Parinello-Rahman)\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
+            break;
+          case MONOCLINIC:
+            switch(MonoclinicAngleType[CurrentSystem])
+            {
+              case MONOCLINIC_ALPHA_ANGLE:
+                fprintf(FilePtr,"Initialization Ensemble: NPH beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_BETA_ANGLE:
+                fprintf(FilePtr,"Initialization Ensemble: NPH alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_GAMMA_ANGLE:
+                fprintf(FilePtr,"Initialization Ensemble: NPH alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+            }
+            break;
+          case REGULAR_UPPER_TRIANGLE:
+            fprintf(FilePtr,"Initialization Ensemble: NPH full cell fluctuations (Parinello-Rahman) using the upper triangle of the box-matrix\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy)\n");
+            break;
+          case MONOCLINIC_UPPER_TRIANGLE:
+            switch(MonoclinicAngleType[CurrentSystem])
+            {
+              case MONOCLINIC_ALPHA_ANGLE:
+                fprintf(FilePtr,"Initialization Ensemble: NPH beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_BETA_ANGLE:
+                fprintf(FilePtr,"Initialization Ensemble: NPH alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_GAMMA_ANGLE:
+                fprintf(FilePtr,"Initialization Ensemble: NPH alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+            }
+            break;
+          default:
+            fprintf(stderr, "Undefined cell type for NPHPR\n");
+            exit(0);
+            break;
+        }
+        break;
+    }
+  
+    switch(RunEnsemble[system])
+    {
+      case NVE:
+        fprintf(FilePtr,"Production run ensemble: NVE (constant number of particles N, constant volume V, constant energy E)\n");
+        break;
+      case NVT:
+        fprintf(FilePtr,"Production run ensemble: NVT (constant number of particles N, constant volume V, constant average temperature T)\n");
+        break;
+      case NPT:
+        fprintf(FilePtr,"Production run ensemble: NPT (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+        break;
+      case NPH:
+        fprintf(FilePtr,"Production run ensemble: NPH (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
+        break;
+      case MuPT:
+        fprintf(FilePtr,"Production run ensemble: MuPT (constant chemical potential mu, constant average pressure P, constant average temperature T)\n");
+        break;
+      case MuVT:
+        fprintf(FilePtr,"Production run ensemble: MuVT (constant chemical potential mu, constant volume V, constant average temperature T)\n");
+        break;
+      case NPTPR:
+      case MuPTPR:
+        switch(NPTPRCellType[system])
+        {
+          case REGULAR:
+            fprintf(FilePtr,"Production run ensemble: NPT (Parinello-Rahman)\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+            break;
+          case ANISOTROPIC:
+            fprintf(FilePtr,"Production run ensemble: NPT angles fixed, box-lengths are allowed to vary anisotropically (Parinello-Rahman)\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+            break;          case ISOTROPIC:
+            fprintf(FilePtr,"Production run ensemble: NPT angles fixed, box-lengths are allowed to vary isotropically (Parinello-Rahman)\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+            break;
+          case MONOCLINIC:
+            switch(MonoclinicAngleType[CurrentSystem])
+            {
+              case MONOCLINIC_ALPHA_ANGLE:
+                fprintf(FilePtr,"Production run Ensemble: NPT beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_BETA_ANGLE:
+                fprintf(FilePtr,"Production run Ensemble: NPT alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_GAMMA_ANGLE:
+                fprintf(FilePtr,"Production run Ensemble: NPT alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+            }
+            break;
+          case REGULAR_UPPER_TRIANGLE:
+            fprintf(FilePtr,"Production run ensemble: NPT full cell fluctuations (Parinello-Rahman) using the upper triangle of the box-matrix\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+            break;
+          case MONOCLINIC_UPPER_TRIANGLE:
+            switch(MonoclinicAngleType[CurrentSystem])
+            {
+              case MONOCLINIC_ALPHA_ANGLE:
+                fprintf(FilePtr,"Production run Ensemble: NPT beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_BETA_ANGLE:
+                fprintf(FilePtr,"Production run Ensemble: NPT alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_GAMMA_ANGLE:
+                fprintf(FilePtr,"Production run Ensemble: NPT alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+            }
+            break;
+          default:
+            fprintf(stderr, "Undefined cell type for NPTPR\n");
+            exit(0);
+            break;
+        }
+        break;
+      case NPHPR:
+        switch(NPTPRCellType[system])
+        {
+          case REGULAR:
+            fprintf(FilePtr,"Production run ensemble: NPH (Parinello-Rahman)\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
+            break;
+          case ANISOTROPIC:
+            fprintf(FilePtr,"Production run ensemble: NPH angles fixed, box-lengths are allowed to vary anisotropically (Parinello-Rahman)\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
+            break;
+          case ISOTROPIC:
+            fprintf(FilePtr,"Production run ensemble: NPH angles fixed, box-lengths are allowed to vary isotropically (Parinello-Rahman)\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy H)\n");
+            break;
+          case MONOCLINIC:
+            switch(MonoclinicAngleType[CurrentSystem])
+            {
+              case MONOCLINIC_ALPHA_ANGLE:
+                fprintf(FilePtr,"Production run Ensemble: NPH beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_BETA_ANGLE:
+                fprintf(FilePtr,"Production run Ensemble: NPH alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_GAMMA_ANGLE:
+                fprintf(FilePtr,"Production run Ensemble: NPH alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+            }
+            break;
+          case REGULAR_UPPER_TRIANGLE:
+            fprintf(FilePtr,"Production run ensemble: NPH full cell fluctuations (Parinello-Rahman) using the upper triangle of the box-matrix\n");
+            fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant enthalpy)\n");
+            break;
+          case MONOCLINIC_UPPER_TRIANGLE:
+            switch(MonoclinicAngleType[CurrentSystem])
+            {
+              case MONOCLINIC_ALPHA_ANGLE:
+                fprintf(FilePtr,"Production run Ensemble: NPH beta/gamma angles fixed, alpha angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_BETA_ANGLE:
+                fprintf(FilePtr,"Production run Ensemble: NPH alpha/gamma angles fixed, beta angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+              case MONOCLINIC_GAMMA_ANGLE:
+                fprintf(FilePtr,"Production run Ensemble: NPH alpha/beta angles fixed, gamma angle and box-lengths are allowed to vary (monoclinic Parinello-Rahman)  using the upper triangle of the box-matrix\n");
+                fprintf(FilePtr,"          (constant number of particles N, constant average pressure P, constant average temperature T)\n");
+                break;
+            }
+            break;
+          default:
+            fprintf(stderr, "Undefined cell type for NPHPR\n");
+            exit(0);
+            break;
+        }
+        break;
+    }
   }
 
   fprintf(FilePtr,"\tDegrees of freedom:                        %d\n",DegreesOfFreedom[system]);
@@ -3896,6 +3899,7 @@ void PrintPreSimulationStatusCurrentSystem(int system)
       fprintf(FilePtr,"\t\tPercentage of CF swap lambda moves:                %lf\n",(double)(100.0*Components[i].FractionOfCFSwapLambdaMove));
       fprintf(FilePtr,"\t\tPercentage of CB/CFMC swap lambda moves:           %lf\n",(double)(100.0*Components[i].FractionOfCBCFSwapLambdaMove));
       fprintf(FilePtr,"\t\tPercentage of Widom insertion moves:               %lf\n",(double)(100.0*Components[i].FractionOfWidomMove));
+      fprintf(FilePtr,"\t\tPercentage of CF-Widom insertion moves:            %lf\n",(double)(100.0*Components[i].FractionOfCFWidomLambdaMove));
       fprintf(FilePtr,"\t\tPercentage of Gibbs Widom insertion moves:         %lf\n",(double)(100.0*Components[i].FractionOfGibbsWidomMove));
       fprintf(FilePtr,"\t\tPercentage of surface-area moves:                  %lf\n",(double)(100.0*Components[i].FractionOfSurfaceAreaMove));
       fprintf(FilePtr,"\t\tPercentage of Gibbs particle-transfer moves:       %lf\n",(double)(100.0*Components[i].FractionOfGibbsChangeMove));
@@ -6532,6 +6536,7 @@ void PrintPostSimulationStatus(void)
     PrintCFGibbsLambdaChangeStatistics(FilePtr);
     PrintCFGibbsSwapFractionalMoleculeToOtherBoxStatistics(FilePtr);
     PrintCFGibbsFractionalToIntegerStatistics(FilePtr);
+    PrintCFWidomLambdaStatistics(FilePtr);
     PrintCFGibbsWidomStatistics(FilePtr);
 
     fprintf(FilePtr,"\n\n");
@@ -7971,7 +7976,6 @@ void ReadRestartOutput(FILE* FilePtr)
     // limit length of file-name
     strncpy(buffer3,buffer,256);
     sprintf(buffer2,"%s.data",buffer3);
-    OutputFilePtr[i]=fopen(buffer2,"w");
 
     // check if the file exist
     if( access(buffer2,F_OK )==0) 

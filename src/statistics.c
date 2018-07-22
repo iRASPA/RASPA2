@@ -4542,8 +4542,8 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
 
   // Average fixed volume chemical potential
   fprintf(FilePtr,"\n");
-  fprintf(FilePtr,"Average Gibbs Widom chemical potential:\n");
-  fprintf(FilePtr,"=======================================\n");
+  fprintf(FilePtr,"Average Widom chemical potential:\n");
+  fprintf(FilePtr,"=================================\n");
   for(j=0;j<NumberOfComponents;j++)
   {
     sum=sum2=0.0;
@@ -4802,11 +4802,15 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   }
 }
 
+static int versionNumber=1;
+
 void WriteRestartStatistics(FILE *FilePtr)
 {
   int i,j,k;
   int NumberOfBlocks=NR_BLOCKS;
   REAL Check;
+
+  fwrite(&versionNumber,sizeof(int),1,FilePtr);
 
   NumberOfBlocks=NR_BLOCKS;
 
@@ -5433,10 +5437,19 @@ void ReadRestartStatistics(FILE *FilePtr)
   int i,j,k;
   int NumberOfBlocks;
   REAL Check;
+  int readversionNumber=0;
 
   NumberOfBlocks=NR_BLOCKS;
 
   AllocateStatisticsMemory();
+
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumber)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
 
   fread(&NumberOfBlocks,sizeof(int),1,FilePtr);
   fread(&Block,sizeof(int),1,FilePtr);

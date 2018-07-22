@@ -6006,10 +6006,13 @@ void AllocateMinimizationMemory(void)
   TwoPointDihedrals=(ATOM*(**)[6])calloc(NumberOfSystems,sizeof(ATOM*(*)[6]));
 }
 
+static int versionNumber=1;
 
 void WriteRestartMinimization(FILE *FilePtr)
 {
   REAL Check;
+
+  fwrite(&versionNumber,sizeof(int),1,FilePtr);
 
   Check=123456789.0;
   fwrite(&Check,1,sizeof(REAL),FilePtr);
@@ -6020,8 +6023,17 @@ void WriteRestartMinimization(FILE *FilePtr)
 void ReadRestartMinimization(FILE *FilePtr)
 {
   REAL Check;
+  int readversionNumber=0;
 
   AllocateMinimizationMemory();
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumber)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
+
 
   fread(&Check,1,sizeof(REAL),FilePtr);
   if(fabs(Check-123456789.0)>1e-10)

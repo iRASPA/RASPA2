@@ -526,6 +526,7 @@ typedef struct Component
   REAL ProbabilityCFSwapLambdaMove;
   REAL ProbabilityCBCFSwapLambdaMove;
   REAL ProbabilityWidomMove;
+  REAL ProbabilityCFWidomLambdaMove;
   REAL ProbabilityGibbsWidomMove;
   REAL ProbabilitySurfaceAreaMove;
   REAL ProbabilityGibbsChangeMove;
@@ -565,6 +566,7 @@ typedef struct Component
   REAL *CpuTimeCFSwapLambdaMove;
   REAL *CpuTimeCBCFSwapLambdaMove;
   REAL *CpuTimeWidomMove;
+  REAL *CpuTimeCFWidomLambdaMove;
   REAL *CpuTimeGibbsWidomMove;
   REAL *CpuTimeSurfaceAreaMove;
   REAL *CpuTimeGibbsChangeMove;
@@ -614,6 +616,7 @@ typedef struct Component
   REAL FractionOfCFSwapLambdaMove;
   REAL FractionOfCBCFSwapLambdaMove;
   REAL FractionOfWidomMove;
+  REAL FractionOfCFWidomLambdaMove;
   REAL FractionOfGibbsWidomMove;
   REAL FractionOfSurfaceAreaMove;
   REAL FractionOfGibbsChangeMove;

@@ -478,10 +478,14 @@ void ComputeGasPropertiesForAllSystems(void)
   }
 }
 
+static int versionNumber=1;
+
 void WriteRestartEquationOfState(FILE *FilePtr)
 {
   int i;
   REAL Check;
+
+  fwrite(&versionNumber,sizeof(int),1,FilePtr);
 
   for(i=0;i<NumberOfComponents;i++)
     fwrite(BinaryInteractionParameter[i],NumberOfComponents,sizeof(REAL),FilePtr);
@@ -530,8 +534,17 @@ void ReadRestartEquationOfState(FILE *FilePtr)
 {
   int i;
   REAL Check;
+  int readversionNumber=0;
 
   AllocateEquationOfStateMemory();
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumber)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
+
   for(i=0;i<NumberOfComponents;i++)
     fread(BinaryInteractionParameter[i],NumberOfComponents,sizeof(REAL),FilePtr);
 

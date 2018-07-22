@@ -2060,11 +2060,15 @@ void FreeEnergyProfile3D(void)
   free(Histogram_Count_3D);
 }
 
+static int versionNumber=1;
+
 void WriteRestartMovies(FILE *FilePtr)
 {
   int i,j;
   fpos_t pos;
   REAL Check;
+
+  fwrite(&versionNumber,sizeof(int),1,FilePtr);
 
   fwrite(Movies,NumberOfSystems,sizeof(int),FilePtr);
   fwrite(WriteMoviesEvery,NumberOfSystems,sizeof(int),FilePtr);
@@ -2112,8 +2116,16 @@ void ReadRestartMovies(FILE *FilePtr)
   fpos_t pos;
   char buffer[1024];
   REAL Check;
+  int readversionNumber=0;
 
   AllocateMovieMemory();
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumber)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
 
   fread(Movies,NumberOfSystems,sizeof(int),FilePtr);
   fread(WriteMoviesEvery,NumberOfSystems,sizeof(int),FilePtr);

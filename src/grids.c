@@ -2481,11 +2481,13 @@ void BlockingVDWGrid(void)
 }
 
 
-
+static int versionNumber=1;
 
 void WriteRestartGrids(FILE *FilePtr)
 {
   REAL Check;
+
+  fwrite(&versionNumber,sizeof(int),1,FilePtr);
 
   fwrite(&SpacingVDWGrid,1,sizeof(REAL),FilePtr);
   fwrite(&SpacingCoulombGrid,1,sizeof(REAL),FilePtr);
@@ -2506,6 +2508,14 @@ void AllocateGridMemory(void)
 void ReadRestartGrids(FILE *FilePtr)
 {
   REAL Check;
+  int readversionNumber=0;
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumber)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
 
   fread(&SpacingVDWGrid,1,sizeof(REAL),FilePtr);
   fread(&SpacingCoulombGrid,1,sizeof(REAL),FilePtr);

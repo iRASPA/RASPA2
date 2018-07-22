@@ -12237,11 +12237,14 @@ void PutNoiseOnFrameworkAtomicPositions(void)
   }
 }
 
+static int versionNumber=1;
 
 void WriteRestartFramework(FILE *FilePtr)
 {
   int i,j,k;
   REAL Check;
+
+  fwrite(&versionNumber,sizeof(int),1,FilePtr);
 
   fwrite(&NumberOfSystems,sizeof(NumberOfSystems),1,FilePtr);
   fwrite(crystallographic_stats,sizeof(CRYSTALLOGRAPHIC_STATISTICS),NumberOfSystems,FilePtr);
@@ -12730,6 +12733,14 @@ void ReadRestartFramework(FILE *FilePtr)
 {
   int i,j,k;
   REAL Check;
+  int readversionNumber=0;
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumber)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
 
   fread(&NumberOfSystems,sizeof(NumberOfSystems),1,FilePtr);
   Framework=(FRAMEWORK_COMPONENT*)calloc(NumberOfSystems,sizeof(FRAMEWORK_COMPONENT));

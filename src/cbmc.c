@@ -3769,9 +3769,13 @@ void PrintSmallMCAddStatistics(FILE *FilePtr)
   fprintf(FilePtr,"\n\n");
 }
 
+static int versionNumber=1;
+
 void WriteRestartCBMC(FILE *FilePtr)
 {
   REAL Check;
+
+  fwrite(&versionNumber,sizeof(int),1,FilePtr);
   fwrite(&BiasingMethod,sizeof(BiasingMethod),1,FilePtr);
   fwrite(&NumberOfTrialPositions,sizeof(NumberOfTrialPositions),1,FilePtr);
   fwrite(&NumberOfTrialPositionsForTheFirstBead,sizeof(NumberOfTrialPositionsForTheFirstBead),1,FilePtr);
@@ -4092,6 +4096,15 @@ void AllocateCBMCMemory(void)
 void ReadRestartCBMC(FILE *FilePtr)
 {
   REAL Check;
+  int readversionNumber=0;
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumber)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
+
   fread(&BiasingMethod,sizeof(BiasingMethod),1,FilePtr);
   fread(&NumberOfTrialPositions,sizeof(NumberOfTrialPositions),1,FilePtr);
   fread(&NumberOfTrialPositionsForTheFirstBead,sizeof(NumberOfTrialPositionsForTheFirstBead),1,FilePtr);

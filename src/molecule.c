@@ -1211,6 +1211,7 @@ void ReadComponentDefinition(int comp)
   Components[comp].CpuTimeCFSwapLambdaMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeCBCFSwapLambdaMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeWidomMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+  Components[comp].CpuTimeCFWidomLambdaMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeGibbsWidomMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeSurfaceAreaMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   Components[comp].CpuTimeGibbsChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
@@ -3518,6 +3519,7 @@ void RescaleComponentProbabilities(void)
             Components[i].ProbabilityCFSwapLambdaMove+
             Components[i].ProbabilityCBCFSwapLambdaMove+
             Components[i].ProbabilityWidomMove+
+            Components[i].ProbabilityCFWidomLambdaMove+
             Components[i].ProbabilityGibbsWidomMove+
             Components[i].ProbabilitySurfaceAreaMove+
             Components[i].ProbabilityGibbsChangeMove+
@@ -3554,7 +3556,8 @@ void RescaleComponentProbabilities(void)
     Components[i].ProbabilityCFSwapLambdaMove+=Components[i].ProbabilitySwapMove;
     Components[i].ProbabilityCBCFSwapLambdaMove+=Components[i].ProbabilityCFSwapLambdaMove;
     Components[i].ProbabilityWidomMove+=Components[i].ProbabilityCBCFSwapLambdaMove;
-    Components[i].ProbabilityGibbsWidomMove+=Components[i].ProbabilityWidomMove;
+    Components[i].ProbabilityCFWidomLambdaMove+=Components[i].ProbabilityWidomMove;
+    Components[i].ProbabilityGibbsWidomMove+=Components[i].ProbabilityCFWidomLambdaMove;
     Components[i].ProbabilitySurfaceAreaMove+=Components[i].ProbabilityGibbsWidomMove;
     Components[i].ProbabilityGibbsChangeMove+=Components[i].ProbabilitySurfaceAreaMove;
     Components[i].ProbabilityGibbsIdentityChangeMove+=Components[i].ProbabilityGibbsChangeMove;
@@ -3595,6 +3598,7 @@ void RescaleComponentProbabilities(void)
       Components[i].ProbabilityCFSwapLambdaMove/=TotProb;
       Components[i].ProbabilityCBCFSwapLambdaMove/=TotProb;
       Components[i].ProbabilityWidomMove/=TotProb;
+      Components[i].ProbabilityCFWidomLambdaMove/=TotProb;
       Components[i].ProbabilityGibbsWidomMove/=TotProb;
       Components[i].ProbabilitySurfaceAreaMove/=TotProb;
       Components[i].ProbabilityGibbsChangeMove/=TotProb;
@@ -3634,7 +3638,8 @@ void RescaleComponentProbabilities(void)
     Components[i].FractionOfCFSwapLambdaMove=Components[i].ProbabilityCFSwapLambdaMove-Components[i].ProbabilitySwapMove;
     Components[i].FractionOfCBCFSwapLambdaMove=Components[i].ProbabilityCBCFSwapLambdaMove-Components[i].ProbabilityCFSwapLambdaMove;
     Components[i].FractionOfWidomMove=Components[i].ProbabilityWidomMove-Components[i].ProbabilityCBCFSwapLambdaMove;
-    Components[i].FractionOfGibbsWidomMove=Components[i].ProbabilityGibbsWidomMove-Components[i].ProbabilityWidomMove;
+    Components[i].FractionOfCFWidomLambdaMove=Components[i].ProbabilityCFWidomLambdaMove-Components[i].ProbabilityWidomMove;
+    Components[i].FractionOfGibbsWidomMove=Components[i].ProbabilityGibbsWidomMove-Components[i].ProbabilityCFWidomLambdaMove;
     Components[i].FractionOfSurfaceAreaMove=Components[i].ProbabilitySurfaceAreaMove-Components[i].ProbabilityGibbsWidomMove;
     Components[i].FractionOfGibbsChangeMove=Components[i].ProbabilityGibbsChangeMove-Components[i].ProbabilitySurfaceAreaMove;
     Components[i].FractionOfGibbsIdentityChangeMove=Components[i].ProbabilityGibbsIdentityChangeMove-Components[i].ProbabilityGibbsChangeMove;
@@ -6105,7 +6110,7 @@ void PrintCPUStatistics(FILE *FilePtr)
   REAL CpuTimeTranslationMove,CpuTimeRandomTranslationMove,CpuTimeRotationMove,CpuTimeRandomRotationMove,CpuTimePartialReinsertionMove;
   REAL CpuTimeReinsertionMove,CpuTimeReinsertionInPlaceMove,CpuTimeReinsertionInPlaneMove;
   REAL CpuTimeIdentityChangeMove,CpuTimeSwapMoveInsertion,CpuTimeSwapMoveDeletion;
-  REAL CpuTimeCFSwapLambdaMove,CpuTimeCBCFSwapLambdaMove,CpuTimeWidomMove,CpuTimeGibbsWidomMove;
+  REAL CpuTimeCFSwapLambdaMove,CpuTimeCBCFSwapLambdaMove,CpuTimeWidomMove,CpuTimeCFWidomLambdaMove,CpuTimeGibbsWidomMove;
   REAL CpuTimeSurfaceAreaMove,CpuTimeGibbsChangeMove,CpuTimeCFGibbsChangeMove;
   REAL CpuTimeCBCFGibbsChangeMove,CpuTimeGibbsIdentityChangeMove,CpuTimeExchangeFractionalParticleMove;
   REAL CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove,CpuTimeCFGibbsLambdaChangeMove,CpuTimeCFGibbsFractionalToIntegerMove;
@@ -6129,6 +6134,7 @@ void PrintCPUStatistics(FILE *FilePtr)
   CpuTimeCFSwapLambdaMove=0.0;
   CpuTimeCBCFSwapLambdaMove=0.0;
   CpuTimeWidomMove=0.0;
+  CpuTimeCFWidomLambdaMove=0.0;
   CpuTimeGibbsWidomMove=0.0;
   CpuTimeSurfaceAreaMove=0.0;
   CpuTimeGibbsChangeMove=0.0;
@@ -6167,6 +6173,7 @@ void PrintCPUStatistics(FILE *FilePtr)
     fprintf(FilePtr,"\tswap lambda (CFMC):                 %18.10g [s]\n",Components[i].CpuTimeCFSwapLambdaMove[CurrentSystem]);
     fprintf(FilePtr,"\tswap lambda (CB/CFMC):              %18.10g [s]\n",Components[i].CpuTimeCBCFSwapLambdaMove[CurrentSystem]);
     fprintf(FilePtr,"\tWidom:                              %18.10g [s]\n",Components[i].CpuTimeWidomMove[CurrentSystem]);
+    fprintf(FilePtr,"\tCF-Widom:                           %18.10g [s]\n",Components[i].CpuTimeCFWidomLambdaMove[CurrentSystem]);
     fprintf(FilePtr,"\tGibbs Widom:                        %18.10g [s]\n",Components[i].CpuTimeGibbsWidomMove[CurrentSystem]);
     fprintf(FilePtr,"\tsurface area:                       %18.10g [s]\n",Components[i].CpuTimeSurfaceAreaMove[CurrentSystem]);
     fprintf(FilePtr,"\tGibbs particle transform:           %18.10g [s]\n",Components[i].CpuTimeGibbsChangeMove[CurrentSystem]);
@@ -6192,6 +6199,7 @@ void PrintCPUStatistics(FILE *FilePtr)
     CpuTimeCFSwapLambdaMove+=Components[i].CpuTimeCFSwapLambdaMove[CurrentSystem];
     CpuTimeCBCFSwapLambdaMove+=Components[i].CpuTimeCBCFSwapLambdaMove[CurrentSystem];
     CpuTimeWidomMove+=Components[i].CpuTimeWidomMove[CurrentSystem];
+    CpuTimeCFWidomLambdaMove+=Components[i].CpuTimeCFWidomLambdaMove[CurrentSystem];
     CpuTimeGibbsWidomMove+=Components[i].CpuTimeGibbsWidomMove[CurrentSystem];
     CpuTimeSurfaceAreaMove+=Components[i].CpuTimeSurfaceAreaMove[CurrentSystem];
     CpuTimeGibbsChangeMove+=Components[i].CpuTimeGibbsChangeMove[CurrentSystem];
@@ -6219,6 +6227,7 @@ void PrintCPUStatistics(FILE *FilePtr)
   fprintf(FilePtr,"\tswap lambda (CFMC):                 %18.10g [s]\n",CpuTimeCFSwapLambdaMove);
   fprintf(FilePtr,"\tswap lambda (CB/CFMC):              %18.10g [s]\n",CpuTimeCBCFSwapLambdaMove);
   fprintf(FilePtr,"\tWidom:                              %18.10g [s]\n",CpuTimeWidomMove);
+  fprintf(FilePtr,"\tCF-Widom:                           %18.10g [s]\n",CpuTimeCFWidomLambdaMove);
   fprintf(FilePtr,"\tGibbs Widom:                        %18.10g [s]\n",CpuTimeGibbsWidomMove);
   fprintf(FilePtr,"\tsurface area:                       %18.10g [s]\n",CpuTimeSurfaceAreaMove);
   fprintf(FilePtr,"\tGibbs particle transform:           %18.10g [s]\n",CpuTimeGibbsChangeMove);
@@ -6264,6 +6273,7 @@ void PrintCPUStatistics(FILE *FilePtr)
   CpuTimeCFSwapLambdaMove=0.0;
   CpuTimeCBCFSwapLambdaMove=0.0;
   CpuTimeWidomMove=0.0;
+  CpuTimeCFWidomLambdaMove=0.0;
   CpuTimeGibbsWidomMove=0.0;
   CpuTimeSurfaceAreaMove=0.0;
   CpuTimeGibbsChangeMove=0.0;
@@ -6293,6 +6303,7 @@ void PrintCPUStatistics(FILE *FilePtr)
       CpuTimeCFSwapLambdaMove+=Components[i].CpuTimeCFSwapLambdaMove[j];
       CpuTimeCBCFSwapLambdaMove+=Components[i].CpuTimeCBCFSwapLambdaMove[j];
       CpuTimeWidomMove+=Components[i].CpuTimeWidomMove[j];
+      CpuTimeCFWidomLambdaMove+=Components[i].CpuTimeCFWidomLambdaMove[j];
       CpuTimeGibbsWidomMove+=Components[i].CpuTimeGibbsWidomMove[j];
       CpuTimeSurfaceAreaMove+=Components[i].CpuTimeSurfaceAreaMove[j];
       CpuTimeGibbsChangeMove+=Components[i].CpuTimeGibbsChangeMove[j];
@@ -6321,6 +6332,7 @@ void PrintCPUStatistics(FILE *FilePtr)
   fprintf(FilePtr,"\tswap lambda (CFMC):                 %18.10g [s]\n",CpuTimeCFSwapLambdaMove);
   fprintf(FilePtr,"\tswap lambda (CB/CFMC):              %18.10g [s]\n",CpuTimeCBCFSwapLambdaMove);
   fprintf(FilePtr,"\tWidom:                              %18.10g [s]\n",CpuTimeWidomMove);
+  fprintf(FilePtr,"\tCF-Widom:                           %18.10g [s]\n",CpuTimeCFWidomLambdaMove);
   fprintf(FilePtr,"\tGibbs Widom:                        %18.10g [s]\n",CpuTimeGibbsWidomMove);
   fprintf(FilePtr,"\tsurface area:                       %18.10g [s]\n",CpuTimeSurfaceAreaMove);
   fprintf(FilePtr,"\tGibbs particle transform:           %18.10g [s]\n",CpuTimeGibbsChangeMove);
@@ -6380,12 +6392,14 @@ void PrintCPUStatistics(FILE *FilePtr)
 }
 
 
+static int versionNumberPseudoAtoms=1;
 
 void WriteRestartPseudoAtoms(FILE *FilePtr)
 {
   int i;
   REAL Check;
 
+  fwrite(&versionNumberPseudoAtoms,sizeof(int),1,FilePtr);
   fwrite(&ShiftPotentials,sizeof(int),1,FilePtr);
   fwrite(&NumberOfPseudoAtoms,sizeof(NumberOfPseudoAtoms),1,FilePtr);
 
@@ -6423,6 +6437,14 @@ void ReadRestartPseudoAtoms(FILE *FilePtr)
 {
   int i;
   REAL Check;
+  int readversionNumber=0;
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumberPseudoAtoms)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
 
   fread(&ShiftPotentials,sizeof(int),1,FilePtr);
   fread(&NumberOfPseudoAtoms,sizeof(NumberOfPseudoAtoms),1,FilePtr);
@@ -6482,15 +6504,16 @@ void ReadRestartPseudoAtoms(FILE *FilePtr)
     fprintf(stderr, "Error in binary restart-file (ReadRestartPseudoAtoms)\n");
     ContinueAfterCrash=FALSE;
   }
-
 }
 
-
+static int versionNumberMolecules=1;
 void WriteRestartMolecules(FILE *FilePtr)
 {
   int i,j;
   int Type;
   REAL Check;
+
+  fwrite(&versionNumberMolecules,sizeof(int),1,FilePtr);
 
   fwrite(&NumberOfSystems,sizeof(int),1,FilePtr);
   fwrite(&CurrentSystem,sizeof(int),1,FilePtr);
@@ -6553,6 +6576,14 @@ void ReadRestartMolecules(FILE *FilePtr)
   int i,j;
   int Type;
   REAL Check;
+  int readversionNumber=0;
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumberMolecules)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
 
   fread(&NumberOfSystems,sizeof(int),1,FilePtr);
   fread(&CurrentSystem,sizeof(int),1,FilePtr);
@@ -6777,10 +6808,14 @@ void CheckChiralityMolecules(void)
   }
 }
 
+static int versionNumberComponent=1;
+
 void WriteRestartComponent(FILE *FilePtr)
 {
   int i,j,k,n;
   REAL Check;
+
+  fwrite(&versionNumberComponent,sizeof(int),1,FilePtr);
 
   fwrite(&NumberOfSystems,sizeof(int),1,FilePtr);
   fwrite(&NumberOfComponents,sizeof(int),1,FilePtr);
@@ -7038,6 +7073,7 @@ void WriteRestartComponent(FILE *FilePtr)
     fwrite(Components[i].CpuTimeCFSwapLambdaMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeCBCFSwapLambdaMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeWidomMove,sizeof(REAL),NumberOfSystems,FilePtr);
+    fwrite(Components[i].CpuTimeCFWidomLambdaMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeGibbsWidomMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeSurfaceAreaMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fwrite(Components[i].CpuTimeGibbsChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);
@@ -7059,6 +7095,14 @@ void ReadRestartComponent(FILE *FilePtr)
 {
   int i,j,k,n;
   REAL Check;
+  int readversionNumber=0;
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumberComponent)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
 
   fread(&NumberOfSystems,sizeof(int),1,FilePtr);
   fread(&NumberOfComponents,sizeof(int),1,FilePtr);
@@ -7546,6 +7590,7 @@ void ReadRestartComponent(FILE *FilePtr)
     Components[i].CpuTimeCFSwapLambdaMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeCBCFSwapLambdaMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeWidomMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+    Components[i].CpuTimeCFWidomLambdaMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeGibbsWidomMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeSurfaceAreaMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].CpuTimeGibbsChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
@@ -7571,6 +7616,7 @@ void ReadRestartComponent(FILE *FilePtr)
     fread(Components[i].CpuTimeCFSwapLambdaMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeCBCFSwapLambdaMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeWidomMove,sizeof(REAL),NumberOfSystems,FilePtr);
+    fread(Components[i].CpuTimeCFWidomLambdaMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeGibbsWidomMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeSurfaceAreaMove,sizeof(REAL),NumberOfSystems,FilePtr);
     fread(Components[i].CpuTimeGibbsChangeMove,sizeof(REAL),NumberOfSystems,FilePtr);

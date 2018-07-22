@@ -95,10 +95,13 @@ extern REAL TargetAccRatioReactionLambdaChange;
 
 extern int CFWangLandauEvery;
 extern REAL **MaximumCFLambdaChange;
+extern REAL **MaximumCFWidomLambdaChange;
 extern REAL **MaximumCBCFLambdaChange;
 extern REAL TargetAccRatioLambdaChange;
 
 //----------------------------------------------------------------------------------------
+
+enum {CF_INSERT_MOVE,CF_DELETE_MOVE,CF_MOVE};
 
 void InitializeMCMovesStatisticsAllSystems(void);
 
@@ -117,7 +120,14 @@ void ReinsertionInPlaneMove(void);
 void SwapAddMove(void);
 void SwapRemoveMove(void);
 void IdentityChangeMove(void);
+
 void WidomMove(void);
+void CFWidomLambaMove(void);
+int CFWidomLambaAdsorbateMove(void);
+int CFWidomLambaCationMove(void);
+void OptimizeCFWidomAcceptence(void);
+void PrintCFWidomLambdaStatistics(FILE *FilePtr);
+
 void GibbsWidomMove(void);
 void GibbsParticleTransferMove(void);
 void GibbsIdentityChangeMove(void);

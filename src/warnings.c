@@ -266,12 +266,16 @@ void PrintWarningStatus(void)
         break;
     }
   }
-
 }
+
+static int versionNumber=1;
 
 void WriteRestartWarnings(FILE *FilePtr)
 {
   REAL Check;
+
+  fwrite(&versionNumber,sizeof(int),1,FilePtr);
+
   fwrite(NumberOfWarnings,sizeof(int),NumberOfSystems,FilePtr);
   fwrite(Warnings,sizeof(int[MAX_NUMBER_OF_WARNINGS]),NumberOfSystems,FilePtr);
   fwrite(NumberOfWarningValues,sizeof(int[MAX_NUMBER_OF_WARNINGS]),NumberOfSystems,FilePtr);
@@ -293,7 +297,16 @@ void AllocateWarningsMemory(void)
 void ReadRestartWarnings(FILE *FilePtr)
 {
   REAL Check;
+  int readversionNumber=0;
+
   AllocateWarningsMemory();
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumber)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
 
   fread(NumberOfWarnings,sizeof(int),NumberOfSystems,FilePtr);
   fread(Warnings,sizeof(int[MAX_NUMBER_OF_WARNINGS]),NumberOfSystems,FilePtr);

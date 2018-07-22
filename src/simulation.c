@@ -794,10 +794,14 @@ void InitializeReplicaBox(void)
   }
 }
 
+static int versionNumber=1;
+
 void WriteRestartSimulation(FILE *FilePtr)
 {
   int i,j;
   REAL Check;
+
+  fwrite(&versionNumber,sizeof(int),1,FilePtr);
 
   fwrite(&seed,sizeof(seed),1,FilePtr);
   fwrite(&ForceField,sizeof(ForceField),1,FilePtr);
@@ -1457,6 +1461,14 @@ void ReadRestartSimulation(FILE *FilePtr)
 {
   int i,j;
   REAL Check;
+  int readversionNumber=0;
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumber)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
 
   fread(&seed,sizeof(seed),1,FilePtr);
   fread(&ForceField,sizeof(ForceField),1,FilePtr);

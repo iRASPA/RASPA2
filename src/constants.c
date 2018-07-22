@@ -176,10 +176,13 @@ void SetSimulationUnits(void)
   }
 }
 
+static int versionNumber=1;
+
 void WriteRestartConstants(FILE *FilePtr)
 {
   REAL Check;
 
+  fwrite(&versionNumber,sizeof(int),1,FilePtr);
   fwrite(&LENGTH_UNIT,sizeof(REAL),1,FilePtr);
   fwrite(&TIME_UNIT,sizeof(REAL),1,FilePtr);
   fwrite(&MASS_UNIT,sizeof(REAL),1,FilePtr);
@@ -229,6 +232,15 @@ void WriteRestartConstants(FILE *FilePtr)
 void ReadRestartConstants(FILE *FilePtr)
 {
   REAL Check;
+  int readversionNumber=0;
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumber)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
+
   fread(&LENGTH_UNIT,sizeof(REAL),1,FilePtr);
   fread(&TIME_UNIT,sizeof(REAL),1,FilePtr);
   fread(&MASS_UNIT,sizeof(REAL),1,FilePtr);

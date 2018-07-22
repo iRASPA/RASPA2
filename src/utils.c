@@ -407,9 +407,13 @@ void ConvertStringToUppercase(char *buffer)
     mag01[1]=mag01_bak[1];
   }
 
+  static int versionNumber=1;
+
   void WriteRestartUtils(FILE *FilePtr)
   {
     REAL Check;
+
+    fwrite(&versionNumber,sizeof(int),1,FilePtr);
 
     fwrite(mt,NN,sizeof(unsigned long long),FilePtr);
     fwrite(&mti,1,sizeof(int),FilePtr);
@@ -422,6 +426,14 @@ void ConvertStringToUppercase(char *buffer)
   void ReadRestartUtils(FILE *FilePtr)
   {
     REAL Check;
+    int readversionNumber=0;
+
+    fread(&readversionNumber,sizeof(int),1,FilePtr);
+    if(readversionNumber > versionNumber)
+    {
+      fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+      exit(-1);
+    }
 
     fread(mt,NN,sizeof(unsigned long long),FilePtr);
     fread(&mti,1,sizeof(int),FilePtr);

@@ -21010,11 +21010,14 @@ int CalculateEwaldFourierDerivatives(REAL *Energy,REAL* Gradient,REAL_MATRIX Hes
   return 0;
 }
 
+static int versionNumber=1;
 
 void WriteRestartEwald(FILE *FilePtr)
 {
   int i;
   REAL Check;
+
+  fwrite(&versionNumber,sizeof(int),1,FilePtr);
 
   fwrite(&OmitEwaldFourier,sizeof(int),1,FilePtr);
   fwrite(Alpha,sizeof(REAL),NumberOfSystems,FilePtr);
@@ -21071,6 +21074,14 @@ void ReadRestartEwald(FILE *FilePtr)
 {
   int i;
   REAL Check;
+  int readversionNumber=0;
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumber)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
 
   Alpha=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   kvec=(INT_VECTOR3*)calloc(NumberOfSystems,sizeof(INT_VECTOR3));

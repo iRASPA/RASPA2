@@ -3469,11 +3469,14 @@ void NoseHooverNPHPR(void)
     }
 }
 
+int versionNumber=1;
 
 void WriteRestartThermoBarostats(FILE *FilePtr)
 {
   int i;
   REAL Check;
+
+  fwrite(&versionNumber,sizeof(int),1,FilePtr);
 
   fwrite(&therm_baro_stats,1,sizeof(therm_baro_stats),FilePtr);
   fwrite(&NumberOfIsothermPressures,1,sizeof(int),FilePtr);
@@ -3661,6 +3664,14 @@ void ReadRestartThermoBarostats(FILE *FilePtr)
 {
   int i;
   REAL Check;
+  int readversionNumber=0;
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumber)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
 
   fread(&therm_baro_stats,1,sizeof(therm_baro_stats),FilePtr);
   fread(&NumberOfIsothermPressures,1,sizeof(int),FilePtr);

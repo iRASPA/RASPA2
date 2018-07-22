@@ -226,8 +226,12 @@ void MonteCarloSimulation(void)
             CBCFSwapLambaMove();
           else if(ran<Components[CurrentComponent].ProbabilityWidomMove)
             ;
+          else if(ran<Components[CurrentComponent].ProbabilityCFWidomLambdaMove)
+            CFWidomLambaMove();
           else if(ran<Components[CurrentComponent].ProbabilityGibbsWidomMove)
             ;
+          else if(ran<Components[CurrentComponent].ProbabilityCFWidomLambdaMove)
+            CFWidomLambaMove();
           else if(ran<Components[CurrentComponent].ProbabilitySurfaceAreaMove)
             ;
           else if(ran<Components[CurrentComponent].ProbabilityGibbsChangeMove)
@@ -407,6 +411,11 @@ void MonteCarloSimulation(void)
             }
             else if(ran<Components[CurrentComponent].ProbabilityWidomMove)
               ;
+            else if(ran<Components[CurrentComponent].ProbabilityCFWidomLambdaMove)
+            {
+              CFWidomLambaMove();
+              CFWangLandauIteration(SAMPLE);
+            }
             else if(ran<Components[CurrentComponent].ProbabilityGibbsWidomMove)
               ;
             else if(ran<Components[CurrentComponent].ProbabilitySurfaceAreaMove)
@@ -493,6 +502,7 @@ void MonteCarloSimulation(void)
             OptimizeCBCFGibbsLambdaChangeAcceptence();
             OptimizeRXMCLambdaChangeAcceptence();
             RescaleMaximumRotationAnglesSmallMC();
+            OptimizeCFWidomAcceptence();
             OptimizeCFGibbsLambdaChangeAcceptence();
           }
         }
@@ -731,6 +741,13 @@ void MonteCarloSimulation(void)
             WidomMove();
             cpu_after=get_cpu_time();
             Components[CurrentComponent].CpuTimeWidomMove[CurrentSystem]+=(cpu_after-cpu_before);
+          }
+          else if(ran<Components[CurrentComponent].ProbabilityCFWidomLambdaMove)
+          {
+            cpu_before=get_cpu_time();
+            CFWidomLambaMove();
+            cpu_after=get_cpu_time();
+            Components[CurrentComponent].CpuTimeCFWidomLambdaMove[CurrentSystem]+=(cpu_after-cpu_before);
           }
           else if(ran<Components[CurrentComponent].ProbabilityGibbsWidomMove)
           {
@@ -977,6 +994,7 @@ void MonteCarloSimulation(void)
       OptimizeCBCFGibbsLambdaChangeAcceptence();
       OptimizeRXMCLambdaChangeAcceptence();
       RescaleMaximumRotationAnglesSmallMC();
+      OptimizeCFWidomAcceptence();
       OptimizeCFGibbsLambdaChangeAcceptence();
     }
 

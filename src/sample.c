@@ -10610,10 +10610,14 @@ void ComputeMolecularPressureTensor(REAL_MATRIX3x3 *Pressure_matrix, REAL* Press
  * Parameters | -                                                                                        *
  *********************************************************************************************************/
 
+static int versionNumber=1;
+
 void WriteRestartSample(FILE *FilePtr)
 {
   int i,j,k,l,f1;
   REAL Check;
+
+  fwrite(&versionNumber,sizeof(int),1,FilePtr);
 
   // write data for the histograms of the radial distribution function
   fwrite(ComputeRDF,NumberOfSystems,sizeof(int),FilePtr);
@@ -11621,9 +11625,18 @@ void ReadRestartSample(FILE *FilePtr)
   int i,j,k,l,f1;
   int intinput1,intinput2,intinput3,intinput4;
   REAL Check;
+  int readversionNumber=0;
 
   // initialize and allocate memory
   AllocateSampleMemory();
+
+
+  fread(&readversionNumber,sizeof(int),1,FilePtr);
+  if(readversionNumber > versionNumber)
+  {
+    fprintf(stderr,"Upgrade to last version of RASPA to read binary restart-file");
+    exit(-1);
+  }
 
   // read data for the histograms of the radial distribution function
   fread(ComputeRDF,NumberOfSystems,sizeof(int),FilePtr);
