@@ -686,7 +686,7 @@ int HandleFirstBead(int Switch)
 
     // compute Coulomb energy with adsorbates if no omit of adsorbate-adsorbate or the current molecule is a cation
     if(Components[CurrentComponent].ExtraFrameworkMolecule||(!OmitAdsorbateAdsorbateCoulombInteractions))
-      CalculateInterChargeEnergyAdsorbateAtPosition(posA,type,&EnergyAdsorbateChargeCharge,&EnergyAdsorbateChargeBondDipole,CurrentAdsorbateMolecule,CFChargeScaling[start]);
+      CalculateInterChargeEnergyAdsorbateAtPosition(posA,type,&EnergyAdsorbateChargeCharge,&EnergyAdsorbateChargeBondDipole,CurrentAdsorbateMolecule,CFChargeScaling[start] * PseudoAtoms[type].Charge1);
 
     // compute VDW energy with cations if no omit of cation-cation or the current molecule is an adsorbate
     if((!Components[CurrentComponent].ExtraFrameworkMolecule)||(!OmitCationCationVDWInteractions))
@@ -694,7 +694,7 @@ int HandleFirstBead(int Switch)
 
     // compute Coulomb energy with cations if no omit of cation-cation or the current molecule is an adsorbate
     if((!Components[CurrentComponent].ExtraFrameworkMolecule)||(!OmitCationCationCoulombInteractions))
-      CalculateInterChargeEnergyCationAtPosition(posA,type,&EnergyCationChargeCharge,&EnergyCationChargeBondDipole,CurrentCationMolecule,CFChargeScaling[start]);
+      CalculateInterChargeEnergyCationAtPosition(posA,type,&EnergyCationChargeCharge,&EnergyCationChargeBondDipole,CurrentCationMolecule,CFChargeScaling[start] * PseudoAtoms[type].Charge1);
 
     if((EnergyHostVDW>=EnergyOverlapCriteria)||(EnergyHostChargeCharge>=EnergyOverlapCriteria)||
        (EnergyAdsorbateVDW>=EnergyOverlapCriteria)||(EnergyAdsorbateChargeCharge>=EnergyOverlapCriteria)||
@@ -1226,7 +1226,7 @@ int ComputeExternalEnergies(void)
 
         // compute Coulomb energy with adsorbates if no omit of adsorbate-adsorbate or the current molecule is a cation
         if(Components[CurrentComponent].ExtraFrameworkMolecule||(!OmitAdsorbateAdsorbateCoulombInteractions))
-          CalculateInterChargeEnergyAdsorbateAtPosition(posA,type,&EnergyAdsorbateChargeCharge,&EnergyAdsorbateChargeBondDipole,CurrentAdsorbateMolecule,CFChargeScaling[BeadsToBePlaced[j]]);
+          CalculateInterChargeEnergyAdsorbateAtPosition(posA,type,&EnergyAdsorbateChargeCharge,&EnergyAdsorbateChargeBondDipole,CurrentAdsorbateMolecule,CFChargeScaling[BeadsToBePlaced[j]] * PseudoAtoms[type].Charge1);
 
         // compute VDW energy with cations if no omit of cation-cation or the current molecule is an adsorbate
         if((!Components[CurrentComponent].ExtraFrameworkMolecule)||(!OmitCationCationVDWInteractions))
@@ -1234,7 +1234,7 @@ int ComputeExternalEnergies(void)
 
         // compute Coulomb energy with cations if no omit of cation-cation or the current molecule is an adsorbate
         if((!Components[CurrentComponent].ExtraFrameworkMolecule)||(!OmitCationCationCoulombInteractions))
-          CalculateInterChargeEnergyCationAtPosition(posA,type,&EnergyCationChargeCharge,&EnergyCationChargeBondDipole,CurrentCationMolecule,CFChargeScaling[BeadsToBePlaced[j]]);
+          CalculateInterChargeEnergyCationAtPosition(posA,type,&EnergyCationChargeCharge,&EnergyCationChargeBondDipole,CurrentCationMolecule,CFChargeScaling[BeadsToBePlaced[j]] * PseudoAtoms[type].Charge1);
 
         EnergiesAdsorbateVDW+=EnergyAdsorbateVDW;
         EnergiesAdsorbateChargeCharge+=EnergyAdsorbateChargeCharge;

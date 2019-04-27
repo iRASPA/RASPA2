@@ -408,7 +408,7 @@ int CalculateInterChargeEnergyAdsorbateAtPosition(POINT posA,int typeA,REAL *UCh
 
   if(OmitInterMolecularInteractions) return 0;
 
-  chargeA=scaling*PseudoAtoms[typeA].Charge1;
+  chargeA=scaling;
 
   if(UseReplicas[CurrentSystem])
   {
@@ -618,7 +618,7 @@ int CalculateInterChargeEnergyCationAtPosition(POINT posA,int typeA,REAL *UCharg
 
   if(OmitInterMolecularInteractions) return 0;
 
-  chargeA=scaling*PseudoAtoms[typeA].Charge1;
+  chargeA=scaling;
 
   if(UseReplicas[CurrentSystem])
   {

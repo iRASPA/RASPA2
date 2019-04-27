@@ -11328,8 +11328,6 @@ void PrintChiralInversionStatistics(FILE *FilePtr)
  *            | number of framework atoms.                                                               *
  *********************************************************************************************************/
 
-// FIX: CF compatibility
-
 int FrameworkChangeMove(void)
 {
   int i,index,k,Type,f1,A,B;
@@ -11510,11 +11508,11 @@ int FrameworkChangeMove(void)
 
     index=Atoms[0];
 
-    CalculateInterChargeEnergyAdsorbateAtPosition(Framework[CurrentSystem].Atoms[CurrentFramework][index].Position,Type,&UAdsorbateChargeChargeNew,&UAdsorbateChargeBondDipoleNew,-1,1.0);
-    CalculateInterChargeEnergyAdsorbateAtPosition(Framework[CurrentSystem].Atoms[CurrentFramework][index].ReferencePosition,Type,&UAdsorbateChargeChargeOld,&UAdsorbateChargeBondDipoleOld,-1,1.0);
+    CalculateInterChargeEnergyAdsorbateAtPosition(Framework[CurrentSystem].Atoms[CurrentFramework][index].Position,Type,&UAdsorbateChargeChargeNew,&UAdsorbateChargeBondDipoleNew,-1,Framework[CurrentSystem].Atoms[CurrentFramework][index].Charge);
+    CalculateInterChargeEnergyAdsorbateAtPosition(Framework[CurrentSystem].Atoms[CurrentFramework][index].ReferencePosition,Type,&UAdsorbateChargeChargeOld,&UAdsorbateChargeBondDipoleOld,-1,Framework[CurrentSystem].Atoms[CurrentFramework][index].Charge);
 
-    CalculateInterChargeEnergyCationAtPosition(Framework[CurrentSystem].Atoms[CurrentFramework][index].Position,Type,&UCationChargeChargeNew,&UCationChargeBondDipoleNew,-1,1.0);
-    CalculateInterChargeEnergyCationAtPosition(Framework[CurrentSystem].Atoms[CurrentFramework][index].ReferencePosition,Type,&UCationChargeChargeOld,&UCationChargeBondDipoleOld,-1,1.0);
+    CalculateInterChargeEnergyCationAtPosition(Framework[CurrentSystem].Atoms[CurrentFramework][index].Position,Type,&UCationChargeChargeNew,&UCationChargeBondDipoleNew,-1,Framework[CurrentSystem].Atoms[CurrentFramework][index].Charge);
+    CalculateInterChargeEnergyCationAtPosition(Framework[CurrentSystem].Atoms[CurrentFramework][index].ReferencePosition,Type,&UCationChargeChargeOld,&UCationChargeBondDipoleOld,-1,Framework[CurrentSystem].Atoms[CurrentFramework][index].Charge);
 
     CalculateEnergyDifferenceFrameworkMoveCharge(index);
 
