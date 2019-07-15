@@ -25,6 +25,6 @@ flexible
 0 1 2 HARMONIC_BEND 62500 114
 1 2 3 HARMONIC_BEND 62500 114
 # Torsion n1-n2-n3-n4 type
-0 1 2 3 TRAPPE_DIHEDRAL      0.0   335.03  -68.19   791.32
+0 1 2 3 TRAPPE_DIHEDRAL      0.0   355.03  -68.19   791.32
 # Number of config moves
 0
