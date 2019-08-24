@@ -421,12 +421,16 @@ void MolecularDynamicsSimulation(void)
 
       if(Drift[CurrentSystem]/(CurrentCycle+1.0)>1e2)
       {
-        fprintf(OutputFilePtr[CurrentSystem],"\n\nERROR: unstable integration (energy drift %g > 1e2, simulation stopped)\n\n",Drift[CurrentSystem]/(CurrentCycle+1.0));
-        fprintf(OutputFilePtr[CurrentSystem],"Check that: 1) all interaction are defined properly\n");
-        fprintf(OutputFilePtr[CurrentSystem],"            2) the time step is not too large\n");
-        fprintf(OutputFilePtr[CurrentSystem],"            3) the system is equilibrated\n\n");
-        fflush(OutputFilePtr[CurrentSystem]);
-        exit(0);
+        //only proceed if the ensemble is not MuVT, MuPT or MuPTPR
+        if(!((Ensemble[CurrentSystem]==MuPT)||(Ensemble[CurrentSystem]==MuPTPR)||(Ensemble[CurrentSystem]==MuVT)))
+        {
+          fprintf(OutputFilePtr[CurrentSystem],"\n\nERROR: unstable integration (energy drift %g > 1e2, simulation stopped)\n\n",Drift[CurrentSystem]/(CurrentCycle+1.0));
+          fprintf(OutputFilePtr[CurrentSystem],"Check that: 1) all interaction are defined properly\n");
+          fprintf(OutputFilePtr[CurrentSystem],"            2) the time step is not too large\n");
+          fprintf(OutputFilePtr[CurrentSystem],"            3) the system is equilibrated\n\n");
+          fflush(OutputFilePtr[CurrentSystem]);
+          exit(0);
+        }
       }
     }
 

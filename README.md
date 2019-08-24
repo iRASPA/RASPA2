@@ -10,14 +10,22 @@ metal-organic frameworks, carbon nanotubes and external fields.
 
 Refs:
 =====
-• D. Dubbeldam, S. Calero, D.E. Ellis, and R.Q. Snurr, "RASPA: Molecular Simulation Software for Adsorption and Diffusion in Flexible Nanoporous Materials",
-   Mol. Sim., 2014.  
-• D. Dubbeldam, A. Torres-Knoop, and K.S. Walton,  "On the Inner Workings of Monte Carlo Codes",
+* D. Dubbeldam, S. Calero, D.E. Ellis, and R.Q. Snurr, "RASPA: Molecular Simulation Software for Adsorption and Diffusion in Flexible Nanoporous Materials",
+   Mol. Sim., 42 (2), 81-101, 2016.
+   [link to article](https://www.tandfonline.com/doi/full/10.1080/08927022.2015.1010082)
+* D. Dubbeldam, A. Torres-Knoop, and K.S. Walton,  "On the Inner Workings of Monte Carlo Codes",
    Mol. Sim. (special issue on Monte Carlo) 39(14-15), 1253-1292 (2013).
-   http://www.tandfonline.com/doi/full/10.1080/08927022.2013.819102  
-• D. Dubbeldam and R.Q. Snurr, "Recent developments in the molecular modeling of diffusion in nanoporous materials",
-   Mol. Sim., 33 (4-5), 305-325, 2007
-   http://www.tandfonline.com/doi/abs/10.1080/08927020601156418  
+   [link to article](http://www.tandfonline.com/doi/full/10.1080/08927022.2013.819102)
+* D. Dubbeldam and R.Q. Snurr, "Recent developments in the molecular modeling of diffusion in nanoporous materials",
+   Mol. Sim., 33 (4-5), 305-325, 2007.
+   [link to article](http://www.tandfonline.com/doi/abs/10.1080/08927020601156418)
+
+Acknowledgements:
+=================
+Development of this work is partially supported by the U.S. Department 
+of Energy, Office of Basic Energy Sciences, Division of Chemical 
+Sciences, Geosciences and Biosciences through the Nanoporous Materials 
+Genome Center under award DE-FG02-17ER16362.
 
 Installation
 ============
