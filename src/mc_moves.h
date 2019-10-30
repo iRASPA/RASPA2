@@ -37,6 +37,7 @@
 #include "simulation.h"
 #include "molecule.h"
 #include "framework.h"
+#include "input.h"
 
 // delta energies
 extern REAL *UHostVDWDelta;

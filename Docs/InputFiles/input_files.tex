@@ -346,6 +346,8 @@ This move is applicable to relatively rigid structures like zeolites. For other 
 in a metal-organic framework) the MC/MD move is more convenient. Such movement is hardly sampled at all by individual MC translation moves.
 \item{VolumeChangeProbability [real]}\\
 The probability per cycle to attempt a volume-change. Rigid molecules are scaled by center-of-mass, while flexible molecules and the framework is atomically scaled.
+\item{VolumeChangeDirection [A$|$B$|$C$|$AB$|$AC$|$BC$|$ABC]}\\
+Change the volume of the unit cell along a particular direction/directions in Monte Carlo. Default: ABC.
 \item{BoxShapeChangeProbability [real]}\\
 The probability per cycle to attempt a shape-change of the box. One of the 6 upper triangular elements of the box matrix is randomly chosen.
 Rigid molecules are scaled by center-of-mass, while flexible molecules and the framework is atomically scaled.

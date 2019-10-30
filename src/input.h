@@ -39,6 +39,7 @@
 #endif
 
 extern int EwaldAutomatic;
+extern int VolumeChangeDirection;
 
 char *ReadLine(char *buffer, size_t length, FILE *file);
 char *LoadFile(char *);

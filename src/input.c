@@ -79,6 +79,7 @@ int EwaldAutomatic;
 int RemoveFractionalMoleculesFromRestartFile;
 static int *read_frameworks;
 static int *InitializeBox;
+int VolumeChangeDirection=7;
 
 int IsActiveAtomType(int type)
 {
@@ -330,7 +331,7 @@ int ReadInput(char *input)
   OptimizeCBCFLambdaChange=TRUE;
   OptimizeCBCFGibbsLambdaChange=TRUE;
   OptimizeRXMCLambdaChange=TRUE;
-
+  VolumeChangeDirection=7;
 
   // default values for the restart-file
   ContinueAfterCrash=FALSE;
@@ -2520,6 +2521,17 @@ int ReadInput(char *input)
     if(strcasecmp("FrameworkChangeMoveProbability",keyword)==0) sscanf(arguments,"%lf",&ProbabilityFrameworkChangeMove);
     if(strcasecmp("FrameworkShiftMoveProbability",keyword)==0) sscanf(arguments,"%lf",&ProbabilityFrameworkShiftMove);
     if(strcasecmp("VolumeChangeProbability",keyword)==0) sscanf(arguments,"%lf",&ProbabilityVolumeChangeMove);
+    if(strcasecmp("VolumeChangeDirection", keyword)==0)
+    {
+      if(strcasecmp("a", firstargument)==0) VolumeChangeDirection=1;
+      if(strcasecmp("b", firstargument)==0) VolumeChangeDirection=2;
+      if(strcasecmp("c", firstargument)==0) VolumeChangeDirection=3;
+      if(strcasecmp("ab", firstargument)==0) VolumeChangeDirection=4;
+      if(strcasecmp("bc", firstargument)==0) VolumeChangeDirection=5;
+      if(strcasecmp("ac", firstargument)==0) VolumeChangeDirection=6;
+      if(strcasecmp("abc", firstargument)==0) VolumeChangeDirection=7;
+    }
+
     //--------------------------------------------------------------------------------------------------------------------------------------------------------
     // CFC-RXMC : reading parameters
     //--------------------------------------------------------------------------------------------------------------------------------------------------------

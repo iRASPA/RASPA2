@@ -61,6 +61,7 @@
 #include "internal_energy.h"
 #include "sample.h"
 #include "equations_of_state.h"
+#include "input.h"
 
 // this module contains the Monte Carlo moves
 //  1) molecule translation-change
@@ -9193,21 +9194,125 @@ int VolumeMove(void)
 
   vol=exp(log(Volume[CurrentSystem])+MaximumVolumeChange[CurrentSystem]*(2.0*RandomNumber()-1.0));
 
-  scale=pow(vol/Volume[CurrentSystem],(REAL)1.0/3.0);
-  Box[CurrentSystem].ax*=scale;  Box[CurrentSystem].bx*=scale;  Box[CurrentSystem].cx*=scale;
-  Box[CurrentSystem].ay*=scale;  Box[CurrentSystem].by*=scale;  Box[CurrentSystem].cy*=scale;
-  Box[CurrentSystem].az*=scale;  Box[CurrentSystem].bz*=scale;  Box[CurrentSystem].cz*=scale;
-  Invert3x3Matrix(&Box[CurrentSystem],&InverseBox[CurrentSystem],&det);
-  CellProperties(&Box[CurrentSystem],&BoxProperties[CurrentSystem],&Volume[CurrentSystem]);
+  switch(VolumeChangeDirection)
+  {
+    case 7:
+     scale=pow(vol/Volume[CurrentSystem],(REAL)1.0/3.0);
+     Box[CurrentSystem].ax*=scale;  Box[CurrentSystem].bx*=scale;  Box[CurrentSystem].cx*=scale;
+     Box[CurrentSystem].ay*=scale;  Box[CurrentSystem].by*=scale;  Box[CurrentSystem].cy*=scale;
+     Box[CurrentSystem].az*=scale;  Box[CurrentSystem].bz*=scale;  Box[CurrentSystem].cz*=scale;
+     Invert3x3Matrix(&Box[CurrentSystem],&InverseBox[CurrentSystem],&det);
+     CellProperties(&Box[CurrentSystem],&BoxProperties[CurrentSystem],&Volume[CurrentSystem]);
 
-  UnitCellBox[CurrentSystem].ax*=scale;  UnitCellBox[CurrentSystem].bx*=scale;  UnitCellBox[CurrentSystem].cx*=scale;
-  UnitCellBox[CurrentSystem].ay*=scale;  UnitCellBox[CurrentSystem].by*=scale;  UnitCellBox[CurrentSystem].cy*=scale;
-  UnitCellBox[CurrentSystem].az*=scale;  UnitCellBox[CurrentSystem].bz*=scale;  UnitCellBox[CurrentSystem].cz*=scale;
-  Invert3x3Matrix(&UnitCellBox[CurrentSystem],&InverseUnitCellBox[CurrentSystem],&det);
+     UnitCellBox[CurrentSystem].ax*=scale;  UnitCellBox[CurrentSystem].bx*=scale;  UnitCellBox[CurrentSystem].cx*=scale;
+     UnitCellBox[CurrentSystem].ay*=scale;  UnitCellBox[CurrentSystem].by*=scale;  UnitCellBox[CurrentSystem].cy*=scale;
+     UnitCellBox[CurrentSystem].az*=scale;  UnitCellBox[CurrentSystem].bz*=scale;  UnitCellBox[CurrentSystem].cz*=scale;
+     Invert3x3Matrix(&UnitCellBox[CurrentSystem],&InverseUnitCellBox[CurrentSystem],&det);
 
-  UnitCellSize[CurrentSystem].x*=scale;
-  UnitCellSize[CurrentSystem].y*=scale;
-  UnitCellSize[CurrentSystem].z*=scale;
+     UnitCellSize[CurrentSystem].x*=scale;
+     UnitCellSize[CurrentSystem].y*=scale;
+     UnitCellSize[CurrentSystem].z*=scale;
+     break;
+
+    case 1:
+     scale=pow(vol/Volume[CurrentSystem],(REAL)1.0/1.0);
+     Box[CurrentSystem].ax*=scale;
+     Box[CurrentSystem].ay*=scale;
+     Box[CurrentSystem].az*=scale;
+     Invert3x3Matrix(&Box[CurrentSystem],&InverseBox[CurrentSystem],&det);
+     CellProperties(&Box[CurrentSystem],&BoxProperties[CurrentSystem],&Volume[CurrentSystem]);
+
+     UnitCellBox[CurrentSystem].ax*=scale;
+     UnitCellBox[CurrentSystem].ay*=scale;
+     UnitCellBox[CurrentSystem].az*=scale;
+     Invert3x3Matrix(&UnitCellBox[CurrentSystem],&InverseUnitCellBox[CurrentSystem],&det);
+
+     UnitCellSize[CurrentSystem].x*=scale;
+     break;
+
+    case 2:
+     scale=pow(vol/Volume[CurrentSystem],(REAL)1.0/1.0);
+     Box[CurrentSystem].bx*=scale;
+     Box[CurrentSystem].by*=scale;
+     Box[CurrentSystem].bz*=scale;
+     Invert3x3Matrix(&Box[CurrentSystem],&InverseBox[CurrentSystem],&det);
+     CellProperties(&Box[CurrentSystem],&BoxProperties[CurrentSystem],&Volume[CurrentSystem]);
+
+     UnitCellBox[CurrentSystem].bx*=scale;
+     UnitCellBox[CurrentSystem].by*=scale;
+     UnitCellBox[CurrentSystem].bz*=scale;
+     Invert3x3Matrix(&UnitCellBox[CurrentSystem],&InverseUnitCellBox[CurrentSystem],&det);
+
+     UnitCellSize[CurrentSystem].y*=scale;
+     break;
+
+    case 3:
+     scale=pow(vol/Volume[CurrentSystem],(REAL)1.0/1.0);
+     Box[CurrentSystem].cx*=scale;
+     Box[CurrentSystem].cy*=scale;
+     Box[CurrentSystem].cz*=scale;
+     Invert3x3Matrix(&Box[CurrentSystem],&InverseBox[CurrentSystem],&det);
+     CellProperties(&Box[CurrentSystem],&BoxProperties[CurrentSystem],&Volume[CurrentSystem]);
+
+     UnitCellBox[CurrentSystem].cx*=scale;
+     UnitCellBox[CurrentSystem].cy*=scale;
+     UnitCellBox[CurrentSystem].cz*=scale;
+     Invert3x3Matrix(&UnitCellBox[CurrentSystem],&InverseUnitCellBox[CurrentSystem],&det);
+
+     UnitCellSize[CurrentSystem].z*=scale;
+     break;
+
+    case 4:
+     scale=pow(vol/Volume[CurrentSystem],(REAL)1.0/2.0);
+     Box[CurrentSystem].ax*=scale;  Box[CurrentSystem].bx*=scale;
+     Box[CurrentSystem].ay*=scale;  Box[CurrentSystem].by*=scale;
+     Box[CurrentSystem].az*=scale;  Box[CurrentSystem].bz*=scale;
+     Invert3x3Matrix(&Box[CurrentSystem],&InverseBox[CurrentSystem],&det);
+     CellProperties(&Box[CurrentSystem],&BoxProperties[CurrentSystem],&Volume[CurrentSystem]);
+
+     UnitCellBox[CurrentSystem].ax*=scale;  UnitCellBox[CurrentSystem].bx*=scale;
+     UnitCellBox[CurrentSystem].ay*=scale;  UnitCellBox[CurrentSystem].by*=scale;
+     UnitCellBox[CurrentSystem].az*=scale;  UnitCellBox[CurrentSystem].bz*=scale;
+     Invert3x3Matrix(&UnitCellBox[CurrentSystem],&InverseUnitCellBox[CurrentSystem],&det);
+
+     UnitCellSize[CurrentSystem].x*=scale;
+     UnitCellSize[CurrentSystem].y*=scale;
+     break;
+
+    case 5:
+     scale=pow(vol/Volume[CurrentSystem],(REAL)1.0/2.0);
+     Box[CurrentSystem].bx*=scale;  Box[CurrentSystem].cx*=scale;
+     Box[CurrentSystem].by*=scale;  Box[CurrentSystem].cy*=scale;
+     Box[CurrentSystem].bz*=scale;  Box[CurrentSystem].cz*=scale;
+     Invert3x3Matrix(&Box[CurrentSystem],&InverseBox[CurrentSystem],&det);
+     CellProperties(&Box[CurrentSystem],&BoxProperties[CurrentSystem],&Volume[CurrentSystem]);
+
+     UnitCellBox[CurrentSystem].bx*=scale;  UnitCellBox[CurrentSystem].cx*=scale;
+     UnitCellBox[CurrentSystem].by*=scale;  UnitCellBox[CurrentSystem].cy*=scale;
+     UnitCellBox[CurrentSystem].bz*=scale;  UnitCellBox[CurrentSystem].cz*=scale;
+     Invert3x3Matrix(&UnitCellBox[CurrentSystem],&InverseUnitCellBox[CurrentSystem],&det);
+
+     UnitCellSize[CurrentSystem].y*=scale;
+     UnitCellSize[CurrentSystem].z*=scale;
+     break;
+
+    case 6:
+     scale=pow(vol/Volume[CurrentSystem],(REAL)1.0/2.0);
+     Box[CurrentSystem].ax*=scale;  Box[CurrentSystem].cx*=scale;
+     Box[CurrentSystem].ay*=scale;  Box[CurrentSystem].cy*=scale;
+     Box[CurrentSystem].az*=scale;  Box[CurrentSystem].cz*=scale;
+     Invert3x3Matrix(&Box[CurrentSystem],&InverseBox[CurrentSystem],&det);
+     CellProperties(&Box[CurrentSystem],&BoxProperties[CurrentSystem],&Volume[CurrentSystem]);
+
+     UnitCellBox[CurrentSystem].ax*=scale;  UnitCellBox[CurrentSystem].cx*=scale;
+     UnitCellBox[CurrentSystem].ay*=scale;  UnitCellBox[CurrentSystem].cy*=scale;
+     UnitCellBox[CurrentSystem].az*=scale;  UnitCellBox[CurrentSystem].cz*=scale;
+     Invert3x3Matrix(&UnitCellBox[CurrentSystem],&InverseUnitCellBox[CurrentSystem],&det);
+
+     UnitCellSize[CurrentSystem].x*=scale;
+     UnitCellSize[CurrentSystem].z*=scale;
+     break;
+  }
 
   if(MIN3(BoxProperties[CurrentSystem].cx,BoxProperties[CurrentSystem].cy,
           BoxProperties[CurrentSystem].cz)<2.0*CutOffVDW)
