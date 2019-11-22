@@ -877,7 +877,7 @@ int ReadInput(char *input)
     Components[i].NumberOfRXMCMoleculesPresent=(int*)calloc(NumberOfSystems,sizeof(int));
 
     Components[i].MOLEC_PER_UC_TO_MOL_PER_KG=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
-    Components[i].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+    Components[i].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].MOLEC_PER_UC_TO_CC_STP_G=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].MOLEC_PER_UC_TO_CC_STP_CC=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
     Components[i].MOL_PER_KG_TO_CC_STP_G=(REAL*)calloc(NumberOfSystems,sizeof(REAL));

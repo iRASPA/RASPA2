@@ -3601,8 +3601,8 @@ void PrintPreSimulationStatusCurrentSystem(int system)
 
       fprintf(FilePtr,"\tConversion factor molecules/unit cell -> mol/kg: %18.10lf [-]\n",
                  (double)Components[i].MOLEC_PER_UC_TO_MOL_PER_KG[system]);
-      fprintf(FilePtr,"\tConversion factor molecules/unit cell -> gr/gr: %18.10lf [-]\n",
-                 (double)Components[i].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK[system]);
+      fprintf(FilePtr,"\tConversion factor molecules/unit cell -> mg/g: %18.10lf [-]\n",
+                 (double)Components[i].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[system]);
       fprintf(FilePtr,"\tConversion factor molecules/unit cell -> cm^3 STP/gr: %18.10lf [-]\n",
                  (double)Components[i].MOLEC_PER_UC_TO_CC_STP_G[system]);
       fprintf(FilePtr,"\tConversion factor molecules/unit cell -> cm^3 STP/cm^3: %18.10lf [-]\n",

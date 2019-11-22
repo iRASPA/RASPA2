@@ -2931,6 +2931,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_A",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)   // note the '<='
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];        // the last element of index is actually taken to be the value at 0
@@ -2954,6 +2957,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_B",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];
@@ -2977,6 +2983,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_C",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];
@@ -3021,6 +3030,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_B",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];
@@ -3042,6 +3054,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_C",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];
@@ -3065,6 +3080,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_AB_2D",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];
@@ -3088,6 +3106,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_AC_2D",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];
@@ -3111,6 +3132,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_BC_2D",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];
@@ -3134,6 +3158,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_O_AB_2D",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];
@@ -3157,6 +3184,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_O_AC_2D",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];
@@ -3180,6 +3210,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_O_BC_2D",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];
@@ -3203,6 +3236,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_A_BC_3D",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];
@@ -3226,6 +3262,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_B_AC_3D",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];
@@ -3249,6 +3288,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_C_BC_3D",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];
@@ -3272,6 +3314,9 @@ void SampleFreeEnergyProfile(int Switch)
               sprintf(buffer,"FreeEnergyProfile/System_%d/FreeEnergy_%d_%s%s.dat_%d_O_ABC_3D",CurrentSystem,CurrentComponent,Components[CurrentComponent].Name,FileNameAppend,
                       Components[CurrentComponent].StartingBead);
               FilePtr=fopen(buffer,"w");
+              fprintf(FilePtr,"# column 1: reaction coordinate q\n");
+              fprintf(FilePtr,"# column 2: free energy profile [-]\n");
+              fprintf(FilePtr,"# column 3: error free energy\n");
               for(j=0;j<=FreeEnergyHistogramSize[CurrentSystem];j++)
               {
                 index=j%FreeEnergyHistogramSize[CurrentSystem];
@@ -3503,10 +3548,10 @@ void SamplePoreSizeDistribution(int Switch)
         FilePtr=fopen(buffer,"w");
       }
 
-      fprintf(FilePtr,"# column 1: dameter d [A]\n");
-      fprintf(FilePtr,"# column 2: Connoly distribution\n");
+      fprintf(FilePtr,"# column 1: diameter d [A]\n");
+      fprintf(FilePtr,"# column 2: cumulative pore volume\n");
       fprintf(FilePtr,"# column 3: PSD\n");
-      fprintf(FilePtr,"# value at d=0 is void-fraction\n");
+      fprintf(FilePtr,"# value at d=0 is related to the void-fraction\n");
 
       for(k=0;k<PSDHistogramSize[CurrentSystem];k++)
       {
@@ -4259,7 +4304,7 @@ void SampleResidenceTimes(int Switch)
 
       FilePtr=fopen(buffer,"w");
       fprintf(FilePtr,"# column 1: t [ps]\n");
-      fprintf(FilePtr,"# column 2: Residence Times\n");
+      fprintf(FilePtr,"# column 2: residence Times\n");
       for(i=0;i<ResidenceTimesHistogramSize[CurrentSystem];i++)
         fprintf(FilePtr,"%g %g\n",deltaR*(i+0.5),ResidenceTimesHistogram[CurrentSystem][i]);
       fclose(FilePtr);
@@ -5933,8 +5978,8 @@ void SampleInfraRedSpectra(int Switch)
         sprintf(buffer,"MD_Spectra/System_%d/VACF_FFT/Spectrum_%d_all%s.dat",CurrentSystem,m,FileNameAppend);
         FilePtr=fopen(buffer,"w");
         fprintf(FilePtr,"# %lld samples (half overlapping)\n",(long long)SpectrumCount[CurrentSystem][k]);
-        fprintf(FilePtr,"# column 1 frequencies in cm^-1\n");
-        fprintf(FilePtr,"# column 2 intensity\n");
+        fprintf(FilePtr,"# column 1: frequencies in cm^-1\n");
+        fprintf(FilePtr,"# column 2: intensity\n");
         for(i=0;i<half_fft_size;i++)
           if(SpectrumCount[CurrentSystem][k]>0.0)
             fprintf(FilePtr,"%g %g\n",i*conversion_factor,UnweightedSpectrumAverage[CurrentSystem][0][k][i]/(m*SpectrumCount[CurrentSystem][k]));
@@ -5943,8 +5988,8 @@ void SampleInfraRedSpectra(int Switch)
         sprintf(buffer,"MD_Spectra/System_%d/VACF_FFT/Spectrum_%d_framework%s.dat",CurrentSystem,m,FileNameAppend);
         FilePtr=fopen(buffer,"w");
         fprintf(FilePtr,"# %lld samples (half overlapping)\n",(long long)SpectrumCount[CurrentSystem][k]);
-        fprintf(FilePtr,"# column 1 frequencies in cm^-1\n");
-        fprintf(FilePtr,"# column 2 intensity\n");
+        fprintf(FilePtr,"# column 1: frequencies in cm^-1\n");
+        fprintf(FilePtr,"# column 2: intensity\n");
         for(i=0;i<half_fft_size;i++)
           if(SpectrumCount[CurrentSystem][k]>0.0)
             fprintf(FilePtr,"%g %g\n",i*conversion_factor,UnweightedSpectrumAverage[CurrentSystem][1][k][i]/(m*SpectrumCount[CurrentSystem][k]));
@@ -5953,8 +5998,8 @@ void SampleInfraRedSpectra(int Switch)
         sprintf(buffer,"MD_Spectra/System_%d/VACF_FFT/Spectrum_%d_adsorbates%s.dat",CurrentSystem,m,FileNameAppend);
         FilePtr=fopen(buffer,"w");
         fprintf(FilePtr,"# %lld samples (half overlapping)\n",(long long)SpectrumCount[CurrentSystem][k]);
-        fprintf(FilePtr,"# column 1 frequencies in cm^-1\n");
-        fprintf(FilePtr,"# column 2 intensity\n");
+        fprintf(FilePtr,"# column 1: frequencies in cm^-1\n");
+        fprintf(FilePtr,"# column 2: intensity\n");
         for(i=0;i<half_fft_size;i++)
           if(SpectrumCount[CurrentSystem][k]>0.0)
             fprintf(FilePtr,"%g %g\n",i*conversion_factor,UnweightedSpectrumAverage[CurrentSystem][2][k][i]/(m*SpectrumCount[CurrentSystem][k]));
@@ -5963,8 +6008,8 @@ void SampleInfraRedSpectra(int Switch)
         sprintf(buffer,"MD_Spectra/System_%d/VACF_FFT/Spectrum_%d_cations%s.dat",CurrentSystem,m,FileNameAppend);
         FilePtr=fopen(buffer,"w");
         fprintf(FilePtr,"# %lld samples (half overlapping)\n",(long long)SpectrumCount[CurrentSystem][k]);
-        fprintf(FilePtr,"# column 1 frequencies in cm^-1\n");
-        fprintf(FilePtr,"# column 2 intensity\n");
+        fprintf(FilePtr,"# column 1: frequencies in cm^-1\n");
+        fprintf(FilePtr,"# column 2: intensity\n");
         for(i=0;i<half_fft_size;i++)
           if(SpectrumCount[CurrentSystem][k]>0.0)
             fprintf(FilePtr,"%g %g\n",i*conversion_factor,UnweightedSpectrumAverage[CurrentSystem][3][k][i]/(m*SpectrumCount[CurrentSystem][k]));
@@ -5978,8 +6023,8 @@ void SampleInfraRedSpectra(int Switch)
         sprintf(buffer,"MD_Spectra/System_%d/ChargeWeightedVACF_FFT/Spectrum_%d_all%s.dat",CurrentSystem,m,FileNameAppend);
         FilePtr=fopen(buffer,"w");
         fprintf(FilePtr,"# %lld samples (half overlapping)\n",(long long)SpectrumCount[CurrentSystem][k]);
-        fprintf(FilePtr,"# column 1 frequencies in cm^-1\n");
-        fprintf(FilePtr,"# column 2 intensity\n");
+        fprintf(FilePtr,"# column 1: frequencies in cm^-1\n");
+        fprintf(FilePtr,"# column 2: intensity\n");
         for(i=0;i<half_fft_size;i++)
           if(SpectrumCount[CurrentSystem][k]>0.0)
             fprintf(FilePtr,"%g %g\n",i*conversion_factor,SpectrumAverage[CurrentSystem][0][k][i]/(m*SpectrumCount[CurrentSystem][k]));
@@ -5988,8 +6033,8 @@ void SampleInfraRedSpectra(int Switch)
         sprintf(buffer,"MD_Spectra/System_%d/ChargeWeightedVACF_FFT/Spectrum_%d_framework%s.dat",CurrentSystem,m,FileNameAppend);
         FilePtr=fopen(buffer,"w");
         fprintf(FilePtr,"# %lld samples (half overlapping)\n",(long long)SpectrumCount[CurrentSystem][k]);
-        fprintf(FilePtr,"# column 1 frequencies in cm^-1\n");
-        fprintf(FilePtr,"# column 2 intensity\n");
+        fprintf(FilePtr,"# column 1: frequencies in cm^-1\n");
+        fprintf(FilePtr,"# column 2: intensity\n");
         for(i=0;i<half_fft_size;i++)
           if(SpectrumCount[CurrentSystem][k]>0.0)
             fprintf(FilePtr,"%g %g\n",i*conversion_factor,SpectrumAverage[CurrentSystem][1][k][i]/(m*SpectrumCount[CurrentSystem][k]));
@@ -5998,8 +6043,8 @@ void SampleInfraRedSpectra(int Switch)
         sprintf(buffer,"MD_Spectra/System_%d/ChargeWeightedVACF_FFT/Spectrum_%d_adsorbates%s.dat",CurrentSystem,m,FileNameAppend);
         FilePtr=fopen(buffer,"w");
         fprintf(FilePtr,"# %lld samples (half overlapping)\n",(long long)SpectrumCount[CurrentSystem][k]);
-        fprintf(FilePtr,"# column 1 frequencies in cm^-1\n");
-        fprintf(FilePtr,"# column 2 intensity\n");
+        fprintf(FilePtr,"# column 1: frequencies in cm^-1\n");
+        fprintf(FilePtr,"# column 2: intensity\n");
         for(i=0;i<half_fft_size;i++)
           if(SpectrumCount[CurrentSystem][k]>0.0)
             fprintf(FilePtr,"%g %g\n",i*conversion_factor,SpectrumAverage[CurrentSystem][2][k][i]/(m*SpectrumCount[CurrentSystem][k]));
@@ -6008,8 +6053,8 @@ void SampleInfraRedSpectra(int Switch)
         sprintf(buffer,"MD_Spectra/System_%d/ChargeWeightedVACF_FFT/Spectrum_%d_cations%s.dat",CurrentSystem,m,FileNameAppend);
         FilePtr=fopen(buffer,"w");
         fprintf(FilePtr,"# %lld samples (half overlapping)\n",(long long)SpectrumCount[CurrentSystem][k]);
-        fprintf(FilePtr,"# column 1 frequencies in cm^-1\n");
-        fprintf(FilePtr,"# column 2 intensity\n");
+        fprintf(FilePtr,"# column 1: frequencies in cm^-1\n");
+        fprintf(FilePtr,"# column 2: intensity\n");
         for(i=0;i<half_fft_size;i++)
           if(SpectrumCount[CurrentSystem][k]>0.0)
             fprintf(FilePtr,"%g %g\n",i*conversion_factor,SpectrumAverage[CurrentSystem][3][k][i]/(m*SpectrumCount[CurrentSystem][k]));
@@ -6022,8 +6067,8 @@ void SampleInfraRedSpectra(int Switch)
             sprintf(buffer,"MD_Spectra/System_%d/ChargeWeightedVACF_FFT_PseudoAtoms/Spectrum_%s_%d%s.dat",CurrentSystem,PseudoAtoms[n].Name,m,FileNameAppend);
             FilePtr=fopen(buffer,"w");
             fprintf(FilePtr,"# %lld samples (half overlapping)\n",(long long)SpectrumCount[CurrentSystem][k]);
-            fprintf(FilePtr,"# column 1 frequencies in cm^-1\n");
-            fprintf(FilePtr,"# column 2 intensity\n");
+            fprintf(FilePtr,"# column 1: frequencies in cm^-1\n");
+            fprintf(FilePtr,"# column 2: intensity\n");
             for(i=0;i<half_fft_size;i++)
               if(SpectrumCount[CurrentSystem][k]>0.0)
                 fprintf(FilePtr,"%g %g\n",i*conversion_factor,SpectrumPseudoAtomsAverage[CurrentSystem][0][n][k][i]/(m*SpectrumCount[CurrentSystem][k]));
@@ -6038,8 +6083,8 @@ void SampleInfraRedSpectra(int Switch)
             sprintf(buffer,"MD_Spectra/System_%d/VACF_FFT_PseudoAtoms/Spectrum_%s_%d%s.dat",CurrentSystem,PseudoAtoms[n].Name,m,FileNameAppend);
             FilePtr=fopen(buffer,"w");
             fprintf(FilePtr,"# %lld samples (half overlapping)\n",(long long)SpectrumCount[CurrentSystem][k]);
-            fprintf(FilePtr,"# column 1 frequencies in cm^-1\n");
-            fprintf(FilePtr,"# column 2 intensity\n");
+            fprintf(FilePtr,"# column 1: frequencies in cm^-1\n");
+            fprintf(FilePtr,"# column 2: intensity\n");
             for(i=0;i<half_fft_size;i++)
               if(SpectrumCount[CurrentSystem][k]>0.0)
                 fprintf(FilePtr,"%g %g\n",i*conversion_factor,SpectrumPseudoAtomsAverage[CurrentSystem][1][n][k][i]/(m*SpectrumCount[CurrentSystem][k]));

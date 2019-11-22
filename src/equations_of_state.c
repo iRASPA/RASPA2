@@ -143,8 +143,8 @@ void ComputeGasPropertiesForAllSystems(void)
     {
       // molec/uc -> mol/kg
       Components[i].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]=1000.0*number_of_unit_cells/FrameworkMass;
-      // molec/uc -> g/g
-      Components[i].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]=Components[i].Mass*1000.0*number_of_unit_cells/FrameworkMass;
+      // molec/uc -> mg/g
+      Components[i].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]=Components[i].Mass*1000.0*number_of_unit_cells/FrameworkMass;
     }
 
     // use global pressure to compute partial pressures

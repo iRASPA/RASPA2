@@ -1749,7 +1749,7 @@ void PrintIntervalStatusInit(long long CurrentCycle,long long NumberOfCycles,FIL
       fprintf(FilePtr,"\tabsolute adsorption: %9.5lf [mol/uc], %14.4lf [mol/kg],      %14.4lf [mg/g]\n",
          (double)loading,
          (double)(Components[i].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*loading),
-         (double)(Components[i].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*loading));
+         (double)(Components[i].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*loading));
       fprintf(FilePtr,"\t                                         %14.4lf [cm^3 STP/g],  %14.4lf [cm^3 STP/cm^3]\n",
          (double)(Components[i].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]*loading),
          (double)(Components[i].MOLEC_PER_UC_TO_CC_STP_CC[CurrentSystem]*loading));
@@ -1762,7 +1762,7 @@ void PrintIntervalStatusInit(long long CurrentCycle,long long NumberOfCycles,FIL
       fprintf(FilePtr,"\texcess adsorption:   %9.5lf [mol/uc], %14.4lf [mol/kg],      %14.4lf [mg/g]\n",
          (double)loading,
          (double)(Components[i].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*loading),
-         (double)(Components[i].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*loading));
+         (double)(Components[i].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*loading));
       fprintf(FilePtr,"\t                                         %14.4lf [cm^3 STP/g],  %14.4lf [cm^3 STP/cm^3]\n",
          (double)(Components[i].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]*loading),
          (double)(Components[i].MOLEC_PER_UC_TO_CC_STP_CC[CurrentSystem]*loading));
@@ -2045,7 +2045,7 @@ void PrintIntervalStatusEquilibration(long long CurrentCycle,long long NumberOfC
       fprintf(FilePtr,"\tabsolute adsorption: %9.5lf [mol/uc], %14.4lf [mol/kg],      %14.4lf [mg/g]\n",
          (double)loading,
          (double)(Components[i].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*loading),
-         (double)(Components[i].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*loading));
+         (double)(Components[i].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*loading));
       fprintf(FilePtr,"\t                                          %14.4lf [cm^3 STP/g],  %14.4lf [cm^3 STP/cm^3]\n",
          (double)(Components[i].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]*loading),
          (double)(Components[i].MOLEC_PER_UC_TO_CC_STP_CC[CurrentSystem]*loading));
@@ -2058,7 +2058,7 @@ void PrintIntervalStatusEquilibration(long long CurrentCycle,long long NumberOfC
       fprintf(FilePtr,"\texcess adsorption:   %9.5lf [mol/uc], %14.4lf [mol/kg],      %14.4lf [mg/g]\n",
          (double)loading,
          (double)(Components[i].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*loading),
-         (double)(Components[i].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*loading));
+         (double)(Components[i].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*loading));
       fprintf(FilePtr,"\t                                          %14.4lf [cm^3 STP/g],  %14.4lf [cm^3 STP/cm^3]\n",
          (double)(Components[i].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]*loading),
          (double)(Components[i].MOLEC_PER_UC_TO_CC_STP_CC[CurrentSystem]*loading));
@@ -3186,8 +3186,8 @@ void PrintIntervalStatusProduction(long long CurrentCycle,long long NumberOfCycl
          (double)average_loading,
          (double)(Components[i].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*loading),
          (double)(Components[i].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*average_loading),
-         (double)(Components[i].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*loading),
-         (double)(Components[i].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*average_loading));
+         (double)(Components[i].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*loading),
+         (double)(Components[i].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*average_loading));
       fprintf(FilePtr,"\t                     %14.10lf (avg. %14.10lf) [cm^3 STP/g],  %14.10lf (avg. %14.10lf) [cm^3 STP/cm^3]\n",
          (double)(Components[i].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]*loading),
          (double)(Components[i].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]*average_loading),
@@ -3205,8 +3205,8 @@ void PrintIntervalStatusProduction(long long CurrentCycle,long long NumberOfCycl
          (double)average_loading,
          (double)(Components[i].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*loading),
          (double)(Components[i].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*average_loading),
-         (double)(Components[i].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*loading),
-         (double)(Components[i].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*average_loading));
+         (double)(Components[i].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*loading),
+         (double)(Components[i].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*average_loading));
       fprintf(FilePtr,"\t                     %14.10lf (avg. %14.10lf) [cm^3 STP/g],  %14.10lf (avg. %14.10lf) [cm^3 STP/cm^3]\n",
          (double)(Components[i].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]*loading),
          (double)(Components[i].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]*average_loading),
@@ -4464,8 +4464,8 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
       (double)(2.0*Components[j].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
 
     fprintf(FilePtr,"\tAverage loading absolute [milligram/gram framework]    %18.10lf +/- %18.10lf [-]\n",
-      (double)(sum*Components[j].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]/((REAL)nr*(REAL)NR_BLOCKS)),
-      (double)(2.0*Components[j].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
+      (double)(sum*Components[j].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]/((REAL)nr*(REAL)NR_BLOCKS)),
+      (double)(2.0*Components[j].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
 
     fprintf(FilePtr,"\tAverage loading absolute [cm^3 (STP)/gr framework]    %18.10lf +/- %18.10lf [-]\n",
       (double)(sum*Components[j].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]/((REAL)nr*(REAL)NR_BLOCKS)),
@@ -4507,8 +4507,8 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
       (double)(2.0*Components[j].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
 
     fprintf(FilePtr,"\tAverage loading excess [milligram/gram framework]    %18.10lf +/- %18.10lf [-]\n",
-      (double)(sum*Components[j].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]/((REAL)nr*(REAL)NR_BLOCKS)),
-      (double)(2.0*Components[j].MOLEC_PER_UC_TO_GRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
+      (double)(sum*Components[j].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]/((REAL)nr*(REAL)NR_BLOCKS)),
+      (double)(2.0*Components[j].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
 
     fprintf(FilePtr,"\tAverage loading excess [cm^3 (STP)/gr framework]    %18.10lf +/- %18.10lf [-]\n",
       (double)(sum*Components[j].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]/((REAL)nr*(REAL)NR_BLOCKS)),
