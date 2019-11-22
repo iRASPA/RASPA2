@@ -14,11 +14,14 @@ Refs:
    Mol. Sim., 42 (2), 81-101, 2016.
    [link to article](https://www.tandfonline.com/doi/full/10.1080/08927022.2015.1010082)
 * D. Dubbeldam, A. Torres-Knoop, and K.S. Walton,  "On the Inner Workings of Monte Carlo Codes",
-   Mol. Sim. (special issue on Monte Carlo) 39(14-15), 1253-1292 (2013).
+   Mol. Sim. (special issue on Monte Carlo) 39(14-15), 1253-1292, 2013.
    [link to article](http://www.tandfonline.com/doi/full/10.1080/08927022.2013.819102)
 * D. Dubbeldam and R.Q. Snurr, "Recent developments in the molecular modeling of diffusion in nanoporous materials",
    Mol. Sim., 33 (4-5), 305-325, 2007.
    [link to article](http://www.tandfonline.com/doi/abs/10.1080/08927020601156418)
+* D. Dubbeldam, K.S. Walton, T.J.H. Vlugt, and S. Calero, "Design, Parameterization, and Implementation of Atomic Force Fields for Adsorption in Nanoporous Materials",
+   Adv. Theory Simulat., 2(11), 1900135, 2019.
+   [link to article](https://onlinelibrary.wiley.com/doi/full/10.1002/adts.201900135)
 
 Acknowledgements:
 =================
