@@ -3550,7 +3550,7 @@ void PrintPreSimulationStatusCurrentSystem(int system)
       fprintf(FilePtr,"\tCritical pressure [Pa]: %lf\n",(double)Components[i].CriticalPressure);
       fprintf(FilePtr,"\tAcentric factor [-]: %lf\n",(double)Components[i].AcentricFactor);
       fprintf(FilePtr,"\n");
-      fprintf(FilePtr,"\tRXMC partition factor [-]: %lf\n",(double)Components[i].PartitionFunction);
+      fprintf(FilePtr,"\tRXMC partition factor ln(q/V) [ln(A^(-3))]: %18.10lf\n",(double)Components[i].PartitionFunction);
       fprintf(FilePtr,"\n");
 
       switch(FluidState[system])

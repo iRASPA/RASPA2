@@ -2537,7 +2537,13 @@ int ReadInput(char *input)
     //--------------------------------------------------------------------------------------------------------------------------------------------------------
     if(strcasecmp("ProbabilityCFCRXMCLambdaChangeMove",keyword)==0) sscanf(arguments,"%lf",&ProbabilityCFCRXMCLambdaChangeMove);
     if(strcasecmp("TargetAccRatioReactionLambdaChange",keyword)==0) sscanf(arguments,"%lf",&TargetAccRatioReactionLambdaChange);
-    if(strcasecmp("PartitionFunction",keyword)==0) sscanf(arguments,"%lf",&Components[CurrentComponent].PartitionFunction);
+    if(strcasecmp("LnPartitionFunction",keyword)==0) sscanf(arguments,"%lf",&Components[CurrentComponent].PartitionFunction);
+    if(strcasecmp("PartitionFunction",keyword)==0)
+    {
+      double partition_function=0.0;
+      sscanf(arguments,"%lf",&partition_function);
+      Components[CurrentComponent].PartitionFunction=log(partition_function);
+    }
     if(strcasecmp("MaximumReactionLambdaChange",keyword)==0) 
     {
        sscanf(arguments,"%lf",&temp_real);

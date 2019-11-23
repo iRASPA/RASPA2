@@ -29,7 +29,7 @@ VolumeChangeProbability            0.1
 
 Component 0 MoleculeName             propene
             MoleculeDefinition       TraPPE
-            PartitionFunction        8.35133e33
+            LnPartitionFunction      78.1077
             TranslationProbability   35.0
             RotationProbability      53.9
             ReinsertionProbability   10.0 
@@ -38,7 +38,7 @@ Component 0 MoleculeName             propene
 
 Component 1 MoleculeName             ethene
             MoleculeDefinition       TraPPE
-            PartitionFunction        5.04786e31
+            LnPartitionFunction      72.9991
             TranslationProbability   35.0
             RotationProbability      53.9
             ReinsertionProbability   10.0 
@@ -47,7 +47,7 @@ Component 1 MoleculeName             ethene
 
 Component 2 MoleculeName             cis-2-butene
             MoleculeDefinition       TraPPE
-            PartitionFunction        5.5845e34
+            LnPartitionFunction      80.0079
             TranslationProbability   35.0
             RotationProbability      53.9
             ReinsertionProbability   10.0 
@@ -56,7 +56,7 @@ Component 2 MoleculeName             cis-2-butene
 
 Component 3 MoleculeName             trans-2-butene
             MoleculeDefinition       TraPPE
-            PartitionFunction        8.80359e34
+            LnPartitionFunction      80.4631
             TranslationProbability   35.0
             RotationProbability      53.9
             ReinsertionProbability   10.0 

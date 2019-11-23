@@ -27763,7 +27763,7 @@ void CFCRXMCLambdaChangeMove(void)
          UHostChargeChargeRealDeltaFirstStep+UHostChargeChargeRealDeltaSecondStep+
          UHostChargeChargeFourierDeltaFirstStep+UHostChargeChargeFourierDeltaSecondStep;
 
-  REAL term=1.0;
+  REAL term=0.0;
   int N;
   for(i=0;i<NumberOfComponents;i++)
   {
@@ -27774,14 +27774,14 @@ void CFCRXMCLambdaChangeMove(void)
         if(ReactantsStoichiometry[CurrentReaction][i]>0)
         {
           for(j=0;j<ReactantsStoichiometry[CurrentReaction][i];j++)
-            term*=(N-j);
-          term*=pow(Components[i].PartitionFunction*Volume[CurrentSystem],-ReactantsStoichiometry[CurrentReaction][i]);
+            term+=log(N-j);
+          term-=ReactantsStoichiometry[CurrentReaction][i]*((Components[i].PartitionFunction)+log(Volume[CurrentSystem]));
         }
         if(ProductsStoichiometry[CurrentReaction][i]>0)
         {
           for(j=0;j<ProductsStoichiometry[CurrentReaction][i];j++)
-            term/=(N+j+1);
-          term*=pow(Components[i].PartitionFunction*Volume[CurrentSystem],ProductsStoichiometry[CurrentReaction][i]);
+            term-=log(N+j+1);
+          term+=ProductsStoichiometry[CurrentReaction][i]*((Components[i].PartitionFunction)+log(Volume[CurrentSystem]));
         }
         break;
       case CF_DELETE_MOVE:
@@ -27789,14 +27789,14 @@ void CFCRXMCLambdaChangeMove(void)
         if(ProductsStoichiometry[CurrentReaction][i]>0)
         {
           for(j=0;j<ProductsStoichiometry[CurrentReaction][i];j++)
-            term*=(N-j);
-          term*=pow(Components[i].PartitionFunction*Volume[CurrentSystem],-ProductsStoichiometry[CurrentReaction][i]);
+            term+=log(N-j);
+          term-=ProductsStoichiometry[CurrentReaction][i]*((Components[i].PartitionFunction)+log(Volume[CurrentSystem]));
         }
         if(ReactantsStoichiometry[CurrentReaction][i]>0)
         {
           for(j=0;j<ReactantsStoichiometry[CurrentReaction][i];j++)
-            term/=(N+j+1);
-          term*=pow(Components[i].PartitionFunction*Volume[CurrentSystem],ReactantsStoichiometry[CurrentReaction][i]);
+            term-=log(N+j+1);
+          term+=ReactantsStoichiometry[CurrentReaction][i]*((Components[i].PartitionFunction)+log(Volume[CurrentSystem]));
         }
         break;
       default:
@@ -27804,7 +27804,7 @@ void CFCRXMCLambdaChangeMove(void)
     }
   }
 
-  if(RandomNumber()<term*exp(-Beta[CurrentSystem]*DeltaU)*exp(BiasNew-BiasOld))
+  if(RandomNumber()<exp(term)*exp(-Beta[CurrentSystem]*DeltaU)*exp(BiasNew-BiasOld))
   {
     CFCRXMCLambda[CurrentSystem][CurrentReaction]=LambdaNew;
 
