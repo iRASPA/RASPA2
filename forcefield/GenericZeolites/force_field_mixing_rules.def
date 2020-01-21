@@ -18,14 +18,14 @@ CH_sp3         lennard-jones    17.0      4.67
 C_sp3          lennard-jones     0.8      6.38
 H_com          lennard-jones    36.7      2.958
 H_h2           none
-O_co2          lennard-jones    79.0      3.05
-C_co2          lennard-jones    27.0      2.80
+O_co2          lennard-jones    85.671    3.017
+C_co2          lennard-jones    29.933    2.745
 O_co           lennard-jones    98.014    2.979
 C_co           lennard-jones    16.141    3.636
 CO_com         none
 C_benz         lennard-jones    30.70     3.60
 H_benz         lennard-jones    25.45     2.36
-N_n2           lennard-jones    36.0      3.31
+N_n2           lennard-jones    38.298    3.306
 N_com          none
 Ow             lennard-jones    89.633    3.097
 N_dmf          lennard-jones    80.0      3.2
@@ -33,7 +33,7 @@ Co_dmf         lennard-jones    50.0      3.7
 Cm_dmf         lennard-jones    80.0      3.8
 O_dmf          lennard-jones    100.0     2.96
 H_dmf          lennard-jones    8.0       2.2
-Ar             lennard-jones    119.8     3.34
+Ar             lennard-jones    124.070   3.380
 Kr             lennard-jones    166.4     3.636
 Xe             lennard-jones    221.0     4.1
 # general mixing rule for Lennard-Jones

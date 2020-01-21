@@ -55,6 +55,7 @@ forcefield/MgMOF-74-Yazaydin/Makefile \
 forcefield/CastilloVlugtCalero2009/Makefile \
 forcefield/TraPPE/Makefile \
 molecules/Makefile \
+molecules/Generic/Makefile \
 molecules/TraPPE/Makefile \
 molecules/TraPPE-UA/Makefile \
 molecules/TraPPE-EH/Makefile \
