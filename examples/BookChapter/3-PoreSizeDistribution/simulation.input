@@ -1,0 +1,24 @@
+SimulationType                PSD
+NumberOfCycles                50000
+NumberOfInitializationCycles  0
+PrintEvery                    1000
+
+Forcefield                    Local
+CutOff                        11.8
+
+Framework                     0
+FrameworkName                 ITQ-29
+RemoveAtomNumberCodeFromLabel yes
+UseChargesFromCIFFile         yes
+UnitCells                     2 2 2
+ExternalTemperature           298.0
+
+PSDProbeDistance       Sigma
+WritePSDHistogramEvery 100
+PSDHistogramSize       2500
+PSDRange               10.0
+
+Component 0 MoleculeName         methane
+            MoleculeDefinition   Local
+            BlockPockets         yes
+            BlockPocketsFilename ITQ-29

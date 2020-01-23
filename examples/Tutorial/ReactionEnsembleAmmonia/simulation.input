@@ -25,7 +25,7 @@ VolumeChangeProbability            0.1
 
 Component 0 MoleculeName             N2
             MoleculeDefinition       local
-            PartitionFunction        3.81253e4
+            LnPartitionFunction      10.5486
             TranslationProbability   40.0
             RotationProbability      53.9
             ReinsertionProbability   5.0 
@@ -34,7 +34,7 @@ Component 0 MoleculeName             N2
 
 Component 1 MoleculeName             H2
             MoleculeDefinition       local
-            PartitionFunction        2.48054e1
+            LnPartitionFunction      3.21106
             TranslationProbability   40.0
             RotationProbability      53.9
             ReinsertionProbability   5.0 
@@ -43,7 +43,7 @@ Component 1 MoleculeName             H2
 
 Component 2 MoleculeName             NH3
             MoleculeDefinition       local
-            PartitionFunction        1.498133e8
+            LnPartitionFunction      18.8249
             TranslationProbability   40.0
             RotationProbability      53.9
             ReinsertionProbability   5.0 

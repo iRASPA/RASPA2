@@ -108,7 +108,7 @@ Working with 'git' and a remote repository  means that you will have to distingu
 
 To check-out the code for the first time do:
 \begin{verbatim}
-     git clone ssh://raspa2@itsaio.science.uva.nl/~raspa2/RASPA-2.0.git
+     git clone https://github.com/iraspa/RASPA2
 \end{verbatim}
 After that, you can update the code by using
 \begin{verbatim}
@@ -120,11 +120,11 @@ After that, you can update the code by using
 The \emph{RASPA\_DIR} environment variable should be set to where you would like to install RASPA.
 A common way of defining it is using the bash-shell
 \begin{quote}
-  export RASPA\_DIR=\$\{HOME\}/Research/simulations/
+  export RASPA\_DIR=\$\{HOME\}/RASPA/simulations/
 \end{quote}
 or
 \begin{quote}
-  setenv RASPA\_DIR "\$\{HOME\}/Research/simulations/"
+  setenv RASPA\_DIR "\$\{HOME\}/RASPA/simulations/"
 \end{quote}
 for 'csh' and 'tcsh' shells.
 It is possible to add this line to ".bashrc", "/etc/bashrc", "/etc/profile" etc, depending on the unix-version and

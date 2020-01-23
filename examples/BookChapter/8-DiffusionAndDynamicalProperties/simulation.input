@@ -1,0 +1,45 @@
+SimulationType                MD
+NumberOfCycles                50000000000000
+NumberOfInitializationCycles  20000
+NumberOfEquilibrationCycles   50000
+PrintEvery                    100000
+PrintPropertiesEvery          100000
+
+Ensemble                      NVT
+
+Forcefield                    Local
+CutOffVDW                     11.8
+
+Framework                     0
+FrameworkName                 ITQ-29
+RemoveAtomNumberCodeFromLabel yes
+UseChargesFromCIFFile         yes
+UnitCells                     2 2 2
+HeliumVoidFraction            0.401506
+ExternalTemperature           300.0
+ExternalPressure              0.0
+
+ComputeMSD yes
+PrintMSDEvery 100000
+
+ComputeRDF yes
+WriteRDFEvery 100000
+RDFHistogramSize 300
+RDFRange 10.0
+
+ComputeVACF yes
+WriteVACFEvery 100000
+
+ComputeVACFConventional yes
+WriteVACFConventionalEvery 100000
+
+Component 0 MoleculeName              methane
+            StartingBead              0
+            MoleculeDefinition        Local
+            BlockPockets              yes
+            BlockPocketsFilename      ITQ-29
+            IdealGasRosenbluthWeight  1.0
+            FugacityCoefficient       1.0
+            TranslationProbability    1.0
+            ReinsertionProbability    1.0
+            CreateNumberOfMolecules   64

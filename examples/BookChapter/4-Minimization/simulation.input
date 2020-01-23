@@ -1,0 +1,36 @@
+SimulationType                Minimization
+NumberOfCycles                1000
+NumberOfInitializationCycles  100
+PrintEvery                    1
+RestartFile                   no
+
+MaximumNumberOfMinimizationSteps 2000
+RMSGradientTolerance 1e-6
+MaxGradientTolerance 1e-6
+
+Ensemble        NVT
+
+ChargeMethod                  Ewald
+Forcefield                    Local
+CutOffVDW                     11.8
+RemoveAtomNumberCodeFromLabel no
+
+Framework             0
+FrameworkName         ITQ-29
+UseChargesFromCIFFile yes
+UnitCells             2 2 2
+ExternalTemperature   300.0
+Movies                yes
+WriteMoviesEvery      1
+
+Component 0 MoleculeName              CO2
+            StartingBead              1
+            MoleculeDefinition        Local
+            BlockPockets              yes
+            BlockPocketsFilename      ITQ-29
+            FugacityCoefficient       1.0
+            TranslationProbability    1.0
+            RotationProbability       1.0
+            ReinsertionProbability    1.0
+            CreateNumberOfMolecules   1
+

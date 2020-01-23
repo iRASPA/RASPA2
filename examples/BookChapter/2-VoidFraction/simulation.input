@@ -1,0 +1,22 @@
+SimulationType        MonteCarlo
+NumberOfCycles        100000
+PrintEvery            1000
+PrintPropertiesEvery  1000
+
+Forcefield            Local
+CutOff                11.8
+
+Framework                     0
+FrameworkName                 ITQ-29
+RemoveAtomNumberCodeFromLabel yes
+UseChargesFromCIFFile         yes
+UnitCells                     2 2 2
+ExternalTemperature           298.0
+
+Component 0 MoleculeName             helium
+            MoleculeDefinition       Local
+            BlockPockets             yes
+            BlockPocketsFilename     ITQ-29
+            WidomProbability         1.0
+            CreateNumberOfMolecules  0
+
