@@ -3617,7 +3617,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   }
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
   tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage Box.cz  %18.5lf [A^3] +/- %18.5lf [A^3]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
+  fprintf(FilePtr,"\tAverage Box.cz  %18.5lf [A^3] +/- %18.5lf [A^3]\n\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
 
   sum=sum2=0.0;
   for(i=0;i<NR_BLOCKS;i++)
@@ -3634,7 +3634,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   }
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
   tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage alpha angle  %18.5lf [degrees] +/- %18.5lf [degrees]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
+  fprintf(FilePtr,"\tAverage alpha angle  %18.5lf [degrees] +/- %18.5lf [degrees]\n\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
 
 
   sum=sum2=0.0;
@@ -3652,7 +3652,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   }
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
   tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage beta angle  %18.5lf [degrees] +/- %18.5lf [degrees]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
+  fprintf(FilePtr,"\tAverage beta angle  %18.5lf [degrees] +/- %18.5lf [degrees]\n\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
 
 
   sum=sum2=0.0;
@@ -3670,7 +3670,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   }
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
   tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage gamma angle  %18.5lf [degrees] +/- %18.5lf [degrees]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
+  fprintf(FilePtr,"\tAverage gamma angle  %18.5lf [degrees] +/- %18.5lf [degrees]\n\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
 
 
   // Average Surface area
@@ -3693,21 +3693,21 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
         fprintf(FilePtr,"\tBlock[%2d] %-lf [-]\n",i,(double)0.0);
     }
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-    fprintf(FilePtr,"\tSurface area:   %lf +/- %lf [A^2]\n",
+    fprintf(FilePtr,"\tAverage surface area:   %lf +/- %lf [A^2]\n",
       (double)(sum/(REAL)NR_BLOCKS),(double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
-    fprintf(FilePtr,"\tSurface area:   %lf +/- %lf [m^2/g]\n",
+    fprintf(FilePtr,"\t                        %lf +/- %lf [m^2/g]\n",
       (double)((sum/(REAL)NR_BLOCKS)*SQR(ANGSTROM)*
         AVOGADRO_CONSTANT/(Framework[CurrentSystem].FrameworkMass)),
       (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))*SQR(ANGSTROM)*
         AVOGADRO_CONSTANT/(Framework[CurrentSystem].FrameworkMass)));
-    fprintf(FilePtr,"\tSurface area:   %lf +/- %g [m^2/cm^3]\n\n",
+    fprintf(FilePtr,"\t                        %lf +/- %g [m^2/cm^3]\n\n",
       (double)((sum/(REAL)NR_BLOCKS)*1.0e4/Volume[0]),
       (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))*1.0e4/Volume[0]));
   }
 
   // Density
   fprintf(FilePtr,"\n");
-  fprintf(FilePtr,"Average Density:\n");
+  fprintf(FilePtr,"Average density:\n");
   fprintf(FilePtr,"=================\n");
   sum=sum2=0.0;
   Mass=GetTotalAdsorbateMass()+GetTotalCationMass();
@@ -3726,10 +3726,11 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
   tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
   fprintf(FilePtr,"\tAverage   %18.5lf [kg/m^3] +/- %18.5lf [kg/m^3]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
+  fprintf(FilePtr,"\n");
 
   for(j=0;j<NumberOfComponents;j++)
   {
-    fprintf(FilePtr,"\tComponent %d [%s]\n",j,Components[j].Name);
+    fprintf(FilePtr,"\tAverage density component %d [%s]\n",j,Components[j].Name);
     fprintf(FilePtr,"\t-------------------------------------------------------------\n");
 
     sum=sum2=0.0;
@@ -4013,38 +4014,39 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   fprintf(FilePtr,"=======================\n\n");
   sum=sum2=0.0;
 
-  if(NumberOfComponents>1)
+  if(NumberOfComponents==1)
   {
     fprintf(FilePtr,"\tTotal enthalpy of adsorption\n");
     fprintf(FilePtr,"\t----------------------------\n");
-  }
-  sum=sum2=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
-  {
-    if(BlockWeightedCount[CurrentSystem][i]>0.0)
+   
+    sum=sum2=0.0;
+    for(i=0;i<NR_BLOCKS;i++)
     {
-      REAL UTotalTimesN = TotalEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
-      REAL UTotal = UTotalAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
-      REAL N = NumberOfIntegerMoleculesAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
-      REAL NSquared = NumberOfMoleculesSquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      if(BlockWeightedCount[CurrentSystem][i]>0.0)
+      {
+        REAL UTotalTimesN = TotalEnergyTimesNumberOfMoleculesAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+        REAL UTotal = UTotalAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+        REAL N = NumberOfIntegerMoleculesAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+        REAL NSquared = NumberOfMoleculesSquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
 
-      tmp=ENERGY_TO_KELVIN*((UTotalTimesN - UTotal*N)/(NSquared - SQR(N)))-therm_baro_stats.ExternalTemperature[CurrentSystem];
-      sum+=tmp;
-      sum2+=SQR(tmp);
-      fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)tmp);
+        tmp=ENERGY_TO_KELVIN*((UTotalTimesN - UTotal*N)/(NSquared - SQR(N)))-therm_baro_stats.ExternalTemperature[CurrentSystem];
+        sum+=tmp;
+        sum2+=SQR(tmp);
+        fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)tmp);
+      }
+      else
+        fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)0.0);
     }
-    else
-      fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)0.0);
+    fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
+    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [K]\n",
+      (double)(sum/(REAL)NR_BLOCKS),
+      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+    fprintf(FilePtr,"\t          %18.5lf +/- %18lf [KJ/MOL]\n",
+      (double)(sum/(REAL)NR_BLOCKS)*KELVIN_TO_KJ_PER_MOL,
+      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))*KELVIN_TO_KJ_PER_MOL));
+    fprintf(FilePtr,"\tNote: Ug should be subtracted from this value\n");
+    fprintf(FilePtr,"\tNote: The heat of adsorption Q=-H\n\n");
   }
-  fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [K]\n",
-    (double)(sum/(REAL)NR_BLOCKS),
-    (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
-  fprintf(FilePtr,"\t          %18.5lf +/- %18lf [KJ/MOL]\n",
-    (double)(sum/(REAL)NR_BLOCKS)*KELVIN_TO_KJ_PER_MOL,
-    (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))*KELVIN_TO_KJ_PER_MOL));
-  fprintf(FilePtr,"\tNote: Ug should be subtracted from this value\n");
-  fprintf(FilePtr,"\tNote: The heat of adsorption Q=-H\n\n");
   
   if(NumberOfComponents>1)
   {
@@ -4085,7 +4087,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
     for(k1=0;k1<NumberOfComponents;k1++)
     {
       sum=sum2=0.0;
-      fprintf(FilePtr,"\tComponent %d [%s]\n",k1,Components[k1].Name);
+      fprintf(FilePtr,"\tEnthalpy of adsorption component %d [%s]\n",k1,Components[k1].Name);
       fprintf(FilePtr,"\t-------------------------------------------------------------\n");
       for(i=0;i<NR_BLOCKS;i++)
       {

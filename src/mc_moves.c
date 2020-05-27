@@ -1093,7 +1093,7 @@ int ComputeNewPolarizationEnergy(int New,int excl_ads,int excl_cation)
  * Function   | Calculates the energy of the fractional adsorbate molecules                              *
  * Parameters | -                                                                                        *
  * Note       |                                                                                          *
- * Used       | in 'statistic.c' to correct the energy for CFMC                                          *
+ * Used       | in 'statistic.c' to correct the energy for CFCMC                                         *
  *********************************************************************************************************/
 
 REAL ComputeEnergyOfFractionalMoleculesAdsorbates()
@@ -1145,7 +1145,7 @@ REAL ComputeEnergyOfFractionalMoleculesAdsorbates()
  * Function   | Calculates the energy of the fractional cations molecules                                *
  * Parameters | -                                                                                        *
  * Note       |                                                                                          *
- * Used       | in 'statistic.c' to correct the energy for CFMC                                          *
+ * Used       | in 'statistic.c' to correct the energy for CFCMC                                         *
  *********************************************************************************************************/
 
 REAL ComputeEnergyOfFractionalMoleculesCations()
@@ -8649,8 +8649,8 @@ void PrintCFWidomLambdaStatistics(FILE *FilePtr)
 
   if(MoveUsed)
   {
-    fprintf(FilePtr,"Performance of the CFMC Widom lambda move:\n");
-    fprintf(FilePtr,"==========================================\n");
+    fprintf(FilePtr,"Performance of the CFCMC Widom lambda move:\n");
+    fprintf(FilePtr,"===========================================\n");
     for(i=0;i<NumberOfComponents;i++)
     {
       if(Components[i].FractionOfCFWidomLambdaMove>0.0)
@@ -8728,11 +8728,11 @@ void PrintCFWidomLambdaStatistics(FILE *FilePtr)
     fprintf(FilePtr,"\n");
   }
   else
-    fprintf(FilePtr,"CFMC swap lambda move was OFF for all components\n\n");
+    fprintf(FilePtr,"CFCMC swap lambda move was OFF for all components\n\n");
 }
 
 /*********************************************************************************************************
- * Name       | GibbsWidomAdsorbateMove                                                                 *
+ * Name       | GibbsWidomAdsorbateMove                                                                  *
  * ----------------------------------------------------------------------------------------------------- *
  * Function   | Monte Carlo move to measure the Rosenbluth weight                                        *
  * Parameters | -                                                                                        *
@@ -18266,8 +18266,8 @@ void PrintCFSwapLambdaStatistics(FILE *FilePtr)
 
   if(MoveUsed)
   {
-    fprintf(FilePtr,"Performance of the CFMC swap lambda move:\n");
-    fprintf(FilePtr,"=========================================\n");
+    fprintf(FilePtr,"Performance of the CFCMC swap lambda move:\n");
+    fprintf(FilePtr,"==========================================\n");
     for(i=0;i<NumberOfComponents;i++)
     {
       if(Components[i].FractionOfCFSwapLambdaMove>0.0)
@@ -18355,7 +18355,7 @@ void PrintCFSwapLambdaStatistics(FILE *FilePtr)
     fprintf(FilePtr,"\n");
   }
   else
-    fprintf(FilePtr,"CFMC swap lambda move was OFF for all components\n\n");
+    fprintf(FilePtr,"CFCMC swap lambda move was OFF for all components\n\n");
 }
 
 
@@ -18367,7 +18367,7 @@ void PrintCFSwapLambdaStatistics(FILE *FilePtr)
  * Note       | The Continous Fraction move changes the lambda-scaling parameter of a fractional         *
  *            | molecule.                                                                                *
  * Refs.      | A. Torres-Knoop, S. Prasaad Balaji, T.J.H. Vlugt, D. Dubbeldam, "A Comparison of         *
- *            | Advanced Monte Carlo Methods for Open Systems: CFMC vs. CBMC", Journal of Chemical       *
+ *            | Advanced Monte Carlo Methods for Open Systems: CFCMC vs. CBMC", Journal of Chemical      *
  *            | Theory and Computation, Submitted (2013).                                                *
  *********************************************************************************************************/
 
@@ -19332,7 +19332,7 @@ int CBCFSwapLambaAdsorbateMove(void)
  * Note       | The Continous Fraction move changes the lambda-scaling parameter of a fractional         *
  *            | molecule.                                                                                *
  * Refs.      | A. Torres-Knoop, S. Prasaad Balaji, T.J.H. Vlugt, D. Dubbeldam, "A Comparison of         *
- *            | Advanced Monte Carlo Methods for Open Systems: CFMC vs. CBMC", Journal of Chemical       *
+ *            | Advanced Monte Carlo Methods for Open Systems: CFCMC vs. CBMC", Journal of Chemical      *
  *            | Theory and Computation, Submitted (2013).                                                *
  *********************************************************************************************************/
 
@@ -19944,7 +19944,7 @@ int CBCFSwapLambaCationMove(void)
   if(RandomNumber()<exp(-Beta[CurrentSystem]*DeltaUFirstStep)*exp(BiasNew-BiasOld)*(RosenbluthNew/RosenbluthIdealNew)*(RosenbluthIdealOld/RosenbluthOld))
   {
     #ifdef DEBUG
-      fprintf(stderr, "CB/CFMC Lambda-move cation accepted\n");
+      fprintf(stderr, "CB/CFCMC Lambda-move cation accepted\n");
     #endif
 
     UCationCation[CurrentSystem]+=UCationVDWDeltaFirstStep;
@@ -20270,7 +20270,7 @@ int CBCFSwapLambaCationMove(void)
   {
     label_CFSwapLambaMove_rejected:;
     #ifdef DEBUG
-      fprintf(stderr, "CB/CFMC Lambda-move cation rejected\n");
+      fprintf(stderr, "CB/CFCMC Lambda-move cation rejected\n");
     #endif
     Framework[CurrentSystem].FrameworkModel=UseGrids;
     for(i=0;i<Components[CurrentComponent].NumberOfAtoms;i++)
@@ -20361,8 +20361,8 @@ void PrintCBCFSwapLambdaStatistics(FILE *FilePtr)
 
   if(MoveUsed)
   {
-    fprintf(FilePtr,"Performance of the CB/CFMC swap lambda move:\n");
-    fprintf(FilePtr,"============================================\n");
+    fprintf(FilePtr,"Performance of the CB/CFCMC swap lambda move:\n");
+    fprintf(FilePtr,"=============================================\n");
     for(i=0;i<NumberOfComponents;i++)
     {
       if(Components[i].FractionOfCBCFSwapLambdaMove>0.0)
@@ -20409,7 +20409,7 @@ void PrintCBCFSwapLambdaStatistics(FILE *FilePtr)
     fprintf(FilePtr,"\n");
   }
   else
-    fprintf(FilePtr,"CB/CFMC swap lambda move was OFF for all components\n\n");
+    fprintf(FilePtr,"CB/CFCMC swap lambda move was OFF for all components\n\n");
 */
 
   int i,k,MoveUsed;
@@ -20436,7 +20436,7 @@ void PrintCBCFSwapLambdaStatistics(FILE *FilePtr)
 
   if(MoveUsed)
   {
-    fprintf(FilePtr,"Performance of the CB/CFMC swap lambda move:\n");
+    fprintf(FilePtr,"Performance of the CB/CFCMC swap lambda move:\n");
     fprintf(FilePtr,"============================================\n");
     for(i=0;i<NumberOfComponents;i++)
     {
@@ -23543,8 +23543,8 @@ void PrintCFGibbsLambdaStatistics(FILE *FilePtr)
 
   if(MoveUsed)
   {
-    fprintf(FilePtr,"Performance of the CFMC Gibbs lambda move:\n");
-    fprintf(FilePtr,"==========================================\n");
+    fprintf(FilePtr,"Performance of the CFCMC Gibbs lambda move:\n");
+    fprintf(FilePtr,"===========================================\n");
     for(i=0;i<NumberOfComponents;i++)
     {
       if(Components[i].FractionOfCFGibbsChangeMove>0.0)
@@ -23582,7 +23582,7 @@ void PrintCFGibbsLambdaStatistics(FILE *FilePtr)
     fprintf(FilePtr,"\n");
   }
   else
-    fprintf(FilePtr,"CFMC Gibbs lambda move was OFF for all components\n\n");
+    fprintf(FilePtr,"CFCMC Gibbs lambda move was OFF for all components\n\n");
 }
 
 /*********************************************************************************************************
@@ -23635,7 +23635,7 @@ void OptimizeCFGibbsLambdaAcceptence(void)
  * Note       | The Continous Fraction move changes the lambda-scaling parameter of a fractional         *
  *            | molecule.                                                                                *
  * Refs.      | A. Torres-Knoop, S. Prasaad Balaji, T.J.H. Vlugt, D. Dubbeldam, "A Comparison of         *
- *            | Advanced Monte Carlo Methods for Open Systems: CFMC vs. CBMC", Journal of Chemical       *
+ *            | Advanced Monte Carlo Methods for Open Systems: CFCMC vs. CBMC", Journal of Chemical      *
  *            | Theory and Computation, Submitted (2013).                                                *
  *********************************************************************************************************/
 
@@ -25412,7 +25412,7 @@ int CBCFGibbsParticleTransferAdsorbateMove(void)
   {
     label_CBCFGibbsParticleTransferMove_rejected:;
     #ifdef DEBUG
-      fprintf(stderr, "CB/CFMC-Gibbs Lambda-move adsorbate rejected\n");
+      fprintf(stderr, "CB/CFCMC-Gibbs Lambda-move adsorbate rejected\n");
     #endif
 
     CurrentSystem=A;
@@ -25452,13 +25452,13 @@ int CBCFGibbsParticleTransferAdsorbateMove(void)
 /*********************************************************************************************************
  * Name       | CBCFGibbsParticleTransferCationMove                                                      *
  * ----------------------------------------------------------------------------------------------------- *
- * Function   | Configurational-Biased Gibbs-ensemble Continuous Fraction Monte Carlo move of an 
+ * Function   | Configurational-Biased Gibbs-ensemble Continuous Fraction Monte Carlo move of an         *
  *            | adsorbate molecule                                                                       *
  * Parameters | -                                                                                        *
  * Note       | The Continous Fraction move changes the lambda-scaling parameter of a fractional         *
  *            | molecule.                                                                                *
  * Refs.      | A. Torres-Knoop, S. Prasaad Balaji, T.J.H. Vlugt, D. Dubbeldam, "A Comparison of         *
- *            | Advanced Monte Carlo Methods for Open Systems: CFMC vs. CBMC", Journal of Chemical       *
+ *            | Advanced Monte Carlo Methods for Open Systems: CFCMC vs. CBMC", Journal of Chemical      *
  *            | Theory and Computation, Submitted (2013).                                                *
  *********************************************************************************************************/
 
@@ -27234,7 +27234,7 @@ int CBCFGibbsParticleTransferCationMove(void)
   {
     label_CBCFGibbsParticleTransferMove_rejected:;
     #ifdef DEBUG
-      fprintf(stderr, "CB/CFMC-Gibbs Lambda-move cation rejected\n");
+      fprintf(stderr, "CB/CFCMC-Gibbs Lambda-move cation rejected\n");
     #endif
 
     CurrentSystem=A;
@@ -27296,8 +27296,8 @@ void PrintCBCFGibbsLambdaStatistics(FILE *FilePtr)
 
   if(MoveUsed)
   {
-    fprintf(FilePtr,"Performance of the CB/CFMC Gibbs lambda move:\n");
-    fprintf(FilePtr,"=============================================\n");
+    fprintf(FilePtr,"Performance of the CB/CFCMC Gibbs lambda move:\n");
+    fprintf(FilePtr,"==============================================\n");
     for(i=0;i<NumberOfComponents;i++)
     {
       if(Components[i].FractionOfCBCFGibbsChangeMove>0.0)
@@ -27344,7 +27344,7 @@ void PrintCBCFGibbsLambdaStatistics(FILE *FilePtr)
     fprintf(FilePtr,"\n");
   }
   else
-    fprintf(FilePtr,"CB/CFMC Gibbs lambda move was OFF for all components\n\n");
+    fprintf(FilePtr,"CB/CFCMC Gibbs lambda move was OFF for all components\n\n");
 }
 
 
@@ -28777,7 +28777,7 @@ void PrintExchangeFractionalParticleStatistics(FILE *FilePtr)
  * Parameters | -                                                                                        *
  * Refs.      | A. Poursaeidesfahani, A. Torres-Knoop, D. Dubbeldam, and T.J.H. Vlugt,                   *
  *            | "Direct Free Energy Calculation in the Continuous Fractional Component Gibbs Ensemble"   *
- *            | Advanced Monte Carlo Methods for Open Systems: CFMC vs. CBMC", Journal of Chemical       *
+ *            | Advanced Monte Carlo Methods for Open Systems: CFCMC vs. CBMC", Journal of Chemical      *
  *            | Theory and Computation, Submitted (2015).                                                *
  *********************************************************************************************************/
 int CFGibbsSwapFractionalMoleculeToOtherBoxMove(void)
@@ -29293,8 +29293,8 @@ void PrintCFGibbsSwapFractionalMoleculeToOtherBoxStatistics(FILE *FilePtr)
 
   if(MoveUsed)
   {
-    fprintf(FilePtr,"Performance of the CFMC Gibbs Swap-Fractional-Molecule-To-Other-Box move (from this system):\n");
-    fprintf(FilePtr,"============================================================================================\n");
+    fprintf(FilePtr,"Performance of the CFCMC Gibbs Swap-Fractional-Molecule-To-Other-Box move (from this system):\n");
+    fprintf(FilePtr,"=============================================================================================\n");
     for(i=0;i<NumberOfComponents;i++)
     {
       if(Components[i].FractionOfCFGibbsSwapFractionalMoleculeToOtherBoxMove>0.0)
@@ -29311,7 +29311,7 @@ void PrintCFGibbsSwapFractionalMoleculeToOtherBoxStatistics(FILE *FilePtr)
     fprintf(FilePtr,"\n");
   }
   else
-    fprintf(FilePtr,"CFMC Gibbs Swap-Fractional-Molecule-To-Other-Box move was OFF for all components\n\n");
+    fprintf(FilePtr,"CFCMC Gibbs Swap-Fractional-Molecule-To-Other-Box move was OFF for all components\n\n");
 
 }
 
@@ -29322,7 +29322,7 @@ void PrintCFGibbsSwapFractionalMoleculeToOtherBoxStatistics(FILE *FilePtr)
  * Parameters | -                                                                                        *
  * Refs.      | A. Poursaeidesfahani, A. Torres-Knoop, D. Dubbeldam, and T.J.H. Vlugt,                   *
  *            | "Direct Free Energy Calculation in the Continuous Fractional Component Gibbs Ensemble"   *
- *            | Advanced Monte Carlo Methods for Open Systems: CFMC vs. CBMC", Journal of Chemical       *
+ *            | Advanced Monte Carlo Methods for Open Systems: CFCMC vs. CBMC", Journal of Chemical      *
  *            | Theory and Computation, Submitted (2015).                                                *
  *********************************************************************************************************/
 int CFGibbsLambdaChangeMove(void)
@@ -29615,8 +29615,8 @@ void PrintCFGibbsLambdaChangeStatistics(FILE *FilePtr)
 
   if(MoveUsed)
   {
-    fprintf(FilePtr,"Performance of the CFMC Gibbs Lambda-change move:\n");
-    fprintf(FilePtr,"=================================================\n");
+    fprintf(FilePtr,"Performance of the CFCMC Gibbs Lambda-change move:\n");
+    fprintf(FilePtr,"==================================================\n");
     for(i=0;i<NumberOfComponents;i++)
     {
       if(Components[i].FractionOfCFGibbsLambdaChangeMove>0.0)
@@ -29687,7 +29687,7 @@ void PrintCFGibbsLambdaChangeStatistics(FILE *FilePtr)
     fprintf(FilePtr,"\n");
   }
   else
-    fprintf(FilePtr,"CFMC Gibbs Lambda-change move was OFF for all components\n\n");
+    fprintf(FilePtr,"CFCMC Gibbs Lambda-change move was OFF for all components\n\n");
 }
 
 /*********************************************************************************************************
@@ -29740,7 +29740,7 @@ void OptimizeCFGibbsLambdaChangeAcceptence(void)
  * Parameters | -                                                                                        *
  * Refs.      | A. Poursaeidesfahani, A. Torres-Knoop, D. Dubbeldam, and T.J.H. Vlugt,                   *
  *            | "Direct Free Energy Calculation in the Continuous Fractional Component Gibbs Ensemble"   *
- *            | Advanced Monte Carlo Methods for Open Systems: CFMC vs. CBMC", Journal of Chemical       *
+ *            | Advanced Monte Carlo Methods for Open Systems: CFCMC vs. CBMC", Journal of Chemical      *
  *            | Theory and Computation, Submitted (2015).                                                *
  *********************************************************************************************************/
 int CFGibbsFractionalToIntegerMove(void)
@@ -30151,8 +30151,8 @@ void PrintCFGibbsFractionalToIntegerStatistics(FILE *FilePtr)
 
   if(MoveUsed)
   {
-    fprintf(FilePtr,"Performance of the CFMC Gibbs Fractional-To-Integer move (from this system):\n");
-    fprintf(FilePtr,"============================================================================\n");
+    fprintf(FilePtr,"Performance of the CFCMC Gibbs Fractional-To-Integer move (from this system):\n");
+    fprintf(FilePtr,"=============================================================================\n");
     for(i=0;i<NumberOfComponents;i++)
     {
       if(Components[i].FractionOfCFGibbsFractionalToIntegerMove>0.0)
@@ -30169,7 +30169,7 @@ void PrintCFGibbsFractionalToIntegerStatistics(FILE *FilePtr)
     fprintf(FilePtr,"\n");
   }
   else
-    fprintf(FilePtr,"CFMC Gibbs Swap-Fractional-Molecule-To-Other-Box move was OFF for all components\n\n");
+    fprintf(FilePtr,"CFCMC Gibbs Swap-Fractional-Molecule-To-Other-Box move was OFF for all components\n\n");
 }
 
 static int versionNumber=1;

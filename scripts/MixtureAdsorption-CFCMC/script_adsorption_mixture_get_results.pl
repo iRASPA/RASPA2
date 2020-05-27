@@ -4,13 +4,15 @@ use File::Path;
 use File::Find;
 
 #framework-information
-@framework = ("fe2bdp3-minusb");
+@framework = ("ITQ-29");
 
 # temperature-information
-@temperature = (433.0); # list of temperatures
+@temperature = (300.0); # list of temperatures
 
 # mixture-information
-@molecule = ("hexane","2-methylpentane","3-methylpentane","22-dimethylbutane","23-dimethylbutane"); # list of molecules
+@molecule = ("CO2","methane"); # list of molecules
+$number_of_molecules = scalar @molecule;
+
 
 # create the results directory
 mkpath("Results");
@@ -35,19 +37,24 @@ foreach (@framework)
 
     foreach $file (@files)
     {
-      $fugacity=`gawk '/Partial fugacity:/{printf \$3" "}' '$file'`;
-      $fugacitycoefficient=`gawk '/Fugacity coefficient:/{printf \$3" "}' '$file'`;
-      $press=`gawk '/Partial pressure:/{printf \$3" "}' '$file'`;
-      $absloading=`gawk '/Average loading absolute \\[molecules/{printf \$6" "\$8" "}' '$file'`;
-      $absloading_molec_uc=`gawk '/Average loading absolute \\[molecules/{printf \$6" "\$8" "}' '$file'`;
-      $absloading_mol_kg=`gawk '/Average loading absolute \\[mol\\/kg/{printf \$6" "\$8" "}' '$file'`;
-      $absloading_mg_g=`gawk '/Average loading absolute \\[mil/{printf \$6" "\$8" "}' '$file'`;
-      $excloading=`gawk '/Average loading excess \\[molecules/{printf \$6" "\$8" "}' '$file'`;
-      $excloading_molec_uc=`gawk '/Average loading excess \\[molecules/{printf \$6" "\$8" "}' '$file'`;
-      $excloading_mol_kg=`gawk '/Average loading excess \\[mol\\/kg/{printf \$6" "\$8" "}' '$file'`;
-      $excloading_mg_g=`gawk '/Average loading excess \\[mil/{printf \$6" "\$8" "}' '$file'`;
+      $fugacity=`awk '/Partial fugacity:/{printf \$3" "}' '$file'`;
+      $fugacitycoefficient=`awk '/Fugacity coefficient:/{printf \$3" "}' '$file'`;
+      $press=`awk '/Partial pressure:/{printf \$3" "}' '$file'`;
+      $absloading=`awk '/Average loading absolute \\[molecules/{printf \$6" "\$8" "}' '$file'`;
+      $absloading_molec_uc=`awk '/Average loading absolute \\[molecules/{printf \$6" "\$8" "}' '$file'`;
+      $absloading_mol_kg=`awk '/Average loading absolute \\[mol\\/kg/{printf \$6" "\$8" "}' '$file'`;
+      $absloading_mg_g=`awk '/Average loading absolute \\[mil/{printf \$6" "\$8" "}' '$file'`;
+      $excloading=`awk '/Average loading excess \\[molecules/{printf \$6" "\$8" "}' '$file'`;
+      $excloading_molec_uc=`awk '/Average loading excess \\[molecules/{printf \$6" "\$8" "}' '$file'`;
+      $excloading_mol_kg=`awk '/Average loading excess \\[mol\\/kg/{printf \$6" "\$8" "}' '$file'`;
+      $excloading_mg_g=`awk '/Average loading excess \\[mil/{printf \$6" "\$8" "}' '$file'`;
+      $enthalpy_of_adsorption=`awk '/Enthalpy of adsorption component/{getline; getline; getline; getline; getline; getline; getline; getline; printf \$2" "\$4" "}' '$file'`;
+      $reinsertion_percentage=`awk -v nm="$number_of_molecules" '/Performance of the Reinsertion move/{getline;x=NR+nm;next}(NR<=x){printf substr(\$13,2)" "}' '$file'`;
+      $insertion_percentage=`awk '/insert-lambda accepted/{printf substr(\$7,2)" "}' '$file'`;
+      $deletion_percentage=`awk '/remove-lambda accepted/{printf substr(\$7,2)" "}' '$file'`;
+      $lambda_percentage=`awk '/constant-lambda accepted/{printf substr(\$9,2)" "}' '$file'`;
 
-      printf DATw2 "$fugacity $fugacitycoefficient $press $absloading $absloading_molec_uc $absloading_mol_kg $absloading_mg_g $excloading $excloading_molec_uc $excloading_mol_kg $excloading_mg_g\n";
+      printf DATw2 "$fugacity $fugacitycoefficient $press $absloading $absloading_molec_uc $absloading_mol_kg $absloading_mg_g $excloading $excloading_molec_uc $excloading_mol_kg $excloading_mg_g $enthalpy_of_adsorption $reinsertion_percentage $insertion_percentage $deletion_percentage $lambda_percentage\n";
     } 
     close(DATw2);
 
@@ -76,6 +83,13 @@ foreach (@framework)
     printf DATw2 "# 17: (excess) error [mol/kg]\n";
     printf DATw2 "# 18: (excess) loading [mg/g]\n";
     printf DATw2 "# 19: (excess) error [mg/g]\n";
+    printf DATw2 "# 20: heat of adsorption [K]\n";
+    printf DATw2 "# 21: heat of adsorption error [K]\n";
+    printf DATw2 "# 22: reinsertion acceptance percentage [%%]\n";
+    printf DATw2 "# 23: CFCMC insertion acceptance percentage [%%]\n";
+    printf DATw2 "# 24: CFCMC deletion acceptance percentage [%%]\n";
+    printf DATw2 "# 25: CFCMC lambda change acceptance percentage [%%]\n";
+
     printf DATw2 "\n";
     close(DATw2);
 

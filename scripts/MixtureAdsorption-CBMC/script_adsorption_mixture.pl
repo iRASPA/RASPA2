@@ -3,40 +3,42 @@ use File::Copy;
 use File::Path;
 
 # framework-information
-@Framework = ("MIL-47");  # list of structures
-@HeliumVoidFraction = ("0.606");  # list of helium-voidfractions for the structures
-@UnitCells = ("4 2 2"); # list of sizes of the unit cells for the structures
-@Forcefield=("CastilloVlugtCalero2009");
+@Framework = ("ITQ-29");  # list of structures
+@BlockPockets = ("yes");
+@BlockPocketsFilename = ("ITQ-29");  # list of blocking pockets filenames
+@HeliumVoidFraction = ("0.401506");  # list of helium-voidfractions for the structures
+@UnitCells = ("2 2 2"); # list of sizes of the unit cells for the structures
+@Forcefield=("GenericZeolites");
 @UseChargesFromCIFFile=("yes");
-@RemoveAtomNumberCodeFromLabel=("no");
-@CutOff=("12.0");
-
+@RemoveAtomNumberCodeFromLabel=("yes");
+@CutOff=("11.8");
 
 # temperature-information
-@Temperature = (433.0); # list of temperatures
-@Molecule = ("m-xylene","p-xylene","o-xylene"); # list of molecules
-@MoleculeDefinition = ("CastilloVlugtCalero2009","CastilloVlugtCalero2009","CastilloVlugtCalero2009");
-@Idealgas = ([1.0,1.0,1.0]); # list of IG Rosenbluth weights for each temperature
+@Temperature = (300.0); # list of temperatures
+@Molecule = ("CO2","methane"); # list of molecules
+@MoleculeDefinition = ("TraPPE","TraPPE");
+@Idealgas = ([1.0,1.0]); # list of IG Rosenbluth weights for each temperature
 
 # pressure-information
 $pressure_type = "fugacity";     # "pressure" or "fugacity"
-$pressure_start = 1e-2;          # lowest pressure
-$pressure_end = 1e9;            # highest pressure
-$number_of_pressure_points = 12; # number of points equally spaced in log-scale or linear scale
+$pressure_start = 1e2;          # lowest pressure
+$pressure_end = 1e16;            # highest pressure
+$number_of_pressure_points = 36; # number of points equally spaced in log-scale or linear scale
 $pressure_unit="Pa";             # "bar", "kPa", or "Pa"
 $pressure_scale="log";           # "log" or "linear"
 
 # simulation-information
 $SimulationType="MonteCarlo";
-$NumberOfCycles="100000";
-$NumberOfInitializationCycles="50000";
+$NumberOfCycles="500000";
+$NumberOfInitializationCycles="200000";
 $PrintEvery="5000";
 $RestartFile="no";
 
 # system and queuing information
+$queueing_system="gridengine";    # "gridengine" or "torque"
 $divide_into_batches="no"; # combine serial run in larger blocks
 $batches = 8; # combine into an 8-core job
-$queue = "VASP,mof3,mof4"; # the queue type
+$queue = "mof4,mof5,VASP"; # the queue type
 $job_name = "Mixture"; # name of the job
 @file_list = (); # list of files copied to all the directories
 
@@ -59,9 +61,6 @@ else
     $pressure[$i]=($pressure_end-$pressure_start)*($i/($number_of_pressure_points-1))+$pressure_start;
   }
 }
-
-# get cluster-name
-chomp($cluster = `hostname -s`);
 
 # empty 'submit-file'
 open(DATw4, ">submit") || die("Could not open file!");
@@ -104,7 +103,7 @@ foreach (@Framework)
         copy("$file_list[$i]","$dir_press/$file_list[$i]") or die "Copy failed: $!";
       }
 
-      if(($cluster eq "login3") || ($cluster eq "login4"))
+      if($queueing_system eq "torque")
       {
         open(DATw1, ">$dir_press/bsub.job") || die("Could not open file!");
         printf DATw1 "#!/bin/bash\n";
@@ -126,7 +125,7 @@ foreach (@Framework)
         close(DATw1);
         chmod 0755, "$dir_press/bsub.job";
       }
-      elsif($cluster eq "carbon")
+      elsif($queueing_system eq "gridengine")
       {
         open(DATw1, ">$dir_press/bsub.job") || die("Could not open file!");
         printf DATw1 "#!/bin/bash\n";
@@ -137,27 +136,6 @@ foreach (@Framework)
         printf DATw1 "#\$ -V\n";
         printf DATw1 "#\$ -cwd\n";
         printf DATw1 "#\$ -notify\n";
-        printf DATw1 "\n";
-        printf DATw1 "echo \$JOB_ID > jobid\n";
-        printf DATw1 "export RASPA_DIR=\${HOME}/RASPA/simulations/\n";
-        printf DATw1 "\${RASPA_DIR}/bin/simulate \$1\n";
-        close(DATw1);
-        chmod 0755, "$dir_press/bsub.job";
-      }
-      elsif($cluster eq "kraken")
-      {
-        open(DATw1, ">$dir_press/bsub.job") || die("Could not open file!");
-        printf DATw1 "#!/bin/bash\n";
-        printf DATw1 "# script for Grid Engine\n";
-        printf DATw1 "#\$ -S /bin/bash\n";
-        printf DATw1 "#\$ -q $queue\n";
-        printf DATw1 "#\$ -N $job_name\n";
-        printf DATw1 "#\$ -V\n";
-        printf DATw1 "#\$ -cwd\n";
-        printf DATw1 "#\$ -notify\n";
-        printf DATw1 "\n";
-        printf DATw1 "# set path for intel compiler libraries\n";
-        printf DATw1 "source /opt/intel/cce/10.1.018/bin/iccvars.sh\n";
         printf DATw1 "\n";
         printf DATw1 "echo \$JOB_ID > jobid\n";
         printf DATw1 "export RASPA_DIR=\${HOME}/RASPA/simulations/\n";
@@ -167,7 +145,7 @@ foreach (@Framework)
       }
       else
       {
-        die("Unknown cluster!");
+        die("Unknown queueing system!");
       }
 
       
@@ -204,6 +182,8 @@ foreach (@Framework)
         print DATw3 "Component $index_molecule MoleculeName              $Molecule[$index_molecule]\n";
         print DATw3 "            StartingBead              0\n";
         print DATw3 "            MoleculeDefinition        $MoleculeDefinition[$index_molecule]\n";
+        print DATw3 "            BlockPockets              $BlockPockets[$index_framework]\n";
+        print DATw3 "            BlockPocketsFilename      $BlockPocketsFilename[$index_framework]\n";
         print DATw3 "            IdealGasRosenbluthWeight  $Idealgas[$index_temperature][$index_molecule]\n";
         if($pressure_type eq "fugacity") {printf DATw3 "            FugacityCoefficient       1.0\n";}
         print DATw3 "            TranslationProbability    1.0\n";
@@ -227,7 +207,7 @@ foreach (@Framework)
         {
           $index_batches=$index_batches+1;
 
-          if(($cluster eq "login3") || ($cluster eq "login4"))
+          if($queueing_system eq "torque")
           {
             open(DATw4, ">submit_$index_batches") || die("Could not open file!");
             print DATw4 "\#\!/bin/bash\n";
@@ -246,7 +226,7 @@ foreach (@Framework)
             close(DATw4);
             chmod 0755, "submit_$index_batches"
           }
-          elsif($cluster eq "carbon")
+          elsif($queueing_system eq "gridengine")
           {
             open(DATw4, ">submit_$index_batches") || die("Could not open file!");
             printf DATw4 "#!/bin/bash\n";
@@ -258,32 +238,13 @@ foreach (@Framework)
             printf DATw4 "#\$ -cwd\n";
             printf DATw4 "#\$ -pe orte $batches\n";
             printf DATw4 "#\$ -notify\n";
-            printf DATw4 "\n";
-            close(DATw4);
-            chmod 0755, "$dir_press/bsub.job";
-          }
-          elsif($cluster eq "kraken")
-          {
-            open(DATw4, ">submit_$index_batches") || die("Could not open file!");
-            printf DATw4 "#!/bin/bash\n";
-            printf DATw4 "# script for Grid Engine\n";
-            printf DATw4 "#\$ -S /bin/bash\n";
-            printf DATw4 "#\$ -q $queue\n";
-            printf DATw4 "#\$ -N $job_name\n";
-            printf DATw4 "#\$ -V\n";
-            printf DATw4 "#\$ -cwd\n";
-            printf DATw4 "#\$ -pe orte $batches\n";
-            printf DATw4 "#\$ -notify\n";
-            printf DATw4 "\n";
-            printf DATw4 "# set path for intel compiler libraries\n";
-            printf DATw4 "source /opt/intel/cce/10.1.018/bin/iccvars.sh\n";
             printf DATw4 "\n";
             close(DATw4);
             chmod 0755, "$dir_press/bsub.job";
           }
           else
           {
-            die("Unknown cluster!");
+            die("Unknown queueing system!");
           }
 
           open(DATw5, ">>submit") || die("Could not open file!");
