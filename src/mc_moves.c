@@ -27956,7 +27956,7 @@ void CFCRXMCLambdaChangeMove(void)
           number_deleted++;
         }
       }
-      bubble_sort(deleted,number_deleted);
+      BubbleSort(deleted,number_deleted);
 
       for(k=number_deleted-1;k>=0;k--)
       {
@@ -28124,7 +28124,7 @@ void CFCRXMCLambdaChangeMove(void)
           number_deleted++;
         }
       }
-      bubble_sort(deleted,number_deleted);
+      BubbleSort(deleted,number_deleted);
 
       for(k=number_deleted-1;k>=0;k--)
       {

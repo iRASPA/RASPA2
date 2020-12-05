@@ -2817,15 +2817,8 @@ void PrintPropertyStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
   fprintf(FilePtr,"\tCation surface area:                 %18.10lf [m^2/g]  %18.10lf [m^2/cm^3] %18.10f [A^2]\n",
         (double)(GetAverageCationSurfaceArea()*SQR(ANGSTROM)*AVOGADRO_CONSTANT/(Framework[CurrentSystem].FrameworkMass)),
         (double)(1.0e4*GetAverageCationSurfaceArea()/Volume[CurrentSystem]),(double)GetAverageCationSurfaceArea());
-/*
-  fprintf(FilePtr,"Isothermal expansion coefficient: %18.10lf [10^6 K^-1]\n",(double)GetAverageIsothermalExpansionCoefficient());
-  fprintf(FilePtr,"Isothermal compressibility coefficient: %18.10lf [10^12 Pa^-1]\n",
-          (double)GetAverageIsothermalCompressibilityCoefficient());
-  fprintf(FilePtr,"Heat of vaporization: %18.10lf [J/mole/K]\n",(double)GetAverageWeightedProperty(HeatOfVaporization));
-*/
+
   fprintf(FilePtr,"Compressibility: %18.10lf [-]\n",(double)GetAverageWeightedProperty(CompressibilityAccumulated));
-  //fprintf(FilePtr,"Heat capacity Cp: %18.10lf [J/mole/K]\n",(double)GetAverageHeatCapacity());
-  //fprintf(FilePtr,"Heat capacity Cp: %18.10lf [J/mole/K]\n",(double)GetAverageHeatCapacityConstantPressure());
 
   fprintf(FilePtr,"Henry coefficients\n");
   for(i=0;i<NumberOfComponents;i++)
@@ -3337,26 +3330,28 @@ void PrintIntervalStatusProduction(long long CurrentCycle,long long NumberOfCycl
 void PrintProperty(FILE *FilePtr,char *string,char *units,REAL conv_factor,REAL **Property)
 {
   int i;
-  REAL sum,sum2,tmp;
+  REAL sum,sum_squared;
+  REAL avg,error;
 
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"%s",string);
-  sum=sum2=0.0;
+  sum=sum_squared=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
     if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=conv_factor*(Property[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
+      REAL tmp=conv_factor*(Property[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
-      sum2+=SQR(tmp);
+      sum_squared+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf %s\n",i,(double)tmp,units);
     }
     else
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf %s\n",i,(double)0.0,units);
   }
+  avg=AVERAGE(sum);
+  error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage   %18.5lf %s +/- %18.5lf %s\n",(double)(sum/(REAL)NR_BLOCKS),units,(double)tmp,units);
+  fprintf(FilePtr,"\tAverage   %18.5lf %s +/- %18.5lf %s\n",avg,units,error,units);
 
 }
 
@@ -3364,12 +3359,13 @@ void PrintEnergies(FILE *FilePtr,char *string,char *units,REAL conv_factor,REAL 
                    REAL **PropertyVDW,REAL **PropertyCoulomb)
 {
   int i;
-  REAL sum,sum2,tmp,sum_vdw,sum_vdw2,sum_coul,sum_coul2,tmp_vdw,tmp_coul;
+  REAL sum,tmp,sum_vdw,sum_coul,tmp_vdw,tmp_coul;
+  REAL sum_squared, sum_vdw_squared, sum_coul_squared;
 
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"%s",string);
   sum=sum_vdw=sum_coul=0.0;
-  sum2=sum_vdw2=sum_coul2=0.0;
+  sum_squared=sum_vdw_squared=sum_coul_squared=0.0;
   for(i=0;i<NR_BLOCKS;i++)
   {
     if(BlockWeightedCount[CurrentSystem][i]>0.0)
@@ -3377,88 +3373,39 @@ void PrintEnergies(FILE *FilePtr,char *string,char *units,REAL conv_factor,REAL 
       tmp=conv_factor*(Property[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
       tmp_vdw=conv_factor*(PropertyVDW[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
       tmp_coul=conv_factor*(PropertyCoulomb[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
+
       sum+=tmp;
       sum_vdw+=tmp_vdw;
       sum_coul+=tmp_coul;
-      sum2+=SQR(tmp);
-      sum_vdw2+=SQR(tmp_vdw);
-      sum_coul2+=SQR(tmp_coul);
+
+      sum_squared+=SQR(tmp);
+      sum_vdw_squared+=SQR(tmp_vdw);
+      sum_coul_squared+=SQR(tmp_coul);
 
       fprintf(FilePtr,"\tBlock[%2d] %-18.5lf Van der Waals: %-18.5lf Coulomb: %-18.5lf %s\n",
-        i,(double)tmp,(double)tmp_vdw,(double)tmp_coul,units);
+              i,(double)tmp,(double)tmp_vdw,(double)tmp_coul,units);
     }
     else
       fprintf(FilePtr,"\tBlock[%2d] %-18.5lf Van der Waals: %-18.5lf Coulomb: %-18.5lf %s\n",i,(double)0.0,(double)0.0,(double)0.0,units);
   }
+  REAL avg=AVERAGE(sum);
+  REAL avg_vdw=AVERAGE(sum_vdw);
+  REAL avg_coul=AVERAGE(sum_coul);
+  REAL error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
+  REAL error_vdw=ERROR_CONFIDENCE_INTERVAL_95(sum_vdw,sum_vdw_squared);
+  REAL error_coul=ERROR_CONFIDENCE_INTERVAL_95(sum_coul,sum_coul_squared);
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  tmp_vdw=2.0*sqrt(fabs((sum_vdw2/(REAL)NR_BLOCKS)-SQR(sum_vdw)/(REAL)SQR(NR_BLOCKS)));
-  tmp_coul=2.0*sqrt(fabs((sum_coul2/(REAL)NR_BLOCKS)-SQR(sum_coul)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage   %-18.5lf Van der Waals: %-18lf Coulomb: %-18.5lf %s\n",
-         (double)(sum/(REAL)NR_BLOCKS),(double)(sum_vdw/(REAL)NR_BLOCKS),(double)(sum_coul/(REAL)NR_BLOCKS),units);
-  fprintf(FilePtr,"\t      +/- %-18.5lf            +/- %-18lf      +/- %-18.5lf %s\n",
-         (double)tmp,(double)tmp_vdw,(double)tmp_coul,units);
+  fprintf(FilePtr,"\tAverage   %-18.5lf Van der Waals: %-18lf Coulomb: %-18.5lf %s\n", avg, avg_vdw, avg_coul, units);
+  fprintf(FilePtr,"\t      +/- %-18.5lf            +/- %-18lf      +/- %-18.5lf %s\n", error, error_vdw, error_coul, units);
 }
 
 
 void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
 {
-  int i,j,k1,k2,nr;
-  REAL sum,sum_vdw,sum_coul,tmp;
-  REAL sum2,sum_vdw2,sum_coul2;
-  REAL CationMass,Mass;
-  REAL vol,dipole_norm,dipole_norm_squared;
-  REAL nr_molecules;
-  REAL AverageVolume;
-  REAL HV,V,V2,H,H2,N,T;
-  REAL FrameworkDensity,Temperature;
-  VECTOR sumv1,sumv2,av;
-  REAL (*HeatOfAdsorptionPerComponent)[NR_BLOCKS];
-  REAL_MATRIX matrix;
+  REAL sum,sum_squared; 
+  REAL avg,error;
 
-  AverageVolume=GetAverageWeightedProperty(VolumeAccumulated);
-
-  nr_molecules=0.0;
-  for(j=0;j<NumberOfComponents;j++)
-  {
-    fprintf(FilePtr,"Component %d [%s]\n",j,Components[j].Name);
-    fprintf(FilePtr,"-------------------------------------------------------------\n");
-    sum=sum_vdw=sum_coul=0.0;
-    sum2=sum_vdw2=sum_coul2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
-    {
-      if(BlockWeightedCount[CurrentSystem][i]>0.0)
-      {
-        sum+=NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i];
-        sum2+=SQR(NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i]);
-
-        fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,
-                (double)(NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i]));
-      }
-      else
-        fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,(double)0.0);
-    }
-    nr_molecules+=sum/(REAL)NR_BLOCKS;
-    fprintf(FilePtr,"\n");
-  }
-
-  sum=sum2=0.0;
-  CationMass=0.0;
-  for(j=0;j<NumberOfComponents;j++)
-  {
-    if(Components[j].ExtraFrameworkMolecule)
-    {
-      for(i=0;i<NR_BLOCKS;i++)
-        if(BlockWeightedCount[CurrentSystem][i]>0.0)
-        {
-          sum+=NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i];
-          sum2+=BlockWeightedCount[CurrentSystem][i];
-        }
-      CationMass=(sum/sum2)*Components[j].Mass;
-    }
-  }
-
-  fprintf(FilePtr,"\n\n\n\n\n");
+  fprintf(FilePtr,"\n\n\n");
   fprintf(FilePtr,"Average properties of the system[%d]:\n",CurrentSystem);
   fprintf(FilePtr,"========================================================================\n");
 
@@ -3466,22 +3413,23 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average temperature:\n");
   fprintf(FilePtr,"====================\n");
-  sum=sum2=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
+  sum=sum_squared=0.0;
+  for(int i=0;i<NR_BLOCKS;i++)
   {
     if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=TemperatureAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      REAL tmp=TemperatureAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
       sum+=tmp;
-      sum2+=SQR(tmp);
+      sum_squared+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [K]\n",i,(double)tmp);
     }
     else
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [K]\n",i,(double)0.0);
   }
+  avg=AVERAGE(sum);
+  error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage   %18.5lf [K] +/- %18.5lf [K]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
+  fprintf(FilePtr,"\tAverage   %18.5lf [K] +/- %18.5lf [K]\n", sum, error);
 
   // Pressure
   fprintf(FilePtr,"\n");
@@ -3490,53 +3438,53 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
     case MONTE_CARLO:
       fprintf(FilePtr,"Average Pressure:\n");
       fprintf(FilePtr,"=================\n");
-      sum=sum2=0.0;
-      for(i=0;i<NR_BLOCKS;i++)
+      sum=sum_squared=0.0;
+      for(int i=0;i<NR_BLOCKS;i++)
       {
         if(BlockWeightedCount[CurrentSystem][i]>0.0)
         {
-          tmp=((MolecularStressTensorAccumulated[CurrentSystem][i].ax+MolecularStressTensorAccumulated[CurrentSystem][i].by+MolecularStressTensorAccumulated[CurrentSystem][i].cz)/
+          REAL tmp=((MolecularStressTensorAccumulated[CurrentSystem][i].ax+MolecularStressTensorAccumulated[CurrentSystem][i].by+MolecularStressTensorAccumulated[CurrentSystem][i].cz)/
                (3.0*BlockWeightedCount[CurrentSystem][i]))*PRESSURE_CONVERSION_FACTOR;
 
           sum+=tmp;
-          sum2+=SQR(tmp);
+          sum_squared+=SQR(tmp);
           fprintf(FilePtr,"\tBlock[%2d] %18.5lf [Pa]\n",i,(double)tmp);
         }
         else
           fprintf(FilePtr,"\tBlock[%2d] %18.5lf [Pa]\n",i,(double)0.0);
       }
+      avg=AVERAGE(sum);
+      error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
       fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-      tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-      fprintf(FilePtr,"\tAverage   %18.5lf [Pa] +/- %18.5lf [Pa]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
-      fprintf(FilePtr,"\tAverage   %18.5lf [bar] +/- %18.5lf [bar]\n",(double)((sum/(REAL)NR_BLOCKS)*PA_TO_BAR),(double)(tmp*PA_TO_BAR));
-      fprintf(FilePtr,"\tAverage   %18.5lf [atm] +/- %18.5lf [atm]\n",(double)((sum/(REAL)NR_BLOCKS)*PA_TO_ATM),(double)(tmp*PA_TO_ATM));
-      fprintf(FilePtr,"\tAverage   %18.5lf [Torr] +/- %18.5lf [Torr]\n",(double)((sum/(REAL)NR_BLOCKS)*PA_TO_TORR),(double)(tmp*PA_TO_TORR));
+      fprintf(FilePtr,"\tAverage   %18.5lf [Pa] +/- %18.5lf [Pa]\n", avg, error);
+      fprintf(FilePtr,"\tAverage   %18.5lf [bar] +/- %18.5lf [bar]\n", avg*PA_TO_BAR, error*PA_TO_BAR);
+      fprintf(FilePtr,"\tAverage   %18.5lf [atm] +/- %18.5lf [atm]\n", avg*PA_TO_ATM, error*PA_TO_ATM);
+      fprintf(FilePtr,"\tAverage   %18.5lf [Torr] +/- %18.5lf [Torr]\n", avg*PA_TO_TORR, error*PA_TO_TORR);
       break;
     case MOLECULAR_DYNAMICS:
       fprintf(FilePtr,"Average Pressure:\n");
       fprintf(FilePtr,"=================\n");
-      sum=sum2=0.0;
-      for(i=0;i<NR_BLOCKS;i++)
+      sum=sum_squared=0.0;
+      for(int i=0;i<NR_BLOCKS;i++)
       {
         if(BlockWeightedCount[CurrentSystem][i]>0.0)
         {
-          // NEW
-          //tmp=(MolecularPressureAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i])*PRESSURE_CONVERSION_FACTOR;
-          tmp=((StressTensorAccumulated[CurrentSystem][i].ax+StressTensorAccumulated[CurrentSystem][i].by+StressTensorAccumulated[CurrentSystem][i].cz)/
+          REAL tmp=((StressTensorAccumulated[CurrentSystem][i].ax+StressTensorAccumulated[CurrentSystem][i].by+StressTensorAccumulated[CurrentSystem][i].cz)/
                (3.0*BlockWeightedCount[CurrentSystem][i]))*PRESSURE_CONVERSION_FACTOR;
           sum+=tmp;
-          sum2+=SQR(tmp);
+          sum_squared+=SQR(tmp);
           fprintf(FilePtr,"\tBlock[%2d] %18.5lf [Pa]\n",i,(double)tmp);
         }
         else
           fprintf(FilePtr,"\tBlock[%2d] %18.5lf [Pa]\n",i,(double)0.0);
       }
+      avg=AVERAGE(sum);
+      error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
       fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-      tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-      fprintf(FilePtr,"\tAverage   %18.5lf [Pa] +/- %18.5lf [Pa]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
-      fprintf(FilePtr,"\tAverage   %18.5lf [bar] +/- %18.5lf [bar]\n",(double)((sum/(REAL)NR_BLOCKS)*PA_TO_BAR),(double)(tmp*PA_TO_BAR));
-      fprintf(FilePtr,"\tAverage   %18.5lf [atm] +/- %18.5lf [atm]\n",(double)((sum/(REAL)NR_BLOCKS)*PA_TO_ATM),(double)(tmp*PA_TO_ATM));
-      fprintf(FilePtr,"\tAverage   %18.5lf [Torr] +/- %18.5lf [Torr]\n",(double)((sum/(REAL)NR_BLOCKS)*PA_TO_TORR),(double)(tmp*PA_TO_TORR));
+      fprintf(FilePtr,"\tAverage   %18.5lf [Pa] +/- %18.5lf [Pa]\n", avg, error);
+      fprintf(FilePtr,"\tAverage   %18.5lf [bar] +/- %18.5lf [bar]\n", avg*PA_TO_BAR, error*PA_TO_BAR);
+      fprintf(FilePtr,"\tAverage   %18.5lf [atm] +/- %18.5lf [atm]\n", avg*PA_TO_ATM, error*PA_TO_ATM);
+      fprintf(FilePtr,"\tAverage   %18.5lf [Torr] +/- %18.5lf [Torr]\n", avg*PA_TO_TORR, error*PA_TO_TORR);
       break;
     default:
       break;
@@ -3546,346 +3494,237 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Volume:\n");
   fprintf(FilePtr,"=================\n");
-  sum=sum2=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
+  sum=sum_squared=0.0;
+  for(int i=0;i<NR_BLOCKS;i++)
   {
     if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=(VolumeAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
+      REAL tmp=(VolumeAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
-      sum2+=SQR(tmp);
+      sum_squared+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
     }
     else
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)0.0);
   }
+  avg=AVERAGE(sum);
+  error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage   %18.5lf [A^3] +/- %18.5lf [A^3]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
-  vol=sum/(REAL)NR_BLOCKS;
+  fprintf(FilePtr,"\tAverage   %18.5lf [A^3] +/- %18.5lf [A^3]\n", avg, error);
 
   // Box-lengths
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Box-lengths:\n");
   fprintf(FilePtr,"====================\n");
-  sum=sum2=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
+  sum=sum_squared=0.0;
+  for(int i=0;i<NR_BLOCKS;i++)
   {
     if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=(BoxAccumulated[CurrentSystem][i].x/BlockWeightedCount[CurrentSystem][i]);
+      REAL tmp=(BoxAccumulated[CurrentSystem][i].x/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
-      sum2+=SQR(tmp);
+      sum_squared+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
     }
     else
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)0.0);
   }
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage Box.ax  %18.5lf [A^3] +/- %18.5lf [A^3]\n\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
+  avg=AVERAGE(sum);
+  error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
+  fprintf(FilePtr,"\tAverage Box.ax  %18.5lf [A^3] +/- %18.5lf [A^3]\n\n", avg, error);
 
-  sum=sum2=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
+  sum=sum_squared=0.0;
+  for(int i=0;i<NR_BLOCKS;i++)
   {
     if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=(BoxAccumulated[CurrentSystem][i].y/BlockWeightedCount[CurrentSystem][i]);
+      REAL tmp=(BoxAccumulated[CurrentSystem][i].y/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
-      sum2+=SQR(tmp);
+      sum_squared+=SQR(tmp);
+      fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
+    }
+    else
+      fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)0.0);
+  }
+  avg=AVERAGE(sum);
+  error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
+  fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
+  fprintf(FilePtr,"\tAverage Box.by  %18.5lf [A^3] +/- %18.5lf [A^3]\n\n", avg, error);
+
+  sum=sum_squared=0.0;
+  for(int i=0;i<NR_BLOCKS;i++)
+  {
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
+    {
+      REAL tmp=(BoxAccumulated[CurrentSystem][i].z/BlockWeightedCount[CurrentSystem][i]);
+      sum+=tmp;
+      sum_squared+=SQR(tmp);
+      fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
+    }
+    else
+      fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)0.0);
+  }
+  avg=AVERAGE(sum);
+  error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
+  fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
+  fprintf(FilePtr,"\tAverage Box.cz  %18.5lf [A^3] +/- %18.5lf [A^3]\n\n", avg, error);
+
+  sum=sum_squared=0.0;
+  for(int i=0;i<NR_BLOCKS;i++)
+  {
+    if(BlockWeightedCount[CurrentSystem][i]>0.0)
+    {
+      REAL tmp=(AlphaAngleAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
+      sum+=tmp;
+      sum_squared+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
     }
     else
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)0.0);
   }
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage Box.by  %18.5lf [A^3] +/- %18.5lf [A^3]\n\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
+  avg=AVERAGE(sum);
+  error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
+  fprintf(FilePtr,"\tAverage alpha angle  %18.5lf [degrees] +/- %18.5lf [degrees]\n\n", avg, error);
 
-  sum=sum2=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
+
+  sum=sum_squared=0.0;
+  for(int i=0;i<NR_BLOCKS;i++)
   {
     if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=(BoxAccumulated[CurrentSystem][i].z/BlockWeightedCount[CurrentSystem][i]);
+      REAL tmp=(BetaAngleAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
-      sum2+=SQR(tmp);
+      sum_squared+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
     }
     else
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)0.0);
   }
+  avg=AVERAGE(sum);
+  error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage Box.cz  %18.5lf [A^3] +/- %18.5lf [A^3]\n\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
+  fprintf(FilePtr,"\tAverage beta angle  %18.5lf [degrees] +/- %18.5lf [degrees]\n\n", avg, error);
 
-  sum=sum2=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
+
+  sum=sum_squared=0.0;
+  for(int i=0;i<NR_BLOCKS;i++)
   {
     if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=(AlphaAngleAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
+      REAL tmp=(GammaAngleAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
       sum+=tmp;
-      sum2+=SQR(tmp);
+      sum_squared+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
     }
     else
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)0.0);
   }
+  avg=AVERAGE(sum);
+  error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage alpha angle  %18.5lf [degrees] +/- %18.5lf [degrees]\n\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
-
-
-  sum=sum2=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
-  {
-    if(BlockWeightedCount[CurrentSystem][i]>0.0)
-    {
-      tmp=(BetaAngleAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
-      sum+=tmp;
-      sum2+=SQR(tmp);
-      fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
-    }
-    else
-      fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)0.0);
-  }
-  fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage beta angle  %18.5lf [degrees] +/- %18.5lf [degrees]\n\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
-
-
-  sum=sum2=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
-  {
-    if(BlockWeightedCount[CurrentSystem][i]>0.0)
-    {
-      tmp=(GammaAngleAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]);
-      sum+=tmp;
-      sum2+=SQR(tmp);
-      fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)tmp);
-    }
-    else
-      fprintf(FilePtr,"\tBlock[%2d] %18.5lf [A^3]\n",i,(double)0.0);
-  }
-  fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage gamma angle  %18.5lf [degrees] +/- %18.5lf [degrees]\n\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
+  fprintf(FilePtr,"\tAverage gamma angle  %18.5lf [degrees] +/- %18.5lf [degrees]\n\n", avg, error);
 
 
   // Average Surface area
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Surface Area:\n");
   fprintf(FilePtr,"=====================\n");
-  for(j=0;j<NumberOfComponents;j++)
+  for(int j=0;j<NumberOfComponents;j++)
   {
-    sum=sum2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=sum_squared=0.0;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(SurfaceAreaCount[CurrentSystem][i]>0.0)
       {
-        tmp=SurfaceAreaFrameworkAccumulated[CurrentSystem][i]/SurfaceAreaCount[CurrentSystem][i];
+        REAL tmp=SurfaceAreaFrameworkAccumulated[CurrentSystem][i]/SurfaceAreaCount[CurrentSystem][i];
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
         fprintf(FilePtr,"\tBlock[%2d] %-lf [-]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-lf [-]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-    fprintf(FilePtr,"\tAverage surface area:   %lf +/- %lf [A^2]\n",
-      (double)(sum/(REAL)NR_BLOCKS),(double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
-    fprintf(FilePtr,"\t                        %lf +/- %lf [m^2/g]\n",
-      (double)((sum/(REAL)NR_BLOCKS)*SQR(ANGSTROM)*
-        AVOGADRO_CONSTANT/(Framework[CurrentSystem].FrameworkMass)),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))*SQR(ANGSTROM)*
-        AVOGADRO_CONSTANT/(Framework[CurrentSystem].FrameworkMass)));
-    fprintf(FilePtr,"\t                        %lf +/- %g [m^2/cm^3]\n\n",
-      (double)((sum/(REAL)NR_BLOCKS)*1.0e4/Volume[0]),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))*1.0e4/Volume[0]));
+    fprintf(FilePtr,"\tAverage surface area:   %lf +/- %lf [A^2]\n", avg, error);
+    REAL convert_to_m2_g = SQR(ANGSTROM)*AVOGADRO_CONSTANT/(Framework[CurrentSystem].FrameworkMass);
+    fprintf(FilePtr,"\t                        %lf +/- %lf [m^2/g]\n", avg * convert_to_m2_g, error * convert_to_m2_g);
+    REAL convert_to_m2_cm3 = 1.0e4/Volume[CurrentSystem];
+    fprintf(FilePtr,"\t                        %lf +/- %lf [m^2/cm^3]\n\n", avg * convert_to_m2_cm3, error * convert_to_m2_cm3);
   }
 
   // Density
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average density:\n");
   fprintf(FilePtr,"=================\n");
-  sum=sum2=0.0;
-  Mass=GetTotalAdsorbateMass()+GetTotalCationMass();
-  for(i=0;i<NR_BLOCKS;i++)
+  sum=sum_squared=0.0;
+  for(int i=0;i<NR_BLOCKS;i++)
   {
     if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=(DensityAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i])*DENSITY_CONVERSION_FACTOR;
+      REAL tmp=(DensityAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i])*DENSITY_CONVERSION_FACTOR;
       sum+=tmp;
-      sum2+=SQR(tmp);
+      sum_squared+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [kg/m^3]\n",i,(double)tmp);
     }
     else
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [kg/m^3]\n",i,(double)0.0);
   }
+  avg=AVERAGE(sum);
+  error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage   %18.5lf [kg/m^3] +/- %18.5lf [kg/m^3]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
+  fprintf(FilePtr,"\tAverage   %18.5lf [kg/m^3] +/- %18.5lf [kg/m^3]\n", avg, error);
   fprintf(FilePtr,"\n");
 
-  for(j=0;j<NumberOfComponents;j++)
+  for(int j=0;j<NumberOfComponents;j++)
   {
     fprintf(FilePtr,"\tAverage density component %d [%s]\n",j,Components[j].Name);
     fprintf(FilePtr,"\t-------------------------------------------------------------\n");
 
-    sum=sum2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=sum_squared=0.0;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
-        tmp=(DensityPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i])*DENSITY_CONVERSION_FACTOR;
+        REAL tmp=(DensityPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i])*DENSITY_CONVERSION_FACTOR;
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
 
         fprintf(FilePtr,"\t\tBlock[%2d] %18.5lf [kg/m^3]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\t\tBlock[%2d] %-18.5lf [-]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t\t------------------------------------------------------------------------------\n");
-    tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-    fprintf(FilePtr,"\t\tAverage   %18.5lf [kg/m^3] +/- %18.5lf [kg/m^3]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
+    fprintf(FilePtr,"\t\tAverage   %18.5lf [kg/m^3] +/- %18.5lf [kg/m^3]\n", avg, error);
   }
 
   // compressibility
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average compressibility Z:\n");
   fprintf(FilePtr,"=========================\n");
-  sum=sum2=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
+  sum=sum_squared=0.0;
+  for(int i=0;i<NR_BLOCKS;i++)
   {
     if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=CompressibilityAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      REAL tmp=CompressibilityAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
       sum+=tmp;
-      sum2+=SQR(tmp);
+      sum_squared+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [-]\n",i,(double)tmp);
     }
     else
       fprintf(FilePtr,"\tBlock[%2d] %18.5lf [-]\n",i,(double)0.0);
   }
+  avg=AVERAGE(sum);
+  error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage   %18.5lf [-] +/- %18.5lf [-]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
-
-/*
-  // Dielectric constant
-  fprintf(FilePtr,"\n");
-  fprintf(FilePtr,"Average dielectric constant:\n");
-  fprintf(FilePtr,"============================\n");
-  sum=sum2=0.0;
-  dipole_norm=dipole_norm_squared=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
-  {
-    if(BlockWeightedCount[CurrentSystem][i]>0.0)
-    {
-      dipole_norm=TotalSystemNormDipoleAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
-      dipole_norm_squared=TotalSystemNormDipoleSquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
-      tmp=1.0+(4.0*M_PI*Beta[CurrentSystem]/(3.0*vol))*(dipole_norm_squared-SQR(dipole_norm))*
-          DIELECTRIC_CONSTANT_CONVERSION_FACTOR/DIELECTRIC_CONSTANT_VACUUM;
-      sum+=tmp;
-      sum2+=SQR(tmp);
-      fprintf(FilePtr,"\tBlock[%2d] %18.5lf [-]\n",i,(double)tmp);
-    }
-    else
-      fprintf(FilePtr,"\tBlock[%2d] %18.5lf [-]\n",i,(double)0.0);
-  }
-  fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage   %18.5lf [-] +/- %18.5lf [-]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
-
-  // isothermal compressibility
-  fprintf(FilePtr,"\n");
-  fprintf(FilePtr,"Average Isothermal Compressibility:\n");
-  fprintf(FilePtr,"===================================\n");
-  sum=sum2=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
-  {
-    if(BlockWeightedCount[CurrentSystem][i]>0.0)
-    {
-      T=therm_baro_stats.ExternalTemperature[CurrentSystem];
-      V=VolumeAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
-      V2=VolumeSquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
-      tmp=1e12*ISOTHERMAL_COMPRESSIBILITY_CONVERSION_FACTOR*(V2-SQR(V))/(K_B*T*V);
-      sum+=tmp;
-      sum2+=SQR(tmp);
-      fprintf(FilePtr,"\tBlock[%2d] %18.5lf [Pa^-1]\n",i,(double)tmp);
-    }
-    else
-      fprintf(FilePtr,"\tBlock[%2d] %18.5lf [Pa^-1]\n",i,(double)0.0);
-  }
-  fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage   %18.5lf [10^12 Pa^-1] +/- %18.5lf [10^12 Pa^-1]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage   %18.5lf [10^6 bar^-1] +/- %18.5lf [10^6 bar^-1]\n",
-          (double)(sum/(1e6*PA_TO_BAR*(REAL)NR_BLOCKS)),(double)(tmp/(1e6*PA_TO_BAR)));
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage   %18.5lf [10^6 atm^-1] +/- %18.5lf [10^6 atm^-1]\n",
-          (double)(sum/(1e6*PA_TO_ATM*(REAL)NR_BLOCKS)),(double)(tmp/(1e6*PA_TO_ATM)));
-
-  // isothermal expansion coefficient
-  fprintf(FilePtr,"\n");
-  fprintf(FilePtr,"Average Volumetric Expansion Coefficient beta:\n");
-  fprintf(FilePtr,"===============================================\n");
-  sum=sum2=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
-  {
-    if(BlockWeightedCount[CurrentSystem][i]>0.0)
-    {
-      HV=EnthalpyTimesVolumeAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
-      V=VolumeAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
-      H=EnthalpyAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
-      T=therm_baro_stats.ExternalTemperature[CurrentSystem];
-      tmp=1e5*VOLUMETRIC_EXPANSION_COEFFICIENT_CONVERSION_FACTOR*(HV-H*V)/(K_B*V*SQR(T));
-      sum+=tmp;
-      sum2+=SQR(tmp);
-      fprintf(FilePtr,"\tBlock[%2d] %18.5lf [10^5 K^-1]\n",i,(double)tmp);
-    }
-    else
-      fprintf(FilePtr,"\tBlock[%2d] %18.5lf [10^5 K^-1]\n",i,(double)0.0);
-  }
-  fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage   %18.5lf [10^5 K^-1] +/- %18.5lf [10^5 K^-1]\n",(double)(sum/(REAL)NR_BLOCKS),(double)tmp);
-
-
-
-  // heat capacity
-  fprintf(FilePtr,"\n");
-  fprintf(FilePtr,"Average Heat Capacity:\n");
-  fprintf(FilePtr,"======================\n");
-  sum=sum2=0.0;
-  N=NumberOfAdsorbateMolecules[CurrentSystem]+NumberOfCationMolecules[CurrentSystem];
-  if(Framework[CurrentSystem].FrameworkModel==FLEXIBLE)
-    N+=Framework[CurrentSystem].TotalNumberOfAtoms;
-  for(i=0;i<NR_BLOCKS;i++)
-  {
-    if(BlockWeightedCount[CurrentSystem][i]>0.0)
-    {
-      H2=TotalEnergySquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
-      H=TotalEnergyAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
-      T=therm_baro_stats.ExternalTemperature[CurrentSystem];
-      tmp=HEAT_CAPACITY_CONVERSION_FACTOR*((H2-SQR(H))/(N*K_B*SQR(T))+3.0*K_B/2.0);
-      sum+=tmp;
-      sum2+=SQR(tmp);
-      fprintf(FilePtr,"\tBlock[%2d] %g [J/mol/K]\n",i,(double)tmp);
-    }
-    else
-      fprintf(FilePtr,"\tBlock[%2d] %g [J/mol/K]\n",i,(double)0.0);
-  }
-  fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage   %18.5lf [J/mol/K] +/- %18.5lf [J/mol/K]\n",
-          (double)(sum/(REAL)NR_BLOCKS),(double)tmp);
-  fprintf(FilePtr,"\tAverage   %18.5lf [cal/mol/K] +/- %18.5lf [cal/mol/K]\n",
-          (double)(sum*J_TO_CAL/(REAL)NR_BLOCKS),(double)(tmp*J_TO_CAL));
-*/
+  fprintf(FilePtr,"\tAverage   %18.5lf [-] +/- %18.5lf [-]\n", avg, error);
 
   if(NumberOfSystems==2)
   {
@@ -3893,134 +3732,127 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
     fprintf(FilePtr,"\n");
     fprintf(FilePtr,"Heat of vaporization:\n");
     fprintf(FilePtr,"=====================\n");
-    sum=sum2=0.0;
-    N=NumberOfAdsorbateMolecules[CurrentSystem]+NumberOfCationMolecules[CurrentSystem];
+    sum=sum_squared=0.0;
+    REAL N=NumberOfAdsorbateMolecules[CurrentSystem]+NumberOfCationMolecules[CurrentSystem];
     if(Framework[CurrentSystem].FrameworkModel==FLEXIBLE)
       N+=Framework[CurrentSystem].TotalNumberOfAtoms;
-    for(i=0;i<NR_BLOCKS;i++)
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
-        tmp=ENERGY_TO_KELVIN*((fabs(EnergyPerMolecule[CurrentSystem][i]-EnergyPerMolecule[1-CurrentSystem][i])/BlockWeightedCount[CurrentSystem][i])
-             +((MolecularStressTensorAccumulated[CurrentSystem][i].ax+MolecularStressTensorAccumulated[CurrentSystem][i].by+
-              MolecularStressTensorAccumulated[CurrentSystem][i].cz)/(3.0*BlockWeightedCount[CurrentSystem][i]))*
-              (fabs(VolumePerMolecule[CurrentSystem][i]-VolumePerMolecule[1-CurrentSystem][i])/BlockWeightedCount[CurrentSystem][i]));
+        REAL tmp=ENERGY_TO_KELVIN*((fabs(EnergyPerMolecule[CurrentSystem][i]-EnergyPerMolecule[1-CurrentSystem][i])/BlockWeightedCount[CurrentSystem][i])
+                 +((MolecularStressTensorAccumulated[CurrentSystem][i].ax+MolecularStressTensorAccumulated[CurrentSystem][i].by+
+                 MolecularStressTensorAccumulated[CurrentSystem][i].cz)/(3.0*BlockWeightedCount[CurrentSystem][i]))*
+                 (fabs(VolumePerMolecule[CurrentSystem][i]-VolumePerMolecule[1-CurrentSystem][i])/BlockWeightedCount[CurrentSystem][i]));
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
 
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-    tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [K]\n",
-      (double)(sum/(REAL)NR_BLOCKS),(double)tmp);
-    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [kJ/mol]\n",
-      (double)(sum*KELVIN_TO_KJ_PER_MOL/(REAL)NR_BLOCKS),(double)(tmp*KELVIN_TO_KJ_PER_MOL));
-    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [kcal/mol]\n",
-      (double)(sum*KELVIN_TO_KCAL_PER_MOL/(REAL)NR_BLOCKS),(double)(tmp*KELVIN_TO_KCAL_PER_MOL));
+    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [K]\n", avg, error);
+    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [kJ/mol]\n", avg * KELVIN_TO_KJ_PER_MOL, error * KELVIN_TO_KJ_PER_MOL);
+    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [kcal/mol]\n", avg * KELVIN_TO_KCAL_PER_MOL, error * KELVIN_TO_KCAL_PER_MOL);
 
 
     fprintf(FilePtr,"\n");
     fprintf(FilePtr,"Heat of vaporization term (U_v/N_v-U_l/N_l):\n");
     fprintf(FilePtr,"============================================\n");
-    sum=sum2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=sum_squared=0.0;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
-        tmp=ENERGY_TO_KELVIN*fabs(EnergyPerMolecule[CurrentSystem][i]-EnergyPerMolecule[1-CurrentSystem][i])/BlockWeightedCount[CurrentSystem][i];
+        REAL tmp=ENERGY_TO_KELVIN*fabs(EnergyPerMolecule[CurrentSystem][i]-EnergyPerMolecule[1-CurrentSystem][i])/BlockWeightedCount[CurrentSystem][i];
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
 
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-    tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [K]\n",
-      (double)(sum/(REAL)NR_BLOCKS),(double)tmp);
-    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [kJ/mol]\n",
-      (double)(sum*KELVIN_TO_KJ_PER_MOL/(REAL)NR_BLOCKS),(double)(tmp*KELVIN_TO_KJ_PER_MOL));
-    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [kcal/mol]\n",
-      (double)(sum*KELVIN_TO_KCAL_PER_MOL/(REAL)NR_BLOCKS),(double)(tmp*KELVIN_TO_KCAL_PER_MOL));
+    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [K]\n", avg, error);
+    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [kJ/mol]\n", avg * KELVIN_TO_KJ_PER_MOL, error * KELVIN_TO_KJ_PER_MOL);
+    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [kcal/mol]\n", avg * KELVIN_TO_KCAL_PER_MOL, error * KELVIN_TO_KCAL_PER_MOL);
 
     fprintf(FilePtr,"\n");
     fprintf(FilePtr,"Heat of vaporization term p (V_v-V_l), [is approximately RT]:\n");
     fprintf(FilePtr,"=============================================================\n");
-    sum=sum2=0.0;
+    sum=sum_squared=0.0;
     N=NumberOfAdsorbateMolecules[CurrentSystem]+NumberOfCationMolecules[CurrentSystem];
     if(Framework[CurrentSystem].FrameworkModel==FLEXIBLE)
       N+=Framework[CurrentSystem].TotalNumberOfAtoms;
-    for(i=0;i<NR_BLOCKS;i++)
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
-        tmp=ENERGY_TO_KELVIN*fabs(((MolecularStressTensorAccumulated[CurrentSystem][i].ax+MolecularStressTensorAccumulated[CurrentSystem][i].by+
-              MolecularStressTensorAccumulated[CurrentSystem][i].cz)/(3.0*BlockWeightedCount[CurrentSystem][i]))*
-             (VolumePerMolecule[CurrentSystem][i]-VolumePerMolecule[1-CurrentSystem][i])/BlockWeightedCount[CurrentSystem][i]);
+        REAL tmp=ENERGY_TO_KELVIN*fabs(((MolecularStressTensorAccumulated[CurrentSystem][i].ax+MolecularStressTensorAccumulated[CurrentSystem][i].by+
+                 MolecularStressTensorAccumulated[CurrentSystem][i].cz)/(3.0*BlockWeightedCount[CurrentSystem][i]))*
+                 (VolumePerMolecule[CurrentSystem][i]-VolumePerMolecule[1-CurrentSystem][i])/BlockWeightedCount[CurrentSystem][i]);
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
 
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-    tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [K]\n",
-      (double)(sum/(REAL)NR_BLOCKS),(double)tmp);
-    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [kJ/mol]\n",
-      (double)(sum*KELVIN_TO_KJ_PER_MOL/(REAL)NR_BLOCKS),(double)(tmp*KELVIN_TO_KJ_PER_MOL));
-    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [kcal/mol]\n",
-      (double)(sum*KELVIN_TO_KCAL_PER_MOL/(REAL)NR_BLOCKS),(double)(tmp*KELVIN_TO_KCAL_PER_MOL));
+    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [K]\n", avg, error);
+    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [kJ/mol]\n", avg * KELVIN_TO_KJ_PER_MOL, error * KELVIN_TO_KJ_PER_MOL);
+    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [kcal/mol]\n", avg * KELVIN_TO_KCAL_PER_MOL, error * KELVIN_TO_KCAL_PER_MOL);
   }
 
   // heat capacity
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Heat Capacity (MC-NPT-ensemble): [1/(kB T^2)]*[<H^2>-<H>^2]\n");
   fprintf(FilePtr,"===================================================================\n");
-  sum=sum2=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
+  sum=sum_squared=0.0;
+  for(int i=0;i<NR_BLOCKS;i++)
   {
     if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      H2=EnthalpySquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
-      H=EnthalpyAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
-      T=therm_baro_stats.ExternalTemperature[CurrentSystem];
-      tmp=HEAT_CAPACITY_CONVERSION_FACTOR*((H2-SQR(H))/(K_B*SQR(T)));
+      REAL H2=EnthalpySquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      REAL H=EnthalpyAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
+      REAL T=therm_baro_stats.ExternalTemperature[CurrentSystem];
+      REAL tmp=HEAT_CAPACITY_CONVERSION_FACTOR*((H2-SQR(H))/(K_B*SQR(T)));
       sum+=tmp;
-      sum2+=SQR(tmp);
+      sum_squared+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %lf [J/mol/K]\n",i,(double)tmp);
     }
     else
       fprintf(FilePtr,"\tBlock[%2d] %lf [J/mol/K]\n",i,(double)0.0);
   }
+  avg=AVERAGE(sum);
+  error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  tmp=2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)));
-  fprintf(FilePtr,"\tAverage   %18.5lf [J/mol/K] +/- %18.5lf [J/mol/K]\n",
-          (double)(sum/(REAL)NR_BLOCKS),(double)tmp);
-  fprintf(FilePtr,"\tAverage   %18.5lf [cal/mol/K] +/- %18.5lf [cal/mol/K]\n",
-          (double)(sum*J_TO_CAL/(REAL)NR_BLOCKS),(double)tmp*J_TO_CAL);
+  fprintf(FilePtr,"\tAverage   %18.5lf [J/mol/K] +/- %18.5lf [J/mol/K]\n", avg, error);
+  fprintf(FilePtr,"\tAverage   %18.5lf [cal/mol/K] +/- %18.5lf [cal/mol/K]\n", avg * J_TO_CAL, error * J_TO_CAL);
 
   // enthalpy of desorption
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Enthalpy of adsorption:\n");
   fprintf(FilePtr,"=======================\n\n");
-  sum=sum2=0.0;
+  sum=sum_squared=0.0;
 
   if(NumberOfComponents==1)
   {
     fprintf(FilePtr,"\tTotal enthalpy of adsorption\n");
     fprintf(FilePtr,"\t----------------------------\n");
    
-    sum=sum2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=sum_squared=0.0;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
@@ -4029,36 +3861,37 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
         REAL N = NumberOfIntegerMoleculesAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
         REAL NSquared = NumberOfMoleculesSquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
 
-        tmp=ENERGY_TO_KELVIN*((UTotalTimesN - UTotal*N)/(NSquared - SQR(N)))-therm_baro_stats.ExternalTemperature[CurrentSystem];
+        REAL tmp=ENERGY_TO_KELVIN*((UTotalTimesN - UTotal*N)/(NSquared - SQR(N)))-therm_baro_stats.ExternalTemperature[CurrentSystem];
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [K]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [K]\n",
-      (double)(sum/(REAL)NR_BLOCKS),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
-    fprintf(FilePtr,"\t          %18.5lf +/- %18lf [KJ/MOL]\n",
-      (double)(sum/(REAL)NR_BLOCKS)*KELVIN_TO_KJ_PER_MOL,
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))*KELVIN_TO_KJ_PER_MOL));
+    fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [K]\n", avg, error);
+    fprintf(FilePtr,"\t          %18.5lf +/- %18lf [KJ/MOL]\n", avg * KELVIN_TO_KJ_PER_MOL, error * KELVIN_TO_KJ_PER_MOL);
     fprintf(FilePtr,"\tNote: Ug should be subtracted from this value\n");
     fprintf(FilePtr,"\tNote: The heat of adsorption Q=-H\n\n");
   }
   
   if(NumberOfComponents>1)
   {
+     REAL (*HeatOfAdsorptionPerComponent)[NR_BLOCKS];
+     REAL_MATRIX matrix;
+
     HeatOfAdsorptionPerComponent=(REAL(*)[NR_BLOCKS])calloc(NumberOfComponents,sizeof(REAL[NR_BLOCKS]));
 
-    for(i=0;i<NR_BLOCKS;i++)
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       matrix=CreateRealMatrix(NumberOfComponents,NumberOfComponents);
 
-      for(k1=0;k1<NumberOfComponents;k1++)
+      for(int k1=0;k1<NumberOfComponents;k1++)
       {
-        for(k2=0;k2<NumberOfComponents;k2++)
+        for(int k2=0;k2<NumberOfComponents;k2++)
         {
           matrix.element[k1][k2]=NumberOfMoleculesPerComponentSquaredAccumulated[CurrentSystem][k1][k2][i]/BlockWeightedCount[CurrentSystem][i]-
                               ( NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][k1][i]/BlockWeightedCount[CurrentSystem][i])*
@@ -4068,10 +3901,10 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
 
       InverseRealMatrix(matrix);
 
-      for (k1=0;k1<NumberOfComponents;k1++)
+      for(int k1=0;k1<NumberOfComponents;k1++)
       {
         HeatOfAdsorptionPerComponent[k1][i]=0.0;
-        for (k2=0;k2<NumberOfComponents;k2++)
+        for(int k2=0;k2<NumberOfComponents;k2++)
         {
           REAL UTotalTimesNcomp = TotalEnergyTimesNumberOfMoleculesPerComponentAccumulated[CurrentSystem][k2][i]/BlockWeightedCount[CurrentSystem][i];
           REAL UTotal = UTotalAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i];
@@ -4084,63 +3917,60 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
       DeleteRealMatrix(matrix);
     }
 
-    for(k1=0;k1<NumberOfComponents;k1++)
+    for(int k1=0;k1<NumberOfComponents;k1++)
     {
-      sum=sum2=0.0;
+      sum=sum_squared=0.0;
       fprintf(FilePtr,"\tEnthalpy of adsorption component %d [%s]\n",k1,Components[k1].Name);
       fprintf(FilePtr,"\t-------------------------------------------------------------\n");
-      for(i=0;i<NR_BLOCKS;i++)
+      for(int i=0;i<NR_BLOCKS;i++)
       {
         if(BlockWeightedCount[CurrentSystem][i]>0.0)
         {
-          sum+=HeatOfAdsorptionPerComponent[k1][i];
-          sum2+=SQR(HeatOfAdsorptionPerComponent[k1][i]);
-          fprintf(FilePtr,"\t\tBlock[%2d] %-18.5lf [-]\n",i,(double)(HeatOfAdsorptionPerComponent[k1][i]));
+          REAL tmp=HeatOfAdsorptionPerComponent[k1][i];
+          sum+=tmp;
+          sum_squared+=SQR(tmp);
+          fprintf(FilePtr,"\t\tBlock[%2d] %-18.5lf [-]\n",i,tmp);
         }
         else
           fprintf(FilePtr,"\t\tBlock[%2d] %-18.5lf [K]\n",i,(double)0.0);
       }
+      avg=AVERAGE(sum);
+      error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
       fprintf(FilePtr,"\t\t------------------------------------------------------------------------------\n");
-      fprintf(FilePtr,"\t\tAverage   %18.5lf +/- %18lf [K]\n",
-        (double)(sum/(REAL)NR_BLOCKS),
-        (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
-      fprintf(FilePtr,"\t\t          %18.5lf +/- %18lf [KJ/MOL]\n",
-        (double)(sum/(REAL)NR_BLOCKS)*KELVIN_TO_KJ_PER_MOL,
-        (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))*KELVIN_TO_KJ_PER_MOL));
+      fprintf(FilePtr,"\t\tAverage   %18.5lf +/- %18lf [K]\n", avg, error);
+      fprintf(FilePtr,"\t\t          %18.5lf +/- %18lf [KJ/MOL]\n", avg * KELVIN_TO_KJ_PER_MOL, error * KELVIN_TO_KJ_PER_MOL);
       fprintf(FilePtr,"\t\tNote: Ug should be subtracted to this value\n");
       fprintf(FilePtr,"\t\tNote: The heat of adsorption Q=-H\n\n");
     }
 
-    sum=sum2=0.0;
+    sum=sum_squared=0.0;
     fprintf(FilePtr,"\tTotal enthalpy of adsorption from components and measured mol-fraction\n");
     fprintf(FilePtr,"\t----------------------------------------------------------------------\n");
-    for(i=0;i<NR_BLOCKS;i++)
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
         double loading_total = 0.0;
-        for (j=0;j<NumberOfComponents;j++)
+        for (int j=0;j<NumberOfComponents;j++)
            loading_total += NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i];
         double sumc=0.0;
-        for(k1=0;k1<NumberOfComponents;k1++)
+        for(int k1=0;k1<NumberOfComponents;k1++)
         {
           double loading_i = NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][k1][i];
           sumc+=(loading_i/loading_total)*HeatOfAdsorptionPerComponent[k1][i];
         }
         sum+=sumc;
-        sum2+=SQR(sumc);
+        sum_squared+=SQR(sumc);
         fprintf(FilePtr,"\t\tBlock[%2d] %-18.5lf [-]\n",i,(double)sumc);
       }
       else
         fprintf(FilePtr,"\t\tBlock[%2d] %-18.5lf [K]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t\t------------------------------------------------------------------------------\n");
-    fprintf(FilePtr,"\t\tAverage   %18.5lf +/- %18lf [K]\n",
-      (double)(sum/(REAL)NR_BLOCKS),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
-    fprintf(FilePtr,"\t\t          %18.5lf +/- %18lf [KJ/MOL]\n",
-      (double)(sum/(REAL)NR_BLOCKS)*KELVIN_TO_KJ_PER_MOL,
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))*KELVIN_TO_KJ_PER_MOL));
+    fprintf(FilePtr,"\t\tAverage   %18.5lf +/- %18lf [K]\n", avg, error);
+    fprintf(FilePtr,"\t\t          %18.5lf +/- %18lf [KJ/MOL]\n", avg * KELVIN_TO_KJ_PER_MOL, error * KELVIN_TO_KJ_PER_MOL);
     fprintf(FilePtr,"\t\tNote: Ug should be subtracted to this value\n");
     fprintf(FilePtr,"\t\tNote: The heat of adsorption Q=-H\n\n");
 
@@ -4152,38 +3982,43 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"derivative of the chemical potential with respect to density (constant T,V):\n");
   fprintf(FilePtr,"============================================================================\n");
-  sum=sum2=0.0;
-  for(i=0;i<NR_BLOCKS;i++)
+  sum=sum_squared=0.0;
+  for(int i=0;i<NR_BLOCKS;i++)
   {
     if(BlockWeightedCount[CurrentSystem][i]>0.0)
     {
-      tmp=ENERGY_TO_KELVIN*(Volume[0]*therm_baro_stats.ExternalTemperature[CurrentSystem]/
-          (NumberOfMoleculesSquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]-
-          SQR(NumberOfIntegerMoleculesAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i])));
+      REAL tmp=ENERGY_TO_KELVIN*(Volume[0]*therm_baro_stats.ExternalTemperature[CurrentSystem]/
+               (NumberOfMoleculesSquaredAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i]-
+               SQR(NumberOfIntegerMoleculesAccumulated[CurrentSystem][i]/BlockWeightedCount[CurrentSystem][i])));
       sum+=tmp;
-      sum2+=SQR(tmp);
+      sum_squared+=SQR(tmp);
       fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,(double)tmp);
     }
     else
       fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,(double)0.0);
   }
+  avg=AVERAGE(sum);
+  error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [-]\n",
-    (double)(sum/(REAL)NR_BLOCKS),
-    (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
-
+  fprintf(FilePtr,"\tAverage   %18.5lf +/- %18lf [-]\n", avg, error);
 
   // output final averages of the principle moments of inertia per component
   if(ComputePrincipleMomentsOfInertia)
   {
+    VECTOR sumv1,sumv2,av;
+
     fprintf(FilePtr,"\n");
     fprintf(FilePtr,"Average Principle Moments of Inertia:\n");
     fprintf(FilePtr,"=====================================\n");
-    for(j=0;j<NumberOfComponents;j++)
+    for(int j=0;j<NumberOfComponents;j++)
     {
-      sumv1.x=sumv1.y=sumv1.z=0.0;
-      sumv2.x=sumv2.y=sumv2.z=0.0;
-      for(i=0;i<NR_BLOCKS;i++)
+      sumv1.x=0.0;
+      sumv1.y=0.0;
+      sumv1.z=0.0;
+      sumv2.x=0.0;
+      sumv2.y=0.0;
+      sumv2.z=0.0;
+      for(int i=0;i<NR_BLOCKS;i++)
       {
         if(PrincipleMomentsOfInertiaCount[CurrentSystem][j][i]>0.0)
         {
@@ -4201,15 +4036,15 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
         else
           fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
       }
+      REAL avgx=AVERAGE(sumv1.x);
+      REAL avgy=AVERAGE(sumv1.y);
+      REAL avgz=AVERAGE(sumv1.z);
+      REAL errorx=ERROR_CONFIDENCE_INTERVAL_95(sumv1.x,sumv2.x);
+      REAL errory=ERROR_CONFIDENCE_INTERVAL_95(sumv1.y,sumv2.y);
+      REAL errorz=ERROR_CONFIDENCE_INTERVAL_95(sumv1.z,sumv2.z);
       fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
       fprintf(FilePtr,"\t[%s] Average Principle Moment of Inertia:  %lg +/- %lg [-], %lg +/- %lg [-], %lg +/- %lg [-]\n\n",
-        Components[j].Name,
-        (double)(sumv1.x/(REAL)NR_BLOCKS),
-        (double)(2.0*sqrt(fabs((sumv2.x/(REAL)NR_BLOCKS)-SQR(sumv1.x)/(REAL)SQR(NR_BLOCKS)))),
-        (double)(sumv1.y/(REAL)NR_BLOCKS),
-        (double)(2.0*sqrt(fabs((sumv2.y/(REAL)NR_BLOCKS)-SQR(sumv1.y)/(REAL)SQR(NR_BLOCKS)))),
-        (double)(sumv1.z/(REAL)NR_BLOCKS),
-        (double)(2.0*sqrt(fabs((sumv2.z/(REAL)NR_BLOCKS)-SQR(sumv1.z)/(REAL)SQR(NR_BLOCKS)))));
+        Components[j].Name, avgx, errorx, avgy, errory, avgz, errorz);
     }
   }
 
@@ -4431,94 +4266,74 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   fprintf(FilePtr,"Number of molecules:\n");
   fprintf(FilePtr,"====================\n\n");
 
-  for(j=0;j<NumberOfComponents;j++)
+  for(int j=0;j<NumberOfComponents;j++)
   {
     fprintf(FilePtr,"Component %d [%s]\n",j,Components[j].Name);
     fprintf(FilePtr,"-------------------------------------------------------------\n");
 
     // absolute adsorption
-    sum=sum_vdw=sum_coul=0.0;
-    sum2=sum_vdw2=sum_coul2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=0.0;
+    sum_squared=0.0;
+    REAL nr=NumberOfUnitCells[CurrentSystem].x*NumberOfUnitCells[CurrentSystem].y*NumberOfUnitCells[CurrentSystem].z;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
-        sum+=NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i];
-        sum2+=SQR(NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i]);
+        REAL tmp=NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/(nr * BlockWeightedCount[CurrentSystem][i]);;
+        sum+=tmp;
+        sum_squared+=SQR(tmp);
 
-        fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,
-                (double)(NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i]));
+        fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i, tmp * nr);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,(double)0.0);
     }
-    nr_molecules=sum/(REAL)NR_BLOCKS;
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-    nr=NumberOfUnitCells[0].x*NumberOfUnitCells[0].y*NumberOfUnitCells[0].z;
-    fprintf(FilePtr,"\tAverage                                %18.10lf +/- %18.10lf [-]\n",
-      (double)(sum/(REAL)NR_BLOCKS),(double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
-    fprintf(FilePtr,"\tAverage loading absolute [molecules/unit cell]  %18.10lf +/- %18.10lf [-]\n",
-      (double)(sum/((REAL)nr*(REAL)NR_BLOCKS)),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
+    fprintf(FilePtr,"\tAverage loading absolute                        %18.10lf +/- %18.10lf [-]\n", avg * nr, error * nr);
+    fprintf(FilePtr,"\tAverage loading absolute [molecules/unit cell]  %18.10lf +/- %18.10lf [-]\n", avg, error);
 
-    fprintf(FilePtr,"\tAverage loading absolute [mol/kg framework]    %18.10lf +/- %18.10lf [-]\n",
-      (double)(sum*Components[j].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]/((REAL)nr*(REAL)NR_BLOCKS)),
-      (double)(2.0*Components[j].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
+    REAL conv_to_mol_per_kg = Components[j].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem];
+    fprintf(FilePtr,"\tAverage loading absolute [mol/kg framework]            %18.10lf +/- %18.10lf [-]\n", conv_to_mol_per_kg * avg, conv_to_mol_per_kg * error);
 
-    fprintf(FilePtr,"\tAverage loading absolute [milligram/gram framework]    %18.10lf +/- %18.10lf [-]\n",
-      (double)(sum*Components[j].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]/((REAL)nr*(REAL)NR_BLOCKS)),
-      (double)(2.0*Components[j].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
+    REAL conv_to_mg_per_g = Components[j].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem];
+    fprintf(FilePtr,"\tAverage loading absolute [milligram/gram framework]    %18.10lf +/- %18.10lf [-]\n", conv_to_mg_per_g * avg, conv_to_mg_per_g * error);
 
-    fprintf(FilePtr,"\tAverage loading absolute [cm^3 (STP)/gr framework]    %18.10lf +/- %18.10lf [-]\n",
-      (double)(sum*Components[j].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]/((REAL)nr*(REAL)NR_BLOCKS)),
-      (double)(2.0*Components[j].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
+    REAL conv_to_cm3_per_g = Components[j].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem];
+    fprintf(FilePtr,"\tAverage loading absolute [cm^3 (STP)/gr framework]     %18.10lf +/- %18.10lf [-]\n", conv_to_cm3_per_g * avg, conv_to_cm3_per_g * error);
 
-    fprintf(FilePtr,"\tAverage loading absolute [cm^3 (STP)/cm^3 framework]    %18.10lf +/- %18.10lf [-]\n",
-      (double)(sum*Components[j].MOLEC_PER_UC_TO_CC_STP_CC[CurrentSystem]/((REAL)nr*(REAL)NR_BLOCKS)),
-      (double)(2.0*Components[j].MOLEC_PER_UC_TO_CC_STP_CC[CurrentSystem]*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
+    REAL conv_to_cm3_per_cm3 = Components[j].MOLEC_PER_UC_TO_CC_STP_CC[CurrentSystem];
+    fprintf(FilePtr,"\tAverage loading absolute [cm^3 (STP)/cm^3 framework]   %18.10lf +/- %18.10lf [-]\n", conv_to_cm3_per_cm3 * avg, conv_to_cm3_per_cm3 * error);
     fprintf(FilePtr,"\n");
 
     // excess adsorption
-    sum=sum_vdw=sum_coul=0.0;
-    sum2=sum_vdw2=sum_coul2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=0.0;
+    sum_squared=0.0;
+    nr=NumberOfUnitCells[CurrentSystem].x*NumberOfUnitCells[CurrentSystem].y*NumberOfUnitCells[CurrentSystem].z;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(BlockWeightedCount[CurrentSystem][i]>0.0)
       {
-        sum+=(NumberOfExcessMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i]);
-        sum2+=SQR(NumberOfExcessMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i]);
+        REAL tmp=(NumberOfExcessMoleculesPerComponentAccumulated[CurrentSystem][j][i]/(nr * BlockWeightedCount[CurrentSystem][i]));
+        sum+=tmp;
+        sum_squared+=SQR(tmp);
 
-        fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,
-                (double)(NumberOfIntegerMoleculesPerComponentAccumulated[CurrentSystem][j][i]/BlockWeightedCount[CurrentSystem][i]));
+        fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i, tmp * nr);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-18.5lf [-]\n",i,(double)0.0);
     }
-    nr_molecules=sum/(REAL)NR_BLOCKS;
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-    fprintf(FilePtr,"\tAverage                                %18.10lf +/- %18.10lf [-]\n",
-      (double)(sum/(REAL)NR_BLOCKS),(double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
-    nr=NumberOfUnitCells[CurrentSystem].x*NumberOfUnitCells[CurrentSystem].y*NumberOfUnitCells[CurrentSystem].z;
+    fprintf(FilePtr,"\tAverage loading excess                        %18.10lf +/- %18.10lf [-]\n", avg * nr, error * nr);
+    fprintf(FilePtr,"\tAverage loading excess [molecules/unit cell]  %18.10lf +/- %18.10lf [-]\n", avg, error);
 
-    fprintf(FilePtr,"\tAverage loading excess [molecules/unit cell]  %18.10lf +/- %18.10lf [-]\n",
-      (double)(sum/((REAL)nr*(REAL)NR_BLOCKS)),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
-
-    fprintf(FilePtr,"\tAverage loading excess [mol/kg framework]    %18.10lf +/- %18.10lf [-]\n",
-      (double)(sum*Components[j].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]/((REAL)nr*(REAL)NR_BLOCKS)),
-      (double)(2.0*Components[j].MOLEC_PER_UC_TO_MOL_PER_KG[CurrentSystem]*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
-
-    fprintf(FilePtr,"\tAverage loading excess [milligram/gram framework]    %18.10lf +/- %18.10lf [-]\n",
-      (double)(sum*Components[j].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]/((REAL)nr*(REAL)NR_BLOCKS)),
-      (double)(2.0*Components[j].MOLEC_PER_UC_TO_MILLIGRAM_PER_GRAM_OF_FRAMEWORK[CurrentSystem]*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
-
-    fprintf(FilePtr,"\tAverage loading excess [cm^3 (STP)/gr framework]    %18.10lf +/- %18.10lf [-]\n",
-      (double)(sum*Components[j].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]/((REAL)nr*(REAL)NR_BLOCKS)),
-      (double)(2.0*Components[j].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
-
-    fprintf(FilePtr,"\tAverage loading excess [cm^3 (STP)/cm^3 framework]    %18.10lf +/- %18.10lf [-]\n",
-      (double)(sum*Components[j].MOLEC_PER_UC_TO_CC_STP_CC[CurrentSystem]/((REAL)nr*(REAL)NR_BLOCKS)),
-      (double)(2.0*Components[j].MOLEC_PER_UC_TO_CC_STP_CC[CurrentSystem]*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))/(REAL)nr));
+    fprintf(FilePtr,"\tAverage loading excess [mol/kg framework]              %18.10lf +/- %18.10lf [-]\n", conv_to_mol_per_kg * avg, conv_to_mol_per_kg * error);
+    fprintf(FilePtr,"\tAverage loading excess [milligram/gram framework]      %18.10lf +/- %18.10lf [-]\n", conv_to_mg_per_g * avg, conv_to_mg_per_g * error);
+    fprintf(FilePtr,"\tAverage loading excess [cm^3 (STP)/gr framework]       %18.10lf +/- %18.10lf [-]\n", conv_to_cm3_per_g * avg, conv_to_cm3_per_g * error);
+    fprintf(FilePtr,"\tAverage loading excess [cm^3 (STP)/cm^3 framework]     %18.10lf +/- %18.10lf [-]\n", conv_to_cm3_per_cm3 * avg, conv_to_cm3_per_cm3 * error);
     fprintf(FilePtr,"\n");
   }
 
@@ -4526,110 +4341,109 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Widom Rosenbluth factor:\n");
   fprintf(FilePtr,"================================\n");
-  for(j=0;j<NumberOfComponents;j++)
+  for(int j=0;j<NumberOfComponents;j++)
   {
-    sum=sum2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=sum_squared=0.0;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(WidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
       {
-        tmp=WidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
-            WidomRosenbluthFactorCount[CurrentSystem][j][i];
+        REAL tmp=WidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
+                 WidomRosenbluthFactorCount[CurrentSystem][j][i];
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
     fprintf(FilePtr,"\t[%s] Average Widom Rosenbluth-weight:   %lg +/- %lf [-]\n",
-      Components[j].Name,
-      (double)(sum/(REAL)NR_BLOCKS),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+      Components[j].Name, avg, error);
   }
 
   // Average fixed volume chemical potential
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Widom chemical potential:\n");
   fprintf(FilePtr,"=================================\n");
-  for(j=0;j<NumberOfComponents;j++)
+  for(int j=0;j<NumberOfComponents;j++)
   {
-    sum=sum2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=sum_squared=0.0;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(WidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
       {
-        tmp=(-log(WidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
-                  WidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN+
-            (-log(WidomIdealGasAccumulated[CurrentSystem][j][i]/
-                  WidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
+        REAL tmp=(-log(WidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
+                      WidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN+
+                 (-log(WidomIdealGasAccumulated[CurrentSystem][j][i]/
+                       WidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
     fprintf(FilePtr,"\t[%s] Average chemical potential:   %lg +/- %lf [K]\n",
-      Components[j].Name,
-      (double)(sum/(REAL)NR_BLOCKS),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+      Components[j].Name, avg, error);
   }
 
   // Average fixed volume Widom ideal-gas contribution
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Widom Ideal-gas contribution:\n");
   fprintf(FilePtr,"=====================================\n");
-  for(j=0;j<NumberOfComponents;j++)
+  for(int j=0;j<NumberOfComponents;j++)
   {
-    sum=sum2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=sum_squared=0.0;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(WidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
       {
-        tmp=(-log(WidomIdealGasAccumulated[CurrentSystem][j][i]/
-                  WidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
+        REAL tmp=(-log(WidomIdealGasAccumulated[CurrentSystem][j][i]/
+                     WidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
     fprintf(FilePtr,"\t[%s] Average Widom Ideal-gas chemical potential:   %lg +/- %lf [-]\n",
-      Components[j].Name,
-      (double)(sum/(REAL)NR_BLOCKS),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+      Components[j].Name, avg, error);
   }
 
   // Average fixed volume Widom excess contribution
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Widom excess contribution:\n");
   fprintf(FilePtr,"==================================\n");
-  for(j=0;j<NumberOfComponents;j++)
+  for(int j=0;j<NumberOfComponents;j++)
   {
-    sum=sum2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=sum_squared=0.0;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(WidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
       {
-        tmp=(-log(WidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
+        REAL tmp=(-log(WidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
                   WidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-    fprintf(FilePtr,"\t[%s] Average Widom excess chemical potential:   %lg +/- %lf [-]\n",
-      Components[j].Name,
-      (double)(sum/(REAL)NR_BLOCKS),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+    fprintf(FilePtr,"\t[%s] Average Widom excess chemical potential:   %lg +/- %lf [-]\n", Components[j].Name, avg, error);
   }
 
 
@@ -4638,27 +4452,27 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Gibbs Widom Rosenbluth factor:\n");
   fprintf(FilePtr,"======================================\n");
-  for(j=0;j<NumberOfComponents;j++)
+  for(int j=0;j<NumberOfComponents;j++)
   {
-    sum=sum2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=sum_squared=0.0;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
       {
-        tmp=GibbsWidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
-            GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i];
+        REAL tmp=GibbsWidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
+                 GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i];
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
     fprintf(FilePtr,"\t[%s] Average Gibbs Widom Rosenbluth-weight:   %lg +/- %lf [-]\n",
-      Components[j].Name,
-      (double)(sum/(REAL)NR_BLOCKS),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+      Components[j].Name, avg, error);
   }
 
 
@@ -4666,83 +4480,83 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Gibbs Widom chemical potential:\n");
   fprintf(FilePtr,"=======================================\n");
-  for(j=0;j<NumberOfComponents;j++)
+  for(int j=0;j<NumberOfComponents;j++)
   {
-    sum=sum2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=sum_squared=0.0;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
       {
-        tmp=(-log(GibbsWidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
+        REAL tmp=(-log(GibbsWidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
                   GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
     fprintf(FilePtr,"\t[%s] Average Gibbs chemical potential:   %lg +/- %lf [K]\n",
-      Components[j].Name,
-      (double)(sum/(REAL)NR_BLOCKS),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+      Components[j].Name, avg, error);
   }
 
   // Average Gibbs Widom ideal-gas contribution
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Gibbs Widom Ideal-gas contribution:\n");
   fprintf(FilePtr,"===========================================\n");
-  for(j=0;j<NumberOfComponents;j++)
+  for(int j=0;j<NumberOfComponents;j++)
   {
-    sum=sum2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=sum_squared=0.0;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
       {
-        tmp=(-log(GibbsWidomIdealGasAccumulated[CurrentSystem][j][i]/
+        REAL tmp=(-log(GibbsWidomIdealGasAccumulated[CurrentSystem][j][i]/
                   GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
     fprintf(FilePtr,"\t[%s] Average Gibbs Ideal-gas chemical potential:   %lg +/- %lf [-]\n",
-      Components[j].Name,
-      (double)(sum/(REAL)NR_BLOCKS),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+      Components[j].Name, avg, error);
   }
 
   // Average Gibbs Widom excess contribution
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Gibbs Widom excess contribution:\n");
   fprintf(FilePtr,"===========================================\n");
-  for(j=0;j<NumberOfComponents;j++)
+  for(int j=0;j<NumberOfComponents;j++)
   {
-    sum=sum2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=sum_squared=0.0;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
       {
-        tmp=(-log(GibbsWidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
-                  GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN
-            +(log(GibbsWidomIdealGasAccumulated[CurrentSystem][j][i]/
-                  GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
+        REAL tmp=(-log(GibbsWidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
+                      GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN
+                 +(log(GibbsWidomIdealGasAccumulated[CurrentSystem][j][i]/
+                      GibbsWidomRosenbluthFactorCount[CurrentSystem][j][i])/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
     fprintf(FilePtr,"\t[%s] Average Gibbs excess chemical potential:   %lg +/- %lf [-]\n",
-      Components[j].Name,
-      (double)(sum/(REAL)NR_BLOCKS),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+      Components[j].Name, avg, error);
   }
 
 
@@ -4750,30 +4564,30 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Henry coefficient:\n");
   fprintf(FilePtr,"==========================\n");
-  FrameworkDensity=1e-3*Framework[CurrentSystem].FrameworkMass/(Volume[CurrentSystem]*CUBE(ANGSTROM)*AVOGADRO_CONSTANT);
-  Temperature=therm_baro_stats.ExternalTemperature[CurrentSystem];
-  for(j=0;j<NumberOfComponents;j++)
+  REAL FrameworkDensity=1e-3*Framework[CurrentSystem].FrameworkMass/(Volume[CurrentSystem]*CUBE(ANGSTROM)*AVOGADRO_CONSTANT);
+  REAL Temperature=therm_baro_stats.ExternalTemperature[CurrentSystem];
+  for(int j=0;j<NumberOfComponents;j++)
   {
-    sum=sum2=0.0;
-    for(i=0;i<NR_BLOCKS;i++)
+    sum=sum_squared=0.0;
+    for(int i=0;i<NR_BLOCKS;i++)
     {
       if(WidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
       {
-        tmp=(1.0/(MOLAR_GAS_CONSTANT*Temperature*FrameworkDensity))*
-            WidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
-            (Components[j].IdealGasRosenbluthWeight[CurrentSystem]*WidomRosenbluthFactorCount[CurrentSystem][j][i]);
+        REAL tmp=(1.0/(MOLAR_GAS_CONSTANT*Temperature*FrameworkDensity))*
+                 WidomRosenbluthFactorAccumulated[CurrentSystem][j][i]/
+                 (Components[j].IdealGasRosenbluthWeight[CurrentSystem]*WidomRosenbluthFactorCount[CurrentSystem][j][i]);
         sum+=tmp;
-        sum2+=SQR(tmp);
+        sum_squared+=SQR(tmp);
         fprintf(FilePtr,"\tBlock[%2d] %-lg [mol/kg/Pa]\n",i,(double)tmp);
       }
       else
         fprintf(FilePtr,"\tBlock[%2d] %-lg [mol/kg/Pa]\n",i,(double)0.0);
     }
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
     fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
     fprintf(FilePtr,"\t[%s] Average Henry coefficient:  %lg +/- %lg [mol/kg/Pa]\n",
-      Components[j].Name,
-      (double)(sum/(REAL)NR_BLOCKS),
-      (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+      Components[j].Name, avg, error);
   }
 
   // Average adsorption energy
@@ -4782,31 +4596,29 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   fprintf(FilePtr,"(Note: the total heat of adsorption is dH=<U_gh>_1-<U_h>_0 - <U_g> - RT)\n");
   fprintf(FilePtr,"=========================================================================\n");
   Temperature=therm_baro_stats.ExternalTemperature[CurrentSystem];
-  for(j=0;j<NumberOfComponents;j++)
+  for(int j=0;j<NumberOfComponents;j++)
   {
     if(Components[j].Widom)
     {
-      sum=sum2=0.0;
-      for(i=0;i<NR_BLOCKS;i++)
+      sum=sum_squared=0.0;
+      for(int i=0;i<NR_BLOCKS;i++)
       {
         if(WidomRosenbluthFactorCount[CurrentSystem][j][i]>0.0)
         {
-          tmp=(WidomEnergyDifferenceAccumulated[CurrentSystem][j][i]/WidomRosenbluthFactorAccumulated[CurrentSystem][j][i]-
-              WidomEnergyFrameworkAccumulated[CurrentSystem][j][i]/WidomEnergyFrameworkCount[CurrentSystem][j][i])*ENERGY_TO_KELVIN;
+          REAL tmp=(WidomEnergyDifferenceAccumulated[CurrentSystem][j][i]/WidomRosenbluthFactorAccumulated[CurrentSystem][j][i]-
+                    WidomEnergyFrameworkAccumulated[CurrentSystem][j][i]/WidomEnergyFrameworkCount[CurrentSystem][j][i])*ENERGY_TO_KELVIN;
           sum+=tmp;
-          sum2+=SQR(tmp);
+          sum_squared+=SQR(tmp);
           fprintf(FilePtr,"\tBlock[%2d] %-18.10lf [K]\n",i,(double)tmp);
         }
         else
           fprintf(FilePtr,"\tBlock[%2d] %-18.10lf [K]\n",i,(double)0.0);
       }
+      avg=AVERAGE(sum);
+      error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
       fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
       fprintf(FilePtr,"\t[%s] Average  <U_gh>_1-<U_h>_0:  %18.10lf +/- %18.10lf [K]       (%18.10lf +/- %18.10lf kJ/mol)\n",
-        Components[j].Name,
-        (double)(sum/(REAL)NR_BLOCKS),
-        (double)(2.0*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))),
-        (double)(sum*KELVIN_TO_KJ_PER_MOL/(REAL)NR_BLOCKS),
-        (double)(2.0*KELVIN_TO_KJ_PER_MOL*sqrt(fabs((sum2/(REAL)NR_BLOCKS)-SQR(sum)/(REAL)SQR(NR_BLOCKS)))));
+        Components[j].Name, avg, error, avg * KELVIN_TO_KJ_PER_MOL, error * KELVIN_TO_KJ_PER_MOL);
     }
   }
 }

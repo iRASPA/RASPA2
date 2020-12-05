@@ -785,6 +785,11 @@ int ReturnAtomBondedToHydrogen(int Type,int c);
 
 void CalculateAnisotropicSites(void);
 
+int numberOfReactionMoleculesForComponent(int comp);
+int numberOfProductMoleculesForComponent(int comp);
+void getListOfMoleculeIdentifiersForReactantsAndProduct(int comp,int *n,int *array);
+void getListOfAllMoleculeIdentifiersForReactantsAndProduct(int *n,int *array);
+
 void ReadBiasingProfile(int);
 
 int TotalNumberOfIntegerMolecules();
