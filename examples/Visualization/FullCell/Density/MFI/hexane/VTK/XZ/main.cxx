@@ -14,14 +14,6 @@
 #include "vtkStructuredPointsReader.h"
 #include "vtkStructuredPointsWriter.h"
 #include "vtkPiecewiseFunction.h"
-#include "vtkVolume.h"
-#include "vtkVolumeProperty.h"
-#include "vtkVolumeRayCastCompositeFunction.h"
-#include "vtkVolumeRayCastIsosurfaceFunction.h"
-#include <vtkVolumeRayCastMIPFunction.h>
-#include <vtkVolumeRayCastMapper.h>
-#include "vtkVolumeMapper.h"
-#include "vtkVolume.h"
 #include "vtkSphereSource.h"
 #include "vtkPolyDataMapper.h"
 #include "vtkTubeFilter.h"
@@ -51,8 +43,6 @@
 #include "vtkContourFilter.h"
 #include "vtkVolumeMapper.h"
 #include "vtkVolume.h"
-#include "vtkVolumeRayCastMapper.h"
-#include "vtkVolumeRayCastCompositeFunction.h"
 #include "vtkVolume.h"
 #include "vtkVolumeProperty.h"
 #include "vtkPiecewiseFunction.h"
@@ -88,6 +78,9 @@
 #include "vtkCellArray.h"
 #include "vtkPointData.h"
 #include "vtkDoubleArray.h"
+#include "vtkOpenGLGPUVolumeRayCastMapper.h"
+#include "vtkFixedPointVolumeRayCastMapper.h"
+#include "vtkInteractorStyleTrackballCamera.h"
 
 typedef struct point
 {
@@ -134,6 +127,10 @@ int ReadInputFile(void);
 // 5) You can highlight a specific volume, with a cylinder, a rectangular channel, or a rotated rectangular channel (e.g. diamond-shaped).
 //    The high-lighted volume is for example a channel, the low-lighted volume can be made completely transparant.
 //    Note: does not work for volume-rendering of the framework (VTK limitation)
+
+// 19 December 2020, version 1.4
+// ==============================================================================================
+// Updated to VTK-9.0
 
 enum{VOLUME_RENDERING,ISOSURFACE};
 enum{GLASS,BRUSHED_METAL,METALLIC_PASTEL,TRANSPARENT,RASPA};
@@ -741,14 +738,16 @@ int main( int argc, char *argv[] )
   vtkRenderWindow *renWin = vtkRenderWindow::New();
     renWin->AddRenderer(ren1);
     renWin->SetSize(600,600);
+
+  vtkInteractorStyleTrackballCamera *style = vtkInteractorStyleTrackballCamera::New();
   vtkRenderWindowInteractor *iren = vtkRenderWindowInteractor::New();
     iren->SetRenderWindow(renWin);
+    iren->SetInteractorStyle(style);
 
     // Create a transfer function mapping scalar value to opacity
     // play around with this tp highlight different things
     // with the current settings the adsorpion sites are clearly visable
     vtkPiecewiseFunction *oTFunSurface = vtkPiecewiseFunction::New();
-      oTFunSurface->AddSegment(0, 0.0, 1, 0.0);
       oTFunSurface->AddSegment(1, 0.0, 10000, 0.0);
       oTFunSurface->AddSegment(10000, 0.00, 15000, 0.6);
       oTFunSurface->AddSegment(20000, 0.6, 30000, 0.9);
@@ -757,7 +756,6 @@ int main( int argc, char *argv[] )
       oTFunSurface->AddSegment(65000, 0.0, 65536, 0.0);
 
     vtkPiecewiseFunction *oTFunDensity = vtkPiecewiseFunction::New();
-      oTFunDensity->AddSegment(0, 0.0, 1, 0.0);
       oTFunDensity->AddSegment(1, 0.0, 10000, 0.05);
       oTFunDensity->AddSegment(10000, 0.05, 15000, 0.4);
       oTFunDensity->AddSegment(15000, 0.4, 20000, 0.8);
@@ -772,28 +770,25 @@ int main( int argc, char *argv[] )
     // create a mapping from values to color
     // after many trials, this function looks okay
     vtkColorTransferFunction *cTFunN = vtkColorTransferFunction::New();
-      cTFunN->AddRGBPoint(0000.0,0.0,0.0,0.0);
       cTFunN->AddRGBPoint(0001.0,0.5,0.2,0.2);
-      cTFunN->AddRGBPoint(5000+1000.0,1.0,0.3,0.3);
-      cTFunN->AddRGBPoint(10000+7000.0,1.0,0.6,0.3);
-      cTFunN->AddRGBPoint(10000+18000.0,1.0,1.0,0.0);
-      cTFunN->AddRGBPoint(10000+19000.0,0.4,1.0,0.6);
-      cTFunN->AddRGBPoint(10000+20000.0,0.3,0.7,0.5);
-      cTFunN->AddRGBPoint(10000+50000.0,0.3,0.5,1.0);
+      cTFunN->AddRGBPoint(6000.0,1.0,0.3,0.3);
+      cTFunN->AddRGBPoint(17000.0,1.0,0.6,0.3);
+      cTFunN->AddRGBPoint(28000.0,1.0,1.0,0.0);
+      cTFunN->AddRGBPoint(29000.0,0.4,1.0,0.6);
+      cTFunN->AddRGBPoint(30000.0,0.3,0.7,0.5);
+      cTFunN->AddRGBPoint(65536.0,0.3,0.5,1.0);
 
     // create a mapping from values to color
     // after many trials, this function looks okay
     vtkColorTransferFunction *cTFunN2 = vtkColorTransferFunction::New();
-      cTFunN2->AddRGBPoint(0000.0,0.0,0.0,0.0);
       cTFunN2->AddRGBPoint(0001.0,0.5,0.2,0.2);
-      cTFunN2->AddRGBPoint(500+2000.0,1.0,0.3,0.3);
-      cTFunN2->AddRGBPoint(1000+5000.0,0.1,1.0,0.6);
-      cTFunN2->AddRGBPoint(1000+10000.0,0.1,0.7,0.5);
-      cTFunN2->AddRGBPoint(1000+25000.0,0.1,0.5,1.0);
-      cTFunN2->AddRGBPoint(1000+50000.0,0.0,0.0,1.0);
+      cTFunN2->AddRGBPoint(2500.0,1.0,0.3,0.3);
+      cTFunN2->AddRGBPoint(6000.0,0.1,1.0,0.6);
+      cTFunN2->AddRGBPoint(11000.0,0.1,0.7,0.5);
+      cTFunN2->AddRGBPoint(26000.0,0.1,0.5,1.0);
+      cTFunN2->AddRGBPoint(51000.0,0.0,0.0,1.0);
 
     vtkPiecewiseFunction *oTFunDensity2 = vtkPiecewiseFunction::New();
-      oTFunDensity2->AddSegment(0, 0.0, 1, 0.0);
       oTFunDensity2->AddSegment(1, 0.0, 10000, 0.0);
       oTFunDensity2->AddSegment(10000, 0.0, 15000, 0.4);
       oTFunDensity2->AddSegment(15000, 0.4, 20000, 0.8);
@@ -1517,7 +1512,6 @@ int main( int argc, char *argv[] )
               FrameworkSurfaceHighLightMapper->SetInputConnection(FrameworkSurfaceNormals->GetOutputPort());
             FrameworkSurfaceHighLightMapper->ScalarVisibilityOff();
             FrameworkSurfaceHighLightMapper->SetScalarRange(0,60000);
-            FrameworkSurfaceHighLightMapper->ImmediateModeRenderingOn();
 
           IsoContourArray=vtkActor::New();
           IsoContourArray->SetMapper(FrameworkSurfaceHighLightMapper);
@@ -1589,7 +1583,6 @@ int main( int argc, char *argv[] )
             FrameworkSurfaceLowLightMapper->SetInputConnection(CutFullCell->GetOutputPort());
           FrameworkSurfaceLowLightMapper->ScalarVisibilityOff();
           FrameworkSurfaceLowLightMapper->SetScalarRange(0,60000);
-          FrameworkSurfaceLowLightMapper->ImmediateModeRenderingOn();
 
         IsoContourArray=vtkActor::New();
         IsoContourArray->SetMapper(FrameworkSurfaceLowLightMapper);
@@ -1642,17 +1635,14 @@ int main( int argc, char *argv[] )
           FrameworkSurfaceProperty->ShadeOn();
           FrameworkSurfaceProperty->SetSpecular(0.9);
 
-        // Create a ray function - this is a compositing ray function
-        vtkVolumeRayCastCompositeFunction *FrameworkSurfacecompositeFunction=vtkVolumeRayCastCompositeFunction::New();
-          FrameworkSurfacecompositeFunction->SetCompositeMethodToInterpolateFirst();
-
         // Create the volume mapper and set the ray function and scalar input
-        vtkVolumeRayCastMapper *FrameworkSurfaceMapper = vtkVolumeRayCastMapper::New();
+        vtkFixedPointVolumeRayCastMapper *FrameworkSurfaceMapper = vtkFixedPointVolumeRayCastMapper::New();
           FrameworkSurfaceMapper->SetInputConnection(FrameworkSurfaceReader->GetOutputPort());
-          FrameworkSurfaceMapper->SetVolumeRayCastFunction(FrameworkSurfacecompositeFunction);
           FrameworkSurfaceMapper->SetClippingPlanes(BoxClipPlaneCollection);
-          FrameworkSurfaceMapper->SetSampleDistance(SampleDistance);
-          FrameworkSurfaceMapper->SetImageSampleDistance(ImageSampleDistance);
+
+        //vtkOpenGLGPUVolumeRayCastMapper *FrameworkSurfaceMapper = vtkOpenGLGPUVolumeRayCastMapper::New();
+        //  FrameworkSurfaceMapper->SetInputConnection(FrameworkSurfaceReader->GetOutputPort());
+        //  FrameworkSurfaceMapper->SetClippingPlanes(BoxClipPlaneCollection);
 
         VolumeArray=vtkVolume::New();
           VolumeArray->SetMapper(FrameworkSurfaceMapper);
@@ -1681,15 +1671,13 @@ int main( int argc, char *argv[] )
       DensityProperty->SetInterpolationTypeToLinear();
       DensityProperty->ShadeOn();
 
-    // Create a ray function - this is a compositing ray function
-    vtkVolumeRayCastCompositeFunction *DensitycompositeFunction=vtkVolumeRayCastCompositeFunction::New();
-       DensitycompositeFunction->SetCompositeMethodToInterpolateFirst();
-
     // Create the volume mapper and set the ray function and scalar input
     // Note: density does not need tobe clipped (zero values will be removed anyway)
-    vtkVolumeRayCastMapper *DensityMapper = vtkVolumeRayCastMapper::New();
+    vtkFixedPointVolumeRayCastMapper *DensityMapper = vtkFixedPointVolumeRayCastMapper::New();
       DensityMapper->SetInputConnection(DensityReader->GetOutputPort());
-      DensityMapper->SetVolumeRayCastFunction(DensitycompositeFunction);
+
+    //vtkOpenGLGPUVolumeRayCastMapper *DensityMapper = vtkOpenGLGPUVolumeRayCastMapper::New();
+    //  DensityMapper->SetInputConnection(DensityReader->GetOutputPort());
 
       DensityArray=vtkVolume::New();
       DensityArray->SetMapper(DensityMapper);
