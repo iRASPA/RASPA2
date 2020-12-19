@@ -33,15 +33,18 @@ Genome Center under award DE-FG02-17ER16362.
 Installation
 ============
 
-• rm -rf autom4te.cache  
-• mkdir m4  
-• aclocal  
-• autoreconf -i  
-• automake --add-missing  
-• autoconf  
-• ./configure --prefix=${RASPA_DIR}  
-   or  
-   ./scripts/CompileScript/make-gcc-local  
-• make  
-• make install  
+```
+rm -rf autom4te.cache  
+mkdir m4  
+aclocal  
+autoreconf -i  
+automake --add-missing  
+autoconf  
+
+./configure --prefix=${RASPA_DIR}  
+# or ./scripts/CompileScript/make-gcc-local  
+
+make  
+make install  
+```
 
