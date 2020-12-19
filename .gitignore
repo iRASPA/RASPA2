@@ -67,3 +67,6 @@ stamp-h.in
 *.pyc
 *.egg-info
 dist
+
+Docs/raspa.pdf
+Docs/raspa.toc
