@@ -79,6 +79,8 @@ void NumericallyComputeGradient(int np,int nb,REAL *x,REAL *NumericalGradient)
   REAL_MATRIX3x3 StrainDerivative;
   REAL pressure,ExtPressure;
 
+  Hessian=CreateRealMatrix(np+nb,np+nb);
+
   CurrentSystem=0;
   BoundaryCondition[0]=TRICLINIC;
 
@@ -243,6 +245,8 @@ void NumericallyComputeGradient(int np,int nb,REAL *x,REAL *NumericalGradient)
       }
   }
 
+  DeleteRealMatrix(Hessian);
+
 }
 
 
@@ -264,6 +268,8 @@ void NumericallyComputeDerivatives(int np,int nb,REAL *x,REAL *GradientNumerical
   GradientForward2=(REAL*)calloc(np+nb,sizeof(REAL));
   GradientBackward1=(REAL*)calloc(np+nb,sizeof(REAL));
   GradientBackward2=(REAL*)calloc(np+nb,sizeof(REAL));
+
+  Hessian=CreateRealMatrix(np+nb,np+nb);
 
   for(i=0;i<np+nb;i++)
   {
@@ -322,6 +328,8 @@ void NumericallyComputeDerivatives(int np,int nb,REAL *x,REAL *GradientNumerical
   free(GradientForward2);
   free(GradientBackward1);
   free(GradientBackward2);
+
+  DeleteRealMatrix(Hessian);
 }
 
 
@@ -882,6 +890,7 @@ void TestGradientsNumerically(void)
     exit(0);
   }
 
+
   // loop over all the framwork-atoms and fix the order and 'index' into the Hessian
   NumberOfMinimizationVariables=0;
   NumberOfCellMinimizationVariables=0;
@@ -931,6 +940,8 @@ void TestGradientsNumerically(void)
   x=(REAL*)calloc(NumberOfMinimizationVariables,sizeof(REAL));
   Gradient=(REAL*)calloc(NumberOfMinimizationVariables,sizeof(REAL));
   NumericalGradient=(REAL*)calloc(NumberOfMinimizationVariables,sizeof(REAL));
+
+  Hessian=CreateRealMatrix(NumberOfMinimizationVariables,NumberOfMinimizationVariables);
 
   CreateGeneralizedCoordinatesFromPositions(NumberOfCoordinatesMinimizationVariables,NumberOfCellMinimizationVariables,x);
   NumericallyComputeGradient(NumberOfCoordinatesMinimizationVariables,NumberOfCellMinimizationVariables,x,NumericalGradient);
@@ -984,6 +995,8 @@ void TestGradientsNumerically(void)
   free(NumericalGradient);
   free(Gradient);
   free(x);
+
+  DeleteRealMatrix(Hessian);
 }
 
 void TestHessianNumerically(void)
@@ -5165,13 +5178,12 @@ void AddRemainderOfCrossTermNumerically(REAL_MATRIX HessianMatrix)
 
 void AddRemainderOfBornTermNumerically(REAL_MATRIX HessianMatrix)
 {
-  REAL det;
   REAL_MATRIX3x3 StrainDerivativeCentral,StrainDerivativeForward1,StrainDerivativeForward2;
   REAL_MATRIX3x3 StrainDerivativeBackward1,StrainDerivativeBackward2;
-  REAL_MATRIX3x3 StoredBox,StoredReplicaBox,strain;
+  REAL_MATRIX3x3 StoredBox,strain;
   REAL_MATRIX9x9 StrainSecondDerivative;
   int StoredBoundaryCondition,StoreComputeBornTerm;
-  int n,ncell,k1,k2,k3;
+  int n;
   const REAL delta=1e-8;
   //int StoredBornTerm;
 

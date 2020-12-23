@@ -1100,7 +1100,7 @@ REAL CalculateFrameworkTorsionEnergy(int flag,int f2,int atom_id)
   VECTOR Dab,Dcb,Ddc,dr,ds;
   REAL dot_ab,dot_cd,r,s,sign;
   REAL CosPhi,Phi,CosPhi2,SinPhi,UHostTorsion;
-  REAL ShiftedCosPhi,ShiftedCosPhi2,ShiftedSinPhi;
+  REAL ShiftedCosPhi,ShiftedCosPhi2;
   VECTOR Pb,Pc;
   REAL *parms;
 
@@ -3934,7 +3934,7 @@ void CalculateEnergyDifferenceFrameworkMoveCharge(int atom_id)
 {
   int i,j,f1,typeA,typeB;
   int A1,A2,B1,B2;
-  REAL rr,r;
+  REAL rr;
   VECTOR dr,posB;
   VECTOR posA_new,posA_old;
   REAL chargeA,chargeB;
@@ -4226,7 +4226,7 @@ void CalculateFrameworkEnergyDifferenceShiftedFramework(void)
 {
   int i,j,f1,typeA,typeB;
   int A1,A2,B1,B2;
-  REAL rr,r,chargeA,chargeB;
+  REAL rr,chargeA,chargeB;
   VECTOR dr,posA_new,posA_old,posB,posA1,posA2,posB1,posB2;
   VECTOR dipoleB,dipoleA_new,dipoleA_old;
   REAL temp;
@@ -4436,7 +4436,6 @@ int CalculateFrameworkIntraReplicaVDWEnergy(void)
   VECTOR posA,posB,dr;
   int f1,f2,ncell,index_j;
   int A,B;
-  REAL r;
   REAL *parms;
 
   // Framework-Framework energy
@@ -4723,7 +4722,7 @@ int CalculateFrameworkAdsorbateReplicaChargeChargeEnergy(void)
 {
   int i,j,k,f1;
   int typeA,typeB,type;
-  REAL rr,r,chargeA,chargeB;
+  REAL rr,chargeA,chargeB;
   REAL energy,scaling;
   VECTOR posA,posB,dr;
   int ncell;
@@ -4784,7 +4783,7 @@ int CalculateFrameworkCationReplicaChargeChargeEnergy(void)
 {
   int i,j,k,f1;
   int typeA,typeB,type;
-  REAL rr,r,chargeA,chargeB;
+  REAL rr,chargeA,chargeB;
   REAL energy,scaling;
   VECTOR posA,posB,dr;
   int ncell;
@@ -6446,7 +6445,6 @@ int CalculateFrameworkAdsorbateBondDipoleBondDipoleEnergyDifference(int m,int co
 {
   int j,k,f1;
   int A1,A2,B1,B2;
-  REAL r;
   VECTOR posA_new,posA_old,posB,posA1,posA2,posB1,posB2,dr;
   REAL DipoleMagnitudeA,DipoleMagnitudeB;
   REAL ri2,rk2,rr,length,temp;
@@ -6536,7 +6534,7 @@ int CalculateFrameworkAdsorbateBondDipoleBondDipoleEnergyDifference(int m,int co
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
               if(rr<CutOffBondDipoleBondDipoleSquared)
-                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(r));
+                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(rr));
 
               dr.x=posA_old.x-(posB.x+ReplicaShift[ncell].x);
               dr.y=posA_old.y-(posB.y+ReplicaShift[ncell].y);
@@ -6545,7 +6543,7 @@ int CalculateFrameworkAdsorbateBondDipoleBondDipoleEnergyDifference(int m,int co
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
               if(rr<CutOffBondDipoleBondDipoleSquared)
-                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(r));
+                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(rr));
             }
           }
         }
@@ -6626,7 +6624,7 @@ int CalculateFrameworkAdsorbateBondDipoleBondDipoleEnergyDifference(int m,int co
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
               if(rr<CutOffBondDipoleBondDipoleSquared)
-                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(r));
+                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(rr));
             }
 
             if(Old)
@@ -6638,7 +6636,7 @@ int CalculateFrameworkAdsorbateBondDipoleBondDipoleEnergyDifference(int m,int co
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
               if(rr<CutOffBondDipoleBondDipoleSquared)
-                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(r));
+                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(rr));
             }
           }
         }
@@ -6677,7 +6675,6 @@ int CalculateFrameworkCationBondDipoleBondDipoleEnergyDifference(int m,int comp,
 {
   int j,k,f1;
   int A1,A2,B1,B2;
-  REAL r;
   VECTOR posA_new,posA_old,posB,posA1,posA2,posB1,posB2,dr;
   REAL DipoleMagnitudeA,DipoleMagnitudeB;
   REAL ri2,rk2,rr,length,temp;
@@ -6767,7 +6764,7 @@ int CalculateFrameworkCationBondDipoleBondDipoleEnergyDifference(int m,int comp,
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
               if(rr<CutOffBondDipoleBondDipoleSquared)
-                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(r));
+                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(rr));
 
               dr.x=posA_old.x-(posB.x+ReplicaShift[ncell].x);
               dr.y=posA_old.y-(posB.y+ReplicaShift[ncell].y);
@@ -6776,7 +6773,7 @@ int CalculateFrameworkCationBondDipoleBondDipoleEnergyDifference(int m,int comp,
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
               if(rr<CutOffBondDipoleBondDipoleSquared)
-                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(r));
+                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(rr));
             }
           }
         }
@@ -6857,7 +6854,7 @@ int CalculateFrameworkCationBondDipoleBondDipoleEnergyDifference(int m,int comp,
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
               if(rr<CutOffBondDipoleBondDipoleSquared)
-                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(r));
+                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(rr));
             }
 
             if(Old)
@@ -6869,7 +6866,7 @@ int CalculateFrameworkCationBondDipoleBondDipoleEnergyDifference(int m,int comp,
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
               if(rr<CutOffBondDipoleBondDipoleSquared)
-                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(r));
+                UHostBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(rr));
             }
           }
         }
@@ -6880,17 +6877,13 @@ int CalculateFrameworkCationBondDipoleBondDipoleEnergyDifference(int m,int comp,
 }
 
 
-
-
-//HERE
 int CalculateFrameworkAdsorbateVDWEnergyDifferenceRXCM(int reaction,REAL Lambda1,REAL Lambda2,REAL LambdaNew,int **LambdaRetraceMolecules,int direction)
 {
   int i,j,k,l,m,f1;
   int typeA,typeB;
   REAL rr,energy,scalingA_new,scalingA_old;
   VECTOR posA,posB,dr;
-  int TypeMolA,TypeMolB;
-  int ncell;
+  int TypeMolA;
   int NumberOfRXMCMolecules;
   int RXMCMoleculeNumbers[256];
   int RXMCMoleculeType[256];
@@ -6998,18 +6991,17 @@ int CalculateFrameworkAdsorbateVDWEnergyDifferenceRXCM(int reaction,REAL Lambda1
       }
     }
   }
+  return FALSE;
 }
 
 int CalculateFrameworkAdsorbateVDWEnergyDifferenceNewRXCM(int reaction,REAL LambdaNew,int direction)
 {
   int i,j,k,l,f1;
-  int indexA,indexB;
   int typeA,typeB;
-  int TypeMolA,TypeMolB;
+  int TypeMolA;
   REAL rr,energy;
   VECTOR posA,posB,dr;
-  REAL scalingA_new,scalingB;
-  REAL scalingB_new;
+  REAL scalingA_new;
   int NumberOfRXMCMolecules;
   int RXMCMoleculeNumbers[256];
   int RXMCMoleculeType[256];
@@ -7084,16 +7076,15 @@ int CalculateFrameworkAdsorbateVDWEnergyDifferenceNewRXCM(int reaction,REAL Lamb
       }
     }
   }
+  return FALSE;
 }
 
 int CalculateFrameworkAdsorbateChargeChargeEnergyDifferenceRXCM(int reaction,REAL Lambda1,REAL Lambda2,REAL LambdaNew,int **LambdaRetraceMolecules,int direction)
 {
   int i,j,k,l,m,f1;
-  int typeA,typeB;
   REAL rr,energy,scalingA_new,scalingA_old;
   VECTOR posA,posB,dr;
-  int TypeMolA,TypeMolB;
-  int ncell;
+  int TypeMolA;
   int NumberOfRXMCMolecules;
   int RXMCMoleculeNumbers[256];
   int RXMCMoleculeType[256];
@@ -7204,18 +7195,16 @@ int CalculateFrameworkAdsorbateChargeChargeEnergyDifferenceRXCM(int reaction,REA
       }
     }
   }
+  return FALSE;
 }
 
 int CalculateFrameworkAdsorbateChargeChargeEnergyDifferenceNewRXCM(int reaction,REAL LambdaNew,int direction)
 {
   int i,j,k,l,f1;
-  int indexA,indexB;
-  int typeA,typeB;
-  int TypeMolA,TypeMolB;
+  int TypeMolA;
   REAL rr,energy;
   VECTOR posA,posB,dr;
-  REAL scalingA_new,scalingB;
-  REAL scalingB_new;
+  REAL scalingA_new;
   int NumberOfRXMCMolecules;
   int RXMCMoleculeNumbers[256];
   int RXMCMoleculeType[256];
@@ -7290,6 +7279,7 @@ int CalculateFrameworkAdsorbateChargeChargeEnergyDifferenceNewRXCM(int reaction,
       }
     }
   }
+  return FALSE;
 }
 
 

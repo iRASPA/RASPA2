@@ -3310,7 +3310,7 @@ void InsertCationMolecule(void)
   nr_atoms=Components[CurrentComponent].NumberOfAtoms;
   NumberOfAtomsPerSystem[CurrentSystem]+=nr_atoms;
   NumberOfChargesPerSystem[CurrentSystem]+=Components[CurrentComponent].NumberOfCharges;
-  NumberOfBondDipolesPerSystem[CurrentSystem]+=Components[CurrentComponent].NumberOfAtoms;
+  NumberOfBondDipolesPerSystem[CurrentSystem]+=Components[CurrentComponent].NumberOfBondDipoles;
 
   // update the maximum amount of atoms (maximum over all systems)
   LargestNumberOfCoulombicSites=NumberOfChargesPerSystem[CurrentSystem];

@@ -2058,11 +2058,11 @@ void ReadFrameworkDefinitionCIF(void)
 
 void WriteFrameworkDefinitionShell(char * string)
 {
-  int i,j;
+  int i;
   int Type;
   VECTOR pos;
   char symbol[256];
-  char buffer[256],name[256];
+  char buffer[256];
   FILE *FilePtr;
 
   mkdir("Movies",S_IRWXU);
@@ -6248,7 +6248,6 @@ int BlockedPocket(VECTOR pos)
   int i;
   VECTOR dr;
   REAL r;
-  int blocked;
 
   if(NumberOfComponents==0) return FALSE;
 
@@ -6880,7 +6879,6 @@ void AddTorsionTypeToDefinitions(int TypeA,int TypeB,int TypeC,int TypeD,int Tor
 {
   int i,j,index;
   int AlreadyPresent;
-  int CompareParameters;
   int NumberOfArguments;
   REAL parameters[10];
 
@@ -6971,7 +6969,6 @@ void AddImproperTorsionTypeToDefinitions(int TypeA,int TypeB,int TypeC,int TypeD
 {
   int i,j,index;
   int AlreadyPresent;
-  int CompareParameters;
   int NumberOfArguments;
   REAL parameters[10];
 
@@ -7067,21 +7064,18 @@ void AddImproperTorsionTypeToDefinitions(int TypeA,int TypeB,int TypeC,int TypeD
 
 void ReadFrameworkSpecificDefinition(void)
 {
-  int i,j,k,l,m,n,f1,index_excluded,present,nr_atoms;
-  char line[16384],string[1024],buffer[256];
-  char keyword[1024],arguments[16384],firstargument[1024],*arg_pointer;
-  int A,B,C,D,A1,B1,C1,TypeA,TypeB,TypeC,TypeD,CurrentTypeA,CurrentTypeB,CurrentTypeC,CurrentTypeD,index,index2,ListTypeC,ListTypeD;
-  char TypeNameA[256],TypeNameB[256],TypeNameC[256],TypeNameD[256];
+  int i,j;
+  char line[16384],buffer[256];
+  char keyword[1024],arguments[16384],firstargument[1024];
+  int A,B,C,D,TypeA,TypeB,TypeC,TypeD,index,index2;
+  char TypeNameA[256],TypeNameB[256];
   REAL potential_arguments[10];
   int NumberOfAtoms,NumberOfBonds,NumberOfBends,NumberOfTorsions,NumberOfVDW;
   int NumberOfArguments;
-  int BondType=0,BendType=0,TorsionType=0,InversionBendType=0,ImproperTorsionType=0;
-  int BondBondType=0,BondBendType=0,BendBendType=0,BondTorsionType=0,BendTorsionType=0;
-  REAL r,rab,rbc,theta;
+  int BondType=0,BendType=0,TorsionType=0,ImproperTorsionType=0;
   double temp;
-  VECTOR Rab,Rbc,dr;
   FILE *FilePtr;
-  int int_temp1,int_temp2;
+  int int_temp2;
   REAL UnitConverter;
 
   UnitConverter=KELVIN_TO_ENERGY;
@@ -7964,8 +7958,6 @@ int ReadFrameworkDefinition(void)
   double temp;
   VECTOR Rab,Rbc,dr;
   FILE *FilePtr;
-  int int_temp1,int_temp2;
-  char string[256];
 
   // Create an initial connectivity list
   // Based on the connectivity and defined rules the type of an atom can be modified (e.g. oxygen connected to an aluminum)

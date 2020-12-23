@@ -2320,7 +2320,6 @@ int CalculateTotalInterBondDipoleBondDipoleCoulombEnergy(void)
 int CalculateInterVDWEnergyDifferenceAdsorbateNewRXCM(int reaction,REAL LambdaNew,int direction)
 {
   int i,j,k,l;
-  int indexA,indexB;
   int typeA,typeB;
   int TypeMolA,TypeMolB;
   REAL rr,energy;
@@ -2471,7 +2470,7 @@ int CalculateInterVDWEnergyDifferenceAdsorbateNewRXCM(int reaction,REAL LambdaNe
       }
     }
   }
-
+  return FALSE;
 }
 
 
@@ -2483,7 +2482,6 @@ int CalculateInterVDWEnergyDifferenceAdsorbateRXCM(int reaction,REAL Lambda1,REA
   REAL scalingB_new,scalingB_old;
   VECTOR posA,posB,dr;
   int TypeMolA,TypeMolB;
-  int ncell;
   int NumberOfRXMCMolecules;
   int RXMCMoleculeNumbers[256];
   int RXMCMoleculeType[256];
@@ -2674,6 +2672,7 @@ int CalculateInterVDWEnergyDifferenceAdsorbateRXCM(int reaction,REAL Lambda1,REA
       }
     }
   }
+  return FALSE;
 }
 
 
@@ -2685,7 +2684,6 @@ int CalculateInterVDWEnergyDifferenceAdsorbateRXCM(int reaction,REAL Lambda1,REA
 int CalculateInterChargeChargeEnergyDifferenceAdsorbateNewRXCM(int reaction,REAL LambdaNew,int direction)
 {
   int i,j,k,l;
-  int indexA,indexB;
   int typeA,typeB;
   int TypeMolA,TypeMolB;
   REAL rr,energy;
@@ -2836,6 +2834,7 @@ int CalculateInterChargeChargeEnergyDifferenceAdsorbateNewRXCM(int reaction,REAL
       }
     }
   }
+  return FALSE;
 }
 
 
@@ -2847,7 +2846,6 @@ int CalculateInterChargeChargeEnergyDifferenceAdsorbateRXCM(int reaction,REAL La
   REAL scalingB_new,scalingB_old;
   VECTOR posA,posB,dr;
   int TypeMolA,TypeMolB;
-  int ncell;
   int NumberOfRXMCMolecules;
   int RXMCMoleculeNumbers[256];
   int RXMCMoleculeType[256];
@@ -3042,6 +3040,7 @@ int CalculateInterChargeChargeEnergyDifferenceAdsorbateRXCM(int reaction,REAL La
       }
     }
   }
+  return FALSE;
 }
 
 
@@ -4754,7 +4753,6 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceAdsorbate(int m,int comp,i
   int j,k,l;
   int A1,A2,B1,B2;
   int TypeB;
-  REAL r;
   VECTOR posA_new,posA_old,posB,posA1,posA2,posB1,posB2,dr;
   REAL DipoleMagnitudeA,DipoleMagnitudeB;
   REAL ri2,rk2,rr,length,temp;
@@ -4850,7 +4848,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceAdsorbate(int m,int comp,i
                   rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
                   if(rr<CutOffBondDipoleBondDipoleSquared)
-                    UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(r));
+                    UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(rr));
                 }
               }
 
@@ -4865,7 +4863,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceAdsorbate(int m,int comp,i
                   rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
                   if(rr<CutOffBondDipoleBondDipoleSquared)
-                    UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(r));
+                    UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(rr));
                 }
               }
             }
@@ -4907,7 +4905,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceAdsorbate(int m,int comp,i
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
               if(rr<CutOffBondDipoleBondDipoleSquared)
-                UCationBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(r));
+                UCationBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(rr));
             }
           }
 
@@ -4922,7 +4920,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceAdsorbate(int m,int comp,i
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
               if(rr<CutOffBondDipoleBondDipoleSquared)
-                UCationBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(r));
+                UCationBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(rr));
             }
           }
         }
@@ -5009,7 +5007,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceAdsorbate(int m,int comp,i
                 rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
                 if(rr<CutOffBondDipoleBondDipoleSquared)
-                  UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(r));
+                  UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(rr));
               }
 
               if(Old)
@@ -5021,7 +5019,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceAdsorbate(int m,int comp,i
                 rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
                 if(rr<CutOffBondDipoleBondDipoleSquared)
-                  UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(r));
+                  UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(rr));
               }
             }
           }
@@ -5060,7 +5058,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceAdsorbate(int m,int comp,i
             rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
             if(rr<CutOffBondDipoleBondDipoleSquared)
-              UCationBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(r));
+              UCationBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(rr));
           }
 
           if(Old)
@@ -5072,7 +5070,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceAdsorbate(int m,int comp,i
             rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
             if(rr<CutOffBondDipoleBondDipoleSquared)
-              UCationBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(r));
+              UCationBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(rr));
           }
         }
       }
@@ -5673,7 +5671,6 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceCation(int m,int comp,int 
   int j,k,l;
   int A1,A2,B1,B2;
   int TypeB;
-  REAL r;
   VECTOR posA_new,posA_old,posB,posA1,posA2,posB1,posB2,dr;
   REAL DipoleMagnitudeA,DipoleMagnitudeB;
   REAL ri2,rk2,rr,length,temp;
@@ -5769,7 +5766,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceCation(int m,int comp,int 
                   rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
                   if(rr<CutOffBondDipoleBondDipoleSquared)
-                    UCationBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(r));
+                    UCationBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(rr));
                 }
               }
 
@@ -5784,7 +5781,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceCation(int m,int comp,int 
                   rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
                   if(rr<CutOffBondDipoleBondDipoleSquared)
-                    UCationBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(r));
+                    UCationBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(rr));
                 }
               }
             }
@@ -5826,7 +5823,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceCation(int m,int comp,int 
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
               if(rr<CutOffBondDipoleBondDipoleSquared)
-                UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(r));
+                UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(rr));
             }
           }
 
@@ -5841,7 +5838,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceCation(int m,int comp,int 
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
               if(rr<CutOffBondDipoleBondDipoleSquared)
-                UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(r));
+                UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(rr));
             }
           }
         }
@@ -5928,7 +5925,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceCation(int m,int comp,int 
                 rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
                 if(rr<CutOffBondDipoleBondDipoleSquared)
-                  UCationBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(r));
+                  UCationBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(rr));
               }
 
               if(Old)
@@ -5940,7 +5937,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceCation(int m,int comp,int 
                 rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
                 if(rr<CutOffBondDipoleBondDipoleSquared)
-                  UCationBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(r));
+                  UCationBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(rr));
               }
             }
           }
@@ -5979,7 +5976,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceCation(int m,int comp,int 
             rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
             if(rr<CutOffBondDipoleBondDipoleSquared)
-              UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(r));
+              UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]+=PotentialValueBondDipoleBondDipole(dipoleA_new,dipoleB,dr,sqrt(rr));
           }
 
           if(Old)
@@ -5991,7 +5988,7 @@ int CalculateInterBondDipoleBondDipoleEnergyDifferenceCation(int m,int comp,int 
             rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
             if(rr<CutOffBondDipoleBondDipoleSquared)
-              UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(r));
+              UAdsorbateBondDipoleBondDipoleRealDelta[CurrentSystem]-=PotentialValueBondDipoleBondDipole(dipoleA_old,dipoleB,dr,sqrt(rr));
           }
         }
       }

@@ -219,7 +219,6 @@ int ReadInput(char *input)
   int StartingBead,Swapable,A1,B1;
   char string[1024],keyword[1024],firstargument[1024],arguments[16384];
   char *line,*tokptr,*arg_pointer,*tmp;
-  int linesize = 0;
   REAL det,r;
   REAL A,B,C,tempd;
   int temp_int;
@@ -8806,7 +8805,7 @@ void ReadRestartFile(void)
         {
           MaximumTranslation[CurrentSystem][int_temp1].x=temp1;
           MaximumTranslation[CurrentSystem][int_temp1].y=temp2;
-          MaximumTranslation[CurrentSystem][int_temp1].x=temp3;
+          MaximumTranslation[CurrentSystem][int_temp1].z=temp3;
         }
       }
 
@@ -8838,7 +8837,7 @@ void ReadRestartFile(void)
         {
           MaximumTranslationInPlane[CurrentSystem][int_temp1].x=temp1;
           MaximumTranslationInPlane[CurrentSystem][int_temp1].y=temp2;
-          MaximumTranslationInPlane[CurrentSystem][int_temp1].x=temp3;
+          MaximumTranslationInPlane[CurrentSystem][int_temp1].z=temp3;
         }
       }
 

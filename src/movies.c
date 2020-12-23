@@ -487,8 +487,6 @@ void WriteVTK(int system)
   fprintf(FilePtr,"DATASET POLYDATA\n");
   fprintf(FilePtr,"POINTS 8 float\n");
 
-  REAL y=0.5;
-
   C.x=0.0;
   C.y=0.0;
   C.z=0.0;
@@ -1885,7 +1883,7 @@ REAL RosenBinSumSquared[NR_BINS+1];
 
 void FreeEnergyProfile3D(void)
 {
-  int i,j,k,l;
+  int i;
   int x,y,z,typeA,index,temp,start;
   REAL value,min,max;
   POINT C;

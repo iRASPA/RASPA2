@@ -189,9 +189,6 @@ static int *IntraChargeBondDipole;         // a list if intra-Charge-BondDipoles
 static int NumberOfIntraBondDipoleBondDipole;  // the number of intra-BondDipoles around the current-bead
 static int *IntraBondDipoleBondDipole;         // a list if intra-BondDipoles ids
 
-static int NumberOfIntraPermanentDipoles;
-static int *IntraPermanentDipoles;
-
 // grow energies
 REAL *UBondNew;
 REAL *UBendNew;
@@ -318,18 +315,9 @@ static REAL EnergyCationChargeChargeFirstBead;
 static REAL EnergyHostChargeBondDipoleFirstBead;
 static REAL EnergyAdsorbateChargeBondDipoleFirstBead;
 static REAL EnergyCationChargeBondDipoleFirstBead;
-static REAL EnergyHostChargePermanentDipoleFirstBead;
-static REAL EnergyAdsorbateChargePermanentDipoleFirstBead;
-static REAL EnergyCationChargePermanentDipoleFirstBead;
 static REAL EnergyHostBondDipoleBondDipoleFirstBead;
 static REAL EnergyAdsorbateBondDipoleBondDipoleFirstBead;
 static REAL EnergyCationBondDipoleBondDipoleFirstBead;
-static REAL EnergyHostBondDipolePermanentDipoleFirstBead;
-static REAL EnergyAdsorbateBondDipolePermanentDipoleFirstBead;
-static REAL EnergyCationBondDipolePermanentDipoleFirstBead;
-static REAL EnergyHostPermanentDipolePermanentDipoleFirstBead;
-static REAL EnergyAdsorbatePermanentDipolePermanentDipoleFirstBead;
-static REAL EnergyCationPermanentDipolePermanentDipoleFirstBead;
 
 static REAL *ShiftedBoltzmannFactors;
 static VECTOR *Trial;
@@ -3187,9 +3175,7 @@ REAL GrowMolecule(int Iicode)
 void GrowReservoirMolecule(void)
 {
   int j,k;
-  REAL PreFactor;
   REAL accepted,rejected;
-  int StartingBead;
   int FrameworkModel;
   int OmitInterMolecularInteractionsStored;
   int OmitInterMolecularVDWInteractionsStored;
@@ -3288,9 +3274,8 @@ void GrowReservoirMolecule(void)
 void GrowReservoirMolecules(int reaction)
 {
   int j,k,n;
-  REAL PreFactor;
   REAL accepted,rejected;
-  int StartingBead,mol_index;
+  int mol_index;
   int FrameworkModel;
   int OmitInterMolecularInteractionsStored;
   int OmitInterMolecularVDWInteractionsStored;
@@ -3398,9 +3383,8 @@ void GrowReservoirMolecules(int reaction)
 void GrowReservoirMolecules2(int reaction)
 {
   int j,k,n;
-  REAL PreFactor;
   REAL accepted,rejected;
-  int StartingBead,mol_index;
+  int mol_index;
   int FrameworkModel;
   int OmitInterMolecularInteractionsStored;
   int OmitInterMolecularVDWInteractionsStored;

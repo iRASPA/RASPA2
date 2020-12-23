@@ -31,4 +31,11 @@
  OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************/
 
+extern bool STREAM;
+extern char *INPUT_CRYSTAL;
+extern char *PORE_SIZE_DISTRIBUTION_OUTPUT;
+extern size_t PORE_SIZE_DISTRIBUTION_OUTPUT_SIZE;
+extern char **FILE_CONTENTS;
+extern size_t *FILE_SIZES;
+
 char* run(char *inputData, char *inputCrystal, char *raspaDir, bool stream);

@@ -5843,7 +5843,7 @@ void ComputeDampingCoefficientsSecondDerivatives(REAL r, REAL b,REAL *f6,REAL *f
 
 REAL PotentialValue(int typeA,int typeB,REAL rr,REAL scaling)
 {
-  REAL r,U,rri3,rri3_2,rri5;
+  REAL r,rri3,rri3_2,rri5;
   REAL arg1,arg2,arg3,arg4,arg5,arg6,arg7;
   REAL ri6,ri9;
   REAL exp1,exp2,exp_term,P;
@@ -11738,7 +11738,6 @@ void CalculateTailCorrection(void)
 REAL TailMolecularEnergyDifferenceRXMX(int reaction,int direction)
 {
   int i,j,k,l;
-  int nr_atoms;
   REAL energy_new,energy_old;
 
   for(i=0;i<NumberOfPseudoAtoms;i++)
@@ -11982,7 +11981,7 @@ REAL BiasingPotential(int i,VECTOR pos)
   REAL Derivatives[5];
   VECTOR s;
   VECTOR dr;
-  REAL q;
+  REAL q=0;
 
   F=0.0;
   if(Components[i].Biased!=NO_BIASING)
@@ -12975,9 +12974,10 @@ void PotentialSecondDerivativeCoulombic(REAL chargeA,REAL chargeB,REAL rr,REAL *
 void PotentialElectricFieldBondDipoleBondDipole(VECTOR dipoleA,VECTOR dipoleB,VECTOR dr,REAL rr,VECTOR *termA,VECTOR *termB)
 {
   REAL r;
-  REAL U,Bt0,Bt1,Bt2;
+  REAL Bt0,Bt1,Bt2;
   REAL cosA,cosB;
   REAL SwitchingValue,SwitchingValueDerivative;
+  REAL U=0;
 
   r=sqrt(rr);
 
@@ -13051,11 +13051,12 @@ void PotentialElectricFieldBondDipoleBondDipole(VECTOR dipoleA,VECTOR dipoleB,VE
 
 void PotentialGradientInducedDipoleInducedDipole(VECTOR dipoleA,VECTOR dipoleB,VECTOR dr,REAL rr,REAL *energy,VECTOR *term)
 {
-  REAL r;
   REAL U,Bt0,Bt1,Bt2,Bt3;
   REAL cosA,cosB,cosAB;
   REAL SwitchingValue,SwitchingValueDerivative;
-  VECTOR termA,termB;
+  REAL r;
+
+  r=sqrt(rr);
 
   switch(ChargeMethod)
   {

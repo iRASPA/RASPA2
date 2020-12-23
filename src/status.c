@@ -992,6 +992,7 @@ REAL PrintTorsionEnergyStatus(int nr,char *string,int TorsionType,REAL *parms,RE
       // p_2     [-]
       // p_3     [rad]
       // p_4     [rad]
+      U=0;
       break;
     case CFF_DIHEDRAL:
       // p_0*(1-cos(phi))+p_1*(1-cos(2*phi))+p_2*(1-cos(3*phi))

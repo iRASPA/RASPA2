@@ -48,3 +48,12 @@ make
 make install  
 ```
 
+Conda-forge
+===========
+raspa2 is now on conda-forge (done by Leopold Talirz); in order to install on linux or macos:
+
+```
+conda install -c conda-forge raspa2
+export RASPA_DIR=/path/to/environment/root
+# e.g. /Users/leopold/Applications/miniconda3/envs/raspa-env
+```

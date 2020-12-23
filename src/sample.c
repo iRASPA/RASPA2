@@ -2604,7 +2604,6 @@ void SampleFreeEnergyProfile(int Switch)
   REAL q;
   int StoredNumberOfTrialPositions;
   int StoredNumberOfTrialPositionsFirstBead;
-  REAL UDeltaPolarization;
 
   switch(Switch)
   {
@@ -3449,7 +3448,7 @@ void SamplePoreSizeDistribution(int Switch)
   REAL Radius,LargestRadius,rr,r;
   REAL deltaR;
   FILE *FilePtr;
-  REAL temp,deriv;
+  REAL deriv;
   REAL left,mid,right;
   char buffer[256];
 
@@ -8412,7 +8411,6 @@ VECTOR GetOrientationalVectorAdsorbates(int i)
 {
   int last;
   VECTOR orientation;
-  VECTOR com,t;
   REAL r;
   REAL_MATRIX3x3 M;
 
@@ -8450,7 +8448,6 @@ VECTOR GetOrientationalVectorCations(int i)
 {
   int last;
   VECTOR orientation;
-  VECTOR com,t;
   REAL r;
   REAL_MATRIX3x3 M;
 
@@ -8679,10 +8676,8 @@ void SampleMolecularOrientationAutoCorrelationFunctionOrderN(int Switch)
 VECTOR BondOrientation(int system,int f1,int i,int j)
 {
   int A,B;
-  VECTOR posA,posB,dr;
-  VECTOR CosTheta,factor;
+  VECTOR posA,posB;
   VECTOR orientation;
-  VECTOR e1,e2,e3;
   REAL rr,r;
 
   A=OrientationFrameworkBondPairs[system][f1][i][j].A;
@@ -8727,8 +8722,7 @@ void SampleBondOrientationAutoCorrelationFunctionOrderN(int Switch)
   FILE *FilePtr;
   char buffer[256];
   REAL fac,dt,count,value_dir_avg;
-  int A,B,f1,index;
-  int typeA,typeB;
+  int f1,index;
   int NumberOfTypes;
   REAL angle;
 
@@ -9562,7 +9556,7 @@ void SampleVelocityAutoCorrelationFunction(int Switch)
  *********************************************************************************************************/
 void SampleCOMDensityProfile3DVTKGrid(int Switch)
 {
-  int i,j,k,l,index,size,A,f;
+  int i,j,k,l,index,size,A;
   int x,y,z,Type;
   int k1,k2,k3;
   VECTOR pos;

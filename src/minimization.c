@@ -2782,6 +2782,8 @@ void ComputeDerivative(int np,int nb,REAL *x,REAL* Energy,REAL *Gradient,REAL_MA
   for(i=0;i<np+nb;i++)
     Gradient[i]=0.0;
 
+  Hessian=CreateRealMatrix(np+nb,np+nb);
+
   StrainFirstDerivative->ax=0.0; StrainFirstDerivative->bx=0.0; StrainFirstDerivative->cx=0.0;
   StrainFirstDerivative->ay=0.0; StrainFirstDerivative->by=0.0; StrainFirstDerivative->cy=0.0;
   StrainFirstDerivative->az=0.0; StrainFirstDerivative->bz=0.0; StrainFirstDerivative->cz=0.0;
@@ -2799,9 +2801,9 @@ void ComputeDerivative(int np,int nb,REAL *x,REAL* Energy,REAL *Gradient,REAL_MA
 
   // project the constraints from the gradient and Hessian
   ProjectConstraintsFromHessianMatrix(np,nb,Gradient,Hessian,TRUE,FALSE);
+
+  DeleteRealMatrix(Hessian);
 }
-
-
 
 void ComputeDerivativesMinimization(int np,int nb,REAL *x,REAL* Energy,REAL *Gradient,REAL_MATRIX Hessian,REAL_MATRIX3x3 *StrainFirstDerivative)
 {
@@ -2997,13 +2999,6 @@ void ConvertGradientFromCartesianToFractional(REAL *Gradient)
 // correct for using fractional coordinates instead of Cartesian positions
 void ConvertHessianFromCartesianToFractional(int np,int nb,REAL *Gradient,REAL_MATRIX Hessian)
 {
-  int I,J,ig,jg,ia,ja,i,j;
-  int f1,f2;
-  INT_VECTOR3 index_i,index_j,index;
-  int m,l,A,Type;
-  VECTOR grad,fgrad;
-  REAL_MATRIX3x3 H,fH,tempBox;
-  int TypeMolA,TypeMolB;
 
 /*
   // correct the gradient
@@ -3833,7 +3828,7 @@ void BakerSaddlePointSearch(int np,int nb,REAL *x,int run)
   fflush(OutputFilePtr[CurrentSystem]);
 
   dx=(REAL*)calloc(NumberOfVariables,sizeof(REAL));
-  Gradient=(REAL*)calloc(NumberOfVariables,sizeof(REAL));  // CHECK
+  Gradient=(REAL*)calloc(NumberOfVariables,sizeof(REAL));
   GX=(REAL*)calloc(NumberOfVariables,sizeof(REAL));
   MODVEC=(REAL*)calloc(NumberOfVariables,sizeof(REAL));
   EigenValues=(REAL*)calloc(NumberOfVariables,sizeof(REAL));
@@ -3969,6 +3964,14 @@ void BakerSaddlePointSearch(int np,int nb,REAL *x,int run)
       SamplePDBMovies(SAMPLE,run);
   }
   SamplePDBMovies(FINALIZE,run);
+
+
+  free(dx);
+  free(Gradient);
+  free(GX);
+  free(MODVEC);
+  free(EigenValues);
+  DeleteRealMatrix(HessianMatrix);
 }
 
 
@@ -5440,6 +5443,9 @@ void ComputeElasticConstantsAfterMinimization(int np,int nb,REAL *x)
       }
     }
   }
+  free(Gradient);
+  free(EigenValues);
+  DeleteRealMatrix(HessianMatrix);
 }
 
 // Articles:

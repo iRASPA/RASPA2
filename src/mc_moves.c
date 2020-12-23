@@ -1098,7 +1098,6 @@ int ComputeNewPolarizationEnergy(int New,int excl_ads,int excl_cation)
 
 REAL ComputeEnergyOfFractionalMoleculesAdsorbates()
 {
-  int i;
   REAL DeltaU;
   int StoredCurrentComponent;
  
@@ -1150,7 +1149,6 @@ REAL ComputeEnergyOfFractionalMoleculesAdsorbates()
 
 REAL ComputeEnergyOfFractionalMoleculesCations()
 {
-  int i;
   REAL DeltaU;
   int StoredCurrentComponent;
  
@@ -6298,7 +6296,7 @@ void PrintReinsertionInPlaneStatistics(FILE *FilePtr)
 
 int IdentityChangeAdsorbateMove(void)
 {
-  int i,d,nr_atoms,type;
+  int i,d;
   int OldComponent,NewComponent;
   int StartingBeadOld,StartingBeadNew;
   REAL RosenbluthOld,RosenbluthNew,TailCorrectionDiff;
@@ -6605,7 +6603,7 @@ int IdentityChangeAdsorbateMove(void)
 
 int IdentityChangeCationMove(void)
 {
-  int i,d,nr_atoms,type;
+  int i,d;
   int OldComponent,NewComponent;
   int StartingBeadOld,StartingBeadNew;
   REAL RosenbluthOld,RosenbluthNew,UTailOld,UTailNew;
@@ -8048,7 +8046,6 @@ int CFWidomLambaAdsorbateMove(void)
 {
   int i;
   REAL vNew;
-  REAL RosenbluthNew,RosenbluthOld;
   int FractionalMolecule,index_old,index_new;
   REAL DeltaU,DeltaUFirstStep;
   REAL UAdsorbateVDWDeltaFirstStep,UHostVDWDeltaFirstStep,UCationVDWDeltaFirstStep;
@@ -8065,13 +8062,8 @@ int CFWidomLambaAdsorbateMove(void)
   REAL UCationChargeChargeRealDeltaFirstStep,UCationChargeBondDipoleRealDeltaFirstStep;
   REAL UCationBondDipoleBondDipoleRealDeltaFirstStep,UAdsorbateCationChargeChargeFourierDeltaFirstStep;
   REAL UAdsorbateCationChargeBondDipoleFourierDeltaFirstStep,UAdsorbateCationBondDipoleBondDipoleFourierDeltaFirstStep;
-  REAL UAdsorbateBondFirstStep,UAdsorbateUreyBradleyFirstStep,UAdsorbateBendFirstStep,UAdsorbateBendBendFirstStep;
-  REAL UAdsorbateInversionBendFirstStep,UAdsorbateTorsionFirstStep,UAdsorbateImproperTorsionFirstStep;
-  REAL UAdsorbateBondBondFirstStep,UAdsorbateBondBendFirstStep,UAdsorbateBondTorsionFirstStep;
-  REAL UAdsorbateBendTorsionFirstStep,UAdsorbateIntraVDWFirstStep;
-  REAL UAdsorbateIntraChargeChargeFirstStep,UAdsorbateIntraChargeBondDipoleFirstStep,UAdsorbateIntraBondDipoleBondDipoleFirstStep;
   int SelectedRetraceMolecule;
-  REAL PartialFugacity,LambdaNew,LambdaOld,BiasNew,BiasOld,UTailDelta;
+  REAL LambdaNew,LambdaOld,BiasNew,BiasOld;
   REAL LambdaOldFractionalMoleculeStored;
 
   FractionalMolecule=Components[CurrentComponent].FractionalMolecule[CurrentSystem];
@@ -8318,7 +8310,6 @@ int CFWidomLambaCationMove(void)
 {
   int i;
   REAL vNew;
-  REAL RosenbluthNew,RosenbluthOld;
   int FractionalMolecule,index_old,index_new;
   REAL DeltaU,DeltaUFirstStep;
   REAL UCationVDWDeltaFirstStep,UHostVDWDeltaFirstStep,UAdsorbateVDWDeltaFirstStep;
@@ -8335,13 +8326,8 @@ int CFWidomLambaCationMove(void)
   REAL UAdsorbateChargeChargeRealDeltaFirstStep,UAdsorbateChargeBondDipoleRealDeltaFirstStep;
   REAL UAdsorbateBondDipoleBondDipoleRealDeltaFirstStep,UAdsorbateCationChargeChargeFourierDeltaFirstStep;
   REAL UAdsorbateCationChargeBondDipoleFourierDeltaFirstStep,UAdsorbateCationBondDipoleBondDipoleFourierDeltaFirstStep;
-  REAL UCationBondFirstStep,UCationUreyBradleyFirstStep,UCationBendFirstStep,UCationBendBendFirstStep;
-  REAL UCationInversionBendFirstStep,UCationTorsionFirstStep,UCationImproperTorsionFirstStep;
-  REAL UCationBondBondFirstStep,UCationBondBendFirstStep,UCationBondTorsionFirstStep;
-  REAL UCationBendTorsionFirstStep,UCationIntraVDWFirstStep;
-  REAL UCationIntraChargeChargeFirstStep,UCationIntraChargeBondDipoleFirstStep,UCationIntraBondDipoleBondDipoleFirstStep;
   int SelectedRetraceMolecule;
-  REAL PartialFugacity,LambdaNew,LambdaOld,BiasNew,BiasOld,UTailDelta;
+  REAL LambdaNew,LambdaOld,BiasNew,BiasOld;
   REAL LambdaOldFractionalMoleculeStored;
 
   FractionalMolecule=Components[CurrentComponent].FractionalMolecule[CurrentSystem];
@@ -8632,7 +8618,6 @@ void PrintCFWidomLambdaStatistics(FILE *FilePtr)
   REAL extrapolatedValueFirstOrder;
   REAL extrapolatedValueSecondOrder;
   REAL a,b,c,y,B;
-  REAL value,minimum;
   REAL referenceValue;
   REAL idealGasValue;
   int lastIndex,preLastindex,prePreLastindex;
@@ -8741,12 +8726,11 @@ void PrintCFWidomLambdaStatistics(FILE *FilePtr)
 
 REAL GibbsWidomAdsorbateMove(void)
 {
-  int i,k;
+  int i;
   REAL RosenbluthNew,UTailNew,DeltaU;
   int StoredNumberOfTrialPositions;
   int StoredNumberOfTrialPositionsFirstBead;
   int NumberOfMolecules;
-  int FractionalMolecule;
   REAL UCFMCAdsorbate;
   REAL weight;
 
@@ -10328,7 +10312,7 @@ int ParallelTemperingMove(void)
     }
 
     for(f1=0;f1<Framework[SystemA].NumberOfFrameworks;f1++)
-      if((Framework[CurrentSystem].FrameworkModels[f1]==FLEXIBLE))
+      if(Framework[CurrentSystem].FrameworkModels[f1]==FLEXIBLE)
         SWAP(Framework[SystemA].Atoms[f1],Framework[SystemB].Atoms[f1],temp_framework_pointer);
 
     if((ChargeMethod==EWALD)&&(!OmitEwaldFourier))
@@ -13556,7 +13540,7 @@ void PrintGibbsVolumeChangeStatistics(FILE *FilePtr)
 
 int GibbsIdentityChangeAdsorbateMove(void)
 {
-  int i,BoxI,BoxII,d,count,nr_atoms,type;
+  int i,BoxI,BoxII,d,nr_atoms,type;
   int ComponentA,ComponentB;
   int StartingBeadOld,StartingBeadNew;
   int AdsorbateMoleculeA,AdsorbateMoleculeB;
@@ -15051,7 +15035,7 @@ void HybridNVEMove(void)
     Drift+=fabs((ConservedEnergy[CurrentSystem]-ReferenceEnergy)/ReferenceEnergy);
   }
 
-  if((RandomNumber()<exp(-Beta[CurrentSystem]*(ConservedEnergy[CurrentSystem]-ReferenceEnergy)))&&(finite(Drift)))
+  if((RandomNumber()<exp(-Beta[CurrentSystem]*(ConservedEnergy[CurrentSystem]-ReferenceEnergy)))&&(isfinite(Drift)))
   {
     HybridNVEAccepted[CurrentSystem]+=1.0;
 
@@ -15552,7 +15536,7 @@ void HybridNPHMove(void)
   }
 
   //if((RandomNumber()<exp(-Beta[CurrentSystem]*(ConservedEnergy[CurrentSystem]-ReferenceEnergy))*SQR(Volume[CurrentSystem]/StoredVolume))&&(finite(Drift)))
-  if((RandomNumber()<exp(-Beta[CurrentSystem]*(ConservedEnergy[CurrentSystem]-ReferenceEnergy)))&&(finite(Drift)))
+  if((RandomNumber()<exp(-Beta[CurrentSystem]*(ConservedEnergy[CurrentSystem]-ReferenceEnergy)))&&(isfinite(Drift)))
   {
     HybridNPHAccepted[CurrentSystem]+=1.0;
 
@@ -16104,7 +16088,7 @@ void HybridNPHPRMove(void)
     Drift+=fabs((ConservedEnergy[CurrentSystem]-ReferenceEnergy)/ReferenceEnergy);
   }
 
-  if((RandomNumber()<exp(-Beta[CurrentSystem]*(ConservedEnergy[CurrentSystem]-ReferenceEnergy))*SQR(Volume[CurrentSystem]/StoredVolume))&&(finite(Drift)))
+  if((RandomNumber()<exp(-Beta[CurrentSystem]*(ConservedEnergy[CurrentSystem]-ReferenceEnergy))*SQR(Volume[CurrentSystem]/StoredVolume))&&(isfinite(Drift)))
   {
     HybridNPHPRAccepted[CurrentSystem]+=1.0;
 
@@ -16524,7 +16508,7 @@ void CFWangLandauIteration(int Switch)
   int i,j,k;
   int FractionalMolecule,index;
   int condition,MostProbableIndex;
-  REAL Lambda,MostProbableValue,shift;
+  REAL Lambda,MostProbableValue;
   REAL minimum;
 
   switch(Switch)
@@ -18249,7 +18233,6 @@ void PrintCFSwapLambdaStatistics(FILE *FilePtr)
   REAL extrapolatedValueFirstOrder;
   REAL extrapolatedValueSecondOrder;
   REAL a,b,c,y,B;
-  REAL value,minimum;
   REAL referenceValue;
   REAL idealGasValue;
   int lastIndex,preLastindex,prePreLastindex;
@@ -20419,7 +20402,6 @@ void PrintCBCFSwapLambdaStatistics(FILE *FilePtr)
   REAL extrapolatedValueFirstOrder;
   REAL extrapolatedValueSecondOrder;
   REAL a,b,c,y,B;
-  REAL value,minimum;
   REAL referenceValue;
   REAL idealGasValue;
   int lastIndex,preLastindex,prePreLastindex;
@@ -28302,7 +28284,7 @@ void CFCRXMCLambdaChangeMove(void)
 void CFRXMCWangLandauIteration(int Switch)
 {
   int i,j,k;
-  int FractionalMolecule,index;
+  int index;
   int condition,MostProbableIndex;
   REAL Lambda,MostProbableValue,shift;
 
@@ -28424,7 +28406,7 @@ void OptimizeRXMCLambdaChangeAcceptence(void)
 
 void PrintRXMCStatistics(FILE *FilePtr)
 {
-  int i,j,k;
+  int i,k;
   REAL total;
 
   if(NumberOfReactions>0)
@@ -28478,17 +28460,10 @@ void PrintRXMCStatistics(FILE *FilePtr)
  *********************************************************************************************************/
 int ExchangeFractionalParticleMove(void)
 {
-  int i,j,k,l;
+  int i;
   int FractionalMoleculeNew,FractionalMoleculeOld;
-  int index_old,index_new;
   REAL Lambda,LambdaCharge;
-  REAL LambdaNew,LambdaOld;
-  REAL BiasOld,BiasNew;
-  int index;
   REAL DeltaU;
-  int numberOfRetraceMolecules;
-  int FractionalMolecule;
-  int temp_int;
   REAL UTailDelta;
   REAL UAdsorbateVDWDeltaFirstStep1,UAdsorbateVDWDeltaFirstStep2,UAdsorbateVDWDeltaSecondStep1,UAdsorbateVDWDeltaSecondStep2;
   REAL UCationVDWDeltaFirstStep1,UCationVDWDeltaFirstStep2,UCationVDWDeltaSecondStep1,UCationVDWDeltaSecondStep2;
@@ -28731,6 +28706,7 @@ int ExchangeFractionalParticleMove(void)
         Adsorbates[CurrentSystem][FractionalMoleculeNew].Atoms[i].CFChargeScalingParameter=1.0;
       }
   }
+  return 0;
 }
 
 void PrintExchangeFractionalParticleStatistics(FILE *FilePtr)
@@ -28786,12 +28762,11 @@ int CFGibbsSwapFractionalMoleculeToOtherBoxMove(void)
   int nr_atoms;
   VECTOR com,position,s;
   int A,B;
-  REAL DeltaU[2],UTailDelta[2];
+  REAL DeltaU[2];
   REAL Lambda;
   int FractionalMolecule;
   REAL BiasA,BiasB;
   int index;
-  int StoreCurrentSystem;
 
   REAL UAdsorbateBondFirstStep,UAdsorbateUreyBradleyFirstStep,UAdsorbateBendFirstStep,UAdsorbateBendBendFirstStep;
   REAL UAdsorbateInversionBendFirstStep,UAdsorbateTorsionFirstStep,UAdsorbateImproperTorsionFirstStep;
@@ -29279,7 +29254,7 @@ int CFGibbsSwapFractionalMoleculeToOtherBoxMove(void)
 
 void PrintCFGibbsSwapFractionalMoleculeToOtherBoxStatistics(FILE *FilePtr)
 {
-  int i,k,MoveUsed;
+  int i,MoveUsed;
 
   MoveUsed=FALSE;
   for(i=0;i<NumberOfComponents;i++)
@@ -29330,7 +29305,6 @@ int CFGibbsLambdaChangeMove(void)
   int i;
   REAL vNew;
   REAL DeltaU;
-  int SelectedRetraceMolecule;
   REAL BiasOld,BiasNew;
   REAL LambdaNew,LambdaOld;
   int FractionalMolecule;
@@ -29591,14 +29565,13 @@ void SampleLambdaHistogram()
 
 void PrintCFGibbsLambdaChangeStatistics(FILE *FilePtr)
 {
-  int i,j,k,MoveUsed;
-  REAL norm,norm2,total,volume,numberOfMolecules;
+  int i,k,MoveUsed;
+  REAL norm,norm2,total;
   REAL valueLast,valuePreLast,extrapolatedValue;
   REAL valuePrePreLast;
   REAL extrapolatedValueFirstOrder;
   REAL extrapolatedValueSecondOrder;
   REAL a,b,c,y,B;
-  REAL value,minimum;
   REAL referenceValue;
   REAL idealGasValue;
   int lastIndex,preLastindex,prePreLastindex;
@@ -29746,16 +29719,14 @@ void OptimizeCFGibbsLambdaChangeAcceptence(void)
 int CFGibbsFractionalToIntegerMove(void)
 {
   int i;
-  REAL vNew;
   int A,B;
   REAL DeltaU[2];
   REAL UTailDelta[2];
-  int SelectedRetraceMolecule;
   REAL BiasB,BiasA;
   REAL LambdaNew,LambdaOld;
   int FractionalMolecule;
   int OldFractionalMolecule;
-  int index_old,index_new;
+  int index_old;
 
   // get the current-system of the fractional particle
   if(Components[CurrentComponent].FractionalMolecule[0]>=0)
@@ -30137,7 +30108,7 @@ int CFGibbsFractionalToIntegerMove(void)
 
 void PrintCFGibbsFractionalToIntegerStatistics(FILE *FilePtr)
 {
-  int i,k,MoveUsed;
+  int i,MoveUsed;
 
   MoveUsed=FALSE;
   for(i=0;i<NumberOfComponents;i++)
@@ -30447,7 +30418,7 @@ void WriteRestartMcMoves(FILE *FilePtr)
 
 void AllocateMCMovesMemory(void)
 {
-  int i,j,k;
+  int i,j;
 
   TrialPosition=(VECTOR**)calloc(NumberOfSystems,sizeof(VECTOR*));
   TrialAnisotropicPosition=(VECTOR**)calloc(NumberOfSystems,sizeof(VECTOR*));

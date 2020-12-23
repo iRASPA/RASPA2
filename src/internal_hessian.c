@@ -8700,17 +8700,14 @@ void CalculateCationImproperTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MATR
   }
 }
 
-// NEW
-
 void CalculateAdsorbateBondBondHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX HessianMatrix,REAL_MATRIX3x3 *StrainDerivative,int ComputeGradient,int ComputeHessian)
 {
   int i,m,Type,NumberOfBondBonds,A,B,C;
-  REAL U,DF,DDF,r,rr,temp,temp2,exp_term,energy;
+  REAL energy;
   REAL DFA,DFC,DDFA,DDFC;
   REAL *parms;
   POINT posA,posB,posC;
-  VECTOR dr;
-  REAL_MATRIX3x3 Hessian,Hessian1,Hessian2,Hessian3;
+  REAL_MATRIX3x3 Hessian1,Hessian2,Hessian3;
   VECTOR Rab,Rbc;
   REAL rab,rbc;
   INT_VECTOR3 index_i,index_j,index_k;

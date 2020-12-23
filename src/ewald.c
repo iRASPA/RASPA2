@@ -7570,18 +7570,17 @@ int CalculateEwaldFourierAdsorbateRXMC(int reaction,REAL Lambda1,REAL Lambda2,RE
   int i,j,ii,jj,kk;
   int A,B,nvec,nr_of_excluded_pairs;
   int kmax_x,kmax_y,kmax_z,index_i,index_j,index_k;
-  int type_mol,nr_atoms,type,nr_of_bonddipoles;
+  int type;
   int nr_of_coulombic_sites,nr_of_coulombic_sites_old,nr_of_coulombic_sites_new;
   int nr_of_bonddipole_sites,nr_of_bonddipole_sites_old,nr_of_bonddipole_sites_new;
   COMPLEX sum_old,sum_new,sum_adsorbates,sum_bonddipole_adsorbates;
   COMPLEX sum_bonddipole_old,sum_bonddipole_new;
   REAL fac,energy_charge_adsorbates,energy_charge_adsorbates_cations,energy_charge_framework_adsorbates;
   REAL energy_bonddipole_adsorbates,energy_bonddipole_adsorbates_cations,energy_bonddipole_framework_adsorbates;
-  REAL alpha,chargeA,chargeB,charge,r,rr;
+  REAL alpha,chargeA,chargeB,r;
   REAL energy_self_new,energy_self_old;
   REAL net_charge_new,net_charge_old;
-  REAL scaling,scalingA,scalingB;
-  REAL cosA,cosB,cosAB,Bt0,Bt1,Bt2,temp;
+  REAL Bt0,temp;
   REAL energy_self_bd_old,energy_self_bd_new;
   REAL energy_charge_bonddipole_adsorbates,energy_charge_bonddipole_adsorbates_cations;
   REAL energy_charge_bonddipole_framework_adsorbates;
@@ -7589,19 +7588,15 @@ int CalculateEwaldFourierAdsorbateRXMC(int reaction,REAL Lambda1,REAL Lambda2,RE
   REAL energy_excluded_c_bd_new,energy_excluded_c_bd_old;
   REAL energy_excluded_bd_new,energy_excluded_bd_old;
   VECTOR pos,posA,posB,dr;
-  VECTOR dipole,dipoleA,dipoleB,rk;
-  VECTOR posA1,posA2,posB1,posB2;
+  VECTOR dipole,rk;
   VECTOR *kvecs;
   REAL *kfactor,recip_cutoff,ksqr;
-  PAIR pair;
-  ATOM *atom_pointer;
   int considered_charged;
   int TypeMolA;
   int k,l,m;
   int NumberOfRXMCMolecules;
   int RXMCMoleculeNumbers[256];
   int RXMCMoleculeType[256];
-  int typeA;
   REAL scalingA_new,scalingA_old;
   REAL chargeA_new,chargeA_old;
 
@@ -8444,18 +8439,17 @@ int CalculateEwaldFourierAdsorbateRXMC2(int reaction,REAL LambdaNew,int directio
   int i,j,ii,jj,kk;
   int A,B,nvec,nr_of_excluded_pairs;
   int kmax_x,kmax_y,kmax_z,index_i,index_j,index_k;
-  int type_mol,nr_atoms,type,nr_of_bonddipoles;
+  int type;
   int nr_of_coulombic_sites,nr_of_coulombic_sites_old,nr_of_coulombic_sites_new;
   int nr_of_bonddipole_sites,nr_of_bonddipole_sites_old,nr_of_bonddipole_sites_new;
   COMPLEX sum_old,sum_new,sum_adsorbates,sum_bonddipole_adsorbates;
   COMPLEX sum_bonddipole_old,sum_bonddipole_new;
   REAL fac,energy_charge_adsorbates,energy_charge_adsorbates_cations,energy_charge_framework_adsorbates;
   REAL energy_bonddipole_adsorbates,energy_bonddipole_adsorbates_cations,energy_bonddipole_framework_adsorbates;
-  REAL alpha,chargeA,chargeB,charge,r,rr;
+  REAL alpha,chargeA,chargeB,r;
   REAL energy_self_new,energy_self_old;
   REAL net_charge_new,net_charge_old;
-  REAL scaling,scalingA,scalingB;
-  REAL cosA,cosB,cosAB,Bt0,Bt1,Bt2,temp;
+  REAL Bt0,temp;
   REAL energy_self_bd_old,energy_self_bd_new;
   REAL energy_charge_bonddipole_adsorbates,energy_charge_bonddipole_adsorbates_cations;
   REAL energy_charge_bonddipole_framework_adsorbates;
@@ -8463,21 +8457,16 @@ int CalculateEwaldFourierAdsorbateRXMC2(int reaction,REAL LambdaNew,int directio
   REAL energy_excluded_c_bd_new,energy_excluded_c_bd_old;
   REAL energy_excluded_bd_new,energy_excluded_bd_old;
   VECTOR pos,posA,posB,dr;
-  VECTOR dipole,dipoleA,dipoleB,rk;
-  VECTOR posA1,posA2,posB1,posB2;
+  VECTOR dipole,rk;
   VECTOR *kvecs;
   REAL *kfactor,recip_cutoff,ksqr;
-  PAIR pair;
-  ATOM *atom_pointer;
-  int considered_charged;
   int TypeMolA;
   int k,l,m;
   int NumberOfRXMCMolecules;
   int RXMCMoleculeNumbers[256];
   int RXMCMoleculeType[256];
-  int typeA;
-  REAL scalingA_new,scalingA_old;
-  REAL chargeA_new,chargeA_old;
+  REAL scalingA_new;
+  REAL chargeA_new;
 
   // intialize differences in energy
   NetChargeAdsorbateDelta=0.0;
@@ -9173,7 +9162,6 @@ int CalculateEwaldFourierAdsorbateRXMC2(int reaction,REAL LambdaNew,int directio
   }
 */
   REAL scalingB_new;
-  REAL scalingB_old;
 
   for(m=0;m<NumberOfRXMCMolecules;m++)
   {
@@ -9249,31 +9237,24 @@ int CalculateEwaldFourierAdsorbateTupleLambda(int numberOfEwaldMolecules, int Mo
   int i,j,k,ii,jj,kk;
   int A,B,nvec,nr_of_excluded_pairs;
   int kmax_x,kmax_y,kmax_z,index_i,index_j,index_k;
-  int type_mol,nr_atoms,type,nr_of_bonddipoles;
+  int nr_atoms,type;
   int nr_of_coulombic_sites,nr_of_coulombic_sites_old,nr_of_coulombic_sites_new;
   int nr_of_bonddipole_sites,nr_of_bonddipole_sites_old,nr_of_bonddipole_sites_new;
-  COMPLEX sum_old,sum_new,sum_adsorbates,sum_bonddipole_adsorbates;
-  COMPLEX sum_bonddipole_old,sum_bonddipole_new;
+  COMPLEX sum_old,sum_new,sum_adsorbates;
   REAL fac,energy_charge_adsorbates,energy_charge_adsorbates_cations,energy_charge_framework_adsorbates;
   REAL energy_bonddipole_adsorbates,energy_bonddipole_adsorbates_cations,energy_bonddipole_framework_adsorbates;
-  REAL alpha,chargeA,chargeB,charge,r,rr;
+  REAL alpha,chargeA,chargeB,charge,r;
   REAL energy_self_new,energy_self_old;
   REAL net_charge_new,net_charge_old;
   REAL scaling,scalingA,scalingB;
-  REAL cosA,cosB,cosAB,Bt0,Bt1,Bt2,temp;
+  REAL Bt0,temp;
   REAL energy_self_bd_old,energy_self_bd_new;
   REAL energy_charge_bonddipole_adsorbates,energy_charge_bonddipole_adsorbates_cations;
   REAL energy_charge_bonddipole_framework_adsorbates;
   REAL energy_excluded_new,energy_excluded_old;
-  REAL energy_excluded_c_bd_new,energy_excluded_c_bd_old;
-  REAL energy_excluded_bd_new,energy_excluded_bd_old;
   VECTOR pos,posA,posB,dr;
-  VECTOR dipole,dipoleA,dipoleB,rk;
-  VECTOR posA1,posA2,posB1,posB2;
   VECTOR *kvecs;
   REAL *kfactor,recip_cutoff,ksqr;
-  PAIR pair;
-  ATOM *atom_pointer;
   int considered_charged;
 
   // intialize differences in energy

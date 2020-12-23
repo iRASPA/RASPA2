@@ -67,13 +67,14 @@
 #include "movies.h"
 #include "status.h"
 #include "framework.h"
+#include "run.h"
 
-extern bool STREAM = false;
-extern char *INPUT_CRYSTAL = NULL;
-extern char *PORE_SIZE_DISTRIBUTION_OUTPUT = NULL;
-extern size_t PORE_SIZE_DISTRIBUTION_OUTPUT_SIZE = NULL;
-extern char **FILE_CONTENTS = NULL;
-extern size_t *FILE_SIZES = NULL;
+bool STREAM = false;
+char *INPUT_CRYSTAL = NULL;
+char *PORE_SIZE_DISTRIBUTION_OUTPUT = NULL;
+size_t PORE_SIZE_DISTRIBUTION_OUTPUT_SIZE = 0;
+char **FILE_CONTENTS = NULL;
+size_t *FILE_SIZES = NULL;
 
 /**
  * The core logic is separated from main to simplify wrapper functionality
@@ -83,7 +84,7 @@ char* run(char *inputData, char *inputCrystal, char *raspaDir, bool stream)
   int i = 0, j = 0, k = 0, maxAtomsBonds = 0;
   size_t chars = 0;
   REAL energy, force_factor;
-  char *output = NULL, *temp = NULL, *delimiter = NULL;
+  char *output = NULL, *delimiter = NULL;
 
   // There are a lot of globals kicking around.
   INPUT_CRYSTAL = strdup(inputCrystal);

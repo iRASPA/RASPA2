@@ -13,7 +13,7 @@ flexible
 # atomic positions
 0 CH3_sp3
 1 CH_sp2
-2 CH_sp3
+2 CH_sp2
 3 CH3_sp3
 # Chiral centers Bond  BondDipoles Bend  UrayBradley InvBend  Torsion Imp. Torsion Bond/Bond Stretch/Bend Bend/Bend Stretch/Torsion Bend/Torsion IntraVDW IntraCoulomb
                0    3            0    2            0       0        1            0         0            0         0               0            0        0            0
