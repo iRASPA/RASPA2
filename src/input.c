@@ -1799,7 +1799,17 @@ int ReadInput(char *input)
     {
       // allocate additional memory for this modification rule
       SubstitutionSingleFrameworkAtom=(char(*)[3][256])realloc(SubstitutionSingleFrameworkAtom,(NumberOfSingleSubstitutionRules+1)*sizeof(char[3][256]));
+      if(!SubstitutionSingleFrameworkAtom)
+      {
+        printf("Memory reallocation error of 'SubstitutionSingleFrameworkAtom' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       SubstitutionSingleFrameworkAtomTypes=(int(*)[3])realloc(SubstitutionSingleFrameworkAtomTypes,(NumberOfSingleSubstitutionRules+1)*sizeof(int[3]));
+      if(!SubstitutionSingleFrameworkAtomTypes)
+      {
+        printf("Memory reallocation error of 'SubstitutionSingleFrameworkAtomTypes' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
 
       // scan the arguments from the input
       sscanf(arguments,"%s %s %s",
@@ -1815,7 +1825,17 @@ int ReadInput(char *input)
     {
       // allocate additional memory for this modification rule
       SubstitutionFrameworkAtoms=(char(*)[3][256])realloc(SubstitutionFrameworkAtoms,(NumberOfSubstitutionRules+1)*sizeof(char[3][256]));
+      if(!SubstitutionFrameworkAtoms)
+      {
+        printf("Memory reallocation error of 'SubstitutionFrameworkAtoms' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       SubstitutionFrameworkAtomTypes=(int(*)[3])realloc(SubstitutionFrameworkAtomTypes,(NumberOfSubstitutionRules+1)*sizeof(int[3]));
+      if(!SubstitutionFrameworkAtomTypes)
+      {
+        printf("Memory reallocation error of 'SubstitutionFrameworkAtomTypes' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
 
       // scan the arguments from the input
       sscanf(arguments,"%s %s %s",
@@ -1831,8 +1851,23 @@ int ReadInput(char *input)
     {
       // allocate additional memory for this modification rule
       ModificationRuleType=(int*)realloc(ModificationRuleType,(NumberOfModificationRules+1)*sizeof(int));
+      if(!ModificationRuleType)
+      {
+        printf("Memory reallocation error of 'ModificationRuleType' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModifyFrameworkAtoms=(char(*)[10][256])realloc(ModifyFrameworkAtoms,(NumberOfModificationRules+1)*sizeof(char[10][256]));
+      if(!ModifyFrameworkAtoms)
+      {
+        printf("Memory reallocation error of 'ModifyFrameworkAtoms' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModifyFrameworkAtomTypes=(int(*)[10])realloc(ModifyFrameworkAtomTypes,(NumberOfModificationRules+1)*sizeof(int[10]));
+      if(!ModifyFrameworkAtomTypes)
+      {
+        printf("Memory reallocation error of 'ModifyFrameworkAtomTypes' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModificationRuleType[NumberOfModificationRules]=MODIFY_FRAMEWORKATOM_CONNECTED_TO;
       strcpy(ModifyFrameworkAtoms[NumberOfModificationRules][3],"wild card");
       strcpy(ModifyFrameworkAtoms[NumberOfModificationRules][4],"wild card");
@@ -1851,8 +1886,23 @@ int ReadInput(char *input)
     {
       // allocate additional memory for this modification rule
       ModificationRuleType=(int*)realloc(ModificationRuleType,(NumberOfModificationRules+1)*sizeof(int));
+      if(!ModificationRuleType)
+      {
+        printf("Memory reallocation error of 'ModificationRuleType' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModifyFrameworkAtoms=(char(*)[10][256])realloc(ModifyFrameworkAtoms,(NumberOfModificationRules+1)*sizeof(char[10][256]));
+      if(!ModifyFrameworkAtoms)
+      {
+        printf("Memory reallocation error of 'ModifyFrameworkAtoms' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModifyFrameworkAtomTypes=(int(*)[10])realloc(ModifyFrameworkAtomTypes,(NumberOfModificationRules+1)*sizeof(int[10]));
+      if(!ModifyFrameworkAtomTypes)
+      {
+        printf("Memory reallocation error of 'ModifyFrameworkAtomTypes' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModificationRuleType[NumberOfModificationRules]=MODIFY_FRAMEWORKATOM_CONNECTED_TO;
       strcpy(ModifyFrameworkAtoms[NumberOfModificationRules][2],"wild card");
       strcpy(ModifyFrameworkAtoms[NumberOfModificationRules][3],"wild card");
@@ -1873,8 +1923,23 @@ int ReadInput(char *input)
     {
       // allocate additional memory for this modification rule
       ModificationRuleType=(int*)realloc(ModificationRuleType,(NumberOfModificationRules+1)*sizeof(int));
+      if(!ModificationRuleType)
+      {
+        printf("Memory reallocation error of 'ModificationRuleType' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModifyFrameworkAtoms=(char(*)[10][256])realloc(ModifyFrameworkAtoms,(NumberOfModificationRules+1)*sizeof(char[10][256]));
+      if(!ModifyFrameworkAtoms)
+      {
+        printf("Memory reallocation error of 'ModifyFrameworkAtoms' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModifyFrameworkAtomTypes=(int(*)[10])realloc(ModifyFrameworkAtomTypes,(NumberOfModificationRules+1)*sizeof(int[10]));
+      if(!ModifyFrameworkAtomTypes)
+      {
+        printf("Memory reallocation error of 'ModifyFrameworkAtomTypes' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModificationRuleType[NumberOfModificationRules]=MODIFY_FRAMEWORKATOM_DIMER;
       strcpy(ModifyFrameworkAtoms[NumberOfModificationRules][0],"wild card");
       strcpy(ModifyFrameworkAtoms[NumberOfModificationRules][1],"wild card");
@@ -1897,8 +1962,23 @@ int ReadInput(char *input)
     {
       // allocate additional memory for this modification rule
       ModificationRuleType=(int*)realloc(ModificationRuleType,(NumberOfModificationRules+1)*sizeof(int));
+      if(!ModificationRuleType)
+      {
+        printf("Memory reallocation error of 'ModificationRuleType' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModifyFrameworkAtoms=(char(*)[10][256])realloc(ModifyFrameworkAtoms,(NumberOfModificationRules+1)*sizeof(char[10][256]));
+      if(!ModifyFrameworkAtoms)
+      {
+        printf("Memory reallocation error of 'ModifyFrameworkAtoms' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModifyFrameworkAtomTypes=(int(*)[10])realloc(ModifyFrameworkAtomTypes,(NumberOfModificationRules+1)*sizeof(int[10]));
+      if(!ModifyFrameworkAtomTypes)
+      {
+        printf("Memory reallocation error of 'ModifyFrameworkAtomTypes' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModificationRuleType[NumberOfModificationRules]=MODIFY_FRAMEWORKATOM_TRIPLE;
       strcpy(ModifyFrameworkAtoms[NumberOfModificationRules][0],"wild card");
       strcpy(ModifyFrameworkAtoms[NumberOfModificationRules][1],"wild card");
@@ -1923,8 +2003,23 @@ int ReadInput(char *input)
     {
       // allocate additional memory for this modification rule
       ModificationRuleType=(int*)realloc(ModificationRuleType,(NumberOfModificationRules+1)*sizeof(int));
+      if(!ModificationRuleType)
+      {
+        printf("Memory reallocation error of 'ModificationRuleType' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModifyFrameworkAtoms=(char(*)[10][256])realloc(ModifyFrameworkAtoms,(NumberOfModificationRules+1)*sizeof(char[10][256]));
+      if(!ModifyFrameworkAtoms)
+      {
+        printf("Memory reallocation error of 'ModifyFrameworkAtoms' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModifyFrameworkAtomTypes=(int(*)[10])realloc(ModifyFrameworkAtomTypes,(NumberOfModificationRules+1)*sizeof(int[10]));
+      if(!ModifyFrameworkAtomTypes)
+      {
+        printf("Memory reallocation error of 'ModifyFrameworkAtomTypes' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ModificationRuleType[NumberOfModificationRules]=MODIFY_FRAMEWORKATOM_PLANAR;
       strcpy(ModifyFrameworkAtoms[NumberOfModificationRules][0],"wild card");
       strcpy(ModifyFrameworkAtoms[NumberOfModificationRules][1],"wild card");
@@ -1957,7 +2052,17 @@ int ReadInput(char *input)
     {
       // allocate additional memory for this modification rule
       ForbiddenConnectivityAtoms=(char(*)[3][256])realloc(ForbiddenConnectivityAtoms,(NumberOfForbiddenConnectivityRules+1)*sizeof(char[3][256]));
+      if(!ForbiddenConnectivityAtoms)
+      {
+        printf("Memory reallocation error of 'ForbiddenConnectivityAtoms' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       ForbiddenConnectivityTypes=(int(*)[3])realloc(ForbiddenConnectivityTypes,(NumberOfForbiddenConnectivityRules+1)*sizeof(int[3]));
+      if(!ForbiddenConnectivityTypes)
+      {
+        printf("Memory reallocation error of 'ForbiddenConnectivityTypes' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
 
       // scan the arguments from the input
       sscanf(arguments,"%s %s %s",
@@ -1972,6 +2077,11 @@ int ReadInput(char *input)
     {
       PseudoAtomsWithoutVDWInteraction=(char(*)[32])realloc(PseudoAtomsWithoutVDWInteraction,
           (NumberOfPseudoAtomsWithoutVDWInteraction+1)*sizeof(char[32]));
+      if(!PseudoAtomsWithoutVDWInteraction)
+      {
+        printf("Memory reallocation error of 'PseudoAtomsWithoutVDWInteraction' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%s",PseudoAtomsWithoutVDWInteraction[NumberOfPseudoAtomsWithoutVDWInteraction]);
       NumberOfPseudoAtomsWithoutVDWInteraction++;
     }
@@ -3481,6 +3591,11 @@ int ReadInput(char *input)
       OrientationFrameworkBonds[CurrentSystem][CurrentFramework]=(char(*)[2][256])realloc(
             OrientationFrameworkBonds[CurrentSystem][CurrentFramework],
             (NumberOfOrientationFrameworkBonds[CurrentSystem][CurrentFramework]+1)*sizeof(char[2][256]));
+      if(!OrientationFrameworkBonds[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'OrientationFrameworkBonds[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
 
       index=NumberOfOrientationFrameworkBonds[CurrentSystem][CurrentFramework];
       // scan the arguments from the input
@@ -3629,6 +3744,11 @@ int ReadInput(char *input)
     if(strcasecmp("GridSeed",keyword)==0)
     {
       GridSeeds=realloc(GridSeeds,(NumberOfGridSeeds+1)*sizeof(VECTOR));
+      if(!GridSeeds)
+      {
+        printf("Memory reallocation error of 'GridSeeds' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%lf %lf %lf",&GridSeeds[NumberOfGridSeeds].x,&GridSeeds[NumberOfGridSeeds].y,&GridSeeds[NumberOfGridSeeds].z);
       NumberOfGridSeeds++;
     }
@@ -3726,6 +3846,11 @@ int ReadInput(char *input)
     {
       ActiveFrameworkAtoms[CurrentSystem][CurrentFramework]=(int*)realloc(ActiveFrameworkAtoms[CurrentSystem][CurrentFramework],
                            (NumberOfActiveFrameworkAtoms[CurrentSystem][CurrentFramework]+1)*sizeof(int));
+      if(!ActiveFrameworkAtoms[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'ActiveFrameworkAtoms[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d",&ActiveFrameworkAtoms[CurrentSystem][CurrentFramework][NumberOfActiveFrameworkAtoms[CurrentSystem][CurrentFramework]]);
       NumberOfActiveFrameworkAtoms[CurrentSystem][CurrentFramework]++;
     }
@@ -3733,6 +3858,11 @@ int ReadInput(char *input)
     {
       ActiveFrameworkAtomsX[CurrentSystem][CurrentFramework]=(int*)realloc(ActiveFrameworkAtomsX[CurrentSystem][CurrentFramework],
                            (NumberOfActiveFrameworkAtomsX[CurrentSystem][CurrentFramework]+1)*sizeof(int));
+      if(!ActiveFrameworkAtomsX[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'ActiveFrameworkAtomsX[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d",&ActiveFrameworkAtomsX[CurrentSystem][CurrentFramework][NumberOfActiveFrameworkAtomsX[CurrentSystem][CurrentFramework]]);
       NumberOfActiveFrameworkAtomsX[CurrentSystem][CurrentFramework]++;
     }
@@ -3740,6 +3870,11 @@ int ReadInput(char *input)
     {
       ActiveFrameworkAtomsY[CurrentSystem][CurrentFramework]=(int*)realloc(ActiveFrameworkAtomsY[CurrentSystem][CurrentFramework],
                            (NumberOfActiveFrameworkAtomsY[CurrentSystem][CurrentFramework]+1)*sizeof(int));
+      if(!ActiveFrameworkAtomsY[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'ActiveFrameworkAtomsY[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d",&ActiveFrameworkAtomsY[CurrentSystem][CurrentFramework][NumberOfActiveFrameworkAtomsY[CurrentSystem][CurrentFramework]]);
       NumberOfActiveFrameworkAtomsY[CurrentSystem][CurrentFramework]++;
     }
@@ -3747,6 +3882,11 @@ int ReadInput(char *input)
     {
       ActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework]=(int*)realloc(ActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework],
                            (NumberOfActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework]+1)*sizeof(int));
+      if(!ActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'ActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d",&ActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework][NumberOfActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework]]);
       NumberOfActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework]++;
     }
@@ -3755,6 +3895,11 @@ int ReadInput(char *input)
       sscanf(arguments,"%d%[^\n]",&temp_int,arguments);
       ActiveFrameworkAtoms[CurrentSystem][CurrentFramework]=(int*)realloc(ActiveFrameworkAtoms[CurrentSystem][CurrentFramework],
                            (NumberOfActiveFrameworkAtoms[CurrentSystem][CurrentFramework]+temp_int)*sizeof(int));
+      if(!ActiveFrameworkAtoms[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'ActiveFrameworkAtoms[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       for(i=0;i<temp_int;i++)
         sscanf(arguments,"%d%[^\n]",&ActiveFrameworkAtoms[CurrentSystem][CurrentFramework][NumberOfActiveFrameworkAtoms[CurrentSystem][CurrentFramework]++],arguments);
     }
@@ -3763,6 +3908,11 @@ int ReadInput(char *input)
       sscanf(arguments,"%d%[^\n]",&temp_int,arguments);
       ActiveFrameworkAtomsX[CurrentSystem][CurrentFramework]=(int*)realloc(ActiveFrameworkAtomsX[CurrentSystem][CurrentFramework],
                            (NumberOfActiveFrameworkAtomsX[CurrentSystem][CurrentFramework]+temp_int)*sizeof(int));
+      if(!ActiveFrameworkAtomsX[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'ActiveFrameworkAtomsX[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      } 
       for(i=0;i<temp_int;i++)
         sscanf(arguments,"%d%[^\n]",&ActiveFrameworkAtomsX[CurrentSystem][CurrentFramework][NumberOfActiveFrameworkAtomsX[CurrentSystem][CurrentFramework]++],arguments);
     }
@@ -3771,6 +3921,11 @@ int ReadInput(char *input)
       sscanf(arguments,"%d%[^\n]",&temp_int,arguments);
       ActiveFrameworkAtomsY[CurrentSystem][CurrentFramework]=(int*)realloc(ActiveFrameworkAtomsY[CurrentSystem][CurrentFramework],
                            (NumberOfActiveFrameworkAtomsY[CurrentSystem][CurrentFramework]+temp_int)*sizeof(int));
+      if(!ActiveFrameworkAtomsY[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'ActiveFrameworkAtomsY[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       for(i=0;i<temp_int;i++)
         sscanf(arguments,"%d%[^\n]",&ActiveFrameworkAtomsY[CurrentSystem][CurrentFramework][NumberOfActiveFrameworkAtomsY[CurrentSystem][CurrentFramework]++],arguments);
     }
@@ -3779,6 +3934,11 @@ int ReadInput(char *input)
       sscanf(arguments,"%d%[^\n]",&temp_int,arguments);
       ActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework]=(int*)realloc(ActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework],
                            (NumberOfActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework]+temp_int)*sizeof(int));
+      if(!ActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'ActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       for(i=0;i<temp_int;i++)
         sscanf(arguments,"%d%[^\n]",&ActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework][NumberOfActiveFrameworkAtomsZ[CurrentSystem][CurrentFramework]++],arguments);
     }
@@ -3786,6 +3946,11 @@ int ReadInput(char *input)
     {
       FixedFrameworkAtoms[CurrentSystem][CurrentFramework]=(int*)realloc(FixedFrameworkAtoms[CurrentSystem][CurrentFramework],
                           (NumberOfFixedFrameworkAtoms[CurrentSystem][CurrentFramework]+1)*sizeof(int));
+      if(!FixedFrameworkAtoms[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'FixedFrameworkAtoms[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d",&FixedFrameworkAtoms[CurrentSystem][CurrentFramework][NumberOfFixedFrameworkAtoms[CurrentSystem][CurrentFramework]]);
       NumberOfFixedFrameworkAtoms[CurrentSystem][CurrentFramework]++;
     }
@@ -3793,6 +3958,11 @@ int ReadInput(char *input)
     {
       FixedFrameworkAtomsX[CurrentSystem][CurrentFramework]=(int*)realloc(FixedFrameworkAtomsX[CurrentSystem][CurrentFramework],
                           (NumberOfFixedFrameworkAtomsX[CurrentSystem][CurrentFramework]+1)*sizeof(int));
+      if(!FixedFrameworkAtomsX[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'FixedFrameworkAtomsX[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d",&FixedFrameworkAtomsX[CurrentSystem][CurrentFramework][NumberOfFixedFrameworkAtomsX[CurrentSystem][CurrentFramework]]);
       NumberOfFixedFrameworkAtomsX[CurrentSystem][CurrentFramework]++;
     }
@@ -3800,6 +3970,11 @@ int ReadInput(char *input)
     {
       FixedFrameworkAtomsY[CurrentSystem][CurrentFramework]=(int*)realloc(FixedFrameworkAtomsY[CurrentSystem][CurrentFramework],
                           (NumberOfFixedFrameworkAtomsY[CurrentSystem][CurrentFramework]+1)*sizeof(int));
+      if(!FixedFrameworkAtomsY[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'FixedFrameworkAtomsY[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d",&FixedFrameworkAtomsY[CurrentSystem][CurrentFramework][NumberOfFixedFrameworkAtomsY[CurrentSystem][CurrentFramework]]);
       NumberOfFixedFrameworkAtomsY[CurrentSystem][CurrentFramework]++;
     }
@@ -3807,6 +3982,11 @@ int ReadInput(char *input)
     {
       FixedFrameworkAtomsZ[CurrentSystem][CurrentFramework]=(int*)realloc(FixedFrameworkAtomsZ[CurrentSystem][CurrentFramework],
                           (NumberOfFixedFrameworkAtomsZ[CurrentSystem][CurrentFramework]+1)*sizeof(int));
+      if(!FixedFrameworkAtomsZ[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'FixedFrameworkAtomsZ[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d",&FixedFrameworkAtomsZ[CurrentSystem][CurrentFramework][NumberOfFixedFrameworkAtomsZ[CurrentSystem][CurrentFramework]]);
       NumberOfFixedFrameworkAtomsZ[CurrentSystem][CurrentFramework]++;
     }
@@ -3815,6 +3995,11 @@ int ReadInput(char *input)
       sscanf(arguments,"%d%[^\n]",&temp_int,arguments);
       FixedFrameworkAtoms[CurrentSystem][CurrentFramework]=(int*)realloc(FixedFrameworkAtoms[CurrentSystem][CurrentFramework],
                           (NumberOfFixedFrameworkAtoms[CurrentSystem][CurrentFramework]+temp_int)*sizeof(int));
+      if(!FixedFrameworkAtoms[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'FixedFrameworkAtoms[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       for(i=0;i<temp_int;i++)
         sscanf(arguments,"%d%[^\n]",&FixedFrameworkAtoms[CurrentSystem][CurrentFramework][NumberOfFixedFrameworkAtoms[CurrentSystem][CurrentFramework]++],arguments);
     }
@@ -3823,6 +4008,11 @@ int ReadInput(char *input)
       sscanf(arguments,"%d%[^\n]",&temp_int,arguments);
       FixedFrameworkAtomsX[CurrentSystem][CurrentFramework]=(int*)realloc(FixedFrameworkAtomsX[CurrentSystem][CurrentFramework],
                           (NumberOfFixedFrameworkAtomsX[CurrentSystem][CurrentFramework]+temp_int)*sizeof(int));
+      if(!FixedFrameworkAtomsX[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'FixedFrameworkAtomsX[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       for(i=0;i<temp_int;i++)
         sscanf(arguments,"%d%[^\n]",&FixedFrameworkAtomsX[CurrentSystem][CurrentFramework][NumberOfFixedFrameworkAtomsX[CurrentSystem][CurrentFramework]++],arguments);
     }
@@ -3831,6 +4021,11 @@ int ReadInput(char *input)
       sscanf(arguments,"%d%[^\n]",&temp_int,arguments);
       FixedFrameworkAtomsY[CurrentSystem][CurrentFramework]=(int*)realloc(FixedFrameworkAtomsY[CurrentSystem][CurrentFramework],
                           (NumberOfFixedFrameworkAtomsY[CurrentSystem][CurrentFramework]+temp_int)*sizeof(int));
+      if(!FixedFrameworkAtomsY[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'FixedFrameworkAtomsY[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       for(i=0;i<temp_int;i++)
         sscanf(arguments,"%d%[^\n]",&FixedFrameworkAtomsY[CurrentSystem][CurrentFramework][NumberOfFixedFrameworkAtomsY[CurrentSystem][CurrentFramework]++],arguments);
     }
@@ -3839,24 +4034,44 @@ int ReadInput(char *input)
       sscanf(arguments,"%d%[^\n]",&temp_int,arguments);
       FixedFrameworkAtomsZ[CurrentSystem][CurrentFramework]=(int*)realloc(FixedFrameworkAtomsZ[CurrentSystem][CurrentFramework],
                           (NumberOfFixedFrameworkAtomsZ[CurrentSystem][CurrentFramework]+temp_int)*sizeof(int));
+      if(!FixedFrameworkAtomsZ[CurrentSystem][CurrentFramework])
+      {
+        printf("Memory reallocation error of 'FixedFrameworkAtomsZ[CurrentSystem][CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       for(i=0;i<temp_int;i++)
         sscanf(arguments,"%d%[^\n]",&FixedFrameworkAtomsZ[CurrentSystem][CurrentFramework][NumberOfFixedFrameworkAtomsZ[CurrentSystem][CurrentFramework]++],arguments);
     }
     if(strcasecmp("ActiveAdsorbateMolecule",keyword)==0)
     {
       ActiveAdsorbateMolecules[CurrentSystem]=(int*)realloc(ActiveAdsorbateMolecules[CurrentSystem],(NumberOfActiveAdsorbateMolecules[CurrentSystem]+1)*sizeof(int));
+      if(!ActiveAdsorbateMolecules[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveAdsorbateMolecules[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d",&ActiveAdsorbateMolecules[CurrentSystem][NumberOfActiveAdsorbateMolecules[CurrentSystem]]);
       NumberOfActiveAdsorbateMolecules[CurrentSystem]++;
     }
     if(strcasecmp("FixedAdsorbateMolecule",keyword)==0)
     {
       FixedAdsorbateMolecules[CurrentSystem]=(int*)realloc(FixedAdsorbateMolecules[CurrentSystem],(NumberOfFixedAdsorbateMolecules[CurrentSystem]+1)*sizeof(int));
+      if(!FixedAdsorbateMolecules[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateMolecules[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d",&FixedAdsorbateMolecules[CurrentSystem][NumberOfFixedAdsorbateMolecules[CurrentSystem]]);
       NumberOfFixedAdsorbateMolecules[CurrentSystem]++;
     }
     if(strcasecmp("ActiveAdsorbateAtom",keyword)==0)
     {
       ActiveAdsorbateAtoms[CurrentSystem]=(PAIR*)realloc(ActiveAdsorbateAtoms[CurrentSystem],(NumberOfActiveAdsorbateAtoms[CurrentSystem]+1)*sizeof(PAIR));
+      if(!ActiveAdsorbateAtoms[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveAdsorbateAtoms[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&ActiveAdsorbateAtoms[CurrentSystem][NumberOfActiveAdsorbateAtoms[CurrentSystem]].A,
                        &ActiveAdsorbateAtoms[CurrentSystem][NumberOfActiveAdsorbateAtoms[CurrentSystem]].B);
       NumberOfActiveAdsorbateAtoms[CurrentSystem]++;
@@ -3864,6 +4079,11 @@ int ReadInput(char *input)
     if(strcasecmp("ActiveAdsorbateAtomX",keyword)==0)
     {
       ActiveAdsorbateAtomsX[CurrentSystem]=(PAIR*)realloc(ActiveAdsorbateAtomsX[CurrentSystem],(NumberOfActiveAdsorbateAtomsX[CurrentSystem]+1)*sizeof(PAIR));
+      if(!ActiveAdsorbateAtomsX[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveAdsorbateAtomsX[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&ActiveAdsorbateAtomsX[CurrentSystem][NumberOfActiveAdsorbateAtomsX[CurrentSystem]].A,
                        &ActiveAdsorbateAtomsX[CurrentSystem][NumberOfActiveAdsorbateAtomsX[CurrentSystem]].B);
       NumberOfActiveAdsorbateAtomsX[CurrentSystem]++;
@@ -3871,6 +4091,11 @@ int ReadInput(char *input)
     if(strcasecmp("ActiveAdsorbateAtomY",keyword)==0)
     {
       ActiveAdsorbateAtomsY[CurrentSystem]=(PAIR*)realloc(ActiveAdsorbateAtomsY[CurrentSystem],(NumberOfActiveAdsorbateAtomsY[CurrentSystem]+1)*sizeof(PAIR));
+      if(!ActiveAdsorbateAtomsY[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveAdsorbateAtomsY[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&ActiveAdsorbateAtomsY[CurrentSystem][NumberOfActiveAdsorbateAtomsY[CurrentSystem]].A,
                        &ActiveAdsorbateAtomsY[CurrentSystem][NumberOfActiveAdsorbateAtomsY[CurrentSystem]].B);
       NumberOfActiveAdsorbateAtomsY[CurrentSystem]++;
@@ -3878,6 +4103,11 @@ int ReadInput(char *input)
     if(strcasecmp("ActiveAdsorbateAtomZ",keyword)==0)
     {
       ActiveAdsorbateAtomsZ[CurrentSystem]=(PAIR*)realloc(ActiveAdsorbateAtomsZ[CurrentSystem],(NumberOfActiveAdsorbateAtomsZ[CurrentSystem]+1)*sizeof(PAIR));
+      if(!ActiveAdsorbateAtomsZ[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveAdsorbateAtomsZ[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&ActiveAdsorbateAtomsZ[CurrentSystem][NumberOfActiveAdsorbateAtomsZ[CurrentSystem]].A,
                        &ActiveAdsorbateAtomsZ[CurrentSystem][NumberOfActiveAdsorbateAtomsZ[CurrentSystem]].B);
       NumberOfActiveAdsorbateAtomsZ[CurrentSystem]++;
@@ -3885,6 +4115,11 @@ int ReadInput(char *input)
     if(strcasecmp("FixedAdsorbateAtom",keyword)==0)
     {
       FixedAdsorbateAtoms[CurrentSystem]=(PAIR*)realloc(FixedAdsorbateAtoms[CurrentSystem],(NumberOfFixedAdsorbateAtoms[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedAdsorbateAtoms[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateAtoms[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedAdsorbateAtoms[CurrentSystem][NumberOfFixedAdsorbateAtoms[CurrentSystem]].A,
                        &FixedAdsorbateAtoms[CurrentSystem][NumberOfFixedAdsorbateAtoms[CurrentSystem]].B);
       NumberOfFixedAdsorbateAtoms[CurrentSystem]++;
@@ -3892,6 +4127,11 @@ int ReadInput(char *input)
     if(strcasecmp("FixedAdsorbateAtomX",keyword)==0)
     {
       FixedAdsorbateAtomsX[CurrentSystem]=(PAIR*)realloc(FixedAdsorbateAtomsX[CurrentSystem],(NumberOfFixedAdsorbateAtomsX[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedAdsorbateAtomsX[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateAtomsX[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedAdsorbateAtomsX[CurrentSystem][NumberOfFixedAdsorbateAtomsX[CurrentSystem]].A,
                        &FixedAdsorbateAtomsX[CurrentSystem][NumberOfFixedAdsorbateAtomsX[CurrentSystem]].B);
       NumberOfFixedAdsorbateAtomsX[CurrentSystem]++;
@@ -3899,6 +4139,11 @@ int ReadInput(char *input)
     if(strcasecmp("FixedAdsorbateAtomY",keyword)==0)
     {
       FixedAdsorbateAtomsY[CurrentSystem]=(PAIR*)realloc(FixedAdsorbateAtomsY[CurrentSystem],(NumberOfFixedAdsorbateAtomsY[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedAdsorbateAtomsY[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateAtomsY[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedAdsorbateAtomsY[CurrentSystem][NumberOfFixedAdsorbateAtomsY[CurrentSystem]].A,
                        &FixedAdsorbateAtomsY[CurrentSystem][NumberOfFixedAdsorbateAtomsY[CurrentSystem]].B);
       NumberOfFixedAdsorbateAtomsY[CurrentSystem]++;
@@ -3906,6 +4151,11 @@ int ReadInput(char *input)
     if(strcasecmp("FixedAdsorbateAtomZ",keyword)==0)
     {
       FixedAdsorbateAtomsZ[CurrentSystem]=(PAIR*)realloc(FixedAdsorbateAtomsZ[CurrentSystem],(NumberOfFixedAdsorbateAtomsZ[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedAdsorbateAtomsZ[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateAtomsZ[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedAdsorbateAtomsZ[CurrentSystem][NumberOfFixedAdsorbateAtomsZ[CurrentSystem]].A,
                        &FixedAdsorbateAtomsZ[CurrentSystem][NumberOfFixedAdsorbateAtomsZ[CurrentSystem]].B);
       NumberOfFixedAdsorbateAtomsZ[CurrentSystem]++;
@@ -3913,6 +4163,11 @@ int ReadInput(char *input)
     if(strcasecmp("ActiveAdsorbateGroup",keyword)==0)
     {
       ActiveAdsorbateGroups[CurrentSystem]=(PAIR*)realloc(ActiveAdsorbateGroups[CurrentSystem],(NumberOfActiveAdsorbateGroups[CurrentSystem]+1)*sizeof(PAIR));
+      if(!ActiveAdsorbateGroups[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveAdsorbateGroups[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&ActiveAdsorbateGroups[CurrentSystem][NumberOfActiveAdsorbateGroups[CurrentSystem]].A,
                        &ActiveAdsorbateGroups[CurrentSystem][NumberOfActiveAdsorbateGroups[CurrentSystem]].B);
       NumberOfActiveAdsorbateGroups[CurrentSystem]++;
@@ -3920,6 +4175,11 @@ int ReadInput(char *input)
     if(strcasecmp("FixedAdsorbateGroup",keyword)==0)
     {
       FixedAdsorbateGroups[CurrentSystem]=(PAIR*)realloc(FixedAdsorbateGroups[CurrentSystem],(NumberOfFixedAdsorbateGroups[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedAdsorbateGroups[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateGroups[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedAdsorbateGroups[CurrentSystem][NumberOfFixedAdsorbateGroups[CurrentSystem]].A,
                        &FixedAdsorbateGroups[CurrentSystem][NumberOfFixedAdsorbateGroups[CurrentSystem]].B);
       NumberOfFixedAdsorbateGroups[CurrentSystem]++;
@@ -3928,6 +4188,11 @@ int ReadInput(char *input)
     {
       ActiveAdsorbateGroupsCenterOfMass[CurrentSystem]=(PAIR*)realloc(ActiveAdsorbateGroupsCenterOfMass[CurrentSystem],
                        (NumberOfActiveAdsorbateGroupsCenterOfMass[CurrentSystem]+1)*sizeof(PAIR));
+      if(!ActiveAdsorbateGroupsCenterOfMass[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveAdsorbateGroupsCenterOfMass[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&ActiveAdsorbateGroupsCenterOfMass[CurrentSystem][NumberOfActiveAdsorbateGroupsCenterOfMass[CurrentSystem]].A,
                        &ActiveAdsorbateGroupsCenterOfMass[CurrentSystem][NumberOfActiveAdsorbateGroupsCenterOfMass[CurrentSystem]].B);
       NumberOfActiveAdsorbateGroupsCenterOfMass[CurrentSystem]++;
@@ -3936,6 +4201,11 @@ int ReadInput(char *input)
     {
       FixedAdsorbateGroupsCenterOfMass[CurrentSystem]=(PAIR*)realloc(FixedAdsorbateGroupsCenterOfMass[CurrentSystem],
                                        (NumberOfFixedAdsorbateGroupsCenterOfMass[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedAdsorbateGroupsCenterOfMass[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateGroupsCenterOfMass[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedAdsorbateGroupsCenterOfMass[CurrentSystem][NumberOfFixedAdsorbateGroupsCenterOfMass[CurrentSystem]].A,
                        &FixedAdsorbateGroupsCenterOfMass[CurrentSystem][NumberOfFixedAdsorbateGroupsCenterOfMass[CurrentSystem]].B);
       NumberOfFixedAdsorbateGroupsCenterOfMass[CurrentSystem]++;
@@ -3944,6 +4214,11 @@ int ReadInput(char *input)
     {
       FixedAdsorbateGroupsCenterOfMassX[CurrentSystem]=(PAIR*)realloc(FixedAdsorbateGroupsCenterOfMassX[CurrentSystem],
                                        (NumberOfFixedAdsorbateGroupsCenterOfMassX[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedAdsorbateGroupsCenterOfMassX[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateGroupsCenterOfMassX[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedAdsorbateGroupsCenterOfMassX[CurrentSystem][NumberOfFixedAdsorbateGroupsCenterOfMassX[CurrentSystem]].A,
                        &FixedAdsorbateGroupsCenterOfMassX[CurrentSystem][NumberOfFixedAdsorbateGroupsCenterOfMassX[CurrentSystem]].B);
       NumberOfFixedAdsorbateGroupsCenterOfMassX[CurrentSystem]++;
@@ -3952,6 +4227,11 @@ int ReadInput(char *input)
     {
       FixedAdsorbateGroupsCenterOfMassY[CurrentSystem]=(PAIR*)realloc(FixedAdsorbateGroupsCenterOfMassY[CurrentSystem],
                                        (NumberOfFixedAdsorbateGroupsCenterOfMassY[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedAdsorbateGroupsCenterOfMassY[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateGroupsCenterOfMassY[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedAdsorbateGroupsCenterOfMassY[CurrentSystem][NumberOfFixedAdsorbateGroupsCenterOfMassY[CurrentSystem]].A,
                        &FixedAdsorbateGroupsCenterOfMassY[CurrentSystem][NumberOfFixedAdsorbateGroupsCenterOfMassY[CurrentSystem]].B);
       NumberOfFixedAdsorbateGroupsCenterOfMassY[CurrentSystem]++;
@@ -3960,6 +4240,11 @@ int ReadInput(char *input)
     {
       FixedAdsorbateGroupsCenterOfMassZ[CurrentSystem]=(PAIR*)realloc(FixedAdsorbateGroupsCenterOfMassZ[CurrentSystem],
                                        (NumberOfFixedAdsorbateGroupsCenterOfMassZ[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedAdsorbateGroupsCenterOfMassZ[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateGroupsCenterOfMassZ[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedAdsorbateGroupsCenterOfMassZ[CurrentSystem][NumberOfFixedAdsorbateGroupsCenterOfMassZ[CurrentSystem]].A,
                        &FixedAdsorbateGroupsCenterOfMassZ[CurrentSystem][NumberOfFixedAdsorbateGroupsCenterOfMassZ[CurrentSystem]].B);
       NumberOfFixedAdsorbateGroupsCenterOfMassZ[CurrentSystem]++;
@@ -3968,6 +4253,11 @@ int ReadInput(char *input)
     {
       ActiveAdsorbateGroupsOrientation[CurrentSystem]=(PAIR*)realloc(ActiveAdsorbateGroupsOrientation[CurrentSystem],
                        (NumberOfActiveAdsorbateGroupsOrientation[CurrentSystem]+1)*sizeof(PAIR));
+      if(!ActiveAdsorbateGroupsOrientation[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveAdsorbateGroupsOrientation[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&ActiveAdsorbateGroupsOrientation[CurrentSystem][NumberOfActiveAdsorbateGroupsOrientation[CurrentSystem]].A,
                        &ActiveAdsorbateGroupsOrientation[CurrentSystem][NumberOfActiveAdsorbateGroupsOrientation[CurrentSystem]].B);
       NumberOfActiveAdsorbateGroupsOrientation[CurrentSystem]++;
@@ -3976,6 +4266,11 @@ int ReadInput(char *input)
     {
       FixedAdsorbateGroupsOrientation[CurrentSystem]=(PAIR*)realloc(FixedAdsorbateGroupsOrientation[CurrentSystem],
                                        (NumberOfFixedAdsorbateGroupsOrientation[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedAdsorbateGroupsOrientation[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateGroupsOrientation[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedAdsorbateGroupsOrientation[CurrentSystem][NumberOfFixedAdsorbateGroupsOrientation[CurrentSystem]].A,
                        &FixedAdsorbateGroupsOrientation[CurrentSystem][NumberOfFixedAdsorbateGroupsOrientation[CurrentSystem]].B);
       NumberOfFixedAdsorbateGroupsOrientation[CurrentSystem]++;
@@ -3984,6 +4279,11 @@ int ReadInput(char *input)
     {
       FixedAdsorbateGroupsOrientationX[CurrentSystem]=(PAIR*)realloc(FixedAdsorbateGroupsOrientationX[CurrentSystem],
                                        (NumberOfFixedAdsorbateGroupsOrientationX[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedAdsorbateGroupsOrientationX[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateGroupsOrientationX[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedAdsorbateGroupsOrientationX[CurrentSystem][NumberOfFixedAdsorbateGroupsOrientationX[CurrentSystem]].A,
                        &FixedAdsorbateGroupsOrientationX[CurrentSystem][NumberOfFixedAdsorbateGroupsOrientationX[CurrentSystem]].B);
       NumberOfFixedAdsorbateGroupsOrientationX[CurrentSystem]++;
@@ -3992,6 +4292,11 @@ int ReadInput(char *input)
     {
       FixedAdsorbateGroupsOrientationY[CurrentSystem]=(PAIR*)realloc(FixedAdsorbateGroupsOrientationY[CurrentSystem],
                                        (NumberOfFixedAdsorbateGroupsOrientationY[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedAdsorbateGroupsOrientationY[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateGroupsOrientationY[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedAdsorbateGroupsOrientationY[CurrentSystem][NumberOfFixedAdsorbateGroupsOrientationY[CurrentSystem]].A,
                        &FixedAdsorbateGroupsOrientationY[CurrentSystem][NumberOfFixedAdsorbateGroupsOrientationY[CurrentSystem]].B);
       NumberOfFixedAdsorbateGroupsOrientationY[CurrentSystem]++;
@@ -4000,6 +4305,11 @@ int ReadInput(char *input)
     {
       FixedAdsorbateGroupsOrientationZ[CurrentSystem]=(PAIR*)realloc(FixedAdsorbateGroupsOrientationZ[CurrentSystem],
                                        (NumberOfFixedAdsorbateGroupsOrientationZ[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedAdsorbateGroupsOrientationZ[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateGroupsOrientationZ[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedAdsorbateGroupsOrientationZ[CurrentSystem][NumberOfFixedAdsorbateGroupsOrientationZ[CurrentSystem]].A,
                        &FixedAdsorbateGroupsOrientationZ[CurrentSystem][NumberOfFixedAdsorbateGroupsOrientationZ[CurrentSystem]].B);
       NumberOfFixedAdsorbateGroupsOrientationZ[CurrentSystem]++;
@@ -4007,18 +4317,33 @@ int ReadInput(char *input)
     if(strcasecmp("ActiveCationMolecule",keyword)==0)
     {
       ActiveCationMolecules[CurrentSystem]=(int*)realloc(ActiveCationMolecules[CurrentSystem],(NumberOfActiveCationMolecules[CurrentSystem]+1)*sizeof(int));
+      if(!ActiveCationMolecules[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveCationMolecules[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d",&ActiveCationMolecules[CurrentSystem][NumberOfActiveCationMolecules[CurrentSystem]]);
       NumberOfActiveCationMolecules[CurrentSystem]++;
     }
     if(strcasecmp("FixedAdsorbateMolecule",keyword)==0)
     {
       FixedAdsorbateMolecules[CurrentSystem]=(int*)realloc(FixedAdsorbateMolecules[CurrentSystem],(NumberOfFixedAdsorbateMolecules[CurrentSystem]+1)*sizeof(int));
+      if(!FixedAdsorbateMolecules[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedAdsorbateMolecules[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d",&FixedAdsorbateMolecules[CurrentSystem][NumberOfFixedAdsorbateMolecules[CurrentSystem]]);
       NumberOfFixedAdsorbateMolecules[CurrentSystem]++;
     }
     if(strcasecmp("ActiveCationAtom",keyword)==0)
     {
       ActiveCationAtoms[CurrentSystem]=(PAIR*)realloc(ActiveCationAtoms[CurrentSystem],(NumberOfActiveCationAtoms[CurrentSystem]+1)*sizeof(PAIR));
+      if(!ActiveCationAtoms[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveCationAtoms[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&ActiveCationAtoms[CurrentSystem][NumberOfActiveCationAtoms[CurrentSystem]].A,
                        &ActiveCationAtoms[CurrentSystem][NumberOfActiveCationAtoms[CurrentSystem]].B);
       NumberOfActiveCationAtoms[CurrentSystem]++;
@@ -4026,6 +4351,11 @@ int ReadInput(char *input)
     if(strcasecmp("ActiveCationAtomX",keyword)==0)
     {
       ActiveCationAtomsX[CurrentSystem]=(PAIR*)realloc(ActiveCationAtomsX[CurrentSystem],(NumberOfActiveCationAtomsX[CurrentSystem]+1)*sizeof(PAIR));
+      if(!ActiveCationAtomsX[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveCationAtomsX[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&ActiveCationAtomsX[CurrentSystem][NumberOfActiveCationAtomsX[CurrentSystem]].A,
                        &ActiveCationAtomsX[CurrentSystem][NumberOfActiveCationAtomsX[CurrentSystem]].B);
       NumberOfActiveCationAtomsX[CurrentSystem]++;
@@ -4033,6 +4363,11 @@ int ReadInput(char *input)
     if(strcasecmp("ActiveCationAtomY",keyword)==0)
     {
       ActiveCationAtomsY[CurrentSystem]=(PAIR*)realloc(ActiveCationAtomsY[CurrentSystem],(NumberOfActiveCationAtomsY[CurrentSystem]+1)*sizeof(PAIR));
+      if(!ActiveCationAtomsY[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveCationAtomsY[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&ActiveCationAtomsY[CurrentSystem][NumberOfActiveCationAtomsY[CurrentSystem]].A,
                        &ActiveCationAtomsY[CurrentSystem][NumberOfActiveCationAtomsY[CurrentSystem]].B);
       NumberOfActiveCationAtomsY[CurrentSystem]++;
@@ -4040,6 +4375,11 @@ int ReadInput(char *input)
     if(strcasecmp("ActiveCationAtomZ",keyword)==0)
     {
       ActiveCationAtomsZ[CurrentSystem]=(PAIR*)realloc(ActiveCationAtomsZ[CurrentSystem],(NumberOfActiveCationAtomsZ[CurrentSystem]+1)*sizeof(PAIR));
+      if(!ActiveCationAtomsZ[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveCationAtomsZ[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&ActiveCationAtomsZ[CurrentSystem][NumberOfActiveCationAtomsZ[CurrentSystem]].A,
                        &ActiveCationAtomsZ[CurrentSystem][NumberOfActiveCationAtomsZ[CurrentSystem]].B);
       NumberOfActiveCationAtomsZ[CurrentSystem]++;
@@ -4047,6 +4387,11 @@ int ReadInput(char *input)
     if(strcasecmp("FixedCationAtom",keyword)==0)
     {
       FixedCationAtoms[CurrentSystem]=(PAIR*)realloc(FixedCationAtoms[CurrentSystem],(NumberOfFixedCationAtoms[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedCationAtoms[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedCationAtoms[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedCationAtoms[CurrentSystem][NumberOfFixedCationAtoms[CurrentSystem]].A,
                        &FixedCationAtoms[CurrentSystem][NumberOfFixedCationAtoms[CurrentSystem]].B);
       NumberOfFixedCationAtoms[CurrentSystem]++;
@@ -4054,6 +4399,11 @@ int ReadInput(char *input)
     if(strcasecmp("FixedCationAtomX",keyword)==0)
     {
       FixedCationAtomsX[CurrentSystem]=(PAIR*)realloc(FixedCationAtomsX[CurrentSystem],(NumberOfFixedCationAtomsX[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedCationAtomsX[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedCationAtomsX[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedCationAtomsX[CurrentSystem][NumberOfFixedCationAtomsX[CurrentSystem]].A,
                        &FixedCationAtomsX[CurrentSystem][NumberOfFixedCationAtomsX[CurrentSystem]].B);
       NumberOfFixedCationAtomsX[CurrentSystem]++;
@@ -4061,6 +4411,11 @@ int ReadInput(char *input)
     if(strcasecmp("FixedCationAtomY",keyword)==0)
     {
       FixedCationAtomsY[CurrentSystem]=(PAIR*)realloc(FixedCationAtomsY[CurrentSystem],(NumberOfFixedCationAtomsY[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedCationAtomsY[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedCationAtomsY[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedCationAtomsY[CurrentSystem][NumberOfFixedCationAtomsY[CurrentSystem]].A,
                        &FixedCationAtomsY[CurrentSystem][NumberOfFixedCationAtomsY[CurrentSystem]].B);
       NumberOfFixedCationAtomsY[CurrentSystem]++;
@@ -4068,6 +4423,11 @@ int ReadInput(char *input)
     if(strcasecmp("FixedCationAtomZ",keyword)==0)
     {
       FixedCationAtomsZ[CurrentSystem]=(PAIR*)realloc(FixedCationAtomsZ[CurrentSystem],(NumberOfFixedCationAtomsZ[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedCationAtomsZ[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedCationAtomsZ[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedCationAtomsZ[CurrentSystem][NumberOfFixedCationAtomsZ[CurrentSystem]].A,
                        &FixedCationAtomsZ[CurrentSystem][NumberOfFixedCationAtomsZ[CurrentSystem]].B);
       NumberOfFixedCationAtomsZ[CurrentSystem]++;
@@ -4075,6 +4435,11 @@ int ReadInput(char *input)
     if(strcasecmp("ActiveCationGroup",keyword)==0)
     {
       ActiveCationGroups[CurrentSystem]=(PAIR*)realloc(ActiveCationGroups[CurrentSystem],(NumberOfActiveCationGroups[CurrentSystem]+1)*sizeof(PAIR));
+      if(!ActiveCationGroups[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveCationGroups[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&ActiveCationGroups[CurrentSystem][NumberOfActiveCationGroups[CurrentSystem]].A,
                        &ActiveCationGroups[CurrentSystem][NumberOfActiveCationGroups[CurrentSystem]].B);
       NumberOfActiveCationGroups[CurrentSystem]++;
@@ -4082,6 +4447,11 @@ int ReadInput(char *input)
     if(strcasecmp("FixedCationGroup",keyword)==0)
     {
       FixedCationGroups[CurrentSystem]=(PAIR*)realloc(FixedCationGroups[CurrentSystem],(NumberOfFixedCationGroups[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedCationGroups[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedCationGroups[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedCationGroups[CurrentSystem][NumberOfFixedCationGroups[CurrentSystem]].A,
                        &FixedCationGroups[CurrentSystem][NumberOfFixedCationGroups[CurrentSystem]].B);
       NumberOfFixedCationGroups[CurrentSystem]++;
@@ -4090,6 +4460,11 @@ int ReadInput(char *input)
     {
       ActiveCationGroupsCenterOfMass[CurrentSystem]=(PAIR*)realloc(ActiveCationGroupsCenterOfMass[CurrentSystem],
                        (NumberOfActiveCationGroupsCenterOfMass[CurrentSystem]+1)*sizeof(PAIR));
+      if(!ActiveCationGroupsCenterOfMass[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveCationGroupsCenterOfMass[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&ActiveCationGroupsCenterOfMass[CurrentSystem][NumberOfActiveCationGroupsCenterOfMass[CurrentSystem]].A,
                        &ActiveCationGroupsCenterOfMass[CurrentSystem][NumberOfActiveCationGroupsCenterOfMass[CurrentSystem]].B);
       NumberOfActiveCationGroupsCenterOfMass[CurrentSystem]++;
@@ -4098,6 +4473,11 @@ int ReadInput(char *input)
     {
       FixedCationGroupsCenterOfMass[CurrentSystem]=(PAIR*)realloc(FixedCationGroupsCenterOfMass[CurrentSystem],
                                        (NumberOfFixedCationGroupsCenterOfMass[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedCationGroupsCenterOfMass[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedCationGroupsCenterOfMass[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedCationGroupsCenterOfMass[CurrentSystem][NumberOfFixedCationGroupsCenterOfMass[CurrentSystem]].A,
                        &FixedCationGroupsCenterOfMass[CurrentSystem][NumberOfFixedCationGroupsCenterOfMass[CurrentSystem]].B);
       NumberOfFixedCationGroupsCenterOfMass[CurrentSystem]++;
@@ -4106,6 +4486,11 @@ int ReadInput(char *input)
     {
       ActiveCationGroupsOrientation[CurrentSystem]=(PAIR*)realloc(ActiveCationGroupsOrientation[CurrentSystem],
                        (NumberOfActiveCationGroupsOrientation[CurrentSystem]+1)*sizeof(PAIR));
+      if(!ActiveCationGroupsOrientation[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ActiveCationGroupsOrientation[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&ActiveCationGroupsOrientation[CurrentSystem][NumberOfActiveCationGroupsOrientation[CurrentSystem]].A,
                        &ActiveCationGroupsOrientation[CurrentSystem][NumberOfActiveCationGroupsOrientation[CurrentSystem]].B);
       NumberOfActiveCationGroupsOrientation[CurrentSystem]++;
@@ -4114,6 +4499,11 @@ int ReadInput(char *input)
     {
       FixedCationGroupsOrientation[CurrentSystem]=(PAIR*)realloc(FixedCationGroupsOrientation[CurrentSystem],
                                        (NumberOfFixedCationGroupsOrientation[CurrentSystem]+1)*sizeof(PAIR));
+      if(!FixedCationGroupsOrientation[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'FixedCationGroupsOrientation[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%d%d\n",&FixedCationGroupsOrientation[CurrentSystem][NumberOfFixedCationGroupsOrientation[CurrentSystem]].A,
                        &FixedCationGroupsOrientation[CurrentSystem][NumberOfFixedCationGroupsOrientation[CurrentSystem]].B);
       NumberOfFixedCationGroupsOrientation[CurrentSystem]++;
@@ -4121,6 +4511,11 @@ int ReadInput(char *input)
     if(strcasecmp("ActiveAtomType",keyword)==0)
     {
       ActiveAtomTypes=(char(*)[256])realloc(ActiveAtomTypes,(NumberOfActiveAtomTypes+1)*sizeof(char[256]));
+      if(!ActiveAtomTypes)
+      {
+        printf("Memory reallocation error of 'ActiveAtomTypes' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%s",ActiveAtomTypes[NumberOfActiveAtomTypes]);
       NumberOfActiveAtomTypes++;
     }
@@ -4128,6 +4523,11 @@ int ReadInput(char *input)
     {
       sscanf(arguments,"%d%[^\n]",&temp_int,arguments);
       ActiveAtomTypes=(char(*)[256])realloc(ActiveAtomTypes,(NumberOfActiveAtomTypes+temp_int)*sizeof(char[256]));
+      if(!ActiveAtomTypes)
+      {
+        printf("Memory reallocation error of 'ActiveAtomTypes' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       for(i=0;i<temp_int;i++)
         sscanf(arguments,"%s%[^\n]",ActiveAtomTypes[NumberOfActiveAtomTypes++],arguments);
     }
@@ -4135,6 +4535,11 @@ int ReadInput(char *input)
     if(strcasecmp("FixedAtomType",keyword)==0)
     {
       FixedAtomTypes=(char(*)[256])realloc(FixedAtomTypes,(NumberOfFixedAtomTypes+1)*sizeof(char[256]));
+      if(!FixedAtomTypes)
+      {
+        printf("Memory reallocation error of 'FixedAtomTypes' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       sscanf(arguments,"%s",FixedAtomTypes[NumberOfFixedAtomTypes]);
       NumberOfFixedAtomTypes++;
     }
@@ -4142,6 +4547,11 @@ int ReadInput(char *input)
     {
       sscanf(arguments,"%d%[^\n]",&temp_int,arguments);
       FixedAtomTypes=(char(*)[256])realloc(FixedAtomTypes,(NumberOfFixedAtomTypes+temp_int)*sizeof(char[256]));
+      if(!FixedAtomTypes)
+      {
+        printf("Memory reallocation error of 'FixedAtomTypes' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       for(i=0;i<temp_int;i++)
         sscanf(arguments,"%s%[^\n]",FixedAtomTypes[NumberOfFixedAtomTypes++],arguments);
     }
@@ -4151,6 +4561,11 @@ int ReadInput(char *input)
     {
       sscanf(arguments," %c %d %d %c %d %d%[^\n]",&charinput1,&intinput1,&intinput2,&charinput2,&intinput3,&intinput4,arguments);
       DistanceHistogramDefinitions[CurrentSystem]=(int(*)[2][3])realloc(DistanceHistogramDefinitions[CurrentSystem],(NumberOfDistanceHistogramDefinitions[CurrentSystem]+1)*sizeof(int[2][3]));
+      if(!DistanceHistogramDefinitions[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'DistanceHistogramDefinitions[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       if((charinput1=='F')||(charinput1=='f'))
         DistanceHistogramDefinitions[CurrentSystem][NumberOfDistanceHistogramDefinitions[CurrentSystem]][0][0]=FRAMEWORK;
       else if((charinput1=='A')||(charinput1=='a'))
@@ -4177,6 +4592,11 @@ int ReadInput(char *input)
       sscanf(arguments," %c %d %d %c %d %d %c %d %d%*[^\n]",&charinput1,&intinput1,&intinput2,&charinput2,&intinput3,&intinput4,&charinput3,&intinput5,&intinput6);
       BendAngleHistogramDefinitions[CurrentSystem]=(int(*)[3][3])realloc(BendAngleHistogramDefinitions[CurrentSystem],
               (NumberOfBendAngleHistogramDefinitions[CurrentSystem]+1)*sizeof(int[3][3]));
+      if(!BendAngleHistogramDefinitions[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'BendAngleHistogramDefinitions[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
 
       if((charinput1=='F')||(charinput1=='f'))
         BendAngleHistogramDefinitions[CurrentSystem][NumberOfBendAngleHistogramDefinitions[CurrentSystem]][0][0]=FRAMEWORK;
@@ -4215,6 +4635,11 @@ int ReadInput(char *input)
                                                          &charinput3,&intinput5,&intinput6,&charinput4,&intinput7,&intinput8);
       DihedralAngleHistogramDefinitions[CurrentSystem]=(int(*)[4][3])realloc(DihedralAngleHistogramDefinitions[CurrentSystem],
               (NumberOfDihedralAngleHistogramDefinitions[CurrentSystem]+1)*sizeof(int[4][3]));
+      if(!DihedralAngleHistogramDefinitions[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'DihedralAngleHistogramDefinitions[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
 
       if((charinput1=='F')||(charinput1=='f'))
         DihedralAngleHistogramDefinitions[CurrentSystem][NumberOfDihedralAngleHistogramDefinitions[CurrentSystem]][0][0]=FRAMEWORK;
@@ -4263,6 +4688,11 @@ int ReadInput(char *input)
                                                                      &charinput5,&intinput9,&intinput10,&charinput6,&intinput11,&intinput12);
       AngleBetweenPlanesHistogramDefinitions[CurrentSystem]=(int(*)[6][3])realloc(AngleBetweenPlanesHistogramDefinitions[CurrentSystem],
               (NumberOfAngleBetweenPlanesHistogramDefinitions[CurrentSystem]+1)*sizeof(int[6][3]));
+      if(!AngleBetweenPlanesHistogramDefinitions[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'AngleBetweenPlanesHistogramDefinitions[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
 
       if((charinput1=='F')||(charinput1=='f'))
         AngleBetweenPlanesHistogramDefinitions[CurrentSystem][NumberOfAngleBetweenPlanesHistogramDefinitions[CurrentSystem]][0][0]=FRAMEWORK;
@@ -4326,6 +4756,11 @@ int ReadInput(char *input)
       sscanf(arguments," %c %d %d %c %d %d%[^\n]",&charinput1,&intinput1,&intinput2,&charinput2,&intinput3,&intinput4,arguments);
       sscanf(arguments,"%lf",&realinput1);
       DistanceDefinitions[CurrentSystem]=(int(*)[2][3])realloc(DistanceDefinitions[CurrentSystem],(NumberOfDistanceConstraints[CurrentSystem]+1)*sizeof(int[2][3]));
+      if(!DistanceDefinitions[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'DistanceDefinitions[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       if((charinput1=='F')||(charinput1=='f'))
         DistanceDefinitions[CurrentSystem][NumberOfDistanceConstraints[CurrentSystem]][0][0]=FRAMEWORK;
       else if((charinput1=='A')||(charinput1=='a'))
@@ -4346,6 +4781,11 @@ int ReadInput(char *input)
       // optional reference distance
       DistanceConstraintParameter[CurrentSystem]=(REAL*)realloc(DistanceConstraintParameter[CurrentSystem],
                                                  (NumberOfDistanceConstraints[CurrentSystem]+1)*sizeof(REAL));
+      if(!DistanceConstraintParameter[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'DistanceConstraintParameter[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       DistanceConstraintParameter[CurrentSystem][NumberOfDistanceConstraints[CurrentSystem]]=UNDEFINED;
       if(sscanf(arguments,"%lf",&realinput1)==1)
         DistanceConstraintParameter[CurrentSystem][NumberOfDistanceConstraints[CurrentSystem]]=realinput1;
@@ -4360,6 +4800,11 @@ int ReadInput(char *input)
       sscanf(arguments,"%lf",&realinput1);
       AngleDefinitions[CurrentSystem]=(int(*)[3][3])realloc(AngleDefinitions[CurrentSystem],
                                       (NumberOfAngleConstraints[CurrentSystem]+1)*sizeof(int[3][3]));
+      if(!AngleDefinitions[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'AngleDefinitions[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       if((charinput1=='F')||(charinput1=='f'))
         AngleDefinitions[CurrentSystem][NumberOfAngleConstraints[CurrentSystem]][0][0]=FRAMEWORK;
       else if((charinput1=='A')||(charinput1=='a'))
@@ -4390,6 +4835,11 @@ int ReadInput(char *input)
       // optional reference angle
       AngleConstraintParameter[CurrentSystem]=(REAL*)realloc(AngleConstraintParameter[CurrentSystem],
                                               (NumberOfAngleConstraints[CurrentSystem]+1)*sizeof(REAL));
+      if(!AngleConstraintParameter[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'AngleConstraintParameter[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       AngleConstraintParameter[CurrentSystem][NumberOfAngleConstraints[CurrentSystem]]=UNDEFINED;
       if(sscanf(arguments,"%lf",&realinput1)==1)
         AngleConstraintParameter[CurrentSystem][NumberOfAngleConstraints[CurrentSystem]]=realinput1*DEG2RAD;
@@ -4404,6 +4854,11 @@ int ReadInput(char *input)
       sscanf(arguments,"%lf",&realinput1);
       DihedralDefinitions[CurrentSystem]=(int(*)[4][3])realloc(DihedralDefinitions[CurrentSystem],
                                          (NumberOfDihedralConstraints[CurrentSystem]+1)*sizeof(int[4][3]));
+      if(!DihedralDefinitions[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'DihedralDefinitions[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       if((charinput1=='F')||(charinput1=='f'))
         DihedralDefinitions[CurrentSystem][NumberOfDihedralConstraints[CurrentSystem]][0][0]=FRAMEWORK;
       else if((charinput1=='A')||(charinput1=='a'))
@@ -4443,6 +4898,11 @@ int ReadInput(char *input)
       // optional reference dihedral angle
       DihedralConstraintParameter[CurrentSystem]=(REAL*)realloc(DihedralConstraintParameter[CurrentSystem],
                                                  (NumberOfDihedralConstraints[CurrentSystem]+1)*sizeof(REAL));
+      if(!DihedralConstraintParameter[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'DihedralConstraintParameter[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       DihedralConstraintParameter[CurrentSystem][NumberOfDihedralConstraints[CurrentSystem]]=UNDEFINED;
       if(sscanf(arguments,"%lf",&realinput1)==1)
         DihedralConstraintParameter[CurrentSystem][NumberOfDihedralConstraints[CurrentSystem]]=realinput1*DEG2RAD;
@@ -4457,6 +4917,11 @@ int ReadInput(char *input)
       sscanf(arguments,"%lf",&realinput1);
       ImproperDihedralDefinitions[CurrentSystem]=(int(*)[4][3])realloc(ImproperDihedralDefinitions[CurrentSystem],
                                          (NumberOfImproperDihedralConstraints[CurrentSystem]+1)*sizeof(int[4][3]));
+      if(!ImproperDihedralDefinitions[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ImproperDihedralDefinitions[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       if((charinput1=='F')||(charinput1=='f'))
         ImproperDihedralDefinitions[CurrentSystem][NumberOfImproperDihedralConstraints[CurrentSystem]][0][0]=FRAMEWORK;
       else if((charinput1=='A')||(charinput1=='a'))
@@ -4496,6 +4961,11 @@ int ReadInput(char *input)
       // optional reference dihedral angle
       ImproperDihedralConstraintParameter[CurrentSystem]=(REAL*)realloc(ImproperDihedralConstraintParameter[CurrentSystem],
                                                  (NumberOfImproperDihedralConstraints[CurrentSystem]+1)*sizeof(REAL));
+      if(!ImproperDihedralConstraintParameter[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'ImproperDihedralConstraintParameter[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      } 
       ImproperDihedralConstraintParameter[CurrentSystem][NumberOfImproperDihedralConstraints[CurrentSystem]]=UNDEFINED;
       if(sscanf(arguments,"%lf",&realinput1)==1)
         ImproperDihedralConstraintParameter[CurrentSystem][NumberOfImproperDihedralConstraints[CurrentSystem]]=realinput1*DEG2RAD;
@@ -4510,6 +4980,11 @@ int ReadInput(char *input)
       sscanf(arguments,"%lf",&realinput1);
       InversionBendDefinitions[CurrentSystem]=(int(*)[4][3])realloc(InversionBendDefinitions[CurrentSystem],
                                          (NumberOfInversionBendConstraints[CurrentSystem]+1)*sizeof(int[4][3]));
+      if(!InversionBendDefinitions[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'InversionBendDefinitions[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       if((charinput1=='F')||(charinput1=='f'))
         InversionBendDefinitions[CurrentSystem][NumberOfInversionBendConstraints[CurrentSystem]][0][0]=FRAMEWORK;
       else if((charinput1=='A')||(charinput1=='a'))
@@ -4549,6 +5024,11 @@ int ReadInput(char *input)
       // optional reference dihedral angle
       InversionBendConstraintParameter[CurrentSystem]=(REAL*)realloc(InversionBendConstraintParameter[CurrentSystem],
                                                  (NumberOfInversionBendConstraints[CurrentSystem]+1)*sizeof(REAL));
+      if(!InversionBendConstraintParameter[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'InversionBendConstraintParameter[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      } 
       InversionBendConstraintParameter[CurrentSystem][NumberOfInversionBendConstraints[CurrentSystem]]=UNDEFINED;
       if(sscanf(arguments,"%lf",&realinput1)==1)
         InversionBendConstraintParameter[CurrentSystem][NumberOfInversionBendConstraints[CurrentSystem]]=realinput1*DEG2RAD;
@@ -4563,6 +5043,11 @@ int ReadInput(char *input)
       sscanf(arguments,"%lf",&realinput1);
       OutOfPlaneDistanceDefinitions[CurrentSystem]=(int(*)[4][3])realloc(OutOfPlaneDistanceDefinitions[CurrentSystem],
                                          (NumberOfOutOfPlaneDistanceConstraints[CurrentSystem]+1)*sizeof(int[4][3]));
+      if(!OutOfPlaneDistanceDefinitions[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'OutOfPlaneDistanceDefinitions[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       if((charinput1=='F')||(charinput1=='f'))
         OutOfPlaneDistanceDefinitions[CurrentSystem][NumberOfOutOfPlaneDistanceConstraints[CurrentSystem]][0][0]=FRAMEWORK;
       else if((charinput1=='A')||(charinput1=='a'))
@@ -4602,6 +5087,11 @@ int ReadInput(char *input)
       // optional reference dihedral angle
       OutOfPlaneDistanceConstraintParameter[CurrentSystem]=(REAL*)realloc(OutOfPlaneDistanceConstraintParameter[CurrentSystem],
                                                  (NumberOfOutOfPlaneDistanceConstraints[CurrentSystem]+1)*sizeof(REAL));
+      if(!OutOfPlaneDistanceConstraintParameter[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'OutOfPlaneDistanceConstraintParameter[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      } 
       OutOfPlaneDistanceConstraintParameter[CurrentSystem][NumberOfOutOfPlaneDistanceConstraints[CurrentSystem]]=UNDEFINED;
       if(sscanf(arguments,"%lf",&realinput1)==1)
         OutOfPlaneDistanceConstraintParameter[CurrentSystem][NumberOfOutOfPlaneDistanceConstraints[CurrentSystem]]=realinput1*DEG2RAD;
@@ -4615,6 +5105,11 @@ int ReadInput(char *input)
 
       HarmonicDistanceDefinitions[CurrentSystem]=(int(*)[2][3])realloc(HarmonicDistanceDefinitions[CurrentSystem],
                                                  (NumberOfHarmonicDistanceConstraints[CurrentSystem]+1)*sizeof(int[2][3]));
+      if(!HarmonicDistanceDefinitions[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'HarmonicDistanceDefinitions[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       if((charinput1=='F')||(charinput1=='f'))
         HarmonicDistanceDefinitions[CurrentSystem][NumberOfHarmonicDistanceConstraints[CurrentSystem]][0][0]=FRAMEWORK;
       else if((charinput1=='A')||(charinput1=='a'))
@@ -4635,6 +5130,11 @@ int ReadInput(char *input)
       // optional bond-constant and reference distance
       HarmonicDistanceConstraintParameters[CurrentSystem]=(REAL(*)[2])realloc(HarmonicDistanceConstraintParameters[CurrentSystem],
                                                           (NumberOfHarmonicDistanceConstraints[CurrentSystem]+1)*sizeof(REAL[2]));
+      if(!HarmonicDistanceConstraintParameters[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'HarmonicDistanceConstraintParameters[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       HarmonicDistanceConstraintParameters[CurrentSystem][NumberOfHarmonicDistanceConstraints[CurrentSystem]][0]=1e6/ENERGY_TO_KELVIN;
       HarmonicDistanceConstraintParameters[CurrentSystem][NumberOfHarmonicDistanceConstraints[CurrentSystem]][1]=UNDEFINED;
       if(sscanf(arguments,"%lf%lf",&realinput1,&realinput2)==2)
@@ -4655,6 +5155,11 @@ int ReadInput(char *input)
                                                            &charinput3,&intinput5,&intinput6,arguments);
       HarmonicAngleDefinitions[CurrentSystem]=(int(*)[3][3])realloc(HarmonicAngleDefinitions[CurrentSystem],
                                               (NumberOfHarmonicAngleConstraints[CurrentSystem]+1)*sizeof(int[3][3]));
+      if(!HarmonicAngleDefinitions[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'HarmonicAngleDefinitions[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       if((charinput1=='F')||(charinput1=='f'))
         HarmonicAngleDefinitions[CurrentSystem][NumberOfHarmonicAngleConstraints[CurrentSystem]][0][0]=FRAMEWORK;
       else if((charinput1=='A')||(charinput1=='a'))
@@ -4685,6 +5190,11 @@ int ReadInput(char *input)
       // optional bend-constant and reference angle
       HarmonicAngleConstraintParameters[CurrentSystem]=(REAL(*)[2])realloc(HarmonicAngleConstraintParameters[CurrentSystem],
                                                        (NumberOfHarmonicAngleConstraints[CurrentSystem]+1)*sizeof(REAL[2]));
+      if(!HarmonicAngleConstraintParameters[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'HarmonicAngleConstraintParameters[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       HarmonicAngleConstraintParameters[CurrentSystem][NumberOfHarmonicAngleConstraints[CurrentSystem]][0]=1e5/ENERGY_TO_KELVIN;
       HarmonicAngleConstraintParameters[CurrentSystem][NumberOfHarmonicAngleConstraints[CurrentSystem]][1]=UNDEFINED;
       if(sscanf(arguments,"%lf%lf",&realinput1,&realinput2)==2)
@@ -4705,6 +5215,11 @@ int ReadInput(char *input)
                                                            &charinput3,&intinput5,&intinput6,&charinput4,&intinput7,&intinput8,arguments);
       HarmonicDihedralDefinitions[CurrentSystem]=(int(*)[4][3])realloc(HarmonicDihedralDefinitions[CurrentSystem],
                                       (NumberOfHarmonicDihedralConstraints[CurrentSystem]+1)*sizeof(int[4][3]));
+      if(!HarmonicDihedralDefinitions[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'HarmonicDihedralDefinitions[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       if((charinput1=='F')||(charinput1=='f'))
         HarmonicDihedralDefinitions[CurrentSystem][NumberOfHarmonicDihedralConstraints[CurrentSystem]][0][0]=FRAMEWORK;
       else if((charinput1=='A')||(charinput1=='a'))
@@ -4744,6 +5259,11 @@ int ReadInput(char *input)
       // optional bend-constant and reference angle
       HarmonicDihedralConstraintParameters[CurrentSystem]=(REAL(*)[2])realloc(HarmonicDihedralConstraintParameters[CurrentSystem],
                                                           (NumberOfHarmonicDihedralConstraints[CurrentSystem]+1)*sizeof(REAL[2]));
+      if(!HarmonicDihedralConstraintParameters[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'HarmonicDihedralConstraintParameters[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       HarmonicDihedralConstraintParameters[CurrentSystem][NumberOfHarmonicDihedralConstraints[CurrentSystem]][0]=1e5/ENERGY_TO_KELVIN;
       HarmonicDihedralConstraintParameters[CurrentSystem][NumberOfHarmonicDihedralConstraints[CurrentSystem]][1]=UNDEFINED;
       if(sscanf(arguments,"%lf%lf",&realinput1,&realinput2)==2)
@@ -4805,6 +5325,11 @@ int ReadInput(char *input)
       sscanf(arguments,"%lf",&realinput1);
       TwoPointDihedralDefinitions[CurrentSystem]=(int(*)[6][3])realloc(TwoPointDihedralDefinitions[CurrentSystem],
                                          (NumberOfTwoPointDihedralDefinitions[CurrentSystem]+1)*sizeof(int[6][3]));
+      if(!TwoPointDihedralDefinitions[CurrentSystem])
+      {
+        printf("Memory reallocation error of 'TwoPointDihedralDefinitions[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       if((charinput1=='F')||(charinput1=='f'))
         TwoPointDihedralDefinitions[CurrentSystem][NumberOfTwoPointDihedralDefinitions[CurrentSystem]][0][0]=FRAMEWORK;
       else if((charinput1=='A')||(charinput1=='a'))
@@ -6040,18 +6565,38 @@ int ReadInput(char *input)
 
     // default: start with 256 adsorbates
     Adsorbates=(ADSORBATE_MOLECULE**)calloc(NumberOfSystems,sizeof(ADSORBATE_MOLECULE*));
+    if(!Adsorbates)
+    {
+      printf("Memory allocation error of 'Adsorbates' in file %s line %d\n", __FILE__, __LINE__);
+      exit(-1);
+    }
     for(i=0;i<NumberOfSystems;i++)
     {
       MaxNumberOfAdsorbateMolecules[i]=256;
       Adsorbates[i]=(ADSORBATE_MOLECULE*)calloc(MaxNumberOfAdsorbateMolecules[i],sizeof(ADSORBATE_MOLECULE));
+      if(!Adsorbates[i])
+      {
+        printf("Memory allocation error of 'Adsorbates[i]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
     }
 
     // default: start with 1 cation (zero can not be reallocated later)
     Cations=(CATION_MOLECULE**)calloc(NumberOfSystems,sizeof(CATION_MOLECULE*));
+    if(!Cations)
+    {
+      printf("Memory allocation error of 'Cations' in file %s line %d\n", __FILE__, __LINE__);
+      exit(-1);
+    }
     for(i=0;i<NumberOfSystems;i++)
     {
       MaxNumberOfCationMolecules[i]=1;
       Cations[i]=(CATION_MOLECULE*)calloc(MaxNumberOfCationMolecules[i],sizeof(CATION_MOLECULE));
+      if(!Cations[i])
+      {
+        printf("Memory allocation error of 'Cations[i]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
     }
   }
 
@@ -8779,6 +9324,11 @@ void ReadRestartFile(void)
             // realloc memory
             Components[int_temp1].CFBiasingFactors[CurrentSystem]=(REAL*)realloc(Components[int_temp1].CFBiasingFactors[CurrentSystem],
                          Components[int_temp1].CFLambdaHistogramSize*sizeof(REAL));
+            if(!Components[int_temp1].CFBiasingFactors[CurrentSystem])
+            {
+              printf("Memory reallocation error of 'Components[int_temp1].CFBiasingFactors[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+              exit(-1);
+            }
           }
         }
       }
@@ -8854,7 +9404,14 @@ void ReadRestartFile(void)
        
             // realloc memory
             for(i=0;i<NumberOfReactions;i++)
+            {
               RXMCBiasingFactors[CurrentSystem][i]=(REAL*)realloc(RXMCBiasingFactors[CurrentSystem][i],RXMCLambdaHistogramSize*sizeof(REAL));
+              if(!RXMCBiasingFactors[CurrentSystem][i])
+              {
+                printf("Memory reallocation error of 'RXMCBiasingFactors[CurrentSystem][i]' in file %s line %d\n", __FILE__, __LINE__);
+                exit(-1);
+              }
+            }
           }
         }
       }

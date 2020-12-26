@@ -469,23 +469,59 @@ int ReallocateEwaldChargeMemory(void)
   fprintf(stderr, "Realloc MaxNumberOfCoulombicSites: %d\n",MaxNumberOfCoulombicSites);
 
   Positions=(VECTOR*)realloc(Positions,MaxNumberOfCoulombicSites*sizeof(VECTOR));
+  if(!Positions)
+  {
+    printf("Memory reallocation error of 'Positions' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   AtomVector=(VECTOR**)realloc(AtomVector,MaxNumberOfCoulombicSites*sizeof(VECTOR*));
+  if(!AtomVector)
+  {
+    printf("Memory reallocation error of 'AtomVector' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   Charge=(REAL*)realloc(Charge,MaxNumberOfCoulombicSites*sizeof(REAL));
+  if(!Charge)
+  {
+    printf("Memory reallocation error of 'Charge' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
 
   Eikr=(COMPLEX*)realloc(Eikr,MaxNumberOfCoulombicSites*sizeof(COMPLEX));
+  if(!Eikr)
+  {
+    printf("Memory reallocation error of 'Eikr' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   Eikr_xy=(COMPLEX*)realloc(Eikr_xy,MaxNumberOfCoulombicSites*sizeof(COMPLEX));
+  if(!Eikr_xy)
+  {
+    printf("Memory reallocation error of 'Eikr_xy' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   Eikx0=(COMPLEX*)realloc(Eikx0,(2*MaxKvecX+1)*MaxNumberOfCoulombicSites*sizeof(COMPLEX));
+  if(!Eikx0)
+  {
+    printf("Memory reallocation error of 'Eikx0' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   Eiky0=(COMPLEX*)realloc(Eiky0,(2*MaxKvecY+1)*MaxNumberOfCoulombicSites*sizeof(COMPLEX));
+  if(!Eiky0)
+  {
+    printf("Memory reallocation error of 'Eiky0' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   Eikz0=(COMPLEX*)realloc(Eikz0,(2*MaxKvecZ+1)*MaxNumberOfCoulombicSites*sizeof(COMPLEX));
+  if(!Eikz0)
+  {
+    printf("Memory reallocation error of 'Eikz0' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
 
   // allow for negative indices
   Eikx=&Eikx0[MaxKvecX*MaxNumberOfCoulombicSites];
   Eiky=&Eiky0[MaxKvecY*MaxNumberOfCoulombicSites];
   Eikz=&Eikz0[MaxKvecZ*MaxNumberOfCoulombicSites];
-
-  Positions=(VECTOR*)realloc(Positions,MaxNumberOfCoulombicSites*sizeof(VECTOR));
-  AtomVector=(VECTOR**)realloc(AtomVector,MaxNumberOfCoulombicSites*sizeof(VECTOR*));
-  Charge=(REAL*)realloc(Charge,MaxNumberOfCoulombicSites*sizeof(REAL));
 
   return 0;
 }
@@ -499,14 +535,54 @@ int ReallocateEwaldBondDipoleMemory(void)
   fprintf(stderr, "Realloc MaxNumberOfBondDipoleSites: %d\n",MaxNumberOfBondDipoleSites);
 
   DipoleVector=(VECTOR*)realloc(DipoleVector,MaxNumberOfBondDipoleSites*sizeof(VECTOR));
+  if(!DipoleVector)
+  {
+    printf("Memory reallocation error of 'DipoleVector' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   BondLength=(REAL*)realloc(BondLength,MaxNumberOfBondDipoleSites*sizeof(REAL));
+  if(!BondLength)
+  {
+    printf("Memory reallocation error of 'BondLength' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   BondDipoleMagnitude=(REAL*)realloc(BondDipoleMagnitude,MaxNumberOfBondDipoleSites*sizeof(REAL));
+  if(!BondDipoleMagnitude)
+  {
+    printf("Memory reallocation error of 'BondDipoleMagnitude' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
 
   Eikr_bd=(COMPLEX*)realloc(Eikr_bd,MaxNumberOfBondDipoleSites*sizeof(COMPLEX));
+  if(!Eikr_bd)
+  {
+    printf("Memory reallocation error of 'Eikr_bd' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   Eikr_xy_bd=(COMPLEX*)realloc(Eikr_xy_bd,MaxNumberOfBondDipoleSites*sizeof(COMPLEX));
+  if(!Eikr_xy_bd)
+  {
+    printf("Memory reallocation error of 'Eikr_xy_bd' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   Eikx_bd0=(COMPLEX*)realloc(Eikx_bd0,(2*MaxKvecX+1)*MaxNumberOfBondDipoleSites*sizeof(COMPLEX));
+  if(!Eikx_bd0)
+  {
+    printf("Memory reallocation error of 'Eikx_bd0' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   Eiky_bd0=(COMPLEX*)realloc(Eiky_bd0,(2*MaxKvecY+1)*MaxNumberOfBondDipoleSites*sizeof(COMPLEX));
+  if(!Eiky_bd0)
+  {
+    printf("Memory reallocation error of 'Eiky_bd0' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   Eikz_bd0=(COMPLEX*)realloc(Eikz_bd0,(2*MaxKvecZ+1)*MaxNumberOfBondDipoleSites*sizeof(COMPLEX));
+  if(!Eikz_bd0)
+  {
+    printf("Memory reallocation error of 'Eikz_bd0' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
 
   // allow for negative indices
   Eikx_bd=&Eikx_bd0[MaxKvecX*MaxNumberOfBondDipoleSites];
@@ -514,8 +590,23 @@ int ReallocateEwaldBondDipoleMemory(void)
   Eikz_bd=&Eikz_bd0[MaxKvecZ*MaxNumberOfBondDipoleSites];
 
   BondDipolePositions=(VECTOR*)realloc(BondDipolePositions,MaxNumberOfBondDipoleSites*sizeof(VECTOR));
+  if(!BondDipolePositions)
+  {
+    printf("Memory reallocation error of 'BondDipolePositions' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   BondDipoleForcesA=(VECTOR**)realloc(BondDipoleForcesA,MaxNumberOfBondDipoleSites*sizeof(VECTOR*));
+  if(!BondDipoleForcesA)
+  {
+    printf("Memory reallocation error of 'BondDipoleForcesA' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   BondDipoleForcesB=(VECTOR**)realloc(BondDipoleForcesB,MaxNumberOfBondDipoleSites*sizeof(VECTOR*));
+  if(!BondDipoleForcesB)
+  {
+    printf("Memory reallocation error of 'BondDipoleForcesB' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
 
   return 0;
 }

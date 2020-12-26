@@ -4589,6 +4589,7 @@ void ComputeFrameworkTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX Hess
         D2I.ay=DF*(CosPhi*(dr.x*dr.y+Dcb.x*Dcb.y)/r-dr.x*dtA.y-dr.y*dtA.x)/r;
         D2I.az=DF*(CosPhi*(dr.x*dr.z+Dcb.x*Dcb.z)/r-dr.x*dtA.z-dr.z*dtA.x)/r;
         D2I.bz=DF*(CosPhi*(dr.y*dr.z+Dcb.y*Dcb.z)/r-dr.y*dtA.z-dr.z*dtA.y)/r;
+        D2I.bx=D2I.cx=D2I.cy=0.0;
 
         // Calculate some diagonal Hessian terms for L.
         D2L.ax=DF*(CosPhi*(ds.x*ds.x+Dcb.x*Dcb.x-1.0)/s-2.0*ds.x*dtD.x)/s;
@@ -4597,6 +4598,7 @@ void ComputeFrameworkTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX Hess
         D2L.ay=DF*(CosPhi*(ds.x*ds.y+Dcb.x*Dcb.y)/s-ds.x*dtD.y-ds.y*dtD.x)/s;
         D2L.az=DF*(CosPhi*(ds.x*ds.z+Dcb.x*Dcb.z)/s-ds.x*dtD.z-ds.z*dtD.x)/s;
         D2L.bz=DF*(CosPhi*(ds.y*ds.z+Dcb.y*Dcb.z)/s-ds.y*dtD.z-ds.z*dtD.y)/s;
+        D2L.bx=D2L.cx=D2L.cy=0.0;
 
         // Calculate the IL off-diagonal terms.
         D2IL.ax=DF*(CosPhi*dr.x*ds.x-dr.x*dr.x-ds.x*ds.x-Dcb.x*Dcb.x+1.0)/(r*s);
@@ -4660,6 +4662,7 @@ void ComputeFrameworkTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX Hess
         D2J.ay=D2IJ.ay*(d-1.0)+D2JL.bx*e+DDJ.y*dtA.x+DEJ.y*dtD.x;
         D2J.az=D2IJ.az*(d-1.0)+D2JL.cx*e+DDJ.z*dtA.x+DEJ.z*dtD.x;
         D2J.bz=D2IJ.bz*(d-1.0)+D2JL.cy*e+DDJ.z*dtA.y+DEJ.z*dtD.y;
+        D2J.bx=D2J.cx=D2J.cy=0.0;
 
         // Calculate the KK diagonal terms.
         D2K.ax=-D2KL.ax*(e+1.0)-D2IK.ax*d-DDK.x*dtA.x-DEK.x*dtD.x;
@@ -4668,6 +4671,7 @@ void ComputeFrameworkTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX Hess
         D2K.ay=-D2KL.ay*(e+1.0)-D2IK.bx*d-DDK.x*dtA.y-DEK.x*dtD.y;
         D2K.az=-D2KL.az*(e+1.0)-D2IK.cx*d-DDK.x*dtA.z-DEK.x*dtD.z;
         D2K.bz=-D2KL.bz*(e+1.0)-D2IK.cy*d-DDK.y*dtA.z-DEK.y*dtD.z;
+        D2K.bx=D2K.cx=D2K.cy=0.0;
 
         // Calculate the JK off-diagonal terms.
         D2JK.ax=-D2IJ.ax*d-D2JL.ax*(e+1.0)-DDJ.x*dtA.x-DEJ.x*dtD.x;
@@ -5288,6 +5292,7 @@ void ComputeFrameworkImproperTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MAT
         D2I.ay=DF*(CosPhi*(dr.x*dr.y+Dcb.x*Dcb.y)/r-dr.x*dtA.y-dr.y*dtA.x)/r;
         D2I.az=DF*(CosPhi*(dr.x*dr.z+Dcb.x*Dcb.z)/r-dr.x*dtA.z-dr.z*dtA.x)/r;
         D2I.bz=DF*(CosPhi*(dr.y*dr.z+Dcb.y*Dcb.z)/r-dr.y*dtA.z-dr.z*dtA.y)/r;
+        D2I.bx=D2I.cx=D2I.cy=0.0;
 
         // Calculate some diagonal Hessian terms for L.
         D2L.ax=DF*(CosPhi*(ds.x*ds.x+Dcb.x*Dcb.x-1.0)/s-2.0*ds.x*dtD.x)/s;
@@ -5296,6 +5301,7 @@ void ComputeFrameworkImproperTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MAT
         D2L.ay=DF*(CosPhi*(ds.x*ds.y+Dcb.x*Dcb.y)/s-ds.x*dtD.y-ds.y*dtD.x)/s;
         D2L.az=DF*(CosPhi*(ds.x*ds.z+Dcb.x*Dcb.z)/s-ds.x*dtD.z-ds.z*dtD.x)/s;
         D2L.bz=DF*(CosPhi*(ds.y*ds.z+Dcb.y*Dcb.z)/s-ds.y*dtD.z-ds.z*dtD.y)/s;
+        D2L.bx=D2L.cx=D2L.cy=0.0;
 
         // Calculate the IL off-diagonal terms.
         D2IL.ax=DF*(CosPhi*dr.x*ds.x-dr.x*dr.x-ds.x*ds.x-Dcb.x*Dcb.x+1.0)/(r*s);
@@ -5359,6 +5365,7 @@ void ComputeFrameworkImproperTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MAT
         D2J.ay=D2IJ.ay*(d-1.0)+D2JL.bx*e+DDJ.y*dtA.x+DEJ.y*dtD.x;
         D2J.az=D2IJ.az*(d-1.0)+D2JL.cx*e+DDJ.z*dtA.x+DEJ.z*dtD.x;
         D2J.bz=D2IJ.bz*(d-1.0)+D2JL.cy*e+DDJ.z*dtA.y+DEJ.z*dtD.y;
+        D2J.bx=D2J.cx=D2J.cy=0.0;
 
         // Calculate the KK diagonal terms.
         D2K.ax=-D2KL.ax*(e+1.0)-D2IK.ax*d-DDK.x*dtA.x-DEK.x*dtD.x;
@@ -5367,6 +5374,7 @@ void ComputeFrameworkImproperTorsionHessian(REAL *Energy,REAL* Gradient,REAL_MAT
         D2K.ay=-D2KL.ay*(e+1.0)-D2IK.bx*d-DDK.x*dtA.y-DEK.x*dtD.y;
         D2K.az=-D2KL.az*(e+1.0)-D2IK.cx*d-DDK.x*dtA.z-DEK.x*dtD.z;
         D2K.bz=-D2KL.bz*(e+1.0)-D2IK.cy*d-DDK.y*dtA.z-DEK.y*dtD.z;
+        D2K.bx=D2K.cx=D2K.cy=0.0;
 
         // Calculate the JK off-diagonal terms.
         D2JK.ax=-D2IJ.ax*d-D2JL.ax*(e+1.0)-DDJ.x*dtA.x-DEJ.x*dtD.x;

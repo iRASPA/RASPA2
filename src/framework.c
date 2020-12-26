@@ -251,6 +251,11 @@ void AddAsymmetricAtom(FRAMEWORK_ASYMMETRIC_ATOM atom)
   nr_atoms=Framework[CurrentSystem].NumberOfAsymmetricAtoms[CurrentFramework];
   Framework[CurrentSystem].AtomsAsymmetric[CurrentFramework]=(FRAMEWORK_ASYMMETRIC_ATOM*)realloc(Framework[CurrentSystem].AtomsAsymmetric[CurrentFramework],
               (nr_atoms+1)*sizeof(FRAMEWORK_ASYMMETRIC_ATOM));
+  if(!Framework[CurrentSystem].AtomsAsymmetric[CurrentFramework])
+  {
+    printf("Memory reallocation error of 'Framework[CurrentSystem].AtomsAsymmetric[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+    exit(-1);
+  }
   Framework[CurrentSystem].AtomsAsymmetric[CurrentFramework][nr_atoms]=atom;
   Framework[CurrentSystem].NumberOfAsymmetricAtoms[CurrentFramework]++;
 }
@@ -893,6 +898,11 @@ void ReadFrameworkDefinitionCIF(void)
           Framework[CurrentSystem].CitationInformation[CurrentFramework]=(CITATION_INFORMATION*)realloc(
                                  Framework[CurrentSystem].CitationInformation[CurrentFramework],
                                 (Framework[CurrentSystem].NumberOfCitations[CurrentFramework]+1)*sizeof(CITATION_INFORMATION));
+          if(!Framework[CurrentSystem].CitationInformation[CurrentFramework])
+          {
+            printf("Memory reallocation error of 'Framework[CurrentSystem].CitationInformation[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+            exit(-1);
+          }
           Framework[CurrentSystem].CitationInformation[CurrentFramework][Framework[CurrentSystem].NumberOfCitations[CurrentFramework]]=CitationInformation;
           Framework[CurrentSystem].NumberOfCitations[CurrentFramework]++;
         }
@@ -4140,6 +4150,11 @@ void ExpandAsymmetricFrameworkToFullFramework(void)
                  Framework[CurrentSystem].MaxNumberOfAtoms[CurrentFramework]+=1024;
                  Framework[CurrentSystem].Atoms[CurrentFramework]=(ATOM*)realloc(Framework[CurrentSystem].Atoms[CurrentFramework],
                    Framework[CurrentSystem].MaxNumberOfAtoms[CurrentFramework]*sizeof(ATOM));
+                 if(!Framework[CurrentSystem].Atoms[CurrentFramework])
+                 {
+                   printf("Memory reallocation error of 'Framework[CurrentSystem].Atoms[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                   exit(-1);
+                 }
                }
 
               // insert atom into framework
@@ -4276,6 +4291,11 @@ void ExpandAsymmetricIonsToFullCell(void)
                  Framework[CurrentSystem].MaxNumberOfIons+=1024;
                  Framework[CurrentSystem].Ions=(ATOM*)realloc(Framework[CurrentSystem].Ions,
                    Framework[CurrentSystem].MaxNumberOfIons*sizeof(ATOM));
+                 if(!Framework[CurrentSystem].Ions)
+                 {
+                   printf("Memory reallocation error of 'Framework[CurrentSystem].Ions' in file %s line %d\n", __FILE__, __LINE__);
+                   exit(-1);
+                 }
                }
 
               // insert atom into framework
@@ -6773,13 +6793,33 @@ void AddBondTypeToDefinitions(int TypeA,int TypeB,int BondType,REAL *parms)
       Framework[CurrentSystem].NumberOfBondsDefinitions++;
       Framework[CurrentSystem].BondDefinitionType=(int*)realloc(Framework[CurrentSystem].BondDefinitionType,
           Framework[CurrentSystem].NumberOfBondsDefinitions*sizeof(int));
+      if(!Framework[CurrentSystem].BondDefinitionType)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].BondDefinitionType' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       Framework[CurrentSystem].BondDefinitions=(PAIR*)realloc(Framework[CurrentSystem].BondDefinitions,
           Framework[CurrentSystem].NumberOfBondsDefinitions*sizeof(PAIR));
+      if(!Framework[CurrentSystem].BondDefinitions)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].BondDefinitions' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);  
+      }
       Framework[CurrentSystem].NumberOfBondsPerType=(int*)realloc(Framework[CurrentSystem].NumberOfBondsPerType,
           Framework[CurrentSystem].NumberOfBondsDefinitions*sizeof(int));
+      if(!Framework[CurrentSystem].NumberOfBondsPerType)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].NumberOfBondsPerType' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       Framework[CurrentSystem].BondArgumentDefinitions=(REAL(*)[MAX_BOND_POTENTIAL_ARGUMENTS])
           realloc(Framework[CurrentSystem].BondArgumentDefinitions,
           Framework[CurrentSystem].NumberOfBondsDefinitions*sizeof(REAL[MAX_BOND_POTENTIAL_ARGUMENTS]));
+      if(!Framework[CurrentSystem].BondArgumentDefinitions)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].BondArgumentDefinitions' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
 
       Framework[CurrentSystem].BondDefinitionType[index]=BondType;
       Framework[CurrentSystem].BondDefinitions[index].A=MIN2(TypeA,TypeB);
@@ -6854,13 +6894,33 @@ void AddBendTypeToDefinitions(int TypeA,int TypeB,int TypeC,int BendType,REAL *p
       Framework[CurrentSystem].NumberOfBendDefinitions++;
       Framework[CurrentSystem].BendDefinitionType=(int*)realloc(Framework[CurrentSystem].BendDefinitionType,
           Framework[CurrentSystem].NumberOfBendDefinitions*sizeof(int));
+      if(!Framework[CurrentSystem].BendDefinitionType)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].BendDefinitionType' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       Framework[CurrentSystem].BendDefinitions=(QUAD*)realloc(Framework[CurrentSystem].BendDefinitions,
           Framework[CurrentSystem].NumberOfBendDefinitions*sizeof(QUAD));
+      if(!Framework[CurrentSystem].BendDefinitions)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].BendDefinitions' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       Framework[CurrentSystem].NumberOfBendsPerType=(int*)realloc(Framework[CurrentSystem].NumberOfBendsPerType,
           Framework[CurrentSystem].NumberOfBendDefinitions*sizeof(int));
+      if(!Framework[CurrentSystem].NumberOfBendsPerType)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].NumberOfBendsPerType' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       Framework[CurrentSystem].BendArgumentDefinitions=(REAL(*)[MAX_BEND_POTENTIAL_ARGUMENTS])
           realloc(Framework[CurrentSystem].BendArgumentDefinitions,
           Framework[CurrentSystem].NumberOfBendDefinitions*sizeof(REAL[MAX_BEND_POTENTIAL_ARGUMENTS]));
+      if(!Framework[CurrentSystem].BendArgumentDefinitions)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].BendArgumentDefinitions' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
 
       Framework[CurrentSystem].BendDefinitionType[index]=BendType;
       Framework[CurrentSystem].BendDefinitions[index].A=TypeA;
@@ -6943,13 +7003,33 @@ void AddTorsionTypeToDefinitions(int TypeA,int TypeB,int TypeC,int TypeD,int Tor
       Framework[CurrentSystem].NumberOfTorsionDefinitions++;
       Framework[CurrentSystem].TorsionDefinitionType=(int*)realloc(Framework[CurrentSystem].TorsionDefinitionType,
           Framework[CurrentSystem].NumberOfTorsionDefinitions*sizeof(int));
+      if(!Framework[CurrentSystem].TorsionDefinitionType)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].TorsionDefinitionType' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       Framework[CurrentSystem].TorsionDefinitions=(QUAD*)realloc(Framework[CurrentSystem].TorsionDefinitions,
           Framework[CurrentSystem].NumberOfTorsionDefinitions*sizeof(QUAD));
+      if(!Framework[CurrentSystem].TorsionDefinitions)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].TorsionDefinitions' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       Framework[CurrentSystem].NumberOfTorsionsPerType=(int*)realloc(Framework[CurrentSystem].NumberOfTorsionsPerType,
           Framework[CurrentSystem].NumberOfTorsionDefinitions*sizeof(int));
+      if(!Framework[CurrentSystem].NumberOfTorsionsPerType)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].NumberOfTorsionsPerType' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       Framework[CurrentSystem].TorsionArgumentDefinitions=(REAL(*)[MAX_TORSION_POTENTIAL_ARGUMENTS])
           realloc(Framework[CurrentSystem].TorsionArgumentDefinitions,
           Framework[CurrentSystem].NumberOfTorsionDefinitions*sizeof(REAL[MAX_TORSION_POTENTIAL_ARGUMENTS]));
+      if(!Framework[CurrentSystem].TorsionArgumentDefinitions)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].TorsionArgumentDefinitions' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
 
       Framework[CurrentSystem].TorsionDefinitionType[index]=TorsionType;
       Framework[CurrentSystem].TorsionDefinitions[index].A=TypeA;
@@ -7033,13 +7113,33 @@ void AddImproperTorsionTypeToDefinitions(int TypeA,int TypeB,int TypeC,int TypeD
       Framework[CurrentSystem].NumberOfImproperTorsionDefinitions++;
       Framework[CurrentSystem].ImproperTorsionDefinitionType=(int*)realloc(Framework[CurrentSystem].ImproperTorsionDefinitionType,
           Framework[CurrentSystem].NumberOfImproperTorsionDefinitions*sizeof(int));
+      if(!Framework[CurrentSystem].ImproperTorsionDefinitionType)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].ImproperTorsionDefinitionType' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       Framework[CurrentSystem].ImproperTorsionDefinitions=(QUAD*)realloc(Framework[CurrentSystem].ImproperTorsionDefinitions,
           Framework[CurrentSystem].NumberOfImproperTorsionDefinitions*sizeof(QUAD));
+      if(!Framework[CurrentSystem].ImproperTorsionDefinitions)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].ImproperTorsionDefinitions' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       Framework[CurrentSystem].NumberOfImproperTorsionsPerType=(int*)realloc(Framework[CurrentSystem].NumberOfImproperTorsionsPerType,
           Framework[CurrentSystem].NumberOfImproperTorsionDefinitions*sizeof(int));
+      if(!Framework[CurrentSystem].NumberOfImproperTorsionsPerType)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].NumberOfImproperTorsionsPerType' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
       Framework[CurrentSystem].ImproperTorsionArgumentDefinitions=(REAL(*)[MAX_IMPROPER_TORSION_POTENTIAL_ARGUMENTS])
           realloc(Framework[CurrentSystem].ImproperTorsionArgumentDefinitions,
           Framework[CurrentSystem].NumberOfImproperTorsionDefinitions*sizeof(REAL[MAX_IMPROPER_TORSION_POTENTIAL_ARGUMENTS]));
+      if(!Framework[CurrentSystem].ImproperTorsionArgumentDefinitions)
+      {
+        printf("Memory reallocation error of 'Framework[CurrentSystem].ImproperTorsionArgumentDefinitions' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
 
       Framework[CurrentSystem].ImproperTorsionDefinitionType[index]=ImproperTorsionType;
       Framework[CurrentSystem].ImproperTorsionDefinitions[index].A=TypeA;
@@ -7142,11 +7242,26 @@ void ReadFrameworkSpecificDefinition(void)
             Framework[CurrentSystem].MaxNumberOfBonds[CurrentFramework]+=NumberOfBonds;
             Framework[CurrentSystem].Bonds[CurrentFramework]=(PAIR*)realloc(Framework[CurrentSystem].Bonds[CurrentFramework],
                      Framework[CurrentSystem].MaxNumberOfBonds[CurrentFramework]*sizeof(PAIR));
+            if(!Framework[CurrentSystem].Bonds[CurrentFramework])
+            {
+              printf("Memory reallocation error of 'Framework[CurrentSystem].Bonds[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+              exit(-1);
+            }
             Framework[CurrentSystem].BondType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].BondType[CurrentFramework],
                      Framework[CurrentSystem].MaxNumberOfBonds[CurrentFramework]*sizeof(int));
+            if(!Framework[CurrentSystem].BondType[CurrentFramework])
+            {
+              printf("Memory reallocation error of 'Framework[CurrentSystem].BondType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+              exit(-1);
+            }
             Framework[CurrentSystem].BondArguments[CurrentFramework]=(REAL(*)[MAX_BOND_POTENTIAL_ARGUMENTS])
                     realloc(Framework[CurrentSystem].BondArguments[CurrentFramework],
                             Framework[CurrentSystem].MaxNumberOfBonds[CurrentFramework]*sizeof(REAL[MAX_BOND_POTENTIAL_ARGUMENTS]));
+            if(!Framework[CurrentSystem].BondArguments[CurrentFramework])
+            {
+              printf("Memory reallocation error of 'Framework[CurrentSystem].BondArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+              exit(-1);
+            }
           }
           else
           {
@@ -7209,11 +7324,26 @@ void ReadFrameworkSpecificDefinition(void)
             Framework[CurrentSystem].MaxNumberOfBends[CurrentFramework]+=NumberOfBends;
             Framework[CurrentSystem].Bends[CurrentFramework]=(QUAD*)realloc(Framework[CurrentSystem].Bends[CurrentFramework],
                              Framework[CurrentSystem].MaxNumberOfBends[CurrentFramework]*sizeof(QUAD));
+            if(!Framework[CurrentSystem].Bends[CurrentFramework])
+            {
+              printf("Memory reallocation error of 'Framework[CurrentSystem].Bends[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+              exit(-1);
+            }
             Framework[CurrentSystem].BendType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].BendType[CurrentFramework],
                              Framework[CurrentSystem].MaxNumberOfBends[CurrentFramework]*sizeof(int));
+            if(!Framework[CurrentSystem].BendType[CurrentFramework])
+            {
+              printf("Memory reallocation error of 'Framework[CurrentSystem].BendType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+              exit(-1);
+            }
             Framework[CurrentSystem].BendArguments[CurrentFramework]=(REAL(*)[MAX_BEND_POTENTIAL_ARGUMENTS])
                     realloc(Framework[CurrentSystem].BendArguments[CurrentFramework],
                             Framework[CurrentSystem].MaxNumberOfBends[CurrentFramework]*sizeof(REAL[MAX_BEND_POTENTIAL_ARGUMENTS]));
+            if(!Framework[CurrentSystem].BendArguments[CurrentFramework])
+            {
+              printf("Memory reallocation error of 'Framework[CurrentSystem].BendArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+              exit(-1);
+            }
           }
           else
           {
@@ -7266,11 +7396,26 @@ void ReadFrameworkSpecificDefinition(void)
             Framework[CurrentSystem].MaxNumberOfTorsions[CurrentFramework]+=NumberOfTorsions;
             Framework[CurrentSystem].Torsions[CurrentFramework]=(QUAD*)realloc(Framework[CurrentSystem].Torsions[CurrentFramework],
                    Framework[CurrentSystem].MaxNumberOfTorsions[CurrentFramework]*sizeof(QUAD));
+            if(!Framework[CurrentSystem].Torsions[CurrentFramework])
+            {
+              printf("Memory reallocation error of 'Framework[CurrentSystem].Torsions[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+              exit(-1);
+            }
             Framework[CurrentSystem].TorsionType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].TorsionType[CurrentFramework],
                    Framework[CurrentSystem].MaxNumberOfTorsions[CurrentFramework]*sizeof(int));
+            if(!Framework[CurrentSystem].TorsionType[CurrentFramework])
+            {
+              printf("Memory reallocation error of 'Framework[CurrentSystem].TorsionType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+              exit(-1);
+            }
             Framework[CurrentSystem].TorsionArguments[CurrentFramework]=(REAL(*)[MAX_TORSION_POTENTIAL_ARGUMENTS])
                     realloc(Framework[CurrentSystem].TorsionArguments[CurrentFramework],
                     Framework[CurrentSystem].MaxNumberOfTorsions[CurrentFramework]*sizeof(REAL[MAX_TORSION_POTENTIAL_ARGUMENTS]));
+            if(!Framework[CurrentSystem].TorsionArguments[CurrentFramework])
+            {
+              printf("Memory reallocation error of 'Framework[CurrentSystem].TorsionArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+              exit(-1);
+            }
           }
           else
           {
@@ -7286,11 +7431,26 @@ void ReadFrameworkSpecificDefinition(void)
             Framework[CurrentSystem].MaxNumberOfImproperTorsions[CurrentFramework]+=NumberOfTorsions;
             Framework[CurrentSystem].ImproperTorsions[CurrentFramework]=(QUAD*)realloc(Framework[CurrentSystem].ImproperTorsions[CurrentFramework],
                    Framework[CurrentSystem].MaxNumberOfImproperTorsions[CurrentFramework]*sizeof(QUAD));
+            if(!Framework[CurrentSystem].ImproperTorsions[CurrentFramework])
+            {
+              printf("Memory reallocation error of 'Framework[CurrentSystem].ImproperTorsions[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+              exit(-1);
+            }
             Framework[CurrentSystem].ImproperTorsionType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].ImproperTorsionType[CurrentFramework],
                    Framework[CurrentSystem].MaxNumberOfImproperTorsions[CurrentFramework]*sizeof(int));
+            if(!Framework[CurrentSystem].ImproperTorsionType[CurrentFramework])
+            {
+              printf("Memory reallocation error of 'Framework[CurrentSystem].ImproperTorsionType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+              exit(-1);
+            }
             Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework]=(REAL(*)[MAX_TORSION_POTENTIAL_ARGUMENTS])
                     realloc(Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework],
                     Framework[CurrentSystem].MaxNumberOfImproperTorsions[CurrentFramework]*sizeof(REAL[MAX_TORSION_POTENTIAL_ARGUMENTS]));
+            if(!Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework])
+            {
+              printf("Memory reallocation error of 'Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+              exit(-1);
+            }
           }
           else
           {
@@ -8065,6 +8225,11 @@ int ReadFrameworkDefinition(void)
         // create additional memory for the shells
         Framework[CurrentSystem].Atoms[f1]=(ATOM*)realloc(Framework[CurrentSystem].Atoms[f1],
               nr_atoms*sizeof(ATOM));
+        if(!Framework[CurrentSystem].Atoms[f1])
+        {
+          printf("Memory reallocation error of 'Framework[CurrentSystem].Atoms[f1]' in file %s line %d\n", __FILE__, __LINE__);
+          exit(-1);
+        }
       }
     }
   }
@@ -8336,11 +8501,26 @@ int ReadFrameworkDefinition(void)
                 Framework[CurrentSystem].MaxNumberOfBonds[CurrentFramework]+=4096;
                 Framework[CurrentSystem].Bonds[CurrentFramework]=(PAIR*)realloc(Framework[CurrentSystem].Bonds[CurrentFramework],
                              Framework[CurrentSystem].MaxNumberOfBonds[CurrentFramework]*sizeof(PAIR));
+                if(!Framework[CurrentSystem].Bonds[CurrentFramework])
+                {
+                  printf("Memory reallocation error of 'Framework[CurrentSystem].Bonds[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                  exit(-1);
+                }
                 Framework[CurrentSystem].BondType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].BondType[CurrentFramework],
                              Framework[CurrentSystem].MaxNumberOfBonds[CurrentFramework]*sizeof(int));
+                if(!Framework[CurrentSystem].BondType[CurrentFramework])
+                {
+                  printf("Memory reallocation error of 'Framework[CurrentSystem].BondType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                  exit(-1);
+                }
                 Framework[CurrentSystem].BondArguments[CurrentFramework]=(REAL(*)[MAX_BOND_POTENTIAL_ARGUMENTS])
                     realloc(Framework[CurrentSystem].BondArguments[CurrentFramework],
                     Framework[CurrentSystem].MaxNumberOfBonds[CurrentFramework]*sizeof(REAL[MAX_BOND_POTENTIAL_ARGUMENTS]));
+                if(!Framework[CurrentSystem].BondArguments[CurrentFramework])
+                {
+                  printf("Memory reallocation error of 'Framework[CurrentSystem].BondArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                  exit(-1);
+                }
               }
             }
           }
@@ -8403,12 +8583,22 @@ int ReadFrameworkDefinition(void)
               index=Framework[CurrentSystem].NumberOfBondDipoles[CurrentFramework];
               if(index>=Framework[CurrentSystem].MaxNumberOfBondDipoles[CurrentFramework])
               {
-                 Framework[CurrentSystem].MaxNumberOfBondDipoles[CurrentFramework]+=4096;
+                Framework[CurrentSystem].MaxNumberOfBondDipoles[CurrentFramework]+=4096;
 
-                 Framework[CurrentSystem].BondDipoles[CurrentFramework]=(PAIR*)realloc(Framework[CurrentSystem].BondDipoles[CurrentFramework],
+                Framework[CurrentSystem].BondDipoles[CurrentFramework]=(PAIR*)realloc(Framework[CurrentSystem].BondDipoles[CurrentFramework],
                    Framework[CurrentSystem].MaxNumberOfBondDipoles[CurrentFramework]*sizeof(PAIR));
-                 Framework[CurrentSystem].BondDipoleMagnitude[CurrentFramework]=(REAL*)realloc(Framework[CurrentSystem].BondDipoleMagnitude[CurrentFramework],
+                if(!Framework[CurrentSystem].BondDipoles[CurrentFramework])
+                {
+                  printf("Memory reallocation error of 'Framework[CurrentSystem].BondDipoles[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                  exit(-1);
+                }
+                Framework[CurrentSystem].BondDipoleMagnitude[CurrentFramework]=(REAL*)realloc(Framework[CurrentSystem].BondDipoleMagnitude[CurrentFramework],
                    Framework[CurrentSystem].MaxNumberOfBondDipoles[CurrentFramework]*sizeof(REAL));
+                if(!Framework[CurrentSystem].BondDipoleMagnitude[CurrentFramework])
+                {
+                  printf("Memory reallocation error of 'Framework[CurrentSystem].BondDipoleMagnitude[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                  exit(-1);
+                }
               }
             }
           }
@@ -8641,11 +8831,26 @@ int ReadFrameworkDefinition(void)
                     Framework[CurrentSystem].MaxNumberOfUreyBradleys[CurrentFramework]+=4096;
                     Framework[CurrentSystem].UreyBradleys[CurrentFramework]=(TRIPLE*)realloc(Framework[CurrentSystem].UreyBradleys[CurrentFramework],
                                  Framework[CurrentSystem].MaxNumberOfUreyBradleys[CurrentFramework]*sizeof(TRIPLE));
+                    if(!Framework[CurrentSystem].UreyBradleys[CurrentFramework])
+                    {
+                      printf("Memory reallocation error of 'Framework[CurrentSystem].UreyBradleys[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                      exit(-1);
+                    }
                     Framework[CurrentSystem].UreyBradleyType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].UreyBradleyType[CurrentFramework],
                                  Framework[CurrentSystem].MaxNumberOfUreyBradleys[CurrentFramework]*sizeof(int));
+                    if(!Framework[CurrentSystem].UreyBradleyType[CurrentFramework])
+                    {
+                      printf("Memory reallocation error of 'Framework[CurrentSystem].UreyBradleyType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                      exit(-1);
+                    }
                     Framework[CurrentSystem].UreyBradleyArguments[CurrentFramework]=(REAL(*)[MAX_UREYBRADLEY_POTENTIAL_ARGUMENTS])
                          realloc(Framework[CurrentSystem].UreyBradleyArguments[CurrentFramework],
                          Framework[CurrentSystem].MaxNumberOfUreyBradleys[CurrentFramework]*sizeof(REAL[MAX_UREYBRADLEY_POTENTIAL_ARGUMENTS]));
+                    if(!Framework[CurrentSystem].UreyBradleyArguments[CurrentFramework])
+                    {
+                      printf("Memory reallocation error of 'Framework[CurrentSystem].UreyBradleyArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                      exit(-1);
+                    }
                   }
                 }
               }
@@ -8784,11 +8989,26 @@ int ReadFrameworkDefinition(void)
                             Framework[CurrentSystem].MaxNumberOfBends[CurrentFramework]+=4096;
                             Framework[CurrentSystem].Bends[CurrentFramework]=(QUAD*)realloc(Framework[CurrentSystem].Bends[CurrentFramework],
                                          Framework[CurrentSystem].MaxNumberOfBends[CurrentFramework]*sizeof(QUAD));
+                            if(!Framework[CurrentSystem].Bends[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].Bends[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                             Framework[CurrentSystem].BendType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].BendType[CurrentFramework],
                                          Framework[CurrentSystem].MaxNumberOfBends[CurrentFramework]*sizeof(int));
+                            if(!Framework[CurrentSystem].BendType[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].BendType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                             Framework[CurrentSystem].BendArguments[CurrentFramework]=(REAL(*)[MAX_BEND_POTENTIAL_ARGUMENTS])
                                 realloc(Framework[CurrentSystem].BendArguments[CurrentFramework],
                                 Framework[CurrentSystem].MaxNumberOfBends[CurrentFramework]*sizeof(REAL[MAX_BEND_POTENTIAL_ARGUMENTS]));
+                            if(!Framework[CurrentSystem].BendArguments[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].BendArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                           }
                         }
                       }
@@ -9061,11 +9281,26 @@ int ReadFrameworkDefinition(void)
                       Framework[CurrentSystem].MaxNumberOfBends[CurrentFramework]+=4096;
                       Framework[CurrentSystem].Bends[CurrentFramework]=(QUAD*)realloc(Framework[CurrentSystem].Bends[CurrentFramework],
                                   Framework[CurrentSystem].MaxNumberOfBends[CurrentFramework]*sizeof(QUAD));
+                      if(!Framework[CurrentSystem].Bends[CurrentFramework])
+                      {
+                        printf("Memory reallocation error of 'Framework[CurrentSystem].Bends[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                        exit(-1);
+                      }
                       Framework[CurrentSystem].BendType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].BendType[CurrentFramework],
                                   Framework[CurrentSystem].MaxNumberOfBends[CurrentFramework]*sizeof(int));
+                      if(!Framework[CurrentSystem].BendType[CurrentFramework])
+                      {
+                        printf("Memory reallocation error of 'Framework[CurrentSystem].BendType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                        exit(-1);
+                      }
                       Framework[CurrentSystem].BendArguments[CurrentFramework]=(REAL(*)[MAX_BEND_POTENTIAL_ARGUMENTS])
                           realloc(Framework[CurrentSystem].BendArguments[CurrentFramework],
                           Framework[CurrentSystem].MaxNumberOfBends[CurrentFramework]*sizeof(REAL[MAX_BEND_POTENTIAL_ARGUMENTS]));
+                      if(!Framework[CurrentSystem].BendArguments[CurrentFramework])
+                      {
+                        printf("Memory reallocation error of 'Framework[CurrentSystem].BendArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                        exit(-1);
+                      }
                     }
                   }
                 }
@@ -9237,11 +9472,26 @@ int ReadFrameworkDefinition(void)
                             Framework[CurrentSystem].MaxNumberOfInversionBends[CurrentFramework]+=4096;
                             Framework[CurrentSystem].InversionBends[CurrentFramework]=(QUAD*)realloc(Framework[CurrentSystem].InversionBends[CurrentFramework],
                                         Framework[CurrentSystem].MaxNumberOfInversionBends[CurrentFramework]*sizeof(QUAD));
+                            if(!Framework[CurrentSystem].InversionBends[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].InversionBends[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                             Framework[CurrentSystem].InversionBendType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].InversionBendType[CurrentFramework],
                                         Framework[CurrentSystem].MaxNumberOfInversionBends[CurrentFramework]*sizeof(int));
+                            if(!Framework[CurrentSystem].InversionBendType[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].InversionBendType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                             Framework[CurrentSystem].InversionBendArguments[CurrentFramework]=(REAL(*)[MAX_INVERSION_BEND_POTENTIAL_ARGUMENTS])
                                  realloc(Framework[CurrentSystem].InversionBendArguments[CurrentFramework],
                                  Framework[CurrentSystem].MaxNumberOfInversionBends[CurrentFramework]*sizeof(REAL[MAX_INVERSION_BEND_POTENTIAL_ARGUMENTS]));
+                            if(!Framework[CurrentSystem].InversionBendArguments[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].InversionBendArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                           }
                         }
                       }
@@ -9573,11 +9823,26 @@ int ReadFrameworkDefinition(void)
                             Framework[CurrentSystem].MaxNumberOfTorsions[CurrentFramework]+=4096;
                             Framework[CurrentSystem].Torsions[CurrentFramework]=(QUAD*)realloc(Framework[CurrentSystem].Torsions[CurrentFramework],
                                         Framework[CurrentSystem].MaxNumberOfTorsions[CurrentFramework]*sizeof(QUAD));
+                            if(!Framework[CurrentSystem].Torsions[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].Torsions[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                             Framework[CurrentSystem].TorsionType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].TorsionType[CurrentFramework],
                                         Framework[CurrentSystem].MaxNumberOfTorsions[CurrentFramework]*sizeof(int));
+                            if(!Framework[CurrentSystem].TorsionType[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].TorsionType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                             Framework[CurrentSystem].TorsionArguments[CurrentFramework]=(REAL(*)[MAX_TORSION_POTENTIAL_ARGUMENTS])
                                  realloc(Framework[CurrentSystem].TorsionArguments[CurrentFramework],
                                  Framework[CurrentSystem].MaxNumberOfTorsions[CurrentFramework]*sizeof(REAL[MAX_TORSION_POTENTIAL_ARGUMENTS]));
+                            if(!Framework[CurrentSystem].TorsionArguments[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].TorsionArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                           }
                         }
                       }
@@ -9871,11 +10136,26 @@ int ReadFrameworkDefinition(void)
                             Framework[CurrentSystem].MaxNumberOfImproperTorsions[CurrentFramework]+=4096;
                             Framework[CurrentSystem].ImproperTorsions[CurrentFramework]=(QUAD*)realloc(Framework[CurrentSystem].ImproperTorsions[CurrentFramework],
                                         Framework[CurrentSystem].MaxNumberOfImproperTorsions[CurrentFramework]*sizeof(QUAD));
+                            if(!Framework[CurrentSystem].ImproperTorsions[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].ImproperTorsions[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                             Framework[CurrentSystem].ImproperTorsionType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].ImproperTorsionType[CurrentFramework],
                                         Framework[CurrentSystem].MaxNumberOfImproperTorsions[CurrentFramework]*sizeof(int));
+                            if(!Framework[CurrentSystem].ImproperTorsionType[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].ImproperTorsionType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                             Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework]=(REAL(*)[MAX_IMPROPER_TORSION_POTENTIAL_ARGUMENTS])
                                  realloc(Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework],
                                  Framework[CurrentSystem].MaxNumberOfImproperTorsions[CurrentFramework]*sizeof(REAL[MAX_IMPROPER_TORSION_POTENTIAL_ARGUMENTS]));
+                            if(!Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                           }
                         }
                       }
@@ -10013,11 +10293,26 @@ int ReadFrameworkDefinition(void)
                         Framework[CurrentSystem].MaxNumberOfBondBonds[CurrentFramework]+=4096;
                         Framework[CurrentSystem].BondBonds[CurrentFramework]=(TRIPLE*)realloc(Framework[CurrentSystem].BondBonds[CurrentFramework],
                                     Framework[CurrentSystem].MaxNumberOfBondBonds[CurrentFramework]*sizeof(TRIPLE));
+                        if(!Framework[CurrentSystem].BondBonds[CurrentFramework])
+                        {
+                          printf("Memory reallocation error of 'Framework[CurrentSystem].BondBonds[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                          exit(-1);
+                        }
                         Framework[CurrentSystem].BondBondType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].BondBondType[CurrentFramework],
                                     Framework[CurrentSystem].MaxNumberOfBondBonds[CurrentFramework]*sizeof(int));
+                        if(!Framework[CurrentSystem].BondBondType[CurrentFramework])
+                        {
+                          printf("Memory reallocation error of 'Framework[CurrentSystem].BondBondType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                          exit(-1);
+                        }
                         Framework[CurrentSystem].BondBondArguments[CurrentFramework]=(REAL(*)[MAX_BOND_BOND_POTENTIAL_ARGUMENTS])
                               realloc(Framework[CurrentSystem].BondBondArguments[CurrentFramework],
-                        Framework[CurrentSystem].MaxNumberOfBondBonds[CurrentFramework]*sizeof(REAL[MAX_BOND_BOND_POTENTIAL_ARGUMENTS]));
+                              Framework[CurrentSystem].MaxNumberOfBondBonds[CurrentFramework]*sizeof(REAL[MAX_BOND_BOND_POTENTIAL_ARGUMENTS]));
+                        if(!Framework[CurrentSystem].BondBondArguments[CurrentFramework])
+                        {
+                          printf("Memory reallocation error of 'Framework[CurrentSystem].BondBondArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                          exit(-1);
+                        }
                       }
                     }
                   }
@@ -10208,11 +10503,26 @@ int ReadFrameworkDefinition(void)
                       Framework[CurrentSystem].MaxNumberOfBondBends[CurrentFramework]+=4096;
                       Framework[CurrentSystem].BondBends[CurrentFramework]=(TRIPLE*)realloc(Framework[CurrentSystem].BondBends[CurrentFramework],
                                   Framework[CurrentSystem].MaxNumberOfBondBends[CurrentFramework]*sizeof(TRIPLE));
+                      if(!Framework[CurrentSystem].BondBends[CurrentFramework])
+                      {
+                        printf("Memory reallocation error of 'Framework[CurrentSystem].BondBends[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                        exit(-1);
+                      }
                       Framework[CurrentSystem].BondBendType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].BondBendType[CurrentFramework],
                                   Framework[CurrentSystem].MaxNumberOfBondBends[CurrentFramework]*sizeof(int));
+                      if(!Framework[CurrentSystem].BondBendType[CurrentFramework])
+                      {
+                        printf("Memory reallocation error of 'Framework[CurrentSystem].BondBendType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                        exit(-1);
+                      }
                       Framework[CurrentSystem].BondBendArguments[CurrentFramework]=(REAL(*)[MAX_BOND_BEND_POTENTIAL_ARGUMENTS])
                             realloc(Framework[CurrentSystem].BondBendArguments[CurrentFramework],
-                      Framework[CurrentSystem].MaxNumberOfBondBends[CurrentFramework]*sizeof(REAL[MAX_BOND_BEND_POTENTIAL_ARGUMENTS]));
+                            Framework[CurrentSystem].MaxNumberOfBondBends[CurrentFramework]*sizeof(REAL[MAX_BOND_BEND_POTENTIAL_ARGUMENTS]));
+                      if(!Framework[CurrentSystem].BondBendArguments[CurrentFramework])
+                      {
+                        printf("Memory reallocation error of 'Framework[CurrentSystem].BondBendArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                        exit(-1);
+                      }
                     }
                   }
                 }
@@ -10365,13 +10675,27 @@ int ReadFrameworkDefinition(void)
                             Framework[CurrentSystem].MaxNumberOfBendBends[CurrentFramework]+=4096;
                             Framework[CurrentSystem].BendBends[CurrentFramework]=(QUAD*)realloc(Framework[CurrentSystem].BendBends[CurrentFramework],
                                       Framework[CurrentSystem].MaxNumberOfBendBends[CurrentFramework]*sizeof(QUAD));
+                            if(!Framework[CurrentSystem].BendBends[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].BendBends[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                             Framework[CurrentSystem].BendBendType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].BendBendType[CurrentFramework],
                                       Framework[CurrentSystem].MaxNumberOfBendBends[CurrentFramework]*sizeof(int));
+                            if(!Framework[CurrentSystem].BendBendType[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].BendBendType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                             Framework[CurrentSystem].BendBendArguments[CurrentFramework]=(REAL(*)[MAX_BEND_BEND_POTENTIAL_ARGUMENTS])
                                  realloc(Framework[CurrentSystem].BendBendArguments[CurrentFramework],
-                            Framework[CurrentSystem].MaxNumberOfBendBends[CurrentFramework]*sizeof(REAL[MAX_BEND_BEND_POTENTIAL_ARGUMENTS]));
+                                 Framework[CurrentSystem].MaxNumberOfBendBends[CurrentFramework]*sizeof(REAL[MAX_BEND_BEND_POTENTIAL_ARGUMENTS]));
+                            if(!Framework[CurrentSystem].BendBendArguments[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].BendBendArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                           }
-
                         }
                       }
                     }
@@ -10504,11 +10828,26 @@ int ReadFrameworkDefinition(void)
                           Framework[CurrentSystem].MaxNumberOfBondTorsions[CurrentFramework]+=4096;
                           Framework[CurrentSystem].BondTorsions[CurrentFramework]=(QUAD*)realloc(Framework[CurrentSystem].BondTorsions[CurrentFramework],
                                     Framework[CurrentSystem].MaxNumberOfBondTorsions[CurrentFramework]*sizeof(QUAD));
+                          if(!Framework[CurrentSystem].BondTorsions[CurrentFramework])
+                          {
+                            printf("Memory reallocation error of 'Framework[CurrentSystem].BondTorsions[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                            exit(-1);
+                          }
                           Framework[CurrentSystem].BondTorsionType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].BondTorsionType[CurrentFramework],
                                     Framework[CurrentSystem].MaxNumberOfBondTorsions[CurrentFramework]*sizeof(int));
+                          if(!Framework[CurrentSystem].BondTorsionType[CurrentFramework])
+                          {
+                            printf("Memory reallocation error of 'Framework[CurrentSystem].BondTorsionType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                            exit(-1);
+                          } 
                           Framework[CurrentSystem].BondTorsionArguments[CurrentFramework]=(REAL(*)[MAX_BOND_TORSION_POTENTIAL_ARGUMENTS])
                                realloc(Framework[CurrentSystem].BondTorsionArguments[CurrentFramework],
-                          Framework[CurrentSystem].MaxNumberOfBondTorsions[CurrentFramework]*sizeof(REAL[MAX_BOND_TORSION_POTENTIAL_ARGUMENTS]));
+                               Framework[CurrentSystem].MaxNumberOfBondTorsions[CurrentFramework]*sizeof(REAL[MAX_BOND_TORSION_POTENTIAL_ARGUMENTS]));
+                          if(!Framework[CurrentSystem].BondTorsionArguments[CurrentFramework])
+                          {
+                            printf("Memory reallocation error of 'Framework[CurrentSystem].BondTorsionArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                            exit(-1);
+                          }
                         }
                       }
                     }
@@ -10719,11 +11058,26 @@ int ReadFrameworkDefinition(void)
                             Framework[CurrentSystem].MaxNumberOfBendTorsions[CurrentFramework]+=4096;
                             Framework[CurrentSystem].BendTorsions[CurrentFramework]=(QUAD*)realloc(Framework[CurrentSystem].BendTorsions[CurrentFramework],
                                       Framework[CurrentSystem].MaxNumberOfBendTorsions[CurrentFramework]*sizeof(QUAD));
+                            if(!Framework[CurrentSystem].BendTorsions[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].BendTorsions[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                             Framework[CurrentSystem].BendTorsionType[CurrentFramework]=(int*)realloc(Framework[CurrentSystem].BendTorsionType[CurrentFramework],
                                       Framework[CurrentSystem].MaxNumberOfBendTorsions[CurrentFramework]*sizeof(int));
+                            if(!Framework[CurrentSystem].BendTorsionType[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].BendTorsionType[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                             Framework[CurrentSystem].BendTorsionArguments[CurrentFramework]=(REAL(*)[MAX_BEND_TORSION_POTENTIAL_ARGUMENTS])
                                  realloc(Framework[CurrentSystem].BendTorsionArguments[CurrentFramework],
-                            Framework[CurrentSystem].MaxNumberOfBendTorsions[CurrentFramework]*sizeof(REAL[MAX_BEND_TORSION_POTENTIAL_ARGUMENTS]));
+                                 Framework[CurrentSystem].MaxNumberOfBendTorsions[CurrentFramework]*sizeof(REAL[MAX_BEND_TORSION_POTENTIAL_ARGUMENTS]));
+                            if(!Framework[CurrentSystem].BendTorsionArguments[CurrentFramework])
+                            {
+                              printf("Memory reallocation error of 'Framework[CurrentSystem].BendTorsionArguments[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+                              exit(-1);
+                            }
                           }
                         }
                       }
@@ -11826,6 +12180,11 @@ void DetermineSpaceGroup(void)
 
     Framework[CurrentSystem].AtomsAsymmetric[CurrentFramework]=(FRAMEWORK_ASYMMETRIC_ATOM*)realloc(Framework[CurrentSystem].AtomsAsymmetric[CurrentFramework],
                        Framework[CurrentSystem].NumberOfAtoms[CurrentFramework]*sizeof(FRAMEWORK_ASYMMETRIC_ATOM));
+    if(!Framework[CurrentSystem].AtomsAsymmetric[CurrentFramework])
+    {
+      printf("Memory reallocation error of 'Framework[CurrentSystem].AtomsAsymmetric[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+      exit(-1);
+    }
 
     // loop over all space-groups and try them one by one
     for(sg=1;sg<=NUMBER_OF_SPACEGROUPS;sg++)
@@ -12158,6 +12517,11 @@ void FindSpatialGroup2(void)
         {
           Framework[CurrentSystem].AtomsAsymmetric[CurrentFramework]=(FRAMEWORK_ASYMMETRIC_ATOM*)realloc(
                                              Framework[CurrentSystem].AtomsAsymmetric[CurrentFramework],nAtoms*sizeof(FRAMEWORK_ASYMMETRIC_ATOM));
+          if(!Framework[CurrentSystem].AtomsAsymmetric[CurrentFramework])
+          {
+            printf("Memory reallocation error of 'Framework[CurrentSystem].AtomsAsymmetric[CurrentFramework]' in file %s line %d\n", __FILE__, __LINE__);
+            exit(-1);
+          }
         }
 
         Framework[CurrentSystem].SpaceGroupIdentifier[CurrentFramework]=spaceGroupNumber;

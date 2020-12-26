@@ -184,13 +184,35 @@ int AddPseudoAtom(PSEUDO_ATOM atom)
   else
   {
     PseudoAtoms=(PSEUDO_ATOM*)realloc(PseudoAtoms,(NumberOfPseudoAtoms+1)*sizeof(PSEUDO_ATOM));
+    if(!PseudoAtoms) 
+    {
+      printf("Memory reallocation error of 'PseudoAtoms' in 'molecule.c'\n");
+      exit(-1);
+    }
 
     PseudoAtoms[NumberOfPseudoAtoms]=atom;
 
     NumberOfPseudoAtomsTypeNew=(int*)realloc(NumberOfPseudoAtomsTypeNew,(NumberOfPseudoAtoms+1)*sizeof(int));
+    if(!NumberOfPseudoAtomsTypeNew)
+    {
+      printf("Memory reallocation error of 'NumberOfPseudoAtomsTypeNew' in file %s line %d\n", __FILE__, __LINE__);
+      exit(-1);
+    }
+
     NumberOfPseudoAtomsTypeOld=(int*)realloc(NumberOfPseudoAtomsTypeOld,(NumberOfPseudoAtoms+1)*sizeof(int));
+    if(!NumberOfPseudoAtomsTypeOld)
+    {
+      printf("Memory reallocation error of 'NumberOfPseudoAtomsTypeOld' in file %s line %d\n", __FILE__, __LINE__);
+      exit(-1);
+    }
+
 
     MapPseudoAtom=(int*)realloc(MapPseudoAtom,(NumberOfPseudoAtoms+1)*sizeof(int));
+    if(!MapPseudoAtom)
+    {
+      printf("Memory reallocation error of 'MapPseudoAtom' in file %s line %d\n", __FILE__, __LINE__);
+      exit(-1);
+    }
 
     NumberOfPseudoAtomsTypeNew[NumberOfPseudoAtoms]=0;
     NumberOfPseudoAtomsTypeOld[NumberOfPseudoAtoms]=0;
@@ -199,8 +221,26 @@ int AddPseudoAtom(PSEUDO_ATOM atom)
     for(i=0;i<NumberOfSystems;i++)
     {
       NumberOfPseudoAtomsCount[i]=(int*)realloc(NumberOfPseudoAtomsCount[i],(NumberOfPseudoAtoms+1)*sizeof(int));
+      if(!NumberOfPseudoAtomsCount[i])
+      {
+        printf("Memory reallocation error of 'NumberOfPseudoAtomsCount[i]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
+
       NumberOfPseudoAtomsType[i]=(int*)realloc(NumberOfPseudoAtomsType[i],(NumberOfPseudoAtoms+1)*sizeof(int));
+      if(!NumberOfPseudoAtomsType[i])
+      {
+        printf("Memory reallocation error of 'NumberOfPseudoAtomsType[i]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
+
       NumberOfFractionalPseudoAtomsType[i]=(int*)realloc(NumberOfFractionalPseudoAtomsType[i],(NumberOfPseudoAtoms+1)*sizeof(int));
+      if(!NumberOfFractionalPseudoAtomsType[i])
+      {
+        printf("Memory reallocation error of 'NumberOfFractionalPseudoAtomsType[i]' in file %s line %d\n", __FILE__, __LINE__);
+        exit(-1);
+      }
+
       NumberOfPseudoAtomsCount[i][NumberOfPseudoAtoms]=0;
       NumberOfPseudoAtomsType[i][NumberOfPseudoAtoms]=0;
       NumberOfFractionalPseudoAtomsType[i][NumberOfPseudoAtoms]=0;
@@ -3118,6 +3158,11 @@ void InsertAdsorbateMolecule(void)
     MaxNumberOfAdsorbateMolecules[CurrentSystem]+=256;
     Adsorbates[CurrentSystem]=(ADSORBATE_MOLECULE*)realloc(Adsorbates[CurrentSystem],
            MaxNumberOfAdsorbateMolecules[CurrentSystem]*sizeof(ADSORBATE_MOLECULE));
+    if(!Adsorbates[CurrentSystem])
+    {
+      printf("Memory reallocation error of 'Adsorbates[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+      exit(-1);
+    }
   }
 
   // add the new data at the last newly created element
@@ -3347,6 +3392,11 @@ void InsertCationMolecule(void)
     MaxNumberOfCationMolecules[CurrentSystem]+=256;
     Cations[CurrentSystem]=(CATION_MOLECULE*)realloc(Cations[CurrentSystem],
            MaxNumberOfCationMolecules[CurrentSystem]*sizeof(CATION_MOLECULE));
+    if(!Cations[CurrentSystem])
+    {
+      printf("Memory reallocation error of 'Cations[CurrentSystem]' in file %s line %d\n", __FILE__, __LINE__);
+      exit(-1);
+    }
   }
 
   // add the new data at the last newly created element

@@ -1876,11 +1876,6 @@ void AllocateMovieMemory(void)
 REAL *Histogram_3D;
 REAL *Histogram_Count_3D;
 
-#define NR_BINS 800
-REAL RosenBinSum[NR_BINS+1];
-REAL RosenBinCount[NR_BINS+1];
-REAL RosenBinSumSquared[NR_BINS+1];
-
 void FreeEnergyProfile3D(void)
 {
   int i;

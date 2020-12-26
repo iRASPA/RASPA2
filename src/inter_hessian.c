@@ -146,6 +146,14 @@ void HessianCenterOfMassOrientation(REAL_MATRIX HessianMatrix,INT_VECTOR3 index_
   VECTOR veci1,veci2,veci3;
   VECTOR vecj1,vecj2,vecj3;
 
+  veci1.x=veci1.y=veci1.z=0.0;
+  veci2.x=veci2.y=veci2.z=0.0;
+  veci3.x=veci3.y=veci3.z=0.0;
+
+  vecj1.x=vecj1.y=vecj1.z=0.0;
+  vecj2.x=vecj2.y=vecj2.z=0.0;
+  vecj3.x=vecj3.y=vecj3.z=0.0;
+
   // the first and second term of Eq. S56 of Ref. Dubbeldam, Krishna, Snurr, 2009
   // ============================================================================
   // I==J: f_2 (r_ij . R^I_beta r_i^0) r_ij,alpha + f1 [R^I_beta r_i^0]_alpha
