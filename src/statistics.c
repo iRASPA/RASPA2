@@ -3429,7 +3429,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
   avg=AVERAGE(sum);
   error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
   fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
-  fprintf(FilePtr,"\tAverage   %18.5lf [K] +/- %18.5lf [K]\n", sum, error);
+  fprintf(FilePtr,"\tAverage   %18.5lf [K] +/- %18.5lf [K]\n", avg, error);
 
   // Pressure
   fprintf(FilePtr,"\n");
