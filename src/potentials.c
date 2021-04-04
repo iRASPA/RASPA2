@@ -3241,8 +3241,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ij=(p_1^i+p_1^j)/2
           PotentialParms[j][i][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ji=(p_1^j+p_1^i)/2
-          PotentialParms[i][j][2]=2.0*PotentialParms[j][j][2];
-          PotentialParms[j][i][2]=2.0*PotentialParms[j][j][2];
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
         if((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES)&&(PotentialType[j][j]==LENNARD_JONES))
         {
@@ -3252,8 +3252,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ij=(p_1^i+p_1^j)/2
           PotentialParms[j][i][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ji=(p_1^j+p_1^i)/2
-          PotentialParms[i][j][2]=2.0*PotentialParms[i][i][2];
-          PotentialParms[j][i][2]=2.0*PotentialParms[i][i][2];
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
 
         if((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES))
@@ -3264,8 +3264,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ij=(p_1^i+p_1^j)/2
           PotentialParms[j][i][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ji=(p_1^j+p_1^i)/2
-          PotentialParms[i][j][2]=2.0*PotentialParms[i][i][2]*PotentialParms[j][j][2]/(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
-          PotentialParms[j][i][2]=2.0*PotentialParms[i][i][2]*PotentialParms[j][j][2]/(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
         if(((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES_SMOOTHED3)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES_SMOOTHED3))||
            ((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES_SMOOTHED3))||
@@ -3277,8 +3277,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ij=(p_1^i+p_1^j)/2
           PotentialParms[j][i][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ji=(p_1^j+p_1^i)/2
-          PotentialParms[i][j][2]=2.0*PotentialParms[i][i][2]*PotentialParms[j][j][2]/(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
-          PotentialParms[j][i][2]=2.0*PotentialParms[i][i][2]*PotentialParms[j][j][2]/(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
         if(((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES_SMOOTHED5)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES_SMOOTHED5))||
            ((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES_SMOOTHED5))||
@@ -3292,8 +3292,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ij=(p_1^i+p_1^j)/2
           PotentialParms[j][i][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ji=(p_1^j+p_1^i)/2
-          PotentialParms[i][j][2]=2.0*PotentialParms[i][i][2]*PotentialParms[j][j][2]/(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
-          PotentialParms[j][i][2]=2.0*PotentialParms[i][i][2]*PotentialParms[j][j][2]/(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
 
 
@@ -3305,8 +3305,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ij=(p_1^i+p_1^j)/2
           PotentialParms[j][i][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ji=(p_1^j+p_1^i)/2
-          PotentialParms[i][j][2]=0.5*PotentialParms[j][j][2];
-          PotentialParms[j][i][2]=0.5*PotentialParms[j][j][2];
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
         if((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES2)&&(PotentialType[j][j]==LENNARD_JONES))
         {
@@ -3316,8 +3316,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ij=(p_1^i+p_1^j)/2
           PotentialParms[j][i][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ji=(p_1^j+p_1^i)/2
-          PotentialParms[i][j][2]=0.5*PotentialParms[i][i][2];
-          PotentialParms[j][i][2]=0.5*PotentialParms[i][i][2];
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
 
 
@@ -3329,8 +3329,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ij=(p_1^i+p_1^j)/2
           PotentialParms[j][i][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ji=(p_1^j+p_1^i)/2
-          PotentialParms[i][j][2]=0.5*(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
-          PotentialParms[j][i][2]=0.5*(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
         if(((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES2_SMOOTHED3)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES2_SMOOTHED3))||
            ((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES2)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES2_SMOOTHED3))||
@@ -3342,8 +3342,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ij=(p_1^i+p_1^j)/2
           PotentialParms[j][i][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ji=(p_1^j+p_1^i)/2
-          PotentialParms[i][j][2]=0.5*(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
-          PotentialParms[j][i][2]=0.5*(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
         if(((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES2_SMOOTHED5)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES2_SMOOTHED5))||
            ((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES2)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES2_SMOOTHED5))||
@@ -3357,8 +3357,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ij=(p_1^i+p_1^j)/2
           PotentialParms[j][i][1]=0.5*(PotentialParms[i][i][1]+PotentialParms[j][j][1]); // p_1^ji=(p_1^j+p_1^i)/2
-          PotentialParms[i][j][2]=0.5*(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
-          PotentialParms[j][i][2]=0.5*(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
 
         if((PotentialType[i][i]==LENNARD_JONES_SHIFTED_FORCE)&&(PotentialType[j][j]==LENNARD_JONES_SHIFTED_FORCE))
@@ -3830,8 +3830,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ij=sqrt(p_1^i*p_1^j)
           PotentialParms[j][i][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ji=sqrt(p_1^j*p_1^i)
-          PotentialParms[i][j][2]=2.0*PotentialParms[j][j][2];
-          PotentialParms[j][i][2]=2.0*PotentialParms[j][j][2];
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
         if((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES)&&(PotentialType[j][j]==LENNARD_JONES))
         {
@@ -3841,8 +3841,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ij=sqrt(p_1^i*p_1^j)
           PotentialParms[j][i][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ji=sqrt(p_1^j*p_1^i)
-          PotentialParms[i][j][2]=2.0*PotentialParms[i][i][2];
-          PotentialParms[j][i][2]=2.0*PotentialParms[i][i][2];
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
 
         if((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES))
@@ -3853,8 +3853,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ij=sqrt(p_1^i*p_1^j)
           PotentialParms[j][i][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ji=sqrt(p_1^j*p_1^i)
-          PotentialParms[i][j][2]=2.0*PotentialParms[i][i][2]*PotentialParms[j][j][2]/(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
-          PotentialParms[j][i][2]=2.0*PotentialParms[i][i][2]*PotentialParms[j][j][2]/(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
         if(((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES_SMOOTHED3)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES_SMOOTHED3))||
            ((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES_SMOOTHED3))||
@@ -3866,8 +3866,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ij=sqrt(p_1^i*p_1^j)
           PotentialParms[j][i][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ji=sqrt(p_1^j*p_1^i)
-          PotentialParms[i][j][2]=2.0*PotentialParms[i][i][2]*PotentialParms[j][j][2]/(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
-          PotentialParms[j][i][2]=2.0*PotentialParms[i][i][2]*PotentialParms[j][j][2]/(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
         if(((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES_SMOOTHED5)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES_SMOOTHED5))||
            ((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES_SMOOTHED5))||
@@ -3881,8 +3881,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ij=sqrt(p_1^i*p_1^j)
           PotentialParms[j][i][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ji=sqrt(p_1^j*p_1^i)
-          PotentialParms[i][j][2]=2.0*PotentialParms[i][i][2]*PotentialParms[j][j][2]/(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
-          PotentialParms[j][i][2]=2.0*PotentialParms[i][i][2]*PotentialParms[j][j][2]/(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
 
         if((PotentialType[i][i]==LENNARD_JONES)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES2))
@@ -3893,8 +3893,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ij=sqrt(p_1^i*p_1^j)
           PotentialParms[j][i][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ji=sqrt(p_1^j*p_1^i)
-          PotentialParms[i][j][2]=0.5*PotentialParms[j][j][2];
-          PotentialParms[j][i][2]=0.5*PotentialParms[j][j][2];
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
         if((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES2)&&(PotentialType[j][j]==LENNARD_JONES))
         {
@@ -3904,8 +3904,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ij=sqrt(p_1^i*p_1^j)
           PotentialParms[j][i][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ji=sqrt(p_1^j*p_1^i)
-          PotentialParms[i][j][2]=0.5*PotentialParms[i][i][2];
-          PotentialParms[j][i][2]=0.5*PotentialParms[i][i][2];
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
 
 
@@ -3917,8 +3917,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ij=sqrt(p_1^i*p_1^j)
           PotentialParms[j][i][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ji=sqrt(p_1^j*p_1^i)
-          PotentialParms[i][j][2]=0.5*(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
-          PotentialParms[j][i][2]=0.5*(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
         if(((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES2_SMOOTHED3)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES2_SMOOTHED3))||
            ((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES2)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES2_SMOOTHED3))||
@@ -3930,8 +3930,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ij=sqrt(p_1^i*p_1^j)
           PotentialParms[j][i][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ji=sqrt(p_1^j*p_1^i)
-          PotentialParms[i][j][2]=0.5*(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
-          PotentialParms[j][i][2]=0.5*(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
         if(((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES2_SMOOTHED5)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES2_SMOOTHED5))||
            ((PotentialType[i][i]==FEYNMAN_HIBBS_LENNARD_JONES2)&&(PotentialType[j][j]==FEYNMAN_HIBBS_LENNARD_JONES2_SMOOTHED5))||
@@ -3945,8 +3945,8 @@ void ReadForceFieldDefinitionsMixingRules(void)
           PotentialParms[j][i][0]=sqrt(PotentialParms[i][i][0]*PotentialParms[j][j][0]); // p_0^ji=sqrt(p_0^j*p_0^i)
           PotentialParms[i][j][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ij=sqrt(p_1^i*p_1^j)
           PotentialParms[j][i][1]=sqrt(PotentialParms[i][i][1]*PotentialParms[j][j][1]); // p_1^ji=sqrt(p_1^j*p_1^i)
-          PotentialParms[i][j][2]=0.5*(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
-          PotentialParms[j][i][2]=0.5*(PotentialParms[i][i][2]+PotentialParms[j][j][2]);
+          PotentialParms[i][j][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
+          PotentialParms[j][i][2]=1.0/(1.0/PotentialParms[i][i][2]+1.0/PotentialParms[j][j][2]);
         }
 
         if((PotentialType[i][i]==LENNARD_JONES_SHIFTED_FORCE)&&(PotentialType[j][j]==LENNARD_JONES_SHIFTED_FORCE))
