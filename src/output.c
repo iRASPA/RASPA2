@@ -40,7 +40,7 @@
 #include <string.h>
 #include <float.h>
 #include <sys/stat.h>
-#include <sys/sysctl.h>
+#include <sys/utsname.h>
 #include <math.h>
 #include <time.h>
 #include <unistd.h>
@@ -259,7 +259,7 @@ void PrintPreSimulationStatusCurrentSystem(int system)
   fprintf(FilePtr,"Compiler and run-time data\n");
   fprintf(FilePtr,"===========================================================================\n");
 
-  fprintf(FilePtr,"%s\n","RASPA 2.0.41");
+  fprintf(FilePtr,"%s\n","RASPA 2.0.42");
 
   #if defined (__LP64__) || defined (__64BIT__) || defined (_LP64) || (__WORDSIZE == 64)
     fprintf(FilePtr,"Compiled as a 64-bits application\n");
@@ -290,25 +290,12 @@ void PrintPreSimulationStatusCurrentSystem(int system)
   #if defined (__linux__)|| defined(__linux)
     len = sizeof(buffer);
 
-    mib[0] = CTL_KERN;
-    mib[1] = KERN_NODENAME;
-    sysctl(mib, 2, &buffer, &len, NULL, 0);
-    fprintf(FilePtr,"Hostname:    %s\n",buffer);
-
-    mib[0] = CTL_KERN;
-    mib[1] = KERN_OSTYPE;
-    sysctl(mib, 2, &buffer, &len, NULL, 0);
-    fprintf(FilePtr,"OS type:     %s\n",buffer);
-
-    mib[0] = CTL_KERN;
-    mib[1] = KERN_OSRELEASE;
-    sysctl(mib, 2, &buffer, &len, NULL, 0);
-    fprintf(FilePtr,"OS release:  %s\n",buffer);
-
-    mib[0] = CTL_KERN;
-    mib[1] = KERN_VERSION;
-    sysctl(mib, 2, &buffer, &len, NULL, 0);
-    fprintf(FilePtr,"OS version:  %s\n",buffer);
+    struct utsname uts;
+    uname(&uts);
+    fprintf(FilePtr,"Hostname:    %s\n", uts.nodename);
+    fprintf(FilePtr,"OS type:     %s on %s\n", uts.sysname, uts.machine);
+    fprintf(FilePtr,"OS release:  %s\n", uts.release);
+    fprintf(FilePtr,"OS version:  %s\n", uts.version);
 
     fprintf(FilePtr,"\n");
   #endif
