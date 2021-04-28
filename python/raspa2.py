@@ -19,10 +19,23 @@ libraspa_dir = os.path.join(raspa_dir, "simulations/lib")
 libraspa_file = next(f for f in os.listdir(libraspa_dir) if "libraspa" in f)
 
 try:
-    import pybel
+    # Open Babel >= '3.0.0'
+    from openbabel import pybel
+    ob = pybel.ob
+    GetAtomicNum = ob.GetAtomicNum
+    GetSymbol = ob.GetSymbol
     PYBEL_LOADED = True
 except ImportError:
-    PYBEL_LOADED = False
+    try:
+        # Open Babel <= '2.4.0'
+        import pybel
+        ob = pybel.ob
+        table = ob.OBElementTable()
+        GetAtomicNum = table.GetAtomicNum
+        GetSymbol = table.GetSymbol
+        PYBEL_LOADED = True
+    except ImportError:
+        PYBEL_LOADED = False
 
 
 def run(structure, molecule_name, temperature=273.15, pressure=101325,
@@ -103,7 +116,7 @@ def run_script(input_script, structure=None, stream=True):
     p.start()
     if stream:
         output = parent_conn.recv()
-    p.join(1)
+    p.join()
     p.terminate()
 
     if stream:
@@ -521,8 +534,6 @@ def json_to_pybel(data):
     if not PYBEL_LOADED:
         raise ImportError("Open Babel not installed.")
 
-    table = pybel.ob.OBElementTable()
-
     if "building_blocks" in data:
         data["atoms"] = [a for bb in data["building_blocks"]
                          for a in bb["atoms"]]
@@ -530,7 +541,7 @@ def json_to_pybel(data):
     obmol.BeginModify()
     for atom in data["atoms"]:
         obatom = obmol.NewAtom()
-        obatom.SetAtomicNum(table.GetAtomicNum(str(atom["element"])))
+        obatom.SetAtomicNum(GetAtomicNum(str(atom["element"])))
         obatom.SetVector(*atom["location"])
 
     uc = pybel.ob.OBUnitCell()
@@ -556,7 +567,6 @@ def pybel_to_raspa_cif(structure):
     if not PYBEL_LOADED:
         raise ImportError("Open Babel not installed.")
 
-    table = pybel.ob.OBElementTable()
     uc = structure.unitcell
     a, b, c = uc.GetA(), uc.GetB(), uc.GetC()
     alpha, beta, gamma = uc.GetAlpha(), uc.GetBeta(), uc.GetGamma()
@@ -585,7 +595,7 @@ def pybel_to_raspa_cif(structure):
                  """.format(**locals())).strip()
 
     for atom in structure:
-        element = table.GetSymbol(atom.atomicnum)
+        element = GetSymbol(atom.atomicnum)
         label = "Mof_" + element
         charge = atom.partialcharge
         c = uc.WrapFractionalCoordinate(uc.CartesianToFractional(atom.vector))
