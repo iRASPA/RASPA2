@@ -8,8 +8,10 @@ with University Pablo de Olavide (Seville, Spain), and the Technical University 
 It can be used for the simulation of molecules in gases, fluids, zeolites, aluminosilicates,
 metal-organic frameworks, carbon nanotubes and external fields.
 
-Refs:
-=====
+Documentation: https://iraspa.org/raspa/
+
+References
+==========
 * D. Dubbeldam, S. Calero, D.E. Ellis, and R.Q. Snurr, "RASPA: Molecular Simulation Software for Adsorption and Diffusion in Flexible Nanoporous Materials",
    Mol. Sim., 42 (2), 81-101, 2016.
    [link to article](https://www.tandfonline.com/doi/full/10.1080/08927022.2015.1010082)
@@ -23,8 +25,8 @@ Refs:
    Adv. Theory Simulat., 2(11), 1900135, 2019.
    [link to article](https://onlinelibrary.wiley.com/doi/full/10.1002/adts.201900135)
 
-Acknowledgements:
-=================
+Acknowledgements
+================
 Development of this work is partially supported by the U.S. Department 
 of Energy, Office of Basic Energy Sciences, Division of Chemical 
 Sciences, Geosciences and Biosciences through the Nanoporous Materials 
@@ -49,11 +51,21 @@ make install
 ```
 
 Conda-forge
-===========
-raspa2 is now on conda-forge (done by Leopold Talirz); in order to install on linux or macos:
+-----------
+raspa2 can be installed through the [conda](https://docs.conda.io/) package manager on Linux and MacOS (done by Leopold Talirz):
 
 ```
 conda install -c conda-forge raspa2
 export RASPA_DIR=/path/to/environment/root
-# e.g. /Users/leopold/Applications/miniconda3/envs/raspa-env
+# e.g. export RASPA_DIR=/Users/leopold/Applications/miniconda3/envs/raspa-env
 ```
+
+Documentation
+-------------
+
+Build the latest RASPA manual using:
+```
+cd Docs
+pdflatex raspa.tex
+```
+
