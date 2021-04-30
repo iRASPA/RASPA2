@@ -9640,7 +9640,7 @@ int ReadFrameworkDefinition(void)
                             // p_0/k_B [K/rad^2]
                             // p_1     [degrees]
                             arguments[0]=Framework[CurrentSystem].TorsionArgumentDefinitions[i][0]*KELVIN_TO_ENERGY;
-                            arguments[1]=Framework[CurrentSystem].TorsionArgumentDefinitions[i][1];
+                            arguments[1]=Framework[CurrentSystem].TorsionArgumentDefinitions[i][1]*DEG2RAD;
                             break;
                           case HARMONIC_COSINE_DIHEDRAL:
                             // (1/2)*p_0*(cos(phi)-cos(p_1))^2
@@ -9648,7 +9648,7 @@ int ReadFrameworkDefinition(void)
                             // p_0/k_B [K]
                             // p_1     [degrees]
                             arguments[0]=Framework[CurrentSystem].TorsionArgumentDefinitions[i][0]*KELVIN_TO_ENERGY;
-                            arguments[1]=cos(RAD2DEG*Framework[CurrentSystem].TorsionArgumentDefinitions[i][1]);
+                            arguments[1]=cos(DEG2RAD*Framework[CurrentSystem].TorsionArgumentDefinitions[i][1]);
                             break;
                           case THREE_COSINE_DIHEDRAL:
                             // (1/2)*p_0*(1+cos(phi))+(1/2)*p_1*(1-cos(2*phi))+(1/2)*p_2*(1+cos(3*phi))
@@ -9991,6 +9991,7 @@ int ReadFrameworkDefinition(void)
                               // p_0/k_B [K/rad^2]
                               // p_1     [degrees]
                               Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework][index][0]*=KELVIN_TO_ENERGY;
+                              Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework][index][1]*=DEG2RAD;
                               break;
                             case HARMONIC_COSINE_IMPROPER_DIHEDRAL:
                               // (1/2)*p_0*(cos(phi)-cos(p_1))^2
@@ -9998,7 +9999,7 @@ int ReadFrameworkDefinition(void)
                               // p_0/k_B [K]
                               // p_1     [degrees]
                               Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework][index][0]*=KELVIN_TO_ENERGY;
-                              Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework][index][1]=acos(RAD2DEG*Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework][index][1]);
+                              Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework][index][1]=acos(DEG2RAD*Framework[CurrentSystem].ImproperTorsionArguments[CurrentFramework][index][1]);
                               break;
                             case THREE_COSINE_IMPROPER_DIHEDRAL:
                               // (1/2)*p_0*(1+cos(phi))+(1/2)*p_1*(1-cos(2*phi))+(1/2)*p_2*(1+cos(3*phi))
