@@ -2949,62 +2949,65 @@ void ComputeFrameworkIntraVDWHessian(REAL *Energy,REAL* Gradient,REAL_MATRIX Hes
           A=MIN2(Framework[CurrentSystem].Torsions[f1][i].A,Framework[CurrentSystem].Torsions[f1][i].D);
           B=MAX2(Framework[CurrentSystem].Torsions[f1][i].A,Framework[CurrentSystem].Torsions[f1][i].D);
 
-          typeA=Framework[CurrentSystem].Atoms[f1][A].Type;
-          posA=Framework[CurrentSystem].Atoms[f1][A].Position;
-          index_i=Framework[CurrentSystem].Atoms[f1][A].HessianIndex;
-
-          typeB=Framework[CurrentSystem].Atoms[f1][B].Type;
-          posB=Framework[CurrentSystem].Atoms[f1][B].Position;
-          index_j=Framework[CurrentSystem].Atoms[f1][B].HessianIndex;
-
-          dr.x=posA.x-posB.x;
-          dr.y=posA.y-posB.y;
-          dr.z=posA.z-posB.z;
-          dr=ApplyBoundaryCondition(dr);
-          rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
-
-          PotentialSecondDerivative(typeA,typeB,rr,&energy,&DF,&DDF,1.0);
-
-          energy*=parms[6];
-          DF*=parms[6];
-          DDF*=parms[6];
-
-          // add contribution to the energy
-          *Energy+=energy;
-
-          if(ComputeGradient)
+          if(!BITVAL(Framework[CurrentSystem].ExclusionMatrix[f1][A][B],7))
           {
-            // add contribution to the first derivatives
-            if(index_i.x>=0) Gradient[index_i.x]+=DF*dr.x;
-            if(index_i.y>=0) Gradient[index_i.y]+=DF*dr.y;
-            if(index_i.z>=0) Gradient[index_i.z]+=DF*dr.z;
+            typeA=Framework[CurrentSystem].Atoms[f1][A].Type;
+            posA=Framework[CurrentSystem].Atoms[f1][A].Position;
+            index_i=Framework[CurrentSystem].Atoms[f1][A].HessianIndex;
 
-            if(index_j.x>=0) Gradient[index_j.x]-=DF*dr.x;
-            if(index_j.y>=0) Gradient[index_j.y]-=DF*dr.y;
-            if(index_j.z>=0) Gradient[index_j.z]-=DF*dr.z;
+            typeB=Framework[CurrentSystem].Atoms[f1][B].Type;
+            posB=Framework[CurrentSystem].Atoms[f1][B].Position;
+            index_j=Framework[CurrentSystem].Atoms[f1][B].HessianIndex;
 
-            GradientStrain(Gradient,DF,dr);
-          }
+            dr.x=posA.x-posB.x;
+            dr.y=posA.y-posB.y;
+            dr.z=posA.z-posB.z;
+            dr=ApplyBoundaryCondition(dr);
+            rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
 
-          // add contribution to the strain derivative tensor
-          StrainDerivative->ax+=DF*dr.x*dr.x;
-          StrainDerivative->bx+=DF*dr.y*dr.x;
-          StrainDerivative->cx+=DF*dr.z*dr.x;
+            PotentialSecondDerivative(typeA,typeB,rr,&energy,&DF,&DDF,1.0);
 
-          StrainDerivative->ay+=DF*dr.x*dr.y;
-          StrainDerivative->by+=DF*dr.y*dr.y;
-          StrainDerivative->cy+=DF*dr.z*dr.y;
+            energy*=parms[6];
+            DF*=parms[6];
+            DDF*=parms[6];
 
-          StrainDerivative->az+=DF*dr.x*dr.z;
-          StrainDerivative->bz+=DF*dr.y*dr.z;
-          StrainDerivative->cz+=DF*dr.z*dr.z;
+            // add contribution to the energy
+            *Energy+=energy;
 
-          if(ComputeHessian)
-          {
-            // add contribution to the second derivatives (Hessian matrix)
-            HessianAtomicPositionPosition(HessianMatrix,index_i,index_j,DF,DDF,dr,1.0);
-            HessianAtomicPositionStrain(HessianMatrix,index_i,index_j,DF,DDF,dr);
-            HessianAtomicStrainStrain(HessianMatrix,DF,DDF,dr);
+            if(ComputeGradient)
+            {
+              // add contribution to the first derivatives
+              if(index_i.x>=0) Gradient[index_i.x]+=DF*dr.x;
+              if(index_i.y>=0) Gradient[index_i.y]+=DF*dr.y;
+              if(index_i.z>=0) Gradient[index_i.z]+=DF*dr.z;
+
+              if(index_j.x>=0) Gradient[index_j.x]-=DF*dr.x;
+              if(index_j.y>=0) Gradient[index_j.y]-=DF*dr.y;
+              if(index_j.z>=0) Gradient[index_j.z]-=DF*dr.z;
+
+              GradientStrain(Gradient,DF,dr);
+            }
+
+            // add contribution to the strain derivative tensor
+            StrainDerivative->ax+=DF*dr.x*dr.x;
+            StrainDerivative->bx+=DF*dr.y*dr.x;
+            StrainDerivative->cx+=DF*dr.z*dr.x;
+
+            StrainDerivative->ay+=DF*dr.x*dr.y;
+            StrainDerivative->by+=DF*dr.y*dr.y;
+            StrainDerivative->cy+=DF*dr.z*dr.y;
+
+            StrainDerivative->az+=DF*dr.x*dr.z;
+            StrainDerivative->bz+=DF*dr.y*dr.z;
+            StrainDerivative->cz+=DF*dr.z*dr.z;
+
+            if(ComputeHessian)
+            {
+              // add contribution to the second derivatives (Hessian matrix)
+              HessianAtomicPositionPosition(HessianMatrix,index_i,index_j,DF,DDF,dr,1.0);
+              HessianAtomicPositionStrain(HessianMatrix,index_i,index_j,DF,DDF,dr);
+              HessianAtomicStrainStrain(HessianMatrix,DF,DDF,dr);
+            }
           }
         }
       }
@@ -3136,64 +3139,68 @@ void ComputeFrameworkIntraChargeChargeHessian(REAL *Energy,REAL* Gradient,REAL_M
           A=MIN2(Framework[CurrentSystem].Torsions[f1][i].A,Framework[CurrentSystem].Torsions[f1][i].D);
           B=MAX2(Framework[CurrentSystem].Torsions[f1][i].A,Framework[CurrentSystem].Torsions[f1][i].D);
 
-          typeA=Framework[CurrentSystem].Atoms[f1][A].Type;
-          posA=Framework[CurrentSystem].Atoms[f1][A].Position;
-          ChargeA=Framework[CurrentSystem].Atoms[f1][A].Charge;
-          index_i=Framework[CurrentSystem].Atoms[f1][A].HessianIndex;
 
-          typeB=Framework[CurrentSystem].Atoms[f1][B].Type;
-          posB=Framework[CurrentSystem].Atoms[f1][B].Position;
-          ChargeB=Framework[CurrentSystem].Atoms[f1][B].Charge;
-          index_j=Framework[CurrentSystem].Atoms[f1][B].HessianIndex;
-
-          dr.x=posA.x-posB.x;
-          dr.y=posA.y-posB.y;
-          dr.z=posA.z-posB.z;
-          dr=ApplyBoundaryCondition(dr);
-          rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
-          r=sqrt(rr);
-
-
-          // add contribution to the energy
-          *Energy+=parms[7]*COULOMBIC_CONVERSION_FACTOR*ChargeA*ChargeB*(1.0/r);
-          DF=-parms[7]*COULOMBIC_CONVERSION_FACTOR*ChargeA*ChargeB/(rr*r);
-          DDF=parms[7]*3.0*COULOMBIC_CONVERSION_FACTOR*ChargeA*ChargeB/(SQR(rr)*r);
-
-          //if((index_i<0)&&(index_j)<0) continue;
-
-          if(ComputeGradient)
+          if(!BITVAL(Framework[CurrentSystem].ExclusionMatrix[f1][A][B],7))
           {
-            // add contribution to the first derivatives
-            if(index_i.x>=0) Gradient[index_i.x]+=DF*dr.x;
-            if(index_i.y>=0) Gradient[index_i.y]+=DF*dr.y;
-            if(index_i.z>=0) Gradient[index_i.z]+=DF*dr.z;
+            typeA=Framework[CurrentSystem].Atoms[f1][A].Type;
+            posA=Framework[CurrentSystem].Atoms[f1][A].Position;
+            ChargeA=Framework[CurrentSystem].Atoms[f1][A].Charge;
+            index_i=Framework[CurrentSystem].Atoms[f1][A].HessianIndex;
 
-            if(index_j.x>=0) Gradient[index_j.x]-=DF*dr.x;
-            if(index_j.y>=0) Gradient[index_j.y]-=DF*dr.y;
-            if(index_j.z>=0) Gradient[index_j.z]-=DF*dr.z;
+            typeB=Framework[CurrentSystem].Atoms[f1][B].Type;
+            posB=Framework[CurrentSystem].Atoms[f1][B].Position;
+            ChargeB=Framework[CurrentSystem].Atoms[f1][B].Charge;
+            index_j=Framework[CurrentSystem].Atoms[f1][B].HessianIndex;
 
-            GradientStrain(Gradient,DF,dr);
-          }
+            dr.x=posA.x-posB.x;
+            dr.y=posA.y-posB.y;
+            dr.z=posA.z-posB.z;
+            dr=ApplyBoundaryCondition(dr);
+            rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
+            r=sqrt(rr);
 
-          // add contribution to the strain derivative tensor
-          StrainDerivative->ax+=DF*dr.x*dr.x;
-          StrainDerivative->bx+=DF*dr.y*dr.x;
-          StrainDerivative->cx+=DF*dr.z*dr.x;
 
-          StrainDerivative->ay+=DF*dr.x*dr.y;
-          StrainDerivative->by+=DF*dr.y*dr.y;
-          StrainDerivative->cy+=DF*dr.z*dr.y;
+            // add contribution to the energy
+            *Energy+=parms[7]*COULOMBIC_CONVERSION_FACTOR*ChargeA*ChargeB*(1.0/r);
+            DF=-parms[7]*COULOMBIC_CONVERSION_FACTOR*ChargeA*ChargeB/(rr*r);
+            DDF=parms[7]*3.0*COULOMBIC_CONVERSION_FACTOR*ChargeA*ChargeB/(SQR(rr)*r);
 
-          StrainDerivative->az+=DF*dr.x*dr.z;
-          StrainDerivative->bz+=DF*dr.y*dr.z;
-          StrainDerivative->cz+=DF*dr.z*dr.z;
+            //if((index_i<0)&&(index_j)<0) continue;
 
-          if(ComputeHessian)
-          {
-            // add contribution to the second derivatives (Hessian matrix)
-            HessianAtomicPositionPosition(HessianMatrix,index_i,index_j,DF,DDF,dr,1.0);
-            HessianAtomicPositionStrain(HessianMatrix,index_i,index_j,DF,DDF,dr);
-            HessianAtomicStrainStrain(HessianMatrix,DF,DDF,dr);
+            if(ComputeGradient)
+            {
+              // add contribution to the first derivatives
+              if(index_i.x>=0) Gradient[index_i.x]+=DF*dr.x;
+              if(index_i.y>=0) Gradient[index_i.y]+=DF*dr.y;
+              if(index_i.z>=0) Gradient[index_i.z]+=DF*dr.z;
+
+              if(index_j.x>=0) Gradient[index_j.x]-=DF*dr.x;
+              if(index_j.y>=0) Gradient[index_j.y]-=DF*dr.y;
+              if(index_j.z>=0) Gradient[index_j.z]-=DF*dr.z;
+
+              GradientStrain(Gradient,DF,dr);
+            }
+
+            // add contribution to the strain derivative tensor
+            StrainDerivative->ax+=DF*dr.x*dr.x;
+            StrainDerivative->bx+=DF*dr.y*dr.x;
+            StrainDerivative->cx+=DF*dr.z*dr.x;
+
+            StrainDerivative->ay+=DF*dr.x*dr.y;
+            StrainDerivative->by+=DF*dr.y*dr.y;
+            StrainDerivative->cy+=DF*dr.z*dr.y;
+
+            StrainDerivative->az+=DF*dr.x*dr.z;
+            StrainDerivative->bz+=DF*dr.y*dr.z;
+            StrainDerivative->cz+=DF*dr.z*dr.z;
+
+            if(ComputeHessian)
+            {
+              // add contribution to the second derivatives (Hessian matrix)
+              HessianAtomicPositionPosition(HessianMatrix,index_i,index_j,DF,DDF,dr,1.0);
+              HessianAtomicPositionStrain(HessianMatrix,index_i,index_j,DF,DDF,dr);
+              HessianAtomicStrainStrain(HessianMatrix,DF,DDF,dr);
+            }
           }
         }
       }

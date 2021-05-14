@@ -11136,6 +11136,24 @@ int IsDefinedBendType(int system,int f1,int A,int B,int C)
   return FALSE;
 }
 
+int isDefinedBend(int system, int f1, int A, int C)
+{
+  int k,l;
+  int B;
+
+  for(k=0;k<Framework[system].Connectivity[f1][A];k++)
+  {
+    B=GetNeighbour(system,f1,A,k);
+
+    for(l=0;l<Framework[system].Connectivity[f1][B];l++)
+    {
+      if (C == GetNeighbour(system,f1,B,l))
+        return TRUE;
+    }
+  }
+  return FALSE;
+}
+
 int IsDefinedTorsionType(int system,int f1,int A,int B,int C,int D)
 {
   int i;
@@ -11324,6 +11342,7 @@ void MakeExclusionMatrix(int system)
     for(A=0;A<Framework[system].NumberOfAtoms[f1];A++)
     {
       SETBIT(Framework[system].ExclusionMatrix[f1][A][A],0);
+      SETBIT(Framework[system].ExclusionMatrix[f1][A][A],7);
       for(k=0;k<Framework[system].Connectivity[f1][A];k++)
       {
         B=GetReplicaNeighbour(system,f1,A,k);
@@ -11332,8 +11351,12 @@ void MakeExclusionMatrix(int system)
         if(Remove12NeighboursFromVDWInteraction||(RemoveBondNeighboursFromLongRangeInteraction&&IsDefinedBond(system,f1,A,B)))
         {
           SETBIT(Framework[system].ExclusionMatrix[f1][A][B],0);
+          SETBIT(Framework[system].ExclusionMatrix[f1][A][B],7);
           if(B<Framework[system].NumberOfAtoms[f1])
+          {
             SETBIT(Framework[system].ExclusionMatrix[f1][B][A],0);
+            SETBIT(Framework[system].ExclusionMatrix[f1][B][A],7);
+          }
         }
 
         for(l=0;l<Framework[system].Connectivity[f1][B];l++)
@@ -11345,8 +11368,12 @@ void MakeExclusionMatrix(int system)
             if(Remove13NeighboursFromVDWInteraction||(RemoveBendNeighboursFromLongRangeInteraction&&IsDefinedBend(system,f1,A,B,C)))
             {
               SETBIT(Framework[system].ExclusionMatrix[f1][A][C],0);
+              SETBIT(Framework[system].ExclusionMatrix[f1][A][C],7);
               if(C<Framework[system].NumberOfAtoms[f1])
+              {
                 SETBIT(Framework[system].ExclusionMatrix[f1][C][A],0);
+                SETBIT(Framework[system].ExclusionMatrix[f1][C][A],7);
+              }
             }
           }
 

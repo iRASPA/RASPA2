@@ -2291,13 +2291,15 @@ int CalculateFrameworkIntraVDWEnergy(void)
           typeB=Framework[CurrentSystem].Atoms[f1][B].Type;
           posB=Framework[CurrentSystem].Atoms[f1][B].AnisotropicPosition;
 
-
-          dr.x=posA.x-posB.x;
-          dr.y=posA.y-posB.y;
-          dr.z=posA.z-posB.z;
-          dr=ApplyBoundaryCondition(dr);
-          rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
-          UHostHostVDW[CurrentSystem]+=parms[6]*PotentialValue(typeA,typeB,rr,1.0);
+          if(!BITVAL(Framework[CurrentSystem].ExclusionMatrix[f1][A][B],7))
+          {
+            dr.x=posA.x-posB.x;
+            dr.y=posA.y-posB.y;
+            dr.z=posA.z-posB.z;
+            dr=ApplyBoundaryCondition(dr);
+            rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
+            UHostHostVDW[CurrentSystem]+=parms[6]*PotentialValue(typeA,typeB,rr,1.0);
+          }
         }
       }
     }
@@ -2411,14 +2413,16 @@ int CalculateFrameworkIntraChargeChargeEnergy(void)
           chargeB=Framework[CurrentSystem].Atoms[f1][B].Charge;
           posB=Framework[CurrentSystem].Atoms[f1][B].AnisotropicPosition;
 
+          if(!BITVAL(Framework[CurrentSystem].ExclusionMatrix[f1][A][B],7))
+          {
+            dr.x=posA.x-posB.x;
+            dr.y=posA.y-posB.y;
+            dr.z=posA.z-posB.z;
+            dr=ApplyBoundaryCondition(dr);
+            r=sqrt(SQR(dr.x)+SQR(dr.y)+SQR(dr.z));
 
-          dr.x=posA.x-posB.x;
-          dr.y=posA.y-posB.y;
-          dr.z=posA.z-posB.z;
-          dr=ApplyBoundaryCondition(dr);
-          r=sqrt(SQR(dr.x)+SQR(dr.y)+SQR(dr.z));
-
-          UHostHostChargeChargeReal[CurrentSystem]+=parms[7]*COULOMBIC_CONVERSION_FACTOR*chargeA*chargeB/r;
+            UHostHostChargeChargeReal[CurrentSystem]+=parms[7]*COULOMBIC_CONVERSION_FACTOR*chargeA*chargeB/r;
+          }
         }
       }
     }

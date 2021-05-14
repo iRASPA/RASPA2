@@ -504,6 +504,7 @@ void ConstructBondDipolesFromBondsFramework(void);
 
 int IsDefinedBondType(int,int,int,int);
 int IsDefinedBendType(int,int,int,int,int);
+int isDefinedBend(int system, int f1, int Aref, int Cref);
 int IsDefinedTorsionType(int,int,int,int,int,int);
 
 void WriteRestartFramework(FILE *FilePtr);
