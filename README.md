@@ -49,6 +49,10 @@ control volume grand canonical molecular dynamics study",
 * Helium potential for computing void-fractions.\
   J.O. Hirschfelder, C.F. Curtiss, R.B. Bird, Molecular Theory of Gases and Liquids, Wiley, New York, 1954, p. 1114.
   [reference in article](https://www.sciencedirect.com/science/article/abs/pii/S0927775701006288)
+* Linear/Branched alkane model.\
+  "United atom force field for alkanes in nanoporous materials",
+  D. Dubbeldam, S. Calero, T.J.H. Vlugt, R. Krishna, T.L.M. Maesen, B. Smit, J. Phys. Chem. B 2004, 108(33), 12301-12313
+  [link to article](https://pubs.acs.org/doi/abs/10.1021/jp0376727)
 
 rigid MOFs
 ------------
