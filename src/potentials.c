@@ -11957,11 +11957,13 @@ REAL TailMolecularEnergyDifferenceAddRemove(int ComponentToAdd,int ComponentToRe
     {
       if(TailCorrection[i][j])
       {
-        energy_new+=2.0*M_PI*NumberOfPseudoAtomsTypeNew[i]*NumberOfPseudoAtomsTypeNew[j]*
-                    PotentialCorrection(i,j,CutOffVDW);
+        energy_new+=2.0*M_PI*(NumberOfPseudoAtomsTypeNew[i]-NumberOfFractionalPseudoAtomsType[CurrentSystem][i])*
+                             (NumberOfPseudoAtomsTypeNew[j]-NumberOfFractionalPseudoAtomsType[CurrentSystem][j])*
+                             PotentialCorrection(i,j,CutOffVDW);
 
-        energy_old+=2.0*M_PI*NumberOfPseudoAtomsType[CurrentSystem][i]*NumberOfPseudoAtomsType[CurrentSystem][j]*
-                    PotentialCorrection(i,j,CutOffVDW);
+        energy_old+=2.0*M_PI*(NumberOfPseudoAtomsType[CurrentSystem][i]-NumberOfFractionalPseudoAtomsType[CurrentSystem][i])*
+                             (NumberOfPseudoAtomsType[CurrentSystem][j]-NumberOfFractionalPseudoAtomsType[CurrentSystem][j])*
+                             PotentialCorrection(i,j,CutOffVDW);
       }
     }
   return (energy_new-energy_old)/Volume[CurrentSystem];

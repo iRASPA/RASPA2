@@ -4138,7 +4138,7 @@ void ExpandAsymmetricFrameworkToFullFramework(void)
 
               dr=ConvertFromABCtoXYZ(ds); 
               rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
-              if(rr<1e-3) index=k;
+              if(rr<1e-2) index=k;
             }
 
             // the symmetry position is new -> insert it as a framework atom

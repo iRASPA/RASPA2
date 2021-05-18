@@ -1120,7 +1120,7 @@ void UpdateEnergyAveragesCurrentSystem(void)
   REAL UCFMCAdsorbate,UCFMCCation;
   REAL weight,lambda;
   int numberOfAbsoluteIntegerMoleculesForComponent;
-  int numberOfExcessIntegerMoleculesForComponent;
+  double numberOfExcessIntegerMoleculesForComponent;
 
   // check for new block
   if(CurrentCycle==BlockCycle[Block])
@@ -1754,7 +1754,7 @@ void PrintIntervalStatusInit(long long CurrentCycle,long long NumberOfCycles,FIL
          (double)(Components[i].MOLEC_PER_UC_TO_CC_STP_G[CurrentSystem]*loading),
          (double)(Components[i].MOLEC_PER_UC_TO_CC_STP_CC[CurrentSystem]*loading));
 
-      loading=((REAL)Components[i].NumberOfMolecules[CurrentSystem]
+      loading=(REAL)(Components[i].NumberOfMolecules[CurrentSystem]
                     -Components[i].AmountOfExcessMolecules[CurrentSystem]
                     -(Components[i].FractionalMolecule[CurrentSystem]>=0?1:0)
                     -Components[i].NumberOfRXMCMoleculesPresent[CurrentSystem])/(REAL)number_of_unit_cells;
