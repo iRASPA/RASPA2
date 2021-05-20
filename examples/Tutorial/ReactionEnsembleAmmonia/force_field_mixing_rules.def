@@ -1,31 +1,14 @@
 # general rule for shifted vs truncated
-shifted
+truncated
 # general rule tailcorrections
 yes  
 # number of defined interactions
-22
+5
 # type interaction
-He             LENNARD_JONES    10.9      2.64
-CH4_sp3        LENNARD_JONES    158.5     3.72
-CH3_sp3        LENNARD_JONES    108.0     3.76
-CH2_sp3        LENNARD_JONES     56.0     3.96
-CH_sp3         LENNARD_JONES     17.0     4.67
-C_sp3          LENNARD_JONES      0.8     6.38
-CH2_sp2        LENNARD_JONES     93.0     3.685
-CH_sp2         LENNARD_JONES     53.0     3.74
-Ar             LENNARD_JONES    124.07    3.38
-O_co2          LENNARD_JONES    80.507    3.033
-C_co2          LENNARD_JONES    28.129    2.76
-N_n2           LENNARD_JONES    36.4      3.32
-N_com          NONE
-O_o2           LENNARD_JONES    53.02325  3.044809
-Ow             LENNARD_JONES    89.633    3.097
-H_h2           LENNARD_JONES    38.0      2.915  
-C_benz         LENNARD_JONES    30.70     3.60
-H_benz         LENNARD_JONES    25.45     2.36
-Si             HARD_SPHERE      1.0
-Al             HARD_SPHERE      1.0
-N_NH3          LENNARD_JONES    105.75    3.36
-H_NH3          NONE
+N_n2           lennard-jones    36.4      3.32        // J. J. Potoff and J. I. Siepmann, AIChE J. 2001, 47, 1676.
+N_com          none                                   // idem
+H_h2           lennard-jones    38.0      2.915       // C. H. Turner, J. K. Johnson, and K. E. Gubbins, J. Chem. Phys. 2001, 114, 1851.
+N_NH3          lennard-jones    105.75    3.36        // L. Zhang and J. I. Siepmann, Collect. Czech. Chem. Commun. 2010, 75, 577.
+H_NH3          none                                   // idem
 # general mixing rule for Lennard-Jones
 Lorentz-Berthelot

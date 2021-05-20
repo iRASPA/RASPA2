@@ -25,7 +25,6 @@ ExternalPressure        1000000.0
 VolumeChangeProbability 0.1
 
 Component 0 MoleculeName              CO2
-            StartingBead              1
             MoleculeDefinition        Local
             BlockPockets              yes
             BlockPocketsFilename      ITQ-29

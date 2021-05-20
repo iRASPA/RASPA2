@@ -1,0 +1,18 @@
+SimulationType        MonteCarlo
+NumberOfCycles        2000
+PrintEvery            100
+PrintPropertiesEvery  100
+
+Forcefield            ExampleMOFsForceField
+
+Framework 0
+FrameworkName MIL-47
+UnitCells 1 1 1
+ExternalTemperature 298.0
+HeliumVoidFraction 0.61
+SurfaceAreaProbeDistance Sigma
+
+Component 0 MoleculeName             N2
+            MoleculeDefinition       ExampleDefinitions
+            SurfaceAreaProbability   1.0
+            CreateNumberOfMolecules  0

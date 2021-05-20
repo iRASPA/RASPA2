@@ -1,0 +1,12 @@
+# general rule for shifted vs truncated
+shifted
+# general rule tailcorrections
+no
+# number of defined interactions
+3
+# type interaction
+Ow      lennard-jones   89.633     3.097          // S.W. Rick, J. Chem. Phys. 2004, 120 (13), 6085-6093.
+Lw      none                                      // idem
+Hw      none                                      // idem
+# general mixing rule for Lennard-Jones
+Jorgensen

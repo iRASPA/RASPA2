@@ -1,0 +1,20 @@
+# rules to overwrite
+0
+# number of defined interactions
+13
+# type      type2       interaction
+Na          O           lennard-jones     23.0           3.4        // S. Calero et al., J. Phys. Chem. B 2003, 107(44), 12088-12096.
+Na          Oa          lennard-jones     23.0           3.4        // S. Calero et al., J. Phys. Chem. B 2003, 107(44), 12088-12096.
+Na          C_co2       lennard-jones    362.292         3.320      // A. Garcia-Sanchez et al., J. Phys. Chem. C 2009, 113(20), 8814-8820.
+Na          O_co2       lennard-jones    200.831         2.758      // idem
+O           C_co2       lennard-jones     37.595         3.511      // idem
+O           O_co2       lennard-jones     78.980         3.237      // idem
+Oa          C_co2       lennard-jones     37.595         3.511      // idem
+Oa          O_co2       lennard-jones     78.980         3.237      // idem
+Na          Si          none
+Na          Al          none
+Na          Na          none
+O            O          none
+Oa          Oa          none
+# mixing rules to overwrite
+0

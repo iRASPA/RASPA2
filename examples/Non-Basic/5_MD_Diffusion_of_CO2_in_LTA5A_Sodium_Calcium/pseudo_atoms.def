@@ -1,0 +1,10 @@
+#number of pseudo atoms
+7
+#type      print   as    chem  oxidation   mass        charge   polarization B-factor radii  connectivity anisotropic anisotropic-type   tinker-type
+O          yes     O     O     0           15.9994    -0.39299  0.0          1.0      0.5    2            0           absolute           0
+Oa         yes     Oa     O    0           15.9994    -0.41384  0.0          1.0      0.5    2            0           absolute           0
+Si         yes     Si    Si    0           28.0855     0.78598  0.0          1.0      1.18   4            0           absolute           0
+Al         yes     Al    Al    0           26.981539   0.48598  0.0          1.0      1.18   4            0           absolute           0
+C_co2      yes     C     C     0           12.0        0.6512   0.0          1.0      0.720  0            0           relative           0
+O_co2      yes     O     O     0           15.9994    -0.3256   0.0          1.0      0.68   0            0           relative           0
+Na         yes     Na    Na    0           22.98977    0.3834   0.0          1.0      1.00   0            0           absolute           0

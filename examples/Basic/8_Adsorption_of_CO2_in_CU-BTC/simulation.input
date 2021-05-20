@@ -1,0 +1,25 @@
+SimulationType                MonteCarlo
+NumberOfCycles                50000
+NumberOfInitializationCycles  25000
+PrintEvery                    5000
+RestartFile                   no
+
+Forcefield                    ExampleMOFsForceField
+UseChargesFromCIFFile         yes
+
+Framework 0
+FrameworkName Cu-BTC
+UnitCells 1 1 1
+HeliumVoidFraction 0.29
+ExternalTemperature 323.0
+ExternalPressure 1000000.0
+
+Component 0 MoleculeName             CO2
+            MoleculeDefinition       ExampleDefinitions
+            FugacityCoefficient      1.0
+            TranslationProbability   0.5
+            RotationProbability      0.5
+            ReinsertionProbability   0.5
+            SwapProbability          1.0
+            CreateNumberOfMolecules  0
+

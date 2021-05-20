@@ -1,0 +1,30 @@
+SimulationType                   Minimization
+MinimizationMethod               Baker
+NumberOfCycles                   1
+RestartFile                      no
+PrintEvery                       1
+
+RemoveBondNeighboursFromLongRangeInteraction yes
+RemoveBendNeighboursFromLongRangeInteraction yes
+RemoveTorsionNeighboursFromLongRangeInteraction no
+
+Ensemble                         NPTPR
+NPTPRCellType                    RegularUpperTriangle
+
+ComputeElasticConstants          yes
+
+Forcefield                       Nicholas
+ChargeMethod                     Ewald
+EwaldPrecision 1e-10
+
+Framework 0
+FrameworkName CHA_SI
+RestrictFrameworkAtomsToBox yes
+RemoveAtomNumberCodeFromLabel yes
+ReplicaUnitCells 3 3 3
+ExternalTemperature 300.0
+Movies yes
+WriteMoviesEvery   1
+
+FlexibleFramework                yes
+FrameworkDefinitions             Nicholas

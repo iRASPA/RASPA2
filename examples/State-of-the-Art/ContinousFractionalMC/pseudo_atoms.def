@@ -1,4 +1,0 @@
-#number of pseudo atoms
-1
-#type      print   as    chem  oxidation   mass        charge   polarization B-factor radii  connectivity anisotropic anisotropic-type   tinker-type
-L          yes     C     C     0           1.0         0.0      0.0          1.0      1.00   0            0           absolute           0

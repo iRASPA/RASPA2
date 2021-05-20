@@ -1,0 +1,74 @@
+SimulationType                MonteCarlo
+NumberOfCycles                200000
+NumberOfInitializationCycles  100000
+PrintEvery                    10000
+RestartFile                   no
+
+ChargeMethod                  None
+Forcefield                    ExampleZeolitesForceField
+CutOffVDW                     12.0
+RemoveAtomNumberCodeFromLabel yes
+
+Framework             0
+FrameworkName         MFI_SI
+UseChargesFromCIFFile no
+UnitCells             2 2 2
+HeliumVoidFraction    0.29
+ExternalTemperature   433.0
+ExternalPressure      2000.0
+
+Component 0 MoleculeName                   hexane
+            MoleculeDefinition             Local
+            IdealGasRosenbluthWeight       0.00811779
+            FugacityCoefficient            1.0
+            TranslationProbability         1.0
+            RotationProbability            1.0
+            ReinsertionProbability         1.0
+            PartialReinsertionProbability  1.0
+            IdentityChangeProbability      1.0
+              NumberOfIdentityChanges      4
+              IdentityChangesList          0 1 2 3
+            SwapProbability                1.0
+            CreateNumberOfMolecules        0
+
+Component 1 MoleculeName                   2-methylpentane
+            MoleculeDefinition             Local
+            IdealGasRosenbluthWeight       0.0470006
+            FugacityCoefficient            1.0
+            TranslationProbability         1.0
+            RotationProbability            1.0
+            ReinsertionProbability         1.0
+            PartialReinsertionProbability  1.0
+            IdentityChangeProbability      1.0
+              NumberOfIdentityChanges      4
+              IdentityChangesList          0 1 2 3
+            SwapProbability                1.0
+            CreateNumberOfMolecules        0
+
+Component 2 MoleculeName                   3-methylpentane
+            MoleculeDefinition             Local
+            IdealGasRosenbluthWeight       0.0536003
+            FugacityCoefficient            1.0
+            TranslationProbability         1.0
+            RotationProbability            1.0
+            ReinsertionProbability         1.0
+            PartialReinsertionProbability  1.0
+            IdentityChangeProbability      1.0
+              NumberOfIdentityChanges      4
+              IdentityChangesList          0 1 2 3
+            SwapProbability                1.0
+            CreateNumberOfMolecules        0
+
+Component 3 MoleculeName                   22-dimethylbutane
+            MoleculeDefinition             Local
+            IdealGasRosenbluthWeight       0.226526
+            FugacityCoefficient            1.0
+            TranslationProbability         1.0
+            RotationProbability            1.0
+            ReinsertionProbability         1.0
+            PartialReinsertionProbability  1.0
+            IdentityChangeProbability      1.0
+              NumberOfIdentityChanges      4
+              IdentityChangesList          0 1 2 3
+            SwapProbability                1.0
+            CreateNumberOfMolecules        0

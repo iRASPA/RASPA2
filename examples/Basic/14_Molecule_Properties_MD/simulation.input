@@ -1,0 +1,22 @@
+SimulationType                   MolecularDynamics
+NumberOfCycles                   5000000
+NumberOfInitializationCycles     5000
+NumberOfEquilibrationCycles      10000
+PrintEvery                       10000
+
+Ensemble NVT
+
+Forcefield                       Local
+
+Box 0
+BoxLengths 25 25 25
+ExternalTemperature 298.0
+ExternalPressure 0.0
+ComputeMoleculeProperties yes
+
+component 0 MoleculeName                     2-methylbutane
+            MoleculeDefinition               Local
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            CreateNumberOfMolecules          32

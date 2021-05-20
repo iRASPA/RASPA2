@@ -4,17 +4,14 @@ NumberOfInitializationCycles  100000
 PrintEvery                    5000
 RestartFile                   yes
 
-ContinueAfterCrash no
-WriteBinaryRestartFileEvery 5000
-
 ChargeMethod                  Ewald
-Forcefield                    GarciaPerez2006
+Forcefield                    ExampleZeolitesForceField
 RemoveAtomNumberCodeFromLabel yes
 
 Framework           0
 FrameworkName       MFI_SI
 UnitCells           2 2 4
-HeliumVoidFraction  0.292012
+HeliumVoidFraction  0.29
 ExternalTemperature 433
 ExternalPressure    1.0e5
 ComputeDensityProfile3DVTKGrid yes
@@ -23,15 +20,13 @@ DensityProfile3DVTKGridPoints 150 150 150
 AverageDensityOverUnitCellsVTK yes
 DensityAveragingTypeVTK FullBox
 
-Component 0 MoleculeName              hexane
-            StartingBead              0
-            MoleculeDefinition        TraPPE
-            IdealGasRosenbluthWeight  0.00874526
-            FugacityCoefficient       1.0
-            TranslationProbability    1.0
-            RotationProbability       1.0
-            ReinsertionProbability    1.0
-            CBMCProbability           1.0
-            IdentityChangeProbability 0.0
-            SwapProbability           1.0
-            CreateNumberOfMolecules   0
+Component 0 MoleculeName                  hexane
+            MoleculeDefinition            ExampleDefinitions
+            IdealGasRosenbluthWeight      0.00811779
+            FugacityCoefficient           1.0
+            TranslationProbability        1.0
+            RotationProbability           1.0
+            ReinsertionProbability        1.0
+            PartialReinsertionProbability 1.0
+            SwapProbability               1.0
+            CreateNumberOfMolecules       0

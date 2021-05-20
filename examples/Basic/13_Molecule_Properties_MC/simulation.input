@@ -1,0 +1,22 @@
+SimulationType                   MonteCarlo
+NumberOfCycles                   1000000
+NumberOfInitializationCycles     10000
+PrintEvery                       50000
+RestartFile                      no
+
+Forcefield                       ExampleMoleculeForceField
+
+Box 0
+BoxLengths 25 25 25
+ExternalTemperature 298.0
+ExternalPressure 0.0
+ComputeMoleculeProperties yes
+
+component 0 MoleculeName                     2-methylbutane
+            FugacityCoefficient              1.0
+            MoleculeDefinition               ExampleDefinitions
+            TranslationProbability           1.0
+            RotationProbability              1.0
+            ReinsertionProbability           1.0
+            PartialReinsertionProbability    1.0
+            CreateNumberOfMolecules          32

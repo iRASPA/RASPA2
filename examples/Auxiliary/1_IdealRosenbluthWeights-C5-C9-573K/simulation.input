@@ -1,0 +1,36 @@
+SimulationType        MonteCarlo
+NumberOfCycles        25000
+PrintEvery            1000
+PrintPropertiesEvery  1000
+
+Forcefield            ExampleZeolitesForceField
+
+Box 0
+BoxLengths 30 30 30
+ExternalTemperature 573.0
+
+Component 0 MoleculeName              pentane
+            MoleculeDefinition        ExampleDefinitions
+            WidomProbability          1.0
+            CreateNumberOfMolecules   0
+
+Component 1 MoleculeName              hexane
+            MoleculeDefinition        ExampleDefinitions
+            WidomProbability          1.0
+            CreateNumberOfMolecules   0
+
+Component 2 MoleculeName              heptane
+            MoleculeDefinition        ExampleDefinitions
+            WidomProbability          1.0
+            CreateNumberOfMolecules   0
+
+Component 3 MoleculeName              octane
+            MoleculeDefinition        ExampleDefinitions
+            WidomProbability          1.0
+            CreateNumberOfMolecules   0
+
+Component 4 MoleculeName              nonane
+            MoleculeDefinition        ExampleDefinitions
+            WidomProbability          1.0
+            CreateNumberOfMolecules   0
+

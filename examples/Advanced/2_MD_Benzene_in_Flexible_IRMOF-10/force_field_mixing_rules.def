@@ -1,0 +1,21 @@
+# general rule for shifted vs truncated
+shifted
+# general rule tailcorrections
+no
+# number of defined interactions
+12
+# type interaction
+Zn1            lennard-jones    0.42      2.7        // D. Dubbeldam, K.S. Walton, D.E. Ellis, R.Q. Snurr, Angew. Chem. Int. Ed. 2007, 46, 4496-4499.
+O1             lennard-jones    700.0     2.98       // idem
+O2             lennard-jones    70.5      3.11       // idem
+C1             lennard-jones    47.0      3.74       // idem
+C2             lennard-jones    47.86     3.47       // idem
+C3             lennard-jones    47.86     3.47       // idem
+C4             lennard-jones    47.86     3.47       // idem
+C5             lennard-jones    47.86     3.47       // idem
+H1             lennard-jones    7.65      2.85       // idem
+H2             lennard-jones    7.65      2.85       // idem
+C_benz         lennard-jones    30.70     3.60       // N. Rai and J.I. Siepmann, J. Phys. Chem. B 2007, 111, 10790-10799.
+H_benz         lennard-jones    25.45     2.36       // idem
+# general mixing rule for Lennard-Jones
+Lorentz-Berthelot

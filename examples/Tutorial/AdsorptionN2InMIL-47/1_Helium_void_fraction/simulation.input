@@ -1,0 +1,17 @@
+SimulationType        MonteCarlo
+NumberOfCycles        10000
+PrintEvery            1000
+PrintPropertiesEvery  1000
+
+Forcefield            ExampleMOFsForceField
+
+Framework 0
+FrameworkName MIL-47
+UnitCells 4 2 2
+ExternalTemperature 298.0
+#HeliumVoidFraction 0.61
+
+Component 0 MoleculeName             helium
+            MoleculeDefinition       ExampleDefinitions
+            WidomProbability         1.0
+            CreateNumberOfMolecules  0

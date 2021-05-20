@@ -1,7 +1,7 @@
 SimulationType                   MC
 NumberOfCycles                   0
 
-Forcefield                       GarciaPerez2006
+Forcefield                       ExampleZeolitesForceField
 
 VTKFractionalFrameworkAtomsMin  0.0 0.0 0.0 
 VTKFractionalFrameworkAtomsMax  1.0 1.0 1.0 

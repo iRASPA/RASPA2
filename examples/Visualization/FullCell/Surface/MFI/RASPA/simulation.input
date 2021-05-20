@@ -4,7 +4,7 @@ PrintEvery      5000000
 
 FreeEnergyAveragingTypeVTK FullBox
 
-Forcefield      GarciaPerez2006
+Forcefield      ExampleZeolitesForceField
 ChargeMethod    None
 
 Framework           0
@@ -14,7 +14,7 @@ RemoveAtomNumberCodeFromLabel yes
 ExternalTemperature 300.0
 
 Component 0 MoleculeName                     helium
-            MoleculeDefinition               TraPPE
+            MoleculeDefinition               ExampleDefinitions
             BlockPockets                     yes
             BlockPocketsFileName             MFI_SI
             IdealGasRosenbluthWeight         1.0

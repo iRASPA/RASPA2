@@ -17,7 +17,6 @@ ExternalTemperature           300.0
 ExternalPressure              0.0
 
 Component 0 MoleculeName                 methane
-            StartingBead                 0
             MoleculeDefinition           Generic
             BlockPockets                 yes
             BlockPocketsFilename         ITQ-29

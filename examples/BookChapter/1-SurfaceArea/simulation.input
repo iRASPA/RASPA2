@@ -16,7 +16,6 @@ ExternalTemperature           298.0
 SurfaceAreaProbeDistance Sigma
 
 Component 0 MoleculeName             N2
-            StartingBead             0
             MoleculeDefinition       Local
             BlockPockets             yes
             BlockPocketsFilename     ITQ-29

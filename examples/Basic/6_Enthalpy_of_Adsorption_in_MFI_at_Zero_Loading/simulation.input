@@ -1,0 +1,21 @@
+SimulationType                MonteCarlo
+NumberOfCycles                25000
+NumberOfInitializationCycles  5000
+PrintEvery                    1000
+
+Forcefield                    ExampleZeolitesForceField
+RemoveAtomNumberCodeFromLabel yes
+
+Framework 0
+FrameworkName MFI_SI
+UnitCells 2 2 2
+HeliumVoidFraction 0.29
+ExternalTemperature 300.0
+ExternalPressure 0.0
+
+Component 0 MoleculeName             methane
+            MoleculeDefinition       ExampleDefinitions
+            TranslationProbability   0.5
+            ReinsertionProbability   0.5
+            CreateNumberOfMolecules  1
+

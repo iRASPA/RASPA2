@@ -5,7 +5,7 @@ NumberOfEquilibrationCycles   10000
 PrintEvery                    5000
 RestartFile                   no
 
-Forcefield                    TraPPE
+Forcefield                    ExampleMoleculeForceField
 
 Box 0
 BoxLengths 35.17472 35.17472 35.17472
@@ -17,8 +17,8 @@ ComputeMSD yes
 PrintMSDEvery 1000
 
 Component 0 MoleculeName             CO2
-            MoleculeDefinition       TraPPE
+            MoleculeDefinition       ExampleDefinitions
             TranslationProbability   0.5
             RotationProbability      0.5
-            RegrowProbability        0.5
+            ReinsertionProbability   0.5
             CreateNumberOfMolecules  100

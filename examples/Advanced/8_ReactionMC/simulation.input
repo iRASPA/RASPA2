@@ -1,0 +1,58 @@
+SimulationType                MonteCarlo
+NumberOfCycles                25000
+NumberOfInitializationCycles  0
+NumberOfEquilibrationCycles   25000
+RestartFile                   no
+PrintEvery                    5000
+
+ChargeMethod                  none
+Forcefield                    local
+CutOff                        12.0
+EwaldPrecision                1e-6
+
+Box 0
+BoxLengths 150 150 150
+ExternalTemperature 450.0
+ExternalPressure 101300.0
+CutOff  14.0
+
+ComputeNumberOfMoleculesHistogram yes
+WriteNumberOfMoleculesHistogramEvery 5000
+
+Reaction 2 0 0 0 0 1 0 1
+Reaction 0 0 0 1 0 0 1 0
+
+ProbabilityCFCRXMCLambdaChangeMove 1.0
+VolumeChangeProbability            0.1
+
+Component 0 MoleculeName             propene
+            MoleculeDefinition       Local
+            LnPartitionFunction      87.1384
+            TranslationProbability   35.0
+            RotationProbability      53.9
+            ReinsertionProbability   10.0 
+            CreateNumberOfMolecules  400
+
+Component 1 MoleculeName             ethene
+            MoleculeDefinition       Local
+            LnPartitionFunction      82.0298
+            TranslationProbability   35.0
+            RotationProbability      53.9
+            ReinsertionProbability   10.0 
+            CreateNumberOfMolecules  0
+
+Component 2 MoleculeName             cis-2-butene
+            MoleculeDefinition       Local
+            LnPartitionFunction      89.0386
+            TranslationProbability   35.0
+            RotationProbability      53.9
+            ReinsertionProbability   10.0 
+            CreateNumberOfMolecules  0
+
+Component 3 MoleculeName             trans-2-butene
+            MoleculeDefinition       Local
+            LnPartitionFunction      89.4937
+            TranslationProbability   35.0
+            RotationProbability      53.9
+            ReinsertionProbability   10.0 
+            CreateNumberOfMolecules  0

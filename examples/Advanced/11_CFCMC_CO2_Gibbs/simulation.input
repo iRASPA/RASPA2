@@ -1,0 +1,29 @@
+SimulationType                MonteCarlo
+NumberOfCycles                50000
+NumberOfInitializationCycles  10000
+NumberOfEquilibrationCycles   20000
+PrintEvery                    5000
+
+ChargeMethod                  Ewald
+Forcefield                    ExampleMoleculeForceField
+
+Box 0
+BoxLengths 26.0 26.0 26.0
+BoxAngles 90.0 90.0 90.0
+ExternalTemperature 260.0
+
+Box 1
+BoxLengths 60.0 60.0 60.0
+BoxAngles 90.0 90.0 90.0
+ExternalTemperature 260.0
+
+GibbsVolumeChangeProbability 0.1
+
+Component 0 MoleculeName              CO2
+            MoleculeDefinition        ExampleDefinitions
+            IdealGasRosenbluthWeight  1.0
+            TranslationProbability    1.0
+            RotationProbability       1.0
+            ReinsertionProbability    1.0
+            CFGibbsProbability        1.0
+            CreateNumberOfMolecules   400 100

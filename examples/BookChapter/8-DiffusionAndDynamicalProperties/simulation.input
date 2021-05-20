@@ -34,7 +34,6 @@ ComputeVACFConventional yes
 WriteVACFConventionalEvery 100000
 
 Component 0 MoleculeName              methane
-            StartingBead              0
             MoleculeDefinition        Local
             BlockPockets              yes
             BlockPocketsFilename      ITQ-29

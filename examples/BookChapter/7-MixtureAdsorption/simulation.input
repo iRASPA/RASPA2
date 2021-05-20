@@ -17,7 +17,6 @@ ExternalTemperature           300.0
 ExternalPressure              1000000.0
 
 Component 0 MoleculeName              CO2
-            StartingBead              1
             MoleculeDefinition        Local
             BlockPockets              yes
             BlockPocketsFilename      ITQ-29
@@ -34,7 +33,6 @@ Component 0 MoleculeName              CO2
             CreateNumberOfMolecules   0
 
 Component 1 MoleculeName              methane
-            StartingBead              0
             MoleculeDefinition        Local
             BlockPockets              yes
             BlockPocketsFilename      ITQ-29

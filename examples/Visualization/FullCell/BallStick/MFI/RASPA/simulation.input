@@ -1,7 +1,7 @@
-SimulationType                   MC
+SimulationType                   MonteCarlo
 NumberOfCycles                   0
 
-Forcefield                       GarciaPerez2006
+Forcefield                       ExampleZeolitesForceField
 
 VTKFractionalFrameworkBondsMin -0.01 -0.01 -0.01
 VTKFractionalFrameworkBondsMax  1.01  1.01  1.01
