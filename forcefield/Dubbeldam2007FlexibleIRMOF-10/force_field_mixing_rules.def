@@ -20,7 +20,7 @@ O_co2          lennard-jones    85.671    3.017        // A. Garcia-Sanchez et a
 C_co2          lennard-jones    29.933    2.745        // idem
 N_n2           lennard-jones    38.298    3.306        // A. Martin-Calvo et al. , Phys. Chem. Chem. Phys. 2011, 13, 11165-11174.
 N_com          none                                    // idem
-O_n2           lennard-jones    53.023    3.045        // A. Martin-Calvo et al. , Phys. Chem. Chem. Phys. 2011, 13, 11165-11174.
+O_o2           lennard-jones    53.023    3.045        // A. Martin-Calvo et al. , Phys. Chem. Chem. Phys. 2011, 13, 11165-11174.
 O_com          none                                    //
 Ar             lennard-jones   124.070    3.38         // A. Martin-Calvo et al. , Phys. Chem. Chem. Phys. 2011, 13, 11165-11174.
 CH4            lennard-jones    158.5     3.72         // M. G. Martin et al., J. Chem. Phys. 2001, 114, 7174-7181.
