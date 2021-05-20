@@ -497,6 +497,18 @@ However, the CBMC growth is able to reach very high densities.
 \subsection*{Options to measure properties}
 \begin{itemize}
 
+\item{ComputeNumberOfMoleculesHistogram [yes$|$no]}\\
+Sets whether or not to compute the histograms of the number of molecules for the current system.
+In open ensembles the number of molecules fluctuates.
+\begin{itemize}
+\item{WriteNumberOfMoleculesHistogramEvery [int]}\\
+Output the histogram every [int] cycles.
+\item{NumberOfMoleculesRange [real]}\\
+The range of the histograms.
+\item{NumberOfMoleculesHistogramSize [int]}\\
+The number of elements of the histograms.
+\end{itemize}
+
 \item{ComputeDistanceHistograms [yes$|$no]}\\
 Sets whether or not to compute the histograms of specified distance pairs for the current system.
 A directory `DistanceHistograms' is created containing the histograms for each system.

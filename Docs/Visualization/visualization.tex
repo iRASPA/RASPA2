@@ -29,7 +29,7 @@ are `FrameworkAtoms.vtk', `AdsorbateAtoms.vtk', `CationAtoms.vtk', and `Frame.vt
      SimulationType                   MC
      NumberOfCycles                   0
 
-     Forcefield                       ElenaSodiumCalcium
+     Forcefield                       ExampleZeolitesForceField
 
      Framework 0
      FrameworkName ERI_mono
@@ -146,7 +146,7 @@ we need grids for CO$_2$-atoms and helium:
 \begin{verbatim}
      SimulationType                   MakeGrid
 
-     Forcefield                       ElenaSodiumCalcium
+     Forcefield                       ExampleZeolitesForceField
 
      Framework 0
      FrameworkName ERI_mono
@@ -168,7 +168,7 @@ An example input to generate the surface-grid is listed here (`Example/Visualiza
      NumberOfCycles                   10000000000
      PrintEvery                       100000
 
-     Forcefield                       ElenaSodiumCalcium
+     Forcefield                       ExampleZeolitesForceField
      ChargeMethod                     None
 
      Framework 0
@@ -183,7 +183,7 @@ An example input to generate the surface-grid is listed here (`Example/Visualiza
      UseTabularGrid yes
 
      component 0 MoleculeName                     helium
-                 MoleculeDefinition               TraPPE
+                 MoleculeDefinition               ExampleDefinitions
                  IdealGasRosenbluthWeight         1.0
                  BlockPockets                     no
                  BlockPocketsFileName             ERI_mono
@@ -278,7 +278,7 @@ An example input for RASPA is
      PrintEvery                       100
      PrintPropertiesEvery             10000
 
-     Forcefield                       ElenaSodiumCalcium
+     Forcefield                       ExampleZeolitesForceField
 
      Framework 0
      FrameworkName ERI_mono
@@ -295,7 +295,7 @@ An example input for RASPA is
      UseTabularGrid yes
 
      component 0 MoleculeName                     CO2
-                 MoleculeDefinition               TraPPE
+                 MoleculeDefinition               ExampleDefinitions
                  IdealGasRosenbluthWeight         1.0
                  TranslationProbability           1.0
                  RegrowProbability                1.0

@@ -57,29 +57,30 @@
 \BOOKMARK [1][-]{section.4.3}{Non-basic examples}{chapter.4}% 57
 \BOOKMARK [1][-]{section.4.4}{Advanced examples}{chapter.4}% 58
 \BOOKMARK [1][-]{section.4.5}{Auxiliary examples}{chapter.4}% 59
-\BOOKMARK [0][-]{chapter.5}{The source code}{part.1}% 60
-\BOOKMARK [1][-]{section.5.1}{Introduction}{chapter.5}% 61
-\BOOKMARK [1][-]{section.5.2}{Data types}{chapter.5}% 62
-\BOOKMARK [1][-]{section.5.3}{Datastructures}{chapter.5}% 63
-\BOOKMARK [1][-]{section.5.4}{Modifying}{chapter.5}% 64
-\BOOKMARK [2][-]{subsection.5.4.1}{Monte Carlo}{section.5.4}% 65
-\BOOKMARK [2][-]{subsection.5.4.2}{Molecular Dynamics}{section.5.4}% 66
-\BOOKMARK [1][-]{section.5.5}{Debugging}{chapter.5}% 67
-\BOOKMARK [2][-]{subsection.5.5.1}{Linux}{section.5.5}% 68
-\BOOKMARK [2][-]{subsection.5.5.2}{Mac OSX}{section.5.5}% 69
-\BOOKMARK [0][-]{chapter.6}{Troubleshooting}{part.1}% 70
-\BOOKMARK [-1][-]{part.2}{II Utilities}{}% 71
-\BOOKMARK [0][-]{chapter.7}{Visualization}{part.2}% 72
-\BOOKMARK [1][-]{section.7.1}{Making pictures using VTK}{chapter.7}% 73
-\BOOKMARK [1][-]{section.7.2}{Ball and stick}{chapter.7}% 74
-\BOOKMARK [1][-]{section.7.3}{Framework surface}{chapter.7}% 75
-\BOOKMARK [1][-]{section.7.4}{Density plots}{chapter.7}% 76
-\BOOKMARK [1][-]{section.7.5}{Determining blocking pockets}{chapter.7}% 77
-\BOOKMARK [1][-]{section.7.6}{Making movies}{chapter.7}% 78
-\BOOKMARK [2][-]{subsection.7.6.1}{Using VMD}{section.7.6}% 79
-\BOOKMARK [2][-]{subsection.7.6.2}{Combining pictures into a movie}{section.7.6}% 80
-\BOOKMARK [-1][-]{part.3}{III Tutorial}{}% 81
-\BOOKMARK [0][-]{chapter.8}{Tutorial}{part.3}% 82
-\BOOKMARK [1][-]{section.8.1}{Adsorption isotherm of N2 in a metal-organic framework \(MOF\), Henry coefficients, enthalpy of adsorption}{chapter.8}% 83
-\BOOKMARK [1][-]{section.8.2}{NPT density of super-critical CO2, RDF, diffusion}{chapter.8}% 84
-\BOOKMARK [1][-]{section.8.3}{Reaction-ensemble of ammonia}{chapter.8}% 85
+\BOOKMARK [1][-]{section.4.6}{Production runs}{chapter.4}% 60
+\BOOKMARK [0][-]{chapter.5}{The source code}{part.1}% 61
+\BOOKMARK [1][-]{section.5.1}{Introduction}{chapter.5}% 62
+\BOOKMARK [1][-]{section.5.2}{Data types}{chapter.5}% 63
+\BOOKMARK [1][-]{section.5.3}{Datastructures}{chapter.5}% 64
+\BOOKMARK [1][-]{section.5.4}{Modifying}{chapter.5}% 65
+\BOOKMARK [2][-]{subsection.5.4.1}{Monte Carlo}{section.5.4}% 66
+\BOOKMARK [2][-]{subsection.5.4.2}{Molecular Dynamics}{section.5.4}% 67
+\BOOKMARK [1][-]{section.5.5}{Debugging}{chapter.5}% 68
+\BOOKMARK [2][-]{subsection.5.5.1}{Linux}{section.5.5}% 69
+\BOOKMARK [2][-]{subsection.5.5.2}{Mac OSX}{section.5.5}% 70
+\BOOKMARK [0][-]{chapter.6}{Troubleshooting}{part.1}% 71
+\BOOKMARK [-1][-]{part.2}{II Utilities}{}% 72
+\BOOKMARK [0][-]{chapter.7}{Visualization}{part.2}% 73
+\BOOKMARK [1][-]{section.7.1}{Making pictures using VTK}{chapter.7}% 74
+\BOOKMARK [1][-]{section.7.2}{Ball and stick}{chapter.7}% 75
+\BOOKMARK [1][-]{section.7.3}{Framework surface}{chapter.7}% 76
+\BOOKMARK [1][-]{section.7.4}{Density plots}{chapter.7}% 77
+\BOOKMARK [1][-]{section.7.5}{Determining blocking pockets}{chapter.7}% 78
+\BOOKMARK [1][-]{section.7.6}{Making movies}{chapter.7}% 79
+\BOOKMARK [2][-]{subsection.7.6.1}{Using VMD}{section.7.6}% 80
+\BOOKMARK [2][-]{subsection.7.6.2}{Combining pictures into a movie}{section.7.6}% 81
+\BOOKMARK [-1][-]{part.3}{III Tutorial}{}% 82
+\BOOKMARK [0][-]{chapter.8}{Tutorial}{part.3}% 83
+\BOOKMARK [1][-]{section.8.1}{Adsorption isotherm of N2 in a metal-organic framework \(MOF\), Henry coefficients, enthalpy of adsorption}{chapter.8}% 84
+\BOOKMARK [1][-]{section.8.2}{NPT density of super-critical CO2, RDF, diffusion}{chapter.8}% 85
+\BOOKMARK [1][-]{section.8.3}{Reaction-ensemble of ammonia}{chapter.8}% 86
