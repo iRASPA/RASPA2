@@ -68,5 +68,5 @@ stamp-h.in
 *.egg-info
 dist
 
-Docs/raspa.pdf
 Docs/raspa.toc
+Docs/raspa.out

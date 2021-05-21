@@ -123,7 +123,7 @@ and can be viewed with iRASPA or VMD.
 
 In RASPA, the cycle is define as max(20,$N$) steps, where $N$ is the number of molecules in the system. In every cycle, each of the molecules
 has on average been used for a Monte Carlo move (accepted or rejected). There is a minimum of 20 steps to avoid that low-density
-systems or not sampled well. The definition of a cycle is less dependent on the system size. The number of Monte carlo steps
+systems or not sampled well. The definition of a cycle is less dependent on the system size. The number of Monte Carlo steps
 is roughly the number of cycles times the average number of molecules.
 
 The output is written to the 'Output' directory (per system), and the temperature and pressure are appended to all output filenames.
@@ -138,7 +138,7 @@ In the output file, the simulation writes an important check to the file
      Total energy-drift: 1.05012e-10
 \end{verbatim}
 \end{tiny}
-In Monte Carlo, only difference in energies are computed. These differences are continously added to keep track of the current energies
+In Monte Carlo, only difference in energies are computed. These differences are continuously added to keep track of the current energies
 (from which average energies etc. are computed). Obviously, the current energy that is kept track off during the simulation should
 be equal to a full recalculation of the energies. The difference between the two signals an error. If the drift is higher than
 say $1e-3$ or $1e-4$ the results of the simulation are in error. This could be due to an error in one of the Monte Carlo moves
@@ -158,7 +158,7 @@ Here, the move reached its upper limit of 1 \AA\ because of the low density of t
 \end{verbatim}
 \end{tiny}
 
-Averages are computed along with an error bar. The error is computed by dividing the simulation in 5 blocks and calulating the standard deviation.
+Averages are computed along with an error bar. The error is computed by dividing the simulation in 5 blocks and calculating the standard deviation.
 The errors in RASPA are computed as the 95\% confidence interval.
 \begin{tiny}
 \begin{verbatim}
@@ -224,7 +224,7 @@ of the systems with molecules is done using the `CreateNumberOfMolecules' which 
 specified using `component [int]'. The list of integers represent the initial amount of molecules for each system. Note that when the
 `BoxAngles' line is omitted, $\alpha=\beta=\gamma=90^\circ$ is assumed as the default.
 
-Note that we specify only relative probabilities of MC particle moves. They will be correctly rescaled as shown in the ouput-file:
+Note that we specify only relative probabilities of MC particle moves. They will be correctly rescaled as shown in the output-file:
 \begin{tiny}
 \begin{verbatim}
      Particle Moves:
@@ -276,8 +276,8 @@ and can be viewed with iRASPA or VMD.
 \end{verbatim}
 \end{tiny}
 
-The propand and butane molecules are modeled as flexible united-atom beads.
-The intra-moleculair force field contains bond, bend, and torsion terms
+The propane and butane molecules are modeled as flexible united-atom beads.
+The intra-molecular force field contains bond, bend, and torsion terms
 \begin{tiny}
 \begin{verbatim}
      Average Adsorbate Bond stretch energy:
@@ -416,7 +416,7 @@ In MD, it is important to have good energy-conservation. This is monitored
 \end{tiny}
 The first number is the conserved quantity, the second the current relative energy drift, and the last number is the average energy drift.
 The latter two numbers need to be small, usually smaller than say $10^{-3}$. 
-The NVT ensemble is achieved usign a Nose-Hoover thermostat that maintains the systen at the desired temperature of 300K.
+The NVT ensemble is achieved using a Nose-Hoover thermostat that maintains the system at the desired temperature of 300K.
 \begin{tiny}
 \begin{verbatim}
      Average temperature:
@@ -622,7 +622,7 @@ The output-file shows information on the structure:
 \end{verbatim}
 \end{tiny}
 We have input the helium void fraction (for MFI, about 0.29) in advance. 
-This value has to be computed seperately first (see Auxiliary examples).
+This value has to be computed separately first (see Auxiliary examples).
 This has several advantages. First, the correct available
 pore volume can be computed: 0.16143915 cm$^3$/g. Secondly, it allows for automatic computation of excess adsorption.
 At high pressures and temperatures the excess adsorption can be substantially lower than absolute adsorption.
@@ -724,7 +724,7 @@ In the output, we can check that the framework is charge neutral, and that the l
 \end{tiny}
 If the charges are computed using QM, e.g. REPEAT, then put these computed charges in the CIF-file and check they add up to net charge zero.
 
-The force field for this example is a very generic force field based on DREIDING \cite{Mayo1992} and UFF \cite{Rappe1992}, while
+The force field for this example is a very generic force field based on DREIDING \cite{Mayo1990} and UFF \cite{Rappe1992}, while
 the force field for the CO$_2$ adsorbate is taken from Garcia-Sanchez et al.\ \cite{GarciaSanchez2009}.
 \begin{tiny}
 \begin{verbatim}
@@ -1004,7 +1004,7 @@ The input looks like
 \end{verbatim}
 \end{tiny}
 
-In the basic examples before, the prestored forcefield and molecule files were used.
+In the basic examples before, the pre-stored forcefield and molecule files were used.
 In this example, they are stored locally. The \verb+Forcefield+ and \verb+MoleculeDefinition+ keywords
 can be set to anything (here \verb+Local+), the local files will always be read first and used if they are found.
 The Tip5p model uses sites for the oxygen and hydrogen, and additional dummy sites to place charges.
@@ -1080,7 +1080,7 @@ The long-range Van der Waals interactions are defined in the \verb+force_field_m
 Types that have no Van der Waals interaction are listed with \verb+none+. Note that, if the sigma of the oxygen 
 would be chosen to small, the \verb+Lw+ sites, and also \verb+Hw+ sites might overlap.
 This can lead to numerically problems. RASPA warns therefore for missing defined interactions, and specifying them as \verb+none+ here avoids the warning.
-The most common (and conveient) way of creating a force field, is to list all defined self-interactions here, and then use a mixture rule to compute
+The most common (and convenient) way of creating a force field, is to list all defined self-interactions here, and then use a mixture rule to compute
 all cross-interactions.
 
 
@@ -1112,9 +1112,9 @@ The input is:
                  CreateNumberOfMolecules  512
 \end{verbatim}
 \end{tiny}
-This allows you to compare the differences between MD and MC. MD is very efficient for equilibrating homogenous systems.
+This allows you to compare the differences between MD and MC. MD is very efficient for equilibrating homogeneous systems.
 In contrast to MC, it can handle collective motions, which sometimes can cause a difference between MD and MC results.
-For this simple system, we obtain indentical RDFs, as shown in Figure \ref{Fig: RDF water}.
+For this simple system, we obtain identical RDFs, as shown in Figure \ref{Fig: RDF water}.
 
 \begin{figure}[H]
   \centering
@@ -1216,7 +1216,7 @@ regenerates the others. The \verb+PartialReinsertion+ move is defined by adding 
 \end{verbatim}
 \end{tiny}
 Here, 4 config moves are defined. The first number is the number of fixed atoms, and then a list of the atom identifiers that are kept fixed
-(the other atoms are regrown). Note that in CBMC, all branches must be grown simulataneously. That means, you \emph{cannot} keep more than one branch fixes.
+(the other atoms are regrown). Note that in CBMC, all branches must be grown simultaneously. That means, you \emph{cannot} keep more than one branch fixes.
 The long-range Van der Waals interactions are defined in the \verb+force_field_mixing_rules.def+ file.
 \begin{tiny}
 \begin{verbatim}
@@ -1236,7 +1236,7 @@ The long-range Van der Waals interactions are defined in the \verb+force_field_m
      Lorentz-Berthelot
 \end{verbatim}
 \end{tiny}
-The most common (and conveient) way of creating a force field, is to list all defined self-interactions here, and then use a mixture rule to compute
+The most common (and convenient) way of creating a force field, is to list all defined self-interactions here, and then use a mixture rule to compute
 all cross-interactions. The more atom-types you have, the more convenient this becomes.
 
 The acceptance ratios of the partial-reinsertion-move is much high then the reinsertion-move.
@@ -1561,7 +1561,7 @@ The measured pressure for this short simulation is $10.08\pm1.98$ bar.
 A molecular dynamics simulation of water in the NPT-ensemble
 (constant amount of particles $N$, constant average pressure $P$, and constant average temperature $T$).
 Many water models are defined, but most are defined with simple Coulombic potentials using cutoffs of 9\AA.
-None are optimized with the Ewald-summation except for the recalibrated Tip5p-Ew model.
+None are optimized with the Ewald-summation except for the re-calibrated Tip5p-Ew model.
 Unfortunately, that model is defined using a cutoff always equal to half the box size, while
 RASPA uses a fixed cutoff (default: 12 Angstrom). A fixed cutoff is more realistic, but requires the shortest
 perpendicular width to be twice the cutoff, thus here larger than 24 \AA. All this results in having
@@ -1683,14 +1683,14 @@ The force field is taken from Garcia-Sanchez et al.\cite{GarciaSanchez2009}.
      Na         yes     Na    Na    0           22.98977    0.3834   0.0          1.0      1.00   0            0           absolute           0
 \end{verbatim}
 \end{tiny}
-The force field uses a different charge for the framework oxygen that is connected to an aluminium atom.
+The force field uses a different charge for the framework oxygen that is connected to an aluminum atom.
 The line
 \begin{tiny}
 \begin{verbatim}
      ModifyOxgensConnectedToAluminium yes
 \end{verbatim}
 \end{tiny}
-modifies the framework oxygen type 'O' to 'Oa' when the oxygen is found to be connected to an aluminium atom.
+modifies the framework oxygen type 'O' to 'Oa' when the oxygen is found to be connected to an aluminum atom.
 For the LTA4A and LTA5A frameworks, \emph{every} oxygen atom is of type 'Oa'.
 
 \noindent 
@@ -1771,9 +1771,9 @@ Since the sodium-ion is a small molecule, the reinsertion (which is biased) can 
 For a single atom molecules, both do the same thing: a reinsertion randomly in the simulation box.
 
 \noindent
-Lastly, LTA contains pockets called $\beta$-cages that are nog accessible from the main large cavities called $\alpha$-cages.
+Lastly, LTA contains pockets called $\beta$-cages that are not accessible from the main large cavities called $\alpha$-cages.
 In MC, the reinsertion and swap-move pick random location inside the simulation cell volume, and therefore we need to artificially block
-the inaccesible pockets. For that, we can a blocking file, here names \verb+LTA.block+.
+the inaccessible pockets. For that, we can a blocking file, here names \verb+LTA.block+.
 \begin{tiny}
 \begin{verbatim}
      BlockPockets yes 
@@ -1844,7 +1844,7 @@ The mean-square displacement is computed during the run.
 The examples shows that diffusion, even of small molecules, can be \emph{very} slow in nanoporous materials.
 In 120 ps, the MSD is below 50 \AA$^2$, meaning the adsorbates have not moved further than 7.1 \AA.
 In LTA4A, the cations tend to sit in the windows separating the cages.
-Therefore, diffusion in these types of systems might nog be accessible to MD, and techniques like Transitions State Theory (TST)
+Therefore, diffusion in these types of systems might not be accessible to MD, and techniques like Transitions State Theory (TST)
 have to be used.
 
 \subsection*{Example 6: Diffusion of benzene in rigid IRMOF-1}
@@ -2039,8 +2039,8 @@ This example shows the input for the minimization of octane using a united-atom 
                  CreateNumberOfMolecules  1
 \end{verbatim}
 \end{tiny}
-Note that the minimization algorithm garantuees that all positive eigenvalues are found.
-The first 6 eigenvalues are zero, correspoding to translation and rotation of the isolated octane molecule.
+Note that the minimization algorithm guarantees that all positive eigenvalues are found.
+The first 6 eigenvalues are zero, corresponding to translation and rotation of the isolated octane molecule.
 A requirement is that all the forces are zero.
 \begin{tiny}
 \begin{verbatim}
@@ -2076,9 +2076,9 @@ The lowest in energy is the stretched-out, linear configuration.
 
 \subsection*{Example 9: Adsorption of hexane-isomers in MFI}
 
-Adsorption selectivities are computed by simulating a multiple-component mixture where the molecules compete for adsroption sites.
+Adsorption selectivities are computed by simulating a multiple-component mixture where the molecules compete for adsorption sites.
 In this example, the adsorption of hexane-isomers in MFI at 433 K and 2000 Pa is computed.
-Before running this, the ideal Rosenbluth values for the molecules at the desired temperature need to be computed (see Auxillary examples).
+Before running this, the ideal Rosenbluth values for the molecules at the desired temperature need to be computed (see Auxiliary examples).
 The identity-change move is used to try to change the identity to any type of molecule (including itself).
 Also partial-reinsertion moves are defined for all the adsorbates.
 We also define \verb+FugacityCoefficient 1.0+ for all components, which means we do a simulation at a \emph{fugacity} (not pressure) of 2000 Pa.
@@ -2637,7 +2637,7 @@ a flexible framework, IRMOF-1, in a periodic unit cell, with many low energy mod
 The energy landscape of a framework is very complex. A true minimum is characterized by
 all positive eigenvalues of the Hessian matrix (the matrix of second derivatives with respect to position). A
 zero eigenvalue means that moving in the direction of the associated eigenvector does not result in a change in
-energy. Likewise, a negative en positive eigenvalue means an decrease and increase in energy, respectively.
+energy. Likewise, a negative and positive eigenvalue means an decrease and increase in energy, respectively.
 Most of the optimization time is spent on reaching a zero curvature structure, i.e. all positive eigenvalues.
 
 \begin{tiny}
@@ -2939,7 +2939,7 @@ At the end of the output, after the run has finished, the statistics of the RXMC
 \subsection*{Example 9: CO2 in MFI (Continuous Fractional Component Monte Carlo)}
 
 A mixture simulation of CO2 and N2 in DMOF. The charges of DMOF are listed in the CIF-File using the `\_atom\_site\_charge' keyword,
-and RASPA makes use of these usinf the keyword `UseChargesFromCIFFile yes'.
+and RASPA makes use of these using the keyword `UseChargesFromCIFFile yes'.
 The CFCMC method is switched on by using `CFSwapLambdaProbability' (instead of `SwapProbability') to swap molecules in and out of the system at a fixed fugacity.
 The biasing factors are measured using Wang-Landau sampling during `NumberOfEquilibrationCycles 50000'.
 
@@ -3452,21 +3452,21 @@ dynamical details using the same simulation run.
 
 \subsection*{Example 17: Umbrella sampling}
 
-In Umbrelle sampling we can tag one particle and add a biasing potential to it. Figure \ref{Fig: umbrealla sampling}(a)
+In Umbrella sampling we can tag one particle and add a biasing potential to it. Figure \ref{Fig: umbrealla sampling}(a)
 shows the used biasing potential, which is directly obtained from Widom insertion of methane in LTA. Any profile will
 do as long as it close enough. 
 As can be seen in Figure \ref{Fig: umbrealla sampling}(b), if we do a MC simulation
 with only this particle (second component zero particles), 
 then the resulting histogram will be flat in the direction that we bias. The other directions are unbiased.
 Using this profile, we can easily obtain the free energy at higher loadings. Here is the input for methane in LTA at 4 methane/cage.
-The output will have a directory 'Histograms' containg the histograms for each component in the A, B, C directions. Also, it automatically
+The output will have a directory 'Histograms' containing the histograms for each component in the A, B, C directions. Also, it automatically
 computes the true free energy (from the biasing-spline plus the histograms) in file starting with 'FreeEnergy'.
 
 \begin{figure}[t]
   \centering
   \subfloat[]{\includegraphics[width=7.5cm]{./Examples/Figures/Umbrella/BiasingProfile/BiasingSpline.pdf}}
   \subfloat[]{\includegraphics[width=7.5cm]{./Examples/Figures/Umbrella/Histogram/UmbrellaHistogram.pdf}}
-  \caption{Umbrelle sampling: (a) free energy profile from Widom insertion (the inverse will be used as a biasing potential),
+  \caption{Umbrella sampling: (a) free energy profile from Widom insertion (the inverse will be used as a biasing potential),
            (b) the histograms of the position of the tagged particle in the direction A (biasing direction), B, and C.}
   \label{Fig: umbrealla sampling}
 \end{figure}
@@ -3544,12 +3544,12 @@ followed by the actual data points:
 The first step for dcTST is to compute the free energy profile as a function of a one-dimensional reaction coordinate.
 In general this mapping is complex, but for certain zeolites the mapping is trivial.
 As an example, we use the LTA-type zeolite with a cubic unit cell of 24.555 \AA.
-For this structure, the mapping can be dan in $x$, $y$, or $z$ and all three give identical results.
+For this structure, the mapping can be done in $x$, $y$, or $z$ and all three give identical results.
 We can define a reaction coordinate from $x=0$ to $x=1$ with several key values:
 \begin{itemize}
  \item{x=0}:\quad the window on the left.
  \item{x=0.25}\quad the center of the left cage $A$.
- \item{x=0.5}:\quad the window in the middle seperating the left cage $A$ from the right cage $B$.
+ \item{x=0.5}:\quad the window in the middle separating the left cage $A$ from the right cage $B$.
  \item{x=0.75}\quad the center of the right cage $A$.
  \item{x=1}:\quad the window on the right.
 \end{itemize}
@@ -3696,7 +3696,7 @@ However, this only works for low free energy barriers.
 
 \subsubsection{Computing free energies at finite loading using Umbrella sampling}
 
-With Umbrelle samplign we can bias the movement of a single tagged molecule at the proper chosen loading.
+With Umbrella sampling we can bias the movement of a single tagged molecule at the proper chosen loading.
 We therefore need two components: component one is a single biased molecule, and component two are the
 other (unbiased) particles.
 We can compute the histogram of the positions and for component one, recomputed the actual free energy
@@ -4276,7 +4276,7 @@ or the structure requires a higher interpolation density.
 \end{verbatim}
 \end{tiny}
 
-\subsection*{Example 11: Random Aluminium Distribution}
+\subsection*{Example 11: Random Aluminum Distribution}
 
 The Nax structure is defined in the CIF-file as
 \begin{tiny}
@@ -4302,7 +4302,7 @@ The Nax structure is defined in the CIF-file as
 \end{tiny}
 The atom-types found in the cif-file, and not already defined in the \verb+Pseudo_atoms.def+-file, will be automatically added.
 The \verb+Oa1+, \verb+Oa2+, \verb+Oa3+, and \verb+Oa4+ atoms are added but have no defined positions.
-The initial structure has the maximum amount of aluminium (given the Lowenstein rule)
+The initial structure has the maximum amount of aluminum (given the Lowenstein rule)
 \begin{tiny}
 \begin{verbatim}
      Pseudo Atoms    8 [     Si1]:   96 atoms
@@ -4313,8 +4313,8 @@ The initial structure has the maximum amount of aluminium (given the Lowenstein 
      Pseudo Atoms   13 [      O4]:   96 atoms
 \end{verbatim}
 \end{tiny}
-To create a NaY version with 58 aluminum we can take 38 aluminium randomly and change them to silicon.
-We also modify the \verb+O1+-\verb+O4+ to types \verb+Oa1+-\verb+Oa4+ when connected to an aluminium.
+To create a NaY version with 58 aluminum we can take 38 aluminum randomly and change them to silicon.
+We also modify the \verb+O1+-\verb+O4+ to types \verb+Oa1+-\verb+Oa4+ when connected to an aluminum.
 \begin{tiny}
 \begin{verbatim}
      SimulationType                MC
@@ -4353,11 +4353,162 @@ The new structure can be found in the \verb+Movie+ directory and has the desired
 \end{verbatim}
 \end{tiny}
 
-\section{Production runs}
+\section{Where to go from here?}
 
 \subsection*{Constructing your own input for your systems}
 
+The first thing to do is to scan the scientific literature whether people have already developed models for your system.
+The models for small adsorbates by the Calero-group using shifted LJ potentials (cutoff 12 \AA)
+for molecules calibrated on experimental vapor-liquid equilibrium data.
+These potentials can be used by both MC and MD, which is a great advantage.
+
+\begin{table}[H]
+\begin{tabular}{p{5.5cm}|p{1.5cm}|p{1.3cm}|p{1.3cm}|p{1.0cm}|p{1.15cm}|p{1.0cm}|p{1.0cm}}
+molecule type &  all-atom & type & $\epsilon/k_B$ [K] & $\sigma$ [\AA] & $q$ [e] & cutoff & shifted\\
+\hline
+\hline
+N$_2$, bond-distance 1.1 \AA \cite{MartinCalvo2011} & yes  & N (N$_2$) & 38.298 & 3.306 & -0.405 & 12 & yes\\
+\multicolumn{1}{r|}{(0.55 \AA\ from N atom)}   & -    & Dummy     &        &       & 0.810  & 12 & yes\\
+\hline
+O$_2$, bond-distance 1.2 \AA \cite{MartinCalvo2011} & yes  & O (O$_2$) & 53.023 & 3.045 & -0.112 & 12 & yes\\
+\multicolumn{1}{r|}{(0.6 \AA\ from O atom)}  & -    & Dummy     &        &       & 0.224  & 12 & yes\\
+\hline
+Ar \cite{MartinCalvo2011} & yes  & Ar & 124.070 & 3.380 & 0.0 & 12 & yes\\
+\hline
+CCl$_4$  \cite{MartinCalvo2011} & no  & CCl$_4$ & 519.730 & 5.140 & 0.0 & 12 & yes\\
+\hline
+CO, bond-distance 1.128 \AA  \cite{MartinCalvo2012}  & yes  & C     & 16.141 & 3.636 & -0.2424 & 12 & yes\\
+                            & yes  & O     & 98.014 & 2.979 & -0.2744 & 12 & yes\\
+\multicolumn{1}{r|}{(0.6443 \AA\ from C atom)}   & -    & Dummy &        &       &  0.5168 & 12 & yes\\
+\hline
+CO$_2$, bond-distance 1.149 \AA\ \cite{GarciaSanchez2009} & yes  & O     & 85.671 & 3.017 & -0.3256 & 12 & yes\\
+                              & yes  & C     & 29.933 & 2.745 & -0.6512 & 12 & yes\\
+\hline
+SO$_2$, bond-distance 1.431 \AA\ \cite{MatitoMartos2014}  & yes  & S     & 189.353 & 3.41 & 0.402 & 12 & yes\\
+\multicolumn{1}{r|}{(bond angle of 119$^\circ$)} & yes  & O     & 58.725 & 3.198 & -0.201 & 12 & yes\\
+\hline
+SF$_6$, bond-distance 1.565 \AA\ \cite{MatitoMartos2015} & yes  & F     & 73.130 & 2.843 & - & 12 & yes\\
+                                & yes  & S     &  - &   - & - & 12 & yes\\
+\hline
+H2S, bond-distance 1.34 \AA\ \cite{GutierrezSevillano2013} & yes  & S     & 275 & 3.7 & -0.32 & 12 & yes\\
+\multicolumn{1}{r|}{(bond angle of 92$^\circ$)}    & yes  & H     & -   & -   &  0.16 & 12 & yes\\
+\hline
+Alkenes \cite{Liu2008} & no  &       & -   & -   &  -    & 12 & yes\\
+\hline
+propylene \cite{GutierrezSevillano2010} & no  & CH$_3$  & 93.0 & 3.685 & 0.87 & 12 & yes\\
+                   & no  & CH  & 51.0 & 4.0 & 0.87 & 12 & yes\\
+\multicolumn{1}{r|}{(Dummy-CH$_2$ bond length 0.704 \AA)} & -   & Dummy &      &     & -1.74 & 12 & yes\\
+                   & -   & CH$_3$ & 108.0 & 3.76 & - & 12 & yes\\
+\end{tabular}
+\caption{Selection of models by the Calero-group using shifted LJ potentials (cutoff 12 \AA)
+ for molecules calibrated on experimental vapor-liquid equilibrium data.
+ These potentials can be used by both MC and MD.
+ Cross terms are computed using Lorentz-Berthelot mixing rules.}
+\label{Table: Calero VLE calibrated LJ}
+\end{table}
+
+A computational very efficient model is the Transferable potentials for Phase Equilibria  TraPPE force field by Martin and Siepmann\cite{Martin1998,Martin1999}.
+The force field describes linear, mono-branched and di-branched alkanes\cite{Martin1998,Martin1999},
+benzene, pyridine, pyrimidine, pyrazine, pyridazine, thiophene, furan, pyrrole, thiazole, oxazole, isoxazole, imidazole, and pyrazole\cite{Rai2007},
+primary, secondary, and tertiary amines, nitroalkanes and nitrobenzene, nitriles, amides, pyridine, and pyrimidine\cite{Wick2005a},
+ethers, glycols, ketones, and aldehydes\cite{Stubbs2004},
+thiols, sulfides, disulfides, and thiophene \cite{Lubna2005}, as well as some smaller molecule
+like CO$_2$ and N$_2$ \cite{Potoff2001} and ethane and ethylene\cite{Shah2017}.
+Despite the fact that the model lumps CH$_3$, CH$_2$, and CH into single interaction centers, it very accurately
+reproduces the experimental phase diagram and critical points.
+This united atom approach allows for much longer simulation times and larger systems because each of the CH$_x$-groups is
+charge-neutral and charge-charge interaction can be omitted.
+Some TraPPE models for small molecules are listed in Table \ref{Table: TraPPE VLE calibrated LJ}.
+
+\begin{table}[H]
+\begin{tabular}{p{5.5cm}|p{1.5cm}|p{1.3cm}|p{1.3cm}|p{1.0cm}|p{1.15cm}|p{1.0cm}|p{1.0cm}}
+molecule type &  all-atom & type & $\epsilon/k_B$ [K] & $\sigma$ [\AA] & $q$ [e] & cutoff & shifted\\
+\hline
+\hline
+Alkanes \cite{Martin1998} & no  & CH$_4$ & 148 & 3.73 & - & 14 & no\\
+                         & no  & CH$_3$ & 98 & 3.75 & - & 14 & no\\
+                         & no  & CH$_2$ & 46 & 3.95 & - & 14 & no\\
+\hline
+Branched alkanes\cite {Martin1999} & no  & CH & 10 & 4.68 & - & 14 & no\\
+                                  & no  & C & 0.5 & 6.4 & - & 14 & no\\
+\hline
+CO$_2$, bond-distance 1.16 \AA\ \cite{Potoff2001} & yes  & O     & 79.0 & 3.05 & -0.35 & 10 & no\\
+                                                   & yes  & C     & 27.0 & 2.80 & -0.70 & 10 & no\\
+\hline
+N$_2$, bond-distance 1.1 \AA\ \cite{Potoff2001} & yes  & N     & 36.0 & 3.31 & -0.482 & 10 & no\\
+                                                & -    & Dummy & 0.0 & 0.0 & +0.964 & 10 & no\\
+\hline
+CH$_4$ \cite{Martin2001} & no  & CH$_4$ & 158.5 & 3.72 & 0.0 & 12 & yes\\
+\end{tabular}
+\caption{Selection of TraPPE models for molecules calibrated on experimental vapor-liquid equilibrium data.
+ Cross terms are computed using Lorentz-Berthelot mixing rules.}
+\label{Table: TraPPE VLE calibrated LJ}
+\end{table}
+
+\noindent
+A good resource to check, for TraPPE parameters, is 
+\begin{quote}
+http://trappe.oit.umn.edu
+\end{quote}
+The advantage of the models of the Calero-group and the TraPPE parameters is that they (by design) reproduce the Vapor-Liquid Equilibrium (VLE) curves.
+The advantage of adsorbate models that reproduce phase equilibrium data is that the saturation value of the adsorption
+isotherm is well-reproduced \emph{by construction}. This is important, because it allows an examination of the
+state of the pores of the framework, i.e.\ is there pore-blocking? are there remaining solvent or template molecules in the structure?
+The TraPPE model and many others use the approximation of fixed point charges.
+For small molecules, the charges follow from the dipole or quadrupole moment.
+
+The models for the adsorbates need to be combined with the model for the framework.
+Even when keeping the framework rigid, this still includes charges and Van der Waals parameters.
+Many charge sets have been published for frameworks like
+MOFs\cite{Xu2010,Parkes2013,Nazarian2016},
+COFs\cite{Zheng2010},
+ZIFs\cite{Rana2011,GutierrezSevillano2013b},
+and siliceous zeolites\cite{Wolffis2019}.
+The different methods available to calculate atomic partial charges in MOFs have been reviewed by Hamad et al.\cite{Hamad2015}.
+A good force field for zeolite modeling is the TraPPE-zeo model\cite{Bai2013}. In this model, the
+Lennard-Jones interaction sites and partial charges are placed at both the oxygen and the silicon atoms of the zeolite lattice.
+This allows for a better balance of dispersive and first-order electrostatic interactions than is
+achievable with the Lennard-Jones potential used only for the oxygen atoms.
+Early MOF work initially also adapted the Kiselev approach where the framework has been kept rigid. However, the force field was replaced by a more generic
+solution such as DREIDING\cite{Mayo1990} or UFF\cite{Rappe1992} for example, to tackle the larger chemical diversity of MOFs. These approaches were very
+successful without the need for re-parameterization\cite{Duren2004, Sarkisov2004, DurenSnurr2004, SarkisovDurenSnurr2004}.
+Over the years several challenges were found. The first major force field challenge is to take flexibility
+of the framework into account. For more information on flexible framework force fields and generic force fields, see Refs.\cite{Heinen2018,Dubbeldam2019}.
+
+Work-flow:
+\begin{enumerate}
+\item{Scan scientific literature for parameters and model for the adsorbate molecule.}
+\item{If none can be found, you either have to be based them on more generic force fields, or develop your own models and fine-tune
+    the parameters to reproduce the VLE.}
+\item{Obtain the charge for the framework from models from literature, or from QM algorithm like REPEAT, or from charge-equilibration methods.}
+\item{Obtain the Van der Waals parameters for the framework from literature, or else from generic force fields.}
+\end{enumerate}
+Finally, validate your models by comparing to experiments.
+
 \subsection*{Number of cycles and run-times}
+
+Although classical simulations are faster then quantum simulation, they still require significant amount of computation times.
+That is because properties are computed at thermodynamics conditions (finite temperature) and sampling is often difficult.
+For small systems, like methane or argon in MFI,  10,000 cycles might be sufficient. No charge-interactions are needed, which is
+usually the most expensive force field term. Therefore, CO$_2$ and N$_2$ are already much more expensive.
+Flexible molecules require also the sampling of the internal structure. For complex mixtures, the number of cycles needed is
+usually in the millions.
+Note that RASPA is developed for relatively small adsorbates in nanoporous materials using open ensembles. 
+For MD, a better option is to use LAMMPS\cite{Plimpton1995}.
+
+Note that the most important important step, is to get an equilibrated system.
+In equilibrium, measured averaged properties do not change
+anymore as a function of simulation time,
+but beware that there can always be an unknown order parameter that is not equilibrated yet.
+The equipartition theorem states that the available energy will be shared evenly amongst the accessible modes of motion.
+Translation, rotational, and vibrational degrees of freedom will (on average) possess an energy $(1/2) k_B T$,
+where $k_B=1.38064852\times10^{-23}$ J/K is the Boltzmann constant and $T$ is the temperature.
+Fast modes like bond-stretching are quickly equilibrated, but equilibration will take longer for slower modes (e.g.\ torsions and inter-molecular interactions).
+It is highly system dependent how long equilibration takes, i.e.\
+there are \emph{no} general rules on how many equilibration or production cycles are required.
+Once an equilibrated system is used as a restart, you can run many Monte Carlo jobs and simply average the results to get better statistics.
+
+
 
 \subsection*{Writing and using binary restart "crash-recovery" files}
 
@@ -4385,7 +4536,7 @@ For example, the adsorption of methane in MFI (Basic example 6) should be change
      ContinueAfterCrash            no
      WriteBinaryRestartFileEvery   1000
 
-     Forcefield                    ElenaSodiumCalcium
+     Forcefield                    ExampleZeolitesForceField
 
      Framework 0
      FrameworkName MFI
