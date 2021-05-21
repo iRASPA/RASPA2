@@ -12,7 +12,6 @@ FrameworkName MIL-47
 UnitCells 4 2 2
 HeliumVoidFraction 0.61
 ExternalTemperature 300.0
-ExternalPressure 100000.0
 
 Component 0 MoleculeName             N2
             MoleculeDefinition       ExampleDefinitions
