@@ -15,7 +15,7 @@ ExternalTemperature 300.0
 
 Component 0 MoleculeName             N2
             MoleculeDefinition       ExampleDefinitions
-            IdealRosenbluthValue     1.0
+            IdealGasRosenbluthWeight 1.0
             WidomProbability         1.0
             CreateNumberOfMolecules  0
 

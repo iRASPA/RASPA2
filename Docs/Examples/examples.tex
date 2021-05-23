@@ -491,7 +491,7 @@ Since the framework is rigid ($\left\langle U_{h}\right\rangle=0$) and the molec
 $\Delta H = (-1987.06797-300)*8.314462618/1000=19.0$ kJ/mol.
 
 
-\subsection*{Example 6: Adsorption isotherm of methane in MFI}
+\subsection*{Example 7: Adsorption isotherm of methane in MFI}
 
 Adsorption isotherms can be easily obtained by specifying a list of (increasing) pressures which will be subsequently run.
 If no \verb+FugacityCoefficient+ keyword is specified these pressure are converted to fugacity using the Peng-Robinson equation of state.
@@ -591,8 +591,8 @@ The energy histogram and the histogram of the number of molecules are computed d
 The can be found in directories 'EnergyHistograms' and 'NumberOfMoleculesHistograms', respectively.
 
 \noindent
-The output-file shows the performance of the various Monte Carlo moves. For adsorption, a good check is that the acceptance ratio
-of the `swap addition' and the `swap deletion' should be close.
+The output-file shows the performance of the various Monte Carlo moves. For adsorption, a good check is that the number of accepted moves
+of the `swap addition' move (41478) and the `swap deletion' move (41476) is the same.
 \begin{tiny}
 \begin{verbatim}
      Performance of the swap addition move:
@@ -690,11 +690,11 @@ Both equations can be used in grand-canonical MC \cite{Snurr1993}.
 \end{verbatim}
 \end{tiny}
 Since $\left\langle U_g \right\rangle=0$, the enthalpy of adsorption computed from the fluctuation formula
-is -18.96$\pm$0.04 and matches the value from the previous example for the limiting case of infinite dilution.
+is -18.96$\pm$0.04 and matches the value 19.0 from the previous example for the limiting case of infinite dilution.
 
-\subsection*{Example 7: Adsorption isotherm of CO2 in Cu-BTC}
+\subsection*{Example 8: Adsorption isotherm of CO2 in Cu-BTC}
 
-The Cu-BTC structure file provided with RASPA as an example defines the atoms as:
+The Cu-BTC structure file, provided with RASPA as an example, defines the atoms as:
 \begin{tiny}
 \begin{verbatim}
      loop_
@@ -713,7 +713,7 @@ The Cu-BTC structure file provided with RASPA as an example defines the atoms as
 \end{verbatim}
 \end{tiny}
 Since we have three carbon-atoms with different charges, it is more convenient to specify the charges in the CIF-file using the tag \verb+_atom_site_charge+.
-In the \verb+simulation.input+ file we then have to specify \verb+UseChargesFromCIFFile yes+.
+In the \verb+simulation.input+ file, we then have to specify \verb+UseChargesFromCIFFile yes+.
 In the output, we can check that the framework is charge neutral, and that the largest and smallest charge correspond to the expected values.
 \begin{tiny}
 \begin{verbatim}
@@ -722,7 +722,7 @@ In the output, we can check that the framework is charge neutral, and that the l
               smallest charge: -0.624000
 \end{verbatim}
 \end{tiny}
-If the charges are computed using QM, e.g. REPEAT, then put these computed charges in the CIF-file and check they add up to net charge zero.
+If the charges are computed using QM, e.g. REPEAT, then put these computed charges in the CIF-file and check they add up to zero net charge.
 
 The force field for this example is a very generic force field based on DREIDING \cite{Mayo1990} and UFF \cite{Rappe1992}, while
 the force field for the CO$_2$ adsorbate is taken from Garcia-Sanchez et al.\ \cite{GarciaSanchez2009}.
@@ -803,6 +803,9 @@ The \verb+FugacityCoefficient 1.0+ sets the fugacity coefficient to unity and we
 \end{verbatim}
 \end{tiny}
 
+\noindent
+The acceptance ratio for the translation and rotation moves are scaled towards roughly 50\% acceptance.
+The in-and out flow of particles in the system is nearly the same, i.e.\ 247115 vs.\ 247121.
 \begin{tiny}
 \begin{verbatim}
      Performance of the translation move:
@@ -835,7 +838,7 @@ The \verb+FugacityCoefficient 1.0+ sets the fugacity coefficient to unity and we
 \end{verbatim}
 \end{tiny}
 
-\subsection*{Example 8: Henry coefficient of $n$-hexane in mono-clinic ERI}
+\subsection*{Example 9: Henry coefficient of $n$-hexane in mono-clinic ERI}
 The monoclinic version of erionite (ERI) is named `ERI\_mono', the orthorhombic version is `ERI'.
 The monoclinic version needs at least $3\times3\times3$ unit cells to be larger than twice the cutoff,
 while the orthorhombic needs $2\times2\times2$ (the unit cell shapes and size are different).
@@ -861,38 +864,39 @@ listed in the output.
      
      Component 0 MoleculeName             hexane
                  MoleculeDefinition       ExampleDefinitions
-                 IdealRosenbluthValue     0.0164786
+                 IdealGasRosenbluthWeight 0.0164786
                  WidomProbability         1.0
                  CreateNumberOfMolecules  0
 \end{verbatim}
 \end{tiny}
 
+\noindent
 The average Widom Rosenbluth weight and Henry coefficient are printed:
 \begin{tiny}
 \begin{verbatim}
      Average Widom Rosenbluth factor:
      ================================
-         Block[ 0] 1.44801 [-]
-         Block[ 1] 1.44939 [-]
-         Block[ 2] 1.43931 [-]
-         Block[ 3] 1.47096 [-]
-         Block[ 4] 1.48635 [-]
+         Block[ 0] 1.44577 [-]
+         Block[ 1] 1.45242 [-]
+         Block[ 2] 1.43819 [-]
+         Block[ 3] 1.4689 [-]
+         Block[ 4] 1.47614 [-]
          ------------------------------------------------------------------------------
-         [hexane] Average Widom Rosenbluth-weight:   1.45881 +/- 0.023974 [-]
+         [hexane] Average Widom Rosenbluth-weight:   1.45628 +/- 0.019690 [-]
      
      Average Henry coefficient:
      ==========================
-         Block[ 0] 1.94214e-07 [mol/kg/Pa]
-         Block[ 1] 1.94399e-07 [mol/kg/Pa]
-         Block[ 2] 1.93047e-07 [mol/kg/Pa]
-         Block[ 3] 1.97292e-07 [mol/kg/Pa]
-         Block[ 4] 1.99356e-07 [mol/kg/Pa]
+         Block[ 0] 1.17675e-05 [mol/kg/Pa]
+         Block[ 1] 1.18217e-05 [mol/kg/Pa]
+         Block[ 2] 1.17059e-05 [mol/kg/Pa]
+         Block[ 3] 1.19558e-05 [mol/kg/Pa]
+         Block[ 4] 1.20147e-05 [mol/kg/Pa]
          ------------------------------------------------------------------------------
-         [hexane] Average Henry coefficient:  1.95661e-07 +/- 3.21546e-09 [mol/kg/Pa]
+         [hexane] Average Henry coefficient:  1.18531e-05 +/- 1.60261e-07 [mol/kg/Pa]
 \end{verbatim}
 \end{tiny}
 
-\subsection*{Example 9: Henry coefficient of $n$-pentane to $n$-nonane in MFI}
+\subsection*{Example 10: Henry coefficient of $n$-pentane to $n$-nonane in MFI}
 
 By using multiple components several Henry coefficients can be computed simultaneously. The Widom insertion probe move
 never actually inserts the molecules, it just compute the energy at randomly chosen insertion positions.
@@ -946,6 +950,7 @@ Note that the ideal gas Rosenbluth weights decrease with chain length.
 \end{verbatim}
 \end{tiny}
 
+\noindent
 The resulting Henry coefficients are:
 \begin{tiny}
 \begin{verbatim}
@@ -959,7 +964,7 @@ The resulting Henry coefficients are:
 \end{verbatim}
 \end{tiny}
 
-\subsection*{Example 10: Computing the radial distribution function of water using MD}
+\subsection*{Example 11: Computing the radial distribution function of water using MD}
 
 The radial distribution function (RDF) is a good indication of the status of the fluid: solid, liquid or gas.
 Water is expensive to compute. Here we start from a 'restart'-file obtained from a previous run.
@@ -1084,7 +1089,7 @@ The most common (and convenient) way of creating a force field, is to list all d
 all cross-interactions.
 
 
-\subsection*{Example 11: Computing the radial distribution function of water using MC}
+\subsection*{Example 12: Computing the radial distribution function of water using MC}
 
 The radial distribution function is a static property, and can therefore also be computed using MC.
 The input is:
@@ -1114,7 +1119,7 @@ The input is:
 \end{tiny}
 This allows you to compare the differences between MD and MC. MD is very efficient for equilibrating homogeneous systems.
 In contrast to MC, it can handle collective motions, which sometimes can cause a difference between MD and MC results.
-For this simple system, we obtain identical RDFs, as shown in Figure \ref{Fig: RDF water}.
+For this simple system, we obtain identical RDFs, which both look as shown in Figure \ref{Fig: RDF water}.
 
 \begin{figure}[H]
   \centering
@@ -1124,9 +1129,9 @@ For this simple system, we obtain identical RDFs, as shown in Figure \ref{Fig: R
 \end{figure}
 
 
-\subsection*{Example 12: Measuring bond/bend/dihedral angle distributions MC}
+\subsection*{Example 13: Measuring bond/bend/dihedral angle distributions MC}
 
-We revisit the computation measuring the bond/bend/dihedral angle distributions, but now use MC.
+Using Monte Carlo, we can compute the bond/bend/dihedral angle distributions.
 The input is given as
 \begin{tiny}
 \begin{verbatim}
@@ -1154,6 +1159,7 @@ The input is given as
                  CreateNumberOfMolecules          32
 \end{verbatim}
 \end{tiny}
+The united-atom alkane model describes the CH4, CH3, CH2, CH, and C groups are single, chargeless interaction centers.
 The \verb+pseudo_atoms.def+ is defined as
 \begin{tiny}
 \begin{verbatim}
@@ -1167,10 +1173,10 @@ The \verb+pseudo_atoms.def+ is defined as
      C          yes     C     C     0           12.0        0.0      0.0          1.0      1.00   0            0           relative           0
 \end{verbatim}
 \end{tiny}
-To properly sample the internal structure we use the \verb+Reinsertion+-move.
-However, the acceptance of this move is often low, especially at high densities and/or low temperatures.
-A move that helps is the \verb+PartialReinsertion+ move. This move keeps certain atoms of the molecule fixes, and 
-regenerates the others. The \verb+PartialReinsertion+ move is defined by adding 'config'-moves to the molecule definition.
+
+\noindent
+The molecule definition file for a flexible molecule lists all the internal interactions terms, like bond, bend, torsion,
+and intra-VDW and charge-charge potentials.
 \begin{tiny}
 \begin{verbatim}
      # critical constants: Temperature [T], Pressure [Pa], and Acentric factor [-]
@@ -1215,9 +1221,13 @@ regenerates the others. The \verb+PartialReinsertion+ move is defined by adding 
      4 0 1 2 4
 \end{verbatim}
 \end{tiny}
+To properly sample the internal structure we use the \verb+Reinsertion+-move.
+However, the acceptance of this move is often low, especially at high densities and/or low temperatures.
+A move that helps is the \verb+PartialReinsertion+ move. This move keeps certain atoms of the molecule fixes, and 
+regenerates the others. The \verb+PartialReinsertion+ move is defined by adding 'config'-moves to the molecule definition.
 Here, 4 config moves are defined. The first number is the number of fixed atoms, and then a list of the atom identifiers that are kept fixed
 (the other atoms are regrown). Note that in CBMC, all branches must be grown simultaneously. That means, you \emph{cannot} keep more than one branch fixes.
-The long-range Van der Waals interactions are defined in the \verb+force_field_mixing_rules.def+ file.
+The long-range Van der Waals interaction parameters are defined in the \verb+force_field_mixing_rules.def+ file.
 \begin{tiny}
 \begin{verbatim}
      # general rule for shifted vs truncated
@@ -1253,7 +1263,7 @@ This is due to the fact that space already exists at the position of the molecul
 \end{verbatim}
 \end{tiny}
 
-\subsection*{Example 13: Measuring bond/bend/dihedral angle distributions MD}
+\subsection*{Example 14: Measuring bond/bend/dihedral angle distributions MD}
 
 We can also compute the angle distributions using MD with the following input:
 \begin{tiny}
@@ -1282,6 +1292,7 @@ We can also compute the angle distributions using MD with the following input:
                  CreateNumberOfMolecules          32
 \end{verbatim}
 \end{tiny}
+The distributions can be compared to the Monte Carlo data, ensuring that the grow-algorithm (CBMC) works properly.
 
 \section{Non-basic examples}
 \subsection*{Example 1: Adsorption of a binary CO$_2$/CH$_4$ (1:3) mixture in IRMOF-1}
@@ -1669,6 +1680,8 @@ to positions in the windows and this is especially important for diffusion (the 
 
 \noindent
 The force field is taken from Garcia-Sanchez et al.\cite{GarciaSanchez2009}.
+Nonframework sodium cations can move freely, adjusting their position depending on their interactions with the framework atoms, 
+other sodium cations, and the carbon dioxide molecules.
 \begin{tiny}
 \begin{verbatim}
      #number of pseudo atoms
@@ -1791,7 +1804,7 @@ This file basically contains 32 pockets with a fractional center point and a rad
      ...
 \end{verbatim}
 \end{tiny}
-Any MC move that picks a random location inside this volume will be automatically rejected.
+Any MC move that picks a random CO$_2$ location inside this volume will be automatically rejected.
 
 \subsection*{Example 5: Diffusion of CO$_2$ in Na-LTA}
 
@@ -2239,6 +2252,20 @@ Component 3 [22-dimethylbutane]
 
 \subsection*{Example 1: Adsorption of CO$_2$ in using the Gibbs-ensemble}
 
+The Gibbs ensemble method can be used to compute adsorption isotherms in nanoporous materials \cite{Panagiotopoulos1987,McGrother1999}.
+One of the boxes contains the framework, while the other box contains the fluid-phase
+(either gas or liquid) that is in equilibrium with the adsorbed phase.
+For adsorption of a system of n components, the Gibbs phase rule requires that n+1 intensive variables be set,
+if you consider the adsorbent as an additional component.  These n+1 variables are conveniently taken as the
+temperature, the pressure of the fluid phase, and n-1 mole fractions in the fluid phase.
+The system is then simulated using the NpT Gibbs ensemble.
+The fluid-phase box is maintained at constant pressure (and temperature) by applying volume-moves.
+For the simulation of adsorption in a rigid framework the volume
+moves on the adsorbed-phase box are switched off; there is no requirement for mechanical equilibrium \cite{Panagiotopoulos1987}.
+The equilibrium constraints are equal temperature in both systems and equal chemical potentials
+in the bulk and in the interior of the framework (similar to the VLE, the chemical potential equilibrium is
+enforced by particle swap moves between the boxes).
+
 \begin{tiny}
 \begin{verbatim}
      SimulationType                MonteCarlo
@@ -2277,13 +2304,13 @@ The absolute loading is 2.77$\pm$ 0.05 vs 2.76$\pm$ 0.02 in example 6 of the bas
 
 \subsection*{Example 2: Benzene diffusion in flexible IRMOF-10}
 
-Molecules with a phenyl-ring are usually quite rigid. In Monte Carlo rigid units are not a problem, because the MC moves can be developed in such a way that the
+Molecules with a phenyl-ring are usually quite rigid. In Monte Carlo, rigid units are not a problem, because the MC moves can be developed in such a way that the
 constraints remain satisfied, i.e. translation and rotation of the whole rigid unit. In molecular dynamics, there are two general approaches. The first is to integrate
 the molecules atomically and afterwards satisfy the constraints iteratively using for example the shake algorithm. For bigger molecules complications arise, convergence
 becomes more difficult, and for a planar molecule like benzene additional sites above the molecule are needed. Therefore, the second approach has become more popular. 
 Using quaternions (or Euler angles) one can describe the configurations of the molecule as a center-of-mass position and an orientation. The translation and rotation
 are integrated and when the forces are needed the atoms positions are computed from the com position and the orientation. The forces are then summed to the center of mass
-and the torque is computed. Miller et al. have developed an integration algorithm for rigid units (using quaternions) that is symplectic.
+and the torque is computed. Miller et al. have developed an integration algorithm for rigid units (using quaternions) that is symplectic\cite{Miller2002}.
 
 All these techniques are combined in the example of diffusion of benzene in IRMOF-10. The integration is performed in the NVT ensemble using the Nose-Hoover thermostats.
 Three separate Nose-Hoover chains are operating on (i) the translation, (ii) the rotation of the molecules, and (iii) on the framework.
@@ -2345,6 +2372,10 @@ Three separate Nose-Hoover chains are operating on (i) the translation, (ii) the
 \end{verbatim}
 \end{tiny}
 
+\noindent
+The force field for IRMOF-10 is taken from Dubbeldam et al.\cite{Dubbeldam2007}. It is a re-parameterization and extension of the flexible IRMOF-1
+model of Greathouse and Allendorf\cite{Greathouse2008}.
+The model for the benzene adsorbate is taken from Rai and Siepmann\cite{Rai2007}.
 \begin{tiny}
 \begin{verbatim}
      # general rule for shifted vs truncated
@@ -2371,6 +2402,10 @@ Three separate Nose-Hoover chains are operating on (i) the translation, (ii) the
 \end{verbatim}
 \end{tiny}
 
+\noindent
+Molecule files are defined in terms of their numerical identifiers (starting from number zero).
+This would be cumbersome for framework file to enumerated all bonds, bends, torsions etc.
+Therefore, the framework file can be constructed in terms of atom \emph{types}.
 \begin{tiny}
 \begin{verbatim}
      #CoreShells bond  BondDipoles UreyBradley bend  inv  tors improper-torsion bond/bond bond/bend bend/bend stretch/torsion bend/torsion
@@ -2421,6 +2456,29 @@ Three separate Nose-Hoover chains are operating on (i) the translation, (ii) the
 \end{verbatim}
 \end{tiny}
 
+\noindent
+In the output, the number of interactions terms that is found is printed.
+\begin{tiny}
+\begin{verbatim}
+    Number of bonds:                                 648
+    Number of bends:                                 1008
+    Number of Torsions:                              1440
+    Number of Improper Torsions:                     336
+
+    Number of charges:                               616
+
+    Number of Intra VDW:                             218460
+    Number of Intra Coulomb charge-charge:           218460
+    Number of excluded Intra VDW:                    1656
+    Number of excluded intra charge-charge:          1656
+
+\end{verbatim}
+\end{tiny}
+
+
+\noindent
+The output shows the conserved energy and energy drift, the current and average translational and rotational temperatures.
+and now also shows the host-host energy term.
 \begin{tiny}
 \begin{verbatim}
      Conserved energy:    -3219446.1895550787 Energy drifts:  0.0000622481           0.0000214757
@@ -2475,6 +2533,17 @@ IRMOF-1 at 298K and 1 atm.
 \end{verbatim}
 \end{tiny}
 
+\noindent
+The use of the line
+\begin{tiny}
+\begin{verbatim}
+FlexibleFramework yes
+\end{verbatim}
+\end{tiny}
+switches the flexibility on. If this is off, then the model is used as a rigid framework.
+
+\noindent
+In the output, we can find the average volume and box-lengths.
 \begin{tiny}
 \begin{verbatim}
      Average Volume:
@@ -2543,6 +2612,8 @@ also the adsorbates) is have a short NVE MD-run and accept or reject the new con
 \end{verbatim}
 \end{tiny}
 
+\noindent
+The adsorption results are
 \begin{tiny}
 \begin{verbatim}
      Component 0 [CO2]
@@ -2564,10 +2635,12 @@ also the adsorbates) is have a short NVE MD-run and accept or reject the new con
 
 \subsection*{Example 5: CO$_2$ adsorption in flexible IRMOF-1 (osmotic ensemble).}
 
-Adsorption simulations using a flexible framework are very computationally demanding, the current example will 
-probably run about a week. The equilibration is very important and it is best to start with a restart-file
+Adsorption simulations using a flexible framework are very computationally demanding,
+if the framework undergoes large changes as a function of loading.
+The equilibration is very important and it is best to start with a restart-file
 obtained from the previous example at the same temperature. The directory `Restart' produced in the previous
 example should be copied to `RestartInitial' and the option `RestartFile' should be set to `yes'.
+In contrast to the previous example, a volume move is performed to sample the cell-volume changes.
 
 \begin{tiny}
 \begin{verbatim}
@@ -2608,7 +2681,8 @@ example should be copied to `RestartInitial' and the option `RestartFile' should
 \end{verbatim}
 \end{tiny}
 
-
+\noindent
+For flexible IRMOF-1, the adsorption results are (nearly) the same as with a fixed volume.
 \begin{tiny}
 \begin{verbatim}
      Component 0 [CO2]
@@ -2748,6 +2822,48 @@ or use for a change in cell-lengths and cell-angles
 
 \subsection*{Example 7: Minimization of a flexible framework and elastic constants}
 
+Elastic constants expresses the degree to which a material possesses elasticity and mechanical stability (Born criteria).
+The elasticity tensor $C_{\alpha\beta\mu\nu}$ is the second derivative of the energy with respect to strain $\eta$,
+and can be described in terms of fluctuations
+in the stress tensor $\sigma$ \cite{VanWorkum2006}
+\begin{equation}
+C_{\alpha\beta\mu\nu}=\left\langle C_{\alpha\beta\mu\nu}^B\right\rangle-
+ \frac{V}{k_B T}\left[\left\langle\sigma_{\alpha\beta}^B\sigma_{\mu\nu}^B\right\rangle-
+   \left\langle\sigma_{\alpha\beta}^B\right\rangle\left\langle\sigma_{\mu\nu}^B\right\rangle\right]
+  +\rho k_B T \left(\delta_{\alpha\mu}\delta_{\beta\nu}+\delta_{\alpha\nu}\delta_{\beta\mu}\right)
+ \label{Eq: stress fluctuation formula}
+\end{equation}
+where the first term on the right is the so-called Born term
+\begin{equation}
+ C_{\alpha\beta\mu\nu}^B=\frac{1}{V}\frac{\partial^2 U}{\partial \eta_{\alpha\beta}\partial \eta_{\mu\nu}}
+\end{equation}
+and the second and third terms are the stress-fluctuations term and ideal gas term, respectively.
+The $\delta$ is the Kronecker's delta, the function is 1 if the variables are equal, and 0 otherwise.
+
+At zero Kelvin, the elastic constants reduce to the Born term minus a ``relaxation term'' \cite{Lutsko1989}
+\begin{equation}
+C_{\alpha\beta\mu\nu}=
+        -\frac{\partial\sigma_{\alpha\beta}^B}{\partial\eta_{\mu\nu}}\Bigg|_{\mathbf{h}=0}=
+          \underbrace{\frac{1}{V}\frac{\partial^2 U}{\partial\eta_{\alpha\beta}\partial\eta_{\mu\nu}}}_{\text{Born term}}
+        -\underbrace{\frac{1}{V}\frac{d\sigma_{\alpha\beta}}{d\mathbf{r}_{i\lambda}}\left({\mathcal H}^{-1}\right)_{i\lambda,j\xi}
+         \frac{d\sigma_{\mu\nu}}{d\mathbf{r}_{i\xi}}}_{\text{Relaxation term}}
+  \label{Eq: elastic constants}
+\end{equation}
+Note that the derivative needs to be evaluated at constant zero gradient $\mathbf{h}=0$, which is an algebraic relation between the coordinates
+at zero temperature. That is, the state before and after a strain is applied must be in a state of zero net force.
+When more than 1 particle is present in the system this requires a ``relaxation'' of the atoms relative to one
+another when the system is strained \cite{Lutsko1989}.
+The zero temperature limit of the stress fluctuation term in Eq. \ref{Eq: stress fluctuation formula}
+is the relaxation term (and the ideal gas term vanishes in this limit).
+All expressions in Eq. \ref{Eq: elastic constants} are contained in the generalized Hessian matrix, which
+is the central quantity used in Baker's minimization scheme.
+The elastic constants at 0 K can therefore be computed with very high accuracy.
+
+Note that RASPA uses the upper triangular matrix for the simulation cell and
+also for the strain/stress-tensor.
+This means that during the minimization the cell does not change orientation. This is convenient when computing elastic constants (which are directional)
+because the elastic constants are computed along the Cartesian axes (so the crystal should be aligned with these axes).
+
 \begin{tiny}
 \begin{verbatim}
      SimulationType  Minimization
@@ -2781,6 +2897,8 @@ or use for a change in cell-lengths and cell-angles
 \end{verbatim}
 \end{tiny}
 
+\noindent
+After minimization of the positions, with all cell-parameters free, we obtain a zero strain/stress configuration.
 \begin{tiny}
 \begin{verbatim}
      Final energy after minimization: -4332572.8369031781 in 8 steps
@@ -2796,6 +2914,8 @@ or use for a change in cell-lengths and cell-angles
 \end{verbatim}
 \end{tiny}
 
+\noindent
+For this stress/strain free configuration the elastic constants are the computed
 \begin{tiny}
 \begin{verbatim}
      Elastic constant (Voigt notation) [GPa]
@@ -2938,7 +3058,6 @@ At the end of the output, after the run has finished, the statistics of the RXMC
 
 \subsection*{Example 9: CO2 in MFI (Continuous Fractional Component Monte Carlo)}
 
-A mixture simulation of CO2 and N2 in DMOF. The charges of DMOF are listed in the CIF-File using the `\_atom\_site\_charge' keyword,
 and RASPA makes use of these using the keyword `UseChargesFromCIFFile yes'.
 The CFCMC method is switched on by using `CFSwapLambdaProbability' (instead of `SwapProbability') to swap molecules in and out of the system at a fixed fugacity.
 The biasing factors are measured using Wang-Landau sampling during `NumberOfEquilibrationCycles 50000'.
@@ -3058,6 +3177,7 @@ The computed loadings are averages of integer molecules.
 
 \subsection*{Example 10: CO2/N2-mixture in DMOF (Continuous Fractional Component Monte Carlo)}
 
+A mixture simulation of CO2 and N2 in DMOF. The charges of DMOF are listed in the CIF-File using the `\_atom\_site\_charge' keyword.
 \begin{tiny}
 \begin{verbatim}
      SimulationType                MonteCarlo
@@ -3089,7 +3209,6 @@ The computed loadings are averages of integer molecules.
                  IdentityChangeProbability 1.0
                    NumberOfIdentityChanges 2
                    IdentityChangesList     0 1
-                 SwapProbability           0.0
                  CFSwapLambdaProbability   1.0
                  CreateNumberOfMolecules   0
      
@@ -3103,12 +3222,13 @@ The computed loadings are averages of integer molecules.
                  IdentityChangeProbability 1.0
                    NumberOfIdentityChanges 2
                    IdentityChangesList     0 1
-                 SwapProbability           0.0
                  CFSwapLambdaProbability   1.0
                  CreateNumberOfMolecules   0
 \end{verbatim}
 \end{tiny}
 
+\noindent
+The adsorption results are
 \begin{tiny}
 \begin{verbatim}
      Component 0 [CO2]
@@ -3143,6 +3263,8 @@ The computed loadings are averages of integer molecules.
 \end{verbatim}
 \end{tiny}
 
+\indent
+The insertion and deletion of molecules in the CFCMC ensemble is very efficient when using biasing.
 \begin{tiny}
 \begin{verbatim}
      Performance of the CFCMC swap lambda move:
@@ -3159,6 +3281,7 @@ The computed loadings are averages of integer molecules.
 
 \subsection*{Example 11: CO2 Gibbs (Continuous Fractional Component Monte Carlo)}
 
+The CFCMC method can also be used in the Gibbs ensemble.
 \begin{tiny}
 \begin{verbatim}
      SimulationType                MonteCarlo
@@ -3193,6 +3316,8 @@ The computed loadings are averages of integer molecules.
 \end{verbatim}
 \end{tiny}
 
+\noindent
+The adsorption results are
 \begin{tiny}
 \begin{verbatim}
      Average density component 0 [CO2]
@@ -3217,6 +3342,8 @@ The computed loadings are averages of integer molecules.
 \end{verbatim}
 \end{tiny}
 
+\indent
+The insertion and deletion of molecules in the CFCMC ensemble is very efficient when using biasing.
 \begin{tiny}
 \begin{verbatim}
      Performance of the CFCMC Gibbs lambda move:
@@ -3269,6 +3396,9 @@ dynamical details using the same simulation run.
 
 \subsection*{Example 13: MD MuPT}
 
+A.O. Yazaydin added the computational Grand Canonical Molecular Dynamics (GCMD) methodology to RASPA\cite{Loganathan2017,Loganathan2018}.
+This approach incorporates GCMC and MD procedures, allowing for the determination of adsorption and structural and 
+dynamical details using the same simulation run.
 \begin{tiny}
 \begin{verbatim}
      SimulationType               MolecularDynamics
@@ -3304,6 +3434,9 @@ dynamical details using the same simulation run.
 
 \subsection*{Example 14: MD MuPT-PR}
 
+A.O. Yazaydin added the computational Grand Canonical Molecular Dynamics (GCMD) methodology to RASPA\cite{Loganathan2017,Loganathan2018}.
+This approach incorporates GCMC and MD procedures, allowing for the determination of adsorption and structural and 
+dynamical details using the same simulation run.
 \begin{tiny}
 \begin{verbatim}
      SimulationType               MolecularDynamics
@@ -4235,7 +4368,54 @@ or the structure requires a higher interpolation density.
 
 \subsection*{Example 8: Charge-equilibrium IRMOF-1}
 
+\begin{tiny}
+\begin{verbatim}
+SimulationType                   MonteCarlo
+NumberOfCycles                   0
+NumberOfInitializationCycles     0
+PrintEvery                       100
+RestartFile                      no
+
+Forcefield                       ExampleMOFsForceField
+CutOff                           12.0
+
+ChargeFromChargeEquilibration    yes
+ChargeEquilibrationPeriodic      yes
+ChargeEquilibrationEwald         yes
+SymmetrizeFrameworkCharges       no
+
+Framework           0
+FrameworkName       IRMOF-1
+UnitCells           1 1 1
+ExternalTemperature 298.0
+ExternalPressure    0.0
+\end{verbatim}
+\end{tiny}
+
 \subsection*{Example 9: Pore-Size Distribution}
+
+\begin{tiny}
+\begin{verbatim}
+SimulationType                   PSD
+NumberOfCycles                   10000
+NumberOfInitializationCycles     0
+PrintEvery                       10
+
+ChargeMethod                     Ewald
+CutOff                           12.0
+Forcefield                       ExampleMOFsForceField
+EwaldPrecision                   1e-6
+
+Framework                        0
+FrameworkName                    IRMOF-1
+UnitCells                        1 1 1
+ExternalTemperature              300.0
+PSDProbeDistance                 Sigma
+WritePSDHistogramEvery           100
+PSDHistogramSize                 1000
+PSDRange                         10.0
+\end{verbatim}
+\end{tiny}
 
 \subsection*{Example 10: Typing framework atoms}
 
@@ -4353,6 +4533,7 @@ The new structure can be found in the \verb+Movie+ directory and has the desired
 \end{verbatim}
 \end{tiny}
 
+\newpage
 \section{Where to go from here?}
 
 \subsection*{Constructing your own input for your systems}
@@ -4405,6 +4586,22 @@ propylene \cite{GutierrezSevillano2010} & no  & CH$_3$  & 93.0 & 3.685 & 0.87 & 
  These potentials can be used by both MC and MD.
  Cross terms are computed using Lorentz-Berthelot mixing rules.}
 \label{Table: Calero VLE calibrated LJ}
+\end{table}
+\begin{table}[H]
+\begin{tabular}{p{3.5cm}|p{3.5cm}|p{4.0cm}|p{4.0cm}}
+molecule type &  framework & cation & reference\\
+\hline
+\hline
+    alkanes     & MOR, MFI & Na     & Beerdsen et al.\cite{Beerdsen2002}\\
+    alkanes     & MFI      & Li, Na, K, Cs, Ca, Ba     & Beerdsen et al.\cite{Beerdsen2003}\\
+    alkanes     & NaY      & Na  & Calero et al.\cite{Calero2004}\\
+    alkanes     & LTA-5A   & Na,Ca  & Garcia-Perez et al.\cite{GarciaPerez2006}\\
+    CO$_2$     & LTA-4A   & Na  & Garcia-Sanchez et al.\cite{GarciaSanchez2009}\\
+\hline
+\end{tabular}
+\caption{Selection of models by the Calero-group using shifted LJ potentials (cutoff 12 \AA)
+    for molecules in zeolites with cations.}
+\label{Table: Calero cations calibrated LJ}
 \end{table}
 
 A computational very efficient model is the Transferable potentials for Phase Equilibria  TraPPE force field by Martin and Siepmann\cite{Martin1998,Martin1999}.

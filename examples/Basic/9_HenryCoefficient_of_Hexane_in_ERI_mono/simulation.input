@@ -14,6 +14,6 @@ ExternalTemperature 573.0
 
 Component 0 MoleculeName             hexane
             MoleculeDefinition       ExampleDefinitions
-            IdealRosenbluthValue     0.0164786
+            IdealGasRosenbluthWeight 0.0164786
             WidomProbability         1.0
             CreateNumberOfMolecules  0

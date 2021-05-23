@@ -5,9 +5,9 @@ Compiled as a 64-bits application
 Compiler: gcc Apple LLVM 12.0.5 (clang-1205.0.22.9)
 Compile Date = May 18 2021, Compile Time = 12:54:12
 
-Tue May 18 14:28:34 2021
-Simulation started on Tuesday, May 18.
-The start time was 02:28 PM.
+Sun May 23 12:14:44 2021
+Simulation started on Sunday, May 23.
+The start time was 12:14 PM.
 
 Cpu data:    x86_64
 Cpu Model:   MacPro7,1
@@ -20,7 +20,7 @@ OS version:  20E232
 Simulation
 ===========================================================================
 Dimensions: 3
-Random number seed: 1621340913
+Random number seed: 1621764883
 RASPA directory set to: /Users/dubbelda/RASPA/simulations/
 String appended to output-files: 
 Number of cycles: 20000
@@ -441,7 +441,7 @@ Component 0 [hexane] (Adsorbate molecule)
 	Component contains no atoms with point dipoles (polarization)
 	Component has a net charge of 0.000000
 
-	Ideal chain Rosenbluth weight: 1
+	Ideal chain Rosenbluth weight: 0.0164786
 	Ideal chain total energy: 0.000000
 
 	Critical temparure [K]: 507.820000
@@ -1026,11 +1026,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.91159e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.42524 [-])
+	Component 0: 1.1376e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.39766 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2763.2400247223 [K]  (    -22.9748622483 [kJ/mol])
-Component [hexane] average Widom:       1.4252377586, average chemical potential:   -6525.7447369889 [K]
-		(average excess chemical potential:    -203.0362254384 [K], ideal-gas contribution:   -6322.7085115504 [K])
+	Component 0:   -2691.3639795836 [K]  (    -22.3772513925 [kJ/mol])
+Component [hexane] average Widom:       1.3976613222, average chemical potential:   -6514.5492855465 [K]
+		(average excess chemical potential:    -191.8407739960 [K], ideal-gas contribution:   -6322.7085115504 [K])
 
 
 Current cycle: 1000 out of 20000
@@ -1075,11 +1075,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.92948e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.43858 [-])
+	Component 0: 1.17368e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.442 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2757.7223825541 [K]  (    -22.9289860061 [kJ/mol])
-Component [hexane] average Widom:       1.4385772498, average chemical potential:   -6531.0827846532 [K]
-		(average excess chemical potential:    -208.3742731031 [K], ideal-gas contribution:   -6322.7085115501 [K])
+	Component 0:   -2724.9187610685 [K]  (    -22.6562414460 [kJ/mol])
+Component [hexane] average Widom:       1.4419959671, average chemical potential:   -6532.4428803818 [K]
+		(average excess chemical potential:    -209.7343688318 [K], ideal-gas contribution:   -6322.7085115501 [K])
 
 
 Current cycle: 2000 out of 20000
@@ -1124,11 +1124,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.92275e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.43356 [-])
+	Component 0: 1.17475e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.4433 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2755.4784162001 [K]  (    -22.9103286266 [kJ/mol])
-Component [hexane] average Widom:       1.4335558781, average chemical potential:   -6529.0792205088 [K]
-		(average excess chemical potential:    -206.3707089588 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2724.8296442946 [K]  (    -22.6555004877 [kJ/mol])
+Component [hexane] average Widom:       1.4433003773, average chemical potential:   -6532.9609746332 [K]
+		(average excess chemical potential:    -210.2524630833 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 3000 out of 20000
@@ -1173,11 +1173,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.94214e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.44801 [-])
+	Component 0: 1.17675e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.44577 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2764.9492361996 [K]  (    -22.9890734272 [kJ/mol])
-Component [hexane] average Widom:       1.4480130674, average chemical potential:   -6534.8288981663 [K]
-		(average excess chemical potential:    -212.1203866164 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2733.7761260576 [K]  (    -22.7298856965 [kJ/mol])
+Component [hexane] average Widom:       1.4457660137, average chemical potential:   -6533.9390146472 [K]
+		(average excess chemical potential:    -211.2305030973 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 4000 out of 20000
@@ -1222,11 +1222,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.95364e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.45659 [-])
+	Component 0: 1.1791e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.44865 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2758.9909708514 [K]  (    -22.9395336390 [kJ/mol])
-Component [hexane] average Widom:       1.4565888165, average chemical potential:   -6538.2124413150 [K]
-		(average excess chemical potential:    -215.5039297650 [K], ideal-gas contribution:   -6322.7085115500 [K])
+	Component 0:   -2741.4944975675 [K]  (    -22.7940598257 [kJ/mol])
+Component [hexane] average Widom:       1.4486535335, average chemical potential:   -6535.0822842041 [K]
+		(average excess chemical potential:    -212.3737726541 [K], ideal-gas contribution:   -6322.7085115500 [K])
 
 
 Current cycle: 5000 out of 20000
@@ -1271,11 +1271,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.96054e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.46174 [-])
+	Component 0: 1.17201e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.43994 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2750.1101032110 [K]  (    -22.8656939765 [kJ/mol])
-Component [hexane] average Widom:       1.4617356841, average chemical potential:   -6540.2335742061 [K]
-		(average excess chemical potential:    -217.5250626562 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2731.3631332206 [K]  (    -22.7098229522 [kJ/mol])
+Component [hexane] average Widom:       1.4399396450, average chemical potential:   -6531.6251842177 [K]
+		(average excess chemical potential:    -208.9166726677 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 6000 out of 20000
@@ -1320,11 +1320,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.95969e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.4611 [-])
+	Component 0: 1.17417e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.44259 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2741.6645850867 [K]  (    -22.7954740124 [kJ/mol])
-Component [hexane] average Widom:       1.4610971047, average chemical potential:   -6539.9831963068 [K]
-		(average excess chemical potential:    -217.2746847569 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2723.7952554418 [K]  (    -22.6469000979 [kJ/mol])
+Component [hexane] average Widom:       1.4425877744, average chemical potential:   -6532.6779963610 [K]
+		(average excess chemical potential:    -209.9694848111 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 7000 out of 20000
@@ -1369,11 +1369,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.94306e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.4487 [-])
+	Component 0: 1.17946e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.44909 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2733.3841971585 [K]  (    -22.7266270174 [kJ/mol])
-Component [hexane] average Widom:       1.4487030399, average chemical potential:   -6535.1018656484 [K]
-		(average excess chemical potential:    -212.3933540985 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2721.3100437996 [K]  (    -22.6262368929 [kJ/mol])
+Component [hexane] average Widom:       1.4490911461, average chemical potential:   -6535.2553513761 [K]
+		(average excess chemical potential:    -212.5468398262 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 8000 out of 20000
@@ -1418,11 +1418,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.94326e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.44885 [-])
+	Component 0: 1.17313e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.44132 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2734.1754869184 [K]  (    -22.7332061684 [kJ/mol])
-Component [hexane] average Widom:       1.4488498304, average chemical potential:   -6535.1599222320 [K]
-		(average excess chemical potential:    -212.4514106821 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2712.4210429412 [K]  (    -22.5523296071 [kJ/mol])
+Component [hexane] average Widom:       1.4413185295, average chemical potential:   -6532.1736263120 [K]
+		(average excess chemical potential:    -209.4651147621 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 9000 out of 20000
@@ -1467,11 +1467,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.93693e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.44413 [-])
+	Component 0: 1.1739e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.44226 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2729.9451810726 [K]  (    -22.6980334388 [kJ/mol])
-Component [hexane] average Widom:       1.4441313378, average chemical potential:   -6533.2907769361 [K]
-		(average excess chemical potential:    -210.5822653862 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2720.0952390808 [K]  (    -22.6161364417 [kJ/mol])
+Component [hexane] average Widom:       1.4422593328, average chemical potential:   -6532.5475234573 [K]
+		(average excess chemical potential:    -209.8390119074 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 10000 out of 20000
@@ -1516,11 +1516,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.93283e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.44107 [-])
+	Component 0: 1.17491e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.4435 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2729.5565693220 [K]  (    -22.6948023401 [kJ/mol])
-Component [hexane] average Widom:       1.4410740669, average chemical potential:   -6532.0764312041 [K]
-		(average excess chemical potential:    -209.3679196542 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2728.4847197398 [K]  (    -22.6858904843 [kJ/mol])
+Component [hexane] average Widom:       1.4434985956, average chemical potential:   -6533.0396633178 [K]
+		(average excess chemical potential:    -210.3311517679 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 11000 out of 20000
@@ -1565,11 +1565,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.93886e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.44557 [-])
+	Component 0: 1.1765e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.44546 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2728.5295242887 [K]  (    -22.6862630102 [kJ/mol])
-Component [hexane] average Widom:       1.4455731235, average chemical potential:   -6533.8625613766 [K]
-		(average excess chemical potential:    -211.1540498267 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2727.1530796098 [K]  (    -22.6748186092 [kJ/mol])
+Component [hexane] average Widom:       1.4454588198, average chemical potential:   -6533.8172515368 [K]
+		(average excess chemical potential:    -211.1087399869 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 12000 out of 20000
@@ -1614,11 +1614,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.94165e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.44765 [-])
+	Component 0: 1.18319e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.45368 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2726.8955844951 [K]  (    -22.6726776751 [kJ/mol])
-Component [hexane] average Widom:       1.4476493618, average chemical potential:   -6534.6849563294 [K]
-		(average excess chemical potential:    -211.9764447795 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2730.6453369840 [K]  (    -22.7038548606 [kJ/mol])
+Component [hexane] average Widom:       1.4536806814, average chemical potential:   -6537.0672803779 [K]
+		(average excess chemical potential:    -214.3587688280 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 13000 out of 20000
@@ -1663,11 +1663,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.94712e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.45173 [-])
+	Component 0: 1.1806e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.45049 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2732.7715612928 [K]  (    -22.7215332780 [kJ/mol])
-Component [hexane] average Widom:       1.4517256067, average chemical potential:   -6536.2961256316 [K]
-		(average excess chemical potential:    -213.5876140817 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2725.0332159460 [K]  (    -22.6571930771 [kJ/mol])
+Component [hexane] average Widom:       1.4504898694, average chemical potential:   -6535.8081686398 [K]
+		(average excess chemical potential:    -213.0996570899 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 14000 out of 20000
@@ -1712,11 +1712,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.94559e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.45059 [-])
+	Component 0: 1.18302e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.45347 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2729.3138551243 [K]  (    -22.6927843014 [kJ/mol])
-Component [hexane] average Widom:       1.4505859687, average chemical potential:   -6535.8461303935 [K]
-		(average excess chemical potential:    -213.1376188436 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2734.0271019660 [K]  (    -22.7319724269 [kJ/mol])
+Component [hexane] average Widom:       1.4534694515, average chemical potential:   -6536.9840133709 [K]
+		(average excess chemical potential:    -214.2755018210 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 15000 out of 20000
@@ -1761,11 +1761,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.94738e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.45192 [-])
+	Component 0: 1.18127e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.45132 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2735.6086723180 [K]  (    -22.7451223381 [kJ/mol])
-Component [hexane] average Widom:       1.4519207275, average chemical potential:   -6536.3731352062 [K]
-		(average excess chemical potential:    -213.6646236564 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2740.2969772047 [K]  (    -22.7841030846 [kJ/mol])
+Component [hexane] average Widom:       1.4513187090, average chemical potential:   -6536.1354993554 [K]
+		(average excess chemical potential:    -213.4269878055 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 16000 out of 20000
@@ -1810,11 +1810,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.95083e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.4545 [-])
+	Component 0: 1.17957e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.44922 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2734.7071765988 [K]  (    -22.7376268836 [kJ/mol])
-Component [hexane] average Widom:       1.4544968896, average chemical potential:   -6537.3889166849 [K]
-		(average excess chemical potential:    -214.6804051350 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2734.6672246533 [K]  (    -22.7372947045 [kJ/mol])
+Component [hexane] average Widom:       1.4492230116, average chemical potential:   -6535.3074913381 [K]
+		(average excess chemical potential:    -212.5989797882 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 17000 out of 20000
@@ -1859,11 +1859,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.95803e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.45986 [-])
+	Component 0: 1.18178e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.45194 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2741.4888154310 [K]  (    -22.7940125817 [kJ/mol])
-Component [hexane] average Widom:       1.4598614114, average chemical potential:   -6539.4983877235 [K]
-		(average excess chemical potential:    -216.7898761736 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2735.1109894217 [K]  (    -22.7409843711 [kJ/mol])
+Component [hexane] average Widom:       1.4519400173, average chemical potential:   -6536.3807478953 [K]
+		(average excess chemical potential:    -213.6722363454 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 18000 out of 20000
@@ -1908,11 +1908,11 @@ Framework surface area:       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3
 	Cation surface area:                       0.0000000000 [m^2/g]        0.0000000000 [m^2/cm^3]       0.0000000000 [A^2]
 Compressibility:                nan [-]
 Henry coefficients
-	Component 0: 1.95486e-07 [mol/kg/Pa] (Rosenbluth factor new: 1.4575 [-])
+	Component 0: 1.1843e-05 [mol/kg/Pa] (Rosenbluth factor new: 1.45504 [-])
 Energy <U_gh>_1-<U_h>_0 from Widom
-	Component 0:   -2740.9233407340 [K]  (    -22.7893109622 [kJ/mol])
-Component [hexane] average Widom:       1.4574980446, average chemical potential:   -6538.5700066123 [K]
-		(average excess chemical potential:    -215.8614950624 [K], ideal-gas contribution:   -6322.7085115499 [K])
+	Component 0:   -2737.7607112687 [K]  (    -22.7630153905 [kJ/mol])
+Component [hexane] average Widom:       1.4550433617, average chemical potential:   -6537.6041594797 [K]
+		(average excess chemical potential:    -214.8956479298 [K], ideal-gas contribution:   -6322.7085115499 [K])
 
 
 Current cycle: 19000 out of 20000
@@ -2104,28 +2104,28 @@ Bead: 0
 	bond length change acceptence       : 0.000000 [%]
 
 Bead: 1
-	maximum bond length change          : 0.298508
-	bond length change acceptence       : 39.950177 [%]
-	maximum change bend angle           : 0.370562
-	change bend angle acceptence        : 42.276917 [%]
+	maximum bond length change          : 0.299798
+	bond length change acceptence       : 39.993341 [%]
+	maximum change bend angle           : 0.370534
+	change bend angle acceptence        : 42.274718 [%]
 
 Bead: 2
-	maximum bond length change          : 0.299405
-	bond length change acceptence       : 39.980152 [%]
-	maximum change bend angle           : 0.370507
-	change bend angle acceptence        : 42.275050 [%]
+	maximum bond length change          : 0.297840
+	bond length change acceptence       : 39.927831 [%]
+	maximum change bend angle           : 0.370309
+	change bend angle acceptence        : 42.269181 [%]
 
 Bead: 3
-	maximum bond length change          : 0.300810
-	bond length change acceptence       : 40.027077 [%]
-	maximum change bend angle           : 0.370541
-	change bend angle acceptence        : 42.275651 [%]
+	maximum bond length change          : 0.301528
+	bond length change acceptence       : 40.050971 [%]
+	maximum change bend angle           : 0.370531
+	change bend angle acceptence        : 42.274102 [%]
 
 Bead: 4
-	maximum bond length change          : 0.297215
-	bond length change acceptence       : 39.906849 [%]
-	maximum change bend angle           : 0.370539
-	change bend angle acceptence        : 42.274879 [%]
+	maximum bond length change          : 0.296615
+	bond length change acceptence       : 39.886677 [%]
+	maximum change bend angle           : 0.370579
+	change bend angle acceptence        : 42.276560 [%]
 
 Bead: 5
 	maximum bond length change          : 0.300000
@@ -2211,8 +2211,8 @@ Total CPU timings:
 ===========================================
 initialization:                     0 [s]
 equilibration:                      0 [s]
-production run:            1533.62284 [s]
-total time:                1533.62284 [s]
+production run:           1396.580158 [s]
+total time:               1396.580158 [s]
 
 Production run CPU timings of the MC moves:
 ===========================================
@@ -2230,7 +2230,7 @@ Component: 0 (hexane)
 	swap (deletion):                                     0 [s]
 	swap lambda (CFMC):                                  0 [s]
 	swap lambda (CB/CFMC):                               0 [s]
-	Widom:                                     1533.080295 [s]
+	Widom:                                     1396.074517 [s]
 	CF-Widom:                                            0 [s]
 	Gibbs Widom:                                         0 [s]
 	surface area:                                        0 [s]
@@ -2257,7 +2257,7 @@ Total all components:
 	swap (deletion):                                     0 [s]
 	swap lambda (CFMC):                                  0 [s]
 	swap lambda (CB/CFMC):                               0 [s]
-	Widom:                                     1533.080295 [s]
+	Widom:                                     1396.074517 [s]
 	CF-Widom:                                            0 [s]
 	Gibbs Widom:                                         0 [s]
 	surface area:                                        0 [s]
@@ -2302,7 +2302,7 @@ Particles moves:
 	swap (deletion):                                     0 [s]
 	swap lambda (CFMC):                                  0 [s]
 	swap lambda (CB/CFMC):                               0 [s]
-	Widom:                                     1533.080295 [s]
+	Widom:                                     1396.074517 [s]
 	CF-Widom:                                            0 [s]
 	Gibbs Widom:                                         0 [s]
 	surface area:                                        0 [s]
@@ -3426,23 +3426,23 @@ Component 0 [hexane]
 
 Average Widom Rosenbluth factor:
 ================================
-	Block[ 0] 1.44801 [-]
-	Block[ 1] 1.44939 [-]
-	Block[ 2] 1.43931 [-]
-	Block[ 3] 1.47096 [-]
-	Block[ 4] 1.48635 [-]
+	Block[ 0] 1.44577 [-]
+	Block[ 1] 1.45242 [-]
+	Block[ 2] 1.43819 [-]
+	Block[ 3] 1.4689 [-]
+	Block[ 4] 1.47614 [-]
 	------------------------------------------------------------------------------
-	[hexane] Average Widom Rosenbluth-weight:   1.45881 +/- 0.023974 [-]
+	[hexane] Average Widom Rosenbluth-weight:   1.45628 +/- 0.019690 [-]
 
 Average Widom chemical potential:
 =================================
-	Block[ 0] -6534.83 [-]
-	Block[ 1] -6535.37 [-]
-	Block[ 2] -6531.38 [-]
-	Block[ 3] -6543.84 [-]
-	Block[ 4] -6549.8 [-]
+	Block[ 0] -6533.94 [-]
+	Block[ 1] -6536.57 [-]
+	Block[ 2] -6530.93 [-]
+	Block[ 3] -6543.03 [-]
+	Block[ 4] -6545.85 [-]
 	------------------------------------------------------------------------------
-	[hexane] Average chemical potential:   -6539.04 +/- 9.388845 [K]
+	[hexane] Average chemical potential:   -6538.06 +/- 7.740546 [K]
 
 Average Widom Ideal-gas contribution:
 =====================================
@@ -3456,13 +3456,13 @@ Average Widom Ideal-gas contribution:
 
 Average Widom excess contribution:
 ==================================
-	Block[ 0] -212.12 [-]
-	Block[ 1] -212.666 [-]
-	Block[ 2] -208.667 [-]
-	Block[ 3] -221.131 [-]
-	Block[ 4] -227.094 [-]
+	Block[ 0] -211.231 [-]
+	Block[ 1] -213.86 [-]
+	Block[ 2] -208.222 [-]
+	Block[ 3] -220.326 [-]
+	Block[ 4] -223.143 [-]
 	------------------------------------------------------------------------------
-	[hexane] Average Widom excess chemical potential:   -216.336 +/- 9.388845 [-]
+	[hexane] Average Widom excess chemical potential:   -215.356 +/- 7.740546 [-]
 
 Average Gibbs Widom Rosenbluth factor:
 ======================================
@@ -3506,29 +3506,29 @@ Average Gibbs Widom excess contribution:
 
 Average Henry coefficient:
 ==========================
-	Block[ 0] 1.94214e-07 [mol/kg/Pa]
-	Block[ 1] 1.94399e-07 [mol/kg/Pa]
-	Block[ 2] 1.93047e-07 [mol/kg/Pa]
-	Block[ 3] 1.97292e-07 [mol/kg/Pa]
-	Block[ 4] 1.99356e-07 [mol/kg/Pa]
+	Block[ 0] 1.17675e-05 [mol/kg/Pa]
+	Block[ 1] 1.18217e-05 [mol/kg/Pa]
+	Block[ 2] 1.17059e-05 [mol/kg/Pa]
+	Block[ 3] 1.19558e-05 [mol/kg/Pa]
+	Block[ 4] 1.20147e-05 [mol/kg/Pa]
 	------------------------------------------------------------------------------
-	[hexane] Average Henry coefficient:  1.95661e-07 +/- 3.21546e-09 [mol/kg/Pa]
+	[hexane] Average Henry coefficient:  1.18531e-05 +/- 1.60261e-07 [mol/kg/Pa]
 
 Average adsorption energy <U_gh>_1-<U_h>_0 obtained from Widom-insertion:
 (Note: the total heat of adsorption is dH=<U_gh>_1-<U_h>_0 - <U_g> - RT)
 =========================================================================
-	Block[ 0] -2764.9492361996   [K]
-	Block[ 1] -2701.8492107138   [K]
-	Block[ 2] -2718.7568370079   [K]
-	Block[ 3] -2756.4795352347   [K]
-	Block[ 4] -2792.1145861371   [K]
+	Block[ 0] -2733.7761260576   [K]
+	Block[ 1] -2708.9010407341   [K]
+	Block[ 2] -2738.9276948214   [K]
+	Block[ 3] -2779.0994491914   [K]
+	Block[ 4] -2720.5902027674   [K]
 	------------------------------------------------------------------------------
-	[hexane] Average  <U_gh>_1-<U_h>_0:    -2746.8298810586 +/-      45.1195564458 [K]       (    -22.8384206845 +/-       0.3751449692 kJ/mol)
+	[hexane] Average  <U_gh>_1-<U_h>_0:    -2736.2589027144 +/-      33.0947626469 [K]       (    -22.7505286559 +/-       0.2751652430 kJ/mol)
 
 Simulation finished,  0 warnings
 
 
-Tue May 18 14:54:10 2021
-Simulation finished on Tuesday, May 18.
-The end time was 02:54 PM.
+Sun May 23 12:38:03 2021
+Simulation finished on Sunday, May 23.
+The end time was 12:38 PM.
 
