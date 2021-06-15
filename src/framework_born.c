@@ -2217,6 +2217,8 @@ int CalculateFrameworkIntraVDWBornTerm(void)
   REAL rr;
   VECTOR posA,posB,dr,f;
   int f1,f2;
+  int A,B;
+  REAL *parms;
 
   // Framework-Framework energy
   UHostHostVDW[CurrentSystem]=0.0;
@@ -2289,6 +2291,81 @@ int CalculateFrameworkIntraVDWBornTerm(void)
       }
     }
   }
+
+  // contributions from interactions 1-4 torsions
+  // TODO: fix to handle anisotropic sites
+  for(f1=0;f1<Framework[CurrentSystem].NumberOfFrameworks;f1++)
+  {
+    if(Framework[CurrentSystem].FrameworkModels[f1]==FLEXIBLE)
+    {
+      for(i=0;i<Framework[CurrentSystem].NumberOfTorsions[f1];i++)
+      {
+        parms=Framework[CurrentSystem].TorsionArguments[f1][i];
+
+        if(fabs(parms[6])>1e-8)
+        {
+          A=MIN2(Framework[CurrentSystem].Torsions[f1][i].A,Framework[CurrentSystem].Torsions[f1][i].D);
+          B=MAX2(Framework[CurrentSystem].Torsions[f1][i].A,Framework[CurrentSystem].Torsions[f1][i].D);
+
+          if(!BITVAL(Framework[CurrentSystem].ExclusionMatrix[f1][A][B],7))
+          {
+            typeA=Framework[CurrentSystem].Atoms[f1][A].Type;
+            posA=Framework[CurrentSystem].Atoms[f1][A].Position;
+            chargeA=Framework[CurrentSystem].Atoms[f1][A].Charge;
+
+            typeB=Framework[CurrentSystem].Atoms[f2][B].Type;
+            posB=Framework[CurrentSystem].Atoms[f2][B].Position;
+            chargeB=Framework[CurrentSystem].Atoms[f2][B].Charge;
+
+            dr.x=posA.x-posB.x;
+            dr.y=posA.y-posB.y;
+            dr.z=posA.z-posB.z;
+            dr=ApplyBoundaryCondition(dr);
+            rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
+
+            if(rr<CutOffVDWSquared)
+            {
+              PotentialSecondDerivative(typeA,typeB,rr,&energy,&DF,&DDF,1.0);
+
+              energy*=parms[6];
+              DF*=parms[6];
+              DDF*=parms[6];
+
+              UHostHostVDW[CurrentSystem]+=energy;
+
+              f.x=DF*dr.x;
+              f.y=DF*dr.y;
+              f.z=DF*dr.z;
+
+              Framework[CurrentSystem].Atoms[f1][A].Force.x-=f.x;
+              Framework[CurrentSystem].Atoms[f1][A].Force.y-=f.y;
+              Framework[CurrentSystem].Atoms[f1][A].Force.z-=f.z;
+
+              Framework[CurrentSystem].Atoms[f2][B].Force.x+=f.x;
+              Framework[CurrentSystem].Atoms[f2][B].Force.y+=f.y;
+              Framework[CurrentSystem].Atoms[f2][B].Force.z+=f.z;
+
+              // add contribution to the strain derivative tensor
+              StrainDerivativeTensor[CurrentSystem].ax+=f.x*dr.x;
+              StrainDerivativeTensor[CurrentSystem].bx+=f.y*dr.x;
+              StrainDerivativeTensor[CurrentSystem].cx+=f.z*dr.x;
+
+              StrainDerivativeTensor[CurrentSystem].ay+=f.x*dr.y;
+              StrainDerivativeTensor[CurrentSystem].by+=f.y*dr.y;
+              StrainDerivativeTensor[CurrentSystem].cy+=f.z*dr.y;
+
+              StrainDerivativeTensor[CurrentSystem].az+=f.x*dr.z;
+              StrainDerivativeTensor[CurrentSystem].bz+=f.y*dr.z;
+              StrainDerivativeTensor[CurrentSystem].cz+=f.z*dr.z;
+
+              // add contribution to the born term
+              AddContributionToBornTerm(DDF,DF,dr);
+            }
+          }
+        }
+      }
+    }
+  }
   return 0;
 }
 
@@ -2299,6 +2376,8 @@ int CalculateFrameworkIntraChargeChargeBornTerm(void)
   REAL rr,energy;
   VECTOR posA,posB,dr,f;
   int f1,f2;
+  int A,B;
+  REAL *parms;
 
   UHostHostChargeChargeReal[CurrentSystem]=0.0;
 
@@ -2371,6 +2450,85 @@ int CalculateFrameworkIntraChargeChargeBornTerm(void)
       }
     }
   }
+
+  // contributions from interactions 1-4 torsions
+  // TODO: fix to handle anisotropic sites
+  for(f1=0;f1<Framework[CurrentSystem].NumberOfFrameworks;f1++)
+  {
+    if(Framework[CurrentSystem].FrameworkModels[f1]==FLEXIBLE)
+    {
+      for(i=0;i<Framework[CurrentSystem].NumberOfTorsions[f1];i++)
+      {
+        parms=Framework[CurrentSystem].TorsionArguments[f1][i];
+
+        if(fabs(parms[6])>1e-8)
+        {
+          A=MIN2(Framework[CurrentSystem].Torsions[f1][i].A,Framework[CurrentSystem].Torsions[f1][i].D);
+          B=MAX2(Framework[CurrentSystem].Torsions[f1][i].A,Framework[CurrentSystem].Torsions[f1][i].D);
+
+          if(!BITVAL(Framework[CurrentSystem].ExclusionMatrix[f1][A][B],7))
+          {
+            typeA=Framework[CurrentSystem].Atoms[f1][A].Type;
+            posA=Framework[CurrentSystem].Atoms[f1][A].Position;
+            chargeA=Framework[CurrentSystem].Atoms[f1][A].Charge;
+
+            typeB=Framework[CurrentSystem].Atoms[f2][B].Type;
+            posB=Framework[CurrentSystem].Atoms[f2][B].Position;
+            chargeB=Framework[CurrentSystem].Atoms[f2][B].Charge;
+
+            dr.x=posA.x-posB.x;
+            dr.y=posA.y-posB.y;
+            dr.z=posA.z-posB.z;
+            dr=ApplyBoundaryCondition(dr);
+            rr=SQR(dr.x)+SQR(dr.y)+SQR(dr.z);
+
+            if(rr<CutOffChargeChargeSquared[CurrentSystem])
+            {
+              PotentialSecondDerivativeCoulombic(chargeA,chargeB,rr,&energy,&DF,&DDF);
+
+              energy*=parms[7];
+              DF*=parms[7];
+              DDF*=parms[7];
+
+              UHostHostChargeChargeReal[CurrentSystem]+=energy;
+
+              // add contribution to the energy
+              f.x=DF*dr.x;
+              f.y=DF*dr.y;
+              f.z=DF*dr.z;
+
+              // forces
+              Framework[CurrentSystem].Atoms[f1][A].Force.x-=f.x;
+              Framework[CurrentSystem].Atoms[f1][A].Force.y-=f.y;
+              Framework[CurrentSystem].Atoms[f1][A].Force.z-=f.z;
+
+              Framework[CurrentSystem].Atoms[f2][B].Force.x+=f.x;
+              Framework[CurrentSystem].Atoms[f2][B].Force.y+=f.y;
+              Framework[CurrentSystem].Atoms[f2][B].Force.z+=f.z;
+
+              // add contribution to the strain derivative tensor
+              StrainDerivativeTensor[CurrentSystem].ax+=f.x*dr.x;
+              StrainDerivativeTensor[CurrentSystem].bx+=f.y*dr.x;
+              StrainDerivativeTensor[CurrentSystem].cx+=f.z*dr.x;
+
+              StrainDerivativeTensor[CurrentSystem].ay+=f.x*dr.y;
+              StrainDerivativeTensor[CurrentSystem].by+=f.y*dr.y;
+              StrainDerivativeTensor[CurrentSystem].cy+=f.z*dr.y;
+
+              StrainDerivativeTensor[CurrentSystem].az+=f.x*dr.z;
+              StrainDerivativeTensor[CurrentSystem].bz+=f.y*dr.z;
+              StrainDerivativeTensor[CurrentSystem].cz+=f.z*dr.z;
+
+              // add contribution to the born term
+              AddContributionToBornTerm(DDF,DF,dr);
+            }
+          }
+        }
+      }
+    }
+  }
+
+
   return 0;
 }
 

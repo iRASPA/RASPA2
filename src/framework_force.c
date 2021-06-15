@@ -6362,16 +6362,17 @@ int CalculateFrameworkIntraReplicaVDWForce(void)
         parms=Framework[CurrentSystem].TorsionArguments[f1][i];
         if(fabs(parms[6])>1e-8)
         {
-          A=Framework[CurrentSystem].Torsions[f1][i].A;
-          typeA=Framework[CurrentSystem].Atoms[f1][A].Type;
-          posA=Framework[CurrentSystem].Atoms[f1][A].Position;
-
-          B=Framework[CurrentSystem].Torsions[f1][i].D;
-          typeB=Framework[CurrentSystem].Atoms[f1][B].Type;
-          posB=Framework[CurrentSystem].Atoms[f1][B].Position;
+          A=MIN2(Framework[CurrentSystem].Torsions[f1][i].A,Framework[CurrentSystem].Torsions[f1][i].D);
+          B=MAX2(Framework[CurrentSystem].Torsions[f1][i].A,Framework[CurrentSystem].Torsions[f1][i].D);
 
           if(!BITVAL(Framework[CurrentSystem].ExclusionMatrix[f1][A][B],7))
           {
+            typeA=Framework[CurrentSystem].Atoms[f1][A].Type;
+            posA=Framework[CurrentSystem].Atoms[f1][A].Position;
+
+            typeB=Framework[CurrentSystem].Atoms[f1][B].Type;
+            posB=Framework[CurrentSystem].Atoms[f1][B].Position;
+
             dr.x=posA.x-posB.x;
             dr.y=posA.y-posB.y;
             dr.z=posA.z-posB.z;
@@ -6542,16 +6543,17 @@ int CalculateFrameworkIntraReplicaChargeChargeForce(void)
 
         if(fabs(parms[7])>1e-8)
         {
-          A=Framework[CurrentSystem].Torsions[f1][i].A;
-          chargeA=Framework[CurrentSystem].Atoms[f1][A].Charge;
-          posA=Framework[CurrentSystem].Atoms[f1][A].Position;
-
-          B=Framework[CurrentSystem].Torsions[f1][i].D;
-          chargeB=Framework[CurrentSystem].Atoms[f1][B].Charge;
-          posB=Framework[CurrentSystem].Atoms[f1][B].Position;
+          A=MIN2(Framework[CurrentSystem].Torsions[f1][i].A,Framework[CurrentSystem].Torsions[f1][i].D);
+          B=MAX2(Framework[CurrentSystem].Torsions[f1][i].A,Framework[CurrentSystem].Torsions[f1][i].D);
 
           if(!BITVAL(Framework[CurrentSystem].ExclusionMatrix[f1][A][B],7))
           {
+            chargeA=Framework[CurrentSystem].Atoms[f1][A].Charge;
+            posA=Framework[CurrentSystem].Atoms[f1][A].Position;
+
+            chargeB=Framework[CurrentSystem].Atoms[f1][B].Charge;
+            posB=Framework[CurrentSystem].Atoms[f1][B].Position;
+
             dr.x=posA.x-posB.x;
             dr.y=posA.y-posB.y;
             dr.z=posA.z-posB.z;

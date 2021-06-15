@@ -3139,7 +3139,6 @@ void ComputeFrameworkIntraChargeChargeHessian(REAL *Energy,REAL* Gradient,REAL_M
           A=MIN2(Framework[CurrentSystem].Torsions[f1][i].A,Framework[CurrentSystem].Torsions[f1][i].D);
           B=MAX2(Framework[CurrentSystem].Torsions[f1][i].A,Framework[CurrentSystem].Torsions[f1][i].D);
 
-
           if(!BITVAL(Framework[CurrentSystem].ExclusionMatrix[f1][A][B],7))
           {
             typeA=Framework[CurrentSystem].Atoms[f1][A].Type;
