@@ -3,7 +3,7 @@ use File::Copy;
 use File::Path;
 
 # framework-information
-@Forcefield=("GarciaPerez2012");
+@Forcefield=("ExampleMoleculeForceField");
 @CutOffVDW=(12.0);
 
 # temperature-information
@@ -151,7 +151,7 @@ foreach (@molecule)
 
     print DATw3 "Component 0 MoleculeName              $molecule[$index_molecule]\n";
     print DATw3 "            StartingBead              0\n";
-    print DATw3 "            MoleculeDefinition        TraPPE\n";
+    print DATw3 "            MoleculeDefinition        ExampleDefinitions\n";
     print DATw3 "            IdealGasRosenbluthWeight  $idealgas[$index_temperature][$index_molecule]\n";
     print DATw3 "            FugacityCoefficient       1.0\n";
     print DATw3 "            TranslationProbability    1.0\n";

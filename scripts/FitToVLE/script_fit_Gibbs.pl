@@ -8,7 +8,7 @@ use File::Path;
 @epsilon=(10,11,12,13,14,15,16);
 @sigma=(4.65,4.66,4.67,4.68,4.69);
 
-$FitAtom="CH_sp3";
+$FitAtom="CH";
 
 # temperature-information
 @temperature = (300.0,450.0); # list of temperatures
@@ -178,7 +178,7 @@ foreach (@molecule)
 
         print DATw3 "Component 0 MoleculeName              $molecule[$index_molecule]\n";
         print DATw3 "            StartingBead              0\n";
-        print DATw3 "            MoleculeDefinition        TraPPE\n";
+        print DATw3 "            MoleculeDefinition        ExampleDefinitions\n";
         print DATw3 "            IdealGasRosenbluthWeight  $idealgas[$index_temperature][$index_molecule]\n";
         print DATw3 "            FugacityCoefficient       1.0\n";
         print DATw3 "            TranslationProbability    1.0\n";

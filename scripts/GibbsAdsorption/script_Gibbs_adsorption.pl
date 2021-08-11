@@ -6,7 +6,7 @@ use File::Path;
 @Framework = ("MIL-47");  # list of structures
 @HeliumVoidFraction = ("0.606");  # list of helium-voidfractions for the structures
 @UnitCells = ("4 2 2"); # list of sizes of the unit cells for the structures
-@Forcefield=("CastilloVlugtCalero2009");
+@Forcefield=("ExampleMOFsForceField");
 @UseChargesFromCIFFile=("yes");
 @RemoveAtomNumberCodeFromLabel=("no");
 @CutOff=("12.0");

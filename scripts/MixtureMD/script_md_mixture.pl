@@ -6,7 +6,7 @@ use File::Path;
 @framework = ("MOF-1-Dybtsev-dmol");  # list of structures
 @HeliumVoidFraction = ("0.627073");  # list of helium-voidfractions for the structures
 @UnitCells = ("3 3 3"); # list of sizes of the unit cells for the structures
-@Forcefield=("GenericMOFs");
+@Forcefield=("ExampleMOFsForceField");
 
 # temperature-information
 @temperature = (313.0); # list of temperatures
@@ -172,7 +172,7 @@ foreach (@framework)
         print DATw3 "\n";
         print DATw3 "Component $index_molecule MoleculeName              $molecule[$index_molecule]\n";
         print DATw3 "            StartingBead              0\n";
-        print DATw3 "            MoleculeDefinition        TraPPE\n";
+        print DATw3 "            MoleculeDefinition        ExampleDefinitions\n";
         print DATw3 "            FugacityCoefficient       1.0\n";
         print DATw3 "            TranslationProbability    1.0\n";
         print DATw3 "            RotationProbability       1.0\n";

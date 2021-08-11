@@ -6,7 +6,7 @@ use File::Path;
 @framework = ("ZnBDC");  # list of structures
 @HeliumVoidFraction = ("0.516026");  # list of helium-voidfractions for the structures
 @UnitCells = ("4 2 2"); # list of sizes of the unit cells for the structures
-@Forcefield=("GenericMOFs");
+@Forcefield=("ExampleMOFsForceField");
 
 # temperature-information
 @temperature = (313.0); # list of temperatures
@@ -171,7 +171,7 @@ foreach (@framework)
         print DATw3 "\n";
         print DATw3 "Component 0 MoleculeName              $molecule[$index_molecule]\n";
         print DATw3 "            StartingBead              0\n";
-        print DATw3 "            MoleculeDefinition        TraPPE\n";
+        print DATw3 "            MoleculeDefinition        ExampleDefinitions\n";
         print DATw3 "            FugacityCoefficient       1.0\n";
         print DATw3 "            TranslationProbability    1.0\n";
         print DATw3 "            RotationProbability       1.0\n";

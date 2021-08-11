@@ -8,30 +8,30 @@ use File::Path;
 @BlockPocketsFilename = ("ITQ-29");  # list of blocking pockets filenames
 @HeliumVoidFraction = ("0.401506");  # list of helium-voidfractions for the structures
 @UnitCells = ("2 2 2"); # list of sizes of the unit cells for the structures
-@Forcefield=("GenericZeolites");
+@Forcefield=("ExampleZeolitesForceField");
 @UseChargesFromCIFFile=("yes");
 @RemoveAtomNumberCodeFromLabel=("yes");
 @CutOff=("11.8");
 
 # temperature-information
-@Temperature = (200.0,300.0,400.0,500.0,600.0); # list of temperatures
+@Temperature = (300.0); # list of temperatures
 @Molecule = ("CO2"); # list of molecules
-@MoleculeStartingBead = (1);
-@MoleculeDefinition = ("TraPPE");
-@Idealgas = ([1.0],[1.0],[1.0],[1.0],[1.0]); # list of IG Rosenbluth weights for each temperature
+@MoleculeStartingBead = (0);
+@MoleculeDefinition = ("ExampleDefinitions");
+@Idealgas = ([1.0]); # list of IG Rosenbluth weights for each temperature
 
 # pressure-information
 $pressure_type = "fugacity";     # "pressure" or "fugacity"
 $pressure_start = 1e2;          # lowest pressure
-$pressure_end = 1e16;            # highest pressure
-$number_of_pressure_points = 36; # number of points equally spaced in log-scale or linear scale
+$pressure_end = 1e8;            # highest pressure
+$number_of_pressure_points = 4; # number of points equally spaced in log-scale or linear scale
 $pressure_unit="Pa";             # "bar", "kPa", or "Pa"
 $pressure_scale="log";           # "log" or "linear"
 
 # simulation-information
 $SimulationType="MonteCarlo";
-$NumberOfCycles="500000";
-$NumberOfInitializationCycles="100000";
+$NumberOfCycles="2000";
+$NumberOfInitializationCycles="2000";
 $PrintEvery="5000";
 $RestartFile="no";
 

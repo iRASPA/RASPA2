@@ -8,7 +8,7 @@ use File::Path;
 @BlockPocketsFilename = ("ITQ-29");  # list of blocking pockets filenames
 @HeliumVoidFraction = ("0.401506");  # list of helium-voidfractions for the structures
 @UnitCells = ("2 2 2"); # list of sizes of the unit cells for the structures
-@Forcefield=("GenericZeolites");
+@Forcefield=("ExampleZeolitesForceField");
 @UseChargesFromCIFFile=("yes");
 @RemoveAtomNumberCodeFromLabel=("yes");
 @CutOff=("11.8");
@@ -16,7 +16,7 @@ use File::Path;
 # temperature-information
 @Temperature = (300.0); # list of temperatures
 @Molecule = ("CO2","methane"); # list of molecules
-@MoleculeDefinition = ("TraPPE","TraPPE");
+@MoleculeDefinition = ("ExampleDefinitions","ExampleDefinitions");
 @Idealgas = ([1.0,1.0]); # list of IG Rosenbluth weights for each temperature
 
 # pressure-information

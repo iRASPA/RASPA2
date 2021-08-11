@@ -3,7 +3,7 @@ use File::Copy;
 use File::Path;
 
 # framework-information
-@Forcefield=("GarciaPerez2012");
+@Forcefield=("ExampleMoleculeForceField");
 
 @epsilon=([27,79],[28,80],[32,85],[40,90],[56,53]);
 @sigma=([2.76,3.0],[2.78,30.2],[2.80,3.05],[2.82,3.1],[3.96,3.0]);
@@ -198,7 +198,7 @@ foreach (@molecule)
 
         print DATw3 "Component 0 MoleculeName              $molecule[$index_molecule]\n";
         print DATw3 "            StartingBead              0\n";
-        print DATw3 "            MoleculeDefinition        TraPPE\n";
+        print DATw3 "            MoleculeDefinition        ExampleDefinitions\n";
         print DATw3 "            IdealGasRosenbluthWeight  $idealgas[$index_temperature][$index_molecule]\n";
         print DATw3 "            FugacityCoefficient       1.0\n";
         print DATw3 "            TranslationProbability    1.0\n";

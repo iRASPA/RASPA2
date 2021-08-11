@@ -3,7 +3,7 @@ use File::Copy;
 use File::Path;
 
 # forcefield-information
-@Forcefield=("GarciaPerez2006");
+@Forcefield=("ExampleMoleculeForceField");
 @RemoveAtomNumberCodeFromLabel=("yes");
 
 # temperature-information
@@ -133,7 +133,7 @@ foreach (@temperature)
     print DATw3 "\n";
     print DATw3 "Component 0 MoleculeName              $molecule[$index_molecule]\n";
     print DATw3 "            StartingBead              0\n";
-    print DATw3 "            MoleculeDefinition        TraPPE\n";
+    print DATw3 "            MoleculeDefinition        ExampleDefinitions\n";
     print DATw3 "            IdealGasRosenbluthWeight  1.0\n";
     print DATw3 "            FugacityCoefficient       1.0\n";
     print DATw3 "            ReinsertionProbability    1.0\n";
