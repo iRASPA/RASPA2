@@ -41,7 +41,9 @@
 #include <float.h>
 #include <sys/stat.h>
 #include <sys/utsname.h>
-#include <sys/sysctl.h>
+#if defined (__APPLE__)
+  #include <sys/sysctl.h>
+#endif
 #include <math.h>
 #include <time.h>
 #include <unistd.h>
