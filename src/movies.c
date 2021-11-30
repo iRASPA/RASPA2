@@ -1880,14 +1880,14 @@ void FreeEnergyProfile3D(void)
 {
   int i;
   int x,y,z,typeA,index,temp,start;
-  REAL value,min,max;
-  POINT C;
-  VECTOR pos,shift,Size;
+  REAL value,min;
+  VECTOR pos,s;
   char buffer[256];
   FILE *FilePtr;
   REAL_MATRIX3x3 Cell;
   REAL_MATRIX3x3 InverseCell;
-
+  REAL_MATRIX3x3 cellProperties;
+  REAL det;
 
   // Modify overlap criteria to remove artifacts in the VTK pictures
   EnergyOverlapCriteria=5e4;
@@ -1903,81 +1903,48 @@ void FreeEnergyProfile3D(void)
   switch(FreeEnergyAveragingTypeVTK)
   {
     case VTK_UNIT_CELL:
-      Cell=UnitCellBox[CurrentSystem];
-      InverseCell=InverseUnitCellBox[CurrentSystem];
+      Cell=UnitCellBox[0];
+      InverseCell=InverseUnitCellBox[0];
+      CellProperties(&UnitCellBox[0],&cellProperties,&det);
       break;
     case VTK_FULL_BOX:
     default:
       Cell=Box[CurrentSystem];
       InverseCell=InverseBox[CurrentSystem];
+      CellProperties(&Box[0],&cellProperties,&det);
       break;
   }
-
-  Size.x=Size.y=Size.z=0.0;
-  shift.x=shift.y=shift.z=0.0;
-  C.x=1.0;
-  C.y=0.0;
-  C.z=0.0;
-  pos.x=Cell.ax*C.x+Cell.bx*C.y+Cell.cx*C.z;
-  pos.y=Cell.ay*C.x+Cell.by*C.y+Cell.cy*C.z;
-  pos.z=Cell.az*C.x+Cell.bz*C.y+Cell.cz*C.z;
-  Size.x+=fabs(pos.x);
-  Size.y+=fabs(pos.y);
-  Size.z+=fabs(pos.z);
-  if(pos.x<0.0) shift.x+=pos.x;
-  if(pos.y<0.0) shift.y+=pos.y;
-  if(pos.z<0.0) shift.z+=pos.z;
-
-  C.x=0.0;
-  C.y=1.0;
-  C.z=0.0;
-  pos.x=Cell.ax*C.x+Cell.bx*C.y+Cell.cx*C.z;
-  pos.y=Cell.ay*C.x+Cell.by*C.y+Cell.cy*C.z;
-  pos.z=Cell.az*C.x+Cell.bz*C.y+Cell.cz*C.z;
-  Size.x+=fabs(pos.x);
-  Size.y+=fabs(pos.y);
-  Size.z+=fabs(pos.z);
-  if(pos.x<0.0) shift.x+=pos.x;
-  if(pos.y<0.0) shift.y+=pos.y;
-  if(pos.z<0.0) shift.z+=pos.z;
-
-  C.x=0.0;
-  C.y=0.0;
-  C.z=1.0;
-  pos.x=Cell.ax*C.x+Cell.bx*C.y+Cell.cx*C.z;
-  pos.y=Cell.ay*C.x+Cell.by*C.y+Cell.cy*C.z;
-  pos.z=Cell.az*C.x+Cell.bz*C.y+Cell.cz*C.z;
-  Size.x+=fabs(pos.x);
-  Size.y+=fabs(pos.y);
-  Size.z+=fabs(pos.z);
-  if(pos.x<0.0) shift.x+=pos.x;
-  if(pos.y<0.0) shift.y+=pos.y;
-  if(pos.z<0.0) shift.z+=pos.z;
-
-  max=MAX2(Size.x,MAX2(Size.y,Size.z));
-
-  fprintf(stderr, "Shift: %lf %lf %lf\n",(double)shift.x,(double)shift.y,(double)shift.z);
-  fprintf(stderr, "Size: %lf %lf %lf\n",(double)Size.x,(double)Size.y,(double)Size.z);
-  max=MAX2(Size.x,MAX2(Size.y,Size.z));
 
   for(i=0;i<NumberOfCycles;i++)
   {
     if(i%PrintEvery==0) fprintf(stderr, "iteration: %d\n",i);
 
     // generate random number in enclosed box
-    pos.x=RandomNumber()*Size.x;
-    pos.y=RandomNumber()*Size.y;
-    pos.z=RandomNumber()*Size.z;
+    
+    s.x=RandomNumber();
+    s.y=RandomNumber();
+    s.z=RandomNumber();
+
+    switch(FreeEnergyAveragingTypeVTK)
+    {
+      case VTK_UNIT_CELL:
+        pos=ConvertFromABCtoXYZUnitCell(s);
+        break;
+      case VTK_FULL_BOX:
+      default:
+        pos=ConvertFromABCtoXYZ(s);
+        break;
+    }
 
     NumberOfBeadsAlreadyPlaced=0;
     NumberOfTrialPositionsForTheFirstBead=1;
     start=Components[CurrentComponent].StartingBead;
-    NewPosition[0][start].x=pos.x+shift.x;
-    NewPosition[0][start].y=pos.y+shift.y;
-    NewPosition[0][start].z=pos.z+shift.z;
-    FirstBeadPosition.x=pos.x+shift.x;
-    FirstBeadPosition.y=pos.y+shift.y;
-    FirstBeadPosition.z=pos.z+shift.z;
+    NewPosition[0][start].x=pos.x;
+    NewPosition[0][start].y=pos.y;
+    NewPosition[0][start].z=pos.z;
+    FirstBeadPosition.x=pos.x;
+    FirstBeadPosition.y=pos.y;
+    FirstBeadPosition.z=pos.z;
 
     NewPosition[CurrentSystem][start]=FirstBeadPosition;
 
@@ -1986,9 +1953,9 @@ void FreeEnergyProfile3D(void)
     else
        value=0.0;
 
-    x=pos.x*(REAL)SIZE_X/Size.x;
-    y=pos.y*(REAL)SIZE_Y/Size.y;
-    z=pos.z*(REAL)SIZE_Z/Size.z;
+    x=s.x*(REAL)SIZE_X;
+    y=s.y*(REAL)SIZE_Y;
+    z=s.z*(REAL)SIZE_Z;
     index=x+y*SIZE_Y+z*SIZE_X*SIZE_Y;
     if((index>0)&&(index<SIZE_X*SIZE_Y*SIZE_Z))
     {
@@ -2005,15 +1972,14 @@ void FreeEnergyProfile3D(void)
 
       FilePtr=fopen(buffer,"w");
       fprintf(FilePtr,"# vtk DataFile Version 1.0\n");
-      fprintf(FilePtr,"Free energy zeolite: %s (%lf K)\n", Framework[0].Name[0],(double)therm_baro_stats.ExternalTemperature[CurrentSystem]);
+      fprintf(FilePtr,"CELL_PARAMETERS %lf %lf %lf %lf %lf %lf\n",
+              cellProperties.ax,cellProperties.ay,cellProperties.az,
+              (double)AlphaAngle[CurrentSystem]*180.0/M_PI,(double)BetaAngle[CurrentSystem]*180.0/M_PI,(double)GammaAngle[CurrentSystem]*180.0/M_PI);
       fprintf(FilePtr,"ASCII\n");
       fprintf(FilePtr,"DATASET STRUCTURED_POINTS\n");
       fprintf(FilePtr,"DIMENSIONS %d %d %d\n",SIZE_X,SIZE_Y,SIZE_Z);
-
-      max=MAX2(Size.x,MAX2(Size.y,Size.z));
-      fprintf(FilePtr,"ASPECT_RATIO %lf %lf %lf\n",(double)(Size.x/max),(double)(Size.y/max),(double)(Size.z/max));
-      fprintf(FilePtr,"ORIGIN 0.0 0.0 0.0\n");
-      fprintf(FilePtr,"\n");
+      fprintf(FilePtr,"ORIGIN %lf %lf %lf\n",0.0,0.0,0.0);
+      fprintf(FilePtr,"SPACING %lf %lf %lf\n",cellProperties.ax/(double)SIZE_X, cellProperties.ay/(double)SIZE_Y,cellProperties.az/(double)SIZE_Z);
       fprintf(FilePtr,"POINT_DATA %d\n",SIZE_X*SIZE_Y*SIZE_Z);
       fprintf(FilePtr,"SCALARS scalars unsigned_short\n");
       fprintf(FilePtr,"LOOKUP_TABLE default\n");
