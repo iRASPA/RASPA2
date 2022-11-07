@@ -245,6 +245,7 @@ VECTOR MapToUnitCell(VECTOR pos)
 
   switch(BoundaryCondition[CurrentSystem])
   {
+    case CUBIC:
     case RECTANGULAR:
       pos.x-=UnitCellSize[CurrentSystem].x*(REAL)(NINT(pos.x/UnitCellSize[CurrentSystem].x));
       pos.y-=UnitCellSize[CurrentSystem].y*(REAL)(NINT(pos.y/UnitCellSize[CurrentSystem].y));
@@ -399,6 +400,7 @@ void MakeASCIGrid(void)
         {
           switch(BoundaryCondition[CurrentSystem])
           {
+            case CUBIC:
             case RECTANGULAR:
             case TRICLINIC:
             default:
@@ -537,6 +539,7 @@ void MakeGrid(void)
         {
           switch(BoundaryCondition[CurrentSystem])
           {
+            case CUBIC:
             case RECTANGULAR:
             case TRICLINIC:
             default:
@@ -643,6 +646,7 @@ void MakeGrid(void)
       {
         switch(BoundaryCondition[CurrentSystem])
         {
+          case CUBIC:
           case RECTANGULAR:
           case TRICLINIC:
           default:
@@ -992,6 +996,7 @@ REAL InterpolateVDWGrid(int typeA,VECTOR pos)
 
   switch(BoundaryCondition[CurrentSystem])
   {
+    case CUBIC:
     case RECTANGULAR:
       // the position has to be moved back to the main unit cell using the rectangular boundary condition
       pos.x-=UnitCellSize[CurrentSystem].x*(REAL)(NINT(pos.x/UnitCellSize[CurrentSystem].x));
@@ -1092,6 +1097,7 @@ REAL InterpolateVDWForceGrid(int typeA,VECTOR pos,VECTOR *Force)
 
   switch(BoundaryCondition[CurrentSystem])
   {
+    case CUBIC:
     case RECTANGULAR:
       // the position has to be moved back to the main unit cell using the rectangular boundary condition
       pos.x-=UnitCellSize[CurrentSystem].x*(REAL)(NINT(pos.x/UnitCellSize[CurrentSystem].x));
@@ -1213,6 +1219,7 @@ REAL InterpolateCoulombGrid(int typeA,VECTOR pos)
 
   switch(BoundaryCondition[CurrentSystem])
   {
+    case CUBIC:
     case RECTANGULAR:
       // the position has to be moved back to the main unit cell using the rectangular boundary condition
       pos.x-=UnitCellSize[CurrentSystem].x*(REAL)(NINT(pos.x/UnitCellSize[CurrentSystem].x));
@@ -1310,6 +1317,7 @@ REAL InterpolateCoulombForceGrid(int typeA,VECTOR pos,VECTOR *Force)
 
   switch(BoundaryCondition[CurrentSystem])
   {
+    case CUBIC:
     case RECTANGULAR:
       // the position has to be moved back to the main unit cell using the rectangular boundary condition
       pos.x-=UnitCellSize[CurrentSystem].x*(REAL)(NINT(pos.x/UnitCellSize[CurrentSystem].x));
@@ -1474,6 +1482,7 @@ void TestForceGrid(FILE *FilePtr)
       {
         switch(BoundaryCondition[CurrentSystem])
         {
+          case CUBIC:
           case RECTANGULAR:
             pos.x=Box[CurrentSystem].ax*RandomNumber();
             pos.y=Box[CurrentSystem].by*RandomNumber();
@@ -1669,6 +1678,7 @@ INT_VECTOR3 ConvertXYZPositionToGridIndex(VECTOR pos)
 
   switch(BoundaryCondition[CurrentSystem])
   {
+    case CUBIC:
     case RECTANGULAR:
       // the position has to be moved back to the main unit cell using the rectangular boundary condition
       pos.x-=UnitCellSize[CurrentSystem].x*(REAL)(NINT(pos.x/UnitCellSize[CurrentSystem].x));

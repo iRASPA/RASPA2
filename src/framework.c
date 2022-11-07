@@ -275,6 +275,24 @@ void RemoveQuotesAroundString(char *string)
   }
 }
 
+void SetBoundaryCondition(int system, REAL eps_angle, REAL eps_length, REAL alpha, REAL beta, REAL gamma, REAL A, REAL B, REAL C)
+{
+  if((fabs(alpha-90.0)>eps_angle)||(fabs(beta-90.0)>eps_angle)||(fabs(gamma-90.0)>eps_angle))
+    BoundaryCondition[system]=TRICLINIC;
+  else if((fabs(A-B)>eps_length)||(fabs(A-C)>eps_length)||(fabs(B-C)>eps_length))
+    BoundaryCondition[system]=RECTANGULAR;
+  else
+    BoundaryCondition[system]=CUBIC;
+}
+
+void SetBoundaryConditionFromSystem(int system, REAL eps_angle, REAL eps_length)
+{
+  SetBoundaryCondition(system, eps_angle, eps_length,
+                       AlphaAngle[system]*RAD2DEG, BetaAngle[system]*RAD2DEG, GammaAngle[system]*RAD2DEG,
+                       BoxProperties[system].ax, BoxProperties[system].ay, BoxProperties[system].az
+  );
+}
+
 
 /*********************************************************************************************************
  * Name       | ReadFrameworkDefinitionCIF                                                               *
@@ -1992,14 +2010,7 @@ void ReadFrameworkDefinitionCIF(void)
   // determine boundary conditions from angles
   if(BoundaryCondition[CurrentSystem]==UNINITIALIZED_BOUNDARY_CONDITION)
   {
-    if((fabs(alpha-90.0)>0.001)||(fabs(beta-90.0)>0.001)||(fabs(gamma-90.0)>0.001))
-      BoundaryCondition[CurrentSystem]=TRICLINIC;
-    else
-    {
-      if((fabs(A-B)>0.00001)||(fabs(A-C)>0.00001)||(fabs(B-C)>0.00001))
-        BoundaryCondition[CurrentSystem]=RECTANGULAR;
-      else BoundaryCondition[CurrentSystem]=TRICLINIC;
-    }
+    SetBoundaryCondition(CurrentSystem, 0.001, 0.00001, alpha, beta, gamma, A, B, C);
   }
   AlphaAngle[CurrentSystem]=alpha*DEG2RAD;
   BetaAngle[CurrentSystem]=beta*DEG2RAD;
@@ -3015,17 +3026,7 @@ void ReadFrameworkDefinitionMOL(void)
 
   if(BoundaryCondition[CurrentSystem]==UNINITIALIZED_BOUNDARY_CONDITION)
   {
-    // determine boundary conditions from angles
-    if((fabs(AlphaAngle[CurrentSystem]-90.0)>0.01)||
-       (fabs(BetaAngle[CurrentSystem]-90.0)>0.01)||
-       (fabs(GammaAngle[CurrentSystem]-90.0)>0.01))
-      BoundaryCondition[CurrentSystem]=TRICLINIC;
-    else
-    {
-      if((fabs(A-B)>0.01)||(fabs(A-C)>0.01)||(fabs(B-C)>0.01))
-        BoundaryCondition[CurrentSystem]=RECTANGULAR;
-      else BoundaryCondition[CurrentSystem]=RECTANGULAR;
-    }
+    SetBoundaryCondition(CurrentSystem, 0.01, 0.01, AlphaAngle[CurrentSystem], BetaAngle[CurrentSystem], GammaAngle[CurrentSystem], A, B, C);
   }
   AlphaAngle[CurrentSystem]*=M_PI/180.0;
   BetaAngle[CurrentSystem]*=M_PI/180.0;
@@ -3310,14 +3311,7 @@ void ReadFrameworkDefinitionDLPOLY(void)
   BetaAngle[CurrentSystem]=acos(BoxProperties[CurrentSystem].by);
   GammaAngle[CurrentSystem]=acos(BoxProperties[CurrentSystem].bz);
 
-  // determine boundary conditions from angles
-  if((fabs(AlphaAngle[CurrentSystem]-90.0*DEG2RAD)>0.001)||
-     (fabs(BetaAngle[CurrentSystem]-90.0*DEG2RAD)>0.001)||
-     (fabs(GammaAngle[CurrentSystem]-90.0*DEG2RAD)>0.001))
-    BoundaryCondition[CurrentSystem]=TRICLINIC;
-  else BoundaryCondition[CurrentSystem]=RECTANGULAR;
-
-  BoundaryCondition[CurrentSystem]=TRICLINIC;
+  SetBoundaryConditionFromSystem(CurrentSystem, 0.001, 0.00001);
 
   Framework[CurrentSystem].NumberOfAsymmetricAtoms[CurrentFramework]=int_temp3;
   Framework[CurrentSystem].AtomsAsymmetric[CurrentFramework]=(FRAMEWORK_ASYMMETRIC_ATOM*)calloc(int_temp3,sizeof(FRAMEWORK_ASYMMETRIC_ATOM));
@@ -3431,15 +3425,7 @@ void ReadFrameworkDefinitionCSSR(void)
 
   if(BoundaryCondition[CurrentSystem]==UNINITIALIZED_BOUNDARY_CONDITION)
   {
-    // determine boundary conditions from angles
-    if((fabs(AlphaAngle[CurrentSystem]-90.0)>0.001)||(fabs(BetaAngle[CurrentSystem]-90.0)>0.001)||(fabs(GammaAngle[CurrentSystem]-90.0)>0.001))
-      BoundaryCondition[CurrentSystem]=TRICLINIC;
-    else
-    {
-      if((fabs(A-B)>0.00001)||(fabs(A-C)>0.00001)||(fabs(B-C)>0.00001))
-        BoundaryCondition[CurrentSystem]=RECTANGULAR;
-      else BoundaryCondition[CurrentSystem]=TRICLINIC;
-    }
+    SetBoundaryCondition(CurrentSystem, 0.001, 0.00001, AlphaAngle[CurrentSystem], BetaAngle[CurrentSystem], GammaAngle[CurrentSystem], A, B, C);
   }
   AlphaAngle[CurrentSystem]*=M_PI/180.0;
   BetaAngle[CurrentSystem]*=M_PI/180.0;

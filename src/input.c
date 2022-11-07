@@ -2696,8 +2696,9 @@ int ReadInput(char *input)
     if(strcasecmp("BoundaryCondition",keyword)==0)
     {
       if(strcasecmp("None",firstargument)==0) BoundaryCondition[CurrentSystem]=FINITE;
-      if(strcasecmp("Reactangular",firstargument)==0) BoundaryCondition[CurrentSystem]=RECTANGULAR;
+      if(strcasecmp("Rectangular",firstargument)==0) BoundaryCondition[CurrentSystem]=RECTANGULAR;
       if(strcasecmp("Triclinic",firstargument)==0) BoundaryCondition[CurrentSystem]=TRICLINIC;
+      if(strcasecmp("Cubic",firstargument)==0) BoundaryCondition[CurrentSystem]=CUBIC;
     }
     if(strcasecmp("GibbsVolumeChangeProbability",keyword)==0) sscanf(arguments,"%lf",&ProbabilityGibbsVolumeChangeMove);
     if(strcasecmp("MaximumGibbsVolumeChange",keyword)==0)
@@ -6677,9 +6678,7 @@ int ReadInput(char *input)
     // determine boundary conditions from angles
     if(BoundaryCondition[i]==UNINITIALIZED_BOUNDARY_CONDITION)
     {
-      if((fabs(AlphaAngle[i]*RAD2DEG-90.0)>0.001)||(fabs(BetaAngle[i]*RAD2DEG-90.0)>0.001)||(fabs(GammaAngle[i]*RAD2DEG-90.0)>0.001))
-        BoundaryCondition[i]=TRICLINIC;
-      else BoundaryCondition[i]=RECTANGULAR;
+      SetBoundaryConditionFromSystem(i, 0.001, 0.00001);
     }
   }
 
@@ -9640,11 +9639,7 @@ void ReadRestartFile(void)
     // determine boundary conditions from angles
     if((BoundaryCondition[CurrentSystem]!=UNINITIALIZED_BOUNDARY_CONDITION)&&(BoundaryCondition[CurrentSystem]!=FINITE))
     {
-      if((fabs(AlphaAngle[CurrentSystem]*RAD2DEG-90.0)>0.001)||
-         (fabs(BetaAngle[CurrentSystem]*RAD2DEG-90.0)>0.001)||
-         (fabs(GammaAngle[CurrentSystem]*RAD2DEG-90.0)>0.001))
-        BoundaryCondition[CurrentSystem]=TRICLINIC;
-      else BoundaryCondition[CurrentSystem]=RECTANGULAR;
+      SetBoundaryConditionFromSystem(CurrentSystem, 0.001, 0.00001);
     }
 
     if(Framework[CurrentSystem].FrameworkModel==NONE)
@@ -9785,11 +9780,7 @@ void ReadRestartFileOld(void)
         // determine boundary conditions from angles
         if((BoundaryCondition[CurrentSystem]!=UNINITIALIZED_BOUNDARY_CONDITION)&&(BoundaryCondition[CurrentSystem]!=FINITE))
         {
-          if((fabs(AlphaAngle[CurrentSystem]-90.0)>0.001)||
-             (fabs(BetaAngle[CurrentSystem]-90.0)>0.001)||
-             (fabs(GammaAngle[CurrentSystem]-90.0)>0.001))
-            BoundaryCondition[CurrentSystem]=TRICLINIC;
-          else BoundaryCondition[CurrentSystem]=RECTANGULAR;
+          SetBoundaryConditionFromSystem(CurrentSystem, 0.001, 0.00001);
         }
 
         if(Framework[CurrentSystem].FrameworkModel==NONE)

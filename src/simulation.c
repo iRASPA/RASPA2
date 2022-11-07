@@ -745,7 +745,7 @@ void InitializeReplicaBox(void)
 
   // use cell lists for sufficiently large systems
   if((NumberOfCellListCells[CurrentSystem].x>3)&&(NumberOfCellListCells[CurrentSystem].y>3)&&
-     (NumberOfCellListCells[CurrentSystem].z>3)&&(BoundaryCondition[CurrentSystem]==RECTANGULAR))
+     (NumberOfCellListCells[CurrentSystem].z>3)&&((BoundaryCondition[CurrentSystem]==RECTANGULAR)||(BoundaryCondition[CurrentSystem]==CUBIC)))
 //  if((NumberOfCellListCells[CurrentSystem].x>3)&&(NumberOfCellListCells[CurrentSystem].y>3)&&
 //     (NumberOfCellListCells[CurrentSystem].z>3))
     UseCellLists[CurrentSystem]=TRUE;
