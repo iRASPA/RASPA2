@@ -10263,6 +10263,11 @@ int ParallelTemperingMove(void)
 
   cpu_before=get_cpu_time();
 
+  if (NumberOfSystems == 1) {
+    fprintf(stderr, "ERROR: cannot do parallel tempering on a single system");
+    exit(0);
+  }
+
   SystemA=(int)(((REAL)NumberOfSystems-(REAL)1.0)*RandomNumber());
   SystemB=SystemA+1;
 

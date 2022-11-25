@@ -585,6 +585,20 @@ void MakeGrid(void)
     }
     fprintf(stderr, "Writing Grid\n");
     WriteVDWGrid(GridTypeList[l]);
+
+    for(i=0;i<=NumberOfVDWGridPoints.x;i++)
+    {
+      for(j=0;j<=NumberOfVDWGridPoints.y;j++)
+      {
+        for(k=0;k<=NumberOfVDWGridPoints.z;k++)
+        {
+          free(VDWGrid[GridTypeList[l]][i][j][k]);
+        }
+        free(VDWGrid[GridTypeList[l]][i][j]);
+      }
+      free(VDWGrid[GridTypeList[l]][i]);
+    }
+    free(VDWGrid[GridTypeList[l]]);
   }
 
   // compute the number of grid points
@@ -740,7 +754,6 @@ int WriteVDWGrid(int l)
       for(j=0;j<=NumberOfVDWGridPoints.y;j++)
         for(k=0;k<=NumberOfVDWGridPoints.z;k++)
           fwrite(&VDWGrid[l][i][j][k][m],1,sizeof(float),FilePtr);
-
 
   fclose(FilePtr);
   return 0;
