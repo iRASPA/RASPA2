@@ -10959,8 +10959,8 @@ void PotentialSecondDerivative(int typeA,int typeB,REAL rr,REAL *energy,REAL *fa
 void PotentialThirdDerivative(int typeA,int typeB,REAL rr,REAL *energy,REAL *factor1,REAL *factor2,REAL *factor3)
 {
   REAL fcVal1,fcVal2,fcVal3,U,rri3;
-  REAL arg1,arg2,arg3,arg4;
-  REAL r;
+  REAL arg1,arg2,arg3,arg4,arg5;
+  REAL r,r6,exp_term;
 
   switch(PotentialType[typeA][typeB])
   {
@@ -11011,6 +11011,53 @@ void PotentialThirdDerivative(int typeA,int typeB,REAL rr,REAL *energy,REAL *fac
       fcVal2=arg1*arg2*exp(-arg2*r/arg3)*(exp(arg2*(0.5+0.5*r/arg3))*(-arg3-0.5*arg2*r)+exp(arg2)*(arg3+arg2*r))/(rr*r*SQR(arg3));
       fcVal3=(arg2*arg1*exp((arg2*(arg3 - r))/arg3)*((12*SQR(arg3))/exp((arg2*(arg3 - r))/(2*arg3)) - 12*SQR(arg3) - 4*SQR(arg2)*rr - 12*arg2*arg3*r + (SQR(arg2)*rr)/exp((arg2*(arg3 - r))/(2*arg3)) + (6*arg2*arg3*r)/exp((arg2*(arg3 - r))/(2*arg3))))/(4*CUBE(arg3)*SQR(rr)*r);
       break;
+
+    case BUCKINGHAM:
+      // p_0*exp(-p_1*r)-p_2/r^6
+      // ======================================================================================
+      // p_0/k_B [K]
+      // p_1     [A^-1]
+      // p_2/k_B [K A^6]
+      // p_3/k_B [K]  (non-zero for a shifted potential)
+      arg1=PotentialParms[typeA][typeB][0];
+      arg2=PotentialParms[typeA][typeB][1];
+      arg3=PotentialParms[typeA][typeB][2];
+      arg4=PotentialParms[typeA][typeB][3];
+      r=sqrt(rr);
+      r6=CUBE(rr);
+      rri3=arg3*CUBE(1.0/rr);
+      exp_term=arg1*exp(-arg2*r);
+      U=-rri3+exp_term-arg4;
+      fcVal1=-arg2*exp_term/r+(6.0/rr)*rri3;
+      fcVal2=-48.0*rri3/(rr*rr)+arg2*exp_term*(1.0+arg2*r)/(rr*r);
+      fcVal3=-(3*arg1*SQR(arg2)*r6*rr - 480*arg3*exp(arg2*r) + arg1*CUBE(arg2)*r6*rr*r + 3*arg1*arg2*r6*r)/(SQR(r6)*exp(arg2*r));
+      break;
+
+    case BUCKINGHAM2:
+      // if(r<p_3) 1e10 else p_0*exp(-p_1*r)-p_2/r^6
+      // ======================================================================================
+      // p_0/k_B [K]
+      // p_1     [A^-1]
+      // p_2/k_B [K A^6]
+      // p_3     [A]
+      // p_4/k_B [K]  (non-zero for a shifted potential)
+      // Note: the case r<p_3 can not occur here as it is supposed to be avoided by the high energy in 'PotentialValue'
+      //       in Molecular Dynamics the usual Buckingham should suffice
+      arg1=PotentialParms[typeA][typeB][0];
+      arg2=PotentialParms[typeA][typeB][1];
+      arg3=PotentialParms[typeA][typeB][2];
+      arg4=PotentialParms[typeA][typeB][3];
+      arg5=PotentialParms[typeA][typeB][4];
+      r=sqrt(rr);
+      r6=CUBE(rr);
+      rri3=arg3*CUBE(1.0/rr);
+      exp_term=arg1*exp(-arg2*r);
+      U=-rri3+exp_term-arg5;
+      fcVal1=-arg2*exp_term/r+(6.0/rr)*rri3;
+      fcVal2=-48.0*rri3/(rr*rr)+arg2*exp_term*(1.0+arg2*r)/(rr*r);
+      fcVal3=-(3*arg1*SQR(arg2)*r6*rr - 480*arg3*exp(arg2*r) + arg1*CUBE(arg2)*r6*rr*r + 3*arg1*arg2*r6*r)/(SQR(r6)*exp(arg2*r));
+      break;
+
     default:
       U=0.0;
       fcVal1=0.0;
