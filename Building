@@ -1,0 +1,43 @@
+IP2Proxy Logo
+Enter an IP Address:
+102.0.0.0
+IP2Proxy Proxy Detection Result
+Source: IP2Proxy PX11 (The latest update)
+
+IP Address
+102.0.0.0
+Proxy Type
+No VPN or Proxy Detected
+Try Our IP2Location.io IP Geolocation API
+This is the geolocation API result.
+
+Request
+$ curl "https://api.ip2location.io/?key={YOUR_API_KEY}&ip=102.0.0.0"
+Response
+{
+    "ip": "102.0.0.0",
+    "country_code": "KE",
+    "country_name": "Kenya",
+    "region_name": "Kiambu",
+    "city_name": "Ruiru",
+    "latitude": -1.14665,
+    "longitude": 36.96087,
+    "zip_code": "-",
+    "time_zone": "+03:00",
+    "asn": "36926",
+    "as": "CKL1-ASN",
+    "isp": "Airtel Networks Kenya Limited",
+    "domain": "airtel.com",
+    "net_speed": "DSL",
+    "idd_code": "254",
+    "area_code": "0725",
+    "weather_station_code": "KEXX0011",
+    "weather_station_name": "Thika",
+    "mcc": "639",
+    "mnc": "03",
+    "mobile_brand": "Airtel",
+    "elevation": 1526,
+    "usage_type": "MOB",
+    "address_type": "Unicast",
+    "continent": {
+        "name": "Africa",
