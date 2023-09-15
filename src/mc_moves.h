@@ -40,6 +40,21 @@
 #include "input.h"
 
 // delta energies
+// Modified by Ambroise de Izarra
+//-------------------------------------------------------------------
+// switched from static to extern for use in alchemical transformation.
+extern REAL UDeltaPolarization;
+extern REAL *UHostPolarizationNew;
+extern REAL *UAdsorbatePolarizationNew;
+extern REAL *UCationPolarizationNew;
+extern REAL *UPolarizationNew;
+
+extern REAL *UHostBackPolarizationNew;
+extern REAL *UAdsorbateBackPolarizationNew;
+extern REAL *UCationBackPolarizationNew;
+extern REAL *UBackPolarizationNew;
+//-------------------------------------------------------------------
+
 extern REAL *UHostVDWDelta;
 extern REAL *UHostChargeChargeRealDelta;
 extern REAL *UHostChargeBondDipoleRealDelta;
@@ -93,6 +108,9 @@ extern int ParallelMolFractionComponentB;
 extern int NumberOfHybridNVESteps;
 extern int NumberOfHybridNPHSteps;
 extern int NumberOfHybridNPHPRSteps;
+
+
+//----------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------
 // CFC-RXMC Parameters
@@ -149,6 +167,11 @@ int ReinsertionAdsorbateMove(void);
 int ReinsertionInPlaceAdsorbateMove(void);
 int ReinsertionInPlaneAdsorbateMove(void);
 int IdentityChangeAdsorbateMove(void);
+// Added by Ambroise de Izarra
+//-------------------------------------------------------------------
+int AlchemicalChangeAdsorbateMove(void);
+int WidomOsmostatCalculation(void);
+//-------------------------------------------------------------------
 int PartialReinsertionAdsorbateMove(void);
 
 void OptimizeTranslationAcceptence(void);
@@ -198,6 +221,17 @@ void PrintPartialReinsertionStatistics(FILE *FilePtr);
 void PrintIdentityChangeStatistics(FILE *FilePtr);
 void PrintParallelTemperingStatistics(FILE *FilePtr);
 void PrintHyperParallelTemperingStatistics(FILE *FilePtr);
+
+// Added by Ambroise de Izarra
+//-------------------------------------------------------------------
+void PrintAlchemicalChangeStatistics(FILE *FilePtr);
+void PrintwidomOsmostatStatistics(FILE *FilePtr);
+
+extern REAL **AlchemicalChangeAttempts;
+extern REAL (**AlchemicalChangeAccepted)[2];
+
+extern REAL **WidomOsmostat;
+//-------------------------------------------------------------------
 void PrintParallelMolFractionStatistics(FILE *FilePtr);
 void PrintChiralInversionStatistics(FILE *FilePtr);
 void PrintVolumeChangeStatistics(FILE *FilePtr);
@@ -264,5 +298,6 @@ void OptimizeCFGibbsLambdaChangeAcceptence(void);
 void WriteRestartMcMoves(FILE *FilePtr);
 void AllocateMCMovesMemory(void);
 void ReadRestartMcMoves(FILE *FilePtr);
+
 
 #endif

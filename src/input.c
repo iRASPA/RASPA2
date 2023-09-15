@@ -161,6 +161,7 @@ void CheckConstraintInputCation(CATION_MOLECULE** cations,int molecule_nr,int at
 // more characters then the line are discarded
 char *ReadLine(char *buffer, size_t length, FILE *file)
 {
+	
   char *p;
   size_t last;
 
@@ -234,11 +235,19 @@ int ReadInput(char *input)
   int NumberOfCFBiasingFactors;
   REAL OverlapDistance;
   int CurrentReaction;
+  // Added by Ambroise de Izarra
+  //-------------------------------------------------------------------
+  int CurrentAlchReaction;
+  //-------------------------------------------------------------------
   int typeA,typeB;
   int atom1,atom2;
   int CFMoleculePresent=FALSE;
 
   CurrentReaction=0;
+  // Added by Ambroise de Izarra
+  //-------------------------------------------------------------------
+  CurrentAlchReaction=0;
+  //-------------------------------------------------------------------
   RXMCLambdaHistogramSize=21;
   MeasureLambdaBelow=10.0;
   RemoveFractionalMoleculesFromRestartFile=FALSE;
@@ -479,7 +488,11 @@ int ReadInput(char *input)
   ComputePrincipleMomentsOfInertia=FALSE;
 
   CFWangLandauEvery=5000;
-
+  // Added by Ambroise de Izarra
+  //-------------------------------------------------------------------
+  RelaxationStepsAlchemicalTransformationMove = 5;
+  ChemicalPotentialAlchemical = 0.0;
+  //-------------------------------------------------------------------
   NumberOfHybridNVESteps=5;
   NumberOfHybridNPHSteps=5;
   NumberOfHybridNPHPRSteps=5;
@@ -543,6 +556,11 @@ int ReadInput(char *input)
   ProbabilityParallelMolFractionMove=0.0;
   ProbabilityGibbsVolumeChangeMove=0.0;
   ProbabilityHybridNVEMove=0.0;
+  // Added by Ambroise de Izarra
+  //-------------------------------------------------------------------
+  ProbabilityAlchemicalTransformationMove=0.0;
+  ProbabilityWidomOsmostatCalculationMove=0.0;
+  //-------------------------------------------------------------------
   ProbabilityHybridNPHMove=0.0;
   ProbabilityHybridNPHPRMove=0.0;
   ProbabilityFrameworkChangeMove=0.0;
@@ -640,7 +658,12 @@ int ReadInput(char *input)
   NumberOfSystems=0;
   NumberOfComponents=0;
   NumberOfReactions=0;
-
+  
+  // Added by Ambroise de Izarra
+  //-------------------------------------------------------------------
+  NumberAlchemicalReactions=0;
+  //-------------------------------------------------------------------
+  
   // This loops through the string line-by-line, using the reentrant form of
   // `strtok` to be less ambiguous about the state of things
   tmp = strdup(input);
@@ -732,6 +755,7 @@ int ReadInput(char *input)
     if(strcasecmp("Reaction",keyword)==0) NumberOfReactions++;
     //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
     // if restarted from a binary restart file we  can skip everything, and read
     // the full system status from that binary restart-file
     if(strcasecmp("ContinueAfterCrash",keyword)==0)
@@ -746,8 +770,30 @@ int ReadInput(char *input)
         if(ContinueAfterCrash) return 0;
       }
     }
+    
+   
+   // Added by Ambroise de Izarra
+   //------------------------------------------------------------------- 
+   if(strcasecmp("AlchemicalTransformation",keyword)==0) NumberAlchemicalReactions++;
+   
+   // store the index of salt ions.
+   if(NumberAlchemicalReactions>0)
+   {
+		SaltIndex								 =(int**)calloc(NumberAlchemicalReactions,sizeof(int*));
+		MultiplicitySalt			 			 =(int**)calloc(NumberAlchemicalReactions,sizeof(int*));
+		ChosenMoleculeAlchemicalTransformation   =(int**)calloc(NumberAlchemicalReactions,sizeof(int*));
+		NumberTransientMoities	       		 	 =(int*)calloc(NumberAlchemicalReactions,sizeof(int));
+		
+		for(i=0;i<NumberAlchemicalReactions;i++)
+		{
+			SaltIndex[i]=(int*)calloc(2,sizeof(int));
+			MultiplicitySalt[i]=(int*)calloc(2,sizeof(int));
+		}
+   }   
+   //-------------------------------------------------------------------
   }
 
+  
   // set units, either reduced or real units
   SetSimulationUnits();
 
@@ -986,13 +1032,13 @@ int ReadInput(char *input)
   {
     ReactantsStoichiometry[i]=(int*)calloc(NumberOfComponents,sizeof(int));
     ProductsStoichiometry[i]=(int*)calloc(NumberOfComponents,sizeof(int));
-
   }
 
   for(i=0;i<NumberOfSystems;i++)
     for(l=0;l<NumberOfReactions;l++)
       CFRXMCWangLandauScalingFactor[i][l]=0.01;
-
+      
+ 
   // second pass to get the number of frameworks per system
   CurrentSystem=0;
   CurrentComponent=0;
@@ -1410,7 +1456,7 @@ int ReadInput(char *input)
       Framework[i].ExcludedIntraBondDipoleBondDipole=(PAIR**)calloc(Framework[i].NumberOfFrameworks,sizeof(PAIR*));
 
       FrameworkFixedInitialization[i]=(int*)calloc(Framework[i].NumberOfFrameworks,sizeof(int));
-
+      
       NumberOfFixedFrameworkAtoms[i]=(int*)calloc(Framework[i].NumberOfFrameworks,sizeof(int));
       NumberOfFixedFrameworkAtomsX[i]=(int*)calloc(Framework[i].NumberOfFrameworks,sizeof(int));
       NumberOfFixedFrameworkAtomsY[i]=(int*)calloc(Framework[i].NumberOfFrameworks,sizeof(int));
@@ -1446,7 +1492,18 @@ int ReadInput(char *input)
       Framework[i].AnisotropicType=ANISOTROPIC_MID_POINT;
       Framework[i].ForceSpaceGroupDetection=FALSE;
       Framework[i].ReadCIFAsCartesian=FALSE;
-
+      
+      // Added by Ambroise de Izarra 
+      //-------------------------------------------------------------------
+      // Print Interaction index for bond, bend and dihedral analysis.
+      Framework[i].PrintInteractionIndex=(int*)calloc(Framework[i].NumberOfFrameworks,sizeof(int));
+      for(j=0;j<Framework[i].NumberOfFrameworks;j++)
+      {
+			Framework[i].PrintInteractionIndex[j]=FALSE;
+	  }
+      //-------------------------------------------------------------------
+      
+	  Framework[i].ReadCIFAsCartesian=FALSE;
       Framework[i].Intra14VDWScalingValue=1.0;
       Framework[i].Intra14ChargeChargeScalingValue=1.0;
     }
@@ -1479,6 +1536,10 @@ int ReadInput(char *input)
   // final pass, most memory is now already allocated
   CurrentComponent=0;
   CurrentReaction=0;
+  // Added by Ambroise de Izarra
+  //-------------------------------------------------------------------
+  CurrentAlchReaction=0;
+  //-------------------------------------------------------------------
   LineNumber=0;
   tmp = strdup(input);
   tokptr = 0;
@@ -2229,13 +2290,15 @@ int ReadInput(char *input)
       }
     }
 
-
+	
     //-----------------------------------------------------------------------------------------------------
     // CFC-RXMC : read reactions
     //-----------------------------------------------------------------------------------------------------
     if(strcasecmp("Reaction",keyword)==0)
     {
+	
       arg_pointer=arguments;
+      
       for(i=0;i<NumberOfComponents;i++)
       {
         sscanf(arg_pointer,"%d%n",&ReactantsStoichiometry[CurrentReaction][i],&n);
@@ -2249,7 +2312,27 @@ int ReadInput(char *input)
       CurrentReaction++;
     }
 
+	// Added by Ambroise de Izarra
+	//-------------------------------------------------------------------
+    // Alchemical transformation : read cation and anion indexes.
+    if(strcasecmp("AlchemicalTransformation",keyword)==0)
+    {
+		
+      arg_pointer=arguments;
 
+	  // Read the index of the solvent in which salt must be introduced.
+	  sscanf(arg_pointer,"%d%n",&SolventIndex,&n);
+      arg_pointer+=n;
+	  // Read the index of the salt, to be appeared in the component section.
+      for(i=0;i<2;i++)
+      {	 
+        sscanf(arg_pointer,"%d%n",&SaltIndex[CurrentAlchReaction][i],&n);
+        arg_pointer+=n;
+      }
+	  
+      CurrentAlchReaction++;
+    }
+    //-------------------------------------------------------------------
     // read MD ensembles
     if(strcasecmp("Ensemble",keyword)==0)
     {
@@ -2514,7 +2597,15 @@ int ReadInput(char *input)
     {
       if(strcasecmp("yes",firstargument)==0) Framework[CurrentSystem].ReadCIFAsCartesian=TRUE;
       if(strcasecmp("no",firstargument)==0) Framework[CurrentSystem].ReadCIFAsCartesian=FALSE;
+   }
+    // Added by Ambroise de Izarra
+    //-------------------------------------------------------------------
+    if(strcasecmp("PrintInteractionIndexAtoms",keyword)==0)
+    {
+      if(strcasecmp("yes",firstargument)==0) Framework[CurrentSystem].PrintInteractionIndex[CurrentFramework]=TRUE;
+      if(strcasecmp("no",firstargument)==0) Framework[CurrentSystem].PrintInteractionIndex[CurrentFramework]=FALSE;
     }
+    //-------------------------------------------------------------------
     if(strcasecmp("RestrictFrameworkAtomsToBox",keyword)==0)
     {
       if(strcasecmp("yes",firstargument)==0) Framework[CurrentSystem].RestrictFrameworkAtomsToBox=TRUE;
@@ -2782,6 +2873,14 @@ int ReadInput(char *input)
     if(strcasecmp("ReinsertionInPlaceProbability",keyword)==0) sscanf(arguments,"%lf",&Components[CurrentComponent].ProbabilityReinsertionInPlaceMove);
     if(strcasecmp("HybridMCMDMoveProbability",keyword)==0) sscanf(arguments,"%lf",&ProbabilityHybridNVEMove);
     if(strcasecmp("HybridNVEMoveProbability",keyword)==0) sscanf(arguments,"%lf",&ProbabilityHybridNVEMove);
+    // Added by Ambroise de Izarra
+    //-------------------------------------------------------------------
+    if(strcasecmp("ProbabilityAlchemicalTransformationMove",keyword)==0) sscanf(arguments,"%lf",&ProbabilityAlchemicalTransformationMove);
+    if(strcasecmp("LambdaStepsAlchemicalTransformationMove",keyword)==0) sscanf(arguments,"%d",&AlchReacLambda);
+    if(strcasecmp("ChemicalPotentialAlchemical",keyword)==0) sscanf(arguments,"%lf",&ChemicalPotentialAlchemical);
+    if(strcasecmp("RelaxationStepsAlchemicalTransformationMove",keyword)==0) sscanf(arguments,"%d",&RelaxationStepsAlchemicalTransformationMove);
+    if(strcasecmp("ProbabilityWidomOsmostatCalculationMove",keyword)==0) sscanf(arguments,"%lf",&ProbabilityWidomOsmostatCalculationMove);
+    //-------------------------------------------------------------------
     if(strcasecmp("HybridNPHMoveProbability",keyword)==0) sscanf(arguments,"%lf",&ProbabilityHybridNPHMove);
     if(strcasecmp("HybridNPHPRMoveProbability",keyword)==0) sscanf(arguments,"%lf",&ProbabilityHybridNPHPRMove);
     if(strcasecmp("NumberOfHybridNVESteps",keyword)==0) sscanf(arguments,"%d",&NumberOfHybridNVESteps);
@@ -6056,7 +6155,6 @@ int ReadInput(char *input)
       PrintFrameworkCationBondDipoleBondDipoleStatus=TRUE;
     }
 
-
     // create frameworks
     if(strcasecmp("FrameworkProbability",keyword)==0) sscanf(arguments,"%lf",&Framework[CurrentSystem].FrameworkProbability[CurrentFramework]);
     if(strcasecmp("FrameworkExclusion",keyword)==0)
@@ -6285,10 +6383,14 @@ int ReadInput(char *input)
         // read the flexible framework model definitions
         ReadFrameworkDefinition();
         ReadFrameworkSpecificDefinition();
-
+        
         MakeExclusionMatrix(CurrentSystem);
         MakeExcludedInteractionLists(CurrentSystem);
-
+        // Added by Ambroise de Izarra
+        //-------------------------------------------------------------------
+        AllocateList14atomsVDWandEwald(CurrentSystem);
+        printInteractionIndexAtoms(CurrentSystem);
+		//-------------------------------------------------------------------
         ReadBlockingPockets();
       }
 
@@ -6379,7 +6481,7 @@ int ReadInput(char *input)
   ReadForceFieldDefinitions();
   ComputeDummyInteractions();
   ComputePotentialShifts();
-
+  
   if(ChargeFromChargeEquilibration)
   {
     for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
@@ -7533,7 +7635,7 @@ int ReadInput(char *input)
 
   InitializeEwald(EwaldPrecision,EwaldAutomatic);
   AllocateEwaldMemory();
-
+  
   for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
   {
 
@@ -9709,6 +9811,7 @@ void ReadRestartFile(void)
 
 void ReadRestartFileOld(void)
 {
+	printf("READ_restart_old");
   int i;
   int NumberOfComponentsRead;
   int extra_framework_boolean;
@@ -9913,6 +10016,7 @@ void ReadRestartFileOld(void)
 
 void ReadBinaryRestartFiles(void)
 {
+  
   FILE *FilePtr;
   char buffer[1024];
 
@@ -9948,5 +10052,6 @@ void ReadBinaryRestartFiles(void)
     ContinueAfterCrash=FALSE;
     fprintf(stderr, "Crash set to false\n");
   }
+ 
 }
 

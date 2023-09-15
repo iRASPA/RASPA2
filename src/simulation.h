@@ -109,7 +109,22 @@ extern int RXMCLambdaHistogramSize;
 extern REAL ***RXMCBiasingFactors;
 extern REAL **CFRXMCWangLandauScalingFactor;
 
-//----------------------------------------------------------------------------------------
+// Added by Ambroise de Izarra
+//-------------------------------------------------------------------
+// Alchemical transformation Parameters
+
+extern int NumberAlchemicalReactions;                       // Total number of Reactions
+extern int AlchReacLambda;                       	    	// Number of step for chemical transformation
+extern REAL ProbabilityAlchReacLambdaChangeMove;
+extern int **SaltIndex;                	// Reactants Stoichiometry
+extern int **MultiplicitySalt;							 	// Tell the number of cation and anion (for charge)
+extern int SolventIndex;					// The solvent to be exchanged with the salt.
+extern int *NumberTransientMoities;
+extern int **ChosenMoleculeAlchemicalTransformation;
+extern REAL *Lambda;						 				// Parameter lambda step
+extern int RelaxationStepsAlchemicalTransformationMove;      // Steps of NVE MD to relax between lambda change.
+extern REAL ChemicalPotentialAlchemical;
+//-------------------------------------------------------------------
 
 
 extern int NumberOfPartialPressures;
@@ -422,6 +437,11 @@ extern REAL ProbabilityHyperParallelTemperingMove;
 extern REAL ProbabilityParallelMolFractionMove;
 extern REAL ProbabilityChiralInversionMove;
 extern REAL ProbabilityHybridNVEMove;
+// Added by Ambroise
+//---------------------------------
+extern REAL ProbabilityAlchemicalTransformationMove;
+extern REAL ProbabilityWidomOsmostatCalculationMove;
+//---------------------------------
 extern REAL ProbabilityHybridNPHMove;
 extern REAL ProbabilityHybridNPHPRMove;
 extern REAL ProbabilityVolumeChangeMove;
@@ -440,6 +460,11 @@ extern REAL *CpuTimeHyperParallelTemperingMove;
 extern REAL *CpuTimeParallelMolFractionMove;
 extern REAL *CpuTimeChiralInversionMove;
 extern REAL *CpuTimeHybridNVEMove;
+// Added by Ambroise
+//---------------------------------------------
+extern REAL *CpuTimeAlchemicalChangeMove;
+extern REAL *CpuTimeWidomOsmostatChangeMove;
+//---------------------------------------------
 extern REAL *CpuTimeHybridNPHMove;
 extern REAL *CpuTimeHybridNPHPRMove;
 extern REAL *CpuTimeVolumeChangeMove;
@@ -461,6 +486,7 @@ extern int OptimizeCBCFLambdaChange;
 extern int OptimizeCBCFGibbsLambdaChange;
 extern int OptimizeRXMCLambdaChange;
 
+//void InitializeLambdaAlchemicalMove(void);
 void ScaleBornTerm(REAL r);
 void AddContributionToCrossTerm(int i,REAL_MATRIX CrossTerm,REAL DDF,REAL DF,VECTOR dr);
 void AddContributionToBornTerm(REAL DDF,REAL DF,VECTOR dr);

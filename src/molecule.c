@@ -50,6 +50,7 @@
 #include "mc_moves.h"
 #include "ewald.h"
 #include "thermo_baro_stats.h"
+#include "Alchemical_transformation.h"
 #include "integration.h"
 #include "scattering_factors.h"
 #include "input.h"
@@ -398,8 +399,160 @@ int IsFractionalReactionCationMolecule(int m)
   return FALSE;
 }
 
+// Added by Ambroise de Izarra
+
+/*********************************************************************************************************
+ * Name       | SelectRandomMoleculeAlchemicalTransformation   (Added by A. de Izarra)                   *
+ * ----------------------------------------------------------------------------------------------------- *
+ * Function   | This function select randomly a set of candidate molecules to be alchemically			 *
+ * 			  | transformed.                     						 								 *
+ * Parameters | int * OldComponent => List of old component index										 *
+ * 			  | int NumberSpecies => if NumberSpecies=1, water is chosen, otherwise ions are chosen.	 *
+ * 			  | int CurrentAlchemicalReaction => index of AlchemicalReaction (always = 0 in this version *
+ *********************************************************************************************************/
+void SelectRandomMoleculeAlchemicalTransformation(int * OldComponent, int NumberSpecies, int CurrentAlchemicalReaction)
+{
+	int i,j,d;
+	int SameIndexPicked;
+	int count,CurrentMolecule;
+	int species;
+	int TotalSaltIon;
+	int index1,index2;
+	
+	// We now it is water to be exchanged
+	if(NumberSpecies == 1)
+	{
+		do{
+			
+			// pick the index of water required
+			for(i=0;i<NumberTransientMoities[CurrentAlchemicalReaction];i++)
+			{
+				ChosenMoleculeAlchemicalTransformation[CurrentAlchemicalReaction][i] = (int)(RandomNumber()*Components[OldComponent[0]].NumberOfMolecules[CurrentSystem]);
+			}
+
+			// Test if all molecule index are differents.
+			for(i=0;i<NumberTransientMoities[CurrentAlchemicalReaction];i++)
+			{
+				for(j=0;j<NumberTransientMoities[CurrentAlchemicalReaction];j++)
+				{
+					if(i!=j)
+					{
+						if(ChosenMoleculeAlchemicalTransformation[CurrentAlchemicalReaction][i] == ChosenMoleculeAlchemicalTransformation[CurrentAlchemicalReaction][j])
+						{
+							SameIndexPicked = 1;
+							goto here;
+						}
+						else
+						{
+							SameIndexPicked = 0;
+						}
+					}
+				}
+			}
+			here:;
+		
+		}while(SameIndexPicked==1);
+		
+		for(i=0;i<NumberTransientMoities[CurrentAlchemicalReaction];i++)
+		{
+			count=-1;
+			CurrentMolecule=-1;
+			do   // search for n-th molecule of the right type
+			{
+			  CurrentMolecule++;
+			  if((Adsorbates[CurrentSystem][CurrentMolecule].Type==OldComponent[0])) count++;
+			}
+			while(ChosenMoleculeAlchemicalTransformation[CurrentAlchemicalReaction][i]!=count);
+			
+			// index molecule to be outputed.
+			ChosenMoleculeAlchemicalTransformation[CurrentAlchemicalReaction][i] = CurrentMolecule;
+		}
+	}
+	else
+	{
+		
+		do{
+			TotalSaltIon=0;
+			// pick the index salt ions.
+			for(species=0; species<NumberSpecies; species++)
+			{
+				for(i=0;i<MultiplicitySalt[CurrentAlchemicalReaction][species];i++)
+				{
+					ChosenMoleculeAlchemicalTransformation[CurrentAlchemicalReaction][TotalSaltIon] = (int)(RandomNumber()*Components[OldComponent[species]].NumberOfMolecules[CurrentSystem]);					
+					TotalSaltIon++;
+					
+				}
+			}
+			
+			index1=-1; 
+			index2=-1;
+			
+			//If there is only one cation and one anion, no need to check if two indexes are same within picked anions, and separately within picked cations.
+			// otherwise we need to make the test with the else
+			if(TotalSaltIon == 2)
+			{
+				SameIndexPicked = 0;
+			}
+			else
+			{
+				// Test if all molecule index are differents within cation and anions.
+				for(species=0; species<NumberSpecies; species++)
+				{
+					for(i=0;i<MultiplicitySalt[CurrentAlchemicalReaction][species];i++)
+					{
+						index1++;
+						
+						for(j=0;j<MultiplicitySalt[CurrentAlchemicalReaction][species];j++)
+						{
+							index2++;
+				
+							if(index1!=index2)
+							{
+								if(ChosenMoleculeAlchemicalTransformation[CurrentAlchemicalReaction][index1] == ChosenMoleculeAlchemicalTransformation[CurrentAlchemicalReaction][index2])
+								{
+									SameIndexPicked = 1;
+									goto here2;
+								}
+								else
+								{
+									SameIndexPicked = 0;
+								}
+							}
+						}
+					}
+				}
+				
+				here2:;
+			}
+		}while(SameIndexPicked==1);
+		
+		TotalSaltIon=0;
+
+		for(species=0; species<NumberSpecies; species++)
+		{
+			for(i=0;i<MultiplicitySalt[CurrentAlchemicalReaction][species];i++)
+			{
+				count=-1;
+				CurrentMolecule=-1;
+				do   // search for n-th molecule of the right type
+				{
+					CurrentMolecule++;
+					if((Adsorbates[CurrentSystem][CurrentMolecule].Type==OldComponent[species])) count++;
+				}
+				while(ChosenMoleculeAlchemicalTransformation[CurrentAlchemicalReaction][TotalSaltIon]!=count);
+			
+				// index molecule to be outputed.
+				ChosenMoleculeAlchemicalTransformation[CurrentAlchemicalReaction][TotalSaltIon] = CurrentMolecule;
+				TotalSaltIon++;
+			}
+		}
+	}	
+}
+
+
 int SelectRandomMoleculeOfTypeExcludingFractionalMolecule(int comp)
 {
+
   int d,count;
   int CurrentMolecule;
 
@@ -803,14 +956,14 @@ void ReadPseudoAtomsDefinitions(void)
 }
 
 void ComputeInertiaTensorGroups(int comp)
-{
+{		
   int j,k,ill;
   REAL Mass,TotalMass,rotxyz,temp,rotall,rotlim;
   VECTOR com,pos;
   REAL_MATRIX3x3 eigenvectors;
   VECTOR eigenvalues,dr;
   int atom_nr;
-
+  
   for(j=0;j<Components[comp].NumberOfGroups;j++)
   {
     TotalMass=0.0;
@@ -859,10 +1012,10 @@ void ComputeInertiaTensorGroups(int comp)
 
     // the local body frame is taken to be that in which the rotational inertia tensor is diagonal
     EigenSystem3x3(Components[comp].Groups[j].InertiaTensor,&eigenvectors,&eigenvalues);
-
     Components[comp].Groups[j].InertiaVector.x=0.0;
     Components[comp].Groups[j].InertiaVector.y=0.0;
-    Components[comp].Groups[j].InertiaVector.z=0.0;
+    Components[comp].Groups[j].InertiaVector.z=0.0;          
+
     for(k=0;k<Components[comp].Groups[j].NumberOfGroupAtoms;k++)
     {
       atom_nr=Components[comp].Groups[j].Atoms[k];
@@ -876,7 +1029,6 @@ void ComputeInertiaTensorGroups(int comp)
       if(fabs(pos.y)<1e-8) pos.y=0.0;
       if(fabs(pos.z)<1e-8) pos.z=0.0;
       Components[comp].Positions[atom_nr]=pos;
-
       atom_nr=Components[comp].Groups[j].Atoms[k];
       Mass=PseudoAtoms[Components[comp].Type[atom_nr]].Mass;
       Components[comp].Groups[j].InertiaVector.x+=Mass*(SQR(pos.y)+SQR(pos.z));
@@ -1132,12 +1284,69 @@ void ComputeInertiaTensorGroups(int comp)
         break;
     }
   }
+}
 
+// Added by Ambroise de Izarra
+/*********************************************************************************************************
+ * Name       | SetUpNumberMoitiesExchangedAlchemicalReaction   (Added by A. de Izarra)                  *
+ * ----------------------------------------------------------------------------------------------------- *
+ * Function   | This function manage number of molecules to be transformed depending of the				 *
+ * 			  | charge of the cation and the anion.                  						 			 *
+ * Parameters | No parameters																			 *
+ *********************************************************************************************************/
+void SetUpNumberMoitiesExchangedAlchemicalReaction(void)
+{
+	// This is used to determine ratio of salt ions, depending of their charge.
+	REAL charge_salt_absolute_value[2]= {0.0,0.0};
+	REAL charge_salt_value[2]= {0.0,0.0};
+	REAL Total_charge = 0.0;
+	
+	int CurrentAlchReaction,i,j;
+	  
+	for(CurrentAlchReaction=0;CurrentAlchReaction<NumberAlchemicalReactions;CurrentAlchReaction++)
+	{
+		NumberTransientMoities[CurrentAlchReaction] = 0;
+		  
+		// Read over salt
+		for(i=0;i<2;i++)
+		{	 
+			// This is one atom for salt ions.
+			for(j=0;j<Components[SaltIndex[CurrentAlchReaction][i]].NumberOfAtoms;j++)
+			{
+				NumberTransientMoities[CurrentAlchReaction] += (int)(fabs(Components[SaltIndex[CurrentAlchReaction][i]].Charge[j]));
+				charge_salt_absolute_value[i] = fabs(Components[SaltIndex[CurrentAlchReaction][i]].Charge[j]);
+				charge_salt_value[i] = Components[SaltIndex[CurrentAlchReaction][i]].Charge[j];
+			}
+		}
+		
+		// Initialize the vector to store index of chosen molecule to be replaced in the MC-move.
+		ChosenMoleculeAlchemicalTransformation[CurrentAlchReaction] = (int*)calloc(NumberTransientMoities[CurrentAlchReaction],sizeof(int));
+		
+		// Set up charge multiplicity to take account of ion ratio if charge differ from cation and anion.
+		if(charge_salt_absolute_value[0] == charge_salt_absolute_value[1])
+		{
+			MultiplicitySalt[CurrentAlchReaction][0] = (int)(charge_salt_absolute_value[0]);
+			MultiplicitySalt[CurrentAlchReaction][1] = (int)(charge_salt_absolute_value[1]);
+		}
+		else 
+		{
+			MultiplicitySalt[CurrentAlchReaction][0] = (int)(charge_salt_absolute_value[1]);
+			MultiplicitySalt[CurrentAlchReaction][1] = (int)(charge_salt_absolute_value[0]);
+		}
+	
+		// Test if charge is well defined.	
+		Total_charge = MultiplicitySalt[CurrentAlchReaction][0]*charge_salt_value[0] + MultiplicitySalt[CurrentAlchReaction][1]*charge_salt_value[1];
+		if(Total_charge != 0)
+		{
+			printf("ERROR: The charge of cation or anion is not well settled...\n");
+			exit(0);
+		}
+	}
 }
 
 // Read the definition of the comp-th Component of Type "Name"
 void ReadComponentDefinition(int comp)
-{
+{	
   int i,j,k,n,nr;
   int A,B,C,D,temp;
   int A1,A2,B1,B2,C1,C2;
@@ -1205,7 +1414,7 @@ void ReadComponentDefinition(int comp)
            Components[comp].NumberOfAtoms);
     exit(0);
   }
-
+  
   // allocate charility-centers
   Components[comp].Chirality=(int*)calloc(Components[comp].NumberOfAtoms,sizeof(int));
   Components[comp].ChiralityType=(int*)calloc(Components[comp].NumberOfAtoms,sizeof(int));
@@ -1337,11 +1546,17 @@ void ReadComponentDefinition(int comp)
   }
 
   total_mass=0.0;
+  
+   // Added by Ambroise de Izarra
+   //-------------------------------------------------------------------
+  if(comp==SolventIndex)
+	SolventBodyfixedPositions=(VECTOR**)calloc(Components[comp].NumberOfGroups,sizeof(VECTOR*));
+  //-------------------------------------------------------------------
+ 
   for(i=0;i<Components[comp].NumberOfGroups;i++)
   {
     ReadLine(line,1024,FilePtr);  // skip line
-
-
+    
     ReadLine(line,1024,FilePtr);
     sscanf(line,"%s",buffer);
     if(strcasecmp("rigid",buffer)==0)
@@ -1375,6 +1590,13 @@ void ReadComponentDefinition(int comp)
     {
       ReadLine(line,1024,FilePtr);  // skip line
       Components[comp].Groups[i].Atoms=(int*)calloc(Components[comp].Groups[i].NumberOfGroupAtoms,sizeof(int));
+      
+      // Added by Ambroise de Izarra
+      //-------------------------------------------------------------------
+	  if(comp==SolventIndex)
+		SolventBodyfixedPositions[i]=(VECTOR*)calloc(Components[comp].Groups[i].NumberOfGroupAtoms,sizeof(VECTOR));
+      //-------------------------------------------------------------------
+      
       for(j=0;j<Components[comp].Groups[i].NumberOfGroupAtoms;j++)
       {
         temp1=temp2=temp3=0.0;
@@ -1392,6 +1614,15 @@ void ReadComponentDefinition(int comp)
         pos.y=(REAL)temp2;
         pos.z=(REAL)temp3;
 
+		
+		// Added by Ambroise de Izarra
+		//-------------------------------------------------------------------
+		if(comp==SolventIndex)
+		{
+		  SolventBodyfixedPositions[i][j]=pos;
+		}
+		//-------------------------------------------------------------------
+		
         k=ReturnPseudoAtomNumber(buffer);
         Components[comp].Type[temp]=k;
         mass+=PseudoAtoms[k].Mass;
@@ -1402,7 +1633,9 @@ void ReadComponentDefinition(int comp)
         Components[comp].Groups[i].Atoms[j]=temp;
       }
     }
-
+    	 		//A=Components[0].Groups[0].Atoms[3];	 
+			//printf("inertiaComponents[0].Positions[A].y : %lf \n",Components[0].Positions[A].y);
+			//printf("\n"); 
     if(Components[comp].Groups[i].NumberOfPermanentDipoles>0)
     {
       ReadLine(line,1024,FilePtr);  // skip line
@@ -1456,11 +1689,17 @@ void ReadComponentDefinition(int comp)
     Components[comp].Groups[i].Mass=0.0;
     for(j=0;j<Components[comp].Groups[i].NumberOfGroupAtoms;j++)
     {
+	  
       A=Components[comp].Groups[i].Atoms[j];
       Components[comp].Groups[i].Mass+=PseudoAtoms[Components[comp].Type[A]].Mass;
     }
   }
 
+  //pos=Components[Type].Positions[A];
+  //printf("Components[3].Positions[A].y : %lf \n",Components[0].Positions[0].y);
+  //printf("Components[3].Positions[A].y : %lf \n",Components[0].Positions[1].y);
+  //printf("Components[3].Positions[A].y : %lf \n",Components[0].Positions[2].y);
+  //printf("Components[3].Positions[A].y : %lf \n",Components[0].Positions[3].y);
 
   ComputeInertiaTensorGroups(comp);
 
@@ -2917,7 +3156,6 @@ void ReadComponentDefinition(int comp)
     }
   }
 
-
   if(Components[comp].NumberOfIntraBondDipoleBondDipole>0)
   {
     ReadLine(line,1024,FilePtr); // skip line
@@ -3112,6 +3350,92 @@ void ReadComponentDefinition(int comp)
   fclose(FilePtr);
 }
 
+void InsertAdsorbateAlchMolecule(void)
+{
+  int i,type,nr_atoms;
+  int NewMolecule;
+
+  // add the number of atoms
+  nr_atoms=Components[CurrentComponent].NumberOfAtoms;
+  NumberOfAtomsPerSystem[CurrentSystem]+=nr_atoms;
+  NumberOfChargesPerSystem[CurrentSystem]+=Components[CurrentComponent].NumberOfCharges;
+  NumberOfBondDipolesPerSystem[CurrentSystem]+=Components[CurrentComponent].NumberOfBondDipoles;
+
+  // update the number of adsorbate molecules
+  NumberOfAdsorbateMolecules[CurrentSystem]++;
+  Components[CurrentComponent].NumberOfMolecules[CurrentSystem]++;
+
+  // add the new data at the last newly created element
+  NewMolecule=NumberOfAdsorbateMolecules[CurrentSystem]-1;
+  Adsorbates[CurrentSystem][NewMolecule].NumberOfAtoms=nr_atoms;
+  Adsorbates[CurrentSystem][NewMolecule].Type=CurrentComponent;
+
+  // allocate the meory for the atoms and groups
+  Adsorbates[CurrentSystem][NewMolecule].Atoms=(ATOM*)calloc(nr_atoms,sizeof(ATOM));
+  if(Components[CurrentComponent].NumberOfGroups>0)
+    Adsorbates[CurrentSystem][NewMolecule].Groups=(GROUP*)calloc(Components[CurrentComponent].NumberOfGroups,sizeof(GROUP));
+
+  // copy the grown positions etc to the current element
+  for(i=0;i<nr_atoms;i++)
+  {
+    Adsorbates[CurrentSystem][NewMolecule].Atoms[i].Position=NewPosition[CurrentSystem][i];
+    Adsorbates[CurrentSystem][NewMolecule].Atoms[i].AnisotropicPosition=TrialAnisotropicPosition[CurrentSystem][i];
+    Adsorbates[CurrentSystem][NewMolecule].Atoms[i].Velocity=NewVelocity[CurrentSystem][i];
+    Adsorbates[CurrentSystem][NewMolecule].Atoms[i].Force=NewForce[CurrentSystem][i];
+
+    // new Continuous-Fraction scaling factors are taken from the component-information
+    Adsorbates[CurrentSystem][NewMolecule].Atoms[i].CFVDWScalingParameter=CFVDWScaling[i];
+    Adsorbates[CurrentSystem][NewMolecule].Atoms[i].CFChargeScalingParameter=CFChargeScaling[i];
+
+    type=Components[CurrentComponent].Type[i];
+    Adsorbates[CurrentSystem][NewMolecule].Atoms[i].Type=type;
+    Adsorbates[CurrentSystem][NewMolecule].Atoms[i].Fixed.x=Components[CurrentComponent].Fixed[i];
+    Adsorbates[CurrentSystem][NewMolecule].Atoms[i].Fixed.y=Components[CurrentComponent].Fixed[i];
+    Adsorbates[CurrentSystem][NewMolecule].Atoms[i].Fixed.z=Components[CurrentComponent].Fixed[i];
+    Adsorbates[CurrentSystem][NewMolecule].Atoms[i].Charge=Components[CurrentComponent].Charge[i];
+    NumberOfPseudoAtomsType[CurrentSystem][type]++;
+  }
+
+  // update the center of mass
+  UpdateGroupCenterOfMassAdsorbate(NewMolecule);
+
+  // compute the quaternion (orientation) from the positions
+  ComputeQuaternionAdsorbate(NewMolecule);
+
+  // initialize the velocities
+  InitializeVelocityAdsorbate(NewMolecule);
+
+  // modify the degrees of freedom
+  for(i=0;i<Components[CurrentComponent].NumberOfGroups;i++)
+  {
+    if(Components[CurrentComponent].Groups[i].Rigid)
+    {
+	  DegreesOfFreedomAdsorbates[CurrentSystem]+=3;
+      DegreesOfFreedomTranslation[CurrentSystem]+=3;
+      DegreesOfFreedomTranslationalAdsorbates[CurrentSystem]+=3;
+      DegreesOfFreedom[CurrentSystem]+=3;
+                                  
+      DegreesOfFreedomRotation[CurrentSystem]+=Components[CurrentComponent].Groups[i].RotationalDegreesOfFreedom;
+      DegreesOfFreedomAdsorbates[CurrentSystem]+=Components[CurrentComponent].Groups[i].RotationalDegreesOfFreedom;
+      DegreesOfFreedomRotationalAdsorbates[CurrentSystem]+=Components[CurrentComponent].Groups[i].RotationalDegreesOfFreedom;
+      DegreesOfFreedom[CurrentSystem]+=Components[CurrentComponent].Groups[i].RotationalDegreesOfFreedom;
+    }
+    else
+    {
+      DegreesOfFreedomTranslation[CurrentSystem]+=3*Components[CurrentComponent].Groups[i].NumberOfGroupAtoms;
+      DegreesOfFreedomAdsorbates[CurrentSystem]+=3*Components[CurrentComponent].Groups[i].NumberOfGroupAtoms;
+      DegreesOfFreedomTranslationalAdsorbates[CurrentSystem]+=3*Components[CurrentComponent].Groups[i].NumberOfGroupAtoms;
+      DegreesOfFreedom[CurrentSystem]+=3*Components[CurrentComponent].Groups[i].NumberOfGroupAtoms;
+    }
+  }
+// reinitialize the Nose-Hoover internal variables based on the current number of molecules for MuPT, MuPTPR and MuVT ensembles 
+  if((Ensemble[CurrentSystem]==MuPT)||(Ensemble[CurrentSystem]==MuPTPR)||(Ensemble[CurrentSystem]==MuVT))
+  {
+    InitializeNoseHooverCurrentSystem();
+  }
+}
+
+
 void InsertAdsorbateMolecule(void)
 {
   int i,type,nr_atoms;
@@ -3134,6 +3458,7 @@ void InsertAdsorbateMolecule(void)
 
   // if the number is largest than the currently allocated memory reallocate the memory for Ewald
   // the hard-coded default here is to extend the arrays with 256 atoms
+  
   if(LargestNumberOfCoulombicSites>=MaxNumberOfCoulombicSites)
   {
     MaxNumberOfCoulombicSites+=MAX2(MaxNumberOfBeads,512);
@@ -3210,11 +3535,11 @@ void InsertAdsorbateMolecule(void)
   {
     if(Components[CurrentComponent].Groups[i].Rigid)
     {
-      DegreesOfFreedomAdsorbates[CurrentSystem]+=3;
+	  DegreesOfFreedomAdsorbates[CurrentSystem]+=3;
       DegreesOfFreedomTranslation[CurrentSystem]+=3;
       DegreesOfFreedomTranslationalAdsorbates[CurrentSystem]+=3;
       DegreesOfFreedom[CurrentSystem]+=3;
-
+                                  
       DegreesOfFreedomRotation[CurrentSystem]+=Components[CurrentComponent].Groups[i].RotationalDegreesOfFreedom;
       DegreesOfFreedomAdsorbates[CurrentSystem]+=Components[CurrentComponent].Groups[i].RotationalDegreesOfFreedom;
       DegreesOfFreedomRotationalAdsorbates[CurrentSystem]+=Components[CurrentComponent].Groups[i].RotationalDegreesOfFreedom;
@@ -3238,7 +3563,7 @@ void InsertAdsorbateMolecule(void)
 void RemoveAdsorbateMolecule(void)
 {
   int i,j,k,type,nr_atoms;
-  int LastMolecule;
+  int LastMolecule;	
 
   // remove the the amount of atoms from the total
   nr_atoms=Components[CurrentComponent].NumberOfAtoms;
@@ -3260,6 +3585,8 @@ void RemoveAdsorbateMolecule(void)
   // set the pointers to NULL
   Adsorbates[CurrentSystem][LastMolecule].Atoms=NULL;
   Adsorbates[CurrentSystem][LastMolecule].Groups=NULL;
+
+
 
   // decrease the molecule counters
   NumberOfAdsorbateMolecules[CurrentSystem]--;
@@ -3599,7 +3926,9 @@ void RescaleComponentProbabilities(void)
             ProbabilityGibbsVolumeChangeMove+
             ProbabilityFrameworkChangeMove+
             ProbabilityFrameworkShiftMove+
-            ProbabilityCFCRXMCLambdaChangeMove;
+            ProbabilityCFCRXMCLambdaChangeMove+
+            ProbabilityAlchemicalTransformationMove+
+            ProbabilityWidomOsmostatCalculationMove; // <- Added by Ambroise de Izarra
 
     Components[i].ProbabilityRandomTranslationMove+=Components[i].ProbabilityTranslationMove;
     Components[i].ProbabilityRotationMove+=Components[i].ProbabilityRandomTranslationMove;
@@ -3631,6 +3960,11 @@ void RescaleComponentProbabilities(void)
     Components[i].ProbabilityParallelMolFractionMove=ProbabilityParallelMolFractionMove+Components[i].ProbabilityHyperParallelTemperingMove;
     Components[i].ProbabilityChiralInversionMove=ProbabilityChiralInversionMove+Components[i].ProbabilityParallelMolFractionMove;
     Components[i].ProbabilityHybridNVEMove=ProbabilityHybridNVEMove+Components[i].ProbabilityChiralInversionMove;
+    // Added by Ambroise de Izarra
+    //-------------------------------------------------------------------
+    Components[i].ProbabilityAlchemicalTransformationMove=ProbabilityAlchemicalTransformationMove+Components[i].ProbabilityHybridNVEMove;
+    Components[i].ProbabilityWidomOsmostatCalculationMove=ProbabilityWidomOsmostatCalculationMove+Components[i].ProbabilityAlchemicalTransformationMove;
+    //-------------------------------------------------------------------
     Components[i].ProbabilityHybridNPHMove=ProbabilityHybridNPHMove+Components[i].ProbabilityHybridNVEMove;
     Components[i].ProbabilityHybridNPHPRMove=ProbabilityHybridNPHPRMove+Components[i].ProbabilityHybridNPHMove;
     Components[i].ProbabilityVolumeChangeMove=ProbabilityVolumeChangeMove+Components[i].ProbabilityHybridNPHPRMove;
@@ -3639,6 +3973,7 @@ void RescaleComponentProbabilities(void)
     Components[i].ProbabilityFrameworkChangeMove=ProbabilityFrameworkChangeMove+Components[i].ProbabilityGibbsVolumeChangeMove;
     Components[i].ProbabilityFrameworkShiftMove=ProbabilityFrameworkShiftMove+Components[i].ProbabilityFrameworkChangeMove;
     Components[i].ProbabilityCFCRXMCLambdaChangeMove=ProbabilityCFCRXMCLambdaChangeMove+Components[i].ProbabilityFrameworkShiftMove;
+
 
     if(TotProb>1e-5)
     {
@@ -3672,6 +4007,11 @@ void RescaleComponentProbabilities(void)
       Components[i].ProbabilityParallelMolFractionMove/=TotProb;
       Components[i].ProbabilityChiralInversionMove/=TotProb;
       Components[i].ProbabilityHybridNVEMove/=TotProb;
+      // Added by Ambroise de Izarra
+      //-------------------------------------------------------------------
+      Components[i].ProbabilityAlchemicalTransformationMove/=TotProb;
+      Components[i].ProbabilityWidomOsmostatCalculationMove/=TotProb;
+      //-------------------------------------------------------------------
       Components[i].ProbabilityHybridNPHMove/=TotProb;
       Components[i].ProbabilityHybridNPHPRMove/=TotProb;
       Components[i].ProbabilityVolumeChangeMove/=TotProb;
@@ -3681,7 +4021,9 @@ void RescaleComponentProbabilities(void)
       Components[i].ProbabilityFrameworkShiftMove/=TotProb;
       Components[i].ProbabilityCFCRXMCLambdaChangeMove/=TotProb;
     }
-
+    
+    
+    
     Components[i].FractionOfTranslationMove=Components[i].ProbabilityTranslationMove;
     Components[i].FractionOfRandomTranslationMove=Components[i].ProbabilityRandomTranslationMove-Components[i].ProbabilityTranslationMove;
     Components[i].FractionOfRotationMove=Components[i].ProbabilityRotationMove-Components[i].ProbabilityRandomTranslationMove;
@@ -3721,6 +4063,7 @@ void RescaleComponentProbabilities(void)
     Components[i].FractionOfFrameworkChangeMove=Components[i].ProbabilityFrameworkChangeMove-Components[i].ProbabilityGibbsVolumeChangeMove;
     Components[i].FractionOfFrameworkShiftMove=Components[i].ProbabilityFrameworkShiftMove-Components[i].ProbabilityFrameworkChangeMove;
     Components[i].FractionOfCFCRXMCLambdaChangeMove=Components[i].ProbabilityCFCRXMCLambdaChangeMove-Components[i].ProbabilityFrameworkShiftMove;
+		
   }
 }
 
@@ -4596,6 +4939,7 @@ void InitializeVelocityAdsorbate(int m)
   const int max_iter=5000;
 
   Type=Adsorbates[CurrentSystem][m].Type;
+
   for(l=0;l<Components[Type].NumberOfGroups;l++)
   {
     if(Components[Type].Groups[l].Rigid)
@@ -4649,7 +4993,7 @@ void InitializeVelocityAdsorbate(int m)
 
         MassA=PseudoAtoms[Components[Type].Type[A]].Mass;
         MassB=PseudoAtoms[Components[Type].Type[B]].Mass;
-
+		
         velA=Adsorbates[CurrentSystem][m].Atoms[A].Velocity;
         velB=Adsorbates[CurrentSystem][m].Atoms[B].Velocity;
 
@@ -5494,7 +5838,7 @@ void CalculateAnisotropicSites(void)
       Framework[CurrentSystem].Atoms[f1][i].AnisotropicPosition=posA;
     }
   }
-
+ 
   for(i=0;i<NumberOfAdsorbateMolecules[CurrentSystem];i++)
   {
     TypeMolA=Adsorbates[CurrentSystem][i].Type;
@@ -6173,6 +6517,11 @@ void PrintCPUStatistics(FILE *FilePtr)
   REAL CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove,CpuTimeCFGibbsLambdaChangeMove,CpuTimeCFGibbsFractionalToIntegerMove;
   REAL CpuTimeParallelTemperingMoveTotal,CpuTimeHyperParallelTemperingMoveTotal,CpuTimeParallelMolFractionMoveTotal;
   REAL CpuTimeChiralInversionMoveTotal,CpuTimeHybridNVEMoveTotal,CpuTimeHybridNPHMoveTotal;
+  // Added by Ambroise de Izarra
+  //-------------------------------------------------------------------
+  REAL CpuTimeAlchemicalChangeMoveTotal;
+  REAL CpuTimeWidomOsmostatChangeMoveTotal;
+  //-------------------------------------------------------------------
   REAL CpuTimeHybridNPHPRMoveTotal,CpuTimeVolumeChangeMoveTotal,CpuTimeBoxShapeChangeMoveTotal;
   REAL CpuTimeGibbsVolumeChangeMoveTotal,CpuTimeFrameworkChangeMoveTotal,CpuTimeFrameworkShiftMoveTotal;
   REAL CpuTimeCFCRXMCLambdaChangeMoveTotal;
@@ -6302,6 +6651,11 @@ void PrintCPUStatistics(FILE *FilePtr)
   fprintf(FilePtr,"\tmol-fraction replica-exchange: %18.10g [s]\n",CpuTimeParallelMolFractionMove[CurrentSystem]);
   fprintf(FilePtr,"\tchiral inversion:              %18.10g [s]\n",CpuTimeChiralInversionMove[CurrentSystem]);
   fprintf(FilePtr,"\thybrid MC/MD (NVE):            %18.10g [s]\n",CpuTimeHybridNVEMove[CurrentSystem]);
+  // Added by Ambroise de Izarra
+  //-------------------------------------------------------------------
+  fprintf(FilePtr,"\talchemical transformation:     %18.10g [s]\n",CpuTimeAlchemicalChangeMove[CurrentSystem]);
+  fprintf(FilePtr,"\twidom osmostat:                %18.10g [s]\n",CpuTimeWidomOsmostatChangeMove[CurrentSystem]);
+  //-------------------------------------------------------------------
   fprintf(FilePtr,"\thybrid MC/MD (NPH):            %18.10g [s]\n",CpuTimeHybridNPHMove[CurrentSystem]);
   fprintf(FilePtr,"\thybrid MC/MD (NPHPR):          %18.10g [s]\n",CpuTimeHybridNPHPRMove[CurrentSystem]);
   fprintf(FilePtr,"\tvolume change:                 %18.10g [s]\n",CpuTimeVolumeChangeMove[CurrentSystem]);
@@ -6395,7 +6749,7 @@ void PrintCPUStatistics(FILE *FilePtr)
   fprintf(FilePtr,"\tGibbs particle transform:           %18.10g [s]\n",CpuTimeGibbsChangeMove);
   fprintf(FilePtr,"\tGibbs particle transform (CFMC):    %18.10g [s]\n",CpuTimeCFGibbsChangeMove);
   fprintf(FilePtr,"\tGibbs particle transform (CB/CFMC): %18.10g [s]\n",CpuTimeCBCFGibbsChangeMove);
-  fprintf(FilePtr,"\tGibbs indentity change:             %18.10g [s]\n",CpuTimeGibbsIdentityChangeMove);
+  fprintf(FilePtr,"\tGibbs identity change:              %18.10g [s]\n",CpuTimeGibbsIdentityChangeMove);
   fprintf(FilePtr,"\tExchange frac./int. particle:       %18.10g [s]\n",CpuTimeExchangeFractionalParticleMove);
   fprintf(FilePtr,"\tSwap Gibbs-fractional molecules:    %18.10g [s]\n",CpuTimeCFGibbsSwapFractionalMoleculeToOtherBoxMove);
   fprintf(FilePtr,"\tChange Gibs-lambda value:           %18.10g [s]\n",CpuTimeCFGibbsLambdaChangeMove);
@@ -6406,6 +6760,11 @@ void PrintCPUStatistics(FILE *FilePtr)
   CpuTimeParallelMolFractionMoveTotal=0.0;
   CpuTimeChiralInversionMoveTotal=0.0;
   CpuTimeHybridNVEMoveTotal=0.0;
+  // Added by Ambroise de Izarra
+  //-------------------------------------------------------------------
+  CpuTimeAlchemicalChangeMoveTotal=0.0;
+  CpuTimeWidomOsmostatChangeMoveTotal=0.0;
+  //-------------------------------------------------------------------
   CpuTimeHybridNPHMoveTotal=0.0;
   CpuTimeHybridNPHPRMoveTotal=0.0;
   CpuTimeVolumeChangeMoveTotal=0.0;
@@ -6421,6 +6780,11 @@ void PrintCPUStatistics(FILE *FilePtr)
     CpuTimeParallelMolFractionMoveTotal+=CpuTimeParallelMolFractionMove[j];
     CpuTimeChiralInversionMoveTotal+=CpuTimeChiralInversionMove[j];
     CpuTimeHybridNVEMoveTotal+=CpuTimeHybridNVEMove[j];
+    // Added by Ambroise de Izarra
+    //-------------------------------------------------------------------
+    CpuTimeAlchemicalChangeMoveTotal+=CpuTimeAlchemicalChangeMove[j];
+    CpuTimeWidomOsmostatChangeMoveTotal+=CpuTimeWidomOsmostatChangeMove[j];
+    //-------------------------------------------------------------------
     CpuTimeHybridNPHMoveTotal+=CpuTimeHybridNPHMove[j];
     CpuTimeHybridNPHPRMoveTotal+=CpuTimeHybridNPHPRMove[j];
     CpuTimeVolumeChangeMoveTotal+=CpuTimeVolumeChangeMove[j];
@@ -6437,6 +6801,11 @@ void PrintCPUStatistics(FILE *FilePtr)
   fprintf(FilePtr,"\tmol-fraction replica-exchange: %18.10g [s]\n",CpuTimeParallelMolFractionMoveTotal);
   fprintf(FilePtr,"\tchiral inversion:              %18.10g [s]\n",CpuTimeChiralInversionMoveTotal);
   fprintf(FilePtr,"\thybrid MC/MD (NVE):            %18.10g [s]\n",CpuTimeHybridNVEMoveTotal);
+  // Added by Ambroise de Izarra
+  //-------------------------------------------------------------------
+  fprintf(FilePtr,"\talchemical transformation:     %18.10g [s]\n",CpuTimeAlchemicalChangeMoveTotal);
+  fprintf(FilePtr,"\twidom osmostat:                %18.10g [s]\n",CpuTimeWidomOsmostatChangeMoveTotal);
+  //-------------------------------------------------------------------
   fprintf(FilePtr,"\thybrid MC/MD (NPH):            %18.10g [s]\n",CpuTimeHybridNPHMoveTotal);
   fprintf(FilePtr,"\thybrid MC/MD (NPHPR):          %18.10g [s]\n",CpuTimeHybridNPHPRMoveTotal);
   fprintf(FilePtr,"\tvolume change:                 %18.10g [s]\n",CpuTimeVolumeChangeMoveTotal);
@@ -7693,5 +8062,7 @@ void ReadRestartComponent(FILE *FilePtr)
     fprintf(stderr, "Error in binary restart-file (ReadRestartComponent)\n");
     ContinueAfterCrash=FALSE;
   }
-  printf("DONE!!!\n");
+  printf("DONE!!!!\n");
+
+
 }

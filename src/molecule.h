@@ -39,6 +39,7 @@
 #include "simulation.h"
 #include "cubic_spline_1d.h"
 
+
 #define MAX_BOND_POTENTIAL_ARGUMENTS 20
 #define MAX_BEND_POTENTIAL_ARGUMENTS 10
 #define MAX_UREYBRADLEY_POTENTIAL_ARGUMENTS 10
@@ -546,6 +547,11 @@ typedef struct Component
   REAL ProbabilityParallelMolFractionMove;
   REAL ProbabilityChiralInversionMove;
   REAL ProbabilityHybridNVEMove;
+  // Added by Ambroise de Izarra
+  //-------------------------------------------------------------------
+  REAL ProbabilityAlchemicalTransformationMove;
+  REAL ProbabilityWidomOsmostatCalculationMove;
+  //-------------------------------------------------------------------
   REAL ProbabilityHybridNPHMove;
   REAL ProbabilityHybridNPHPRMove;
   REAL ProbabilityVolumeChangeMove;
@@ -696,6 +702,11 @@ void CheckTypeOfMolecules();
 int SelectRandomMoleculeOfTypeExcludingReactionMolecules(int reaction,int **LambdaRetraceMolecules);
 int SelectRandomMoleculeOfTypeExcludingProductMolecules(int reaction,int **LambdaRetraceMolecules);
 
+// Added by Ambroise de Izarra
+//-------------------------------------------------------------------
+void SelectRandomMoleculeAlchemicalTransformation(int * OldComponent, int NumberSpecies, int CurrentAlchemicalReaction);
+//-------------------------------------------------------------------
+
 int SelectRandomMoleculeOfType(int comp);
 int SelectRandomMoleculeOfTypeExcludingFractionalMolecule(int comp);
 
@@ -708,9 +719,14 @@ int AddPseudoAtom(PSEUDO_ATOM atom);
 void ReadPseudoAtomsDefinitions(void);
 
 void AllocateComponentMemory(void);
+// Added by Ambroise de Izarra
+//-------------------------------------------------------------------
+void SetUpNumberMoitiesExchangedAlchemicalReaction(void);
+//-------------------------------------------------------------------
 void ReadComponentDefinition(int comp);
 
 void InsertAdsorbateMolecule(void);
+void InsertAdsorbateAlchMolecule(void);
 void RemoveAdsorbateMolecule(void);
 
 void InsertCationMolecule(void);

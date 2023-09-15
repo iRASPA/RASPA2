@@ -42,6 +42,7 @@
 #include "simulation.h"
 #include "molecule.h"
 #include "framework_energy.h"
+#include "Alchemical_transformation.h"
 #include "framework.h"
 #include "utils.h"
 #include "molecule.h"
@@ -126,7 +127,6 @@ void MonteCarloSimulation(void)
   SampleDcTSTConfigurationFiles(ALLOCATE);
   SamplePDBMovies(ALLOCATE,-1);
 
-
   // loop over all the pressures of the isotherm
   for(CurrentIsothermPressure=0;CurrentIsothermPressure<NumberOfIsothermPressures;CurrentIsothermPressure++)
   {
@@ -146,13 +146,37 @@ void MonteCarloSimulation(void)
 
     InitializeSmallMCStatisticsAllSystems();
     InitializeMCMovesStatisticsAllSystems();
-
+    
     // compute total energy for all systems
     CalculateTotalEnergyAllSystems();
-
+	
     CFWangLandauIteration(INITIALIZE);
     CFRXMCWangLandauIteration(INITIALIZE);
+	// If alchemical simulation is existing
+	
+	// Added by Ambroise de Izarra
+	//-------------------------------------------------------------------
+	if(NumberAlchemicalReactions>0)
+    {
+	  // Read the multiplicity of salt (e.g. take into account of ion ratio).
+	  SetUpNumberMoitiesExchangedAlchemicalReaction(); 
+	  // Set up vdW parameters to be evolve during Alchemical transformation.
+	  InitializeIndexManagingTransientMoities();
+	  InitializeVectorforMixingRule();
+	  InitializeVectorCharge();
+	  // Initialize the lambda pointers for alchemical transformation.
+	  InitializeLambda();
+	  // Initialize NVE-MD statistics for alchemical transformation.
+	  InitializeNVEAlchStatistics();
 
+	  if(ProbabilityWidomOsmostatCalculationMove>0.0) 
+	  {
+		InitializeStoreAlchemicalWork();
+		InitializeFileAlchemicalWork(0);
+	  }
+	}	
+	//-------------------------------------------------------------------	
+	
     // initialization to reach equilibration of positions (no averages are computed yet)
     SimulationStage=POSITION_INITIALIZATION;
     for(CurrentCycle=0;CurrentCycle<NumberOfInitializationCycles;CurrentCycle++)
@@ -315,17 +339,15 @@ void MonteCarloSimulation(void)
 
     }
 
-
     // initialize the energies and compute the total energies for all systems
     InitializesEnergiesAllSystems();
     InitializesEnergyAveragesAllSystems();
-
     InitializeSmallMCStatisticsAllSystems();
     InitializeMCMovesStatisticsAllSystems();
 
     // compute total energy for all systems
     CalculateTotalEnergyAllSystems();
-
+    
     if(NumberOfEquilibrationCycles>0)
     {
       CFWangLandauIteration(INITIALIZE);
@@ -537,7 +559,7 @@ void MonteCarloSimulation(void)
 
       CalculateTotalEnergyAllSystems();
     }
-
+   
     // initialize sampling-routines at the start of the production run
     SampleRadialDistributionFunction(INITIALIZE);
     SampleProjectedLengthsDistributionFunction(INITIALIZE);
@@ -563,7 +585,6 @@ void MonteCarloSimulation(void)
     SamplePDBMovies(INITIALIZE,-1);
 
     ClearLambdaHistogram();
-
 
     SimulationStage=PRODUCTION;
     for(CurrentCycle=0;CurrentCycle<NumberOfCycles;CurrentCycle++)
@@ -608,18 +629,18 @@ void MonteCarloSimulation(void)
         for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
           PrintPropertyStatus(CurrentCycle,NumberOfCycles,OutputFilePtr[CurrentSystem]);
       }
-
+  
       // Print at 'PrintEvery' intervals the status and a restart-file
       if((CurrentCycle%PrintEvery)==0)
       {
         for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
         {
-          PrintIntervalStatusProduction(CurrentCycle,NumberOfCycles,OutputFilePtr[CurrentSystem]);
+          PrintIntervalStatusProduction(CurrentCycle,NumberOfCycles,OutputFilePtr[CurrentSystem]); 
           PrintRestartFile();
         }
       }
-
-      // select MC moves
+		 
+	  // select MC moves
       for(i=0;i<NumberOfSystems;i++)
       {
         // choose a random system
@@ -633,9 +654,10 @@ void MonteCarloSimulation(void)
         }
         NumberOfSteps=NumberOfParticleMoves*(NumberOfComponents==0?1:NumberOfComponents);
 
-        // loop over the MC 'steps' per MC 'cycle'
+        // loop over the MC 'steps' per MC 'cycle' (21 for alchemical)
         for(j=0;j<NumberOfSteps;j++)
         {
+
           // set the selected system
           CurrentSystem=SelectedSystem;
 
@@ -647,9 +669,10 @@ void MonteCarloSimulation(void)
 
           // choose any of the MC moves randomly with the selected probability
           ran=RandomNumber();
-
+          
+          
           if(ran<Components[CurrentComponent].ProbabilityTranslationMove)
-          {
+          {	  
             cpu_before=get_cpu_time();
             TranslationMove();
             cpu_after=get_cpu_time();
@@ -854,6 +877,20 @@ void MonteCarloSimulation(void)
             cpu_after=get_cpu_time();
             CpuTimeChiralInversionMove[CurrentSystem]+=(cpu_after-cpu_before);
           }
+          // Added by Ambroise de Izarra
+          //-------------------------------------------------------------------
+          else if(ran<Components[CurrentComponent].ProbabilityAlchemicalTransformationMove)
+            AlchemicalChangeAdsorbateMove();
+          else if(ran<Components[CurrentComponent].ProbabilityWidomOsmostatCalculationMove)
+            WidomOsmostatCalculation();
+          //-------------------------------------------------------------------
+		  else if(ran<Components[CurrentComponent].ProbabilityWidomOsmostatCalculationMove)
+		  {
+			cpu_before=get_cpu_time();
+			WidomOsmostatCalculation();
+			cpu_after=get_cpu_time();
+			CpuTimeWidomOsmostatChangeMove[CurrentSystem]+=(cpu_after-cpu_before);
+		  }
           else if(ran<Components[CurrentComponent].ProbabilityHybridNVEMove) 
           {
             cpu_before=get_cpu_time();
@@ -925,7 +962,6 @@ void MonteCarloSimulation(void)
         }
       }
 
-
       if(CurrentCycle%OptimizeAcceptenceEvery==0)
       {
         for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
@@ -986,7 +1022,7 @@ void MonteCarloSimulation(void)
     }
 
     SimulationStage=FINISHED;
-
+   
     for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
     {
       OptimizeVolumeChangeAcceptence();
@@ -1049,7 +1085,7 @@ void MonteCarloSimulation(void)
   // set current prssure to the last one
   CurrentIsothermPressure=NumberOfIsothermPressures-1;
 
-
+ 
   // finalize output
   SampleRadialDistributionFunction(FINALIZE);
   SampleProjectedLengthsDistributionFunction(FINALIZE);
@@ -1131,7 +1167,6 @@ void DebugEnergyStatus(void)
 
   REAL UHostPolarizationStored,UAdsorbatePolarizationStored,UCationPolarizationStored;
   REAL UHostBackPolarizationStored,UAdsorbateBackPolarizationStored,UCationBackPolarizationStored;
-
 
   // store all energies
   StoredUTotal=UTotal[CurrentSystem];

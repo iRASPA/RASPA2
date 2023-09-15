@@ -44,6 +44,11 @@ extern int BiasingMethod;
 
 #define MAX_NUMBER_OF_TRIAL_POSITIONS 2000
 
+// Added by Ambroise de Izarra
+//-------------------------------------------------------------------
+extern int Itrial;
+//-------------------------------------------------------------------
+
 extern int NumberOfTrialPositions;
 extern int NumberOfTrialPositionsForTheFirstBead;
 extern int NumberOfTrialMovesPerOpenBead;
@@ -146,8 +151,66 @@ extern REAL *UHostBondDipoleBondDipoleOld;
 extern REAL *UAdsorbateBondDipoleBondDipoleOld;
 extern REAL *UCationBondDipoleBondDipoleOld;
 
-extern int NumberOfBeadsAlreadyPlaced;                         // number of atoms that are already placed
-extern int *BeadsAlreadyPlaced;
+// trial energies
+extern REAL *UBondTrial;
+extern REAL *UBendTrial;
+extern REAL *UBendBendTrial;
+extern REAL *UUreyBradleyTrial;
+extern REAL *UInversionBendTrial;
+extern REAL *UTorsionTrial;
+extern REAL *UImproperTorsionTrial;
+extern REAL *UBondBondTrial;
+extern REAL *UBondBendTrial;
+extern REAL *UBondTorsionTrial;
+extern REAL *UBendTorsionTrial;
+extern REAL *UIntraVDWTrial;
+extern REAL *UIntraChargeChargeTrial;
+extern REAL *UIntraChargeBondDipoleTrial;
+extern REAL *UIntraBondDipoleBondDipoleTrial;
+
+extern REAL *UHostVDWTrial;
+extern REAL *UAdsorbateVDWTrial;
+extern REAL *UCationVDWTrial;
+extern REAL *UHostChargeChargeTrial;
+extern REAL *UAdsorbateChargeChargeTrial;
+extern REAL *UCationChargeChargeTrial;
+extern REAL *UHostChargeBondDipoleTrial;
+extern REAL *UAdsorbateChargeBondDipoleTrial;
+extern REAL *UCationChargeBondDipoleTrial;
+extern REAL *UHostChargePermanentDipoleTrial;
+extern REAL *UAdsorbateChargePermanentDipoleTrial;
+extern REAL *UCationChargePermanentDipoleTrial;
+extern REAL *UHostBondDipoleBondDipoleTrial;
+extern REAL *UAdsorbateBondDipoleBondDipoleTrial;
+extern REAL *UCationBondDipoleBondDipoleTrial;
+extern REAL *UHostBondDipolePermanentDipoleTrial;
+extern REAL *UAdsorbateBondDipolePermanentDipoleTrial;
+extern REAL *UCationBondDipolePermanentDipoleTrial;
+extern REAL *UHostPermanentDipolePermanentDipoleTrial;
+extern REAL *UAdsorbatePermanentDipolePermanentDipoleTrial;
+extern REAL *UCationPermanentDipolePermanentDipoleTrial;
+
+// Added by Ambroise de Izarra
+//-------------------------------------------------------------------
+extern int CurrentBead;       
+extern int CurrentGroup;      
+
+extern int NumberOfPreviousBeads;  
+
+extern int PreviousBead;           
+extern int PreviousGroup;          
+
+extern int NumberOfBeadsToBePlaced;
+extern int *BeadsToBePlaced;
+
+extern int NumberOfBeadsAlreadyPlaced; 
+extern int *BeadsAlreadyPlaced; 
+
+extern int NumberOfBranches;           
+extern int *NumberOfBranchAtoms;       
+extern int **BranchAtoms; 
+//-------------------------------------------------------------------
+
 extern VECTOR **NewPosition;
 extern VECTOR *OldPosition;
 extern VECTOR **NewVelocity;
@@ -159,6 +222,13 @@ extern REAL **CFVDWScalingRXMC;
 extern REAL *CFChargeScaling;
 extern REAL **CFChargeScalingRXMC;
 extern int OVERLAP;
+
+// Added by Ambroise de Izarra
+//-------------------------------------------------------------------
+int Rosen(void);
+//-------------------------------------------------------------------
+
+extern int **MoleculeTodoConnectivity;
 
 void CalculateAnisotropicTrialPositions(int TypeMolA,VECTOR *TrialPosition,VECTOR *TrialAnisotropicPosition);
 
