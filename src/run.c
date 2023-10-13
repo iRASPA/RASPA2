@@ -256,7 +256,7 @@ char* run(char *inputData, char *inputCrystal, char *raspaDir, bool stream)
         free(FILE_CONTENTS[i]);
       }
     }
-
+  
   // Write the final positions to files
   } else {
     WriteFrameworkDefinitionCSSR("final");
@@ -318,9 +318,37 @@ char* run(char *inputData, char *inputCrystal, char *raspaDir, bool stream)
 
       free(Framework[i].Atoms[j]);
     }
+    
     free(Framework[i].Atoms);
     free(Framework[i].ExclusionMatrix);
     free(Framework[i].Neighbours);
+    // Added by Ambroise de Izarra
+    // Free memory
+    //-------------------------------------------------------------------
+    for (j = 0; j < Framework[i].NumberOfFrameworks; j++)
+    {
+		for(k = 0; k < Framework[i].pair14VDW_size[j]; k++)
+		{free(Framework[i].scaling_pair14VDW[j][k]);}
+		free(Framework[j].scaling_pair14VDW[j]);
+		
+		for(k = 0; k < Framework[i].pair14ChargeCharge_size[j]; k++)
+		{free(Framework[i].scaling_pair14ChargeCharge[j][k]);}
+		free(Framework[i].scaling_pair14ChargeCharge[j]);
+
+		//for(k = 0; k < Framework[i].list14pair_size[j]; k++)
+		//{free(Framework[i].list14pair[j][k]);}
+		free(Framework[i].list14pair[j]);    
+    }	
+    
+    free(Framework[i].scaling_pair14VDW);
+    free(Framework[i].scaling_pair14ChargeCharge);
+    free(Framework[i].list14pair);
+
+    free(Framework[i].pair14VDW_size);
+    free(Framework[i].pair14ChargeCharge_size);
+    free(Framework[i].list14pair_size);
+    //-------------------------------------------------------------------
+    
   }
 
   return output;

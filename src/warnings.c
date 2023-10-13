@@ -76,6 +76,36 @@ void CheckForErrors(void)
       }
     }
   }
+  
+  // Added by Ambroise de Izarra
+  //-------------------------------------------------------------------
+  // Check the alchemical reactions
+  int k;
+ 
+  // Read over the chemical reactions
+  for(i=0;i<NumberAlchemicalReactions;i++)
+  {
+	// Read over the index of salt.
+	for(j=0;j<2;j++)
+	{
+		
+		// We check if the input index for the chemical transformation is present in the components.
+		if((SaltIndex[i][j]<0)||SaltIndex[i][j]>(NumberOfComponents-1))
+		{
+		        printf("ERROR: alchemical index %d is not present in the component.\n",SaltIndex[i][j]);
+				exit(0);	
+		}
+		
+		// We check if the ions are monoatomic.
+		if(Components[SaltIndex[i][j]].NumberOfAtoms>1)
+		{
+		        printf("ERROR: a salt ion is not monoatomic.\n");
+				exit(0);					
+		}	
+	} 
+  }
+
+  //-------------------------------------------------------------------
 }
 
 

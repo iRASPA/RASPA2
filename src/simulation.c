@@ -77,6 +77,26 @@ REAL **CFRXMCWangLandauScalingFactor;
 
 //----------------------------------------------------------------------------------------
 
+// Added by Ambroise de Izarra
+//-------------------------------------------------------------------
+// Alchemical transformation Parameters
+
+int NumberAlchemicalReactions;                       // Total number of Reactions
+int AlchReacLambda;                       	    	 // Number of step for chemical transformation
+REAL ProbabilityAlchReacLambdaChangeMove;            
+int **SaltIndex;                   // Reactants Stoichiometry
+int **MultiplicitySalt;								 // Tell the number of cation and anion (for charge)
+int SolventIndex;					 // The solvent to be exchanged with the salt.
+int *NumberTransientMoities;
+int **ChosenMoleculeAlchemicalTransformation;
+REAL *Lambda;										 // Parameter lambda step
+int RelaxationStepsAlchemicalTransformationMove;
+REAL ChemicalPotentialAlchemical;
+//-------------------------------------------------------------------
+
+
+
+
 int NumberOfPartialPressures;
 int CurrentPartialPressure;
 
@@ -384,6 +404,11 @@ REAL ProbabilityHyperParallelTemperingMove;
 REAL ProbabilityParallelMolFractionMove;
 REAL ProbabilityChiralInversionMove;
 REAL ProbabilityHybridNVEMove;
+// Added by Ambroise de Izarra
+//-------------------------------------------------------------------
+REAL ProbabilityAlchemicalTransformationMove;
+REAL ProbabilityWidomOsmostatCalculationMove;
+//-------------------------------------------------------------------
 REAL ProbabilityHybridNPHMove;
 REAL ProbabilityHybridNPHPRMove;
 REAL ProbabilityVolumeChangeMove;
@@ -402,6 +427,11 @@ REAL *CpuTimeHyperParallelTemperingMove;
 REAL *CpuTimeParallelMolFractionMove;
 REAL *CpuTimeChiralInversionMove;
 REAL *CpuTimeHybridNVEMove;
+// Added by Ambroise de Izarra
+//-------------------------------------------------------------------
+REAL *CpuTimeAlchemicalChangeMove;
+REAL *CpuTimeWidomOsmostatChangeMove;
+//-------------------------------------------------------------------
 REAL *CpuTimeHybridNPHMove;
 REAL *CpuTimeHybridNPHPRMove;
 REAL *CpuTimeVolumeChangeMove;
@@ -1202,6 +1232,11 @@ void AllocateSimulationMemory(void)
   CpuTimeParallelMolFractionMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   CpuTimeChiralInversionMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   CpuTimeHybridNVEMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+  // Added by Ambroise de Izarra
+  //-------------------------------------------------------------------
+  CpuTimeAlchemicalChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+  CpuTimeWidomOsmostatChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
+  //-------------------------------------------------------------------
   CpuTimeHybridNPHMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   CpuTimeHybridNPHPRMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));
   CpuTimeVolumeChangeMove=(REAL*)calloc(NumberOfSystems,sizeof(REAL));

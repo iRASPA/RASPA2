@@ -48,6 +48,7 @@
 #include "inter_energy.h"
 #include "framework.h"
 #include "framework_energy.h"
+#include "Alchemical_transformation.h"
 #include "ewald.h"
 #include "sample.h"
 #include "utils.h"
@@ -252,7 +253,6 @@ REAL **SurfaceAreaCount;
 
 VECTOR ***PrincipleMomentsOfInertiaAccumulated;
 REAL ***PrincipleMomentsOfInertiaCount;
-
 
 void AddBornTermToAverages(void)
 {
@@ -2842,6 +2842,16 @@ void PrintPropertyStatus(long long CurrentCycle,long long NumberOfCycles, FILE *
       fprintf(FilePtr,"\t\t(average excess chemical potential: %18.10f [K], ideal-gas contribution: %18.10f [K])\n",
             (-log(GetAverageWidomExcess(i))/Beta[CurrentSystem])*ENERGY_TO_KELVIN,
             (-log(GetAverageWidomIdealGas(i))/Beta[CurrentSystem])*ENERGY_TO_KELVIN);
+            
+      /*fprintf(FilePtr,"ideal-gas contribution: %18.10f [K])\n ideal-gas value: %18.10f [K])\n volume: %18.10f [A^3])\n inverse density: %18.10f [])\n Beta: %18.10f [])\n toto: %18.10f [])\n",
+            (-log(GetAverageWidomIdealGas(i))/Beta[CurrentSystem])*ENERGY_TO_KELVIN,
+            (-log(GetAverageInverseDensity())/Beta[CurrentSystem])*ENERGY_TO_KELVIN,
+            Volume[CurrentSystem],
+            GetAverageInverseDensity(),
+            Beta[CurrentSystem],
+            -log(GetAverageInverseDensity())/Beta[CurrentSystem],
+            );
+       */
     }
 
     if(Components[i].FractionOfGibbsWidomMove>0.0)
@@ -3900,7 +3910,7 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
       }
 
       InverseRealMatrix(matrix);
-
+	 
       for(int k1=0;k1<NumberOfComponents;k1++)
       {
         HeatOfAdsorptionPerComponent[k1][i]=0.0;
@@ -4502,7 +4512,65 @@ void PrintAverageTotalSystemEnergiesMC(FILE *FilePtr)
     fprintf(FilePtr,"\t[%s] Average Gibbs chemical potential:   %lg +/- %lf [K]\n",
       Components[j].Name, avg, error);
   }
+  
+  
+  // Added by Ambroise de Izarra
+  //-------------------------------------------------------------------  
+  fprintf(FilePtr,"\n");
+  fprintf(FilePtr,"Average osmostat calibration for alchemical transformation:\n");
+  fprintf(FilePtr,"=======================================\n"); 
+   
+  if(WidomOsmostat[CurrentSystem][0]>0.0)
+  {
+	    REAL RatioSpecies=1.00;
+  
+		for(int i=0;i<=(MultiplicitySalt[CurrentAlchemicalReaction][0]+MultiplicitySalt[CurrentAlchemicalReaction][1]-1);i++)
+			RatioSpecies *= ((Components[SolventIndex].NumberOfMolecules[CurrentSystem]-i));
 
+		for(int i=1;i<=MultiplicitySalt[CurrentAlchemicalReaction] [0];i++)	  
+			RatioSpecies *= 1.0/(Components[SaltIndex[CurrentAlchemicalReaction][0]].NumberOfMolecules[CurrentSystem]+i);
+	
+		for(int i=1;i<=MultiplicitySalt[CurrentAlchemicalReaction][1];i++)
+			RatioSpecies *= 1.0/(Components[SaltIndex[CurrentAlchemicalReaction][1]].NumberOfMolecules[CurrentSystem]+i);
+		
+		REAL increase;
+		sum=sum_squared=0.0;
+		
+		int blocksize=floor(SizeAlchemicalWorkStore/NR_BLOCKS);
+
+		for(int i=0;i<NR_BLOCKS;i++)
+		{
+			increase = 0.0;
+			for(int j=0;j<blocksize;j++)
+			{	
+		        increase+= exp(-AlchemicalWorkStore[i*blocksize+j]*Beta[CurrentSystem]);
+			}
+
+			REAL tmp=-(log((RatioSpecies)*(increase/blocksize))/Beta[CurrentSystem])*ENERGY_TO_KELVIN;
+			sum+=tmp;
+			sum_squared+=SQR(tmp);
+			fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)tmp);
+		}
+   }
+   else
+	{
+		for(int i=0;i<NR_BLOCKS;i++)
+		{
+			fprintf(FilePtr,"\tBlock[%2d] %-lg [-]\n",i,(double)0.0);
+		}
+    } 
+      
+    avg=AVERAGE(sum);
+    error=ERROR_CONFIDENCE_INTERVAL_95(sum,sum_squared);
+    fprintf(FilePtr,"\t------------------------------------------------------------------------------\n");
+    fprintf(FilePtr,"\tAverage osmostat calibration for alchemical transformation:   %lg +/- %lf [K]\n",
+      avg, error);
+    fprintf(FilePtr,"\tAverage osmostat calibration for alchemical transformation:   %lg +/- %lf [kJ/mol]\n",
+      avg*KELVIN_TO_KJ_PER_MOL, error*KELVIN_TO_KJ_PER_MOL);
+  //-------------------------------------------------------------------
+  
+  
+  
   // Average Gibbs Widom ideal-gas contribution
   fprintf(FilePtr,"\n");
   fprintf(FilePtr,"Average Gibbs Widom Ideal-gas contribution:\n");
@@ -5476,3 +5544,5 @@ void ReadRestartStatistics(FILE *FilePtr)
     ContinueAfterCrash=FALSE;
   }
 }
+
+

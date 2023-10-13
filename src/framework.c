@@ -6731,6 +6731,7 @@ int ReturnDipoleIndex(int f1,int A,int B)
 
 void AddBondTypeToDefinitions(int TypeA,int TypeB,int BondType,REAL *parms)
 {
+
   int i,j,index;
   int AlreadyPresent;
   int NumberOfArguments;
@@ -6749,7 +6750,7 @@ void AddBondTypeToDefinitions(int TypeA,int TypeB,int BondType,REAL *parms)
     parameters[0]=parms[0]*ENERGY_TO_KELVIN;
     parameters[1]=parms[1];
   }
-
+  
   if(Framework[CurrentSystem].NumberOfBondsDefinitions==0)
   {
     index=0;
@@ -6831,6 +6832,7 @@ void AddBondTypeToDefinitions(int TypeA,int TypeB,int BondType,REAL *parms)
     }
 
   }
+
 }
 
 void AddBendTypeToDefinitions(int TypeA,int TypeB,int TypeC,int BendType,REAL *parms)
@@ -8302,6 +8304,7 @@ int ReadFrameworkDefinition(void)
     ReadLine(line,1024,FilePtr); // skip line
     for(i=0;i<Framework[CurrentSystem].NumberOfBondsDefinitions;i++)
     {
+	  
       ReadLine(line,1024,FilePtr);
       arg_pointer=line;
       sscanf(line,"%s%s%s%n",TypeNameA,TypeNameB,buffer,&n);
@@ -8343,14 +8346,15 @@ int ReadFrameworkDefinition(void)
             {
               Framework[CurrentSystem].Bonds[CurrentFramework][index].A=A;
               Framework[CurrentSystem].Bonds[CurrentFramework][index].B=B;
-
+				
               Framework[CurrentSystem].BondType[CurrentFramework][index]=BondType;
-
+			  
               Framework[CurrentSystem].NumberOfBondsPerType[i]++;
 
               for(j=0;j<BondTypes[BondType].nr_args;j++)
+              {
                 Framework[CurrentSystem].BondArguments[CurrentFramework][index][j]=arguments[j];
-
+			  }
               // set to appropriate bond-distance
               switch(BondType)
               {
@@ -11243,6 +11247,194 @@ int IsDefinedImproperTorsion(int system,int f1,int A,int B,int C,int D)
   return FALSE;
 }
 
+// Added by Ambroise de Izarra
+//-------------------------------------------------------------------
+
+/*********************************************************************************************************
+ * Name       | AllocateList14atomsVDWandEwald    (Added by A. de Izarra)                          *
+ * ----------------------------------------------------------------------------------------------------- *
+ * Function   | Create a 2D list indicating which atoms are 1-4 to assign scaling parameter for VDW and  *
+ *            | Ewald calculation. 																		 *
+ * Note       | Read the connectivity and establish 1-4 pair  											 *
+ *********************************************************************************************************/
+
+void AllocateList14atomsVDWandEwald(int system)
+{
+  int i,j,f1;
+
+  // First initialization of the size of tab for each framework.
+  Framework[system].pair14VDW_size=(int*)calloc(Framework[system].NumberOfFrameworks,sizeof(int));
+  Framework[system].pair14ChargeCharge_size=(int*)calloc(Framework[system].NumberOfFrameworks,sizeof(int));
+  
+
+  // Initialization of storage of intravalues for each 14 pair for VDW and Ewald for each framework.
+  Framework[system].scaling_pair14VDW=(REAL***)calloc(Framework[system].NumberOfFrameworks,sizeof(REAL**));
+  Framework[system].scaling_pair14ChargeCharge=(REAL***)calloc(Framework[system].NumberOfFrameworks,sizeof(REAL**));
+    
+  for(f1=0;f1<Framework[system].NumberOfFrameworks;f1++)
+  {
+		Framework[system].scaling_pair14VDW[f1]=(REAL**)calloc(TotalNumberOfReplicaCells[system]*Framework[system].NumberOfAtoms[f1],sizeof(REAL*));
+		Framework[system].scaling_pair14ChargeCharge[f1]=(REAL**)calloc(TotalNumberOfReplicaCells[system]*Framework[system].NumberOfAtoms[f1],sizeof(REAL*)); 
+		
+		for(i=0;i<TotalNumberOfReplicaCells[system]*Framework[system].NumberOfAtoms[f1];i++)
+		{
+			
+			Framework[system].scaling_pair14VDW[f1][i]=(REAL*)calloc(TotalNumberOfReplicaCells[system]*Framework[system].NumberOfAtoms[f1],sizeof(REAL));
+			Framework[system].scaling_pair14ChargeCharge[f1][i]=(REAL*)calloc(TotalNumberOfReplicaCells[system]*Framework[system].NumberOfAtoms[f1],sizeof(REAL));
+			 
+			for(j=0;j<TotalNumberOfReplicaCells[system]*Framework[system].NumberOfAtoms[f1];j++)
+			{
+				Framework[system].scaling_pair14VDW[f1][i][j]=1.0;
+				Framework[system].scaling_pair14ChargeCharge[f1][i][j]=1.0;
+			}
+		
+		}
+
+		Framework[system].pair14VDW_size[f1] = TotalNumberOfReplicaCells[system]*Framework[system].NumberOfAtoms[f1];			
+		Framework[system].pair14ChargeCharge_size[f1] = TotalNumberOfReplicaCells[system]*Framework[system].NumberOfAtoms[f1];	
+   }
+
+   
+  // VDW-VDW && electrostatic scaling 1-4 pairs.
+  // ============================================================
+  // set general 1-4 index for scaling 1-4 VDW parameter
+  // VDW is based on replica-method using 'GetReplicaNeighbour'
+  
+  int A,B,C,D,k,l,m;
+  
+  for(f1=0;f1<Framework[system].NumberOfFrameworks;f1++)
+  {
+	
+    for(A=0;A<Framework[system].NumberOfAtoms[f1];A++)
+    {
+     
+      for(k=0;k<Framework[system].Connectivity[f1][A];k++)
+      {
+		
+        B=GetReplicaNeighbour(system,f1,A,k);
+	
+        for(l=0;l<Framework[system].Connectivity[f1][B];l++)
+        {
+          C=GetReplicaNeighbour(system,f1,B,l);
+
+          for(m=0;m<Framework[system].Connectivity[f1][C];m++)
+          {
+            D=GetReplicaNeighbour(system,f1,C,m);
+            if((D!=B)&&(D!=A))
+            {
+              // we now have 4 connected atoms: A, B, C, D
+              if(IsDefinedTorsion(system,f1,A,B,C,D))
+              {
+				Framework[system].scaling_pair14VDW[f1][A][D]= Framework[system].Intra14VDWScalingValue; 
+				Framework[system].scaling_pair14ChargeCharge[f1][A][D]= Framework[system].Intra14ChargeChargeScalingValue; 
+				
+                if(D<Framework[system].NumberOfAtoms[f1])
+                {
+				  Framework[system].scaling_pair14VDW[f1][D][A]= Framework[system].Intra14VDWScalingValue; ; 
+				  Framework[system].scaling_pair14ChargeCharge[f1][D][A]= Framework[system].Intra14ChargeChargeScalingValue; 
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  } 
+  
+
+
+  // Count the number of 1-4 pairs for each framework.
+  Framework[system].list14pair_size=(int*)calloc(Framework[system].NumberOfFrameworks,sizeof(int));
+  
+  // Count 1-4 pairs to retrieve number and index of 1-4 pairs.
+  // ==============================================================================================
+  for(f1=0;f1<Framework[system].NumberOfFrameworks;f1++)
+  {
+	Framework[system].list14pair_size[f1] = 0;
+
+    for(A=0;A<Framework[system].NumberOfAtoms[f1];A++)
+    {
+      for(k=0;k<Framework[system].Connectivity[f1][A];k++)
+      {
+        B=GetNeighbour(system,f1,A,k);
+
+        for(l=0;l<Framework[system].Connectivity[f1][B];l++)
+        {
+          C=GetNeighbour(system,f1,B,l);
+          if((A!=C)&&(C!=B))
+          {
+
+            for(m=0;m<Framework[system].Connectivity[f1][C];m++)
+            {
+              D=GetNeighbour(system,f1,C,m);
+              if((D!=B)&&(D!=A)&&(D!=C))
+              {
+				
+                if(A<D && IsDefinedTorsion(system,f1,A,B,C,D) && (!BITVAL(Framework[CurrentSystem].ExclusionMatrix[f1][A][D],1)))
+                {		
+                  Framework[system].list14pair_size[f1]++;
+                } 
+              }
+            }
+          }
+        }
+      }
+    }
+  }	
+ 
+  // Store in a table all the 1-4 pair for ewald summation, for scaling parameter.
+  Framework[system].list14pair=(PAIR**)calloc(Framework[system].NumberOfFrameworks,sizeof(PAIR*));
+  for(f1=0;f1<Framework[system].NumberOfFrameworks;f1++)
+  {
+	    Framework[system].list14pair[f1]=(PAIR*)calloc(Framework[system].list14pair_size[f1],sizeof(PAIR));
+	    
+	    for(i=0;i<Framework[system].list14pair_size[f1];i++)
+	    {
+			Framework[system].list14pair[f1][i].A=0;
+			Framework[system].list14pair[f1][i].B=0;
+		}
+  }  
+  
+  int count = 0;
+  
+  for(f1=0;f1<Framework[system].NumberOfFrameworks;f1++)
+  {
+
+    for(A=0;A<Framework[system].NumberOfAtoms[f1];A++)
+    {
+      for(k=0;k<Framework[system].Connectivity[f1][A];k++)
+      {
+        B=GetNeighbour(system,f1,A,k);
+
+        for(l=0;l<Framework[system].Connectivity[f1][B];l++)
+        {
+          C=GetNeighbour(system,f1,B,l);
+          if((A!=C)&&(C!=B))
+          {
+
+            for(m=0;m<Framework[system].Connectivity[f1][C];m++)
+            {
+              D=GetNeighbour(system,f1,C,m);
+              if((D!=B)&&(D!=A)&&(D!=C))
+              {
+                if(A<D && IsDefinedTorsion(system,f1,A,B,C,D) && (!BITVAL(Framework[CurrentSystem].ExclusionMatrix[f1][A][D],1)))
+                {
+					
+					Framework[system].list14pair[f1][count].A=A;
+					Framework[system].list14pair[f1][count].B=D;	
+					count++;		
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }	
+  
+}
+//*********************************************
+
 /*********************************************************************************************************
  * Name       | MakeExclusionMatrix                                                                      *
  * ----------------------------------------------------------------------------------------------------- *
@@ -11257,10 +11449,13 @@ int IsDefinedImproperTorsion(int system,int f1,int A,int B,int C,int D)
 
 void MakeExclusionMatrix(int system)
 {
+
+
   int i,j,k,l,m,f1;
   int A,B,C,D;
   int index1,index2;
   int largest_size;
+
 
   // allocate memory for the exclusion-matrix
   Framework[system].ExclusionMatrix=(char***)calloc(Framework[system].NumberOfFrameworks,sizeof(char**));
@@ -11330,9 +11525,9 @@ void MakeExclusionMatrix(int system)
         }
       }
     }
-  }
+  }	
 
-
+  
   // VDW-VDW
   // ==============================================================================================
   // set general 1-2, 1-3, 1-4 exclusions for VDW
@@ -11371,21 +11566,28 @@ void MakeExclusionMatrix(int system)
               SETBIT(Framework[system].ExclusionMatrix[f1][A][C],7);
               if(C<Framework[system].NumberOfAtoms[f1])
               {
-                SETBIT(Framework[system].ExclusionMatrix[f1][C][A],0);
+                SETBIT(Framework[system].ExclusionMatrix[f1][C][A],0);              
                 SETBIT(Framework[system].ExclusionMatrix[f1][C][A],7);
+
               }
             }
           }
 
           for(m=0;m<Framework[system].Connectivity[f1][C];m++)
           {
+			    
             D=GetReplicaNeighbour(system,f1,C,m);
             if((D!=B)&&(D!=A))
             {
-              // we now have 4 connected atoms: A, B, C, D
+			  // we now have 4 connected atoms: A, B, C, D
+			  // Le if n'est jamais vérifié car: RemoveTorsionNeighboursFromLongRangeInteraction no
+			  // toujours un Bit 0 donc VDW bien présente de par l'initialisation de ExclusionMatrix
+
               if(Remove14NeighboursFromVDWInteraction||(RemoveTorsionNeighboursFromLongRangeInteraction&&IsDefinedTorsion(system,f1,A,B,C,D)))
               {
+
                 SETBIT(Framework[system].ExclusionMatrix[f1][A][D],0);
+                
                 if(D<Framework[system].NumberOfAtoms[f1])
                   SETBIT(Framework[system].ExclusionMatrix[f1][D][A],0);
               }
@@ -11413,7 +11615,9 @@ void MakeExclusionMatrix(int system)
         // we now have 2 connected atoms: A and B
         if(Remove12NeighboursFromChargeChargeInteraction||(RemoveBondNeighboursFromLongRangeInteraction&&IsDefinedBond(system,f1,A,B)))
         {
+			
           SETBIT(Framework[system].ExclusionMatrix[f1][A][B],1);
+          
           if(B<Framework[system].NumberOfAtoms[f1])
             SETBIT(Framework[system].ExclusionMatrix[f1][B][A],1);
         }
@@ -11435,11 +11639,11 @@ void MakeExclusionMatrix(int system)
           {
             D=GetReplicaNeighbour(system,f1,C,m);
             if((D!=B)&&(D!=A))
-            {
-              // we now have 4 connected atoms: A, B, C, D
+            {			
+			  // we now have 4 connected atoms: A, B, C, D
               if(Remove14NeighboursFromChargeChargeInteraction||(RemoveTorsionNeighboursFromLongRangeInteraction&&IsDefinedTorsion(system,f1,A,B,C,D)))
               {
-                SETBIT(Framework[system].ExclusionMatrix[f1][A][D],1);
+				 SETBIT(Framework[system].ExclusionMatrix[f1][A][D],1);
                 if(D<Framework[system].NumberOfAtoms[f1])
                   SETBIT(Framework[system].ExclusionMatrix[f1][D][A],1);
               }
@@ -11449,6 +11653,8 @@ void MakeExclusionMatrix(int system)
       }
     }
   }
+
+
 
   // set general 1-2, 1-3, 1-4 exclusions for charge-charge exclusion-list
   // charge exclusion in Fourier-space is based on the unit-cell using 'GetNeighbour'
@@ -11464,7 +11670,9 @@ void MakeExclusionMatrix(int system)
         // we now have 2 connected atoms: A and B
         if(Remove12NeighboursFromChargeChargeInteraction||(RemoveBondNeighboursFromLongRangeInteraction&&IsDefinedBond(system,f1,A,B)))
         {
+			
           SETBIT(Framework[system].ExclusionMatrix[f1][A][B],4);
+          
           if(B<Framework[system].NumberOfAtoms[f1])
             SETBIT(Framework[system].ExclusionMatrix[f1][B][A],4);
         }
@@ -13993,6 +14201,12 @@ void ReadRestartFramework(FILE *FilePtr)
       // rather then store the exclusion matrix, recompute it when all required information is read
       CurrentSystem=i;
       MakeExclusionMatrix(i);
+      // Add by Ambroise de Izarra
+      //-------------------------------------------------------------------
+      //AllocateList14atomsVDWandEwald(i);
+      //printInteractionIndexAtoms(i);
+      //-------------------------------------------------------------------
+      
     }
   }
 
@@ -14014,7 +14228,7 @@ void ReadRestartFramework(FILE *FilePtr)
     fread(SubstitutionFrameworkAtoms,sizeof(char[3][256]),NumberOfSubstitutionRules,FilePtr);
     fread(SubstitutionFrameworkAtomTypes,sizeof(int[3]),NumberOfSubstitutionRules,FilePtr);
   }
-
+ 
   fread(&NumberOfSubstitutions,sizeof(int),1,FilePtr);
   if(NumberOfSubstitutions>0)
     fread(ListOfAtomSubstitutions,sizeof(int[3]),NumberOfSubstitutions,FilePtr);
@@ -14053,3 +14267,110 @@ void ReadRestartFramework(FILE *FilePtr)
   }
 
 }
+
+// Added by Ambroise de Izarra
+//-------------------------------------------------------------------
+/*********************************************************************************************************
+ * Name       | printInteractionIndexAtoms    (Added by A. de Izarra)                              	     *
+ * ----------------------------------------------------------------------------------------------------- *
+ * Function   | print a list of bonds, bends, torsions (dihedrals)	of a flexible framework				 *
+ * Note       | int system => index of the system.														 *
+ *********************************************************************************************************/
+
+void printInteractionIndexAtoms(int system)
+{
+	int f1,i,j,index;
+	
+	FILE *FilePtr;
+	char buffer[256];
+	
+	
+	for(f1=0;f1<Framework[system].NumberOfFrameworks;f1++)
+    {   
+		
+		
+		if(Framework[system].PrintInteractionIndex[f1]) 
+		{
+			if(f1 == 0) 
+			{
+				mkdir("PrintInteractionIndexAtoms",S_IRWXU);
+				sprintf(buffer,"PrintInteractionIndexAtoms/System_%d",system);
+				mkdir(buffer,S_IRWXU);
+			}
+			
+			  sprintf(buffer,"PrintInteractionIndexAtoms/System_%d/InteractionIndexAtoms_framework_%d.txt",system,f1);
+			  FilePtr=fopen(buffer,"w");
+			  
+			  if(FilePtr)
+			  {
+				  if(Framework[system].FrameworkModel==FLEXIBLE)
+				  {
+					    
+						//Output the bond index atoms.
+						
+						index = 0;
+						
+						fprintf(FilePtr,"[\tBonds\t]\n");
+						for(i=0;i<Framework[system].NumberOfBondsDefinitions;i++) //Nomber of different bond types
+						{
+							fprintf(FilePtr,"\t[\t%s\t%s\t]\n",PseudoAtoms[Framework[system].BondDefinitions[i].A].Name,PseudoAtoms[Framework[system].BondDefinitions[i].B].Name);
+							
+							for(j=0;j<Framework[system].NumberOfBondsPerType[i];j++) // In a given type, give the number of bond
+							{
+								fprintf(FilePtr,"\t\t%i\t%i\n",Framework[system].Bonds[f1][index].A,Framework[system].Bonds[f1][index].B);
+								index++;
+							}
+						}	
+	
+						
+						//Output the angle index atoms.
+						
+						index = 0;
+						
+						fprintf(FilePtr,"[\tangle\t]\n");
+						for(i=0;i<Framework[system].NumberOfBendDefinitions;i++) //Nomber of different bend types
+						{                                 
+							fprintf(FilePtr,"\t[\t%s\t%s\t%s\t]\n",PseudoAtoms[Framework[system].BendDefinitions[i].A].Name,PseudoAtoms[Framework[system].BendDefinitions[i].B].Name,PseudoAtoms[Framework[system].BendDefinitions[i].C].Name);
+							
+							for(j=0;j<Framework[system].NumberOfBendsPerType[i];j++) // In a given type, give the number of bend
+							{
+								fprintf(FilePtr,"\t\t%i\t%i\t%i\n",Framework[system].Bends[f1][index].A,Framework[system].Bends[f1][index].B,Framework[system].Bends[f1][index].C);
+								index++;
+							}
+						}
+						
+		
+						
+						//Output the dihedrals index atoms.
+						
+						index = 0;
+						
+						fprintf(FilePtr,"[\tdihedrals\t]\n");
+						for(i=0;i<Framework[system].NumberOfTorsionDefinitions;i++) //Nomber of different Torsion types
+						{                                   
+							fprintf(FilePtr,"\t[\t%s\t%s\t%s\t%s\t]\n",PseudoAtoms[Framework[system].TorsionDefinitions[i].A].Name,PseudoAtoms[Framework[system].TorsionDefinitions[i].B].Name,PseudoAtoms[Framework[system].TorsionDefinitions[i].C].Name,PseudoAtoms[Framework[system].TorsionDefinitions[i].D].Name);
+							
+							for(j=0;j<Framework[system].NumberOfTorsionsPerType[i];j++) // In a given type, give the number of Torsion 
+							{
+								fprintf(FilePtr,"\t\t%i\t%i\t%i\t%i\n",Framework[system].Torsions[f1][index].A,Framework[system].Torsions[f1][index].B,Framework[system].Torsions[f1][index].C,Framework[system].Torsions[f1][index].D);
+								index++;
+							}
+						}
+						
+					}
+			  }
+			  
+			  else
+			  {
+				printf(stderr,"Cannot open %s",buffer);
+				
+			  }
+			  
+			  fclose(FilePtr);
+		}
+	}
+	
+}
+
+	  
+//-------------------------------------------------------------------

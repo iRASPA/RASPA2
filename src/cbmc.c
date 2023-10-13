@@ -62,23 +62,26 @@ static REAL RosenbluthOld;             // the old Rosenbluth weight (retrace)
 static REAL *RosenbluthTorsion;
 static REAL RosenBluthFactorFirstBead;
 
-static int CurrentBead;       // the current bead (new beads are grown from this one)
-static int CurrentGroup;      // the current group
+// Modified by Ambroise switch static to non-static
+//-------------------------------------------------------------------
+int CurrentBead;       // the current bead (new beads are grown from this one)
+int CurrentGroup;      // the current group
 
-static int NumberOfPreviousBeads;  // the number of previous beads
-static int PreviousBead;           // the first previous bead
-static int PreviousGroup;          // the previous group
+int NumberOfPreviousBeads;  // the number of previous beads
 
-static int NumberOfBeadsToBePlaced;              // the numer of beads to be placed
-static int *BeadsToBePlaced;
+int PreviousBead;           // the first previous bead
+int PreviousGroup;          // the previous group
+
+int NumberOfBeadsToBePlaced;              // the numer of beads to be placed
+int *BeadsToBePlaced;
 
 int NumberOfBeadsAlreadyPlaced;              // the number of beads already placed
 int *BeadsAlreadyPlaced; // a list of atom-ids
 
-static int NumberOfBranches;                                      // the number of branches
-static int *NumberOfBranchAtoms;              // the number of atoms per branch
-static int **BranchAtoms; // a list of atom-ids per branch
-
+int NumberOfBranches;                                      // the number of branches
+int *NumberOfBranchAtoms;              // the number of atoms per branch
+int **BranchAtoms; // a list of atom-ids per branch
+//-------------------------------------------------------------------
 VECTOR FirstBeadPosition;
 VECTOR **NewPosition;
 VECTOR *OldPosition;
@@ -268,43 +271,43 @@ REAL *UCationPermanentDipolePermanentDipoleOld;
 REAL *UHostPermanentDipolePermanentDipoleOld;
 
 // trial energies
-static REAL *UBondTrial;
-static REAL *UBendTrial;
-static REAL *UBendBendTrial;
-static REAL *UUreyBradleyTrial;
-static REAL *UInversionBendTrial;
-static REAL *UTorsionTrial;
-static REAL *UImproperTorsionTrial;
-static REAL *UBondBondTrial;
-static REAL *UBondBendTrial;
-static REAL *UBondTorsionTrial;
-static REAL *UBendTorsionTrial;
-static REAL *UIntraVDWTrial;
-static REAL *UIntraChargeChargeTrial;
-static REAL *UIntraChargeBondDipoleTrial;
-static REAL *UIntraBondDipoleBondDipoleTrial;
+REAL *UBondTrial;
+REAL *UBendTrial;
+REAL *UBendBendTrial;
+REAL *UUreyBradleyTrial;
+REAL *UInversionBendTrial;
+REAL *UTorsionTrial;
+REAL *UImproperTorsionTrial;
+REAL *UBondBondTrial;
+REAL *UBondBendTrial;
+REAL *UBondTorsionTrial;
+REAL *UBendTorsionTrial;
+REAL *UIntraVDWTrial;
+REAL *UIntraChargeChargeTrial;
+REAL *UIntraChargeBondDipoleTrial;
+REAL *UIntraBondDipoleBondDipoleTrial;
 
-static REAL *UHostVDWTrial;
-static REAL *UAdsorbateVDWTrial;
-static REAL *UCationVDWTrial;
-static REAL *UHostChargeChargeTrial;
-static REAL *UAdsorbateChargeChargeTrial;
-static REAL *UCationChargeChargeTrial;
-static REAL *UHostChargeBondDipoleTrial;
-static REAL *UAdsorbateChargeBondDipoleTrial;
-static REAL *UCationChargeBondDipoleTrial;
-static REAL *UHostChargePermanentDipoleTrial;
-static REAL *UAdsorbateChargePermanentDipoleTrial;
-static REAL *UCationChargePermanentDipoleTrial;
-static REAL *UHostBondDipoleBondDipoleTrial;
-static REAL *UAdsorbateBondDipoleBondDipoleTrial;
-static REAL *UCationBondDipoleBondDipoleTrial;
-static REAL *UHostBondDipolePermanentDipoleTrial;
-static REAL *UAdsorbateBondDipolePermanentDipoleTrial;
-static REAL *UCationBondDipolePermanentDipoleTrial;
-static REAL *UHostPermanentDipolePermanentDipoleTrial;
-static REAL *UAdsorbatePermanentDipolePermanentDipoleTrial;
-static REAL *UCationPermanentDipolePermanentDipoleTrial;
+REAL *UHostVDWTrial;
+REAL *UAdsorbateVDWTrial;
+REAL *UCationVDWTrial;
+REAL *UHostChargeChargeTrial;
+REAL *UAdsorbateChargeChargeTrial;
+REAL *UCationChargeChargeTrial;
+REAL *UHostChargeBondDipoleTrial;
+REAL *UAdsorbateChargeBondDipoleTrial;
+REAL *UCationChargeBondDipoleTrial;
+REAL *UHostChargePermanentDipoleTrial;
+REAL *UAdsorbateChargePermanentDipoleTrial;
+REAL *UCationChargePermanentDipoleTrial;
+REAL *UHostBondDipoleBondDipoleTrial;
+REAL *UAdsorbateBondDipoleBondDipoleTrial;
+REAL *UCationBondDipoleBondDipoleTrial;
+REAL *UHostBondDipolePermanentDipoleTrial;
+REAL *UAdsorbateBondDipolePermanentDipoleTrial;
+REAL *UCationBondDipolePermanentDipoleTrial;
+REAL *UHostPermanentDipolePermanentDipoleTrial;
+REAL *UAdsorbatePermanentDipolePermanentDipoleTrial;
+REAL *UCationPermanentDipolePermanentDipoleTrial;
 
 static REAL EnergyHostVDWFirstBead;
 static REAL EnergyAdsorbateVDWFirstBead;
@@ -368,17 +371,24 @@ static int *BoolToBePlaced;
 static int *BoolAlreadyPlacedOrToBePlaced;
 static int *beadn;
 static int *PossibleCurrentBeads;
-static int **MoleculeTodoConnectivity;
+int **MoleculeTodoConnectivity;
 static int **MoleculeConnectivity;
 
+// Added by Ambroise de Izarra
+//-----------------------------------------------------------------------------
+// Switch from static to non static because used for alchemical transformation
 static int HandleFirstBead(int Switch);
-static void Interactions(void);
-static int GenerateTrialOrientationsSimpleSphere(int Old);
-static int GenerateTrialOrientationsMCScheme(int Old);
-static int ComputeExternalEnergies(void);
+void Interactions(void);
 
-static int Rosen(void);
-static int RosenOld(void);
+// Switch from static to non static because used for alchemical transformation
+int GenerateTrialOrientationsSimpleSphere(int Old);
+int GenerateTrialOrientationsMCScheme(int Old);
+int ComputeExternalEnergies(void);
+
+// Switch from static to non static because used for alchemical transformation
+int Rosen(void);
+int RosenOld(void);
+//-----------------------------------------------------------------------------
 
 static REAL ComputeSumRosenbluthWeight(REAL *BoltzmannFactors,int *Overlap,int NumberOfTrialPositions);
 static REAL ComputeNormalizedRosenbluthWeight(REAL *BoltzmannFactors,int *Overlap,int NumberOfTrialPositions);
@@ -654,6 +664,7 @@ int HandleFirstBead(int Switch)
         FirstBeadPosition=ConvertFromABCtoXYZ(s);
       } while(!ValidCartesianPoint(CurrentComponent,FirstBeadPosition));
     }
+    
     Trial[i]=FirstBeadPosition;
 
     posA=Trial[i];
@@ -671,7 +682,7 @@ int HandleFirstBead(int Switch)
     // compute VDW energy with adsorbates if no omit of adsorbate-adsorbate or the current molecule is a cation
     if(Components[CurrentComponent].ExtraFrameworkMolecule||(!OmitAdsorbateAdsorbateVDWInteractions))
       EnergyAdsorbateVDW=CalculateInterVDWEnergyAdsorbateAtPosition(posA,type,CurrentAdsorbateMolecule,CFVDWScaling[start]);
-
+     
     // compute Coulomb energy with adsorbates if no omit of adsorbate-adsorbate or the current molecule is a cation
     if(Components[CurrentComponent].ExtraFrameworkMolecule||(!OmitAdsorbateAdsorbateCoulombInteractions))
       CalculateInterChargeEnergyAdsorbateAtPosition(posA,type,&EnergyAdsorbateChargeCharge,&EnergyAdsorbateChargeBondDipole,CurrentAdsorbateMolecule,CFChargeScaling[start] * PseudoAtoms[type].Charge1);
@@ -759,6 +770,7 @@ int HandleFirstBead(int Switch)
 
   EnergyHostVDWFirstBead=EnergiesHostVDW[i];
   EnergyAdsorbateVDWFirstBead=EnergiesAdsorbateVDW[i];
+  
   EnergyCationVDWFirstBead=EnergiesCationVDW[i];
 
   EnergyHostChargeChargeFirstBead=EnergiesHostChargeCharge[i];
@@ -1139,9 +1151,15 @@ void Interactions(void)
   }
 }
 
+// Added by Ambroise de Izarra;
+//-------------------------------------------------------------------
+int Itrial;
+//-------------------------------------------------------------------
+
 int ComputeExternalEnergies(void)
 {
-  int i,j,Itrial,A,B,type,typeA,typeB;
+	
+  int i,j,A,B,type,typeA,typeB;
   REAL rr,r;
   REAL EnergiesIntra,EnergiesIntraChargeCharge,EnergiesIntraChargeBondDipole,EnergiesIntraBondDipoleBondDipole;
   REAL EnergyHostVDW,EnergyAdsorbateVDW,EnergyCationVDW;
@@ -1181,12 +1199,13 @@ int ComputeExternalEnergies(void)
     EnergiesHostBondDipoleBondDipole=0.0;
     EnergiesAdsorbateBondDipoleBondDipole=0.0;
     EnergiesCationBondDipoleBondDipole=0.0;
-
+  
     for(j=0;j<NumberOfBeadsToBePlaced;j++)
     {
       TRIAL_OVERLAP=FALSE;
       if (BeadsToBePlaced[j]<Components[CurrentComponent].NumberOfAtoms)
       {
+			
         posAVDW=posA=TrialPositions[Itrial][BeadsToBePlaced[j]];
         type=Components[CurrentComponent].Type[BeadsToBePlaced[j]];
 
@@ -1228,7 +1247,6 @@ int ComputeExternalEnergies(void)
         EnergiesAdsorbateChargeCharge+=EnergyAdsorbateChargeCharge;
         EnergiesAdsorbateChargeBondDipole+=EnergyAdsorbateChargeBondDipole;
         EnergiesAdsorbateBondDipoleBondDipole+=EnergyAdsorbateBondDipoleBondDipole;
-
         EnergiesCationVDW+=EnergyCationVDW;
         EnergiesCationChargeCharge+=EnergyCationChargeCharge;
         EnergiesCationChargeBondDipole+=EnergyCationChargeBondDipole;
@@ -1462,6 +1480,7 @@ int ComputeExternalEnergies(void)
       Overlap[Itrial]=TRUE;
     }
   }
+
   return 0;
 }
 
@@ -1516,6 +1535,8 @@ int GenerateTrialOrientationsSimpleSphere(int Old)
       bond_length[j]=GenerateBondlength(Bonds[j]);
   }
 
+  
+
   for(iu=0;iu<NumberOfTrialPositions;iu++)
   {
     if(!(Old&&iu==0))    // generate 'k' new trial positions for the second bead except for the first trial position (iu=0) when retracing
@@ -1531,7 +1552,7 @@ int GenerateTrialOrientationsSimpleSphere(int Old)
           atom_nr=Components[CurrentComponent].Groups[CurrentGroup].Atoms[j];
           cord[j].x=Components[CurrentComponent].Positions[atom_nr].x-Components[CurrentComponent].Positions[CurrentBead].x;
           cord[j].y=Components[CurrentComponent].Positions[atom_nr].y-Components[CurrentComponent].Positions[CurrentBead].y;
-          cord[j].z=Components[CurrentComponent].Positions[atom_nr].z-Components[CurrentComponent].Positions[CurrentBead].z;
+          cord[j].z=Components[CurrentComponent].Positions[atom_nr].z-Components[CurrentComponent].Positions[CurrentBead].z;          
         }
 
         RandomArrayRotationMatrix(cord,Components[CurrentComponent].Groups[CurrentGroup].NumberOfGroupAtoms);
@@ -1542,7 +1563,7 @@ int GenerateTrialOrientationsSimpleSphere(int Old)
           TrialPositions[iu][atom_nr].x=TrialPositions[0][CurrentBead].x+cord[j].x;
           TrialPositions[iu][atom_nr].y=TrialPositions[0][CurrentBead].y+cord[j].y;
           TrialPositions[iu][atom_nr].z=TrialPositions[0][CurrentBead].z+cord[j].z;
-        }
+        }  
       }
       else
       {
@@ -2760,12 +2781,14 @@ int Rosen(void)
     SetGrowingStatus();
 
     Interactions();
-
+    
+   
+    
     // fill trialpositions of the beads that are already grown
     for(iu=0;iu<NumberOfTrialPositions;iu++)
       for(j=0;j<NumberOfBeadsAlreadyPlaced;j++)
         TrialPositions[iu][BeadsAlreadyPlaced[j]]=NewPosition[CurrentSystem][BeadsAlreadyPlaced[j]];
-
+		
     for(j=0;j<NumberOfTrialPositionsTorsion;j++)
       RosenbluthTorsion[j]=1.0;
 
@@ -2832,7 +2855,7 @@ int Rosen(void)
         MoleculeTodoConnectivity[j][ip]=FALSE;
     }
   } while(NumberOfBeadsAlreadyPlaced!=Components[CurrentComponent].NumberOfAtoms);
-
+  
   return 0;
 }
 
@@ -2948,7 +2971,7 @@ REAL RetraceMolecule(int Iicode)
   UHostBondDipoleBondDipoleOld[CurrentSystem]=0.0;
   UAdsorbateBondDipoleBondDipoleOld[CurrentSystem]=0.0;
   UCationBondDipoleBondDipoleOld[CurrentSystem]=0.0;
-
+  
   RosenbluthOld=1.0;
 
   OVERLAP=FALSE;
@@ -2972,6 +2995,7 @@ REAL RetraceMolecule(int Iicode)
     RosenbluthOld=RosenBluthFactorFirstBead;
 
     UCationVDWOld[CurrentSystem]=EnergyCationVDWFirstBead;
+    
     UAdsorbateVDWOld[CurrentSystem]=EnergyAdsorbateVDWFirstBead;
     UHostVDWOld[CurrentSystem]=EnergyHostVDWFirstBead;
 
