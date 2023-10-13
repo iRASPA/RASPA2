@@ -128,6 +128,9 @@ extern int (*ForbiddenConnectivityTypes)[3];
 
 void CheckFrameworkCharges(void);
 void AddAsymmetricAtom(FRAMEWORK_ASYMMETRIC_ATOM atom);
+void SetBoundaryCondition(int system, REAL eps_angle, REAL eps_length, REAL alpha, REAL beta, REAL gamma, REAL A, REAL B, REAL C);
+void SetBoundaryConditionFromSystem(int system, REAL eps_angle, REAL eps_length);
+
 void ReadFrameworkDefinitionCSSR(void);
 void ReadFrameworkDefinitionDLPOLY(void);
 void CreateAsymetricFrameworkAtoms(void);

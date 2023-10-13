@@ -5610,6 +5610,7 @@ VECTOR MapToBox(VECTOR pos)
 
   switch(BoundaryCondition[CurrentSystem])
   {
+    case CUBIC:
     case RECTANGULAR:
       pos.x-=Box[CurrentSystem].ax*NINT(pos.x/Box[CurrentSystem].ax);
       pos.y-=Box[CurrentSystem].by*NINT(pos.y/Box[CurrentSystem].by);
