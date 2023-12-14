@@ -1,6 +1,6 @@
 // Alchemical_transformation.h Added by Ambroise de Izarra
 /*  
- * Alchemical transformation is added to build functions that peform
+ * Alchemical transformation is added to build functions that perform
  * an alchemical transformation at a fixed number of particule in the system (osmotic ensemble)
  */ 
 #ifndef ALCHEMICAL_H

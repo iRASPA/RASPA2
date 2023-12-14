@@ -378,12 +378,10 @@ static int **MoleculeConnectivity;
 //-----------------------------------------------------------------------------
 // Switch from static to non static because used for alchemical transformation
 static int HandleFirstBead(int Switch);
-void Interactions(void);
 
 // Switch from static to non static because used for alchemical transformation
 int GenerateTrialOrientationsSimpleSphere(int Old);
 int GenerateTrialOrientationsMCScheme(int Old);
-int ComputeExternalEnergies(void);
 
 // Switch from static to non static because used for alchemical transformation
 int Rosen(void);

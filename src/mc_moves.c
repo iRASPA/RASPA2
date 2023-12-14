@@ -42,7 +42,7 @@
 #include "framework_force.h"
 #include "framework.h"
 #include "simulation.h"
-#include "Alchemical_transformation.h"
+#include "alchemical_transformation.h"
 #include "cbmc.h"
 #include "ewald.h"
 #include "utils.h"

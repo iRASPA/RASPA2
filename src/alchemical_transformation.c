@@ -15,12 +15,13 @@
 #include <string.h>
 #include <ctype.h>
 #include <sys/stat.h>
-#include "Alchemical_transformation.h"
+#include "alchemical_transformation.h"
 #include "framework_energy.h"
 #include "molecule.h"
 #include "framework.h"
 #include "simulation.h"
 #include "ewald.h"
+#include "cbmc.h"
 #include "potentials.h"
 #include "utils.h"
 #include "output.h"
@@ -645,7 +646,7 @@ void MakeInitialTransient(int NumberOldComponent)
 		    for(j=0;j<Components[CurrentComponent].NumberOfAtoms;j++)
 		    {
 			  if(BlockedPocket(TrialPosition[CurrentSystem][j]))
-			  return 0;
+			  return;
 		    }
 
 		    UTailNew=TailMolecularEnergyDifferenceAdd();
@@ -779,7 +780,7 @@ void MakeInitialTransient(int NumberOldComponent)
   		}
   }
 
-  return 0;
+  return;
 }
 
 /*********************************************************************************************************

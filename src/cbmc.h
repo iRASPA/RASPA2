@@ -190,6 +190,13 @@ extern REAL *UHostPermanentDipolePermanentDipoleTrial;
 extern REAL *UAdsorbatePermanentDipolePermanentDipoleTrial;
 extern REAL *UCationPermanentDipolePermanentDipoleTrial;
 
+void SetConnectivityMatrix(void);
+void SetGrowingStatus(void);
+void Interactions(void);
+int GenerateTrialOrientationsSimpleSphere(int Old);
+int GenerateTrialOrientationsMCScheme(int Old);
+int ComputeExternalEnergies(void);
+
 // Added by Ambroise de Izarra
 //-------------------------------------------------------------------
 extern int CurrentBead;       

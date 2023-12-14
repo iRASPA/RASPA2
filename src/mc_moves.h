@@ -43,6 +43,7 @@
 // Modified by Ambroise de Izarra
 //-------------------------------------------------------------------
 // switched from static to extern for use in alchemical transformation.
+int ComputeNewPolarizationEnergy(int New,int excl_ads,int excl_cation);
 extern REAL UDeltaPolarization;
 extern REAL *UHostPolarizationNew;
 extern REAL *UAdsorbatePolarizationNew;
