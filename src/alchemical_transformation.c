@@ -15,7 +15,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <sys/stat.h>
-#include "Alchemical_transformation.h"
+#include "alchemical_transformation.h"
 #include "framework_energy.h"
 #include "molecule.h"
 #include "framework.h"

@@ -48,7 +48,7 @@
 #include "inter_energy.h"
 #include "framework.h"
 #include "framework_energy.h"
-#include "Alchemical_transformation.h"
+#include "alchemical_transformation.h"
 #include "ewald.h"
 #include "sample.h"
 #include "utils.h"

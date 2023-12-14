@@ -5,7 +5,8 @@ simulate_SOURCES = main.c
 simulate_LDADD = libraspa2.la
 
 libraspa2_la_LIBADD = -lm
-libraspa2_la_SOURCES = cbmc.c cbmc.h \
+libraspa2_la_SOURCES = alchemical_transformation.c alchemical_transformation.h\
+                       cbmc.c cbmc.h \
                        charge_equilibration.c charge_equilibration.h \
                        complex.c complex.h \
                        constants.c constants.h \

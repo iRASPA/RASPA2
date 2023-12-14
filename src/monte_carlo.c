@@ -42,7 +42,7 @@
 #include "simulation.h"
 #include "molecule.h"
 #include "framework_energy.h"
-#include "Alchemical_transformation.h"
+#include "alchemical_transformation.h"
 #include "framework.h"
 #include "utils.h"
 #include "molecule.h"

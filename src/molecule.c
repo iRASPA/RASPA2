@@ -50,7 +50,7 @@
 #include "mc_moves.h"
 #include "ewald.h"
 #include "thermo_baro_stats.h"
-#include "Alchemical_transformation.h"
+#include "alchemical_transformation.h"
 #include "integration.h"
 #include "scattering_factors.h"
 #include "input.h"
