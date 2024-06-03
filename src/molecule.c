@@ -6602,7 +6602,7 @@ void PrintCPUStatistics(FILE *FilePtr)
     CpuTimeReinsertionInPlaneMove+=Components[i].CpuTimeReinsertionInPlaneMove[CurrentSystem];
     CpuTimeIdentityChangeMove+=Components[i].CpuTimeIdentityChangeMove[CurrentSystem];
     CpuTimeSwapMoveInsertion+=Components[i].CpuTimeSwapMoveInsertion[CurrentSystem];
-    CpuTimeSwapMoveDeletion+=Components[i].CpuTimeSwapMoveInsertion[CurrentSystem];
+    CpuTimeSwapMoveDeletion+=Components[i].CpuTimeSwapMoveDeletion[CurrentSystem];
     CpuTimeCFSwapLambdaMove+=Components[i].CpuTimeCFSwapLambdaMove[CurrentSystem];
     CpuTimeCBCFSwapLambdaMove+=Components[i].CpuTimeCBCFSwapLambdaMove[CurrentSystem];
     CpuTimeWidomMove+=Components[i].CpuTimeWidomMove[CurrentSystem];
