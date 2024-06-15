@@ -31028,6 +31028,8 @@ int CFGibbsLambdaChangeMove(void)
 
   LambdaNew=LambdaOld+vNew;
 
+  CFGibbsLambdaChangeAttempts[CurrentSystem][CurrentComponent]++;
+
   if(LambdaNew>1.0)
   {
     return 0;
@@ -31037,7 +31039,6 @@ int CFGibbsLambdaChangeMove(void)
     return 0;
   }
 
-  CFGibbsLambdaChangeAttempts[CurrentSystem][CurrentComponent]++;
 
   index_new=(int)(Components[CurrentComponent].CFLambdaHistogramSize*LambdaNew);
   if(index_new==Components[CurrentComponent].CFLambdaHistogramSize) index_new--;
