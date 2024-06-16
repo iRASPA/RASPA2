@@ -1334,17 +1334,17 @@ void UpdateEnergyAveragesCurrentSystem(void)
                   MolecularStressTensor[CurrentSystem].cz)/(3.0*Volume[CurrentSystem]));
       PressureTailCorrectionAccumulated[CurrentSystem][Block]+=weight*PressureTail;
 
-      MolecularStressTensor[CurrentSystem].ax=weight*(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].ax/Volume[CurrentSystem]);
-      MolecularStressTensor[CurrentSystem].ay=weight*(-MolecularStressTensor[CurrentSystem].ay/Volume[CurrentSystem]);
-      MolecularStressTensor[CurrentSystem].az=weight*(-MolecularStressTensor[CurrentSystem].az/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].ax=(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].ax/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].ay=(-MolecularStressTensor[CurrentSystem].ay/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].az=(-MolecularStressTensor[CurrentSystem].az/Volume[CurrentSystem]);
 
-      MolecularStressTensor[CurrentSystem].bx=weight*(-MolecularStressTensor[CurrentSystem].bx/Volume[CurrentSystem]);
-      MolecularStressTensor[CurrentSystem].by=weight*(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].by/Volume[CurrentSystem]);
-      MolecularStressTensor[CurrentSystem].bz=weight*(-MolecularStressTensor[CurrentSystem].bz/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].bx=(-MolecularStressTensor[CurrentSystem].bx/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].by=(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].by/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].bz=(-MolecularStressTensor[CurrentSystem].bz/Volume[CurrentSystem]);
 
-      MolecularStressTensor[CurrentSystem].cx=weight*(-MolecularStressTensor[CurrentSystem].cx/Volume[CurrentSystem]);
-      MolecularStressTensor[CurrentSystem].cy=weight*(-MolecularStressTensor[CurrentSystem].cy/Volume[CurrentSystem]);
-      MolecularStressTensor[CurrentSystem].cz=weight*(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].cz/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].cx=(-MolecularStressTensor[CurrentSystem].cx/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].cy=(-MolecularStressTensor[CurrentSystem].cy/Volume[CurrentSystem]);
+      MolecularStressTensor[CurrentSystem].cz=(PressureIdealGas+PressureTail-MolecularStressTensor[CurrentSystem].cz/Volume[CurrentSystem]);
 
       MolecularStressTensorAccumulated[CurrentSystem][Block].ax+=weight*MolecularStressTensor[CurrentSystem].ax;
       MolecularStressTensorAccumulated[CurrentSystem][Block].ay+=weight*MolecularStressTensor[CurrentSystem].ay;
