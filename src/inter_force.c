@@ -1958,13 +1958,13 @@ int CalculateTotalInterChargeChargeCoulombElectricFieldMC(int New,int excl_ads,i
                   force_factor_B=force_factor*chargeA;
 
                   // electric field
-                  Adsorbates[CurrentSystem][i].Atoms[k].ElectricField.x-=force_factor_A*dr.x;
-                  Adsorbates[CurrentSystem][i].Atoms[k].ElectricField.y-=force_factor_A*dr.y;
-                  Adsorbates[CurrentSystem][i].Atoms[k].ElectricField.z-=force_factor_A*dr.z;
+                  Adsorbates[CurrentSystem][i].Atoms[k].ElectricField.x-=0.5*force_factor_A*dr.x;
+                  Adsorbates[CurrentSystem][i].Atoms[k].ElectricField.y-=0.5*force_factor_A*dr.y;
+                  Adsorbates[CurrentSystem][i].Atoms[k].ElectricField.z-=0.5*force_factor_A*dr.z;
 
-                  Adsorbates[CurrentSystem][j].Atoms[l].ElectricField.x+=force_factor_B*dr.x;
-                  Adsorbates[CurrentSystem][j].Atoms[l].ElectricField.y+=force_factor_B*dr.y;
-                  Adsorbates[CurrentSystem][j].Atoms[l].ElectricField.z+=force_factor_B*dr.z;
+                  Adsorbates[CurrentSystem][j].Atoms[l].ElectricField.x+=0.5*force_factor_B*dr.x;
+                  Adsorbates[CurrentSystem][j].Atoms[l].ElectricField.y+=0.5*force_factor_B*dr.y;
+                  Adsorbates[CurrentSystem][j].Atoms[l].ElectricField.z+=0.5*force_factor_B*dr.z;
                 }
               }
             }
@@ -2050,13 +2050,13 @@ int CalculateTotalInterChargeChargeCoulombElectricFieldMC(int New,int excl_ads,i
                   force_factor_B=force_factor*chargeA;
 
                   // electric field
-                  Cations[CurrentSystem][i].Atoms[k].ElectricField.x-=force_factor_A*dr.x;
-                  Cations[CurrentSystem][i].Atoms[k].ElectricField.y-=force_factor_A*dr.y;
-                  Cations[CurrentSystem][i].Atoms[k].ElectricField.z-=force_factor_A*dr.z;
+                  Cations[CurrentSystem][i].Atoms[k].ElectricField.x-=0.5*force_factor_A*dr.x;
+                  Cations[CurrentSystem][i].Atoms[k].ElectricField.y-=0.5*force_factor_A*dr.y;
+                  Cations[CurrentSystem][i].Atoms[k].ElectricField.z-=0.5*force_factor_A*dr.z;
 
-                  Cations[CurrentSystem][j].Atoms[l].ElectricField.x+=force_factor_B*dr.x;
-                  Cations[CurrentSystem][j].Atoms[l].ElectricField.y+=force_factor_B*dr.y;
-                  Cations[CurrentSystem][j].Atoms[l].ElectricField.z+=force_factor_B*dr.z;
+                  Cations[CurrentSystem][j].Atoms[l].ElectricField.x+=0.5*force_factor_B*dr.x;
+                  Cations[CurrentSystem][j].Atoms[l].ElectricField.y+=0.5*force_factor_B*dr.y;
+                  Cations[CurrentSystem][j].Atoms[l].ElectricField.z+=0.5*force_factor_B*dr.z;
                 }
               }
             }
@@ -2103,13 +2103,13 @@ int CalculateTotalInterChargeChargeCoulombElectricFieldMC(int New,int excl_ads,i
                 force_factor_B=force_factor*chargeA;
 
                 // electric field
-                ElectricFieldAtTrialPosition[CurrentSystem][i].x-=force_factor_A*dr.x;
-                ElectricFieldAtTrialPosition[CurrentSystem][i].y-=force_factor_A*dr.y;
-                ElectricFieldAtTrialPosition[CurrentSystem][i].z-=force_factor_A*dr.z;
+                ElectricFieldAtTrialPosition[CurrentSystem][i].x-=0.5*force_factor_A*dr.x;
+                ElectricFieldAtTrialPosition[CurrentSystem][i].y-=0.5*force_factor_A*dr.y;
+                ElectricFieldAtTrialPosition[CurrentSystem][i].z-=0.5*force_factor_A*dr.z;
 
-                Adsorbates[CurrentSystem][j].Atoms[l].ElectricField.x+=force_factor_B*dr.x;
-                Adsorbates[CurrentSystem][j].Atoms[l].ElectricField.y+=force_factor_B*dr.y;
-                Adsorbates[CurrentSystem][j].Atoms[l].ElectricField.z+=force_factor_B*dr.z;
+                Adsorbates[CurrentSystem][j].Atoms[l].ElectricField.x+=0.5*force_factor_B*dr.x;
+                Adsorbates[CurrentSystem][j].Atoms[l].ElectricField.y+=0.5*force_factor_B*dr.y;
+                Adsorbates[CurrentSystem][j].Atoms[l].ElectricField.z+=0.5*force_factor_B*dr.z;
               }
             }
           }

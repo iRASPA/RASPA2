@@ -5670,7 +5670,7 @@ int CalculateFrameworkChargeChargeElectricFieldMC(int New,int excl_ads,int excl_
   int i,j,k,f1;
   int typeA,typeB;
   REAL rr;
-  REAL chargeA,chargeB,temp;
+  REAL chargeA,chargeB,temp,energy, force_factor;
   REAL  force_factor_A,force_factor_B;
   VECTOR posA,posB,dr;
 
@@ -5702,11 +5702,11 @@ int CalculateFrameworkChargeChargeElectricFieldMC(int New,int excl_ads,int excl_
 
             if(rr<CutOffChargeChargeSquared[CurrentSystem])
             {
-              temp=PotentialValueCoulombic(1.0,1.0,sqrt(rr));
+              PotentialGradientCoulombic(1.0,1.0,rr,&energy,&force_factor);
 
               // forces
-              force_factor_A=temp*chargeB;
-              force_factor_B=temp*chargeA;
+              force_factor_A=force_factor*chargeB;
+              force_factor_B=force_factor*chargeA;
 
               Adsorbates[CurrentSystem][i].Atoms[j].ElectricField.x-=force_factor_A*dr.x;
               Adsorbates[CurrentSystem][i].Atoms[j].ElectricField.y-=force_factor_A*dr.y;
@@ -5751,11 +5751,11 @@ int CalculateFrameworkChargeChargeElectricFieldMC(int New,int excl_ads,int excl_
 
             if(rr<CutOffChargeChargeSquared[CurrentSystem])
             {
-              temp=PotentialValueCoulombic(1.0,1.0,sqrt(rr));
+              PotentialGradientCoulombic(1.0,1.0,rr,&energy,&force_factor);
 
               // forces
-              force_factor_A=temp*chargeB;
-              force_factor_B=temp*chargeA;
+              force_factor_A=force_factor*chargeB;
+              force_factor_B=force_factor*chargeA;
 
               Cations[CurrentSystem][i].Atoms[j].ElectricField.x-=force_factor_A*dr.x;
               Cations[CurrentSystem][i].Atoms[j].ElectricField.y-=force_factor_A*dr.y;
@@ -5798,11 +5798,11 @@ int CalculateFrameworkChargeChargeElectricFieldMC(int New,int excl_ads,int excl_
 
           if(rr<CutOffChargeChargeSquared[CurrentSystem])
           {
-            temp=PotentialValueCoulombic(1.0,1.0,sqrt(rr));
+            PotentialGradientCoulombic(1.0,1.0,rr,&energy,&force_factor);
 
             // forces
-            force_factor_A=temp*chargeB;
-            force_factor_B=temp*chargeA;
+            force_factor_A=force_factor*chargeB;
+            force_factor_B=force_factor*chargeA;
 
             ElectricFieldAtTrialPosition[CurrentSystem][i].x-=force_factor_A*dr.x;
             ElectricFieldAtTrialPosition[CurrentSystem][i].y-=force_factor_A*dr.y;
