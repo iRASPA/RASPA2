@@ -123,6 +123,10 @@ void MolecularDynamicsSimulation(void)
   // compute initial energy
   CalculateTotalEnergyAllSystems();
 
+  for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
+  {
+    PrintRestartFile();
+  }
 
   // Monte-Carlo initializing period to achieve a rapid equilibration of the positions
   SimulationStage=POSITION_INITIALIZATION;

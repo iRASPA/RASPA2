@@ -14735,8 +14735,10 @@ int ComputeStaticElectricFieldEwald(int NewMolecule,int excl_ads,int excl_cation
 
           for(;i<nr_of_coulombic_sites_adsorbate;i++)
           {
-            fac=2.0*temp*((Eikr[i].im*temp_sum.re-Eikr[i].re*temp_sum.im)-
-                          (Eikr[i].re*temp_sum_bonddipole.re+Eikr[i].im*temp_sum_bonddipole.im));
+            fac=2.0*temp*((Eikr[i].im*temp_sum.re-Eikr[i].re*temp_sum.im)
+                +(Eikr[i].im*StoreRigidChargeFramework[CurrentSystem][nvec].re-Eikr[i].re*StoreRigidChargeFramework[CurrentSystem][nvec].im)
+                -(Eikr[i].re*temp_sum_bonddipole.re+Eikr[i].im*temp_sum_bonddipole.im));
+
             AtomVector[i]->x+=fac*rk.x;
             AtomVector[i]->y+=fac*rk.y;
             AtomVector[i]->z+=fac*rk.z;
@@ -14764,8 +14766,9 @@ int ComputeStaticElectricFieldEwald(int NewMolecule,int excl_ads,int excl_cation
 
           for(;i<nr_of_coulombic_sites_cation;i++)
           {
-            fac=2.0*temp*((Eikr[i].im*temp_sum.re-Eikr[i].re*temp_sum.im)-
-                          (Eikr[i].re*temp_sum_bonddipole.re+Eikr[i].im*temp_sum_bonddipole.im));
+            fac=2.0*temp*((Eikr[i].im*temp_sum.re-Eikr[i].re*temp_sum.im)
+                       +(Eikr[i].im*StoreRigidChargeFramework[CurrentSystem][nvec].re-Eikr[i].re*StoreRigidChargeFramework[CurrentSystem][nvec].im)
+                       -(Eikr[i].re*temp_sum_bonddipole.re+Eikr[i].im*temp_sum_bonddipole.im));
             AtomVector[i]->x+=fac*rk.x;
             AtomVector[i]->y+=fac*rk.y;
             AtomVector[i]->z+=fac*rk.z;

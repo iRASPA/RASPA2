@@ -149,6 +149,11 @@ void MonteCarloSimulation(void)
     
     // compute total energy for all systems
     CalculateTotalEnergyAllSystems();
+
+    for(CurrentSystem=0;CurrentSystem<NumberOfSystems;CurrentSystem++)
+    {
+      PrintRestartFile();
+    }
 	
     CFWangLandauIteration(INITIALIZE);
     CFRXMCWangLandauIteration(INITIALIZE);
