@@ -1,0 +1,98 @@
+
+Back to Top
+SpamHero API documentation
+
+SpamHero's RESTful API can be used to safely and efficiently integrate your SpamHero account management with external systems.
+
+If you are currently a SpamHero customer, you can set up API keys and get started right away at Tools > API in the control panel.
+
+If you are looking at getting started with SpamHero, Welcome! To get started with the API, you'll first need to sign up for a free 30-day trial.
+Table of contents
+
+    Authenticating
+    API limitations
+    Ordering service for new domains via the API
+    Getting started
+        /api
+    Ordering & managing domains
+        /api/order
+        /api/reseller/order
+        /api/cancel-service
+        /api/order-check
+        /api/get-required-mx
+        /api/domains
+        /api/mx-check
+        /api/suspend-service
+        /api/reactivate-service
+    Subscriptions & billing
+        /api/subscriptions/list
+        /api/billing/invoices
+        /api/billing/payments
+        /api/sub-account/set-custom
+    Domain aliases
+        /api/alias/add
+        /api/alias/delete
+        /api/alias/mx-check
+    Email recipients
+        /api/email-recipient/list
+        /api/email-recipient/add
+        /api/email-recipient/invalid
+        /api/email-recipient/delete
+    Quarantine users
+        /api/quarantine-user/list
+        /api/quarantine-user/add
+        /api/quarantine-user/edit
+        /api/quarantine-user/delete
+    Account contacts
+        /api/account-contact/list
+        /api/account-contact/reseller/list
+        /api/account-contact/reseller/add
+        /api/account-contact/reseller/edit
+        /api/account-contact/reseller/delete
+    Manage approved and blocked senders
+        /api/sender/approved/add
+        /api/sender/approved/list
+        /api/sender/approved/delete
+        /api/sender/blocked/add
+        /api/sender/blocked/list
+        /api/sender/blocked/delete
+    Quarantine & email statistics
+        /api/email-stats
+        /api/email-count
+        /api/quarantine
+        /api/quarantine/release
+    Tools
+        /api/flush-mail-queue
+    Integration
+        /api/auto-login
+        /api/auto-login-check
+        /api/auto-login-get
+
+#
+Authenticating
+
+The SpamHero API uses basic HTTP authentication. Your API key is the "username", the "password" is left blank. Most programming languages can add the correct header for you, check the examples below.
+#
+API limitations
+
+Each API key is limited to 60 requests per minute. This limitation is not URL specific, so once 60 API requests of any kind have been made within one minute, further requests will be throttled. If it is suspected that the API is being abused (accessed with high frequency for extended periods of time, use of multiple keys to intentionally circumvent throttling, etc.), your API keys may be revoked.
+#
+Ordering service for new domains via the API
+
+There are 3 API calls you'll want to make to set up service for a new domain. The first one is /api/reseller/order (or, /api/order if you are not a reseller).
+
+Once your order has been placed with this API request, you'll want to call /api/order-check periodically until you've confirmed the order has been complete. (normally takes a few minutes).
+
+Finally, you'll need to know when the required MX records are propagated, and what they are so you can update the domain's MX records. For this, you'll use /api/get-required-mx. View the documentation for each request for details.
+Getting started
+#
+/api
+Request type: GET / POST
+
+A basic request that does nothing, so you can test authorizing via the API.
+Input
+(No input accepted)
+Output
+Property 	Format 	Description
+success 	Boolean 	true if the API request was successful, false if otherwise.
+message 	String 	Message stating that your request was authorized
