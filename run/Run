@@ -1,0 +1,3 @@
+ per_page (or 'limit') 	Integer (default: 1000) 	Maximum number of approved senders to list at once (max 1,000)
+page 	String (default: 1) 	Desired page number
+offset 	Integer 	Offset for getting approved senders. Can be used in combination with (or instead of) page parame
