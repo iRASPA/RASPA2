@@ -1,0 +1,82 @@
+data_MOF-72
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2012-1-5
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'N.L. Rosi, J. Kim, M. Eddaoudi, B. Chen, M. O'Keeffe, and O.M. Yaghi'
+_citation_title              'Rod Packings and Metal-Organic Frameworks Constructed from Rod-Shaped Secondary Building Units'
+_citation_journal_abbrev     'J. Am. Chem. Soc.'
+_citation_journal_volume     127
+_citation_journal_number     5
+_citation_page_first         1504
+_citation_page_last          1518
+_citation_year               2005
+
+_cell_length_a    13.686
+_cell_length_b    18.252
+_cell_length_c    14.906
+_cell_angle_alpha 90
+_cell_angle_beta  101.07
+_cell_angle_gamma 90
+_cell_volume      3654.19
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall '-C 2yc'
+_symmetry_space_group_name_H-M  'C 1 2/c 1'
+_symmetry_Int_Tables_number     15
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,y,-z+1/2'
+ '-x,-y,-z'
+ 'x,-y,z+1/2'
+ 'x+1/2,y+1/2,z'
+ '-x+1/2,y+1/2,-z+1/2'
+ '-x+1/2,-y+1/2,-z'
+ 'x+1/2,-y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Cd1      Cd    0.65877      0.20953      0.07457      0
+O1       O     0.80129      0.1787      -0.00073      0
+O2       O     0.65773      0.12086     -0.03767      0
+O3       O     0.50311      0.23507     -0.01324      0
+O4       O     0.48083      0.15527      0.0925       0
+O5       O     0.38001      0.09049      0.23535      0
+O6       O     0.72661      0.11252      0.17079      0
+O7       O     0.59896      0.26274      0.20914      0
+O8       O     0.75681      0.26899      0.19809      0
+C1       C     0.748        0.12874     -0.04332      0
+C2       C     0.792        0.07558     -0.1015       0
+C3       C     0.8931       0.07555     -0.102        0
+H3       H     0.936        0.109       -0.0645       0
+C4       C     0.7305       0.02523     -0.1552       0
+H4       H     0.6614       0.0246      -0.1539       0
+C5       C     0.9318       0.02659     -0.1574       0
+H5       H     1.0011       0.0267      -0.1579       0
+C6       C     0.1307       0.0226       0.212        0
+H6       H     0.104        0.0554       0.2505       0
+C7       C     0.2315       0.02419      0.21073      0
+C8       C     0.3001       0.08083      0.26421      0
+C9       C     0.4486       0.19303      0.0218       0
+C10      C     0.7757       0.35747      0.5155       0
+H10      H     0.7964       0.3768       0.5753       0
+C11      C     0.8422       0.31764      0.47496      0
+C12      C     0.6791       0.36909      0.4688       0
+H12      H     0.6336       0.3957       0.4972       0
+C13      C     0.8114       0.29115      0.3872       0
+H13      H     0.8565       0.2637       0.3594       0
+C14      C     0.6483       0.34217      0.3808       0
+H14      H     0.5819       0.3496       0.3492       0
+C15      C     0.7162       0.30392      0.33924      0
+C16      C     0.689        0.27694      0.24344      0
+Cd2      Cd    0.5          0.17252      0.25         0
+
+

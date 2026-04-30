@@ -1,0 +1,61 @@
+data_MOF-70
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2012-1-5
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'N.L. Rosi, J. Kim, M. Eddaoudi, B. Chen, M. O'Keeffe, and O.M. Yaghi'
+_citation_title              'Rod Packings and Metal-Organic Frameworks Constructed from Rod-Shaped Secondary Building Units'
+_citation_journal_abbrev     'J. Am. Chem. Soc.'
+_citation_journal_volume     127
+_citation_journal_number     5
+_citation_page_first         1504
+_citation_page_last          1518
+_citation_year               2005
+
+_cell_length_a    8.3639
+_cell_length_b    17.9914
+_cell_length_c    9.9617
+_cell_angle_alpha 90
+_cell_angle_beta  102.687
+_cell_angle_gamma 90
+_cell_volume      1462.42
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall '-P 2yn'
+_symmetry_space_group_name_H-M  'P 1 21/n 1'
+_symmetry_Int_Tables_number     14
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x+1/2,y+1/2,-z+1/2'
+ '-x,-y,-z'
+ 'x+1/2,-y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Pb1      Pb    0.74758      0.0289       0.49553      0
+O1       O     0.733       -0.0755       0.3291       0
+O2       O     0.493       -0.05728      0.3795       0
+O3       O     0.249       -0.41609      0.1397       0
+H3       H     0.243       -0.287        0.225        0
+O4       O     0.4912      -0.43532      0.0938       0
+C1       C     0.5381      -0.1737       0.278        0
+C2       C     0.3816      -0.1993       0.2778       0
+H2       H     0.326       -0.172        0.303        0
+C3       C     0.3346      -0.2697       0.2303       0
+C4       C     0.4416      -0.3158       0.1832       0
+C5       C     0.5971      -0.2904       0.1817       0
+H5       H     0.658       -0.317        0.147        0
+C6       C     0.6448      -0.2198       0.2303       0
+H6       H     0.734       -0.203        0.237        0
+C7       C     0.5901      -0.0978       0.3316       0
+C8       C     0.3918      -0.3937       0.1366       0
+
+

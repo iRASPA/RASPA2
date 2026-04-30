@@ -1,0 +1,72 @@
+data_SFF
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-3
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'P. Wagner, S.I. Zones, M.E. Davis, and R.C. Medrud'
+_citation_title              'SSZ-35 and SSZ-44: Two related zeolites containing pores circumscribed by ten- and eighteen-membered rings'
+_citation_journal_abbrev     'Angew. Chem. Int. Ed.'
+_citation_journal_volume     38
+_citation_page_first         1269
+_citation_page_last          1272
+_citation_year               1999
+
+_cell_length_a    11.4853
+_cell_length_b    21.9458
+_cell_length_c    7.3881
+_cell_angle_alpha 90
+_cell_angle_beta  94.702
+_cell_angle_gamma 90
+_cell_volume      1855.93
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall '-P 2yb'
+_symmetry_space_group_name_H-M  'P 1 21/m 1'
+_symmetry_Int_Tables_number     11
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,y+1/2,-z'
+ '-x,-y,-z'
+ 'x,-y+1/2,z'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si     0.27227   0.97791   0.93601   2.05    0       0    absolute yes
+Si2      Si     0.13548   0.6293    0.10193   2.05    0       0    absolute yes
+Si3      Si     0.23886   0.67904   0.47825   2.05    0       0    absolute yes
+Si4      Si     0.39323   0.5689    0.59794   2.05    0       0    absolute yes
+Si5      Si     0.03652   0.68184   0.74254   2.05    0       0    absolute yes
+Si6      Si     0.05149   0.04087   0.76211   2.05    0       0    absolute yes
+Si7      Si     0.11053   0.06798   0.36508   2.05    0       0    absolute yes
+Si8      Si     0.35948   0.02838   0.29204   2.05    0       0    absolute yes
+O1       O      0.22578   0.91806   0.02742  -1.025   0       0    absolute yes
+O2       O      0.32885   0.96241   0.75474  -1.025   0       0    absolute yes
+O3       O      0.36382   0.01059   0.08089  -1.025   0       0    absolute yes
+O4       O      0.16115   0.02349   0.89856  -1.025   0       0    absolute yes
+O5       O      0.02146   0.59436   0.15514  -1.025   0       0    absolute yes
+O6       O      0.19913   0.6636    0.27348  -1.025   0       0    absolute yes
+O7       O      0.09682   0.67737   0.94529  -1.025   0       0    absolute yes
+O8       O      0.27877   0.75      0.49498  -1.025   0       0    absolute yes
+O9       O      0.34544   0.63729   0.55819  -1.025   0       0    absolute yes
+O10      O      0.13244   0.66902   0.60239  -1.025   0       0    absolute yes
+O11      O      0.36967   0.53179   0.41218  -1.025   0       0    absolute yes
+O12      O      0.53084   0.57271   0.65389  -1.025   0       0    absolute yes
+O13      O      0.93509   0.63319   0.70903  -1.025   0       0    absolute yes
+O14      O      0.98407   0.75      0.71105  -1.025   0       0    absolute yes
+O15      O      0.96479   0.98471   0.7338   -1.025   0       0    absolute yes
+O16      O      0.09791   0.06329   0.57827  -1.025   0       0    absolute yes
+O17      O      0.24371   0.06267   0.32726  -1.025   0       0    absolute yes
+
+

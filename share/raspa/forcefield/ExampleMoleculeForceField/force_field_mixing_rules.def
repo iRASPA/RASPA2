@@ -1,0 +1,22 @@
+# general rule for shifted vs truncated
+shifted
+# general rule tailcorrections
+no
+# number of defined interactions
+13
+# type interaction, parameters. 
+He             lennard-jones    10.9      2.64         // J.O. Hirschfelder et al., Molecular Theory of Gases and Liquids, Wiley, New York, 1954, p. 1114.
+O_co2          lennard-jones    85.671    3.017        // A. Garcia-Sanchez et al., J. Phys. Chem. C 2009, 113, 8814-8820.
+C_co2          lennard-jones    29.933    2.745        // idem
+N_n2           lennard-jones    38.298    3.306        // A. Martin-Calvo et al. , Phys. Chem. Chem. Phys. 2011, 13, 11165-11174.
+N_com          none                                    // idem
+O_o2           lennard-jones    53.023    3.045        // A. Martin-Calvo et al. , Phys. Chem. Chem. Phys. 2011, 13, 11165-11174.
+O_com          none                                    //
+Ar             lennard-jones   124.070    3.38         // A. Martin-Calvo et al. , Phys. Chem. Chem. Phys. 2011, 13, 11165-11174.
+CH4            lennard-jones    158.5     3.72         // M. G. Martin et al., J. Chem. Phys. 2001, 114, 7174-7181.
+CH3            lennard-jones    108.0     3.76         // D. Dubbeldam et al., J. Phys. Chem. B, 108(33), 12301-12313
+CH2            lennard-jones    56.0      3.96         // idem
+CH             lennard-jones    17.0      4.67         // idem
+C              lennard-jones     0.8      6.38         // idem
+# general mixing rule for Lennard-Jones
+Lorentz-Berthelot

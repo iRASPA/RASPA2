@@ -1,0 +1,371 @@
+data_MOF-210
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-8
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'H. Furukawa, N. Ko, Y.B. Go, N. Aratani, S.B. Choi, E. Choi, A.O. Yazaydin, R.Q. Snurr, M. O’Keeffe, J. Kim, and O.M. Yaghi'
+_citation_title              'Ultrahigh Porosity in Metal-Organic Frameworks'
+_citation_journal_abbrev     'Science'
+_citation_journal_volume     329
+_citation_journal_number     5990
+_citation_page_first         424
+_citation_page_last          428
+_citation_year               2010
+
+_cell_length_a    50.745
+_cell_length_b    50.745
+_cell_length_c    194.256
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      433203
+
+_symmetry_cell_setting          trigonal
+_symmetry_space_group_name_Hall '-R 3'
+_symmetry_space_group_name_H-M  'R -3'
+_symmetry_Int_Tables_number     148
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ '-x,-y,-z'
+ 'y,-x+y,-z'
+ 'x-y,x,-z'
+ 'x+2/3,y+1/3,z+1/3'
+ '-y+2/3,x-y+1/3,z+1/3'
+ '-x+y+2/3,-x+1/3,z+1/3'
+ '-x+2/3,-y+1/3,-z+1/3'
+ 'y+2/3,-x+y+1/3,-z+1/3'
+ 'x-y+2/3,x+1/3,-z+1/3'
+ 'x+1/3,y+2/3,z+2/3'
+ '-y+1/3,x-y+2/3,z+2/3'
+ '-x+y+1/3,-x+2/3,z+2/3'
+ '-x+1/3,-y+2/3,-z+2/3'
+ 'y+1/3,-x+y+2/3,-z+2/3'
+ 'x-y+1/3,x+2/3,-z+2/3'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Zn1      Zn     0.722      0.592      0.1963     0       0       0    absolute yes
+Zn2      Zn     0.692      0.623      0.1877     0       0       0    absolute yes
+Zn3      Zn     0.695      0.628      0.2039     0       0       0    absolute yes
+Zn4      Zn     0.651      0.565      0.1969     0       0       0    absolute yes
+Zn5      Zn     0.699      0.588      0.0814     0       0       0    absolute yes
+Zn6      Zn     0.658      0.61       0.076      0       0       0    absolute yes
+Zn7      Zn     0.633      0.555      0.0853     0       0       0    absolute yes
+Zn8      Zn     0.675      0.617      0.091      0       0       0    absolute yes
+Zn9      Zn     0.623      0.693      0.312      0       0       0    absolute yes
+Zn10     Zn     0.593      0.721      0.3036     0       0       0    absolute yes
+Zn11     Zn     0.567      0.652      0.3033     0       0       0    absolute yes
+Zn12     Zn     0.628      0.695      0.2964     0       0       0    absolute yes
+O1A      O      0.6901     0.6018     0.1962     0       0       0    absolute yes
+O1B      O      0.6662     0.5925     0.0834     0       0       0    absolute yes
+O1C      O      0.6029     0.6903     0.3038     0       0       0    absolute yes
+O1       O      0.747      0.61       0.2036     0       0       0    absolute yes
+O2       O      0.629      0.561      0.1894     0       0       0    absolute yes
+O3       O      0.659      0.602      0.183      0       0       0    absolute yes
+O4       O      0.73       0.637      0.2088     0       0       0    absolute yes
+O5       O      0.632      0.566      0.2044     0       0       0    absolute yes
+O6       O      0.745      0.606      0.1887     0       0       0    absolute yes
+O7       O      0.707      0.552      0.1969     0       0       0    absolute yes
+O8       O      0.656      0.533      0.1974     0       0       0    absolute yes
+O9       O      0.325      0.296      0.1438     0       0       0    absolute yes
+O10      O      0.648      0.6        0.0974     0       0       0    absolute yes
+O11      O      0.618      0.554      0.0934     0       0       0    absolute yes
+O12      O      0.318      0.31       0.2447     0       0       0    absolute yes
+O13      O      0.311      0.318      0.2556     0       0       0    absolute yes
+O14      O      0.955      0.705      0.2389     0       0       0    absolute yes
+O15      O      0.936      0.726      0.2459     0       0       0    absolute yes
+O16      O      0.251      0.297      0.2613     0       0       0    absolute yes
+O17      O      0.211      0.275      0.2544     0       0       0    absolute yes
+O18      O      0.993      0.724      0.3496     0       0       0    absolute yes
+O19      O      0.963      0.734      0.3558     0       0       0    absolute yes
+O20      O      0.534      0.656      0.3026     0       0       0    absolute yes
+O21      O      0.329      0.298      0.1324     0       0       0    absolute yes
+O22      O      0.664      0.61       0.2094     0       0       0    absolute yes
+O23      O      0.567      0.631      0.296      0       0       0    absolute yes
+O24      O      0.611      0.663      0.2908     0       0       0    absolute yes
+O25      O      0.663      0.699      0.2991     0       0       0    absolute yes
+O26      O      0.983      0.715      0.2644     0       0       0    absolute yes
+O27      O      0.952      0.731      0.2605     0       0       0    absolute yes
+O28      O      0.659      0.697      0.3105     0       0       0    absolute yes
+O29      O      0.976      0.784      0.2519     0       0       0    absolute yes
+O30      O      1.025      0.808      0.2487     0       0       0    absolute yes
+O31      O      0.553      0.706      0.3031     0       0       0    absolute yes
+O32      O      0.137      0.39       0.2963     0       0       0    absolute yes
+O33      O      0.092      0.363      0.2911     0       0       0    absolute yes
+O34      O      0.724      0.629      0.1828     0       0       0    absolute yes
+O35      O      1.079      0.805      0.3555     0       0       0    absolute yes
+O36      O      1.058      0.762      0.3496     0       0       0    absolute yes
+C1       C      0.749      0.628      0.2083     0       0       0    absolute yes
+C2       C      0.745      0.622      0.1836     0       0       0    absolute yes
+C3       C      0.68       0.53       0.1974     0       0       0    absolute yes
+C4       C      0.609      0.566      0.1047     0       0       0    absolute yes
+C5       C      0.327      0.326      0.2501     0       0       0    absolute yes
+C6       C      0.934      0.71       0.2405     0       0       0    absolute yes
+C7       C      0.674      0.698      0.305      0       0       0    absolute yes
+C8       C      0.968      0.723      0.3504     0       0       0    absolute yes
+C9       C      0.53       0.679      0.3026     0       0       0    absolute yes
+C10      C      0.634      0.577      0.1839     0       0       0    absolute yes
+C11      C      0.611      0.568      0.1784     0       0       0    absolute yes
+C12      C      0.57       0.528      0.1718     0       0       0    absolute yes
+H12A     H      0.5543     0.5074     0.1712     0       0       0    absolute yes
+C13      C      0.588      0.537      0.1776     0       0       0    absolute yes
+H13A     H      0.5855     0.5226     0.1811     0       0       0    absolute yes
+C14      C      0.532      0.521      0.1482     0       0       0    absolute yes
+C15      C      0.547      0.536      0.1422     0       0       0    absolute yes
+H15A     H      0.5659     0.5547     0.1424     0       0       0    absolute yes
+C16      C      0.535      0.523      0.1357     0       0       0    absolute yes
+C17      C      0.507      0.496      0.1354     0       0       0    absolute yes
+H17A     H      0.4989     0.487      0.131      0       0       0    absolute yes
+C18      C      0.492      0.481      0.1414     0       0       0    absolute yes
+C19      C      0.504      0.494      0.1478     0       0       0    absolute yes
+H19A     H      0.4939     0.4836     0.1519     0       0       0    absolute yes
+C20      C      0.42       0.396      0.14       0       0       0    absolute yes
+C21      C      0.405      0.38       0.146      0       0       0    absolute yes
+H21A     H      0.4128     0.3882     0.1504     0       0       0    absolute yes
+C22      C      0.38       0.351      0.1454     0       0       0    absolute yes
+H22A     H      0.3699     0.3396     0.1495     0       0       0    absolute yes
+C23      C      0.368      0.338      0.1389     0       0       0    absolute yes
+C24      C      0.384      0.354      0.133      0       0       0    absolute yes
+H24A     H      0.3764     0.3454     0.1285     0       0       0    absolute yes
+C25      C      0.409      0.383      0.1335     0       0       0    absolute yes
+H25A     H      0.4193     0.3941     0.1295     0       0       0    absolute yes
+C26      C      0.339      0.309      0.138      0       0       0    absolute yes
+C27      C      0.579      0.552      0.1174     0       0       0    absolute yes
+C28      C      0.618      0.588      0.1099     0       0       0    absolute yes
+H28A     H      0.634      0.6083     0.1091     0       0       0    absolute yes
+C29      C      0.603      0.581      0.1162     0       0       0    absolute yes
+H29A     H      0.6089     0.5963     0.1197     0       0       0    absolute yes
+C30      C      0.613      0.589      0.1735     0       0       0    absolute yes
+H30A     H      0.628      0.6102     0.1742     0       0       0    absolute yes
+C31      C      0.595      0.58       0.1677     0       0       0    absolute yes
+H31A     H      0.5967     0.5949     0.1644     0       0       0    absolute yes
+C32      C      0.573      0.55       0.1668     0       0       0    absolute yes
+C33      C      0.551      0.536      0.1295     0       0       0    absolute yes
+C34      C      0.564      0.544      0.124      0       0       0    absolute yes
+C35      C      0.445      0.426      0.1406     0       0       0    absolute yes
+C36      C      0.466      0.451      0.141      0       0       0    absolute yes
+C37      C      0.558      0.54       0.1603     0       0       0    absolute yes
+C38      C      0.546      0.532      0.1548     0       0       0    absolute yes
+C39      C      0.569      0.53       0.1123     0       0       0    absolute yes
+H39A     H      0.5524     0.5099     0.1131     0       0       0    absolute yes
+C40      C      0.584      0.537      0.1059     0       0       0    absolute yes
+H40A     H      0.5775     0.5217     0.1024     0       0       0    absolute yes
+C41      C      0.639      0.585      0.2093     0       0       0    absolute yes
+C42      C      0.618      0.577      0.2151     0       0       0    absolute yes
+C43      C      0.573      0.539      0.2212     0       0       0    absolute yes
+H43A     H      0.5548     0.5199     0.2213     0       0       0    absolute yes
+C44      C      0.591      0.549      0.2153     0       0       0    absolute yes
+H44A     H      0.5846     0.5358     0.2114     0       0       0    absolute yes
+C45      C      0.539      0.522      0.2451     0       0       0    absolute yes
+C46      C      0.552      0.537      0.2513     0       0       0    absolute yes
+H46A     H      0.5705     0.5558     0.2513     0       0       0    absolute yes
+C47      C      0.537      0.524      0.2575     0       0       0    absolute yes
+C48      C      0.51       0.496      0.2574     0       0       0    absolute yes
+H48A     H      0.4998     0.4869     0.2616     0       0       0    absolute yes
+C49      C      0.497      0.482      0.2512     0       0       0    absolute yes
+C50      C      0.512      0.495      0.245      0       0       0    absolute yes
+H50A     H      0.5035     0.4847     0.2407     0       0       0    absolute yes
+C51      C      0.415      0.405      0.2507     0       0       0    absolute yes
+C52      C      0.404      0.389      0.2446     0       0       0    absolute yes
+H52A     H      0.4169     0.3949     0.2406     0       0       0    absolute yes
+C53      C      0.375      0.363      0.2444     0       0       0    absolute yes
+H53A     H      0.3684     0.3515     0.2402     0       0       0    absolute yes
+C54      C      0.357      0.354      0.2502     0       0       0    absolute yes
+C55      C      0.367      0.371      0.2563     0       0       0    absolute yes
+H55A     H      0.3549     0.365      0.2603     0       0       0    absolute yes
+C56      C      0.396      0.397      0.2565     0       0       0    absolute yes
+H56A     H      0.4034     0.4083     0.2606     0       0       0    absolute yes
+C57      C      0.566      0.573      0.2749     0       0       0    absolute yes
+C58      C      0.601      0.621      0.2803     0       0       0    absolute yes
+H58A     H      0.6199     0.6394     0.2804     0       0       0    absolute yes
+C59      C      0.594      0.6        0.275      0       0       0    absolute yes
+H59A     H      0.6078     0.6048     0.2713     0       0       0    absolute yes
+C60      C      0.626      0.596      0.2209     0       0       0    absolute yes
+H60A     H      0.6431     0.6161     0.2207     0       0       0    absolute yes
+C61      C      0.608      0.587      0.2268     0       0       0    absolute yes
+H61A     H      0.6132     0.6        0.2307     0       0       0    absolute yes
+C62      C      0.582      0.558      0.227      0       0       0    absolute yes
+C63      C      0.548      0.54       0.2638     0       0       0    absolute yes
+C64      C      0.557      0.555      0.269      0       0       0    absolute yes
+C65      C      0.444      0.432      0.2509     0       0       0    absolute yes
+C66      C      0.469      0.454      0.251      0       0       0    absolute yes
+C67      C      0.566      0.546      0.2334     0       0       0    absolute yes
+C68      C      0.554      0.536      0.2387     0       0       0    absolute yes
+C69      C      0.545      0.566      0.2803     0       0       0    absolute yes
+H69A     H      0.5265     0.5477     0.2804     0       0       0    absolute yes
+C70      C      0.552      0.587      0.2858     0       0       0    absolute yes
+H70A     H      0.5384     0.5822     0.2895     0       0       0    absolute yes
+C71      C      0.58       0.615      0.2857     0       0       0    absolute yes
+C72      C      0.586      0.637      0.2912     0       0       0    absolute yes
+C73      C      0.96       0.719      0.2652     0       0       0    absolute yes
+C74      C      0.943      0.709      0.2717     0       0       0    absolute yes
+C75      C      0.902      0.704      0.2791     0       0       0    absolute yes
+H75A     H      0.8849     0.7066     0.2799     0       0       0    absolute yes
+C76      C      0.917      0.713      0.2729     0       0       0    absolute yes
+H76A     H      0.9107     0.721      0.2693     0       0       0    absolute yes
+C77      C      0.867      0.676      0.3025     0       0       0    absolute yes
+C78      C      0.879      0.675      0.3089     0       0       0    absolute yes
+H78A     H      0.8977     0.6748     0.3092     0       0       0    absolute yes
+C79      C      0.864      0.676      0.315      0       0       0    absolute yes
+C80      C      0.837      0.676      0.3146     0       0       0    absolute yes
+H80A     H      0.8268     0.6762     0.3187     0       0       0    absolute yes
+C81      C      0.825      0.677      0.3082     0       0       0    absolute yes
+C82      C      0.84       0.677      0.3021     0       0       0    absolute yes
+H82A     H      0.8316     0.6771     0.2978     0       0       0    absolute yes
+C83      C      0.754      0.691      0.3067     0       0       0    absolute yes
+C84      C      0.743      0.693      0.3002     0       0       0    absolute yes
+H84A     H      0.7531     0.6923     0.2961     0       0       0    absolute yes
+C85      C      0.718      0.697      0.2996     0       0       0    absolute yes
+H85A     H      0.7104     0.6984     0.2952     0       0       0    absolute yes
+C86      C      0.703      0.699      0.3056     0       0       0    absolute yes
+C87      C      0.714      0.698      0.3121     0       0       0    absolute yes
+H87A     H      0.7048     0.6995     0.3161     0       0       0    absolute yes
+C88      C      0.74       0.694      0.3126     0       0       0    absolute yes
+H88A     H      0.7475     0.6935     0.317      0       0       0    absolute yes
+C89      C      0.907      0.69       0.3334     0       0       0    absolute yes
+C90      C      0.949      0.692      0.3398     0       0       0    absolute yes
+H90A     H      0.9644     0.6868     0.3403     0       0       0    absolute yes
+C91      C      0.93       0.682      0.3341     0       0       0    absolute yes
+H91A     H      0.9323     0.6699     0.3307     0       0       0    absolute yes
+C92      C      0.952      0.696      0.2769     0       0       0    absolute yes
+H92A     H      0.9689     0.6932     0.2762     0       0       0    absolute yes
+C93      C      0.937      0.688      0.2832     0       0       0    absolute yes
+H93A     H      0.943      0.679      0.2867     0       0       0    absolute yes
+C94      C      0.912      0.692      0.2843     0       0       0    absolute yes
+C95      C      0.878      0.679      0.3215     0       0       0    absolute yes
+C96      C      0.891      0.683      0.327      0       0       0    absolute yes
+C97      C      0.779      0.686      0.3073     0       0       0    absolute yes
+C98      C      0.8        0.682      0.3077     0       0       0    absolute yes
+C99      C      0.897      0.685      0.2909     0       0       0    absolute yes
+C100     C      0.884      0.68       0.2963     0       0       0    absolute yes
+C101     C      0.903      0.706      0.3385     0       0       0    absolute yes
+H10A     H      0.8866     0.7108     0.3381     0       0       0    absolute yes
+C102     C      0.922      0.716      0.3443     0       0       0    absolute yes
+H10B     H      0.9185     0.7274     0.3478     0       0       0    absolute yes
+C103     C      0.946      0.71       0.3449     0       0       0    absolute yes
+C104     C      1          0.837      0.2504     0       0       0    absolute yes
+C105     C      0.974      0.866      0.2523     0       0       0    absolute yes
+H10C     H      0.9561     0.8659     0.2535     0       0       0    absolute yes
+C106     C      0.974      0.838      0.2523     0       0       0    absolute yes
+H10D     H      0.956      0.8197     0.2534     0       0       0    absolute yes
+C107     C      1          0.973      0.2508     0       0       0    absolute yes
+C108     C      1.028      1          0.2508     0       0       0    absolute yes
+H10E     H      1.0464     1.0003     0.2508     0       0       0    absolute yes
+C109     C      1          0.893      0.2506     0       0       0    absolute yes
+C110     C      1.027      0.865      0.2487     0       0       0    absolute yes
+H11A     H      1.045      0.8644     0.2475     0       0       0    absolute yes
+C111     C      1.027      0.892      0.2488     0       0       0    absolute yes
+H11B     H      1.0449     0.9106     0.2477     0       0       0    absolute yes
+C112     C      1          0.944      0.2507     0       0       0    absolute yes
+C113     C      1          0.921      0.2507     0       0       0    absolute yes
+C114     C      1          0.808      0.2503     0       0       0    absolute yes
+C115     C      0.676      0.499      0.198      0       0       0    absolute yes
+C116     C      0.698      0.467      0.1989     0       0       0    absolute yes
+H11C     H      0.7157     0.4646     0.199      0       0       0    absolute yes
+C117     C      0.702      0.496      0.1981     0       0       0    absolute yes
+H11D     H      0.7213     0.5129     0.1976     0       0       0    absolute yes
+C118     C      0.666      0.361      0.2014     0       0       0    absolute yes
+C119     C      0.639      0.333      0.2014     0       0       0    absolute yes
+H11E     H      0.6199     0.3324     0.2014     0       0       0    absolute yes
+C120     C      0.647      0.474      0.1987     0       0       0    absolute yes
+H12B     H      0.6292     0.4757     0.1986     0       0       0    absolute yes
+C121     C      0.669      0.442      0.1996     0       0       0    absolute yes
+C122     C      0.643      0.445      0.1995     0       0       0    absolute yes
+H12C     H      0.6237     0.4273     0.1999     0       0       0    absolute yes
+C123     C      0.666      0.388      0.201      0       0       0    absolute yes
+C124     C      0.667      0.412      0.2004     0       0       0    absolute yes
+C125     C      0.36       0.666      0.2997     0       0       0    absolute yes
+C126     C      0.361      0.694      0.2997     0       0       0    absolute yes
+H12D     H      0.3803     0.7122     0.2996     0       0       0    absolute yes
+C127     C      0.441      0.669      0.3008     0       0       0    absolute yes
+C128     C      0.467      0.698      0.3012     0       0       0    absolute yes
+H12E     H      0.4648     0.715      0.3011     0       0       0    absolute yes
+C129     C      0.496      0.701      0.3018     0       0       0    absolute yes
+H12F     H      0.5132     0.7207     0.3021     0       0       0    absolute yes
+C130     C      0.5        0.675      0.302      0       0       0    absolute yes
+C131     C      0.474      0.646      0.3016     0       0       0    absolute yes
+H13B     H      0.4759     0.6285     0.3017     0       0       0    absolute yes
+C132     C      0.445      0.643      0.301      0       0       0    absolute yes
+H13C     H      0.4272     0.623      0.3007     0       0       0    absolute yes
+C133     C      0.388      0.665      0.2999     0       0       0    absolute yes
+C134     C      0.412      0.666      0.3003     0       0       0    absolute yes
+C135     C      0.819      0.637      0.2182     0       0       0    absolute yes
+H13D     H      0.8306     0.6279     0.2183     0       0       0    absolute yes
+C136     C      0.794      0.627      0.2136     0       0       0    absolute yes
+H13E     H      0.7894     0.6099     0.2107     0       0       0    absolute yes
+C137     C      0.775      0.64       0.2134     0       0       0    absolute yes
+C138     C      0.782      0.664      0.2178     0       0       0    absolute yes
+H13F     H      0.7696     0.6733     0.2178     0       0       0    absolute yes
+C139     C      0.807      0.675      0.2224     0       0       0    absolute yes
+H13G     H      0.8114     0.692      0.2253     0       0       0    absolute yes
+C140     C      0.826      0.662      0.2226     0       0       0    absolute yes
+C141     C      0.88       0.673      0.2253     0       0       0    absolute yes
+H14A     H      0.88       0.6647     0.221      0       0       0    absolute yes
+C142     C      0.854      0.675      0.2272     0       0       0    absolute yes
+C143     C      0.854      0.688      0.2337     0       0       0    absolute yes
+H14B     H      0.8372     0.6894     0.2351     0       0       0    absolute yes
+C144     C      0.88       0.699      0.238      0       0       0    absolute yes
+H14C     H      0.8801     0.7084     0.2423     0       0       0    absolute yes
+C145     C      0.906      0.698      0.236      0       0       0    absolute yes
+C146     C      0.905      0.684      0.2296     0       0       0    absolute yes
+H14D     H      0.9224     0.683      0.2282     0       0       0    absolute yes
+C147     C      0.222      0.318      0.2704     0       0       0    absolute yes
+H14E     H      0.2406     0.3199     0.2719     0       0       0    absolute yes
+C148     C      0.209      0.304      0.2641     0       0       0    absolute yes
+C149     C      0.182      0.302      0.2621     0       0       0    absolute yes
+H14F     H      0.1727     0.293      0.2578     0       0       0    absolute yes
+C150     C      0.167      0.314      0.2663     0       0       0    absolute yes
+H15B     H      0.1486     0.3121     0.2648     0       0       0    absolute yes
+C151     C      0.18       0.327      0.2727     0       0       0    absolute yes
+C152     C      0.181      0.365      0.2816     0       0       0    absolute yes
+H15C     H      0.2029     0.3747     0.2815     0       0       0    absolute yes
+C153     C      0.164      0.339      0.2773     0       0       0    absolute yes
+C154     C      0.132      0.326      0.2776     0       0       0    absolute yes
+H15D     H      0.12       0.3089     0.2747     0       0       0    absolute yes
+C155     C      0.118      0.337      0.2821     0       0       0    absolute yes
+H15E     H      0.0964     0.3272     0.2821     0       0       0    absolute yes
+C156     C      0.135      0.361      0.2865     0       0       0    absolute yes
+C157     C      0.167      0.375      0.2862     0       0       0    absolute yes
+H15F     H      0.1793     0.3923     0.289      0       0       0    absolute yes
+C158     C      0.121      0.372      0.2916     0       0       0    absolute yes
+C159     C      0.225      0.292      0.2597     0       0       0    absolute yes
+C160     C      0.819      0.642      0.1748     0       0       0    absolute yes
+H16A     H      0.8359     0.6384     0.1755     0       0       0    absolute yes
+C161     C      0.795      0.629      0.1794     0       0       0    absolute yes
+H16B     H      0.7948     0.617      0.1831     0       0       0    absolute yes
+C162     C      0.77       0.633      0.1784     0       0       0    absolute yes
+C163     C      0.77       0.65       0.1727     0       0       0    absolute yes
+H16C     H      0.7525     0.6525     0.1719     0       0       0    absolute yes
+C164     C      0.794      0.663      0.1681     0       0       0    absolute yes
+H16D     H      0.7933     0.6738     0.1643     0       0       0    absolute yes
+C165     C      0.82       0.659      0.1691     0       0       0    absolute yes
+C166     C      1.127      0.798      0.3348     0       0       0    absolute yes
+H16E     H      1.1262     0.7865     0.3309     0       0       0    absolute yes
+C167     C      1.103      0.787      0.3394     0       0       0    absolute yes
+H16F     H      1.0857     0.7671     0.3386     0       0       0    absolute yes
+C168     C      1.103      0.803      0.3452     0       0       0    absolute yes
+C169     C      1.128      0.833      0.3462     0       0       0    absolute yes
+H16G     H      1.1289     0.8444     0.35       0       0       0    absolute yes
+C170     C      1.153      0.844      0.3415     0       0       0    absolute yes
+H17B     H      1.1698     0.8641     0.3423     0       0       0    absolute yes
+C171     C      1.153      0.827      0.3358     0       0       0    absolute yes
+C172     C      1.079      0.79       0.3503     0       0       0    absolute yes
+C173     C      0.626      0.573      0.0981     0       0       0    absolute yes
+C174     C      0.207      0.329      0.2747     0       0       0    absolute yes
+H17C     H      0.2161     0.3381     0.279      0       0       0    absolute yes
+
+

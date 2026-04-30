@@ -1,0 +1,71 @@
+data_CON
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-12-20
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'R. F. Lobo and M. E. Davis'
+_citation_title              'CIT-1: A new molecular sieve with intersecting pores bounded by 10- and 12-rings'
+_citation_journal_abbrev     'J. Am. Chem. Soc.'
+_citation_journal_volume     117
+_citation_page_first         3766
+_citation_page_last          3779
+_citation_year               1994
+
+_cell_length_a    22.6242
+_cell_length_b    13.3503
+_cell_length_c    12.3642
+_cell_angle_alpha 90
+_cell_angle_beta  68.913
+_cell_angle_gamma 90
+_cell_volume      3484.4
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall '-C 2y'
+_symmetry_space_group_name_H-M  'C 1 2/m 1'
+_symmetry_Int_Tables_number     12
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,y,-z'
+ '-x,-y,-z'
+ 'x,-y,z'
+ 'x+1/2,y+1/2,z'
+ '-x+1/2,y+1/2,-z'
+ '-x+1/2,-y+1/2,-z'
+ 'x+1/2,-y+1/2,z'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Si       Si    0.0677       0.1102       0.4914       0
+Si       Si    0.1567       0.1889       0.251        0
+Si       Si    0.0734       0.1204       0.739        0
+Si       Si    0.2879       0.1171       0.1026       0
+Si       Si    0.277        0.1141       0.8607       0
+Si       Si    0.0738       0.1195       0.1043       0
+Si       Si    0.148        0.1898       0.8835       0
+O        O     0.0763       0            0.4256       0
+O        O     0.0784       0.138        0.6085       0
+O        O     0.1205       0.1669       0.3814       0
+O        O     0            0.1458       0.5          0
+O        O     0.2185       0.12         0.2009       0
+O        O     0.1097       0.1569       0.186        0
+O        O     0.1728       0.3005       0.2109       0
+O        O     0.0852       0            0.7309       0
+O        O     0.0003       0.1379       0.8223       0
+O        O     0.1271       0.1859       0.7717       0
+O        O     0.3045       0            0.1272       0
+O        O     0.2721       0.133        0.9904       0
+O        O     0.3442       0.1888       0.0983       0
+O        O     0.2102       0.1217       0.8382       0
+O        O     0.3046       0            0.8219       0
+O        O     0.0873       0            0.1087       0
+O        O     0.0837       0.1783       0.99         0
+
+

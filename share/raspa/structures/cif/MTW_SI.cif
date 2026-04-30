@@ -1,0 +1,72 @@
+data_MTW
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-2-20
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'C.A. Fyfe, H. Gies, G.T. Kokotailo, B. Marler, and D.E. Cox'
+_citation_title              'Crystal structure of silica-ZSM-12 by the combined use of high-resolution solid-state MAS NMR spectroscopy and synchrotron x-ray powder diffraction'
+_citation_journal_abbrev     'J. Phys. Chem.'
+_citation_journal_volume     94
+_citation_page_first         3718
+_citation_page_last          3721
+_citation_year               1990
+
+_cell_length_a    24.8633
+_cell_length_b    5.01238
+_cell_length_c    24.3275
+_cell_angle_alpha 90
+_cell_angle_beta  107.722
+_cell_angle_gamma 90
+_cell_volume      2887.93
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall '-C 2yc'
+_symmetry_space_group_name_H-M  'C 1 2/c 1'
+_symmetry_Int_Tables_number     15
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,y,-z+1/2'
+ '-x,-y,-z'
+ 'x,-y,z+1/2'
+ 'x+1/2,y+1/2,z'
+ '-x+1/2,y+1/2,-z+1/2'
+ '-x+1/2,-y+1/2,-z'
+ 'x+1/2,-y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si4+   0.4402    0.5319    0.4129    2.05    0       0    absolute yes
+Si2      Si4+   0.0678   -0.0708    0.4589    2.05    0       0    absolute yes
+Si3      Si4+   0.3754    0.032     0.3609    2.05    0       0    absolute yes
+Si4      Si4+   0.1338    0.4218    0.4484    2.05    0       0    absolute yes
+Si5      Si4+   0.2836    0.0822    0.4275    2.05    0       0    absolute yes
+Si6      Si4+   0.2139    0.5853    0.3832    2.05    0       0    absolute yes
+Si7      Si4+   0.2869    0.01      0.2463    2.05    0       0    absolute yes
+O1       O2-    0.428     0.5053    0.473    -1.025   0       0    absolute yes
+O2       O2-    0.5034    0.4725    0.4225   -1.025   0       0    absolute yes
+O3       O2-    0.4245    0.822     0.3872   -1.025   0       0    absolute yes
+O4       O2-    0.3301   -0.0045    0.3956   -1.025   0       0    absolute yes
+O5       O2-    0.0841   -0.3624    0.4513   -1.025   0       0    absolute yes
+O6       O2-    0.3452   -0.0218    0.2972   -1.025   0       0    absolute yes
+O7       O2-    0.2504    0.2441    0.2629   -1.025   0       0    absolute yes
+O8       O2-    0.2602    0.3716    0.4078   -1.025   0       0    absolute yes
+O9       O2-    0.1554    0.5101    0.3911   -1.025   0       0    absolute yes
+O10      O2-    0.1853    0.448     0.5026   -1.025   0       0    absolute yes
+O11      O2-    0.2997    0.0905    0.1886   -1.025   0       0    absolute yes
+O12      O2-    0.3995    0.337     0.3702   -1.025   0       0    absolute yes
+O13      O2-    0.1069    0.1372    0.4394   -1.025   0       0    absolute yes
+O14      O2-    0.2343    0.8828    0.4093   -1.025   0       0    absolute yes
+
+

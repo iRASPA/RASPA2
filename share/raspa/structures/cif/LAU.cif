@@ -1,0 +1,61 @@
+data_LAU
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-3
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'G. Artioli and K. Stahl'
+_citation_title              'Fully Hydrated Laumontite - A Structure Study by Flat-Plate and Capillary Powder Diffraction Techniques'
+_citation_journal_abbrev     'Zeolites'
+_citation_journal_volume     17
+_citation_page_first         249
+_citation_page_last          255
+_citation_year               1993
+
+_cell_length_a    14.8538
+_cell_length_b    13.1695
+_cell_length_c    7.5421
+_cell_angle_alpha 90
+_cell_angle_beta  110.323
+_cell_angle_gamma 90
+_cell_volume      1383.52
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall '-C 2y'
+_symmetry_space_group_name_H-M  'C 1 2/m 1'
+_symmetry_Int_Tables_number     12
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,y,-z'
+ '-x,-y,-z'
+ 'x,-y,z'
+ 'x+1/2,y+1/2,z'
+ '-x+1/2,y+1/2,-z'
+ '-x+1/2,-y+1/2,-z'
+ 'x+1/2,-y+1/2,z'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si     0.2368    0.3838    0.156     2.05    0       0    absolute yes
+Si2      Si     0.0763    0.3834    0.325     2.05    0       0    absolute yes
+Al1      Al     0.1315    0.308     0.737     1.75    0       0    absolute yes
+O1       O      0.26      0.5       0.219    -1.025   0       0    absolute yes
+O2       O      0.2084    0.3744    0.919    -1.025   0       0    absolute yes
+O3       O      0.1384    0.3838    0.552    -1.025   0       0    absolute yes
+O4       O      0.146     0.3454    0.203    -1.025   0       0    absolute yes
+O5       O      0.3205    0.3185    0.248    -1.025   0       0    absolute yes
+O6       O      0.043     0.5       0.267    -1.025   0       0    absolute yes
+O7       O      0.013     0.3083    0.743    -1.025   0       0    absolute yes
+
+

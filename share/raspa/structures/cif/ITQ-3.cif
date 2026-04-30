@@ -1,0 +1,73 @@
+data_ITQ-3
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-2-20
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'M.A. Camblor, A. Corma, P. Lightfoot, L.A. Villaescusa, and P.A. Wright'
+_citation_title              'Synthesis and structure of ITQ-3, the first pure silica polymorph with a two-dimensional system of straight eight-ring channels'
+_citation_journal_abbrev     'Angew. Chem. Int. Ed.'
+_citation_journal_volume     36
+_citation_page_first         2659
+_citation_page_last          2661
+_citation_year               1997
+
+_cell_length_a    20.622
+_cell_length_b    9.7242
+_cell_length_c    19.623
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      3935.05
+
+_symmetry_cell_setting          orthorhombic
+_symmetry_space_group_name_Hall '-C 2c 2'
+_symmetry_space_group_name_H-M  'C m c m'
+_symmetry_Int_Tables_number     63
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,-y,z+1/2'
+ '-x,y,-z+1/2'
+ 'x,-y,-z'
+ '-x,-y,-z'
+ 'x,y,-z+1/2'
+ 'x,-y,z+1/2'
+ '-x,y,z'
+ 'x+1/2,y+1/2,z'
+ '-x+1/2,-y+1/2,z+1/2'
+ '-x+1/2,y+1/2,-z+1/2'
+ 'x+1/2,-y+1/2,-z'
+ '-x+1/2,-y+1/2,-z'
+ 'x+1/2,y+1/2,-z+1/2'
+ 'x+1/2,-y+1/2,z+1/2'
+ '-x+1/2,y+1/2,z'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si4+   0.32018  -0.043     0.17011   2.05    0       0    absolute yes
+Si2      Si4+   0.07561   0.4067    0.0561    2.05    0       0    absolute yes
+Si3      Si4+   0.2641    0.2255    0.1121    2.05    0       0    absolute yes
+Si4      Si4+   0.15302   0.1551    0.0036    2.05    0       0    absolute yes
+O1       O2-    0.3427   -0.0581    0.25     -1.025   0       0    absolute yes
+O2       O2-    0.2675   -0.1485    0.1491   -1.025   0       0    absolute yes
+O3       O2-    0.0996    0.5       0        -1.025   0       0    absolute yes
+O4       O2-    0.0978    0.2516    0.0287   -1.025   0       0    absolute yes
+O5       O2-    0         0.4105    0.0718   -1.025   0       0    absolute yes
+O6       O2-    0.2148    0.1587    0.0569   -1.025   0       0    absolute yes
+O7       O2-    0.387    -0.0628    0.1288   -1.025   0       0    absolute yes
+O8       O2-    0.2913    0.1093    0.1625   -1.025   0       0    absolute yes
+O9       O2-    0.3275    0.2871    0.0695   -1.025   0       0    absolute yes
+O10      O2-    0.1308    0         0        -1.025   0       0    absolute yes
+
+

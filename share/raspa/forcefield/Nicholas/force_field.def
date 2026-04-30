@@ -1,0 +1,10 @@
+# rules to overwrite
+0
+# number of defined interactions
+3
+# type      type2       interaction
+O           O           lennard-jones     29.4338257        3.062219744
+O           Si          lennard-jones     49.05711264       3.483346249
+Si          Si          lennard-jones     81.76308187       3.962387454
+# mixing rules to overwrite
+0

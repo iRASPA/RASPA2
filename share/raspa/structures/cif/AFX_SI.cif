@@ -1,0 +1,67 @@
+data_AFX_SI
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-2-19
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'S.T. Wilson, R.W. Broach, C.S. Blackwell, C.A. Bateman, N.K. McGuire, and R.M. Kirchner'
+_citation_title              'Synthesis, characterization and structure of SAPO-56, a member of the ABC double-six-ring family of materials with stacking sequence AABBCCBB'
+_citation_journal_abbrev     'Microporous Mesoporous Mat.'
+_citation_journal_volume     28
+_citation_page_first         125
+_citation_page_last          137
+_citation_year               1999
+
+_cell_length_a    13.7571
+_cell_length_b    13.7571
+_cell_length_c    19.9362
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      3267.58
+
+_symmetry_cell_setting          trigonal
+_symmetry_space_group_name_Hall '-P 3 2c'
+_symmetry_space_group_name_H-M  'P -3 1 c'
+_symmetry_Int_Tables_number     163
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ '-y,-x,-z+1/2'
+ '-x+y,y,-z+1/2'
+ 'x,x-y,-z+1/2'
+ '-x,-y,-z'
+ 'y,-x+y,-z'
+ 'x-y,x,-z'
+ 'y,x,z+1/2'
+ 'x-y,-y,z+1/2'
+ '-x,-x+y,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si4+  -0.0022    0.2295    0.0791    2.05    0       0    absolute yes
+Si2      Si4+   0.3325    0.4374    0.1672    2.05    0       0    absolute yes
+Si3      Si4+   0.1059    0.4444    0.1731    2.05    0       0    absolute yes
+Si4      Si4+   0.2299    0.2253    0.0755    2.05    0       0    absolute yes
+O1       O2-   -0.132     0.1106    0.099    -1.025   0       0    absolute yes
+O2       O2-    0.1098    0.1961    0.0895   -1.025   0       0    absolute yes
+O3       O2-    0.019     0.3495    0.119    -1.025   0       0    absolute yes
+O4       O2-    0.0181    0.2844   -0.0011   -1.025   0       0    absolute yes
+O5       O2-    0.214     0.4683    0.1605   -1.025   0       0    absolute yes
+O6       O2-    0.0935    0.5395    0.1481   -1.025   0       0    absolute yes
+O7       O2-    0.0734    0.4033    0.2404   -1.025   0       0    absolute yes
+O8       O2-    0.3059    0.3255    0.1259   -1.025   0       0    absolute yes
+
+

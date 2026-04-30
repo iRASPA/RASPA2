@@ -1,0 +1,101 @@
+data_COF-103
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-7
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'H.M. El-Kaderi, J.R. Hunt, J.L. Mendoza-Cortés, A.P. Côté, R.E. Taylor, M. O'Keeffe, and O.M. Yaghi'
+_citation_title              'Designed Synthesis of 3D Covalent Organic Frameworks'
+_citation_journal_abbrev     'Science'
+_citation_journal_volume     316
+_citation_journal_number     5822
+_citation_page_first         268
+_citation_page_last          272
+_citation_year               2007
+
+_cell_length_a    28.2477
+_cell_length_b    28.2477
+_cell_length_c    28.2477
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      22539.8
+
+_symmetry_cell_setting          cubic
+_symmetry_space_group_name_Hall 'I -4bd 2c 3'
+_symmetry_space_group_name_H-M  'I -4 3 d'
+_symmetry_Int_Tables_number     220
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x+1/2,-y,z+1/2'
+ '-x,y+1/2,-z+1/2'
+ 'x+1/2,-y+1/2,-z'
+ 'z,x,y'
+ 'z+1/2,-x+1/2,-y'
+ '-z+1/2,-x,y+1/2'
+ '-z,x+1/2,-y+1/2'
+ 'y,z,x'
+ '-y,z+1/2,-x+1/2'
+ 'y+1/2,-z+1/2,-x'
+ '-y+1/2,-z,x+1/2'
+ 'y+1/4,x+1/4,z+1/4'
+ '-y+1/4,-x+3/4,z+3/4'
+ 'y+3/4,-x+1/4,-z+3/4'
+ '-y+3/4,x+3/4,-z+1/4'
+ 'x+1/4,z+1/4,y+1/4'
+ '-x+3/4,z+3/4,-y+1/4'
+ '-x+1/4,-z+3/4,y+3/4'
+ 'x+3/4,-z+1/4,-y+3/4'
+ 'z+1/4,y+1/4,x+1/4'
+ 'z+3/4,-y+1/4,-x+3/4'
+ '-z+3/4,y+3/4,-x+1/4'
+ '-z+1/4,-y+3/4,x+3/4'
+ 'x+1/2,y+1/2,z+1/2'
+ '-x,-y+1/2,z'
+ '-x+1/2,y,-z'
+ 'x,-y,-z+1/2'
+ 'z+1/2,x+1/2,y+1/2'
+ 'z,-x,-y+1/2'
+ '-z,-x+1/2,y'
+ '-z+1/2,x,-y'
+ 'y+1/2,z+1/2,x+1/2'
+ '-y+1/2,z,-x'
+ 'y,-z,-x+1/2'
+ '-y,-z+1/2,x'
+ 'y+3/4,x+3/4,z+3/4'
+ '-y+3/4,-x+1/4,z+1/4'
+ 'y+1/4,-x+3/4,-z+1/4'
+ '-y+1/4,x+1/4,-z+3/4'
+ 'x+3/4,z+3/4,y+3/4'
+ '-x+1/4,z+1/4,-y+3/4'
+ '-x+3/4,-z+1/4,y+1/4'
+ 'x+1/4,-z+3/4,-y+1/4'
+ 'z+3/4,y+3/4,x+3/4'
+ 'z+1/4,-y+3/4,-x+1/4'
+ '-z+1/4,y+1/4,-x+3/4'
+ '-z+3/4,-y+1/4,x+1/4'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+O1       O      0.20173    0.17738    0.24979    0 
+B1       B      0.24102    0.17052    0.21731    0 
+C1       C      0.3407     0.07966    0.20001    0 
+C2       C      0.33591    0.05139    0.24007    0 
+C3       C      0.30021    0.06125    0.27253    0 
+C4       C      0.26989    0.09921    0.26533    0 
+C5       C      0.27496    0.12788    0.22549    0 
+C6       C      0.31062    0.11783    0.1929     0 
+Si1      Si     0.375      0          0.25       0 
+H1       H      0.36748    0.07242    0.17407    0 
+H2       H      0.29575    0.03949    0.30345    0 
+H3       H      0.24263    0.10607    0.291      0 
+H4       H      0.31517    0.1392     0.16171    0 
+
+

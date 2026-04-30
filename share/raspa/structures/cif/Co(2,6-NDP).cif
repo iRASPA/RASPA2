@@ -1,0 +1,66 @@
+data_Co(2,6-NDP)
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2012-1-29
+_audit_author_name 'David Dubbeldam'
+
+_cell_length_a    15.4754
+_cell_length_b    15.4754
+_cell_length_c    13.5298
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      3240.22
+
+_symmetry_cell_setting          tetragonal
+_symmetry_space_group_name_Hall 'P 4cw'
+_symmetry_space_group_name_H-M  'P 43'
+_symmetry_Int_Tables_number     78
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,-y,z+1/2'
+ '-y,x,z+3/4'
+ 'y,-x,z+1/4'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Co1      Co    0.9822       0.0323       0.8786       0
+N1       N     1.0852       0.0262       0.7895       0
+N2       N     0.979       -0.0769       0.9541       0
+N4       N     0.8726       0.0343       0.8046       0
+N5       N     0.9961       0.1329       0.9645       0
+C1       C     1.1648       0.0327       0.8087       0
+H1       H     1.1858       0.0619       0.8637       0
+C2       C     0.9638      -0.1592       0.9266       0
+H2       H     0.9358      -0.1731       0.8679       0
+C4       C     0.792        0.0516       0.8376       0
+H4       H     0.7784       0.077        0.898        0
+C5       C     0.7347       0.0264       0.7691       0
+C6       C     0.6392       0.0156       0.7814       0
+C7       C     0.5861      -0.023        0.7094       0
+H7       H     0.6116      -0.0513       0.6562       0
+C8       C     0.5952       0.0577       0.8605       0
+H8       H     0.6288       0.0835       0.9093       0
+C9       C     0.5059       0.0631       0.8705       0
+H9       H     0.4811       0.0891       0.9256       0
+C10      C     0.454        0.028        0.7948       0
+C11      C     0.4946      -0.0198       0.7159       0
+C12      C     0.4392      -0.0637       0.6523       0
+H12      H     0.4644      -0.0957       0.6017       0
+C13      C     0.3515      -0.0639       0.6575       0
+H13      H     0.3184      -0.094        0.6116       0
+C14      C     0.3635       0.0247       0.8035       0
+H14      H     0.337        0.0514       0.8571       0
+C15      C     0.9843       0.2214       0.9414       0
+H15      H     0.9555       0.245        0.8875       0
+C16      C     0.313       -0.0176       0.7341       0
+C17      C     1.2192      -0.0084       0.7393       0
+
+

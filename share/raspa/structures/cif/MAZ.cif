@@ -1,0 +1,75 @@
+data_MAZ
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-3
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'E. Galli'
+_citation_title              'Crystal structure re􏰣 nement of mazzite.'
+_citation_journal_abbrev     'Rend. Soc. Ital. Mineral. Petrol.'
+_citation_journal_volume     31
+_citation_page_first         599
+_citation_page_last          612
+_citation_year               1975
+
+_cell_length_a    18.392
+_cell_length_b    18.392
+_cell_length_c    7.646
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      2239.87
+
+_symmetry_cell_setting          hexagonal
+_symmetry_space_group_name_Hall '-P 6c 2c'
+_symmetry_space_group_name_H-M  'P 63/m m c'
+_symmetry_Int_Tables_number     194
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ '-x,-y,z+1/2'
+ 'y,-x+y,z+1/2'
+ 'x-y,x,z+1/2'
+ 'y,x,-z'
+ 'x-y,-y,-z'
+ '-x,-x+y,-z'
+ '-y,-x,-z+1/2'
+ '-x+y,y,-z+1/2'
+ 'x,x-y,-z+1/2'
+ '-x,-y,-z'
+ 'y,-x+y,-z'
+ 'x-y,x,-z'
+ 'x,y,-z+1/2'
+ '-y,x-y,-z+1/2'
+ '-x+y,-x,-z+1/2'
+ '-y,-x,z'
+ '-x+y,y,z'
+ 'x,x-y,z'
+ 'y,x,z+1/2'
+ 'x-y,-y,z+1/2'
+ '-x,-x+y,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si       Si     0.1584    0.4902    0.25      2.05    0       0    absolute yes
+Si       Si     0.3536    0.0933    0.0444    2.05    0       0    absolute yes
+O        O      0.2589    0.5178    0.25     -1.025   0       0    absolute yes
+O        O      0.4249    0.8498    0.25     -1.025   0       0    absolute yes
+O        O      0.3822    0.1004    0.25     -1.025   0       0    absolute yes
+O        O      0.4352    0.1114   -0.0721   -1.025   0       0    absolute yes
+O        O      0.1614    0.3228   -0.0016   -1.025   0       0    absolute yes
+O        O      0.2741    0         0        -1.025   0       0    absolute yes
+
+

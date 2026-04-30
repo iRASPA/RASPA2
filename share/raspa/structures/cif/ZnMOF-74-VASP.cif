@@ -1,0 +1,55 @@
+data_MOF-74-VASP
+
+_audit_creation_method VASP
+_audit_creation_date 2012-22-8
+_audit_author_name 'David Dubbeldam'
+
+_cell_length_a    26.19
+_cell_length_b    26.19
+_cell_length_c    6.935
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+
+_symmetry_cell_setting          trigonal
+_symmetry_space_group_name_Hall '-R 3'
+_symmetry_space_group_name_H-M  'R -3'
+_symmetry_Int_Tables_number     148
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ '-x,-y,-z'
+ 'y,-x+y,-z'
+ 'x-y,x,-z'
+ 'x+2/3,y+1/3,z+1/3'
+ '-y+2/3,x-y+1/3,z+1/3'
+ '-x+y+2/3,-x+1/3,z+1/3'
+ '-x+2/3,-y+1/3,-z+1/3'
+ 'y+2/3,-x+y+1/3,-z+1/3'
+ 'x-y+2/3,x+1/3,-z+1/3'
+ 'x+1/3,y+2/3,z+2/3'
+ '-y+1/3,x-y+2/3,z+2/3'
+ '-x+y+1/3,-x+2/3,z+2/3'
+ '-x+1/3,-y+2/3,-z+2/3'
+ 'y+1/3,-x+y+2/3,-z+2/3'
+ 'x-y+1/3,x+2/3,-z+2/3'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+Zn1      Zn    0.63970      0.68716      0.46797 
+O1       O     0.96764      0.29496      0.36535 
+O2       O     0.92460      0.22794      0.60060 
+O3       O     0.25354      0.94003      0.67605 
+C1       C     0.92642      0.24484      0.42692 
+C2       C     0.87938      0.20619      0.28820 
+C3       C     0.21211      0.88859      0.75803 
+C4       C     0.16550      0.84815      0.64268 
+H1       H     0.16407      0.85928      0.49222 
+

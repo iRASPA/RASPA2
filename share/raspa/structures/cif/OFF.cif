@@ -1,0 +1,63 @@
+data_OFF
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-3
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'A. Alberti, G. Cruciani, E. Galli, and G. Vezzalini'
+_citation_title              'A reexamination of the crystal structure of the zeolite offretite'
+_citation_journal_abbrev     'Zeolites'
+_citation_journal_volume     17
+_citation_page_first         457
+_citation_page_last          461
+_citation_year               1996
+
+_cell_length_a    13.331
+_cell_length_b    13.291
+_cell_length_c    7.593
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      1165.1
+
+_symmetry_cell_setting          hexagonal
+_symmetry_space_group_name_Hall 'P -6 2'
+_symmetry_space_group_name_H-M  'P -6 m 2'
+_symmetry_Int_Tables_number     187
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ 'x,y,-z'
+ '-y,x-y,-z'
+ '-x+y,-x,-z'
+ '-y,-x,z'
+ '-x+y,y,z'
+ 'x,x-y,z'
+ '-y,-x,-z'
+ '-x+y,y,-z'
+ 'x,x-y,-z'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si     0.0007    0.2334    0.2089    2.05    0       0    absolute yes
+Si2      Si     0.0923    0.4236    0.5       2.05    0       0    absolute yes
+O1       O      0.0243    0.3486    0.3213   -1.025   0       0    absolute yes
+O2       O      0.0961    0.9039    0.2558   -1.025   0       0    absolute yes
+O3       O      0.8738    0.1262    0.2603   -1.025   0       0    absolute yes
+O4       O      0.0103    0.2718    0        -1.025   0       0    absolute yes
+O5       O      0.2286    0.7714    0.5      -1.025   0       0    absolute yes
+O6       O      0.457     0.543     0.5      -1.025   0       0    absolute yes
+
+

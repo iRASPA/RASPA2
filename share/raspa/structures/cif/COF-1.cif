@@ -1,0 +1,75 @@
+data_COF-1
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-7
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'A.P. Cote, A.I. Benin, N.W. Ockwig, M. O’Keeffe, A.J. Matzger, and O.M. Yaghi''
+_citation_title              'Porous, crystalline, covalent organic frameworks'
+_citation_journal_abbrev     'Science'
+_citation_journal_volume     310
+_citation_journal_number     5751
+_citation_page_first         1166
+_citation_page_last          1170
+_citation_year               2005
+
+_cell_length_a    15.6529
+_cell_length_b    15.6529
+_cell_length_c    6.7005
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      1421.76
+
+_symmetry_cell_setting          hexagonal
+_symmetry_space_group_name_Hall '-P 6c 2c'
+_symmetry_space_group_name_H-M  'P 63/m m c'
+_symmetry_Int_Tables_number     194
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ '-x,-y,z+1/2'
+ 'y,-x+y,z+1/2'
+ 'x-y,x,z+1/2'
+ 'y,x,-z'
+ 'x-y,-y,-z'
+ '-x,-x+y,-z'
+ '-y,-x,-z+1/2'
+ '-x+y,y,-z+1/2'
+ 'x,x-y,-z+1/2'
+ '-x,-y,-z'
+ 'y,-x+y,-z'
+ 'x-y,x,-z'
+ 'x,y,-z+1/2'
+ '-y,x-y,-z+1/2'
+ '-x+y,-x,-z+1/2'
+ '-y,-x,z'
+ '-x+y,y,z'
+ 'x,x-y,z'
+ 'y,x,z+1/2'
+ 'x-y,-y,z+1/2'
+ '-x,-x+y,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+B1       B      0.05772    0.11543    0.25       0 
+B2       B      0.44466    0.72233    0.25       0 
+O1       O      0.11133    0.05567    0.25       0 
+O2       O      0.389      0.778      0.25       0 
+C1       C      0.11184    0.38361    0.25       0 
+C2       C      0.21864    0.43728    0.25       0 
+C3       C      0.21837    0.27685    0.25       0 
+C4       C      0.1103     0.8897     0.25       0 
+H1       H      0.57703    0.92773    0.25       0 
+H2       H      1.02045    0.76181    0.75       0 
+
+
+

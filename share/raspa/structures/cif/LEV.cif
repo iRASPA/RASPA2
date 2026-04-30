@@ -1,0 +1,86 @@
+data_LEV
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-3
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'S. Merlino, E. Galli, and A. Alberti'
+_citation_title              'The crystal structure of Levyne'
+_citation_journal_abbrev     'Tschermaks Min. Petr. Mitt.'
+_citation_journal_volume     22
+_citation_page_first         117
+_citation_page_last          129
+_citation_year               1975
+
+_cell_length_a    13.338
+_cell_length_b    13.338
+_cell_length_c    23.014
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      3545.72
+
+_symmetry_cell_setting          trigonal
+_symmetry_space_group_name_Hall '-R 3 2"'
+_symmetry_space_group_name_H-M  'R -3 m'
+_symmetry_Int_Tables_number     166
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ 'y,x,-z'
+ 'x-y,-y,-z'
+ '-x,-x+y,-z'
+ '-x,-y,-z'
+ 'y,-x+y,-z'
+ 'x-y,x,-z'
+ '-y,-x,z'
+ '-x+y,y,z'
+ 'x,x-y,z'
+ 'x+2/3,y+1/3,z+1/3'
+ '-y+2/3,x-y+1/3,z+1/3'
+ '-x+y+2/3,-x+1/3,z+1/3'
+ 'y+2/3,x+1/3,-z+1/3'
+ 'x-y+2/3,-y+1/3,-z+1/3'
+ '-x+2/3,-x+y+1/3,-z+1/3'
+ '-x+2/3,-y+1/3,-z+1/3'
+ 'y+2/3,-x+y+1/3,-z+1/3'
+ 'x-y+2/3,x+1/3,-z+1/3'
+ '-y+2/3,-x+1/3,z+1/3'
+ '-x+y+2/3,y+1/3,z+1/3'
+ 'x+2/3,x-y+1/3,z+1/3'
+ 'x+1/3,y+2/3,z+2/3'
+ '-y+1/3,x-y+2/3,z+2/3'
+ '-x+y+1/3,-x+2/3,z+2/3'
+ 'y+1/3,x+2/3,-z+2/3'
+ 'x-y+1/3,-y+2/3,-z+2/3'
+ '-x+1/3,-x+y+2/3,-z+2/3'
+ '-x+1/3,-y+2/3,-z+2/3'
+ 'y+1/3,-x+y+2/3,-z+2/3'
+ 'x-y+1/3,x+2/3,-z+2/3'
+ '-y+1/3,-x+2/3,z+2/3'
+ '-x+y+1/3,y+2/3,z+2/3'
+ 'x+1/3,x-y+2/3,z+2/3'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si     0.0001    0.2322    0.0697    2.05    0       0    absolute yes
+Si2      Si     0.2396    0         0.5       2.05    0       0    absolute yes
+O1       O      0.0339    0.3493    0.1079   -1.025   0       0    absolute yes
+O2       O      0.092    -0.092     0.0827   -1.025   0       0    absolute yes
+O3       O      0.1275   -0.1275   -0.091    -1.025   0       0    absolute yes
+O4       O      0.2643    0         0        -1.025   0       0    absolute yes
+O5       O      0.2219   -0.2219    0.1793   -1.025   0       0    absolute yes
+
+

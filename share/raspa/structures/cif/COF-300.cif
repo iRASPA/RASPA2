@@ -1,0 +1,75 @@
+data_COF-300
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-7
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'F.J. Uribe-Romo, J.R. Hunt, H. Furukawa, C. Klöck, M.O’Keeffe, and O.M. Yaghi'
+_citation_title              'A Crystalline Imine-Linked 3-D Porous Covalent Organic Framework'
+_citation_journal_abbrev     'J. Am. Chem. Soc.'
+_citation_journal_volume     131
+_citation_journal_number     13
+_citation_page_first         4570
+_citation_page_last          4571
+_citation_year               2009
+
+_cell_length_a    28.127
+_cell_length_b    28.127
+_cell_length_c    8.879
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      7024.43
+
+_symmetry_cell_setting          tetragonal
+_symmetry_space_group_name_Hall '-I 4ad'
+_symmetry_space_group_name_H-M  'I 41/a'
+_symmetry_Int_Tables_number     88
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x+1/2,-y,z+1/2'
+ '-y+3/4,x+1/4,z+1/4'
+ 'y+3/4,-x+3/4,z+3/4'
+ '-x,-y,-z'
+ 'x+1/2,y,-z+1/2'
+ 'y+1/4,-x+3/4,-z+3/4'
+ '-y+1/4,x+1/4,-z+1/4'
+ 'x+1/2,y+1/2,z+1/2'
+ '-x,-y+1/2,z'
+ '-y+1/4,x+3/4,z+3/4'
+ 'y+1/4,-x+1/4,z+1/4'
+ '-x+1/2,-y+1/2,-z+1/2'
+ 'x,y+1/2,-z'
+ 'y+3/4,-x+1/4,-z+1/4'
+ '-y+3/4,x+3/4,-z+3/4'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+C1       C      0          0.25       0.125      0 
+C2       C      0.4618     0.4699     2.0249     0 
+C3       C      0.4937     0.4587     1.9228     0 
+C4       C      0.4864     0.418      1.8469     0 
+C5       C      0.532      0.4893     1.8987     0 
+N6       N      0.5167     0.406      1.7484     0 
+C7       C      0.5119     0.3667     1.6592     0 
+C8       C      0.5513     0.3529     1.5852     0 
+C9       C      0.5482     0.3158     1.4939     0 
+C10      C      0.5047     0.2927     1.4704     0 
+C11      C      0.4657     0.3057     1.5498     0 
+C12      C      0.4689     0.3426     1.6412     0 
+H13      H      0.4318     0.4471     2.0459     0 
+H14      H      0.4563     0.3957     1.8689     0 
+H15      H      0.5574     0.4819     1.8208     0 
+H16      H      0.5849     0.3706     1.5996     0 
+H17      H      0.5803     0.3052     1.4444     0 
+H18      H      0.4322     0.2874     1.5396     0 
+H19      H      0.4374     0.3527     1.6957     0 
+
+

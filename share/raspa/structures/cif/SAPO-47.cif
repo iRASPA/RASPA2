@@ -1,0 +1,55 @@
+data_SAPO-47
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-3
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'J.J. Pluth and J.V. Smith'
+_citation_title              'Silicoaluminophosphate with Encapsulated Methylbutylamine Species: Chabazite Structure, Charge Coupling between Framework and Inferred Ammonium Species, and Severe Molecular Disorder'
+_citation_journal_abbrev     'J. Phys. Chem.'
+_citation_journal_volume     93
+_citation_page_first         6516
+_citation_page_last          6520
+_citation_year               1989
+
+_cell_length_a    9.3834
+_cell_length_b    9.3834
+_cell_length_c    9.3834
+_cell_angle_alpha 94.085
+_cell_angle_beta  94.085
+_cell_angle_gamma 94.085
+_cell_volume      819.577
+
+_symmetry_cell_setting          trigonal
+_symmetry_space_group_name_Hall '-P 3*'
+_symmetry_space_group_name_H-M  'R -3'
+_symmetry_Int_Tables_number     148
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ 'z,x,y'
+ 'y,z,x'
+ '-x,-y,-z'
+ '-z,-x,-y'
+ '-y,-z,-x'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Al1      Al     0.09888   0.33196   0.8751    1.75    0       0    absolute yes
+P2       P      0.33245   0.10847   0.87466   2.35    0       0    absolute yes
+O1       O      0.258    -0.2704   -0.0127   -1.025   0       0    absolute yes
+O2       O      0.1519   -0.1445    0.4911   -1.025   0       0    absolute yes
+O3       O      0.2542    0.246     0.8876   -1.025   0       0    absolute yes
+O4       O      0.0291    0.0104    0.3178   -1.025   0       0    absolute yes
+
+

@@ -1,0 +1,58 @@
+data_MIL-53lt
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-9
+_audit_author_name '?'
+
+_citation_author_name        'C. Serre, F. Millange, C. Thouvenot, M. Nogues, G. Marsolier, D. Louer, and G. Ferey'
+_citation_title              'Very large breathing effect in the first nanoporous chromium(III)-based solids: MIL-53 or Cr-III(OH).{O2C-C6H4-CO2}.{HO2C-C6H4-CO2H}(x).H2Oy'
+_citation_journal_abbrev     'J. Am. Chem. Soc.'
+_citation_journal_volume     124
+_citation_journal_number     45
+_citation_page_first         13519
+_citation_page_last          13526
+_citation_year               2002
+
+_cell_length_a    19.685
+_cell_length_b    7.849
+_cell_length_c    6.782
+_cell_angle_alpha 90
+_cell_angle_beta  104.9
+_cell_angle_gamma 90
+_cell_volume      1012.64
+
+_symmetry_cell_setting          monoclinic
+_symmetry_space_group_name_Hall '-C 2yc'
+_symmetry_space_group_name_H-M  'C 1 2/c 1'
+_symmetry_Int_Tables_number     15
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,y,-z+1/2'
+ '-x,-y,-z'
+ 'x,-y,z+1/2'
+ 'x+1/2,y+1/2,z'
+ '-x+1/2,y+1/2,-z+1/2'
+ '-x+1/2,-y+1/2,-z'
+ 'x+1/2,-y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+Cr1      Cr     0.00000    0.00000    0.00000 
+O1       O      0.00000   -0.11300    0.75000 
+H1       H      0.00000   -0.25       0.75000 
+O2       O      0.068      0.166      0.945   
+O3       O      0.087      0.141      0.652   
+C1       C      0.111      0.190      0.830   
+C2       C      0.198     -0.296      0.618   
+C3       C      0.271     -0.320      0.704   
+C4       C      0.184     -0.210      0.421   
+H1       H      0.15851    0.65765    0.70299 
+H2       H      0.29093    0.63765    0.86963 
+
+

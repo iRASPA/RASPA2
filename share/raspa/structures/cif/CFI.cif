@@ -1,0 +1,68 @@
+data_CFI
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-12-20
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'P. Wagner, M. Yoshikawa, M. Lavallo, K. Tsuji, M. Tsapatsis and M.E. Davis'
+_citation_title              'CIT-5: a high-silica zeolite with 14-ring pores'
+_citation_journal_abbrev     'Chem. Commun.'
+_citation_journal_volume     -
+_citation_page_first         2179
+_citation_page_last          2180
+_citation_year               1997
+
+_cell_length_a    13.695
+_cell_length_b    5.021
+_cell_length_c    25.497
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      1753.24
+
+_symmetry_cell_setting          orthorhombic
+_symmetry_space_group_name_Hall '-I 2b 2'
+_symmetry_space_group_name_H-M  'I m m a'
+_symmetry_Int_Tables_number     74
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,-y+1/2,z'
+ '-x,y+1/2,-z'
+ 'x,-y,-z'
+ '-x,-y,-z'
+ 'x,y+1/2,-z'
+ 'x,-y+1/2,z'
+ '-x,y,z'
+ 'x+1/2,y+1/2,z+1/2'
+ '-x+1/2,-y,z+1/2'
+ '-x+1/2,y,-z+1/2'
+ 'x+1/2,-y+1/2,-z+1/2'
+ '-x+1/2,-y+1/2,-z+1/2'
+ 'x+1/2,y,-z+1/2'
+ 'x+1/2,-y,z+1/2'
+ '-x+1/2,y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+Si       Si    0.116        0.25         0.0317       0
+Si       Si    0            0.75         0.2788       0
+Si       Si    0.282        0.75         0.1887       0
+Si       Si    0            0.25         0.2177       0
+Si       Si    0.1936       0.25         0.1479       0
+O        O     0            0.25         0.0512       0
+O        O     0.0853       0.25         0.1737       0
+O        O     0            0.5776       0.2309       0
+O        O     0.1303       0            0            0
+O        O     0.1896       0.25         0.0909       0
+O        O     0.25         0.75         0.25         0
+O        O     0.0913       0.75         0.3099       0
+O        O     0.264        0.4474       0.1665       0
+
+

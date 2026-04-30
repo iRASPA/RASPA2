@@ -1,0 +1,80 @@
+data_BOG_SI
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-2-19
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'J.J. Pluth and J.V. Smith'
+_citation_title              'Crystal structure of boggsite, a new high-silica zeolite with the first three-dimensional channel system bounded by both 12- and 10-rings'
+_citation_journal_abbrev     'Am. Mineral.'
+_citation_journal_volume     75
+_citation_page_first         501
+_citation_page_last          507
+_citation_year               1990
+
+_cell_length_a    20.236
+_cell_length_b    23.798
+_cell_length_c    12.798
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 90
+_cell_volume      6163.21
+
+_symmetry_cell_setting          orthorhombic
+_symmetry_space_group_name_Hall '-I 2b 2'
+_symmetry_space_group_name_H-M  'I m m a'
+_symmetry_Int_Tables_number     74
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-x,-y+1/2,z'
+ '-x,y+1/2,-z'
+ 'x,-y,-z'
+ '-x,-y,-z'
+ 'x,y+1/2,-z'
+ 'x,-y+1/2,z'
+ '-x,y,z'
+ 'x+1/2,y+1/2,z+1/2'
+ '-x+1/2,-y,z+1/2'
+ '-x+1/2,y,-z+1/2'
+ 'x+1/2,-y+1/2,-z+1/2'
+ '-x+1/2,-y+1/2,-z+1/2'
+ 'x+1/2,y,-z+1/2'
+ 'x+1/2,-y,z+1/2'
+ '-x+1/2,y+1/2,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+Si1      Si4+   0.18881   0.1855    0.6719    2.05    0       0    absolute yes
+Si2      Si4+   0.19006   0.02407   0.3297    2.05    0       0    absolute yes
+Si3      Si4+   0.07689   0.18517   0.8357    2.05    0       0    absolute yes
+Si4      Si4+   0.07768   0.0221    0.1643    2.05    0       0    absolute yes
+Si5      Si4+   0.22108   0.083     0.5378    2.05    0       0    absolute yes
+Si6      Si4+   0.1227    0.08371   0.9656    2.05    0       0    absolute yes
+O1       O2-    0.1882    0.25      0.6291   -1.025   0       0    absolute yes
+O2       O2-    0.1194    0.1707    0.7322   -1.025   0       0    absolute yes
+O3       O2-    0.195     0.1456    0.5679   -1.025   0       0    absolute yes
+O4       O2-    0.19      0.0702    0.4236   -1.025   0       0    absolute yes
+O5       O2-    0.1194    0.0319    0.2722   -1.025   0       0    absolute yes
+O6       O2-    0.0893    0.25      0.8731   -1.025   0       0    absolute yes
+O7       O2-    0         0.1738    0.8043   -1.025   0       0    absolute yes
+O8       O2-    0         0.0263    0.1968   -1.025   0       0    absolute yes
+O9       O2-    0.1944    0.0379    0.6204   -1.025   0       0    absolute yes
+O10      O2-    0.0978    0.1464    0.9327   -1.025   0       0    absolute yes
+O11      O2-    0.0959    0.0725    0.0813   -1.025   0       0    absolute yes
+O12      O2-    0.2007    0.08      0.9682   -1.025   0       0    absolute yes
+O13      O2-    0.0949    0.0395    0.8847   -1.025   0       0    absolute yes
+O14      O2-    0.25      0.1755    0.75     -1.025   0       0    absolute yes
+O15      O2-    0.25     -0.0375    0.75     -1.025   0       0    absolute yes
+
+

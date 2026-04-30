@@ -1,0 +1,61 @@
+data_AlPO-5
+
+_audit_creation_method RASPA-1.0
+_audit_creation_date 2011-3-3
+_audit_author_name 'David Dubbeldam'
+
+_citation_author_name        'S. Qiu, W. Pang, H. Kessler and J. L. Guth'
+_citation_title              'Synthesis and structure of the [AlPO4]12·Pr4NF molecular sieve with AFI structure'
+_citation_journal_abbrev     'Zeolites'
+_citation_journal_volume     9
+_citation_page_first         440
+_citation_page_last          444
+_citation_year               1989
+
+_cell_length_a    13.74
+_cell_length_b    13.74
+_cell_length_c    8.474
+_cell_angle_alpha 90
+_cell_angle_beta  90
+_cell_angle_gamma 120
+_cell_volume      1385.46
+
+_symmetry_cell_setting          hexagonal
+_symmetry_space_group_name_Hall 'P 6 -2c'
+_symmetry_space_group_name_H-M  'P 6 c c'
+_symmetry_Int_Tables_number     184
+
+loop_
+_symmetry_equiv_pos_as_xyz
+ 'x,y,z'
+ '-y,x-y,z'
+ '-x+y,-x,z'
+ '-x,-y,z'
+ 'y,-x+y,z'
+ 'x-y,x,z'
+ '-y,-x,z+1/2'
+ '-x+y,y,z+1/2'
+ 'x,x-y,z+1/2'
+ 'y,x,z+1/2'
+ 'x-y,-y,z+1/2'
+ '-x,-x+y,z+1/2'
+
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_charge
+_atom_site_polarization
+_atom_site_anisotropic_displacement
+_atom_site_anisotropic_type
+_atom_site_print_to_pdb
+P1       P      0.4529    0.3281    0.053     2.35    0       0    absolute yes
+Al1      Al     0.4571    0.3382    0.425     1.75    0       0    absolute yes
+O1       O      0.4214    0.209     0.008    -1.025   0       0    absolute yes
+O2       O      0.455     0.3299    0.251    -1.025   0       0    absolute yes
+O3       O      0.3658    0.3597    0.004    -1.025   0       0    absolute yes
+O4       O      0.5742    0.4175    0.007    -1.025   0       0    absolute yes
+
+
