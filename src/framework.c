@@ -14348,7 +14348,7 @@ void printInteractionIndexAtoms(int system)
 			  
 			  else
 			  {
-				printf(stderr,"Cannot open %s",buffer);
+				fprintf(stderr,"Cannot open %s",buffer);
 				
 			  }
 			  
